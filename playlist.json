@@ -1,16 +1,16 @@
 [
   {
-    "title": "Odi Odi Utkalandha",
-    "type": "youtube",
-    "url": "https://youtu.be/7FqSok2QBhw"
+    "title": "Vid 1",
+    "type": "file",
+    "url": "https://drive.google.com/file/d/1Xdz_0UpuxtaeaGfstJg_WmuBlLejIDb1/view?usp=drivesdk"
   },
   {
-    "title": "Hara Hara Shivane",
-    "type": "youtube",
-    "url": "https://youtu.be/rDC2ATWhaeI"
+    "title": "Vid 2",
+    "type": "file",
+    "url": "https://drive.google.com/file/d/1XgKK9wIuVVKMU-85iH3OE8SBR2QOdLSv/view?usp=drivesdk"
   },
   {
-    "title": "Vennilavu Saral New",
+    "title": "Vid 3",
     "type": "file",
     "url": "https://drive.google.com/file/d/1Xd88LFV-TMR8IDr1mFZCSajoIJy5o66z/view?usp=drivesdk"
   }
