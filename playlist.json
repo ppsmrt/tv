@@ -1,22 +1,4 @@
 [
-  {
-    "title": "Vid 1",
-    "type": "file",
-    "url": "https://files.catbox.moe/q7lyrn.mp4"
-  },
-  {
-    "title": "Vid 2",
-    "type": "file",
-    "url": "https://files.catbox.moe/r3sqjr.mp4"
-  },
-  {
-    "title": "Vid 3",
-    "type": "file",
-    "url": "https://files.catbox.moe/q7lyrn.mp4"
-  },
-  {
-    "title": "YouTube Playlist",
-    "type": "youtube-playlist",
-    "playlistId": "PL0MYseEG73ocLrKSRK2vrDu6aKJ2W1x6p"
-  }
+  { "title": "Vid 1", "url": "https://files.catbox.moe/q7lyrn.mp4" },
+  { "title": "Vid 2", "url": "https://files.catbox.moe/r3sqjr.mp4" }
 ]
