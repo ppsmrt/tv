@@ -10,6 +10,7 @@ const loader = document.getElementById('loader');
 const playerEl = document.getElementById('player');
 const player = new Plyr(playerEl, { controls: [] });
 const tickerEl = document.getElementById('ticker');
+const adBar = document.getElementById('adBar');
 
 // Load video
 function loadVideo(index) {
@@ -23,7 +24,7 @@ function loadVideo(index) {
   player.once('ready', () => loader.style.display = 'none');
   player.on('ended', nextVideo);
 
-  // Update ticker with video title and time
+  // Update ticker
   updateTicker(item.title);
 }
 
@@ -50,6 +51,23 @@ function updateTicker(title) {
   const timeStr = now.toLocaleTimeString();
   tickerEl.textContent = `Testing new TV service - Now Playing: ${title} - ${timeStr}  |  Testing new TV service - Now Playing: ${title} - ${timeStr}`;
 }
+
+// --- Ad Cycling ---
+const ads = [
+  "🔥 Buy Now! Limited Offer 🔥",
+  "🎉 50% Off Today Only 🎉",
+  "🧵 New Sewing Machine Available 🧵",
+  "📺 Upgrade Your TV Experience 📺",
+  "💡 Smart Deals Just For You 💡"
+];
+let adIndex = 0;
+
+function cycleAds() {
+  adBar.textContent = ads[adIndex];
+  adIndex = (adIndex + 1) % ads.length;
+}
+setInterval(cycleAds, 5000); // change every 5s
+cycleAds(); // initial
 
 // Init
 fetchPlaylist().then(data => {
