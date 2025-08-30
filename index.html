@@ -10,10 +10,10 @@
     margin: 0;
     background: #111;
     font-family: 'Arial', sans-serif;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
   }
 
   .player-wrapper {
@@ -47,7 +47,7 @@
     padding: 5px 10px;
     background: rgba(0,0,0,0.5);
     position: absolute;
-    bottom: 0;
+    bottom: 30px; /* move up above ticker */
     width: 100%;
     box-sizing: border-box;
     z-index: 5;
@@ -64,6 +64,78 @@
   .controls-container input[type="range"] {
     width: 100px;
   }
+
+  /* --- Ticker --- */
+  .ticker-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background: #b30000;
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    z-index: 6;
+  }
+
+  .ticker-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: scroll 15s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* --- Ad Bar Above Ticker --- */
+  .ad-bar {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+  }
+
+  /* --- Overlay Watermark --- */
+  .watermark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.3);
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 4px;
+    opacity: 0.3;
+    z-index: 7;
+  }
+
+  /* --- Top Left LIVE --- */
+  .live-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 4px;
+    z-index: 7;
+  }
 </style>
 </head>
 <body>
@@ -77,60 +149,17 @@
     <input type="range" id="volume" min="0" max="1" step="0.05" value="0.5">
     <button id="fullscreenBtn">⛶</button>
   </div>
+
+  <!-- Ad and ticker -->
+  <div class="ad-bar">AD SCREEN</div>
+  <div class="ticker-container"><div class="ticker-text" id="ticker"></div></div>
+
+  <!-- Overlays -->
+  <div class="watermark">LIVE TV</div>
+  <div class="live-label">LIVE</div>
 </div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script>
-const playlist = [
-  { title: "Vid 1", type: "file", url: "https://files.catbox.moe/q7lyrn.mp4" },
-  { title: "Vid 2", type: "file", url: "https://files.catbox.moe/r3sqjr.mp4" },
-  { title: "YouTube Playlist", type: "youtube-playlist", playlistId: "PL0MYseEG73ocLrKSRK2vrDu6aKJ2W1x6p" }
-];
-
-let currentIndex = 0;
-const loader = document.getElementById('loader');
-const playerEl = document.getElementById('player');
-const player = new Plyr(playerEl, { controls: [] });
-
-// --- Load video ---
-function loadVideo(index) {
-  const item = playlist[index];
-  loader.style.display = 'block';
-  if(item.type === 'file'){
-    player.source = {
-      type: 'video',
-      sources: [{ src: item.url, type: 'video/mp4' }]
-    };
-    player.play().catch(()=>{});
-  } else if(item.type === 'youtube-playlist'){
-    player.source = {
-      type: 'youtube',
-      sources: [{ src: item.playlistId, provider: 'youtube' }]
-    };
-  }
-
-  player.once('ready', () => loader.style.display='none');
-  player.on('ended', nextVideo);
-}
-
-function nextVideo(){
-  currentIndex = (currentIndex + 1) % playlist.length;
-  loadVideo(currentIndex);
-}
-
-// --- Controls ---
-document.getElementById('playPause').addEventListener('click', () => {
-  if(player.playing) player.pause();
-  else player.play();
-});
-document.getElementById('volume').addEventListener('input', e => player.volume = e.target.value);
-document.getElementById('fullscreenBtn').addEventListener('click', () => {
-  player.fullscreen.enter();
-});
-
-// --- Start ---
-loadVideo(currentIndex);
-</script>
-
+<script src="player.js"></script>
 </body>
 </html>
