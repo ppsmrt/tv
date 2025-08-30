@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My TV</title>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    .player-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      background: black;
+    }
+    .playlist {
+      background: #111;
+      padding: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+      display: flex;
+      gap: 10px;
+    }
+    .playlist-item {
+      background: #222;
+      padding: 10px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      flex: 0 0 auto;
+      width: 120px;
+      text-align: center;
+    }
+    .playlist-item.active {
+      background: #e50914;
+    }
+  </style>
+</head>
+<body>
+  <div class="player-container">
+    <video id="player" controls autoplay></video>
+    <div class="playlist" id="playlist"></div>
+  </div>
+
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script>
+    const player = new Plyr('#player', {
+      controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      autoplay: true
+    });
+
+    let playlistData = [];
+    let currentIndex = 0;
+
+    async function loadPlaylist() {
+      const response = await fetch('playlist.json');
+      playlistData = await response.json();
+      renderPlaylist();
+      loadVideo(0);
+    }
+
+    function renderPlaylist() {
+      const container = document.getElementById('playlist');
+      container.innerHTML = '';
+      playlistData.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'playlist-item' + (index === currentIndex ? ' active' : '');
+        div.textContent = item.title;
+        div.onclick = () => loadVideo(index);
+        container.appendChild(div);
+      });
+    }
+
+    function loadVideo(index) {
+      currentIndex = index;
+      const videoData = playlistData[index];
+      const videoElement = document.querySelector('#player');
+      videoElement.src = videoData.url;
+      player.play();
+      renderPlaylist();
+    }
+
+    player.on('ended', () => {
+      currentIndex = (currentIndex + 1) % playlistData.length;
+      loadVideo(currentIndex);
+    });
+
+    loadPlaylist();
+  </script>
+</body>
+</html>
