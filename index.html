@@ -10,7 +10,7 @@
   .player-container { position:relative; width:100%; height:100%; }
   video, iframe { width:100%; height:100%; object-fit:cover; }
 
-  .overlay { position:absolute; top:15px; left:15px; color:white; font-family:Arial,sans-serif; background:rgba(0,0,0,0.4); padding:10px 15px; border-radius:8px; display:flex; flex-direction:column; }
+  .overlay { position:absolute; top:15px; left:15px; color:white; font-family:Arial,sans-serif; background:rgba(0,0,0,0.4); padding:10px 15px; border-radius:8px; display:flex; flex-direction:column; z-index:10; }
   .overlay .channel-name { font-weight:bold; font-size:20px; margin-bottom:4px; }
   .overlay .clock { font-size:16px; }
 
@@ -18,12 +18,29 @@
   .ticker-track { display:flex; white-space:nowrap; animation:scroll linear infinite; }
   .ticker-item { color:#fff; font-size:16px; font-family:Arial,sans-serif; padding:0 50px; }
   @keyframes scroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+
+  /* Loader */
+  .loader {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    border:6px solid rgba(255,255,255,0.2);
+    border-top:6px solid #fff;
+    border-radius:50%;
+    width:50px;
+    height:50px;
+    animation:spin 1s linear infinite;
+    z-index:20;
+  }
+  @keyframes spin { 100% { transform:translate(-50%,-50%) rotate(360deg); } }
 </style>
 </head>
 <body>
 
 <div class="player-container">
   <div id="player-wrapper"></div>
+  <div class="loader" id="loader"></div>
 
   <!-- Top overlay -->
   <div class="overlay">
@@ -46,6 +63,7 @@ let currentIndex = 0;
 let plyrPlayer = null;
 let ytPlayer = null;
 const playerWrapper = document.getElementById('player-wrapper');
+const loader = document.getElementById('loader');
 
 // --- Orientation & Fullscreen ---
 function requestFullScreen() {
@@ -64,10 +82,14 @@ window.addEventListener('load', ()=>{
 
 // --- Load playlist ---
 async function loadPlaylist() {
-  const response = await fetch(PLAYLIST_URL);
-  const data = await response.json();
-  playlistData = data;
-  playVideo(0);
+  try {
+    const response = await fetch(PLAYLIST_URL);
+    const data = await response.json();
+    playlistData = data;
+    playVideo(0);
+  } catch (err) {
+    console.error("Failed to load playlist:", err);
+  }
 }
 
 // --- Clear current player ---
@@ -82,28 +104,46 @@ function playVideo(index) {
   currentIndex = index;
   const video = playlistData[index];
   clearPlayer();
+  loader.style.display = 'block'; // Show loader
 
-  if(video.type === 'file') {
+  if (video.type === 'file') {
     const videoEl = document.createElement('video');
-    videoEl.setAttribute('autoplay', true);
-    videoEl.setAttribute('playsinline', true);
-    videoEl.setAttribute('muted', true);
+    videoEl.autoplay = true;
+    videoEl.playsInline = true;
+    videoEl.muted = true;
     videoEl.src = video.url;
-    playerWrapper.appendChild(videoEl);
-    plyrPlayer = new Plyr(videoEl, { controls:[], autoplay:true });
-    videoEl.onended = nextVideo;
+    videoEl.setAttribute('preload', 'auto');
 
-  } else if(video.type === 'youtube') {
+    playerWrapper.appendChild(videoEl);
+    plyrPlayer = new Plyr(videoEl, { controls: [], autoplay: true });
+
+    videoEl.addEventListener('canplay', () => {
+      loader.style.display = 'none';
+      videoEl.play().catch(err => {
+        console.warn("Autoplay blocked:", err);
+        videoEl.muted = true;
+        videoEl.play().catch(e => console.error("Play still failed:", e));
+      });
+    });
+
+    videoEl.addEventListener('ended', nextVideo);
+
+    videoEl.addEventListener('error', () => {
+      console.error("Video failed to load, skipping...");
+      nextVideo();
+    });
+
+  } else if (video.type === 'youtube') {
     const iframe = document.createElement('div');
     iframe.id = 'youtube-player';
     playerWrapper.appendChild(iframe);
     ytPlayer = new YT.Player('youtube-player', {
       videoId: extractYouTubeID(video.url),
       events: {
-        'onReady': e => { e.target.playVideo(); },
-        'onStateChange': e => { if(e.data === YT.PlayerState.ENDED) nextVideo(); }
+        'onReady': e => { loader.style.display = 'none'; e.target.playVideo(); },
+        'onStateChange': e => { if (e.data === YT.PlayerState.ENDED) nextVideo(); }
       },
-      playerVars: { autoplay:1, controls:0, modestbranding:1, rel:0, showinfo:0 }
+      playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0, showinfo: 0 }
     });
   }
 }
@@ -124,9 +164,9 @@ function extractYouTubeID(url) {
 // --- Clock ---
 function updateClock() {
   const now = new Date();
-  document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('clock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
-setInterval(updateClock,1000);
+setInterval(updateClock, 1000);
 updateClock();
 
 // --- Smooth ticker ---
@@ -139,18 +179,23 @@ const tickerMessages = [
 const tickerTrack = document.getElementById('ticker-track');
 function buildTicker() {
   tickerTrack.innerHTML = '';
-  [...tickerMessages,...tickerMessages].forEach(msg=>{
+  [...tickerMessages, ...tickerMessages].forEach(msg => {
     const span = document.createElement('span');
-    span.className='ticker-item';
-    span.textContent=msg;
+    span.className = 'ticker-item';
+    span.textContent = msg;
     tickerTrack.appendChild(span);
   });
   const trackWidth = tickerTrack.scrollWidth / 2;
   const speed = 100;
-  tickerTrack.style.animationDuration = (trackWidth/speed) + 's';
+  tickerTrack.style.animationDuration = (trackWidth / speed) + 's';
 }
 buildTicker();
 window.addEventListener('resize', buildTicker);
+
+// --- Allow autoplay after first user interaction on mobile ---
+document.addEventListener('touchstart', () => {
+  if (plyrPlayer && plyrPlayer.play) plyrPlayer.play().catch(() => { });
+}, { once: true });
 
 loadPlaylist();
 </script>
