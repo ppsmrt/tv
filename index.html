@@ -5,138 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premium Video Player</title>
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-<style>
-  body {
-    margin: 0;
-    background: #111;
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .player-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 960px;
-    aspect-ratio: 16/9;
-    background: #000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 18px;
-    background: rgba(0,0,0,0.6);
-    padding: 8px 20px;
-    border-radius: 10px;
-    z-index: 10;
-  }
-
-  .controls-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    background: rgba(0,0,0,0.5);
-    position: absolute;
-    bottom: 30px; /* move up above ticker */
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 5;
-  }
-
-  .controls-container button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-  }
-
-  .controls-container input[type="range"] {
-    width: 100px;
-  }
-
-  /* --- Ticker --- */
-  .ticker-container {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
-    background: #b30000;
-    color: #fff;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    z-index: 6;
-  }
-
-  .ticker-text {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 100%;
-    animation: scroll 15s linear infinite;
-  }
-
-  @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
-
-  /* --- Ad Bar Above Ticker --- */
-  .ad-bar {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    height: 60px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 5;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000;
-  }
-
-  /* --- Overlay Watermark --- */
-  .watermark {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255,255,255,0.3);
-    color: #000;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 3px 6px;
-    border-radius: 4px;
-    opacity: 0.3;
-    z-index: 7;
-  }
-
-  /* --- Top Left LIVE --- */
-  .live-label {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: red;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 3px 6px;
-    border-radius: 4px;
-    z-index: 7;
-  }
-</style>
+<link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
@@ -151,7 +20,7 @@
   </div>
 
   <!-- Ad and ticker -->
-  <div class="ad-bar">AD SCREEN</div>
+  <div class="ad-bar" id="adBar">AD SCREEN</div>
   <div class="ticker-container"><div class="ticker-text" id="ticker"></div></div>
 
   <!-- Overlays -->
@@ -160,6 +29,6 @@
 </div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script src="player.js"></script>
+<script src="assets/js/player.js"></script>
 </body>
 </html>
