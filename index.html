@@ -1,172 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Video Playlist Player</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Video Player</title>
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 <style>
   body {
     margin: 0;
-    background: #000;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
+    background: #111;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 
   .player-wrapper {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: black;
-  }
-
-  /* Force landscape */
-  .video-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vh;   /* swapped width/height for landscape */
-    height: 100vw;
-    transform: rotate(-90deg) translate(-50%, -50%);
-    transform-origin: center center;
-  }
-
-  video, iframe {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 960px;
+    aspect-ratio: 16/9;
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 12px;
+    overflow: hidden;
   }
 
-  /* Loader */
-  #loader {
+  .loader {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 10px 20px;
+    font-size: 18px;
+    background: rgba(0,0,0,0.6);
+    padding: 8px 20px;
     border-radius: 10px;
     z-index: 10;
   }
 
-  /* Overlay: clock & ticker */
-  .overlay {
-    position: absolute;
-    top: 10px;
-    width: 100%;
+  .controls-container {
     display: flex;
     justify-content: space-between;
-    padding: 0 15px;
+    align-items: center;
+    padding: 5px 10px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 5;
+  }
+
+  .controls-container button {
+    background: none;
+    border: none;
+    color: white;
     font-size: 18px;
-    background: rgba(0,0,0,0.4);
-    z-index: 20;
+    cursor: pointer;
+  }
+
+  .controls-container input[type="range"] {
+    width: 100px;
   }
 </style>
 </head>
 <body>
 
 <div class="player-wrapper" id="player-wrapper">
-  <div class="overlay">
-    <div id="ticker">Loading ticker...</div>
-    <div id="clock"></div>
+  <div class="loader" id="loader">Loading...</div>
+  <video id="player" playsinline muted autoplay></video>
+
+  <div class="controls-container">
+    <button id="playPause">▶️</button>
+    <input type="range" id="volume" min="0" max="1" step="0.05" value="0.5">
+    <button id="fullscreenBtn">⛶</button>
   </div>
-  <div id="loader">Loading...</div>
 </div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 <script>
 const playlist = [
-  { "title": "Vid 1", "type": "file", "url": "https://files.catbox.moe/q7lyrn.mp4" },
-  { "title": "Vid 2", "type": "file", "url": "https://files.catbox.moe/r3sqjr.mp4" },
-  { "title": "Vid 3", "type": "file", "url": "https://files.catbox.moe/q7lyrn.mp4" },
-  { "title": "YouTube Playlist", "type": "youtube-playlist", "playlistId": "PL0MYseEG73ocLrKSRK2vrDu6aKJ2W1x6p" }
+  { title: "Vid 1", type: "file", url: "https://files.catbox.moe/q7lyrn.mp4" },
+  { title: "Vid 2", type: "file", url: "https://files.catbox.moe/r3sqjr.mp4" },
+  { title: "YouTube Playlist", type: "youtube-playlist", playlistId: "PL0MYseEG73ocLrKSRK2vrDu6aKJ2W1x6p" }
 ];
 
 let currentIndex = 0;
-const playerWrapper = document.getElementById('player-wrapper');
 const loader = document.getElementById('loader');
-let plyrPlayer = null;
+const playerEl = document.getElementById('player');
+const player = new Plyr(playerEl, { controls: [] });
 
-// Play a video or playlist item
-function playVideo(index) {
-  if (index >= playlist.length) index = 0;
-  currentIndex = index;
-
-  // Clear previous content
-  playerWrapper.innerHTML = `
-    <div class="overlay">
-      <div id="ticker">Loading ticker...</div>
-      <div id="clock"></div>
-    </div>
-    <div id="loader">Loading...</div>
-  `;
-
-  const container = document.createElement('div');
-  container.className = 'video-container';
-  playerWrapper.appendChild(container);
-
-  const video = playlist[index];
-
-  if(video.type === 'file') {
-    const videoEl = document.createElement('video');
-    videoEl.src = video.url;
-    videoEl.setAttribute('autoplay', '');
-    videoEl.setAttribute('playsinline', '');
-    videoEl.setAttribute('muted', '');
-    videoEl.muted = true;
-
-    container.appendChild(videoEl);
-    plyrPlayer = new Plyr(videoEl, { autoplay: true, controls: [] });
-
-    videoEl.addEventListener('loadeddata', () => loader.style.display='none');
-    videoEl.addEventListener('ended', () => nextVideo());
-    videoEl.addEventListener('error', () => nextVideo());
-
-  } else if(video.type === 'youtube-playlist') {
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://www.youtube.com/embed/videoseries?list=${video.playlistId}&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0`;
-    iframe.frameBorder = '0';
-    iframe.allow = 'autoplay; encrypted-media';
-    iframe.allowFullscreen = true;
-    container.appendChild(iframe);
-    loader.style.display='none';
+// --- Load video ---
+function loadVideo(index) {
+  const item = playlist[index];
+  loader.style.display = 'block';
+  if(item.type === 'file'){
+    player.source = {
+      type: 'video',
+      sources: [{ src: item.url, type: 'video/mp4' }]
+    };
+    player.play().catch(()=>{});
+  } else if(item.type === 'youtube-playlist'){
+    player.source = {
+      type: 'youtube',
+      sources: [{ src: item.playlistId, provider: 'youtube' }]
+    };
   }
+
+  player.once('ready', () => loader.style.display='none');
+  player.on('ended', nextVideo);
 }
 
-// Go to next video
-function nextVideo() {
+function nextVideo(){
   currentIndex = (currentIndex + 1) % playlist.length;
-  playVideo(currentIndex);
+  loadVideo(currentIndex);
 }
 
-// Unlock autoplay on first user interaction
-document.addEventListener('click', () => {
-  if (plyrPlayer && plyrPlayer.play) plyrPlayer.play().catch(()=>{});
-}, { once: true });
-document.addEventListener('touchstart', () => {
-  if (plyrPlayer && plyrPlayer.play) plyrPlayer.play().catch(()=>{});
-}, { once: true });
+// --- Controls ---
+document.getElementById('playPause').addEventListener('click', () => {
+  if(player.playing) player.pause();
+  else player.play();
+});
+document.getElementById('volume').addEventListener('input', e => player.volume = e.target.value);
+document.getElementById('fullscreenBtn').addEventListener('click', () => {
+  player.fullscreen.enter();
+});
 
-// Ticker
-const tickerTexts = ["Live Videos", "Autoplay Enabled", "Enjoy the Stream"];
-let tickerIndex = 0;
-setInterval(() => {
-  const ticker = document.getElementById('ticker');
-  if(ticker) ticker.textContent = tickerTexts[tickerIndex];
-  tickerIndex = (tickerIndex + 1) % tickerTexts.length;
-}, 3000);
-
-// Clock
-setInterval(() => {
-  const clock = document.getElementById('clock');
-  if(clock) clock.textContent = new Date().toLocaleTimeString();
-}, 1000);
-
-// Start playing
-playVideo(currentIndex);
+// --- Start ---
+loadVideo(currentIndex);
 </script>
+
 </body>
 </html>
