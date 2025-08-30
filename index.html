@@ -6,80 +6,21 @@
   <title>My Live TV</title>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .player-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Top overlay */
-    .overlay {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      display: flex;
-      flex-direction: column;
-      color: white;
-      font-family: Arial, sans-serif;
-      font-size: 18px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 10px 15px;
-      border-radius: 8px;
-    }
-    .overlay .channel-name {
-      font-weight: bold;
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-    .overlay .clock {
-      font-size: 16px;
-    }
-
-    /* Bottom ticker */
-    .ticker-container {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0,0,0,0.6);
-      overflow: hidden;
-      height: 40px;
-      display: flex;
-      align-items: center;
-    }
-    .ticker-track {
-      display: flex;
-      white-space: nowrap;
-      animation: scroll linear infinite;
-    }
-    .ticker-item {
-      color: #fff;
-      font-size: 16px;
-      font-family: Arial, sans-serif;
-      padding: 0 50px;
-    }
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); } /* Adjust based on content */
-    }
+    body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+    .player-container { position: relative; width: 100%; height: 100%; }
+    video, iframe { width: 100%; height: 100%; object-fit: cover; }
+    .overlay { position: absolute; top: 15px; left: 15px; color: white; font-family: Arial, sans-serif; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 8px; display: flex; flex-direction: column; }
+    .overlay .channel-name { font-weight: bold; font-size: 20px; margin-bottom: 4px; }
+    .overlay .clock { font-size: 16px; }
+    .ticker-container { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.6); overflow: hidden; height: 40px; display: flex; align-items: center; }
+    .ticker-track { display: flex; white-space: nowrap; animation: scroll linear infinite; }
+    .ticker-item { color: #fff; font-size: 16px; font-family: Arial, sans-serif; padding: 0 50px; }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   </style>
 </head>
 <body>
   <div class="player-container">
-    <video id="player" autoplay playsinline></video>
+    <div id="player-wrapper"></div>
 
     <!-- Top overlay -->
     <div class="overlay">
@@ -93,70 +34,97 @@
     </div>
   </div>
 
+  <!-- Plyr -->
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-  <script>
-    const player = new Plyr('#player', {
-      controls: ['play', 'progress', 'mute', 'volume', 'fullscreen'],
-      autoplay: true
-    });
+  <!-- YouTube API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 
-    // Playlist for videos/music
+  <script>
     let playlistData = [];
     let currentIndex = 0;
+    let plyrPlayer = null;
+    let ytPlayer = null;
+    const playerWrapper = document.getElementById('player-wrapper');
 
     async function loadPlaylist() {
       const response = await fetch('playlist.json');
       playlistData = await response.json();
-      loadVideo(0);
+      playVideo(0);
     }
 
-    function loadVideo(index) {
+    function clearPlayer() {
+      playerWrapper.innerHTML = '';
+      if (plyrPlayer) { plyrPlayer.destroy(); plyrPlayer = null; }
+      if (ytPlayer) { ytPlayer.destroy(); ytPlayer = null; }
+    }
+
+    function playVideo(index) {
       currentIndex = index;
-      const videoData = playlistData[index];
-      const videoElement = document.querySelector('#player');
-      videoElement.src = videoData.url;
-      player.play();
+      const video = playlistData[index];
+      clearPlayer();
+
+      if (video.type === 'file') {
+        const videoEl = document.createElement('video');
+        videoEl.setAttribute('autoplay', true);
+        videoEl.setAttribute('playsinline', true);
+        videoEl.src = video.url;
+        playerWrapper.appendChild(videoEl);
+        plyrPlayer = new Plyr(videoEl, { controls: ['play','progress','mute','volume','fullscreen'], autoplay:true });
+        videoEl.onended = nextVideo;
+      } else if (video.type === 'youtube') {
+        const iframe = document.createElement('div');
+        iframe.id = 'youtube-player';
+        playerWrapper.appendChild(iframe);
+        ytPlayer = new YT.Player('youtube-player', {
+          videoId: extractYouTubeID(video.url),
+          events: {
+            'onReady': (event) => event.target.playVideo(),
+            'onStateChange': (event) => { if(event.data === YT.PlayerState.ENDED) nextVideo(); }
+          },
+          playerVars: { autoplay: 1, controls: 0, modestbranding: 1 }
+        });
+      }
     }
 
-    player.on('ended', () => {
+    function nextVideo() {
       currentIndex = (currentIndex + 1) % playlistData.length;
-      loadVideo(currentIndex);
-    });
+      playVideo(currentIndex);
+    }
 
-    // Clock update
+    function extractYouTubeID(url) {
+      const regExp = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be\.com\/watch\?v=)([^\s&]+)/;
+      const match = url.match(regExp);
+      return match ? match[1] : '';
+    }
+
+    // Clock
     function updateClock() {
       const now = new Date();
-      const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      document.getElementById('clock').textContent = timeString;
+      document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Smooth scrolling ticker
+    // Ticker
     const tickerMessages = [
       "Welcome to My Live TV!",
-      "Enjoy your favorite videos and music.",
-      "New content added daily!",
-      "Stay tuned for more updates!"
+      "Enjoy videos and music from multiple sources.",
+      "YouTube and personal files combined!",
+      "Stay tuned for more content!"
     ];
-
     const tickerTrack = document.getElementById('ticker-track');
-
     function buildTicker() {
       tickerTrack.innerHTML = '';
-      // Duplicate content for smooth looping
       [...tickerMessages, ...tickerMessages].forEach(msg => {
         const span = document.createElement('span');
         span.className = 'ticker-item';
         span.textContent = msg;
         tickerTrack.appendChild(span);
       });
-      // Set animation duration dynamically based on content width
       const trackWidth = tickerTrack.scrollWidth / 2;
-      const speed = 100; // pixels per second
+      const speed = 100;
       tickerTrack.style.animationDuration = (trackWidth / speed) + 's';
     }
-
     buildTicker();
     window.addEventListener('resize', buildTicker);
 
