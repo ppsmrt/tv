@@ -1,10 +1,17 @@
 [
   {
-    "title": "Video 1",
+    "title": "My Video 1",
+    "type": "file",
     "url": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_1"
   },
   {
-    "title": "Video 2",
+    "title": "YouTube Video 1",
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=VIDEO_ID_1"
+  },
+  {
+    "title": "My Video 2",
+    "type": "file",
     "url": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_2"
   }
 ]
