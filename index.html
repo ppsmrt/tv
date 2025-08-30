@@ -1,203 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>My Live TV</title>
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-<style>
-  html, body { margin:0; padding:0; background:#000; height:100%; width:100%; overflow:hidden; }
-  .player-container { position:relative; width:100%; height:100%; }
-  video, iframe { width:100%; height:100%; object-fit:cover; }
-
-  .overlay { position:absolute; top:15px; left:15px; color:white; font-family:Arial,sans-serif; background:rgba(0,0,0,0.4); padding:10px 15px; border-radius:8px; display:flex; flex-direction:column; z-index:10; }
-  .overlay .channel-name { font-weight:bold; font-size:20px; margin-bottom:4px; }
-  .overlay .clock { font-size:16px; }
-
-  .ticker-container { position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.6); overflow:hidden; height:40px; display:flex; align-items:center; }
-  .ticker-track { display:flex; white-space:nowrap; animation:scroll linear infinite; }
-  .ticker-item { color:#fff; font-size:16px; font-family:Arial,sans-serif; padding:0 50px; }
-  @keyframes scroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
-
-  /* Loader */
-  .loader {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    border:6px solid rgba(255,255,255,0.2);
-    border-top:6px solid #fff;
-    border-radius:50%;
-    width:50px;
-    height:50px;
-    animation:spin 1s linear infinite;
-    z-index:20;
-  }
-  @keyframes spin { 100% { transform:translate(-50%,-50%) rotate(360deg); } }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Playlist Player</title>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    .player-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    video, iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+    .overlay {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15px;
+      font-size: 18px;
+      background: rgba(0,0,0,0.4);
+    }
+  </style>
 </head>
 <body>
-
-<div class="player-container">
-  <div id="player-wrapper"></div>
-  <div class="loader" id="loader"></div>
-
-  <!-- Top overlay -->
-  <div class="overlay">
-    <div class="channel-name">My Live TV</div>
-    <div class="clock" id="clock"></div>
+  <div class="player-wrapper" id="player-wrapper">
+    <div class="overlay">
+      <div id="ticker">Loading ticker...</div>
+      <div id="clock"></div>
+    </div>
+    <div id="loader">Loading...</div>
   </div>
 
-  <!-- Bottom ticker -->
-  <div class="ticker-container">
-    <div class="ticker-track" id="ticker-track"></div>
-  </div>
-</div>
-
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-const PLAYLIST_URL = 'https://ppsmrt.github.io/tv/playlist.json';
-let playlistData = [];
-let currentIndex = 0;
-let plyrPlayer = null;
-let ytPlayer = null;
-const playerWrapper = document.getElementById('player-wrapper');
-const loader = document.getElementById('loader');
-
-// --- Orientation & Fullscreen ---
-function requestFullScreen() {
-  const el = document.documentElement;
-  if (el.requestFullscreen) el.requestFullscreen();
-  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  else if (el.msRequestFullscreen) el.msRequestFullscreen();
-}
-function lockLandscape() {
-  if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(()=>{});
-}
-window.addEventListener('load', ()=>{
-  requestFullScreen();
-  lockLandscape();
-});
-
-// --- Load playlist ---
-async function loadPlaylist() {
-  try {
-    const response = await fetch(PLAYLIST_URL);
-    const data = await response.json();
-    playlistData = data;
-    playVideo(0);
-  } catch (err) {
-    console.error("Failed to load playlist:", err);
-  }
-}
-
-// --- Clear current player ---
-function clearPlayer() {
-  playerWrapper.innerHTML = '';
-  if (plyrPlayer) { plyrPlayer.destroy(); plyrPlayer = null; }
-  if (ytPlayer) { ytPlayer.destroy(); ytPlayer = null; }
-}
-
-// --- Play video ---
-function playVideo(index) {
-  currentIndex = index;
-  const video = playlistData[index];
-  clearPlayer();
-  loader.style.display = 'block'; // Show loader
-
-  if (video.type === 'file') {
-    const videoEl = document.createElement('video');
-    videoEl.autoplay = true;
-    videoEl.playsInline = true;
-    videoEl.muted = true;
-    videoEl.src = video.url;
-    videoEl.setAttribute('preload', 'auto');
-
-    playerWrapper.appendChild(videoEl);
-    plyrPlayer = new Plyr(videoEl, { controls: [], autoplay: true });
-
-    videoEl.addEventListener('canplay', () => {
-      loader.style.display = 'none';
-      videoEl.play().catch(err => {
-        console.warn("Autoplay blocked:", err);
-        videoEl.muted = true;
-        videoEl.play().catch(e => console.error("Play still failed:", e));
-      });
-    });
-
-    videoEl.addEventListener('ended', nextVideo);
-
-    videoEl.addEventListener('error', () => {
-      console.error("Video failed to load, skipping...");
-      nextVideo();
-    });
-
-  } else if (video.type === 'youtube') {
-    const iframe = document.createElement('div');
-    iframe.id = 'youtube-player';
-    playerWrapper.appendChild(iframe);
-    ytPlayer = new YT.Player('youtube-player', {
-      videoId: extractYouTubeID(video.url),
-      events: {
-        'onReady': e => { loader.style.display = 'none'; e.target.playVideo(); },
-        'onStateChange': e => { if (e.data === YT.PlayerState.ENDED) nextVideo(); }
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script>
+    const playlist = [
+      {
+        "title": "Vid 1",
+        "type": "file",
+        "url": "https://files.catbox.moe/q7lyrn.mp4"
       },
-      playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0, showinfo: 0 }
-    });
-  }
-}
+      {
+        "title": "Vid 2",
+        "type": "file",
+        "url": "https://files.catbox.moe/r3sqjr.mp4"
+      },
+      {
+        "title": "Vid 3",
+        "type": "file",
+        "url": "https://files.catbox.moe/q7lyrn.mp4"
+      },
+      {
+        "title": "YouTube Playlist",
+        "type": "youtube-playlist",
+        "playlistId": "PL0MYseEG73ocLrKSRK2vrDu6aKJ2W1x6p"
+      }
+    ];
 
-// --- Next video ---
-function nextVideo() {
-  currentIndex = (currentIndex + 1) % playlistData.length;
-  playVideo(currentIndex);
-}
+    let currentIndex = 0;
+    const playerWrapper = document.getElementById('player-wrapper');
+    const loader = document.getElementById('loader');
+    let plyrPlayer = null;
 
-// --- Extract YouTube ID ---
-function extractYouTubeID(url) {
-  const regExp = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be\.com\/watch\?v=)([^\s&]+)/;
-  const match = url.match(regExp);
-  return match ? match[1] : '';
-}
+    function playVideo(index) {
+      loader.style.display = 'block';
+      playerWrapper.innerHTML = `
+        <div class="overlay">
+          <div id="ticker">Loading ticker...</div>
+          <div id="clock"></div>
+        </div>
+        <div id="loader">Loading...</div>
+      `;
 
-// --- Clock ---
-function updateClock() {
-  const now = new Date();
-  document.getElementById('clock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-setInterval(updateClock, 1000);
-updateClock();
+      const video = playlist[index];
 
-// --- Smooth ticker ---
-const tickerMessages = [
-  "Welcome to My Live TV!",
-  "Streaming videos and music continuously.",
-  "Local files and YouTube playlist combined.",
-  "Enjoy your TV experience!"
-];
-const tickerTrack = document.getElementById('ticker-track');
-function buildTicker() {
-  tickerTrack.innerHTML = '';
-  [...tickerMessages, ...tickerMessages].forEach(msg => {
-    const span = document.createElement('span');
-    span.className = 'ticker-item';
-    span.textContent = msg;
-    tickerTrack.appendChild(span);
-  });
-  const trackWidth = tickerTrack.scrollWidth / 2;
-  const speed = 100;
-  tickerTrack.style.animationDuration = (trackWidth / speed) + 's';
-}
-buildTicker();
-window.addEventListener('resize', buildTicker);
+      if (video.type === 'file') {
+        const videoEl = document.createElement('video');
+        videoEl.src = video.url;
+        videoEl.setAttribute('autoplay', '');
+        videoEl.setAttribute('playsinline', '');
+        videoEl.setAttribute('muted', '');
+        videoEl.muted = true;
+        videoEl.loop = false;
+        playerWrapper.appendChild(videoEl);
 
-// --- Allow autoplay after first user interaction on mobile ---
-document.addEventListener('touchstart', () => {
-  if (plyrPlayer && plyrPlayer.play) plyrPlayer.play().catch(() => { });
-}, { once: true });
+        plyrPlayer = new Plyr(videoEl, { autoplay: true, controls: [] });
 
-loadPlaylist();
-</script>
+        videoEl.addEventListener('loadeddata', () => {
+          loader.style.display = 'none';
+        });
+
+        videoEl.addEventListener('ended', () => {
+          nextVideo();
+        });
+
+      } else if (video.type === 'youtube-playlist') {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/videoseries?list=${video.playlistId}&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0`;
+        iframe.frameBorder = '0';
+        iframe.allow = 'autoplay; encrypted-media';
+        iframe.allowFullscreen = true;
+        playerWrapper.appendChild(iframe);
+        loader.style.display = 'none';
+      }
+    }
+
+    function nextVideo() {
+      currentIndex = (currentIndex + 1) % playlist.length;
+      playVideo(currentIndex);
+    }
+
+    // Autoplay unlock on user interaction
+    document.addEventListener('click', () => {
+      if (plyrPlayer && plyrPlayer.play) plyrPlayer.play().catch(() => {});
+    }, { once: true });
+
+    document.addEventListener('touchstart', () => {
+      if (plyrPlayer && plyrPlayer.play) plyrPlayer.play().catch(() => {});
+    }, { once: true });
+
+    // Ticker text
+    const tickerTexts = ["Live Videos", "Autoplay Enabled", "Enjoy the Stream"];
+    let tickerIndex = 0;
+    setInterval(() => {
+      document.getElementById('ticker').textContent = tickerTexts[tickerIndex];
+      tickerIndex = (tickerIndex + 1) % tickerTexts.length;
+    }, 3000);
+
+    // Clock
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString();
+    }, 1000);
+
+    // Start player
+    playVideo(currentIndex);
+  </script>
 </body>
 </html>
