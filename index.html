@@ -47,7 +47,7 @@
     const playerWrapper = document.getElementById('player-wrapper');
 
     async function loadPlaylist() {
-      const response = await fetch('playlist.json');
+      const response = await fetch('tv/playlist.json');
       playlistData = await response.json();
       playVideo(0);
     }
