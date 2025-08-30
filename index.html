@@ -3,82 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My TV</title>
+  <title>My Live TV</title>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
   <style>
     body {
       margin: 0;
       background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
     .player-container {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
     video {
       width: 100%;
-      height: auto;
-      background: black;
+      height: 100%;
+      object-fit: cover;
     }
-    .playlist {
-      background: #111;
-      padding: 10px;
-      overflow-x: auto;
-      white-space: nowrap;
+
+    /* Top overlay */
+    .overlay {
+      position: absolute;
+      top: 15px;
+      left: 15px;
       display: flex;
-      gap: 10px;
-    }
-    .playlist-item {
-      background: #222;
-      padding: 10px;
+      flex-direction: column;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 10px 15px;
       border-radius: 8px;
-      color: #fff;
-      font-size: 14px;
-      cursor: pointer;
-      flex: 0 0 auto;
-      width: 120px;
-      text-align: center;
     }
-    .playlist-item.active {
-      background: #e50914;
+    .overlay .channel-name {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .overlay .clock {
+      font-size: 16px;
+    }
+
+    /* Bottom ticker */
+    .ticker-container {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      overflow: hidden;
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: scroll linear infinite;
+    }
+    .ticker-item {
+      color: #fff;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      padding: 0 50px;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); } /* Adjust based on content */
     }
   </style>
 </head>
 <body>
   <div class="player-container">
-    <video id="player" controls autoplay></video>
-    <div class="playlist" id="playlist"></div>
+    <video id="player" autoplay playsinline></video>
+
+    <!-- Top overlay -->
+    <div class="overlay">
+      <div class="channel-name">My Live TV</div>
+      <div class="clock" id="clock"></div>
+    </div>
+
+    <!-- Bottom ticker -->
+    <div class="ticker-container">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
   </div>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
     const player = new Plyr('#player', {
-      controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      controls: ['play', 'progress', 'mute', 'volume', 'fullscreen'],
       autoplay: true
     });
 
+    // Playlist for videos/music
     let playlistData = [];
     let currentIndex = 0;
 
     async function loadPlaylist() {
       const response = await fetch('playlist.json');
       playlistData = await response.json();
-      renderPlaylist();
       loadVideo(0);
-    }
-
-    function renderPlaylist() {
-      const container = document.getElementById('playlist');
-      container.innerHTML = '';
-      playlistData.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'playlist-item' + (index === currentIndex ? ' active' : '');
-        div.textContent = item.title;
-        div.onclick = () => loadVideo(index);
-        container.appendChild(div);
-      });
     }
 
     function loadVideo(index) {
@@ -87,13 +116,49 @@
       const videoElement = document.querySelector('#player');
       videoElement.src = videoData.url;
       player.play();
-      renderPlaylist();
     }
 
     player.on('ended', () => {
       currentIndex = (currentIndex + 1) % playlistData.length;
       loadVideo(currentIndex);
     });
+
+    // Clock update
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('clock').textContent = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Smooth scrolling ticker
+    const tickerMessages = [
+      "Welcome to My Live TV!",
+      "Enjoy your favorite videos and music.",
+      "New content added daily!",
+      "Stay tuned for more updates!"
+    ];
+
+    const tickerTrack = document.getElementById('ticker-track');
+
+    function buildTicker() {
+      tickerTrack.innerHTML = '';
+      // Duplicate content for smooth looping
+      [...tickerMessages, ...tickerMessages].forEach(msg => {
+        const span = document.createElement('span');
+        span.className = 'ticker-item';
+        span.textContent = msg;
+        tickerTrack.appendChild(span);
+      });
+      // Set animation duration dynamically based on content width
+      const trackWidth = tickerTrack.scrollWidth / 2;
+      const speed = 100; // pixels per second
+      tickerTrack.style.animationDuration = (trackWidth / speed) + 's';
+    }
+
+    buildTicker();
+    window.addEventListener('resize', buildTicker);
 
     loadPlaylist();
   </script>
