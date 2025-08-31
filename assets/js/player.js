@@ -1,18 +1,21 @@
 // Load JSON Playlist
 async function fetchPlaylist() {
   const response = await fetch('playlist.json');
+  if (!response.ok) throw new Error("Failed to load playlist.json");
   return await response.json();
 }
 
-// Load Ads JSON
+// Load Ads JSON (Fixed Path)
 async function fetchAds() {
-  const response = await fetch('ads.json');
+  const response = await fetch('data/ads.json');
+  if (!response.ok) throw new Error("Failed to load ads.json");
   return await response.json();
 }
 
 let playlist = [];
 let currentIndex = 0;
 let ads = [];
+
 const loader = document.getElementById('loader');
 const playerEl = document.getElementById('player');
 const player = new Plyr(playerEl, { controls: [] });
@@ -25,24 +28,33 @@ const playPauseBtn = document.getElementById('playPause').querySelector("i");
 function loadVideo(index) {
   const item = playlist[index];
   loader.style.display = 'block';
+
   player.source = {
     type: 'video',
     sources: [{ src: item.url, type: 'video/mp4' }]
   };
-  player.play().catch(() => {});
-  player.once('ready', () => loader.style.display = 'none');
+
+  // Ensure autoplay works
+  player.once('ready', () => {
+    loader.style.display = 'none';
+    player.muted = true;
+    player.play().catch(err => console.log("Autoplay failed:", err));
+  });
+
+  // Reset event listener to avoid duplicates
+  player.off('ended', nextVideo);
   player.on('ended', nextVideo);
 
-  // Update ticker
   updateTicker(item.title);
 }
 
+// Play next video
 function nextVideo() {
   currentIndex = (currentIndex + 1) % playlist.length;
   loadVideo(currentIndex);
 }
 
-// Custom Play/Pause Toggle
+// Play/Pause Toggle
 document.getElementById('playPause').addEventListener('click', () => {
   if (player.playing) {
     player.pause();
@@ -72,7 +84,7 @@ document.getElementById('orientationBtn').addEventListener('click', () => {
 function updateTicker(title) {
   const now = new Date();
   const timeStr = now.toLocaleTimeString();
-  tickerEl.textContent = `Testing new TV service - Now Playing: ${title} - ${timeStr}  |  Testing new TV service - Now Playing: ${title} - ${timeStr}`;
+  tickerEl.textContent = `Now Playing: ${title} - ${timeStr} | Enjoy your stream!`;
 }
 
 // --- Ad Scheduler ---
@@ -107,9 +119,11 @@ playerEl.addEventListener('click', () => {
 });
 
 // Init
-Promise.all([fetchPlaylist(), fetchAds()]).then(([pl, adList]) => {
-  playlist = pl;
-  ads = adList;
-  loadVideo(currentIndex);
-  scheduleAds();
-});
+Promise.all([fetchPlaylist(), fetchAds()])
+  .then(([pl, adList]) => {
+    playlist = pl;
+    ads = adList;
+    loadVideo(currentIndex);
+    scheduleAds();
+  })
+  .catch(err => console.error("Error initializing player:", err));
