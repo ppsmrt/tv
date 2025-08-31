@@ -139,3 +139,91 @@ Promise.all([fetchPlaylist(), fetchAds()])
     scheduleAds();
   })
   .catch(err => console.error("Error initializing player:", err));
+
+const video = document.getElementById('videoPlayer');
+const controls = document.getElementById('controls');
+const playPauseBtn = document.getElementById('playPause');
+const volumeBtn = document.getElementById('volumeToggle');
+const fullscreenBtn = document.getElementById('fullscreenToggle');
+const rotateBtn = document.getElementById('rotateToggle');
+const centerPlay = document.getElementById('centerPlay');
+const loader = document.querySelector('.loader');
+const adBar = document.getElementById('adBar');
+
+// Show loader until video can play
+video.addEventListener('canplay', () => loader.style.display = 'none');
+
+// Show controls on mouse move
+let hideTimeout;
+document.querySelector('.player-wrapper').addEventListener('mousemove', () => {
+  controls.classList.add('show');
+  clearTimeout(hideTimeout);
+  hideTimeout = setTimeout(() => controls.classList.remove('show'), 3000);
+});
+
+// Play / Pause
+playPauseBtn.addEventListener('click', togglePlay);
+centerPlay.addEventListener('click', togglePlay);
+
+function togglePlay() {
+  if (video.paused) {
+    video.play();
+    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    centerPlay.classList.remove('show');
+  } else {
+    video.pause();
+    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+    centerPlay.classList.add('show');
+  }
+}
+
+// Volume Toggle
+volumeBtn.addEventListener('click', () => {
+  video.muted = !video.muted;
+  volumeBtn.innerHTML = video.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+});
+
+// Fullscreen
+fullscreenBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+// Orientation Toggle
+rotateBtn.addEventListener('click', async () => {
+  if (screen.orientation && screen.orientation.lock) {
+    try {
+      if (screen.orientation.type.startsWith('portrait')) {
+        await screen.orientation.lock('landscape');
+      } else {
+        await screen.orientation.lock('portrait');
+      }
+    } catch (error) {
+      alert('Orientation lock not supported in this browser.');
+    }
+  } else {
+    // Fallback: rotate the player with CSS
+    const wrapper = document.querySelector('.player-wrapper');
+    if (!wrapper.classList.contains('rotated')) {
+      wrapper.style.transform = 'rotate(90deg) scale(0.8)';
+      wrapper.classList.add('rotated');
+    } else {
+      wrapper.style.transform = 'rotate(0deg) scale(1)';
+      wrapper.classList.remove('rotated');
+    }
+  }
+});
+
+// Show center play on pause
+video.addEventListener('pause', () => centerPlay.classList.add('show'));
+video.addEventListener('play', () => centerPlay.classList.remove('show'));
+
+// Show ad after 10s for 5s
+setTimeout(() => {
+  adBar.classList.add('show');
+  setTimeout(() => adBar.classList.remove('show'), 5000);
+}, 10000);
+
