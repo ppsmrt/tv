@@ -1,90 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kannada Suddi</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Baloo 2', cursive; }
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Kannada Suddi</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<style>
+  body { font-family: 'Baloo 2', cursive; }
+</style>
 </head>
-<body class="bg-white">
-  <div class="max-w-4xl mx-auto mt-4 rounded-3xl overflow-hidden shadow-lg border border-gray-200">
-    
-    <!-- Header -->
-    <div class="bg-[#d92a1a] flex items-center justify-between px-4 py-4">
-      <button aria-label="Menu" class="text-white text-2xl">
-        <i class="fas fa-bars"></i>
-      </button>
-      <h1 class="text-white text-xl font-extrabold tracking-wide">ಕನ್ನಡ | ಸುದ್ದು</h1>
-      <button aria-label="Camera" class="text-white text-2xl">
-        <i class="fas fa-video"></i>
-      </button>
+<body class="bg-white m-0 p-0">
+
+  <!-- Header -->
+  <header class="bg-[#d92a1a] w-full fixed top-0 left-0 z-50 flex items-center justify-between px-4 py-3 shadow-md">
+    <button aria-label="Menu" class="text-white text-xl">
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1 class="text-white text-lg font-extrabold tracking-wider select-none">
+      ಕನ್ನಡ | ಸುದ್ದು
+    </h1>
+    <button aria-label="Camera" class="text-white text-xl">
+      <i class="fas fa-video"></i>
+    </button>
+  </header>
+
+  <!-- Categories Bar -->
+  <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none mt-16">
+    <!-- Categories dynamically injected -->
+  </nav>
+
+  <!-- Channels Grid -->
+  <main class="pt-4 px-4 mt-2">
+    <div id="channelsGrid" class="bg-white grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4">
+      <!-- Channels dynamically injected -->
     </div>
+  </main>
 
-    <!-- Navigation -->
-    <nav class="bg-[#d92a1a] flex justify-around text-white text-sm font-semibold tracking-wide py-3">
-      <a class="hover:underline" href="#">LIVE TV</a>
-      <a class="hover:underline" href="#">LIVE NEWS</a>
-      <a class="hover:underline" href="#">NEWS PAPER</a>
-    </nav>
+<script>
+const categories = ["Entertainment","Music","News"];
+let selectedCategory = "All";
+let channelsData = [];
 
-    <!-- Category Filters -->
-    <div id="categories" class="flex overflow-x-auto gap-3 px-4 py-3 bg-gray-100 border-b border-gray-200"></div>
+// Render categories
+function renderCategories() {
+  const row = document.getElementById('categoriesRow');
+  row.innerHTML = '';
+  categories.forEach(cat => {
+    const btn = document.createElement('a');
+    btn.textContent = cat;
+    btn.href = "#";
+    btn.className = `px-4 py-1 rounded-full whitespace-nowrap ${
+      selectedCategory === cat ? 'bg-white text-red-600 font-bold' : 'bg-red-500/80 text-white'
+    }`;
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      selectedCategory = cat;
+      renderCategories();
+      renderChannels();
+    });
+    row.appendChild(btn);
+  });
+}
 
-    <!-- Channels Grid -->
-    <div id="channels" class="bg-white px-4 py-6 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-y-6 gap-x-4"></div>
-  </div>
+// Render channels dynamically
+function renderChannels() {
+  const grid = document.getElementById('channelsGrid');
+  grid.innerHTML = '';
+  const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
+  filtered.forEach(channel=>{
+    const div = document.createElement('div');
+    div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
+    div.innerHTML = `
+      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 rounded-md object-contain"/>
+      <span class="text-xs text-gray-900 text-center select-none truncate" style="max-width:64px;">
+        ${channel.name}
+      </span>
+    `;
+    div.addEventListener('click', ()=>{ 
+      // Link to player.html with channel name only
+      window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${encodeURIComponent(channel.name)}`;
+    });
+    grid.appendChild(div);
+  });
+}
 
-  <script>
-    async function loadChannels() {
-      const response = await fetch('tv/data/channels.json');
-      const data = await response.json();
+// Load channels from JSON
+async function loadChannels() {
+  try {
+    const res = await fetch('tv/data/channels.json');
+    channelsData = await res.json();
+    renderCategories();
+    renderChannels();
+  } catch(err) {
+    console.error("Failed to load channels:", err);
+  }
+}
 
-      const categoriesContainer = document.getElementById('categories');
-      const channelsContainer = document.getElementById('channels');
+loadChannels();
+</script>
 
-      const categories = ['All', ...new Set(data.map(c => c.category))];
-
-      categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.textContent = cat;
-        btn.className = "category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-200";
-        if (cat === 'All') btn.classList.add('bg-[#d92a1a]', 'text-white');
-        btn.onclick = () => filterChannels(cat);
-        categoriesContainer.appendChild(btn);
-      });
-
-      function renderChannels(filtered) {
-        channelsContainer.innerHTML = '';
-        filtered.forEach(channel => {
-          const div = document.createElement('div');
-          div.className = "flex flex-col items-center space-y-2 cursor-pointer";
-          div.innerHTML = `
-            <a href="player.html?name=${encodeURIComponent(channel.name)}" class="flex flex-col items-center">
-              <img src="${channel.icon}" alt="${channel.name}" class="w-20 h-20 rounded-md object-cover shadow-md" />
-              <span class="text-sm text-gray-900 mt-1 text-center">${channel.name}</span>
-            </a>
-          `;
-          channelsContainer.appendChild(div);
-        });
-      }
-
-      function filterChannels(category) {
-        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('bg-[#d92a1a]', 'text-white'));
-        const activeBtn = Array.from(document.querySelectorAll('.category-btn')).find(b => b.textContent === category);
-        if (activeBtn) activeBtn.classList.add('bg-[#d92a1a]', 'text-white');
-
-        renderChannels(category === 'All' ? data : data.filter(ch => ch.category === category));
-      }
-
-      renderChannels(data);
-    }
-
-    loadChannels();
-  </script>
 </body>
 </html>
