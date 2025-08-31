@@ -14,15 +14,8 @@
     Premium Live TV
   </header>
 
-  <!-- Video Player Glassmorphic Overlay -->
-  <div class="max-w-5xl mx-auto my-6 p-4 bg-white/10 backdrop-blur-md rounded-xl shadow-2xl">
-    <div class="relative aspect-video w-full">
-      <video id="tvPlayer" class="w-full h-full rounded-xl" controls></video>
-    </div>
-  </div>
-
   <!-- Search Bar -->
-  <div class="max-w-5xl mx-auto px-4 mb-4">
+  <div class="max-w-5xl mx-auto px-4 my-4">
     <input id="channelSearch" type="text" placeholder="Search channels..." 
       class="w-full p-3 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" />
   </div>
@@ -30,6 +23,14 @@
   <!-- Channels Grid -->
   <div id="channelsGrid" class="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4">
     <!-- Channels dynamically injected here -->
+  </div>
+
+  <!-- Popup Player Overlay -->
+  <div id="playerPopup" class="fixed inset-0 bg-black/80 hidden justify-center items-center z-50">
+    <div class="relative max-w-3xl w-full">
+      <button id="closePopup" class="absolute top-2 right-2 text-white text-2xl font-bold z-50">✖</button>
+      <video id="popupPlayer" class="w-full aspect-video rounded-xl" controls></video>
+    </div>
   </div>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
