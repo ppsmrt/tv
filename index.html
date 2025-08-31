@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Video Player</title>
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live TV Player</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-<div class="player-wrapper" id="player-wrapper">
-  <div class="loader" id="loader">Loading...</div>
-  <video id="player" playsinline muted autoplay></video>
-
-  <!-- Custom Controls -->
-  <div class="custom-controls" id="customControls">
-    <button id="playPause"><i class="fas fa-play"></i></button>
-    <button id="orientationBtn"><i class="fas fa-sync-alt"></i></button>
-    <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
+  <div class="player-wrapper">
+    <div class="loader">Loading...</div>
+    
+    <video id="videoPlayer" src="sample.mp4" playsinline></video>
+    
+    <div class="watermark">MyTV</div>
+    <div class="live-label">LIVE</div>
+    
+    <!-- Center Play -->
+    <div class="center-play" id="centerPlay">
+      <i class="fas fa-play"></i>
+    </div>
+    
+    <!-- Custom Controls -->
+    <div class="custom-controls" id="controls">
+      <div class="control-bar">
+        <button id="playPause"><i class="fas fa-play"></i></button>
+        <button id="volumeToggle"><i class="fas fa-volume-up"></i></button>
+        <button id="fullscreenToggle"><i class="fas fa-expand"></i></button>
+        <button id="rotateToggle"><i class="fas fa-sync-alt"></i></button>
+      </div>
+    </div>
+    
+    <!-- Ticker -->
+    <div class="ticker-container">
+      <div class="ticker-text">Breaking News: Enjoy uninterrupted live streaming experience...</div>
+    </div>
+    
+    <!-- Ad Bar -->
+    <div class="ad-bar" id="adBar">
+      <img src="ad-sample.jpg" alt="Advertisement">
+    </div>
   </div>
 
-  <!-- Ad and ticker -->
-  <div class="ad-bar" id="adBar"></div>
-  <div class="ticker-container"><div class="ticker-text" id="ticker"></div></div>
-
-  <!-- Overlays -->
-  <div class="watermark">LIVE TV</div>
-  <div class="live-label">LIVE</div>
-</div>
-
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script src="assets/js/player.js"></script>
+  <script src="player.js"></script>
 </body>
 </html>
