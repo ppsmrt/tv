@@ -2,36 +2,237 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MP4 Video Player</title>
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="https://ppsmrt.github.io/tv/assets/css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEVA TV Player</title>
+
+<!-- Plyr CSS -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+<style>
+  /* Reset & base */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background-color:#000;
+    color:#fff;
+    font-family:'Arial', sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+
+  /* TV Container */
+  .tv-container {
+    position:relative;
+    width:720px;
+    height:405px;
+    background-color:#000;
+    overflow:hidden;
+    border-radius:12px;
+    box-shadow:0 0 40px rgba(242,45,45,0.6), 0 0 80px rgba(242,45,45,0.3);
+    border:4px solid #111;
+  }
+
+  /* Video */
+  video {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+    filter:brightness(1.05) contrast(1.05);
+  }
+
+  /* Logo */
+  .logo-container {
+    position:absolute;
+    top:10px;
+    left:10px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    z-index:20;
+  }
+  .logo-img { width:42px; height:42px; background:url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Logo_Devanagari.svg/1200px-Logo_Devanagari.svg.png') no-repeat center; background-size:contain; filter:drop-shadow(0 0 2px yellow); }
+  .logo-text { font-weight:bold; font-size:22px; color:#f22d2d; font-family:'Arial Black',Arial,sans-serif; -webkit-text-stroke:1px yellow; text-transform:uppercase; text-shadow:0 0 4px yellow,0 0 6px red; }
+
+  /* Ticker */
+  .bottom-ticker-bar {
+    position:absolute; bottom:40px; width:100%; background:rgba(0,0,0,0.75);
+    height:24px; overflow:hidden; line-height:24px; border-top:1px solid #444; border-bottom:1px solid #444; box-shadow:inset 0 0 5px #f22d2d;
+  }
+  .marquee { display:inline-block; white-space:nowrap; padding-left:100%; animation:marquee 18s linear infinite; text-shadow:0 0 2px black,0 0 4px red; }
+  @keyframes marquee { 0%{ transform:translateX(0%);} 100%{ transform:translateX(-100%);} }
+
+  /* Bottom info */
+  .bottom-info-bar {
+    position:absolute; bottom:0; width:100%; height:40px; background:#b30000; display:flex; align-items:center; justify-content:space-between;
+    padding:0 12px; font-weight:bold; letter-spacing:1px; box-shadow:0 -2px 6px rgba(0,0,0,0.5);
+  }
+  .bottom-info-bar .text-left { color:white; font-size:16px; font-weight:600; font-family:'Latha','Nirmala UI',Arial,sans-serif; text-shadow:0 0 2px black; }
+  .bottom-info-bar .phone-number { color:yellow; font-size:24px; letter-spacing:2px; text-shadow:0 0 4px #000; }
+
+  /* Bottom images */
+  .bottom-image { position:absolute; bottom:40px; width:65px; height:40px; object-fit:cover; background:#000; z-index:15; border:1px solid #333; border-radius:4px; box-shadow:0 0 8px rgba(255,0,0,0.6); transition: transform 0.3s ease; }
+  .bottom-image.left { left:5px; } .bottom-image.right { right:5px; }
+  .bottom-image:hover { transform:scale(1.1); }
+
+  /* Time box */
+  .time-box { position:absolute; bottom:80px; right:10px; background:#e60000; color:#fff; font-weight:700; font-size:16px; padding:5px 10px; border-radius:4px; font-family:monospace; text-shadow:0 0 3px black; z-index:20; animation:pulse 1.5s infinite alternate; }
+  @keyframes pulse { 0%{ box-shadow:0 0 5px #ff0000;} 100%{ box-shadow:0 0 15px #ff4500;} }
+
+  /* Loader */
+  .loader { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:white; font-size:18px; background:rgba(0,0,0,0.6); padding:8px 20px; border-radius:10px; z-index:30; display:none; }
+
+  /* Center play button */
+  .center-play { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:70px; color:white; background:rgba(0,0,0,0.5); border-radius:50%; width:100px; height:100px; display:flex; align-items:center; justify-content:center; opacity:1; cursor:pointer; z-index:25; transition:opacity 0.4s ease-in-out, transform 0.3s ease; }
+  .center-play.hide { opacity:0; transform:translate(-50%,-50%) scale(1.1); }
+
+  /* Custom Controls */
+  .custom-controls { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); width:90%; display:flex; justify-content:center; gap:15px; background:rgba(0,0,0,0.4); backdrop-filter:blur(8px); padding:10px 20px; border-radius:40px; opacity:0; transition:opacity 0.3s ease-in-out; z-index:25; }
+  .custom-controls.show { opacity:1; }
+  .custom-controls button { background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; transition:transform 0.2s; }
+  .custom-controls button:hover { transform:scale(1.2); }
+
+</style>
 </head>
 <body>
 
-<div id="loader">Loading...</div>
+<div class="tv-container">
 
-<!-- Video Player -->
-<video id="player" playsinline></video>
+  <!-- Video -->
+  <video id="player" playsinline></video>
+  <div class="loader" id="loader">Loading...</div>
 
-<!-- Ticker -->
-<div id="ticker">Now Playing...</div>
+  <!-- Logo -->
+  <div class="logo-container">
+    <div class="logo-img"></div>
+    <div class="logo-text">DEVA TV</div>
+  </div>
 
-<!-- Ads -->
-<div id="adBar"></div>
+  <!-- Ticker -->
+  <div class="bottom-ticker-bar">
+    <div class="marquee" id="ticker">Loading ticker...</div>
+  </div>
 
-<!-- Custom Controls -->
-<div id="customControls">
-  <button id="playPause"><i class="fas fa-play"></i></button>
-  <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
-  <button id="orientationBtn"><i class="fas fa-sync-alt"></i></button>
+  <!-- Bottom Info -->
+  <div class="bottom-info-bar">
+    <div class="text-left">வீடுகளுக்கு வந்து தையல் மிஷின் பழுதுபார்த்து தரப்படும்</div>
+    <div class="phone-number">94431 82069</div>
+  </div>
+
+  <!-- Bottom Images -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Singer_sewing_machine_99K.jpg/220px-Singer_sewing_machine_99K.jpg" class="bottom-image left" />
+  <img src="https://cdn.pixabay.com/photo/2016/01/19/17/48/sewing-machine-1148419_1280.jpg" class="bottom-image right" />
+
+  <!-- Time Box -->
+  <div class="time-box" id="timeBox">03:02 AM</div>
+
+  <!-- Center Play -->
+  <div class="center-play" id="centerPlayBtn"><i class="fas fa-play"></i></div>
+
+  <!-- Custom Controls -->
+  <div class="custom-controls" id="customControls">
+    <button id="playPause"><i class="fas fa-play"></i></button>
+    <button id="volumeBtn"><i class="fas fa-volume-up"></i></button>
+    <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
+    <button id="orientationBtn"><i class="fas fa-sync-alt"></i></button>
+  </div>
+
 </div>
 
-<!-- Big Play Button -->
-<div id="centerPlay"><i class="fas fa-play"></i></div>
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 
-<script src="player.js"></script>
+<script>
+// -------------------- JS Player --------------------
+const playerEl = document.getElementById('player');
+const loader = document.getElementById('loader');
+const tickerEl = document.getElementById('ticker');
+const adBar = document.getElementById('adBar');
+const controls = document.getElementById('customControls');
+const playPauseBtn = document.getElementById('playPause').querySelector("i");
+const centerPlayBtn = document.getElementById('centerPlayBtn');
+const volumeBtn = document.getElementById('volumeBtn').querySelector("i");
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const orientationBtn = document.getElementById('orientationBtn');
+const timeBox = document.getElementById('timeBox');
+
+let playlist = [
+  { title:"Video 1", url:"https://www.w3schools.com/html/mov_bbb.mp4" },
+  { title:"Video 2", url:"https://www.w3schools.com/html/movie.mp4" }
+];
+let currentIndex = 0;
+
+const player = new Plyr(playerEl, { controls: [] });
+
+function loadVideo(index){
+  const item = playlist[index];
+  loader.style.display = 'block';
+  player.source = { type:'video', sources:[{src:item.url, type:'video/mp4'}] };
+  player.once('ready', ()=>{
+    loader.style.display='none';
+    player.muted=false;
+    player.play().catch(e=>console.log(e));
+    updateUI();
+    updateTicker(item.title);
+  });
+  player.off('ended', nextVideo);
+  player.on('ended', nextVideo);
+}
+function nextVideo(){ currentIndex=(currentIndex+1)%playlist.length; loadVideo(currentIndex); }
+
+function updateUI(){
+  if(player.playing){
+    playPauseBtn.className="fas fa-pause";
+    centerPlayBtn.classList.add('hide');
+  }else{
+    playPauseBtn.className="fas fa-play";
+    centerPlayBtn.classList.remove('hide');
+  }
+}
+document.getElementById('playPause').addEventListener('click', ()=>{
+  if(player.playing) player.pause(); else player.play();
+  updateUI();
+});
+centerPlayBtn.addEventListener('click', ()=>{
+  if(player.playing) player.pause(); else player.play();
+  updateUI();
+});
+volumeBtn.addEventListener('click', ()=>{
+  player.muted = !player.muted;
+  volumeBtn.className = player.muted?"fas fa-volume-mute":"fas fa-volume-up";
+});
+fullscreenBtn.addEventListener('click', ()=>player.fullscreen.enter());
+orientationBtn.addEventListener('click', ()=>{
+  if(screen.orientation && screen.orientation.lock){
+    const type = screen.orientation.type.startsWith('portrait')?'landscape':'portrait';
+    screen.orientation.lock(type).catch(e=>console.log(e));
+  }
+});
+
+// Ticker update
+function updateTicker(title){
+  const now = new Date();
+  tickerEl.textContent = `Now Playing: ${title} - ${now.toLocaleTimeString()} | Enjoy your stream!`;
+}
+
+// Live time
+setInterval(()=>{ timeBox.textContent = new Date().toLocaleTimeString(); },1000);
+
+// Show controls on hover
+let hideTimeout;
+document.querySelector('.tv-container').addEventListener('mousemove', ()=>{
+  controls.classList.add('show');
+  clearTimeout(hideTimeout);
+  hideTimeout=setTimeout(()=>controls.classList.remove('show'),3000);
+});
+
+// Initialize first video
+loadVideo(currentIndex);
+
+</script>
 </body>
 </html>
