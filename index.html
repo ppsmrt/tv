@@ -8,38 +8,40 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
-  body { font-family: 'Baloo 2', cursive; }
+  body { font-family: 'Baloo 2', cursive; margin:0; padding:0; }
 </style>
 </head>
-<body class="bg-white m-0 p-0">
+<body class="bg-white">
 
-  <!-- Header -->
-  <header class="bg-[#d92a1a] w-full fixed top-0 left-0 z-50 flex items-center justify-between px-4 py-3 shadow-md">
-    <button aria-label="Menu" class="text-white text-xl">
-      <i class="fas fa-bars"></i>
-    </button>
-    <h1 class="text-white text-lg font-extrabold tracking-wider select-none">
-      ಕನ್ನಡ | ಸುದ್ದು
-    </h1>
-    <button aria-label="Camera" class="text-white text-xl">
-      <i class="fas fa-video"></i>
-    </button>
+  <!-- Fixed Header + Categories -->
+  <header class="bg-[#d92a1a] w-full fixed top-0 left-0 z-50 flex flex-col shadow-md">
+    <div class="flex items-center justify-between px-4 py-3">
+      <button aria-label="Menu" class="text-white text-xl">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h1 class="text-white text-lg font-extrabold tracking-wider select-none">
+        Live Tv
+      </h1>
+      <button aria-label="Camera" class="text-white text-xl">
+        <i class="fas fa-bell"></i>
+      </button>
+    </div>
+
+    <!-- Categories Bar -->
+    <nav id="categoriesRow" class="flex space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none">
+      <!-- Categories dynamically injected -->
+    </nav>
   </header>
 
-  <!-- Categories Bar -->
-  <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none mt-16">
-    <!-- Categories dynamically injected -->
-  </nav>
-
   <!-- Channels Grid -->
-  <main class="pt-4 px-4 mt-2">
+  <main class="pt-[92px] px-4 pb-4">
     <div id="channelsGrid" class="bg-white grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4">
       <!-- Channels dynamically injected -->
     </div>
   </main>
 
 <script>
-const categories = ["Entertainment","Music","News"];
+const categories = ["All","Entertainment","Music","News"];
 let selectedCategory = "All";
 let channelsData = [];
 
@@ -79,7 +81,6 @@ function renderChannels() {
       </span>
     `;
     div.addEventListener('click', ()=>{ 
-      // Link to player.html with channel name only
       window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${encodeURIComponent(channel.name)}`;
     });
     grid.appendChild(div);
