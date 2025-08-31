@@ -9,15 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
   body { font-family: 'Baloo 2', cursive; }
-  /* Remove scrollbars on small devices for header+categories */
-  #headerCategories { -webkit-overflow-scrolling: touch; }
 </style>
 </head>
-<body class="bg-white w-screen h-screen flex flex-col overflow-hidden">
+<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden scroll-smooth">
 
   <!-- Header + Category Section -->
   <div id="headerCategories" class="flex flex-col sticky top-0 z-50">
-    <div class="bg-[#d92a1a] flex items-center justify-between px-4 py-3">
+    <div class="bg-[#d92a1a] flex items-center justify-between px-4 py-3 shadow-md">
       <button aria-label="Menu" class="text-white text-2xl">
         <i class="fas fa-bars"></i>
       </button>
@@ -30,7 +28,7 @@
     </div>
 
     <!-- Categories Row -->
-    <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-2 sm:space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none">
+    <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-2 sm:space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none scrollbar-hide">
       <!-- Categories dynamically injected -->
     </nav>
   </div>
@@ -41,6 +39,26 @@
   </div>
 
 <script>
+// Tailwind keyframe animations for ripple and pop
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+.animate-ripple {
+  animation: ripple 0.5s linear;
+}
+@keyframes pop {
+  0% { transform: scale(0.9); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.animate-pop {
+  animation: pop 0.35s ease-out forwards;
+}
+`;
+document.head.appendChild(style);
+
 // Categories & Channel Data
 const categories = ["All", "Entertainment", "Music", "News"];
 let selectedCategory = "All";
@@ -54,11 +72,26 @@ function renderCategories() {
     const btn = document.createElement('a');
     btn.textContent = cat;
     btn.href = "#";
-    btn.className = `px-4 py-1 rounded-full whitespace-nowrap ${
-      selectedCategory === cat ? 'bg-white text-red-600 font-bold' : 'bg-red-500/80 text-white'
+    btn.className = `px-4 py-1 rounded-full whitespace-nowrap transform transition-all duration-200 ${
+      selectedCategory === cat 
+        ? 'bg-white text-red-600 font-bold relative overflow-hidden' 
+        : 'bg-red-500/80 text-white hover:bg-white hover:text-red-600 hover:scale-105 relative overflow-hidden'
     }`;
+    
+    // Ripple effect
     btn.addEventListener('click', (e)=>{
       e.preventDefault();
+      
+      const ripple = document.createElement('span');
+      ripple.className = 'absolute rounded-full bg-white/30 transform scale-0 animate-ripple';
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size/2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size/2}px`;
+      btn.appendChild(ripple);
+      setTimeout(()=> ripple.remove(), 500);
+
       selectedCategory = cat;
       renderCategories();
       renderChannels();
@@ -72,11 +105,12 @@ function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
   const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
-  filtered.forEach(channel=>{
+  filtered.forEach((channel, index)=>{
     const div = document.createElement('div');
-    div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
+    div.style.animationDelay = `${index * 50}ms`; // stagger pop
+    div.className = 'flex flex-col items-center space-y-1 cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg animate-pop';
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain"/>
+      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
       <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:64px;">
         ${channel.name}
       </span>
