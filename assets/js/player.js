@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load channels from JSON
   async function loadChannels() {
       try {
-          const res = await fetch('data/channels.json'); // ✅ fixed path
+          const res = await fetch('data/channels.json'); // ✅ correct path
           channelsData = await res.json();
           renderChannels(channelsData);
           if (channelsData[0]) switchChannel(0);
@@ -21,18 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 
-  // Render channel cards
+  // Render channel cards (glassmorphic style)
   function renderChannels(channels) {
       const grid = document.getElementById('channelsGrid');
-      grid.innerHTML = ''; // clear existing
+      grid.innerHTML = '';
 
       channels.forEach((channel, index) => {
           const div = document.createElement('div');
-          div.className = "cursor-pointer p-2 bg-white rounded-xl shadow-lg transform transition duration-300 hover:scale-105 hover:bg-red-600 hover:text-white flex flex-col items-center";
+          div.className = `
+              cursor-pointer
+              p-2
+              bg-white/10
+              backdrop-blur-md
+              border border-white/20
+              rounded-xl
+              shadow-2xl
+              transform transition duration-300
+              hover:scale-105 hover:bg-red-600 hover:text-white
+              flex flex-col items-center
+          `;
 
           div.innerHTML = `
               <img src="${channel.icon}" alt="${channel.name}" class="w-full h-24 object-contain mb-2 rounded">
-              <p class="text-center font-semibold text-gray-900 hover:text-white">${channel.name}</p>
+              <p class="text-center font-semibold text-gray-100">${channel.name}</p>
           `;
 
           div.addEventListener('click', () => switchChannel(channelsData.findIndex(c => c.name === channel.name)));
@@ -55,9 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const allCards = document.getElementById('channelsGrid').children;
       Array.from(allCards).forEach((card, i) => {
           if(i === index){
-              card.classList.add('ring-4', 'ring-red-500');
+              card.classList.add('ring-4', 'ring-red-500', 'bg-red-600/30', 'backdrop-blur-md');
           } else {
-              card.classList.remove('ring-4', 'ring-red-500');
+              card.classList.remove('ring-4', 'ring-red-500', 'bg-red-600/30', 'backdrop-blur-md');
           }
       });
 
