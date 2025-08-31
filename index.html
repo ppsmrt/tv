@@ -1,112 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Kannada Suddi</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-<style>
-  body { font-family: 'Baloo 2', cursive; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kannada Suddi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" />
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: #fff;
+    }
+    .category-btn.active {
+      background-color: #d92a1a;
+      color: white;
+    }
+  </style>
 </head>
-<body class="bg-white w-screen h-screen flex flex-col">
+<body class="bg-white">
+  <div class="max-w-4xl mx-auto mt-4 rounded-3xl overflow-hidden shadow-lg border border-gray-200">
+    
+    <!-- Header -->
+    <div class="bg-[#d92a1a] relative flex items-center justify-between px-4 py-4 rounded-t-3xl">
+      <button aria-label="Menu" class="text-white text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h1 class="text-white text-xl font-extrabold tracking-wider select-none">
+        ಕನ್ನಡ | ಸುದ್ದು
+      </h1>
+      <button aria-label="Camera" class="text-white text-2xl">
+        <i class="fas fa-video"></i>
+      </button>
+    </div>
 
-<!-- Main Container -->
-<div class="max-w-xs mx-auto mt-4 rounded-3xl overflow-hidden shadow-lg border border-gray-200" style="max-width: 360px;">
-  
-  <!-- Header -->
-  <div class="bg-[#d92a1a] relative flex items-center justify-between px-4 py-3 rounded-t-3xl">
-    <button aria-label="Menu" class="text-white text-xl">
-      <i class="fas fa-bars"></i>
-    </button>
-    <h1 class="text-white font-extrabold tracking-wider select-none text-lg" style="font-weight: 900;">
-      ಕನ್ನಡ | ಸುದ್ದು
-    </h1>
-    <button aria-label="Camera" class="text-white text-xl">
-      <i class="fas fa-video"></i>
-    </button>
+    <!-- Navigation -->
+    <nav class="bg-[#d92a1a] flex justify-around text-white text-sm font-semibold tracking-wide py-3 select-none">
+      <a class="hover:underline" href="#">LIVE TV</a>
+      <a class="hover:underline" href="#">LIVE NEWS</a>
+      <a class="hover:underline" href="#">NEWS PAPER</a>
+    </nav>
+
+    <!-- Category Filters -->
+    <div id="categories" class="flex overflow-x-auto gap-3 px-4 py-3 bg-gray-100 border-b border-gray-200"></div>
+
+    <!-- Channels Grid -->
+    <div id="channels" class="bg-white px-4 py-6 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-y-6 gap-x-4"></div>
   </div>
 
-  <!-- Categories Row -->
-  <nav id="categoriesRow" class="bg-[#d92a1a] flex justify-around text-white text-xs font-semibold tracking-wide py-2 select-none" style="font-size: 0.75rem;">
-    <!-- Dynamic Categories Here -->
-  </nav>
+  <script>
+    async function loadChannels() {
+      const response = await fetch('tv/data/channels.json');
+      const data = await response.json();
 
-  <!-- Channels Grid -->
-  <div id="channelsGrid" class="bg-white px-4 py-4 grid grid-cols-3 gap-y-6 gap-x-4">
-    <!-- Dynamic Channels Here -->
-  </div>
-</div>
+      const categoriesContainer = document.getElementById('categories');
+      const channelsContainer = document.getElementById('channels');
 
-<script>
-let channelsData = [];
-let categories = [];
-let selectedCategory = "";
+      const categories = ['All', ...new Set(data.map(c => c.category))];
 
-// Render categories dynamically
-function renderCategories() {
-  const row = document.getElementById('categoriesRow');
-  row.innerHTML = '';
-  
-  categories.forEach(cat => {
-    const link = document.createElement('a');
-    link.textContent = cat;
-    link.href = "#";
-    link.className = `hover:underline ${selectedCategory === cat ? 'font-bold underline' : ''}`;
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      selectedCategory = cat;
-      renderCategories();
-      renderChannels();
-    });
-    row.appendChild(link);
-  });
-}
+      // Render category buttons
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.textContent = cat;
+        btn.className = "category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-200";
+        if (cat === 'All') btn.classList.add('active');
+        btn.onclick = () => filterChannels(cat);
+        categoriesContainer.appendChild(btn);
+      });
 
-// Render channels dynamically
-function renderChannels() {
-  const grid = document.getElementById('channelsGrid');
-  grid.innerHTML = '';
+      function renderChannels(filtered) {
+        channelsContainer.innerHTML = '';
+        filtered.forEach(channel => {
+          const div = document.createElement('div');
+          div.className = "flex flex-col items-center space-y-2 cursor-pointer";
+          div.innerHTML = `
+            <a href="player.html?name=${encodeURIComponent(channel.name)}" class="flex flex-col items-center">
+              <img src="${channel.icon}" alt="${channel.name}" class="w-20 h-20 rounded-md object-cover" />
+              <span class="text-sm text-gray-900 mt-1 text-center">${channel.name}</span>
+            </a>
+          `;
+          channelsContainer.appendChild(div);
+        });
+      }
 
-  const filtered = channelsData.filter(ch => ch.category === selectedCategory);
-  filtered.forEach(channel => {
-    const div = document.createElement('div');
-    div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
-    div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-14 h-14 rounded-md object-contain"/>
-      <span class="text-xs text-gray-900 select-none truncate" style="max-width:64px;">
-        ${channel.name}
-      </span>
-    `;
-    div.addEventListener('click', () => {
-      const nameParam = encodeURIComponent(channel.name);
-      window.location.href = \`player.html?name=\${nameParam}\`;
-    });
-    grid.appendChild(div);
-  });
-}
+      function filterChannels(category) {
+        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.category-btn:nth-child(${categories.indexOf(category) + 1})`).classList.add('active');
 
-// Load channels.json
-async function loadChannels() {
-  try {
-    const res = await fetch('tv/data/channels.json');
-    channelsData = await res.json();
+        if (category === 'All') {
+          renderChannels(data);
+        } else {
+          renderChannels(data.filter(ch => ch.category === category));
+        }
+      }
 
-    // Extract unique categories from channels
-    categories = [...new Set(channelsData.map(ch => ch.category))];
-    selectedCategory = categories[0]; // Default first category
+      renderChannels(data);
+    }
 
-    renderCategories();
-    renderChannels();
-  } catch (err) {
-    console.error('Error loading channels.json:', err);
-  }
-}
-
-loadChannels();
-</script>
-
+    loadChannels();
+  </script>
 </body>
 </html>
