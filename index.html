@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DEV TV — Live IPTV</title>
+<title>DEV TV — Premium IPTV</title>
 
-<!-- Tailwind CSS -->
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
-
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<!-- HLS.js -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-<!-- Minimal CSS for ticker -->
 <style>
+/* Ticker animation */
 @keyframes ticker-scroll {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
@@ -23,48 +24,40 @@
   animation: ticker-scroll 42s linear infinite;
 }
 </style>
-
-<!-- HLS.js -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body class="bg-black text-white overflow-hidden">
 
-<!-- Fullscreen Video -->
+<!-- Video -->
 <video id="player" class="fixed inset-0 w-full h-full object-cover z-0" playsinline muted autoplay></video>
 
-<!-- Brand Left -->
-<div id="brandLeft" class="fixed top-3 left-3 z-40 font-extrabold text-green-400 select-none pointer-events-none text-[clamp(14px,2.4vw,26px)] uppercase">
-DEV TV
-</div>
+<!-- Branding -->
+<div id="brandLeft" class="fixed top-3 left-3 z-40 font-extrabold text-green-400 select-none pointer-events-none text-[clamp(14px,2.4vw,26px)] uppercase">DEV TV</div>
+<div id="watermarkRight" class="fixed right-4 top-1/2 transform -translate-y-1/2 z-30 text-white/70 font-bold select-none pointer-events-none text-[clamp(14px,2.8vw,28px)] uppercase">DEV TV</div>
+<div id="timeBox" class="fixed right-5 top-4 z-35 font-mono font-bold text-white px-3 py-1 rounded bg-red-600 text-sm">00:00:00</div>
 
-<!-- Watermark Right -->
-<div id="watermarkRight" class="fixed right-4 top-1/2 transform -translate-y-1/2 z-30 text-white/70 font-bold select-none pointer-events-none text-[clamp(14px,2.8vw,28px)] uppercase">
-DEV TV
-</div>
-
-<!-- Time Box -->
-<div id="timeBox" class="fixed right-5 top-4 z-35 font-mono font-bold text-white px-3 py-1 rounded bg-red-600 text-sm">
-00:00:00
-</div>
-
-<!-- Ad Bar -->
+<!-- Ad bar -->
 <div id="adBar" class="fixed left-0 right-0 bottom-28 z-35 flex justify-center pointer-events-none transition-opacity duration-300 opacity-0">
-<div id="adText" class="px-4 py-1 text-white/90 font-semibold bg-black/30 backdrop-blur-sm rounded"></div>
+  <div id="adText" class="px-4 py-1 text-white/90 font-semibold bg-black/30 backdrop-blur-sm rounded"></div>
 </div>
 
 <!-- Ticker -->
 <div class="fixed left-0 right-0 bottom-6 z-40 pointer-events-none overflow-hidden">
-<div id="tickerTrack" class="text-white text-sm"></div>
+  <div id="tickerTrack" class="text-white text-sm"></div>
 </div>
 
-<!-- Player Controls -->
+<!-- Player controls -->
 <div id="controls" class="fixed left-1/2 -translate-x-1/2 bottom-3 z-50 flex gap-3 opacity-0 transition-opacity duration-300">
-<button id="muteBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
-<i id="muteIcon" class="fa-solid fa-volume-xmark"></i>
-</button>
-<button id="fsBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
-<i class="fa-solid fa-expand"></i>
-</button>
+  <button id="muteBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
+    <i id="muteIcon" class="fa-solid fa-volume-xmark"></i>
+  </button>
+  <button id="fsBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
+    <i class="fa-solid fa-expand"></i>
+  </button>
+</div>
+
+<!-- Channel list sidebar -->
+<div id="channelList" class="fixed top-16 left-3 z-50 flex flex-col gap-2 max-h-[80vh] overflow-y-auto">
+  <!-- Channels will be dynamically added here -->
 </div>
 
 <script>
@@ -78,18 +71,23 @@ DEV TV
   const MUTE_BTN = document.getElementById('muteBtn');
   const MUTE_ICON = document.getElementById('muteIcon');
   const FS_BTN = document.getElementById('fsBtn');
+  const CHANNEL_LIST = document.getElementById('channelList');
 
-  const HLS_URL = 'https://your-server.com/live/playlist.m3u8'; // <-- Replace with your HLS server
   const ADS_URL = 'data/ads.json';
   const TICKER_URL = 'data/ticker.json';
 
-  let ads = [], tickerLines = [];
-  let lastAdAt = 0, AD_INTERVAL = 60_000, AD_DURATION = 5_000;
+  let ads = [], tickerLines = [], lastAdAt = 0, AD_INTERVAL = 60000, AD_DURATION = 5000;
 
-  // Update clock
+  // Example Indian channels (replace or fetch from IPTV-org)
+  const channels = [
+    { name: 'DD National', logo: 'https://upload.wikimedia.org/wikipedia/en/4/4b/DD_National_logo.png', url: 'https://iptv-org.github.io/iptv/countries/in.m3u8' },
+    { name: 'Zee TV', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Zee_TV_Logo.svg', url: 'https://iptv-org.github.io/iptv/countries/in.m3u8' },
+    { name: 'Star Plus', logo: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Star_Plus_logo.png', url: 'https://iptv-org.github.io/iptv/countries/in.m3u8' }
+  ];
+
+  // Clock
   const updateTime = () => TIME_BOX.textContent = new Date().toLocaleTimeString('en-US', {hour12:false});
-  setInterval(updateTime, 1000);
-  updateTime();
+  setInterval(updateTime,1000); updateTime();
 
   // Ticker
   const refreshTicker = (title='') => {
@@ -99,30 +97,39 @@ DEV TV
     void TICKER.offsetWidth;
   };
 
-  // Initialize HLS
-  if(Hls.isSupported()){
-    const hls = new Hls();
-    hls.loadSource(HLS_URL);
-    hls.attachMedia(VIDEO_EL);
-    hls.on(Hls.Events.MANIFEST_PARSED, ()=>VIDEO_EL.play());
-  } else {
-    VIDEO_EL.src = HLS_URL;
-    VIDEO_EL.addEventListener('loadedmetadata', ()=>VIDEO_EL.play());
-  }
+  // HLS play
+  const playChannel = (url, name) => {
+    if(Hls.isSupported()){
+      const hls = new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(VIDEO_EL);
+      hls.on(Hls.Events.MANIFEST_PARSED, ()=>VIDEO_EL.play());
+    } else {
+      VIDEO_EL.src = url;
+      VIDEO_EL.addEventListener('loadedmetadata', ()=>VIDEO_EL.play());
+    }
+    refreshTicker(name);
+  };
+
+  // Populate channel list
+  channels.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded backdrop-blur-sm transition';
+    btn.innerHTML = `<img src="${c.logo}" class="w-8 h-8 object-contain rounded"/> <span>${c.name}</span>`;
+    btn.addEventListener('click', ()=>playChannel(c.url, c.name));
+    CHANNEL_LIST.appendChild(btn);
+  });
 
   // Fetch ads & ticker
   const fetchJSON = async url => (await fetch(`${url}?_=${Date.now()}`)).json().catch(()=>[]);
-
   (async()=>{
     ads = await fetchJSON(ADS_URL);
     tickerLines = await fetchJSON(TICKER_URL);
     refreshTicker('Live Stream');
-
-    // Initial ad
     setTimeout(()=>{ showAd(); lastAdAt=Date.now(); }, 10000);
   })();
 
-  // Show Ad
+  // Show ad
   const showAd = () => {
     if(!ads.length) return;
     const ad = ads[Math.floor(Math.random()*ads.length)];
@@ -131,7 +138,6 @@ DEV TV
     setTimeout(()=>AD_BAR.classList.remove('opacity-100'), AD_DURATION);
   };
 
-  // Ad Interval
   setInterval(()=>{ if(Date.now()-lastAdAt>=AD_INTERVAL){ lastAdAt=Date.now(); showAd(); } },5000);
 
   // Controls
@@ -143,20 +149,17 @@ DEV TV
   };
   ['mousemove','touchstart','touchmove'].forEach(ev=>document.addEventListener(ev,showControls,{passive:true}));
 
-  // Mute toggle
+  // Mute
   MUTE_BTN.addEventListener('click', ()=>{
     VIDEO_EL.muted = !VIDEO_EL.muted;
     MUTE_ICON.className = VIDEO_EL.muted?'fa-solid fa-volume-xmark':'fa-solid fa-volume-high';
   });
 
-  // Fullscreen toggle
+  // Fullscreen
   FS_BTN.addEventListener('click', ()=>{
     if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
     else document.exitFullscreen().catch(()=>{});
   });
-
-  // Resume on visibility
-  document.addEventListener('visibilitychange',()=>{ if(!document.hidden) VIDEO_EL.play().catch(()=>{}); });
 
 })();
 </script>
