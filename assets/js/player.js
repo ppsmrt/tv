@@ -1,4 +1,4 @@
-// Tailwind keyframe animations for ripple, pop, and slide
+// Tailwind keyframe animations for ripple, pop, slide, fade-up
 const style = document.createElement('style');
 style.innerHTML = `
 @keyframes ripple { to { transform: scale(4); opacity: 0; } }
@@ -9,6 +9,9 @@ style.innerHTML = `
 
 @keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 .animate-slideDown { animation: slideDown 0.5s ease-out forwards; }
+
+@keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+.animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
 `;
 document.head.appendChild(style);
 
@@ -58,15 +61,15 @@ function renderCategories() {
   });
 }
 
-// Render channels dynamically
+// Render channels dynamically with fade-up + pop
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
   const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
   filtered.forEach((channel, index)=>{
     const div = document.createElement('div');
-    div.style.animationDelay = `${index * 50}ms`; // stagger pop
-    div.className = 'flex flex-col items-center space-y-1 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-xl bg-gradient-to-br from-white to-gray-50 animate-pop';
+    div.className = 'flex flex-col items-center space-y-1 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-xl bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop';
+    div.style.animationDelay = `${index * 80}ms`; // stagger fade-up + pop
     div.innerHTML = `
       <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
       <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:64px;">
