@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load channels
   async function loadChannels() {
       try {
-          const res = await fetch('data/channels.json');
+          const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
           channelsData = await res.json();
           renderChannels(channelsData);
       } catch (err) {
