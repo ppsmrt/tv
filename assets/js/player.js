@@ -5,11 +5,18 @@ const player = new Plyr('#tvPlayer', {
 });
 
 let currentChannelIndex = 0;
+let channelsData = [];
 
 async function loadChannels() {
-    const res = await fetch('data/channels.json');
-    const channels = await res.json();
+    const res = await fetch('../data/channels.json');
+    channelsData = await res.json();
+    renderChannels(channelsData);
+    if(channelsData[0]) switchChannel(0);
+}
+
+function renderChannels(channels) {
     const grid = document.getElementById('channelsGrid');
+    grid.innerHTML = ''; // clear existing
 
     channels.forEach((channel, index) => {
         const div = document.createElement('div');
@@ -20,40 +27,37 @@ async function loadChannels() {
             <p class="text-center font-semibold text-gray-900 hover:text-white">${channel.name}</p>
         `;
 
-        div.addEventListener('click', () => {
-            switchChannel(index);
-        });
-
+        div.addEventListener('click', () => switchChannel(index));
         grid.appendChild(div);
     });
-
-    // Auto-play first channel
-    if (channels[0]) {
-        switchChannel(0);
-    }
-
-    function switchChannel(index) {
-        const channel = channels[index];
-        player.source = {
-            type: 'video',
-            sources: [
-                { src: channel.stream, type: 'application/x-mpegURL' }
-            ]
-        };
-        player.play();
-
-        // Highlight current playing channel
-        const allCards = grid.children;
-        Array.from(allCards).forEach((card, i) => {
-            if(i === index){
-                card.classList.add('ring-4', 'ring-red-500');
-            } else {
-                card.classList.remove('ring-4', 'ring-red-500');
-            }
-        });
-
-        currentChannelIndex = index;
-    }
 }
+
+function switchChannel(index) {
+    const channel = channelsData[index];
+    player.source = {
+        type: 'video',
+        sources: [{ src: channel.stream, type: 'application/x-mpegURL' }]
+    };
+    player.play();
+
+    const allCards = document.getElementById('channelsGrid').children;
+    Array.from(allCards).forEach((card, i) => {
+        if(i === index){
+            card.classList.add('ring-4', 'ring-red-500');
+        } else {
+            card.classList.remove('ring-4', 'ring-red-500');
+        }
+    });
+
+    currentChannelIndex = index;
+}
+
+// Search filter
+document.getElementById('channelSearch').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const filtered = channelsData.filter(c => c.name.toLowerCase().includes(term));
+    renderChannels(filtered);
+    if(filtered[0]) switchChannel(channelsData.indexOf(filtered[0]));
+});
 
 loadChannels();
