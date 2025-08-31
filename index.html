@@ -40,7 +40,7 @@
 
 <script>
 const categories = ["Entertainment","Music","News"];
-let selectedCategory = "All";
+let selectedCategory = "Entertainment";  // Default first category
 let channelsData = [];
 
 // Render categories
@@ -68,7 +68,7 @@ function renderCategories() {
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
-  const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
+  const filtered = channelsData.filter(c => c.category === selectedCategory);
   filtered.forEach(channel=>{
     const div = document.createElement('div');
     div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
@@ -78,7 +78,10 @@ function renderChannels() {
         ${channel.name}
       </span>
     `;
-    div.addEventListener('click', ()=>{ window.location.href = channel.stream; });
+    div.addEventListener('click', ()=>{
+      const channelName = encodeURIComponent(channel.name);
+      window.location.href = \`player.html?name=\${channelName}\`;
+    });
     grid.appendChild(div);
   });
 }
