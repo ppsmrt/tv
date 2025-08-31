@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 
-  // Render horizontal category cards
+  // Render horizontal stacked red category cards
   function renderCategories() {
       const row = document.getElementById('categoriesRow');
       row.innerHTML = '';
@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const btn = document.createElement('button');
           btn.textContent = cat;
           btn.className = `
-              px-4 py-2 rounded-xl font-semibold
-              ${cat === selectedCategory ? 'bg-red-600' : 'bg-white/10'}
-              hover:bg-red-600
+              px-6 py-3 rounded-2xl font-semibold
+              ${cat === selectedCategory ? 'bg-red-600 text-white' : 'bg-red-500 text-white/80'}
+              hover:bg-red-700
               flex-shrink-0
           `;
           btn.addEventListener('click', () => {
@@ -105,13 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   closeBtn.addEventListener('click', closePopup);
   popup.addEventListener('click', e => { if(e.target === popup) closePopup(); });
-
-  // Search filter
-  document.getElementById('channelSearch').addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      channelsData.forEach(c => c.visible = c.name.toLowerCase().includes(term));
-      renderChannels();
-  });
 
   loadChannels();
 });
