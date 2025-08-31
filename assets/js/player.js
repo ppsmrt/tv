@@ -23,6 +23,7 @@ const tickerEl = document.getElementById('ticker');
 const adBar = document.getElementById('adBar');
 const controls = document.getElementById('customControls');
 const playPauseBtn = document.getElementById('playPause').querySelector("i");
+const centerPlayBtn = document.getElementById('centerPlayBtn');
 
 // Load video
 function loadVideo(index) {
@@ -34,14 +35,13 @@ function loadVideo(index) {
     sources: [{ src: item.url, type: 'video/mp4' }]
   };
 
-  // Ensure autoplay works
   player.once('ready', () => {
     loader.style.display = 'none';
     player.muted = true;
     player.play().catch(err => console.log("Autoplay failed:", err));
+    updateUIOnPlay();
   });
 
-  // Reset event listener to avoid duplicates
   player.off('ended', nextVideo);
   player.on('ended', nextVideo);
 
@@ -54,15 +54,30 @@ function nextVideo() {
   loadVideo(currentIndex);
 }
 
-// Play/Pause Toggle
+// Update Play/Pause UI
+function updateUIOnPlay() {
+  playPauseBtn.className = player.playing ? "fas fa-pause" : "fas fa-play";
+  centerPlayBtn.style.opacity = player.playing ? "0" : "1";
+}
+
+// Play/Pause Toggle (Custom Bar)
 document.getElementById('playPause').addEventListener('click', () => {
   if (player.playing) {
     player.pause();
-    playPauseBtn.className = "fas fa-play";
   } else {
     player.play();
-    playPauseBtn.className = "fas fa-pause";
   }
+  updateUIOnPlay();
+});
+
+// Center Play Button
+centerPlayBtn.addEventListener('click', () => {
+  if (player.playing) {
+    player.pause();
+  } else {
+    player.play();
+  }
+  updateUIOnPlay();
 });
 
 // Fullscreen
@@ -70,7 +85,7 @@ document.getElementById('fullscreenBtn').addEventListener('click', () => {
   player.fullscreen.enter();
 });
 
-// Orientation Change
+// Orientation Toggle
 document.getElementById('orientationBtn').addEventListener('click', () => {
   if (screen.orientation) {
     let type = screen.orientation.type.startsWith("landscape") ? "portrait" : "landscape";
@@ -93,21 +108,18 @@ let lastAdTime = 0;
 function showAd(ad) {
   adBar.innerHTML = `<img src="${ad.image}" alt="Ad">`;
   adBar.classList.add("show");
-
-  setTimeout(() => {
-    adBar.classList.remove("show");
-  }, 10000); // hide after 10 sec
+  setTimeout(() => adBar.classList.remove("show"), 10000);
 }
 
 function scheduleAds() {
   setInterval(() => {
     const now = Date.now();
-    if (now - lastAdTime >= 60000) { // once a minute
+    if (now - lastAdTime >= 60000) {
       const ad = ads[Math.floor(Math.random() * ads.length)];
       showAd(ad);
       lastAdTime = now;
     }
-  }, 5000); // check every 5s
+  }, 5000);
 }
 
 // --- Show/Hide Controls on Video Click ---
