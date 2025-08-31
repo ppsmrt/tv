@@ -4,8 +4,15 @@ async function fetchPlaylist() {
   return await response.json();
 }
 
+// Load Ads JSON
+async function fetchAds() {
+  const response = await fetch('ads.json');
+  return await response.json();
+}
+
 let playlist = [];
 let currentIndex = 0;
+let ads = [];
 const loader = document.getElementById('loader');
 const playerEl = document.getElementById('player');
 const player = new Plyr(playerEl, { controls: [] });
@@ -51,7 +58,7 @@ document.getElementById('fullscreenBtn').addEventListener('click', () => {
   player.fullscreen.enter();
 });
 
-// Orientation Change (simulated rotate)
+// Orientation Change
 document.getElementById('orientationBtn').addEventListener('click', () => {
   if (screen.orientation) {
     let type = screen.orientation.type.startsWith("landscape") ? "portrait" : "landscape";
@@ -68,22 +75,28 @@ function updateTicker(title) {
   tickerEl.textContent = `Testing new TV service - Now Playing: ${title} - ${timeStr}  |  Testing new TV service - Now Playing: ${title} - ${timeStr}`;
 }
 
-// --- Ad Cycling ---
-const ads = [
-  "🔥 Buy Now! Limited Offer 🔥",
-  "🎉 50% Off Today Only 🎉",
-  "🧵 New Sewing Machine Available 🧵",
-  "📺 Upgrade Your TV Experience 📺",
-  "💡 Smart Deals Just For You 💡"
-];
-let adIndex = 0;
+// --- Ad Scheduler ---
+let lastAdTime = 0;
 
-function cycleAds() {
-  adBar.textContent = ads[adIndex];
-  adIndex = (adIndex + 1) % ads.length;
+function showAd(ad) {
+  adBar.innerHTML = `<img src="${ad.image}" alt="Ad">`;
+  adBar.classList.add("show");
+
+  setTimeout(() => {
+    adBar.classList.remove("show");
+  }, 10000); // hide after 10 sec
 }
-setInterval(cycleAds, 5000);
-cycleAds();
+
+function scheduleAds() {
+  setInterval(() => {
+    const now = Date.now();
+    if (now - lastAdTime >= 60000) { // once a minute
+      const ad = ads[Math.floor(Math.random() * ads.length)];
+      showAd(ad);
+      lastAdTime = now;
+    }
+  }, 5000); // check every 5s
+}
 
 // --- Show/Hide Controls on Video Click ---
 let hideTimeout;
@@ -94,7 +107,9 @@ playerEl.addEventListener('click', () => {
 });
 
 // Init
-fetchPlaylist().then(data => {
-  playlist = data;
+Promise.all([fetchPlaylist(), fetchAds()]).then(([pl, adList]) => {
+  playlist = pl;
+  ads = adList;
   loadVideo(currentIndex);
+  scheduleAds();
 });
