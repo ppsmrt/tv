@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Kannada Suddi</title>
+<title>Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
@@ -15,26 +15,26 @@
 
   <!-- Header + Category Section -->
   <div id="headerCategories" class="flex flex-col sticky top-0 z-50">
-    <div class="bg-[#d92a1a] flex items-center justify-between px-4 py-3 shadow-md">
-      <button aria-label="Menu" class="text-white text-2xl">
+    <div class="bg-[#d92a1a] flex items-center justify-between px-5 py-5 shadow-lg rounded-b-xl">
+      <button aria-label="Menu" class="text-white text-3xl">
         <i class="fas fa-bars"></i>
       </button>
-      <h1 class="text-white text-lg sm:text-xl font-extrabold tracking-wider select-none">
-        ಕನ್ನಡ | ಸುದ್ದು
+      <h1 class="text-white text-2xl sm:text-3xl font-extrabold tracking-wider select-none">
+        Live TV
       </h1>
-      <button aria-label="Camera" class="text-white text-2xl">
-        <i class="fas fa-video"></i>
+      <button aria-label="Notifications" class="text-white text-3xl">
+        <i class="fas fa-bell"></i>
       </button>
     </div>
 
     <!-- Categories Row -->
-    <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-2 sm:space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none scrollbar-hide">
+    <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-3 sm:space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-3 px-3 select-none scrollbar-hide">
       <!-- Categories dynamically injected -->
     </nav>
   </div>
 
   <!-- Channels Grid -->
-  <div id="channelsGrid" class="bg-white flex-1 px-4 py-4 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4 overflow-y-auto">
+  <div id="channelsGrid" class="bg-white flex-1 px-4 py-4 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4 overflow-y-auto overscroll-contain">
     <!-- Channels dynamically injected -->
   </div>
 
@@ -72,7 +72,7 @@ function renderCategories() {
     const btn = document.createElement('a');
     btn.textContent = cat;
     btn.href = "#";
-    btn.className = `px-4 py-1 rounded-full whitespace-nowrap transform transition-all duration-200 ${
+    btn.className = `px-5 py-2 rounded-full whitespace-nowrap transform transition-all duration-200 shadow-sm ${
       selectedCategory === cat 
         ? 'bg-white text-red-600 font-bold relative overflow-hidden' 
         : 'bg-red-500/80 text-white hover:bg-white hover:text-red-600 hover:scale-105 relative overflow-hidden'
@@ -108,7 +108,7 @@ function renderChannels() {
   filtered.forEach((channel, index)=>{
     const div = document.createElement('div');
     div.style.animationDelay = `${index * 50}ms`; // stagger pop
-    div.className = 'flex flex-col items-center space-y-1 cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg animate-pop';
+    div.className = 'flex flex-col items-center space-y-1 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-xl bg-gradient-to-br from-white to-gray-50 animate-pop';
     div.innerHTML = `
       <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
       <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:64px;">
