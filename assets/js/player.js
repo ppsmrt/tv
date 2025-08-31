@@ -1,20 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const popup = document.getElementById('playerPopup');
-  const closeBtn = document.getElementById('closePopup');
-  const popupPlayer = new Plyr('#popupPlayer', { 
-      autoplay: true,
-      muted: false,
-      controls: ['play', 'progress', 'volume', 'fullscreen']
-  });
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
+  const categories = ["All", "Entertainment", "Music", "News"];
   let channelsData = [];
-  let categories = ["All", "Entertainment", "Music", "News"];
   let selectedCategory = "All";
 
+  // Load channels.json
   async function loadChannels() {
       try {
-          const res = await fetch('data/channels.json'); // ensure correct relative path
+          const res = await fetch('data/channels.json'); // path relative to index.html
           channelsData = await res.json();
           renderCategories();
           renderChannels();
@@ -23,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 
+  // Render stacked category buttons
   function renderCategories() {
       const row = document.getElementById('categoriesRow');
       row.innerHTML = '';
@@ -45,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
+  // Render channels grid
   function renderChannels() {
       const grid = document.getElementById('channelsGrid');
       grid.innerHTML = '';
@@ -68,38 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
               hover:scale-105 hover:bg-red-600 hover:text-white
               flex flex-col items-center
           `;
+
           div.innerHTML = `
               <img src="${channel.icon}" alt="${channel.name}" class="w-full h-24 object-contain mb-2 rounded">
               <p class="text-center font-semibold text-black">${channel.name}</p>
           `;
 
-          div.addEventListener('click', async () => {
-              popupPlayer.source = {
-                  type: 'video',
-                  sources: [{ src: channel.stream, type: 'application/x-mpegURL' }]
-              };
-              popup.classList.remove('hidden');
-              await new Promise(r => setTimeout(r, 100));
-              popupPlayer.play();
-
-              if(isMobile){
-                  const videoEl = document.getElementById('popupPlayer');
-                  if(videoEl.requestFullscreen) videoEl.requestFullscreen();
-                  else if(videoEl.webkitEnterFullscreen) videoEl.webkitEnterFullscreen();
-              }
+          // Open player.html on click
+          div.addEventListener('click', () => {
+              const streamUrl = encodeURIComponent(channel.stream);
+              const name = encodeURIComponent(channel.name);
+              window.location.href = `player.html?stream=${streamUrl}&name=${name}`;
           });
 
           grid.appendChild(div);
       });
   }
-
-  closeBtn.addEventListener('click', () => {
-      popupPlayer.stop();
-      popup.classList.add('hidden');
-      if(document.fullscreenElement) document.exitFullscreen();
-  });
-
-  popup.addEventListener('click', e => { if(e.target === popup) closePopup(); });
 
   loadChannels();
 });
