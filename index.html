@@ -16,13 +16,15 @@
 
   <!-- Video Player Glassmorphic Overlay -->
   <div class="max-w-5xl mx-auto my-6 p-4 bg-white/10 backdrop-blur-md rounded-xl shadow-2xl">
-    <video id="tvPlayer" class="w-full rounded-xl" controls></video>
+    <div class="relative aspect-video w-full">
+      <video id="tvPlayer" class="w-full h-full rounded-xl" controls></video>
+    </div>
   </div>
 
   <!-- Search Bar -->
   <div class="max-w-5xl mx-auto px-4 mb-4">
     <input id="channelSearch" type="text" placeholder="Search channels..." 
-      class="w-full p-2 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" />
+      class="w-full p-3 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" />
   </div>
 
   <!-- Channels Grid -->
@@ -31,6 +33,6 @@
   </div>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-  <script src="assets/js/player.js"></script>
+  <script src="js/playlist.js"></script>
 </body>
 </html>
