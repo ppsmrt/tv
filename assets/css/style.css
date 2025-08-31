@@ -147,3 +147,67 @@ body {
   border-radius: 4px;
   z-index: 7;
 }
+/* Glassmorphism effect for control bar */
+.custom-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.custom-controls.show {
+  opacity: 1;
+}
+
+.control-bar {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  padding: 10px 20px;
+  border-radius: 40px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.control-bar button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.control-bar button:hover {
+  transform: scale(1.2);
+}
+
+/* Big Center Play Button */
+.center-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 70px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out, transform 0.3s ease;
+}
+
+.center-play.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
