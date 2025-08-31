@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Kannada Suddi</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
- body { font-family: 'Baloo 2', cursive; }
+  body { font-family: 'Baloo 2', cursive; }
 </style>
 </head>
 <body class="bg-white w-screen h-screen flex flex-col">
@@ -27,8 +27,8 @@
       </button>
     </div>
 
-    <!-- Categories -->
-    <nav id="categoriesRow" class="bg-[#d92a1a] flex justify-around text-white text-xs font-semibold tracking-wide py-2 select-none">
+    <!-- Categories Row -->
+    <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none">
       <!-- Categories dynamically injected -->
     </nav>
 
@@ -41,21 +41,7 @@
 <script>
 const categories = ["Entertainment","Music","News"];
 let selectedCategory = "All";
-
-// Channel data
-const channelsData = [
-  {"name":"DighVijay","icon":"https://storage.googleapis.com/a1aa/image/2eece8f7-c671-498e-e545-b9867e44af69.jpg","stream":"player.html?stream=dighvijay","category":"Entertainment"},
-  {"name":"Public Tv","icon":"https://storage.googleapis.com/a1aa/image/edde0891-e3f5-42ae-7977-91156b3d5f8d.jpg","stream":"player.html?stream=publictv","category":"News"},
-  {"name":"ETV Bharath","icon":"https://storage.googleapis.com/a1aa/image/4589a33b-930d-4989-999e-4f42503338b4.jpg","stream":"player.html?stream=etv","category":"Entertainment"},
-  {"name":"News18","icon":"https://storage.googleapis.com/a1aa/image/00662323-d5b1-4a0a-6c38-91995e2b3484.jpg","stream":"player.html?stream=news18","category":"News"},
-  {"name":"News1","icon":"https://storage.googleapis.com/a1aa/image/fa380566-0baf-45e4-e6f6-d74455d19f80.jpg","stream":"player.html?stream=news1","category":"News"},
-  {"name":"TV9 Kannada","icon":"https://storage.googleapis.com/a1aa/image/96c99a47-93a4-4a4d-6d48-ab551d9102c2.jpg","stream":"player.html?stream=tv9","category":"News"},
-  {"name":"TV5 Kannada","icon":"https://storage.googleapis.com/a1aa/image/c41b893d-dc5d-43f3-149d-b360f6537ac8.jpg","stream":"player.html?stream=tv5","category":"Entertainment"},
-  {"name":"Suvarna","icon":"https://storage.googleapis.com/a1aa/image/66344924-e228-4fd2-b2a8-261ec9bbea6c.jpg","stream":"player.html?stream=suvarna","category":"Entertainment"},
-  {"name":"B TV","icon":"https://storage.googleapis.com/a1aa/image/c0be9875-09f1-4b2f-a9ae-c6f397f09e3d.jpg","stream":"player.html?stream=btv","category":"Music"},
-  {"name":"News Live","icon":"https://storage.googleapis.com/a1aa/image/d715a064-eabe-4b42-c65d-9768f1b38804.jpg","stream":"player.html?stream=newslive","category":"News"},
-  {"name":"ಚಂದನ","icon":"https://storage.googleapis.com/a1aa/image/fb79652b-4174-4cc0-3e68-e2401427c88d.jpg","stream":"player.html?stream=chandana","category":"Entertainment"}
-];
+let channelsData = [];
 
 // Render categories
 function renderCategories() {
@@ -65,7 +51,9 @@ function renderCategories() {
     const btn = document.createElement('a');
     btn.textContent = cat;
     btn.href = "#";
-    btn.className = `hover:underline ${selectedCategory===cat?'underline font-bold':''}`;
+    btn.className = `px-4 py-1 rounded-full whitespace-nowrap ${
+      selectedCategory === cat ? 'bg-white text-red-600 font-bold' : 'bg-red-500/80 text-white'
+    }`;
     btn.addEventListener('click', (e)=>{
       e.preventDefault();
       selectedCategory = cat;
@@ -76,25 +64,38 @@ function renderCategories() {
   });
 }
 
-// Render channels
-function renderChannels(){
+// Render channels dynamically
+function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
-  const filtered = channelsData.filter(c=>selectedCategory==="All"||c.category===selectedCategory);
+  const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
   filtered.forEach(channel=>{
     const div = document.createElement('div');
     div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-14 h-14 rounded-md" />
-      <span class="text-xs text-gray-900 select-none">${channel.name}</span>
+      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 rounded-md object-contain"/>
+      <span class="text-xs text-gray-900 text-center select-none truncate" style="max-width:64px;">
+        ${channel.name}
+      </span>
     `;
     div.addEventListener('click', ()=>{ window.location.href = channel.stream; });
     grid.appendChild(div);
   });
 }
 
-renderCategories();
-renderChannels();
+// Load channels from JSON
+async function loadChannels() {
+  try {
+    const res = await fetch('tv/data/channels.json');
+    channelsData = await res.json();
+    renderCategories();
+    renderChannels();
+  } catch(err) {
+    console.error("Failed to load channels:", err);
+  }
+}
+
+loadChannels();
 </script>
 
 </body>
