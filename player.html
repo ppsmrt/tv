@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live TV Player</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<style>
+  /* Fullscreen video container */
+  #playerContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+  }
+  video {
+    max-width: 100%;
+    max-height: 100%;
+  }
+</style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+
+  <!-- Header (same as index.html) -->
+  <header class="flex justify-between items-center p-4 bg-red-600 shadow-md">
+    <!-- Left: Menu icon (dummy) -->
+    <button class="text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Center: Channel Title -->
+    <h1 id="channelTitle" class="text-2xl font-bold text-white text-center flex-1">Channel</h1>
+
+    <!-- Right: Back button -->
+    <button onclick="goBack()" class="text-white text-xl">✖</button>
+  </header>
+
+  <!-- Video Player Container -->
+  <div id="playerContainer">
+    <video id="tvPlayer" class="rounded-xl" controls></video>
+  </div>
+
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script>
+    // Get URL parameters for stream & name
+    const urlParams = new URLSearchParams(window.location.search);
+    const stream = decodeURIComponent(urlParams.get('stream') || '');
+    const name = decodeURIComponent(urlParams.get('name') || 'Live TV');
+
+    document.getElementById('channelTitle').textContent = name;
+
+    // Initialize Plyr
+    const player = new Plyr('#tvPlayer', { 
+        autoplay: true,
+        muted: false,
+        controls: ['play', 'progress', 'volume', 'fullscreen']
+    });
+
+    player.source = {
+      type: 'video',
+      sources: [{ src: stream, type: 'application/x-mpegURL' }]
+    };
+
+    // Back button
+    function goBack() {
+        window.history.back();
+    }
+
+    // Auto fullscreen on mobile / touch devices
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if(isMobile){
+      const videoEl = document.getElementById('tvPlayer');
+      // Try request fullscreen if supported
+      if(videoEl.requestFullscreen) videoEl.requestFullscreen();
+      else if(videoEl.webkitEnterFullscreen) videoEl.webkitEnterFullscreen();
+    }
+
+    // Make player responsive to window resize
+    window.addEventListener('resize', () => {
+      const container = document.getElementById('playerContainer');
+      const vh = window.innerHeight - document.querySelector('header').offsetHeight;
+      container.style.height = `${vh}px`;
+    });
+    window.dispatchEvent(new Event('resize'));
+  </script>
+</body>
+</html>
