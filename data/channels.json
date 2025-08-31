@@ -28,5 +28,11 @@
     "icon": "https://tataprime.wordpress.com/wp-content/uploads/2025/09/20250901_0343577746047682887160472.png",
     "stream": "http://198.144.149.206:8080/NOTV/KANCHITV/tracks-v1a1/mono.m3u8?token=GTR",
     "category": "Entertainment"
+  },
+{
+    "name": "Rasi",
+    "icon": "https://tataprime.wordpress.com/wp-content/uploads/2024/04/20240407_1437564760907591116562534.png",
+    "stream": "http://rasinetworks.in:1935/rasitvhd/rasitvhd.stream_aac/media.m3u8",
+    "category": "Entertainment"
   }
 ]
