@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premium Video Player</title>
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-<link rel="stylesheet" href="https://ppsmrt.github.io/tv/assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
@@ -13,10 +14,11 @@
   <div class="loader" id="loader">Loading...</div>
   <video id="player" playsinline muted autoplay></video>
 
-  <div class="controls-container">
-    <button id="playPause">▶️</button>
-    <input type="range" id="volume" min="0" max="1" step="0.05" value="0.5">
-    <button id="fullscreenBtn">⛶</button>
+  <!-- Custom Controls (hidden until video clicked) -->
+  <div class="custom-controls" id="customControls">
+    <button id="playPause"><i class="fas fa-play"></i></button>
+    <button id="orientationBtn"><i class="fas fa-sync-alt"></i></button>
+    <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
   </div>
 
   <!-- Ad and ticker -->
