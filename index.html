@@ -3,25 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Live TV</title>
+<title>Premium IPTV</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
 
   <!-- Header -->
   <header class="bg-red-600 p-4 text-center font-bold text-2xl shadow-md">
-    Live TV Premium
+    Premium Live TV
   </header>
 
-  <!-- Video Player -->
-  <div class="max-w-5xl mx-auto my-6 px-4">
-    <video id="tvPlayer" class="w-full rounded-xl shadow-2xl bg-black" controls></video>
+  <!-- Video Player Glassmorphic Overlay -->
+  <div class="max-w-5xl mx-auto my-6 p-4 bg-white/10 backdrop-blur-md rounded-xl shadow-2xl">
+    <video id="tvPlayer" class="w-full rounded-xl" controls></video>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="max-w-5xl mx-auto px-4 mb-4">
+    <input id="channelSearch" type="text" placeholder="Search channels..." 
+      class="w-full p-2 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500" />
   </div>
 
   <!-- Channels Grid -->
   <div id="channelsGrid" class="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4">
-    <!-- Channels injected dynamically -->
+    <!-- Channels dynamically injected here -->
   </div>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
