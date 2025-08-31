@@ -1,124 +1,135 @@
-// Fetch data
-async function fetchJSON(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Failed to load ${url}`);
-  return await response.json();
-}
+/* Web TV – always-on looped player with transparent slow ticker
+   Paths (relative to /tv/):
+   - playlist:  playlist.json
+   - ticker:    data/ticker.json
+*/
 
-let playlist = [];
-let currentIndex = 0;
-let ads = [];
-let tickerData = [];
-
+const video = document.getElementById('player');
 const loader = document.getElementById('loader');
-const playerEl = document.getElementById('player');
-const tickerEl = document.getElementById('ticker');
-const adBar = document.getElementById('adBar');
-const controls = document.getElementById('customControls');
-const playPauseBtn = document.querySelector("#playPause i");
+const tickerTrack = document.getElementById('tickerTrack');
+const brandLeft = document.getElementById('brandLeft');
+const watermarkRight = document.getElementById('watermarkRight');
 
-const player = new Plyr(playerEl, { controls: [] });
+// --- State ---
+let playlist = [];
+let idx = 0;
+let tickerLines = [];
+let booted = false;
 
-// Load video
-function loadVideo(index) {
-  const item = playlist[index];
-  loader.style.display = 'block';
+// --- Utils ---
+const fetchJSON = async (url) => {
+  const res = await fetch(`${url}?v=${Date.now()}`); // cache-bust for GH Pages
+  if (!res.ok) throw new Error(`Failed to load ${url}`);
+  return res.json();
+};
 
-  player.source = {
-    type: 'video',
-    sources: [{ src: item.url, type: 'video/mp4' }]
-  };
+const showLoader = (on) => loader.classList.toggle('show', !!on);
 
-  player.once('ready', () => {
-    loader.style.display = 'none';
-    player.muted = true;
-    player.play().catch(err => console.log("Autoplay failed:", err));
-  });
-
-  player.off('ended', nextVideo);
-  player.on('ended', nextVideo);
-
-  updateTicker(item.title);
+// Concatenate ticker text and duplicate for continuous crawl
+function setTicker(nowTitle = '') {
+  const timeStr = new Date().toLocaleTimeString();
+  const extra = tickerLines && tickerLines.length
+    ? ' | ' + tickerLines.join(' | ')
+    : '';
+  const msg = `Now Playing: ${nowTitle} - ${timeStr}${extra}   •   `;
+  // Repeat to ensure long smooth scroll
+  tickerTrack.textContent = (msg + (tickerLines.join(' • ') || msg)).repeat(3);
 }
 
-// Next video
-function nextVideo() {
-  currentIndex = (currentIndex + 1) % playlist.length;
-  loadVideo(currentIndex);
-}
+// Load one video source and start playing
+async function loadAndPlay(index) {
+  if (!playlist.length) return;
 
-// Play/Pause
-document.getElementById('playPause').addEventListener('click', () => {
-  if (player.playing) {
-    player.pause();
-    playPauseBtn.className = "fas fa-play";
-  } else {
-    player.play();
-    playPauseBtn.className = "fas fa-pause";
+  const item = playlist[index % playlist.length];
+  idx = index % playlist.length;
+
+  try {
+    showLoader(true);
+
+    // Prepare source (MP4-only)
+    video.src = item.url;
+    video.loop = false;            // we loop playlist, not single file
+    video.muted = true;            // for autoplay policy
+    video.playsInline = true;
+
+    // Update overlay info
+    setTicker(item.title);
+
+    // Wait until ready and play
+    await video.play().catch(() => {});
+  } catch (e) {
+    console.warn('Play error, skipping:', e);
+    next();
   }
-});
+}
 
-// Fullscreen
-document.getElementById('fullscreenBtn').addEventListener('click', () => {
-  player.fullscreen.enter();
-});
+// Next item in playlist
+function next() {
+  idx = (idx + 1) % Math.max(1, playlist.length);
+  loadAndPlay(idx);
+}
 
-// Orientation
-document.getElementById('orientationBtn').addEventListener('click', () => {
-  if (screen.orientation) {
-    let type = screen.orientation.type.startsWith("landscape") ? "portrait" : "landscape";
-    screen.orientation.lock(type).catch(err => console.log("Orientation change failed:", err));
-  } else {
-    alert("Orientation API not supported");
+// Keep-alive: if paused (visibility/tab changes), try to resume
+function heartbeat() {
+  if (playlist.length && (video.paused || video.readyState < 2)) {
+    video.play().catch(() => {});
   }
+}
+setInterval(heartbeat, 5000);
+
+// --- Events ---
+video.addEventListener('canplay', () => showLoader(false));
+video.addEventListener('waiting', () => showLoader(true));
+video.addEventListener('stalled', () => showLoader(true));
+video.addEventListener('error', () => {
+  console.warn('Video error -> next()');
+  next();
+});
+video.addEventListener('ended', next);
+
+// Update ticker time every second
+setInterval(() => setTicker(playlist[idx]?.title || ''), 1000);
+
+// Attempt to resume when tab becomes visible
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) heartbeat();
 });
 
-// Ticker
-function updateTicker(title) {
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString();
-  const extraTicker = tickerData.length ? ` | ${tickerData.join(" | ")}` : "";
-  tickerEl.textContent = `Now Playing: ${title} - ${timeStr}${extraTicker}`;
-}
+// --- Boot ---
+(async function init() {
+  try {
+    // Set fixed overlay labels
+    brandLeft.textContent = 'DEV TV';
+    watermarkRight.textContent = 'DEVA TV';
 
-// Ads
-let lastAdTime = 0;
-function showAd(ad) {
-  adBar.textContent = ad.text;
-  adBar.classList.add("show");
-  setTimeout(() => adBar.classList.remove("show"), 10000);
-}
+    const [pl, tick] = await Promise.all([
+      fetchJSON('playlist.json'),
+      fetchJSON('data/ticker.json')
+    ]);
 
-function scheduleAds() {
-  setInterval(() => {
-    const now = Date.now();
-    if (now - lastAdTime >= 60000) {
-      const ad = ads[Math.floor(Math.random() * ads.length)];
-      showAd(ad);
-      lastAdTime = now;
+    // filter MP4 only (safety)
+    playlist = (pl || []).filter(v => v?.url?.toLowerCase().endsWith('.mp4'));
+
+    // Fallback sample if playlist empty
+    if (!playlist.length) {
+      playlist = [
+        { title: 'Sample (BBB)', url: 'https://www.w3schools.com/html/mov_bbb.mp4' }
+      ];
     }
-  }, 5000);
-}
 
-// Show/Hide Controls
-let hideTimeout;
-playerEl.addEventListener('click', () => {
-  controls.classList.add("show");
-  clearTimeout(hideTimeout);
-  hideTimeout = setTimeout(() => controls.classList.remove("show"), 3000);
-});
+    tickerLines = Array.isArray(tick) ? tick : [];
+    setTicker(playlist[0]?.title || '');
 
-// Init
-Promise.all([
-  fetchJSON('playlist.json'),
-  fetchJSON('data/ads.json'),
-  fetchJSON('data/ticker.json')
-])
-  .then(([pl, adList, tickerList]) => {
-    playlist = pl;
-    ads = adList;
-    tickerData = tickerList;
-    loadVideo(currentIndex);
-    scheduleAds();
-  })
-  .catch(err => console.error("Error initializing player:", err));
+    booted = true;
+    loadAndPlay(0);
+  } catch (err) {
+    console.error('Init failed:', err);
+    // Minimal fallback to keep screen alive
+    playlist = [
+      { title: 'Sample (BBB)', url: 'https://www.w3schools.com/html/mov_bbb.mp4' }
+    ];
+    tickerLines = [];
+    setTicker(playlist[0].title);
+    loadAndPlay(0);
+  }
+})();
