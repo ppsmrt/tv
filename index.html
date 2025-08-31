@@ -11,15 +11,15 @@
  body { font-family: 'Baloo 2', cursive; }
 </style>
 </head>
-<body class="bg-white">
+<body class="bg-white w-screen h-screen flex flex-col">
 
   <!-- Header -->
-  <div class="max-w-xs mx-auto mt-4 rounded-3xl overflow-hidden shadow-lg border border-gray-200" style="max-width: 320px;">
-    <div class="bg-[#d92a1a] relative flex items-center justify-between px-4 py-3 rounded-t-3xl">
+  <div class="w-full flex flex-col h-full">
+    <div class="bg-[#d92a1a] relative flex items-center justify-between px-4 py-3">
       <button aria-label="Menu" class="text-white text-xl">
         <i class="fas fa-bars"></i>
       </button>
-      <h1 class="text-white text-lg font-extrabold tracking-wider select-none" style="font-weight: 900; font-size: 1.25rem;">
+      <h1 class="text-white text-lg font-extrabold tracking-wider select-none">
         ಕನ್ನಡ | ಸುದ್ದು
       </h1>
       <button aria-label="Camera" class="text-white text-xl">
@@ -28,12 +28,12 @@
     </div>
 
     <!-- Categories -->
-    <nav id="categoriesRow" class="bg-[#d92a1a] flex justify-around text-white text-xs font-semibold tracking-wide py-2 select-none" style="font-size: 0.75rem;">
+    <nav id="categoriesRow" class="bg-[#d92a1a] flex justify-around text-white text-xs font-semibold tracking-wide py-2 select-none">
       <!-- Categories dynamically injected -->
     </nav>
 
     <!-- Channels Grid -->
-    <div id="channelsGrid" class="bg-white px-4 py-4 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4">
+    <div id="channelsGrid" class="bg-white flex-1 px-4 py-4 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4 overflow-y-auto">
       <!-- Channels dynamically injected -->
     </div>
   </div>
@@ -42,7 +42,7 @@
 const categories = ["Entertainment","Music","News"];
 let selectedCategory = "All";
 
-// Example channel data (replace with JSON fetch if needed)
+// Channel data
 const channelsData = [
   {"name":"DighVijay","icon":"https://storage.googleapis.com/a1aa/image/2eece8f7-c671-498e-e545-b9867e44af69.jpg","stream":"player.html?stream=dighvijay","category":"Entertainment"},
   {"name":"Public Tv","icon":"https://storage.googleapis.com/a1aa/image/edde0891-e3f5-42ae-7977-91156b3d5f8d.jpg","stream":"player.html?stream=publictv","category":"News"},
