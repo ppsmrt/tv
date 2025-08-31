@@ -1,45 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium IPTV Dashboard</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Kannada Suddi</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&amp;display=swap" rel="stylesheet"/>
+<style>
+ body { font-family: 'Baloo 2', cursive; }
+</style>
 </head>
-<body class="bg-white text-black min-h-screen flex flex-col">
+<body class="bg-white">
 
   <!-- Header -->
-  <header class="flex justify-between items-center p-4 bg-red-600 shadow-md">
-    <!-- Left: Menu Icon -->
-    <button class="text-white">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+  <div class="max-w-xs mx-auto mt-4 rounded-3xl overflow-hidden shadow-lg border border-gray-200" style="max-width: 320px;">
+    <div class="bg-[#d92a1a] relative flex items-center justify-between px-4 py-3 rounded-t-3xl">
+      <button aria-label="Menu" class="text-white text-xl">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h1 class="text-white text-lg font-extrabold tracking-wider select-none" style="font-weight: 900; font-size: 1.25rem;">
+        ಕನ್ನಡ | ಸುದ್ದು
+      </h1>
+      <button aria-label="Camera" class="text-white text-xl">
+        <i class="fas fa-video"></i>
+      </button>
+    </div>
 
-    <!-- Center: Live TV -->
-    <h1 class="text-2xl font-bold text-white">Live TV</h1>
+    <!-- Categories -->
+    <nav id="categoriesRow" class="bg-[#d92a1a] flex justify-around text-white text-xs font-semibold tracking-wide py-2 select-none" style="font-size: 0.75rem;">
+      <!-- Categories dynamically injected -->
+    </nav>
 
-    <!-- Right: Notifications -->
-    <button class="relative text-white">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-      </svg>
-      <span id="notificationCount" class="absolute top-0 right-0 text-xs bg-red-500 text-white rounded-full px-1">3</span>
-    </button>
-  </header>
-
-  <!-- Categories Row -->
-  <div id="categoriesRow" class="max-w-5xl mx-auto px-4 mt-4 mb-4 flex space-x-4 overflow-x-auto">
-    <!-- Categories dynamically injected -->
+    <!-- Channels Grid -->
+    <div id="channelsGrid" class="bg-white px-4 py-4 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4">
+      <!-- Channels dynamically injected -->
+    </div>
   </div>
 
-  <!-- Channels Grid -->
-  <div id="channelsGrid" class="max-w-5xl mx-auto grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 p-4">
-    <!-- Channels dynamically injected -->
-  </div>
+<script>
+const categories = ["Entertainment","Music","News"];
+let selectedCategory = "All";
 
-  <script src="assets/js/player.js"></script>
+// Example channel data (replace with JSON fetch if needed)
+const channelsData = [
+  {"name":"DighVijay","icon":"https://storage.googleapis.com/a1aa/image/2eece8f7-c671-498e-e545-b9867e44af69.jpg","stream":"player.html?stream=dighvijay","category":"Entertainment"},
+  {"name":"Public Tv","icon":"https://storage.googleapis.com/a1aa/image/edde0891-e3f5-42ae-7977-91156b3d5f8d.jpg","stream":"player.html?stream=publictv","category":"News"},
+  {"name":"ETV Bharath","icon":"https://storage.googleapis.com/a1aa/image/4589a33b-930d-4989-999e-4f42503338b4.jpg","stream":"player.html?stream=etv","category":"Entertainment"},
+  {"name":"News18","icon":"https://storage.googleapis.com/a1aa/image/00662323-d5b1-4a0a-6c38-91995e2b3484.jpg","stream":"player.html?stream=news18","category":"News"},
+  {"name":"News1","icon":"https://storage.googleapis.com/a1aa/image/fa380566-0baf-45e4-e6f6-d74455d19f80.jpg","stream":"player.html?stream=news1","category":"News"},
+  {"name":"TV9 Kannada","icon":"https://storage.googleapis.com/a1aa/image/96c99a47-93a4-4a4d-6d48-ab551d9102c2.jpg","stream":"player.html?stream=tv9","category":"News"},
+  {"name":"TV5 Kannada","icon":"https://storage.googleapis.com/a1aa/image/c41b893d-dc5d-43f3-149d-b360f6537ac8.jpg","stream":"player.html?stream=tv5","category":"Entertainment"},
+  {"name":"Suvarna","icon":"https://storage.googleapis.com/a1aa/image/66344924-e228-4fd2-b2a8-261ec9bbea6c.jpg","stream":"player.html?stream=suvarna","category":"Entertainment"},
+  {"name":"B TV","icon":"https://storage.googleapis.com/a1aa/image/c0be9875-09f1-4b2f-a9ae-c6f397f09e3d.jpg","stream":"player.html?stream=btv","category":"Music"},
+  {"name":"News Live","icon":"https://storage.googleapis.com/a1aa/image/d715a064-eabe-4b42-c65d-9768f1b38804.jpg","stream":"player.html?stream=newslive","category":"News"},
+  {"name":"ಚಂದನ","icon":"https://storage.googleapis.com/a1aa/image/fb79652b-4174-4cc0-3e68-e2401427c88d.jpg","stream":"player.html?stream=chandana","category":"Entertainment"}
+];
+
+// Render categories
+function renderCategories() {
+  const row = document.getElementById('categoriesRow');
+  row.innerHTML = '';
+  categories.forEach(cat => {
+    const btn = document.createElement('a');
+    btn.textContent = cat;
+    btn.href = "#";
+    btn.className = `hover:underline ${selectedCategory===cat?'underline font-bold':''}`;
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      selectedCategory = cat;
+      renderCategories();
+      renderChannels();
+    });
+    row.appendChild(btn);
+  });
+}
+
+// Render channels
+function renderChannels(){
+  const grid = document.getElementById('channelsGrid');
+  grid.innerHTML = '';
+  const filtered = channelsData.filter(c=>selectedCategory==="All"||c.category===selectedCategory);
+  filtered.forEach(channel=>{
+    const div = document.createElement('div');
+    div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
+    div.innerHTML = `
+      <img src="${channel.icon}" alt="${channel.name}" class="w-14 h-14 rounded-md" />
+      <span class="text-xs text-gray-900 select-none">${channel.name}</span>
+    `;
+    div.addEventListener('click', ()=>{ window.location.href = channel.stream; });
+    grid.appendChild(div);
+  });
+}
+
+renderCategories();
+renderChannels();
+</script>
+
 </body>
 </html>
