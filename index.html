@@ -1,67 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>DEV TV — Live</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DEV TV — Live IPTV</title>
 
-  <!-- Tailwind CDN (utility classes only) -->
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Optional: Font Awesome for icons -->
+  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-  <!-- Minimal CSS for ticker animation + small specifics -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Optional: minimal CSS for ticker animation -->
+  <style>
+    @keyframes ticker-scroll {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    #tickerTrack {
+      display: inline-block;
+      white-space: nowrap;
+      animation: ticker-scroll 42s linear infinite;
+    }
+  </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-black text-white overflow-hidden">
 
-  <!-- Fullscreen video -->
-  <video id="player" playsinline webkit-playsinline muted autoplay></video>
+  <!-- Fullscreen Video -->
+  <video id="player" class="fixed inset-0 w-full h-full object-cover z-0" playsinline muted autoplay></video>
 
-  <!-- Top-left brand (green) -->
-  <div id="brandLeft" class="fixed top-3 left-3 z-40 font-extrabold text-green-400 select-none pointer-events-none"
-       style="font-size:clamp(14px,2.4vw,26px); text-transform:uppercase;">
+  <!-- Brand Left -->
+  <div id="brandLeft" class="fixed top-3 left-3 z-40 font-extrabold text-green-400 select-none pointer-events-none text-[clamp(14px,2.4vw,26px)] uppercase">
     DEV TV
   </div>
 
-  <!-- Right-center watermark (semi-transparent white) -->
-  <div id="watermarkRight"
-       class="fixed z-30 text-white/70 select-none pointer-events-none"
-       style="right:4%; top:50%; transform:translateY(-50%); font-weight:700; font-size:clamp(14px,2.8vw,28px); text-transform:uppercase;">
+  <!-- Watermark Right -->
+  <div id="watermarkRight" class="fixed right-4 top-1/2 transform -translate-y-1/2 z-30 text-white/70 font-bold select-none pointer-events-none text-[clamp(14px,2.8vw,28px)] uppercase">
     DEV TV
   </div>
 
-  <!-- Red time box (top-right-ish) -->
-  <div id="timeBox"
-       class="fixed z-35 text-white font-bold"
-       style="right:1.25rem; top:1rem; background:#e60000; padding:6px 10px; border-radius:6px; font-family:monospace;">
+  <!-- Time Box -->
+  <div id="timeBox" class="fixed right-5 top-4 z-35 font-mono font-bold text-white px-3 py-1 rounded bg-red-600 text-sm">
     00:00:00
   </div>
 
-  <!-- Transparent text-only ad overlay (center-bottom, above ticker) -->
-  <div id="adBar" class="fixed left-0 right-0 bottom-28 z-35 flex justify-center pointer-events-none">
-    <div id="adText" class="px-4 py-1 text-sm bg-transparent text-white/90 font-semibold"></div>
+  <!-- Ad Bar -->
+  <div id="adBar" class="fixed left-0 right-0 bottom-28 z-35 flex justify-center pointer-events-none transition-opacity duration-300 opacity-0">
+    <div id="adText" class="px-4 py-1 text-white/90 font-semibold bg-black/30 backdrop-blur-sm rounded"></div>
   </div>
 
-  <!-- Ticker (slow transparent scrolling text) -->
-  <div class="fixed left-0 right-0 bottom-6 z-40 pointer-events-none">
-    <div class="overflow-hidden">
-      <div id="tickerTrack" class="whitespace-nowrap will-change-transform text-white text-sm" aria-hidden="true"></div>
-    </div>
+  <!-- Ticker -->
+  <div class="fixed left-0 right-0 bottom-6 z-40 pointer-events-none overflow-hidden">
+    <div id="tickerTrack" class="text-white text-sm"></div>
   </div>
 
-  <!-- Transparent minimal controls (appear on mousemove, hidden by default) -->
+  <!-- Player Controls -->
   <div id="controls" class="fixed left-1/2 -translate-x-1/2 bottom-3 z-50 flex gap-3 opacity-0 transition-opacity duration-300">
-    <button id="muteBtn" class="bg-transparent border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/5">
+    <button id="muteBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
       <i id="muteIcon" class="fa-solid fa-volume-xmark"></i>
     </button>
-    <button id="fsBtn" class="bg-transparent border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/5">
+    <button id="fsBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
       <i class="fa-solid fa-expand"></i>
     </button>
   </div>
 
-  <!-- Player script -->
-  <script src="assets/js/player.js" defer></script>
+  <!-- Player Script -->
+  <script>
+    (() => {
+      const VIDEO_EL = document.getElementById('player');
+      const TIME_BOX = document.getElementById('timeBox');
+      const AD_BAR = document.getElementById('adBar');
+      const AD_TEXT = document.getElementById('adText');
+      const TICKER = document.getElementById('tickerTrack');
+      const CONTROLS = document.getElementById('controls');
+      const MUTE_BTN = document.getElementById('muteBtn');
+      const MUTE_ICON = document.getElementById('muteIcon');
+      const FS_BTN = document.getElementById('fsBtn');
+
+      const PLAYLIST_URL = 'playlist.json';
+      const ADS_URL = 'data/ads.json';
+      const TICKER_URL = 'data/ticker.json';
+
+      let playlist = [];
+      let ads = [];
+      let tickerLines = [];
+      let idx = 0;
+      let lastAdAt = 0;
+      const AD_INTERVAL = 60_000;
+      const AD_DURATION = 5_000;
+
+      const fetchJSON = async (url) => {
+        const res = await fetch(`${url}?_=${Date.now()}`);
+        if (!res.ok) throw new Error(`Failed to load ${url}`);
+        return res.json();
+      };
+
+      // Update clock
+      const updateTime = () => {
+        const now = new Date();
+        TIME_BOX.textContent = now.toLocaleTimeString('en-US', {hour12:false});
+      };
+      setInterval(updateTime,1000);
+      updateTime();
+
+      // Ticker
+      const refreshTicker = (title='') => {
+        const timeStr = new Date().toLocaleTimeString();
+        const base = tickerLines.length ? tickerLines.join(' • ') : '';
+        const msg = title ? `Now Playing: ${title} - ${timeStr} • ${base}` : `Live • ${timeStr} • ${base}`;
+        TICKER.textContent = (msg + '   •   ').repeat(6);
+        void TICKER.offsetWidth;
+      };
+
+      // Play video
+      const playIndex = async (i=0) => {
+        if (!playlist.length) return;
+        idx = i % playlist.length;
+        const item = playlist[idx];
+        if (!item?.url?.toLowerCase().endsWith('.mp4')) return next();
+
+        VIDEO_EL.src = item.url;
+        VIDEO_EL.muted = true; 
+        VIDEO_EL.playsInline = true;
+        VIDEO_EL.load();
+
+        refreshTicker(item.title);
+
+        try { await VIDEO_EL.play(); } 
+        catch { VIDEO_EL.muted = true; VIDEO_EL.play().catch(()=>{}); }
+      };
+      const next = () => playIndex((idx+1)%Math.max(1,playlist.length));
+
+      // Show ad
+      const showAd = () => {
+        if (!ads.length) return;
+        const ad = ads[Math.floor(Math.random()*ads.length)];
+        AD_TEXT.textContent = ad.text || ad;
+        AD_BAR.classList.add('opacity-100');
+        setTimeout(()=>AD_BAR.classList.remove('opacity-100'), AD_DURATION);
+      };
+
+      // Ad interval
+      setInterval(()=>{
+        if(Date.now()-lastAdAt>=AD_INTERVAL){ lastAdAt=Date.now(); showAd(); }
+      },5000);
+
+      // Auto resume
+      setInterval(()=>{ if(playlist.length && VIDEO_EL.paused) VIDEO_EL.play().catch(()=>{}); },5000);
+
+      // Events
+      VIDEO_EL.addEventListener('ended',next);
+      VIDEO_EL.addEventListener('error',next);
+
+      // Controls show on mouse
+      let hideControlsTimer=null;
+      const showControls=()=>{
+        CONTROLS.classList.add('opacity-100');
+        clearTimeout(hideControlsTimer);
+        hideControlsTimer=setTimeout(()=>CONTROLS.classList.remove('opacity-100'),3000);
+      };
+      ['mousemove','touchstart','touchmove'].forEach(ev=>document.addEventListener(ev,showControls,{passive:true}));
+
+      // Mute toggle
+      MUTE_BTN.addEventListener('click',()=>{
+        VIDEO_EL.muted=!VIDEO_EL.muted;
+        MUTE_ICON.className=VIDEO_EL.muted?'fa-solid fa-volume-xmark':'fa-solid fa-volume-high';
+      });
+
+      // Fullscreen toggle
+      FS_BTN.addEventListener('click',()=>{
+        if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+        else document.exitFullscreen().catch(()=>{});
+      });
+
+      // Resume on visibility
+      document.addEventListener('visibilitychange',()=>{ if(!document.hidden) VIDEO_EL.play().catch(()=>{}); });
+
+      // Init
+      (async()=>{
+        try{
+          const [pl,adList,tick]=await Promise.all([
+            fetchJSON(PLAYLIST_URL).catch(()=>[]),
+            fetchJSON(ADS_URL).catch(()=>[]),
+            fetchJSON(TICKER_URL).catch(()=>[])
+          ]);
+          playlist = (pl||[]).map(it=>({title:it.title||'Untitled',url:it.url||''})).filter(it=>it.url);
+          if(!playlist.length) playlist=[{title:'Fallback',url:'https://www.w3schools.com/html/mov_bbb.mp4'}];
+          ads = (adList||[]).map(a=>typeof a==='string'?{text:a}:a);
+          tickerLines = Array.isArray(tick)?tick:[];
+
+          refreshTicker(playlist[0]?.title||'');
+          setTimeout(()=>{showAd(); lastAdAt=Date.now();},10000);
+          playIndex(0);
+        } catch(e){ console.error(e); playlist=[{title:'Fallback',url:'https://www.w3schools.com/html/mov_bbb.mp4'}]; playIndex(0);}
+      })();
+    })();
+  </script>
 </body>
 </html>
