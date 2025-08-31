@@ -13,54 +13,55 @@
 </head>
 <body class="bg-white w-screen h-screen flex flex-col">
 
+<!-- Main Container -->
+<div class="max-w-xs mx-auto mt-4 rounded-3xl overflow-hidden shadow-lg border border-gray-200" style="max-width: 360px;">
+  
   <!-- Header -->
-  <div class="w-full flex flex-col h-full">
-    <div class="bg-[#d92a1a] relative flex items-center justify-between px-4 py-3">
-      <button aria-label="Menu" class="text-white text-xl">
-        <i class="fas fa-bars"></i>
-      </button>
-      <h1 class="text-white text-lg font-extrabold tracking-wider select-none">
-        ಕನ್ನಡ | ಸುದ್ದು
-      </h1>
-      <button aria-label="Camera" class="text-white text-xl">
-        <i class="fas fa-video"></i>
-      </button>
-    </div>
-
-    <!-- Categories Row -->
-    <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none">
-      <!-- Categories dynamically injected -->
-    </nav>
-
-    <!-- Channels Grid -->
-    <div id="channelsGrid" class="bg-white flex-1 px-4 py-4 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4 overflow-y-auto">
-      <!-- Channels dynamically injected -->
-    </div>
+  <div class="bg-[#d92a1a] relative flex items-center justify-between px-4 py-3 rounded-t-3xl">
+    <button aria-label="Menu" class="text-white text-xl">
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1 class="text-white font-extrabold tracking-wider select-none text-lg" style="font-weight: 900;">
+      ಕನ್ನಡ | ಸುದ್ದು
+    </h1>
+    <button aria-label="Camera" class="text-white text-xl">
+      <i class="fas fa-video"></i>
+    </button>
   </div>
 
-<script>
-const categories = ["Entertainment","Music","News"];
-let selectedCategory = "Entertainment";  // Default first category
-let channelsData = [];
+  <!-- Categories Row -->
+  <nav id="categoriesRow" class="bg-[#d92a1a] flex justify-around text-white text-xs font-semibold tracking-wide py-2 select-none" style="font-size: 0.75rem;">
+    <!-- Dynamic Categories Here -->
+  </nav>
 
-// Render categories
+  <!-- Channels Grid -->
+  <div id="channelsGrid" class="bg-white px-4 py-4 grid grid-cols-3 gap-y-6 gap-x-4">
+    <!-- Dynamic Channels Here -->
+  </div>
+</div>
+
+<script>
+let channelsData = [];
+let categories = [];
+let selectedCategory = "";
+
+// Render categories dynamically
 function renderCategories() {
   const row = document.getElementById('categoriesRow');
   row.innerHTML = '';
+  
   categories.forEach(cat => {
-    const btn = document.createElement('a');
-    btn.textContent = cat;
-    btn.href = "#";
-    btn.className = `px-4 py-1 rounded-full whitespace-nowrap ${
-      selectedCategory === cat ? 'bg-white text-red-600 font-bold' : 'bg-red-500/80 text-white'
-    }`;
-    btn.addEventListener('click', (e)=>{
+    const link = document.createElement('a');
+    link.textContent = cat;
+    link.href = "#";
+    link.className = `hover:underline ${selectedCategory === cat ? 'font-bold underline' : ''}`;
+    link.addEventListener('click', (e) => {
       e.preventDefault();
       selectedCategory = cat;
       renderCategories();
       renderChannels();
     });
-    row.appendChild(btn);
+    row.appendChild(link);
   });
 }
 
@@ -68,33 +69,39 @@ function renderCategories() {
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
-  const filtered = channelsData.filter(c => c.category === selectedCategory);
-  filtered.forEach(channel=>{
+
+  const filtered = channelsData.filter(ch => ch.category === selectedCategory);
+  filtered.forEach(channel => {
     const div = document.createElement('div');
     div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 rounded-md object-contain"/>
-      <span class="text-xs text-gray-900 text-center select-none truncate" style="max-width:64px;">
+      <img src="${channel.icon}" alt="${channel.name}" class="w-14 h-14 rounded-md object-contain"/>
+      <span class="text-xs text-gray-900 select-none truncate" style="max-width:64px;">
         ${channel.name}
       </span>
     `;
-    div.addEventListener('click', ()=>{
-      const channelName = encodeURIComponent(channel.name);
-      window.location.href = \`player.html?name=\${channelName}\`;
+    div.addEventListener('click', () => {
+      const nameParam = encodeURIComponent(channel.name);
+      window.location.href = \`player.html?name=\${nameParam}\`;
     });
     grid.appendChild(div);
   });
 }
 
-// Load channels from JSON
+// Load channels.json
 async function loadChannels() {
   try {
     const res = await fetch('tv/data/channels.json');
     channelsData = await res.json();
+
+    // Extract unique categories from channels
+    categories = [...new Set(channelsData.map(ch => ch.category))];
+    selectedCategory = categories[0]; // Default first category
+
     renderCategories();
     renderChannels();
-  } catch(err) {
-    console.error("Failed to load channels:", err);
+  } catch (err) {
+    console.error('Error loading channels.json:', err);
   }
 }
 
