@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const categories = ["All", "Entertainment", "Music", "News"];
+  const categories = ["Entertainment", "Music", "News"];
   let channelsData = [];
   let selectedCategory = "All";
 
