@@ -1,17 +1,17 @@
 [
   {
-    "name": "DighVijay",
-    "icon": "https://path-to-icon/dighvijay.png",
-    "stream": "https://stream-url/dighvijay.m3u8"
+    "name": "MN Music",
+    "icon": "https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0846274573125433222986374.png",
+    "stream": "https://mntv.livebox.co.in/musichls/live.m3u8"
   },
   {
-    "name": "Public TV",
-    "icon": "https://path-to-icon/publictv.png",
-    "stream": "https://stream-url/publictv.m3u8"
+    "name": "MN Tv",
+    "icon": "https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0847495427909620575984784.png",
+    "stream": "https://mntv.livebox.co.in/mntvhls/live.m3u8"
   },
   {
-    "name": "ETV Bharath",
-    "icon": "https://path-to-icon/etv.png",
-    "stream": "https://stream-url/etv.m3u8"
+    "name": "Sivan Tv",
+    "icon": "https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240314_1336407418232580330334473.png",
+    "stream": "https://sivantv.livebox.co.in/sivantvhls/sivan.m3u8"
   }
 ]
