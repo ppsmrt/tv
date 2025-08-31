@@ -32,32 +32,40 @@ body {
   z-index: 10;
 }
 
-.controls-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 10px;
-  background: rgba(0,0,0,0.5);
+/* Custom Controls */
+.custom-controls {
   position: absolute;
-  bottom: 30px; /* above ticker */
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 5;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 8;
 }
 
-.controls-container button {
-  background: none;
+.custom-controls.show {
+  opacity: 1;
+}
+
+.custom-controls button {
+  background: rgba(0,0,0,0.5);
   border: none;
-  color: white;
-  font-size: 18px;
+  color: #fff;
+  font-size: 22px;
+  padding: 12px;
+  border-radius: 50%;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
-.controls-container input[type="range"] {
-  width: 100px;
+.custom-controls button:hover {
+  background: rgba(255,255,255,0.3);
+  transform: scale(1.1);
 }
 
-/* --- Ticker --- */
+/* Ticker */
 .ticker-container {
   position: absolute;
   bottom: 0;
@@ -84,23 +92,23 @@ body {
   100% { transform: translateX(-100%); }
 }
 
-/* --- Ad Bar --- */
+/* Ad Bar (smaller size) */
 .ad-bar {
   position: absolute;
   bottom: 30px;
   width: 100%;
-  height: 60px;
+  height: 40px; /* reduced from 60px */
   background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 5;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #000;
 }
 
-/* --- Overlay Watermark --- */
+/* Overlay Watermark */
 .watermark {
   position: absolute;
   top: 10px;
@@ -115,7 +123,7 @@ body {
   z-index: 7;
 }
 
-/* --- Top Left LIVE --- */
+/* LIVE Top Left */
 .live-label {
   position: absolute;
   top: 10px;
