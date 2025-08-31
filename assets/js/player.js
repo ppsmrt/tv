@@ -1,22 +1,13 @@
 // Tailwind keyframe animations for ripple, pop, and slide
 const style = document.createElement('style');
 style.innerHTML = `
-@keyframes ripple {
-  to { transform: scale(4); opacity: 0; }
-}
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
 .animate-ripple { animation: ripple 0.5s linear; }
 
-@keyframes pop {
-  0% { transform: scale(0.9); opacity: 0; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); }
-}
+@keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); } }
 .animate-pop { animation: pop 0.35s ease-out forwards; }
 
-@keyframes slideDown {
-  0% { transform: translateY(-20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
+@keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 .animate-slideDown { animation: slideDown 0.5s ease-out forwards; }
 `;
 document.head.appendChild(style);
@@ -38,7 +29,7 @@ function renderCategories() {
     btn.className = `px-5 py-2 rounded-full whitespace-nowrap transform transition-all duration-200 shadow-sm opacity-0 ${
       selectedCategory === cat 
         ? 'bg-white text-red-600 font-bold relative overflow-hidden' 
-        : 'bg-red-500/80 text-white hover:bg-white hover:text-red-600 hover:scale-105 relative overflow-hidden'
+        : 'bg-gray-200/50 text-gray-900 hover:bg-white hover:text-red-600 hover:scale-105 relative overflow-hidden'
     }`;
     
     // Slide-in stagger
