@@ -12,10 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let categories = ["All", "Entertainment", "Music", "News"];
   let selectedCategory = "All";
 
-  // Load channels
   async function loadChannels() {
       try {
-          const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
+          const res = await fetch('data/channels.json'); // ensure correct relative path
           channelsData = await res.json();
           renderCategories();
           renderChannels();
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 
-  // Render horizontal stacked red category cards
   function renderCategories() {
       const row = document.getElementById('categoriesRow');
       row.innerHTML = '';
@@ -47,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // Render channels
   function renderChannels() {
       const grid = document.getElementById('channelsGrid');
       grid.innerHTML = '';
@@ -73,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
           div.innerHTML = `
               <img src="${channel.icon}" alt="${channel.name}" class="w-full h-24 object-contain mb-2 rounded">
-              <p class="text-center font-semibold text-gray-100">${channel.name}</p>
+              <p class="text-center font-semibold text-black">${channel.name}</p>
           `;
 
           div.addEventListener('click', async () => {
@@ -96,14 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // Close popup
-  function closePopup() {
+  closeBtn.addEventListener('click', () => {
       popupPlayer.stop();
       popup.classList.add('hidden');
       if(document.fullscreenElement) document.exitFullscreen();
-  }
+  });
 
-  closeBtn.addEventListener('click', closePopup);
   popup.addEventListener('click', e => { if(e.target === popup) closePopup(); });
 
   loadChannels();
