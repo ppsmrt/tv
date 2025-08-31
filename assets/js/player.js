@@ -11,6 +11,8 @@ const playerEl = document.getElementById('player');
 const player = new Plyr(playerEl, { controls: [] });
 const tickerEl = document.getElementById('ticker');
 const adBar = document.getElementById('adBar');
+const controls = document.getElementById('customControls');
+const playPauseBtn = document.getElementById('playPause').querySelector("i");
 
 // Load video
 function loadVideo(index) {
@@ -33,16 +35,30 @@ function nextVideo() {
   loadVideo(currentIndex);
 }
 
-// Controls
+// Custom Play/Pause Toggle
 document.getElementById('playPause').addEventListener('click', () => {
-  if (player.playing) player.pause();
-  else player.play();
+  if (player.playing) {
+    player.pause();
+    playPauseBtn.className = "fas fa-play";
+  } else {
+    player.play();
+    playPauseBtn.className = "fas fa-pause";
+  }
 });
 
-document.getElementById('volume').addEventListener('input', e => player.volume = e.target.value);
-
+// Fullscreen
 document.getElementById('fullscreenBtn').addEventListener('click', () => {
   player.fullscreen.enter();
+});
+
+// Orientation Change (simulated rotate)
+document.getElementById('orientationBtn').addEventListener('click', () => {
+  if (screen.orientation) {
+    let type = screen.orientation.type.startsWith("landscape") ? "portrait" : "landscape";
+    screen.orientation.lock(type).catch(err => console.log("Orientation change failed:", err));
+  } else {
+    alert("Orientation API not supported");
+  }
 });
 
 // Ticker updater
@@ -66,8 +82,16 @@ function cycleAds() {
   adBar.textContent = ads[adIndex];
   adIndex = (adIndex + 1) % ads.length;
 }
-setInterval(cycleAds, 5000); // change every 5s
-cycleAds(); // initial
+setInterval(cycleAds, 5000);
+cycleAds();
+
+// --- Show/Hide Controls on Video Click ---
+let hideTimeout;
+playerEl.addEventListener('click', () => {
+  controls.classList.add("show");
+  clearTimeout(hideTimeout);
+  hideTimeout = setTimeout(() => controls.classList.remove("show"), 3000);
+});
 
 // Init
 fetchPlaylist().then(data => {
