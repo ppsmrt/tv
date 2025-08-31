@@ -1,111 +1,51 @@
-/* --- Base / Layout --- */
-* { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  height: 100%;
-  background: #000;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden; /* TV feel */
-}
+/* Minimal CSS: ticker animation + small helpers */
 
-/* Fullscreen video layer */
+/* Ensure video fills viewport and sits behind overlays */
 #player {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: cover;          /* cinematic fill */
+  object-fit: cover;
   background: #000;
+  z-index: 0;
 }
 
-/* Loader */
-#loader {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-size: 18px;
-  background: rgba(0,0,0,0.25);
-  backdrop-filter: blur(2px);
-  z-index: 50;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease;
-}
-#loader.show { opacity: 1; pointer-events: auto; }
+/* loader (if needed) */
+#loader { position: fixed; inset: 0; display: grid; place-items: center; z-index:60; }
 
-/* --- Overlays --- */
-.brand-left {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 30;
-  font-weight: 900;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-  /* Bold green like the screenshot */
-  color: #1aff6b;
-  font-size: clamp(16px, 2.2vw, 26px);
-  text-shadow:
-    0 0 2px #003b16,
-    0 0 6px rgba(26,255,107,.35);
-}
-
-/* Right-side middle watermark */
-.watermark-right {
-  position: fixed;
-  top: 50%;
-  right: 5%;
-  transform: translateY(-50%);
-  z-index: 25;
-  color: #ffffff;
-  opacity: .55;               /* semi-transparent */
-  font-weight: 700;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-  font-size: clamp(14px, 2.4vw, 28px);
-  text-shadow: 0 0 4px rgba(0,0,0,.6);
-  user-select: none;
-  pointer-events: none;
-}
-
-/* --- Ticker --- */
-.ticker {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 18px;               /* sits above absolute bottom for breathing room */
-  height: 28px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  z-index: 35;
-  /* Transparent background as requested */
-  background: transparent;
-}
-
-.ticker-track {
+/* Ticker crawl — very slow for "TV" feel */
+#tickerTrack {
   display: inline-block;
-  white-space: nowrap;
-  will-change: transform;
   padding-left: 100%;
-  /* Slow crawl */
-  animation: tv-crawl 45s linear infinite;
-  /* White text with subtle outline to read on any video */
-  color: #fff;
-  text-shadow:
-    0 0 1px #000,
-    0 0 3px rgba(0,0,0,.85);
-  font-size: clamp(12px, 1.8vw, 16px);
-  line-height: 28px;
+  transform: translateX(0);
+  animation: ticker-scroll 42s linear infinite;
+  text-shadow: 0 0 2px rgba(0,0,0,0.9);
+  background: transparent; /* transparent background requirement */
 }
 
-@keyframes tv-crawl {
-  0%   { transform: translateX(0); }
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 
-/* (Optional) Hide native controls if any sneak in */
-video::-webkit-media-controls { display: none !important; }
+/* adBar show/hide (fade) */
+#adBar > #adText {
+  transition: opacity .35s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+#adBar.show > #adText {
+  opacity: 1;
+}
+
+/* Controls visible state */
+#controls.show { opacity: 1; pointer-events: auto; }
+
+/* Safari video controls cleanup */
+video::-webkit-media-controls { display:none !important; }
+
+/* Make sure overlays are on top */
+#brandLeft, #watermarkRight, #timeBox, #tickerTrack, #adBar, #controls {
+  z-index: 20;
+}
