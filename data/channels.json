@@ -1,0 +1,17 @@
+[
+  {
+    "name": "DighVijay",
+    "icon": "https://path-to-icon/dighvijay.png",
+    "stream": "https://stream-url/dighvijay.m3u8"
+  },
+  {
+    "name": "Public TV",
+    "icon": "https://path-to-icon/publictv.png",
+    "stream": "https://stream-url/publictv.m3u8"
+  },
+  {
+    "name": "ETV Bharath",
+    "icon": "https://path-to-icon/etv.png",
+    "stream": "https://stream-url/etv.m3u8"
+  }
+]
