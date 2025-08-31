@@ -2,33 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>My Live TV</title>
+
+  <!-- Plyr CSS -->
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-  <link rel="stylesheet" href="https://ppsmrt.github.io/tv/assets/css/style.css">
-  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <!-- Loader -->
-  <div id="loader">Loading...</div>
+  <div class="video-container">
+    <!-- Video Player -->
+    <video id="player" playsinline></video>
 
-  <!-- Video Player -->
-  <video id="player" playsinline></video>
+    <!-- Overlay Controls -->
+    <div class="controls" id="customControls">
+      <button id="prevBtn">⏮ Prev</button>
+      <button id="playPauseBtn">▶️</button>
+      <button id="nextBtn">⏭ Next</button>
+      <button id="fullscreenBtn">⛶</button>
+    </div>
 
-  <!-- Ticker -->
-  <div id="ticker"></div>
+    <!-- Ticker -->
+    <div class="ticker" id="ticker"></div>
 
-  <!-- Ad Bar -->
-  <div id="adBar"></div>
-
-  <!-- Custom Controls -->
-  <div id="customControls" class="controls">
-    <button id="playPause"><i class="fas fa-pause"></i></button>
-    <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
-    <button id="orientationBtn"><i class="fas fa-sync-alt"></i></button>
+    <!-- Ad Banner -->
+    <div class="ad-banner" id="adBanner"></div>
   </div>
 
+  <!-- Plyr JS -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+  <!-- Custom JS -->
   <script src="assets/js/player.js"></script>
 </body>
 </html>
