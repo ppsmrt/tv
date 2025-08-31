@@ -1,92 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Live TV Player</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
-  /* Fullscreen video container */
-  #playerContainer {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 1rem;
-  }
-  video {
-    max-width: 100%;
-    max-height: 100%;
-  }
+  body { font-family: 'Baloo 2', cursive; background: #000; }
+  /* Smooth hide/show controls */
+  #controlsBar { transition: opacity 0.3s; }
+  #topBar { transition: opacity 0.3s; }
 </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<body class="w-screen h-screen flex flex-col overflow-hidden relative bg-black">
 
-  <!-- Header (same as index.html) -->
-  <header class="flex justify-between items-center p-4 bg-red-600 shadow-md">
-    <!-- Left: Menu icon (dummy) -->
-    <button class="text-white">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+  <!-- Header / Top Bar -->
+  <div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
+    <button id="closeBtn" class="text-white text-3xl">
+      <i class="fas fa-times"></i>
     </button>
-
-    <!-- Center: Channel Title -->
-    <h1 id="channelTitle" class="text-2xl font-bold text-white text-center flex-1">Channel</h1>
-
-    <!-- Right: Back button -->
-    <button onclick="goBack()" class="text-white text-xl">✖</button>
-  </header>
-
-  <!-- Video Player Container -->
-  <div id="playerContainer">
-    <video id="tvPlayer" class="rounded-xl" controls></video>
+    <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]">
+      Loading...
+    </h1>
+    <div class="w-8"></div> <!-- placeholder for spacing -->
   </div>
 
-  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-  <script>
-    // Get URL parameters for stream & name
-    const urlParams = new URLSearchParams(window.location.search);
-    const stream = decodeURIComponent(urlParams.get('stream') || '');
-    const name = decodeURIComponent(urlParams.get('name') || 'Live TV');
+  <!-- Video Player -->
+  <div class="flex-1 flex items-center justify-center">
+    <video id="videoPlayer" class="w-full h-full object-contain bg-black" autoplay playsinline></video>
+  </div>
 
-    document.getElementById('channelTitle').textContent = name;
+  <!-- Bottom Controls -->
+  <div id="controlsBar" class="absolute bottom-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-around px-6 py-3 rounded-t-xl">
+    <button id="playPauseBtn" class="text-white text-2xl">
+      <i class="fas fa-pause"></i>
+    </button>
+    <input id="volumeRange" type="range" min="0" max="1" step="0.01" class="w-24 h-1 accent-red-600"/>
+    <button id="fullscreenBtn" class="text-white text-2xl">
+      <i class="fas fa-expand"></i>
+    </button>
+  </div>
 
-    // Initialize Plyr
-    const player = new Plyr('#tvPlayer', { 
-        autoplay: true,
-        muted: false,
-        controls: ['play', 'progress', 'volume', 'fullscreen']
-    });
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+// URL parameter
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name') || "Unknown Channel";
+document.getElementById('channelName').textContent = name;
 
-    player.source = {
-      type: 'video',
-      sources: [{ src: stream, type: 'application/x-mpegURL' }]
-    };
+// Load stream from channels.json
+async function loadStream() {
+  try {
+    const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
+    const channels = await res.json();
+    const channel = channels.find(c => c.name === name);
+    if(!channel) throw "Channel not found";
 
-    // Back button
-    function goBack() {
-        window.history.back();
+    const video = document.getElementById('videoPlayer');
+
+    if(Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(channel.stream);
+      hls.attachMedia(video);
+    } else {
+      video.src = channel.stream;
     }
+    video.play();
+  } catch(err) {
+    console.error(err);
+    alert("Failed to load stream.");
+  }
+}
 
-    // Auto fullscreen on mobile / touch devices
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if(isMobile){
-      const videoEl = document.getElementById('tvPlayer');
-      // Try request fullscreen if supported
-      if(videoEl.requestFullscreen) videoEl.requestFullscreen();
-      else if(videoEl.webkitEnterFullscreen) videoEl.webkitEnterFullscreen();
-    }
+loadStream();
 
-    // Make player responsive to window resize
-    window.addEventListener('resize', () => {
-      const container = document.getElementById('playerContainer');
-      const vh = window.innerHeight - document.querySelector('header').offsetHeight;
-      container.style.height = `${vh}px`;
-    });
-    window.dispatchEvent(new Event('resize'));
-  </script>
+// Controls
+const video = document.getElementById('videoPlayer');
+const playPauseBtn = document.getElementById('playPauseBtn');
+playPauseBtn.addEventListener('click', ()=>{
+  if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
+  else { video.pause(); playPauseBtn.innerHTML='<i class="fas fa-play"></i>'; }
+});
+
+const volumeRange = document.getElementById('volumeRange');
+volumeRange.value = video.volume;
+volumeRange.addEventListener('input', ()=> video.volume = volumeRange.value);
+
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+fullscreenBtn.addEventListener('click', ()=>{
+  if(!document.fullscreenElement){ document.documentElement.requestFullscreen(); }
+  else { document.exitFullscreen(); }
+});
+
+// Close button
+document.getElementById('closeBtn').addEventListener('click', ()=> window.location.href='index.html');
+
+// Tap-to-hide controls
+let controlsVisible = true;
+const controlsBar = document.getElementById('controlsBar');
+const topBar = document.getElementById('topBar');
+video.addEventListener('click', ()=>{
+  controlsVisible = !controlsVisible;
+  controlsBar.style.opacity = controlsVisible ? '1' : '0';
+  topBar.style.opacity = controlsVisible ? '1' : '0';
+});
+</script>
+
 </body>
 </html>
