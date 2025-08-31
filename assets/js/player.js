@@ -7,7 +7,7 @@ const player = new Plyr('#tvPlayer', {
 let currentChannelIndex = 0;
 
 async function loadChannels() {
-    const res = await fetch('channels.json');
+    const res = await fetch('data/channels.json');
     const channels = await res.json();
     const grid = document.getElementById('channelsGrid');
 
