@@ -1,40 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Live TV</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>DEV TV — Live</title>
 
-  <!-- Plyr CSS -->
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+  <!-- Tailwind CDN (utility classes only) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Custom CSS -->
+  <!-- Optional: Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Minimal CSS for ticker animation + small specifics -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-  <div class="video-container">
-    <!-- Video Player -->
-    <video id="player" playsinline></video>
+<body class="bg-black text-white">
 
-    <!-- Overlay Controls -->
-    <div class="controls" id="customControls">
-      <button id="prevBtn">⏮ Prev</button>
-      <button id="playPauseBtn">▶️</button>
-      <button id="nextBtn">⏭ Next</button>
-      <button id="fullscreenBtn">⛶</button>
-    </div>
+  <!-- Fullscreen video -->
+  <video id="player" playsinline webkit-playsinline muted autoplay></video>
 
-    <!-- Ticker -->
-    <div class="ticker" id="ticker"></div>
-
-    <!-- Ad Banner -->
-    <div class="ad-banner" id="adBanner"></div>
+  <!-- Top-left brand (green) -->
+  <div id="brandLeft" class="fixed top-3 left-3 z-40 font-extrabold text-green-400 select-none pointer-events-none"
+       style="font-size:clamp(14px,2.4vw,26px); text-transform:uppercase;">
+    DEV TV
   </div>
 
-  <!-- Plyr JS -->
-  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <!-- Right-center watermark (semi-transparent white) -->
+  <div id="watermarkRight"
+       class="fixed z-30 text-white/70 select-none pointer-events-none"
+       style="right:4%; top:50%; transform:translateY(-50%); font-weight:700; font-size:clamp(14px,2.8vw,28px); text-transform:uppercase;">
+    DEVA TV
+  </div>
 
-  <!-- Custom JS -->
-  <script src="assets/js/player.js"></script>
+  <!-- Red time box (top-right-ish) -->
+  <div id="timeBox"
+       class="fixed z-35 text-white font-bold"
+       style="right:1.25rem; top:1rem; background:#e60000; padding:6px 10px; border-radius:6px; font-family:monospace;">
+    00:00:00
+  </div>
+
+  <!-- Transparent text-only ad overlay (center-bottom, above ticker) -->
+  <div id="adBar" class="fixed left-0 right-0 bottom-28 z-35 flex justify-center pointer-events-none">
+    <div id="adText" class="px-4 py-1 text-sm bg-transparent text-white/90 font-semibold"></div>
+  </div>
+
+  <!-- Ticker (slow transparent scrolling text) -->
+  <div class="fixed left-0 right-0 bottom-6 z-40 pointer-events-none">
+    <div class="overflow-hidden">
+      <div id="tickerTrack" class="whitespace-nowrap will-change-transform text-white text-sm" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- Transparent minimal controls (appear on mousemove, hidden by default) -->
+  <div id="controls" class="fixed left-1/2 -translate-x-1/2 bottom-3 z-50 flex gap-3 opacity-0 transition-opacity duration-300">
+    <button id="muteBtn" class="bg-transparent border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/5">
+      <i id="muteIcon" class="fa-solid fa-volume-xmark"></i>
+    </button>
+    <button id="fsBtn" class="bg-transparent border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/5">
+      <i class="fa-solid fa-expand"></i>
+    </button>
+  </div>
+
+  <!-- Player script -->
+  <script src="assets/js/player.js" defer></script>
 </body>
 </html>
