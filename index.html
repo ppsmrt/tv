@@ -2,166 +2,29 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DEV TV — Premium IPTV</title>
-
-<!-- Tailwind -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-<!-- HLS.js -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-<style>
-/* Ticker animation */
-@keyframes ticker-scroll {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-#tickerTrack {
-  display: inline-block;
-  white-space: nowrap;
-  animation: ticker-scroll 42s linear infinite;
-}
-</style>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
-<body class="bg-black text-white overflow-hidden">
+<body class="bg-gray-900 text-white">
 
-<!-- Video -->
-<video id="player" class="fixed inset-0 w-full h-full object-cover z-0" playsinline muted autoplay></video>
+  <!-- Header -->
+  <header class="bg-red-600 p-4 text-center font-bold text-2xl shadow-md">
+    Live TV Premium
+  </header>
 
-<!-- Branding -->
-<div id="brandLeft" class="fixed top-3 left-3 z-40 font-extrabold text-green-400 select-none pointer-events-none text-[clamp(14px,2.4vw,26px)] uppercase">DEV TV</div>
-<div id="watermarkRight" class="fixed right-4 top-1/2 transform -translate-y-1/2 z-30 text-white/70 font-bold select-none pointer-events-none text-[clamp(14px,2.8vw,28px)] uppercase">DEV TV</div>
-<div id="timeBox" class="fixed right-5 top-4 z-35 font-mono font-bold text-white px-3 py-1 rounded bg-red-600 text-sm">00:00:00</div>
+  <!-- Video Player -->
+  <div class="max-w-5xl mx-auto my-6 px-4">
+    <video id="tvPlayer" class="w-full rounded-xl shadow-2xl bg-black" controls></video>
+  </div>
 
-<!-- Ad bar -->
-<div id="adBar" class="fixed left-0 right-0 bottom-28 z-35 flex justify-center pointer-events-none transition-opacity duration-300 opacity-0">
-  <div id="adText" class="px-4 py-1 text-white/90 font-semibold bg-black/30 backdrop-blur-sm rounded"></div>
-</div>
+  <!-- Channels Grid -->
+  <div id="channelsGrid" class="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4">
+    <!-- Channels injected dynamically -->
+  </div>
 
-<!-- Ticker -->
-<div class="fixed left-0 right-0 bottom-6 z-40 pointer-events-none overflow-hidden">
-  <div id="tickerTrack" class="text-white text-sm"></div>
-</div>
-
-<!-- Player controls -->
-<div id="controls" class="fixed left-1/2 -translate-x-1/2 bottom-3 z-50 flex gap-3 opacity-0 transition-opacity duration-300">
-  <button id="muteBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
-    <i id="muteIcon" class="fa-solid fa-volume-xmark"></i>
-  </button>
-  <button id="fsBtn" class="bg-white/10 border border-white/20 text-white px-3 py-1 rounded backdrop-blur-sm hover:bg-white/20 transition">
-    <i class="fa-solid fa-expand"></i>
-  </button>
-</div>
-
-<!-- Channel list sidebar -->
-<div id="channelList" class="fixed top-16 left-3 z-50 flex flex-col gap-2 max-h-[80vh] overflow-y-auto">
-  <!-- Channels will be dynamically added here -->
-</div>
-
-<script>
-(() => {
-  const VIDEO_EL = document.getElementById('player');
-  const TIME_BOX = document.getElementById('timeBox');
-  const AD_BAR = document.getElementById('adBar');
-  const AD_TEXT = document.getElementById('adText');
-  const TICKER = document.getElementById('tickerTrack');
-  const CONTROLS = document.getElementById('controls');
-  const MUTE_BTN = document.getElementById('muteBtn');
-  const MUTE_ICON = document.getElementById('muteIcon');
-  const FS_BTN = document.getElementById('fsBtn');
-  const CHANNEL_LIST = document.getElementById('channelList');
-
-  const ADS_URL = 'data/ads.json';
-  const TICKER_URL = 'data/ticker.json';
-
-  let ads = [], tickerLines = [], lastAdAt = 0, AD_INTERVAL = 60000, AD_DURATION = 5000;
-
-  // Example Indian channels (replace or fetch from IPTV-org)
-  const channels = [
-    { name: 'DD National', logo: 'https://upload.wikimedia.org/wikipedia/en/4/4b/DD_National_logo.png', url: 'https://iptv-org.github.io/iptv/countries/in.m3u8' },
-    { name: 'Zee TV', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Zee_TV_Logo.svg', url: 'https://iptv-org.github.io/iptv/countries/in.m3u8' },
-    { name: 'Star Plus', logo: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Star_Plus_logo.png', url: 'https://iptv-org.github.io/iptv/countries/in.m3u8' }
-  ];
-
-  // Clock
-  const updateTime = () => TIME_BOX.textContent = new Date().toLocaleTimeString('en-US', {hour12:false});
-  setInterval(updateTime,1000); updateTime();
-
-  // Ticker
-  const refreshTicker = (title='') => {
-    const base = tickerLines.length ? tickerLines.join(' • ') : '';
-    const msg = title ? `Now Playing: ${title} • ${base}` : `Live • ${base}`;
-    TICKER.textContent = (msg + '   •   ').repeat(6);
-    void TICKER.offsetWidth;
-  };
-
-  // HLS play
-  const playChannel = (url, name) => {
-    if(Hls.isSupported()){
-      const hls = new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(VIDEO_EL);
-      hls.on(Hls.Events.MANIFEST_PARSED, ()=>VIDEO_EL.play());
-    } else {
-      VIDEO_EL.src = url;
-      VIDEO_EL.addEventListener('loadedmetadata', ()=>VIDEO_EL.play());
-    }
-    refreshTicker(name);
-  };
-
-  // Populate channel list
-  channels.forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded backdrop-blur-sm transition';
-    btn.innerHTML = `<img src="${c.logo}" class="w-8 h-8 object-contain rounded"/> <span>${c.name}</span>`;
-    btn.addEventListener('click', ()=>playChannel(c.url, c.name));
-    CHANNEL_LIST.appendChild(btn);
-  });
-
-  // Fetch ads & ticker
-  const fetchJSON = async url => (await fetch(`${url}?_=${Date.now()}`)).json().catch(()=>[]);
-  (async()=>{
-    ads = await fetchJSON(ADS_URL);
-    tickerLines = await fetchJSON(TICKER_URL);
-    refreshTicker('Live Stream');
-    setTimeout(()=>{ showAd(); lastAdAt=Date.now(); }, 10000);
-  })();
-
-  // Show ad
-  const showAd = () => {
-    if(!ads.length) return;
-    const ad = ads[Math.floor(Math.random()*ads.length)];
-    AD_TEXT.textContent = ad.text || ad;
-    AD_BAR.classList.add('opacity-100');
-    setTimeout(()=>AD_BAR.classList.remove('opacity-100'), AD_DURATION);
-  };
-
-  setInterval(()=>{ if(Date.now()-lastAdAt>=AD_INTERVAL){ lastAdAt=Date.now(); showAd(); } },5000);
-
-  // Controls
-  let hideControlsTimer=null;
-  const showControls=()=>{
-    CONTROLS.classList.add('opacity-100');
-    clearTimeout(hideControlsTimer);
-    hideControlsTimer=setTimeout(()=>CONTROLS.classList.remove('opacity-100'),3000);
-  };
-  ['mousemove','touchstart','touchmove'].forEach(ev=>document.addEventListener(ev,showControls,{passive:true}));
-
-  // Mute
-  MUTE_BTN.addEventListener('click', ()=>{
-    VIDEO_EL.muted = !VIDEO_EL.muted;
-    MUTE_ICON.className = VIDEO_EL.muted?'fa-solid fa-volume-xmark':'fa-solid fa-volume-high';
-  });
-
-  // Fullscreen
-  FS_BTN.addEventListener('click', ()=>{
-    if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
-    else document.exitFullscreen().catch(()=>{});
-  });
-
-})();
-</script>
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script src="player.js"></script>
 </body>
 </html>
