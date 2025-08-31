@@ -13,28 +13,26 @@
 </head>
 <body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden scroll-smooth">
 
-  <!-- Header + Category Section -->
-  <div id="headerCategories" class="flex flex-col sticky top-0 z-50">
-    <div class="bg-[#d92a1a] flex items-center justify-between px-5 py-5 shadow-lg rounded-b-xl">
-      <button aria-label="Menu" class="text-white text-3xl">
-        <i class="fas fa-bars"></i>
-      </button>
-      <h1 class="text-white text-2xl sm:text-3xl font-extrabold tracking-wider select-none">
-        Live TV
-      </h1>
-      <button aria-label="Notifications" class="text-white text-3xl">
-        <i class="fas fa-bell"></i>
-      </button>
-    </div>
-
-    <!-- Categories Row: semi-transparent gray -->
-    <nav id="categoriesRow" class="bg-gray-200/20 backdrop-blur-sm flex space-x-3 sm:space-x-4 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-3 px-3 select-none scrollbar-hide">
-      <!-- Categories dynamically injected -->
-    </nav>
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+    <button aria-label="Menu" class="text-white text-3xl">
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1 class="text-white text-2xl sm:text-3xl font-extrabold tracking-wider select-none">
+      Live TV
+    </h1>
+    <button aria-label="Notifications" class="text-white text-3xl">
+      <i class="fas fa-bell"></i>
+    </button>
   </div>
 
-  <!-- Channels Grid with padding for sticky header -->
-  <div id="channelsGrid" class="bg-white flex-1 px-4 py-4 pt-[150px] grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4 overflow-y-auto overscroll-contain">
+  <!-- Categories Row moved above channels -->
+  <nav id="categoriesRow" class="bg-gray-200/20 backdrop-blur-sm flex space-x-3 sm:space-x-4 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-2 px-3 select-none scrollbar-hide">
+    <!-- Categories dynamically injected -->
+  </nav>
+
+  <!-- Channels Grid -->
+  <div id="channelsGrid" class="bg-white flex-1 px-3 py-3 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-y-4 gap-x-2 overflow-y-auto overscroll-contain">
     <!-- Channels dynamically injected -->
   </div>
 
