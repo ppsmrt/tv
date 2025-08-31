@@ -8,44 +8,45 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
-  body { font-family: 'Baloo 2', cursive; margin:0; padding:0; }
+  body { font-family: 'Baloo 2', cursive; }
+  /* Remove scrollbars on small devices for header+categories */
+  #headerCategories { -webkit-overflow-scrolling: touch; }
 </style>
 </head>
-<body class="bg-white">
+<body class="bg-white w-screen h-screen flex flex-col overflow-hidden">
 
-  <!-- Fixed Header + Categories -->
-  <header class="bg-[#d92a1a] w-full fixed top-0 left-0 z-50 flex flex-col shadow-md">
-    <div class="flex items-center justify-between px-4 py-3">
-      <button aria-label="Menu" class="text-white text-xl">
+  <!-- Header + Category Section -->
+  <div id="headerCategories" class="flex flex-col sticky top-0 z-50">
+    <div class="bg-[#d92a1a] flex items-center justify-between px-4 py-3">
+      <button aria-label="Menu" class="text-white text-2xl">
         <i class="fas fa-bars"></i>
       </button>
-      <h1 class="text-white text-lg font-extrabold tracking-wider select-none">
-        Live Tv
+      <h1 class="text-white text-lg sm:text-xl font-extrabold tracking-wider select-none">
+        ಕನ್ನಡ | ಸುದ್ದು
       </h1>
-      <button aria-label="Camera" class="text-white text-xl">
-        <i class="fas fa-bell"></i>
+      <button aria-label="Camera" class="text-white text-2xl">
+        <i class="fas fa-video"></i>
       </button>
     </div>
 
-    <!-- Categories Bar -->
-    <nav id="categoriesRow" class="flex space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none">
+    <!-- Categories Row -->
+    <nav id="categoriesRow" class="bg-[#d92a1a] flex space-x-2 sm:space-x-4 overflow-x-auto text-white text-sm font-semibold tracking-wide py-2 px-2 select-none">
       <!-- Categories dynamically injected -->
     </nav>
-  </header>
+  </div>
 
   <!-- Channels Grid -->
-  <main class="pt-[92px] px-4 pb-4">
-    <div id="channelsGrid" class="bg-white grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4">
-      <!-- Channels dynamically injected -->
-    </div>
-  </main>
+  <div id="channelsGrid" class="bg-white flex-1 px-4 py-4 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6 gap-x-4 overflow-y-auto">
+    <!-- Channels dynamically injected -->
+  </div>
 
 <script>
-const categories = ["All","Entertainment","Music","News"];
+// Categories & Channel Data
+const categories = ["All", "Entertainment", "Music", "News"];
 let selectedCategory = "All";
 let channelsData = [];
 
-// Render categories
+// Render categories dynamically
 function renderCategories() {
   const row = document.getElementById('categoriesRow');
   row.innerHTML = '';
@@ -75,13 +76,14 @@ function renderChannels() {
     const div = document.createElement('div');
     div.className = 'flex flex-col items-center space-y-1 cursor-pointer';
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 rounded-md object-contain"/>
-      <span class="text-xs text-gray-900 text-center select-none truncate" style="max-width:64px;">
+      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain"/>
+      <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:64px;">
         ${channel.name}
       </span>
     `;
-    div.addEventListener('click', ()=>{ 
-      window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${encodeURIComponent(channel.name)}`;
+    div.addEventListener('click', ()=>{
+      const nameParam = encodeURIComponent(channel.name);
+      window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${nameParam}`;
     });
     grid.appendChild(div);
   });
