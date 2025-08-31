@@ -71,8 +71,8 @@ function renderChannels() {
     div.className = 'flex flex-col items-center space-y-1 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-xl bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop';
     div.style.animationDelay = `${index * 80}ms`; // stagger fade-up + pop
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
-      <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:64px;">
+      <img src="${channel.icon}" alt="${channel.name}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
+      <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:56px;">
         ${channel.name}
       </span>
     `;
