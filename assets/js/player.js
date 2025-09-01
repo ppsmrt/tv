@@ -1,6 +1,25 @@
 // assets/js/player.js
 console.log("✅ player.js loaded");
 
+// --- Firebase ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// --- Animations ---
 const style = document.createElement('style');
 style.innerHTML = `
 @keyframes ripple { to { transform: scale(4); opacity: 0; } }
@@ -17,10 +36,12 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
+// --- Globals ---
 const categories = ["All", "Entertainment", "Music", "News"];
 let selectedCategory = "All";
 let channelsData = [];
 
+// --- Render Categories ---
 function renderCategories() {
   const row = document.getElementById('categoriesRow');
   if (!row) {
@@ -54,6 +75,7 @@ function renderCategories() {
   });
 }
 
+// --- Render Channels ---
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   if (!grid) {
@@ -61,13 +83,15 @@ function renderChannels() {
     return;
   }
 
+  grid.className = "grid grid-cols-3 gap-4 p-4"; // 3 per row, equal spacing
   grid.innerHTML = '';
+  
   const filtered = channelsData.filter(
     c => selectedCategory === "All" || c.category === selectedCategory
   );
 
   if (filtered.length === 0) {
-    grid.innerHTML = `<p class="col-span-4 text-center text-gray-500">No channels found</p>`;
+    grid.innerHTML = `<p class="col-span-3 text-center text-gray-500">No channels found</p>`;
     return;
   }
 
@@ -77,11 +101,11 @@ function renderChannels() {
       'flex flex-col items-center cursor-pointer transform transition-all duration-300 hover:scale-105 animate-fadeUp animate-pop';
     div.style.animationDelay = `${index * 80}ms`;
     div.innerHTML = `
-      <div class="w-full aspect-square bg-white rounded-lg shadow-sm flex items-center justify-center p-3">
+      <div class="w-full aspect-square bg-white rounded-xl shadow-md flex items-center justify-center p-4">
         <img src="${channel.icon}" alt="${channel.name}" 
-             class="w-16 h-16 object-contain"/>
+             class="w-20 h-20 object-contain"/>
       </div>
-      <span class="text-sm font-medium text-gray-900 text-center select-none w-full px-1 mt-2 leading-tight">
+      <span class="text-base font-bold text-gray-900 text-center select-none w-full px-1 mt-2 leading-tight">
         ${channel.name}
       </span>
     `;
@@ -93,22 +117,29 @@ function renderChannels() {
   });
 }
 
-async function loadChannels() {
+// --- Load Channels from Firebase ---
+function loadChannels() {
   try {
-    const url = "https://ppsmrt.github.io/tv/data/channels.json";
-    console.log("📡 Fetching:", url);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    channelsData = await res.json();
-    console.log("✅ Loaded channels:", channelsData.length);
-    renderCategories();
-    renderChannels();
+    const channelsRef = ref(db, "channels"); // expects channels stored at /channels
+    console.log("📡 Listening to Firebase...");
+    onValue(channelsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        channelsData = Object.values(snapshot.val());
+        console.log("✅ Channels loaded:", channelsData.length);
+        renderCategories();
+        renderChannels();
+      } else {
+        console.warn("⚠️ No channels found in Firebase");
+        const grid = document.getElementById('channelsGrid');
+        if (grid) {
+          grid.innerHTML = `<p class="col-span-3 text-center text-gray-500">No channels found</p>`;
+        }
+      }
+    }, (err) => {
+      console.error("❌ Firebase error:", err);
+    });
   } catch (err) {
-    console.error("❌ Failed to load channels:", err);
-    const grid = document.getElementById('channelsGrid');
-    if (grid) {
-      grid.innerHTML = `<p class="col-span-4 text-center text-red-600">⚠️ Failed to load channels</p>`;
-    }
+    console.error("❌ Failed to load from Firebase:", err);
   }
 }
 
