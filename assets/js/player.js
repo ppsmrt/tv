@@ -57,12 +57,15 @@ function renderChannels() {
 
   filtered.forEach((channel, index) => {
     const div = document.createElement('div');
-    div.className = 'flex flex-col items-center justify-between h-36 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-md bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop p-3';
+    div.className =
+      'flex flex-col items-center cursor-pointer transform transition-all duration-300 hover:scale-105';
     div.style.animationDelay = `${index * 80}ms`;
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" 
-           class="w-20 h-20 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
-      <span class="text-base font-semibold text-gray-900 text-center select-none w-full px-2 leading-tight line-clamp-2 mt-2">
+      <div class="w-full aspect-square bg-white rounded-lg shadow-sm flex items-center justify-center p-3">
+        <img src="${channel.icon}" alt="${channel.name}" 
+             class="w-16 h-16 object-contain"/>
+      </div>
+      <span class="text-sm font-medium text-gray-900 text-center select-none w-full px-1 mt-2 line-clamp-2">
         ${channel.name}
       </span>
     `;
