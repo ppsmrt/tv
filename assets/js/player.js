@@ -62,18 +62,19 @@ function renderCategories() {
   });
 }
 
-// Render channels dynamically with fade-up + pop and reduced spacing
+// Render channels dynamically with fade-up + pop
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
   const filtered = channelsData.filter(c => selectedCategory === "All" || c.category === selectedCategory);
   filtered.forEach((channel, index) => {
     const div = document.createElement('div');
-    div.className = 'flex flex-col items-center space-y-0.5 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-lg bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop';
+    div.className = 'flex flex-col items-center space-y-0 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-md bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop';
     div.style.animationDelay = `${index * 80}ms`; // stagger fade-up + pop
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
-      <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:48px;">
+      <img src="${channel.icon}" alt="${channel.name}" 
+           class="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
+      <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate w-full px-1 leading-tight -mt-0.5">
         ${channel.name}
       </span>
     `;
