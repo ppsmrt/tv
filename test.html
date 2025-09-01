@@ -13,45 +13,101 @@
 .animate-pop { animation: pop 0.35s ease-out forwards; }
 @keyframes ripple { to { transform: scale(4); opacity:0; } }
 .ripple { position:absolute; border-radius:50%; background:rgba(255,255,255,0.3); transform:scale(0); animation:ripple 0.6s linear; pointer-events:none; }
+
 /* Hide scrollbars */
 body::-webkit-scrollbar { display: none; }
 .category-bar::-webkit-scrollbar { display: none; }
+
+/* Card styling */
+.channel-card {
+  background: linear-gradient(145deg, #ffffff, #f0f0f3);
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+  cursor:pointer;
+  height:12rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.channel-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+/* Sticky header + category */
+.sticky-header { position: sticky; top:0; z-index:50; }
+.bottom-nav button.active { color:#4f46e5; transform:scale(1.1); }
+
+/* Category button */
+.category-btn {
+  padding:0.5rem 1rem;
+  border-radius:9999px;
+  font-semibold;
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
+.category-btn.active { background:#4f46e5; color:white; transform:scale(1.05); }
+
+/* Bottom nav */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0;
+  background:white;
+  display:flex;
+  justify-around;
+  padding:0.5rem 0;
+  border-top:1px solid #e5e7eb;
+  box-shadow:0 -4px 12px rgba(0,0,0,0.08);
+  z-index:50;
+}
+.bottom-nav button {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:0.75rem;
+  color:#6b7280;
+  transition: all 0.3s ease;
+}
 </style>
 </head>
-<body class="bg-gray-100 min-h-screen pb-20">
+<body class="bg-gray-100 pb-24">
 
 <!-- Header -->
-<header class="bg-blue-600 text-white p-4 text-center text-xl font-bold shadow-md">Live TV</header>
+<header class="sticky-header bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white p-5 text-center text-2xl font-bold shadow-md">
+  Live TV
+</header>
 
 <!-- Category Bar -->
-<div id="categoryBar" class="category-bar flex gap-3 p-2 bg-white shadow-md sticky top-16 z-40 rounded-xl mx-2">
-<!-- Categories injected dynamically -->
+<div id="categoryBar" class="sticky-header category-bar bg-white shadow-md m-2 rounded-xl flex gap-3 p-2">
+<!-- Categories dynamically injected -->
 </div>
 
 <!-- Channels Grid -->
 <div id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4"></div>
 
 <!-- Bottom Navigation -->
-<div class="fixed bottom-0 left-0 right-0 bg-white flex justify-around py-2 border-t shadow-md z-50">
-  <button class="flex flex-col items-center text-blue-600 active">
+<div class="bottom-nav">
+  <button class="active" onclick="navigate('home')">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" />
     </svg>
     Home
   </button>
-  <button class="flex flex-col items-center text-gray-500 hover:text-blue-600">
+  <button onclick="navigate('categories')">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
     Categories
   </button>
-  <button class="flex flex-col items-center text-gray-500 hover:text-blue-600">
+  <button onclick="navigate('favorites')">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
     </svg>
     Favorites
   </button>
-  <button class="flex flex-col items-center text-gray-500 hover:text-blue-600">
+  <button onclick="navigate('settings')">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V7a4 4 0 014-4h4M7 7v4a4 4 0 004 4h4" />
     </svg>
@@ -79,7 +135,6 @@ const db = getDatabase(app);
 
 const channelsGrid = document.getElementById("channelsGrid");
 const categoryBar = document.getElementById("categoryBar");
-
 let allChannels = [];
 let currentCategory = "All";
 
@@ -95,17 +150,17 @@ onValue(ref(db, "channels"), (snapshot) => {
 
 // Render categories
 function renderCategories(channels){
-  const categories = ["All", ...new Set(channels.map(ch => ch.category))];
+  const categories = ["All", ...new Set(channels.map(ch=>ch.category))];
   categoryBar.innerHTML = "";
-  categories.forEach(cat => {
+  categories.forEach(cat=>{
     const btn = document.createElement("button");
     btn.textContent = cat;
-    btn.className = "category-btn px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-semibold whitespace-nowrap transition-all duration-300";
-    if(cat===currentCategory) btn.classList.add("bg-blue-600","text-white","animate-pop");
-    btn.onclick = () => {
-      currentCategory = cat;
-      document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("bg-blue-600","text-white"));
-      btn.classList.add("bg-blue-600","text-white","animate-pop");
+    btn.className="category-btn bg-gray-200 text-gray-700";
+    if(cat===currentCategory) btn.classList.add("bg-purple-600","text-white","animate-pop");
+    btn.onclick=()=>{
+      currentCategory=cat;
+      document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("bg-purple-600","text-white"));
+      btn.classList.add("bg-purple-600","text-white","animate-pop");
       renderChannels(currentCategory==="All"?allChannels:allChannels.filter(c=>c.category===cat));
     };
     categoryBar.appendChild(btn);
@@ -114,17 +169,17 @@ function renderCategories(channels){
 
 // Render channels
 function renderChannels(channels){
-  channelsGrid.innerHTML = "";
+  channelsGrid.innerHTML="";
   channels.forEach((ch,i)=>{
-    const card = document.createElement("div");
+    const card=document.createElement("div");
     card.className="channel-card animate-fadeUp relative";
     card.style.animationDelay=`${i*0.05}s`;
     card.innerHTML=`
       <img src="${ch.icon}" alt="${ch.name}">
       <p>${ch.name}</p>
     `;
-    card.onclick = e=>{
-      const ripple = document.createElement("span");
+    card.onclick=e=>{
+      const ripple=document.createElement("span");
       ripple.className="ripple";
       const rect=card.getBoundingClientRect();
       const size=Math.max(rect.width,rect.height);
@@ -137,6 +192,13 @@ function renderChannels(channels){
     };
     channelsGrid.appendChild(card);
   });
+}
+
+// Bottom nav
+function navigate(page){
+  document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));
+  event.currentTarget.classList.add("active");
+  // You can implement page switching logic here
 }
 </script>
 </body>
