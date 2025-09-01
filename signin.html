@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign In - Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
@@ -14,12 +13,12 @@
   
   <form id="signinForm" class="space-y-4">
     <div>
-      <label for="email" class="block text-gray-700">Email</label>
-      <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <label class="block text-gray-700">Email</label>
+      <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </div>
     <div>
-      <label for="password" class="block text-gray-700">Password</label>
-      <input type="password" id="password" required placeholder="********" class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <label class="block text-gray-700">Password</label>
+      <input type="password" id="password" required placeholder="********" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </div>
     <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors">Sign In</button>
   </form>
@@ -63,10 +62,8 @@ signinForm.addEventListener("submit", async (e) => {
     const adminSnapshot = await get(adminRef);
 
     if (adminSnapshot.exists()) {
-      // Admin → redirect to admin panel
       window.location.href = "admin.html";
     } else {
-      // Regular user → redirect to main app
       window.location.href = "index.html";
     }
   } catch (error) {
@@ -74,6 +71,5 @@ signinForm.addEventListener("submit", async (e) => {
   }
 });
 </script>
-
 </body>
 </html>
