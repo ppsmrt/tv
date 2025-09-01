@@ -124,7 +124,7 @@ function loadChannels() {
     console.log("📡 Listening to Firebase...");
     onValue(channelsRef, (snapshot) => {
       if (snapshot.exists()) {
-        channelsData = Object.values(snapshot.val());
+        channelsData = Object.values(snapshot.val() || {});
         console.log("✅ Channels loaded:", channelsData.length);
         renderCategories();
         renderChannels();
@@ -143,4 +143,6 @@ function loadChannels() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadChannels);
+// --- Start immediately (fix for blank screen) ---
+console.log("🚀 Starting app…");
+loadChannels();
