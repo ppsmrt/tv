@@ -55,17 +55,22 @@ function renderChannels() {
     c => selectedCategory === "All" || c.category === selectedCategory
   );
 
+  if (filtered.length === 0) {
+    grid.innerHTML = `<p class="col-span-4 text-center text-gray-500">No channels found</p>`;
+    return;
+  }
+
   filtered.forEach((channel, index) => {
     const div = document.createElement('div');
     div.className =
-      'flex flex-col items-center cursor-pointer transform transition-all duration-300 hover:scale-105';
+      'flex flex-col items-center cursor-pointer transform transition-all duration-300 hover:scale-105 animate-fadeUp animate-pop';
     div.style.animationDelay = `${index * 80}ms`;
     div.innerHTML = `
       <div class="w-full aspect-square bg-white rounded-lg shadow-sm flex items-center justify-center p-3">
         <img src="${channel.icon}" alt="${channel.name}" 
              class="w-16 h-16 object-contain"/>
       </div>
-      <span class="text-sm font-medium text-gray-900 text-center select-none w-full px-1 mt-2 line-clamp-2">
+      <span class="text-sm font-medium text-gray-900 text-center select-none w-full px-1 mt-2 leading-tight">
         ${channel.name}
       </span>
     `;
@@ -80,11 +85,15 @@ function renderChannels() {
 async function loadChannels() {
   try {
     const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
+    if (!res.ok) throw new Error("HTTP " + res.status);
     channelsData = await res.json();
+    console.log("Loaded channels:", channelsData); // Debug
     renderCategories();
     renderChannels();
   } catch (err) {
     console.error("Failed to load channels:", err);
+    document.getElementById('channelsGrid').innerHTML =
+      `<p class="col-span-4 text-center text-red-600">⚠️ Failed to load channels</p>`;
   }
 }
 
