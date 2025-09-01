@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Signup - Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
@@ -14,16 +13,16 @@
   
   <form id="signupForm" class="space-y-4">
     <div>
-      <label for="name" class="block text-gray-700">Full Name</label>
-      <input type="text" id="name" required placeholder="John Doe" class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <label class="block text-gray-700">Full Name</label>
+      <input type="text" id="name" required placeholder="John Doe" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </div>
     <div>
-      <label for="email" class="block text-gray-700">Email</label>
-      <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <label class="block text-gray-700">Email</label>
+      <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </div>
     <div>
-      <label for="password" class="block text-gray-700">Password</label>
-      <input type="password" id="password" required placeholder="********" class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <label class="block text-gray-700">Password</label>
+      <input type="password" id="password" required placeholder="********" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </div>
     <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors">Sign Up</button>
   </form>
@@ -32,62 +31,54 @@
 </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-  import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
-  const signupForm = document.getElementById('signupForm');
-  signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+const signupForm = document.getElementById('signupForm');
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
+signupForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-      // Check if admins node exists
-      const adminsSnapshot = await get(ref(db, "admins"));
-      if (!adminsSnapshot.exists()) {
-        // First user → add to admins
-        await set(ref(db, 'admins/' + user.uid), {
-          name: name,
-          email: email
-        });
-        alert("Admin account created! You are the first admin.");
-      } else {
-        // Regular user
-        await set(ref(db, 'users/' + user.uid), {
-          name: name,
-          email: email,
-          role: "user"
-        });
-        alert("Signup successful! You can now login.");
-      }
-
-      window.location.href = "signin.html";
-    } catch (error) {
-      alert(error.message);
+    // Check if admins node exists
+    const adminsSnapshot = await get(ref(db, "admins"));
+    if (!adminsSnapshot.exists()) {
+      // First user → create as admin
+      await set(ref(db, 'admins/' + user.uid), { name, email });
+      alert("First admin account created! You are the admin.");
+    } else {
+      // Regular user
+      await set(ref(db, 'users/' + user.uid), { name, email, role: "user" });
+      alert("Signup successful! You can now login.");
     }
-  });
-</script>
 
+    window.location.href = "signin.html";
+  } catch (error) {
+    alert(error.message);
+  }
+});
+</script>
 </body>
 </html>
