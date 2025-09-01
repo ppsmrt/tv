@@ -8,21 +8,21 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
-  body { background:#111; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:sans-serif; margin:0; }
+  body { margin:0; background:#111; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:sans-serif; }
   .player-card { position:relative; max-width:900px; width:100%; background:#1c1c1c; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
-  video { width:100%; border-radius:16px; background:black; object-fit:cover; outline:none; display:block; }
-  video::-webkit-media-controls { display:none !important; } /* hide default controls */
-  #header { width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:15; }
+  video { width:100%; display:block; object-fit:cover; border-radius:16px; z-index:0; }
+  video::-webkit-media-controls { display:none !important; }
+  #header { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:50; }
   #header button { background:rgba(255,255,255,0.2); padding:6px 10px; border-radius:6px; transition:all 0.3s; }
   #header button:hover { background:rgba(255,255,255,0.4); transform:scale(1.1); }
-  .controls { position:absolute; bottom:15px; left:0; right:0; display:flex; justify-content:space-around; align-items:center; padding:0 20px; opacity:0.95; transition:opacity 0.3s; }
+  .controls { position:absolute; bottom:15px; left:0; right:0; display:flex; justify-content:space-around; align-items:center; padding:0 20px; opacity:0; transition:opacity 0.3s; z-index:30; }
   .control-btn { color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
   .control-btn:hover { transform:scale(1.2); }
   #volumeSlider, #speedSelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
-  #overlayInfo { position:absolute; top:60px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; }
-  .premium-watermark { position:absolute; top:10px; right:10px; color:white; font-weight:bold; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:6px; animation:pulse 2s infinite; }
+  #overlayInfo { position:absolute; top:80px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; z-index:25; }
+  .premium-watermark { position:absolute; top:10px; right:10px; color:white; font-weight:bold; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:6px; animation:pulse 2s infinite; z-index:25; }
   @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
-  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:20; transition:transform 0.3s; }
+  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:40; transition:transform 0.3s; }
   #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
   #qualityContainer { display:flex; align-items:center; color:white; }
   #qualityIndicator { margin-left:6px; font-weight:bold; }
@@ -31,16 +31,10 @@
 <body>
 
 <div class="player-card">
-  <!-- Header -->
-  <div id="header">
-    <span id="channelName">Channel</span>
-    <button id="btnClose"><i class="fa fa-times"></i></button>
-  </div>
-
   <!-- Video -->
-  <video id="videoPlayer" autoplay muted></video>
+  <video id="videoPlayer" autoplay muted playsinline></video>
 
-  <!-- Play/Pause Overlay Button -->
+  <!-- Play/Pause Overlay -->
   <div id="btnPlayPause"><i class="fa fa-play"></i></div>
 
   <!-- Premium watermark -->
@@ -50,7 +44,7 @@
   <div id="overlayInfo">Live Now</div>
 
   <!-- Controls -->
-  <div class="controls">
+  <div class="controls" id="controlsBar">
     <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand fa-lg"></i></div>
     <div class="control-btn" id="btnPiP"><i class="fa fa-window-restore fa-lg"></i></div>
     <div class="control-btn">
@@ -72,87 +66,90 @@
   </div>
 </div>
 
+<!-- Header -->
+<div id="header">
+  <span id="channelName">Channel</span>
+  <button id="btnClose"><i class="fa fa-times"></i></button>
+</div>
+
 <script type="module">
 const urlParams = new URLSearchParams(window.location.search);
 const channelNameParam = urlParams.get('name') || "Unknown Channel";
 const streamURL = decodeURIComponent(urlParams.get('stream') || "");
 
 const video = document.getElementById('videoPlayer');
-const channelNameEl = document.getElementById('channelName');
-const overlayInfo = document.getElementById('overlayInfo');
 const btnPlayPause = document.getElementById('btnPlayPause');
 const btnClose = document.getElementById('btnClose');
+const controlsBar = document.getElementById('controlsBar');
+const channelNameEl = document.getElementById('channelName');
 const qualityIndicator = document.getElementById('qualityIndicator');
 const qualityContainer = document.getElementById('qualityContainer');
 
 channelNameEl.textContent = channelNameParam;
-overlayInfo.textContent = "Live Now: " + channelNameParam;
 
-// Close player
+// Close
 btnClose.onclick = () => window.location.href = '/tv/index.html';
 
-// Play/Pause toggle
-btnPlayPause.onclick = () => {
-  if(video.paused){
-    video.play();
-    btnPlayPause.innerHTML = '<i class="fa fa-pause"></i>';
+// Hide/show controls when clicking video
+video.addEventListener('click', ()=>{
+  if(controlsBar.style.opacity == 0 || !controlsBar.style.opacity){
+    controlsBar.style.opacity = 1;
+    btnPlayPause.style.opacity = 1;
   } else {
-    video.pause();
-    btnPlayPause.innerHTML = '<i class="fa fa-play"></i>';
+    controlsBar.style.opacity = 0;
+    btnPlayPause.style.opacity = 0;
   }
+});
+
+// Play/Pause overlay
+btnPlayPause.onclick = ()=>{
+  if(video.paused){ video.play(); btnPlayPause.innerHTML = '<i class="fa fa-pause"></i>'; }
+  else { video.pause(); btnPlayPause.innerHTML = '<i class="fa fa-play"></i>'; }
 };
 
 // Fullscreen
-document.getElementById('btnFullscreen').onclick = () => { if(video.requestFullscreen) video.requestFullscreen(); };
+document.getElementById('btnFullscreen').onclick = ()=>{ if(video.requestFullscreen) video.requestFullscreen(); };
 
 // PiP
-document.getElementById('btnPiP').onclick = async () => {
-  try { if(document.pictureInPictureElement) await document.exitPictureInPicture();
+document.getElementById('btnPiP').onclick = async ()=>{
+  try{ if(document.pictureInPictureElement) await document.exitPictureInPicture();
   else await video.requestPictureInPicture();
-  } catch(e){ console.log(e); }
+  }catch(e){console.log(e);}
 };
 
 // Volume
-document.getElementById('volumeSlider').oninput = (e) => video.volume = e.target.value;
+document.getElementById('volumeSlider').oninput = e=>video.volume=e.target.value;
 
 // Speed
-document.getElementById('speedSelect').onchange = (e) => video.playbackRate = parseFloat(e.target.value);
+document.getElementById('speedSelect').onchange = e=>video.playbackRate=parseFloat(e.target.value);
 
-// HLS setup with HD/SD indicator
+// HLS with HD/SD indicator
 function setupHLS(url){
   if(Hls.isSupported()){
     const hls = new Hls();
     hls.loadSource(url);
     hls.attachMedia(video);
-
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+    hls.on(Hls.Events.MANIFEST_PARSED,()=>{
       video.play();
       const levels = hls.levels;
       if(levels.length>1){
-        // Determine HD/SD
-        hls.on(Hls.Events.LEVEL_SWITCHED, () => {
+        hls.on(Hls.Events.LEVEL_SWITCHED,()=>{
           const height = hls.levels[hls.currentLevel].height;
-          qualityIndicator.textContent = height >= 720 ? 'HD' : 'SD';
+          qualityIndicator.textContent = height>=720?'HD':'SD';
         });
-        // Set initial quality indicator
-        const initHeight = hls.levels[hls.currentLevel].height;
-        qualityIndicator.textContent = initHeight >= 720 ? 'HD' : 'SD';
-      } else {
-        qualityContainer.style.display="none";
-      }
+        qualityIndicator.textContent = hls.levels[hls.currentLevel].height>=720?'HD':'SD';
+      } else qualityContainer.style.display='none';
     });
   } else if(video.canPlayType('application/vnd.apple.mpegurl')){
-    video.src = url;
+    video.src=url;
     video.addEventListener('loadedmetadata',()=>video.play());
-    qualityContainer.style.display="none";
+    qualityContainer.style.display='none';
   }
 }
 
-// Hide default video controls completely
-video.controls = false;
-
+video.controls = false; // hide native controls
 setupHLS(streamURL);
-
 </script>
+
 </body>
 </html>
