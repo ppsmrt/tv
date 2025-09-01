@@ -7,21 +7,23 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="assets/css/style.css">
 <style>
-  body { background:#111; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+  body { background:#111; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:sans-serif; }
   .player-card { position:relative; max-width:900px; width:100%; background:#1c1c1c; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
-  video { width:100%; border-radius:16px; background:black; }
+  video { width:100%; border-radius:16px; background:black; object-fit:cover; outline:none; }
+  video::-webkit-media-controls { display:none !important; } /* hide default controls */
   #header { width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:15; }
   #header button { background:rgba(255,255,255,0.2); padding:6px 10px; border-radius:6px; transition:all 0.3s; }
   #header button:hover { background:rgba(255,255,255,0.4); transform:scale(1.1); }
-  .controls { position:absolute; bottom:15px; left:0; right:0; display:flex; justify-content:space-around; align-items:center; padding:0 20px; opacity:0.95; }
+  .controls { position:absolute; bottom:15px; left:0; right:0; display:flex; justify-content:space-around; align-items:center; padding:0 20px; opacity:0.95; transition:opacity 0.3s; }
   .control-btn { color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
   .control-btn:hover { transform:scale(1.2); }
   #volumeSlider, #speedSelect, #qualitySelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
   #overlayInfo { position:absolute; top:60px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; }
   .premium-watermark { position:absolute; top:10px; right:10px; color:white; font-weight:bold; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:6px; animation:pulse 2s infinite; }
   @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:20; transition:transform 0.3s; }
+  #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
 </style>
 </head>
 <body>
@@ -36,6 +38,9 @@
   <!-- Video -->
   <video id="videoPlayer" autoplay muted></video>
 
+  <!-- Play/Pause Overlay Button -->
+  <div id="btnPlayPause"><i class="fa fa-play"></i></div>
+
   <!-- Premium watermark -->
   <div class="premium-watermark">Premium</div>
 
@@ -44,8 +49,8 @@
 
   <!-- Controls -->
   <div class="controls">
-    <div class="control-btn" id="btnPlayPause"><i class="fa fa-play fa-lg"></i></div>
     <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand fa-lg"></i></div>
+    <div class="control-btn" id="btnPiP"><i class="fa fa-window-restore fa-lg"></i></div>
     <div class="control-btn">
       <i class="fa fa-volume-up fa-lg"></i>
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
@@ -74,38 +79,54 @@ const streamURL = decodeURIComponent(urlParams.get('stream') || "");
 const video = document.getElementById('videoPlayer');
 const channelNameEl = document.getElementById('channelName');
 const overlayInfo = document.getElementById('overlayInfo');
+const btnPlayPause = document.getElementById('btnPlayPause');
+const btnClose = document.getElementById('btnClose');
 
 channelNameEl.textContent = channelNameParam;
 overlayInfo.textContent = "Live Now: " + channelNameParam;
 
-const btnClose = document.getElementById('btnClose');
+// Close Player
 btnClose.onclick = () => window.location.href = '/tv/index.html';
 
-// Play/Pause
-const btnPlayPause = document.getElementById('btnPlayPause');
+// --- Play/Pause button ---
 btnPlayPause.onclick = () => {
-  if(video.paused) { video.play(); btnPlayPause.innerHTML = '<i class="fa fa-pause fa-lg"></i>'; }
-  else { video.pause(); btnPlayPause.innerHTML = '<i class="fa fa-play fa-lg"></i>'; }
+  if(video.paused) {
+    video.play();
+    btnPlayPause.innerHTML = '<i class="fa fa-pause"></i>';
+  } else {
+    video.pause();
+    btnPlayPause.innerHTML = '<i class="fa fa-play"></i>';
+  }
 };
 
-// Fullscreen
-document.getElementById('btnFullscreen').onclick = () => { if(video.requestFullscreen) video.requestFullscreen(); };
+// --- Fullscreen ---
+document.getElementById('btnFullscreen').onclick = () => {
+  if(video.requestFullscreen) video.requestFullscreen();
+};
 
-// Volume
+// --- PiP ---
+document.getElementById('btnPiP').onclick = async () => {
+  try {
+    if(document.pictureInPictureElement) await document.exitPictureInPicture();
+    else await video.requestPictureInPicture();
+  } catch(e){ console.log(e); }
+};
+
+// --- Volume ---
 const volumeSlider = document.getElementById('volumeSlider');
-volumeSlider.oninput = (e) => { video.volume = e.target.value; };
+volumeSlider.oninput = (e) => video.volume = e.target.value;
 
-// Speed
+// --- Speed ---
 const speedSelect = document.getElementById('speedSelect');
-speedSelect.onchange = (e) => { video.playbackRate = parseFloat(e.target.value); };
+speedSelect.onchange = (e) => video.playbackRate = parseFloat(e.target.value);
 
-// HLS with quality selection
+// --- Quality Selector ---
 const qualityContainer = document.getElementById('qualityContainer');
 const qualitySelect = document.getElementById('qualitySelect');
 const qualityIndicator = document.getElementById('qualityIndicator');
 
-function setupHLS(url) {
-  if(Hls.isSupported()) {
+function setupHLS(url){
+  if(Hls.isSupported()){
     const hls = new Hls({ capLevelToPlayerSize:true });
     hls.loadSource(url);
     hls.attachMedia(video);
@@ -113,30 +134,30 @@ function setupHLS(url) {
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
       video.play();
       const levels = hls.levels;
-      if(levels.length > 1) {
-        qualityContainer.style.display = "flex";
-        qualitySelect.innerHTML = '';
+      if(levels.length>1){
+        qualityContainer.style.display="flex";
+        qualitySelect.innerHTML="";
         levels.forEach((level,i)=>{
-          const opt = document.createElement('option');
-          opt.value = i;
-          opt.textContent = level.height + 'p';
+          const opt=document.createElement('option');
+          opt.value=i;
+          opt.textContent=level.height+'p';
           qualitySelect.appendChild(opt);
         });
-        qualityIndicator.textContent = levels[hls.currentLevel]?.height + 'p';
-        qualitySelect.onchange = (e) => { hls.currentLevel = parseInt(e.target.value); qualityIndicator.textContent = levels[hls.currentLevel]?.height + 'p'; };
-      } else {
-        qualityContainer.style.display = "none";
+        qualityIndicator.textContent=levels[hls.currentLevel]?.height+'p';
+        qualitySelect.onchange = e => { hls.currentLevel=parseInt(e.target.value); qualityIndicator.textContent=levels[hls.currentLevel]?.height+'p'; };
       }
     });
-  } else if(video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = url;
-    video.addEventListener('loadedmetadata', () => video.play());
-    qualityContainer.style.display = "none";
+  } else if(video.canPlayType('application/vnd.apple.mpegurl')){
+    video.src=url;
+    video.addEventListener('loadedmetadata',()=>video.play());
+    qualityContainer.style.display="none";
   }
 }
 
 setupHLS(streamURL);
 
+// Hide native controls bar
+video.controls = false;
 </script>
 </body>
 </html>
