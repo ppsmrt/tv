@@ -48,7 +48,7 @@
   <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
 </div>
 
-<!-- Search and Filter -->
+<!-- Search/Filter -->
 <div class="flex flex-col md:flex-row gap-4 px-5 mb-5">
   <input type="text" id="searchInput" placeholder="Search by name..." class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
   <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
@@ -70,7 +70,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/fireba
 import { getDatabase, ref, push, set, update, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -91,19 +90,18 @@ const channelList = document.getElementById("channelList");
 const searchInput = document.getElementById("searchInput");
 const filterCategory = document.getElementById("filterCategory");
 
-let allChannels = {}; // store all channels for search/filter
+let allChannels = {};
 
-// Wait for auth
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "signin.html";
     return;
   }
 
-  // Check if admin
+  // Check admin
   const adminSnap = await get(ref(db, "admins/" + user.uid));
   if (!adminSnap.exists()) {
-    alert("Access denied. Only admins can access this page.");
+    alert("Access denied.");
     window.location.href = "index.html";
     return;
   }
@@ -116,7 +114,6 @@ onAuthStateChanged(auth, async (user) => {
   });
 });
 
-// Render channels
 function renderChannels(channels) {
   const searchTerm = searchInput.value.toLowerCase();
   const categoryFilter = filterCategory.value;
@@ -173,11 +170,9 @@ function renderChannels(channels) {
   });
 }
 
-// Search/filter events
 searchInput.addEventListener("input", () => renderChannels(allChannels));
 filterCategory.addEventListener("change", () => renderChannels(allChannels));
 
-// Handle channel form submit
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const channelId = document.getElementById("channelId").value;
