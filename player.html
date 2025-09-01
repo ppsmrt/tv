@@ -9,61 +9,62 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
-  body { background: #111; }
-  .premium-watermark { position: absolute; top:10px; left:10px; font-size:14px; font-weight:bold; color:white; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:4px; z-index:10; pointer-events:none; }
-  #overlayInfo { position:absolute; bottom:10px; left:10px; right:10px; background:rgba(0,0,0,0.5); color:white; padding:8px 12px; border-radius:6px; font-size:14px; display:flex; justify-content:space-between; align-items:center; z-index:10; opacity:0; transition:opacity 0.5s; }
-  #overlayInfo.show { opacity:1; }
-  #adOverlay { position:absolute;top:0;left:0;width:100%;height:100%;background:black;color:white;display:flex;justify-content:center;align-items:center;font-size:2rem;z-index:20; flex-direction:column;}
-  #header { width:100%; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.6); padding:10px 20px; color:white; font-size:1.5rem; font-weight:bold; position:absolute; top:0; z-index:15; border-bottom-left-radius:10px; border-bottom-right-radius:10px; }
-  #header button { background:rgba(255,255,255,0.2); padding:5px 10px; border-radius:6px; transition:all 0.3s; }
-  #header button:hover { background:rgba(255,255,255,0.5); transform:scale(1.1); }
-  .control-btn { display:flex; align-items:center; justify-content:center; padding:10px; border-radius:8px; background:rgba(255,255,255,0.1); transition:all 0.3s; cursor:pointer; }
-  .control-btn:hover { background:rgba(255,255,255,0.3); transform:scale(1.1); }
-  .control-btn i { margin-right:4px; }
+  body { background:#111; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+  .player-card { position:relative; max-width:900px; width:100%; background:#1c1c1c; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
+  video { width:100%; border-radius:16px; background:black; }
+  #header { width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:15; }
+  #header button { background:rgba(255,255,255,0.2); padding:6px 10px; border-radius:6px; transition:all 0.3s; }
+  #header button:hover { background:rgba(255,255,255,0.4); transform:scale(1.1); }
+  .controls { position:absolute; bottom:15px; left:0; right:0; display:flex; justify-content:space-around; align-items:center; padding:0 20px; opacity:0.95; }
+  .control-btn { color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
+  .control-btn:hover { transform:scale(1.2); }
+  #volumeSlider, #speedSelect, #qualitySelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
+  #overlayInfo { position:absolute; top:60px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; }
+  .premium-watermark { position:absolute; top:10px; right:10px; color:white; font-weight:bold; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:6px; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
 </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen">
+<body>
 
-<!-- Header with Channel Name & Close Button -->
-<div id="header">
-  <span id="channelName">Loading...</span>
-  <button id="btnClose"><i class="fa fa-times"></i> Close</button>
-</div>
+<div class="player-card">
+  <!-- Header -->
+  <div id="header">
+    <span id="channelName">Channel</span>
+    <button id="btnClose"><i class="fa fa-times"></i></button>
+  </div>
 
-<!-- Video Player -->
-<div class="relative w-full max-w-5xl mt-16">
-  <video id="videoPlayer" class="w-full rounded-lg shadow-lg bg-black" autoplay muted></video>
+  <!-- Video -->
+  <video id="videoPlayer" autoplay muted></video>
 
-  <div class="premium-watermark animate-pulse">Premium</div>
+  <!-- Premium watermark -->
+  <div class="premium-watermark">Premium</div>
 
   <!-- Overlay Info -->
-  <div id="overlayInfo">
-    <span id="currentProgram">Live Now: Loading...</span>
-    <span id="timeDisplay">00:00</span>
-  </div>
+  <div id="overlayInfo">Live Now</div>
 
-  <!-- Pre-roll Ad -->
-  <div id="adOverlay">
-    <div>Ad: Watch this before your stream</div>
-    <div id="adCountdown" class="text-lg mt-2">4</div>
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-btn" id="btnPlayPause"><i class="fa fa-play fa-lg"></i></div>
+    <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand fa-lg"></i></div>
+    <div class="control-btn">
+      <i class="fa fa-volume-up fa-lg"></i>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+    <div class="control-btn">
+      <i class="fa fa-tachometer-alt fa-lg"></i>
+      <select id="speedSelect">
+        <option value="1" selected>1x</option>
+        <option value="2">2x</option>
+        <option value="3">3x</option>
+      </select>
+    </div>
+    <div class="control-btn" id="qualityContainer" style="display:none;">
+      <i class="fa fa-tv fa-lg"></i>
+      <select id="qualitySelect"></select>
+      <span id="qualityIndicator" class="ml-2 text-sm"></span>
+    </div>
   </div>
 </div>
-
-<!-- Controls -->
-<div class="flex flex-wrap gap-3 mt-4">
-  <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand"></i> Fullscreen</div>
-  <div class="control-btn" id="btnPiP"><i class="fa fa-window-restore"></i> PiP</div>
-  <div class="control-btn" id="btnMute"><i class="fa fa-volume-up"></i> Mute</div>
-  <div class="control-btn" id="btnSpeed"><i class="fa fa-tachometer-alt"></i> Speed</div>
-</div>
-
-<!-- Playback Speed Dropdown -->
-<select id="playbackSpeed" class="px-3 py-1 bg-gray-800 rounded mt-2 hidden">
-  <option value="0.5">0.5x</option>
-  <option value="1" selected>1x</option>
-  <option value="1.5">1.5x</option>
-  <option value="2">2x</option>
-</select>
 
 <script type="module">
 const urlParams = new URLSearchParams(window.location.search);
@@ -72,75 +73,70 @@ const streamURL = decodeURIComponent(urlParams.get('stream') || "");
 
 const video = document.getElementById('videoPlayer');
 const channelNameEl = document.getElementById('channelName');
-const adOverlay = document.getElementById('adOverlay');
-const adCountdown = document.getElementById('adCountdown');
 const overlayInfo = document.getElementById('overlayInfo');
-const currentProgram = document.getElementById('currentProgram');
-const timeDisplay = document.getElementById('timeDisplay');
-const playbackSpeed = document.getElementById('playbackSpeed');
 
 channelNameEl.textContent = channelNameParam;
-currentProgram.textContent = "Live Now: " + channelNameParam;
+overlayInfo.textContent = "Live Now: " + channelNameParam;
 
-// Show overlay on hover
-video.addEventListener('mousemove', () => overlayInfo.classList.add('show'));
-video.addEventListener('mouseleave', () => overlayInfo.classList.remove('show'));
+const btnClose = document.getElementById('btnClose');
+btnClose.onclick = () => window.location.href = '/tv/index.html';
 
-// --- Pre-roll Ad ---
-function playAdThenStream() {
-  adOverlay.style.display = 'flex';
-  video.pause();
-  let countdown = 4;
-  adCountdown.textContent = countdown;
-  const interval = setInterval(() => {
-    countdown--;
-    adCountdown.textContent = countdown;
-    if (countdown <= 0) {
-      clearInterval(interval);
-      adOverlay.style.display = 'none';
-      startStream();
-    }
-  }, 1000);
-}
-
-// --- HLS Streaming ---
-function startStream() {
-  if (!streamURL) { alert("Stream URL not available."); return; }
-  if (Hls.isSupported()) {
-    const hls = new Hls();
-    hls.loadSource(streamURL);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = streamURL;
-    video.addEventListener('loadedmetadata', () => video.play());
-  } else { alert("Your browser does not support HLS."); }
-}
-
-// --- Controls ---
-document.getElementById('btnFullscreen').onclick = () => { if(video.requestFullscreen) video.requestFullscreen(); };
-document.getElementById('btnPiP').onclick = async () => { try { if(document.pictureInPictureElement){ await document.exitPictureInPicture(); } else { await video.requestPictureInPicture(); } } catch(e){console.log(e);} };
-document.getElementById('btnMute').onclick = () => { video.muted = !video.muted; };
-document.getElementById('btnSpeed').onclick = () => { playbackSpeed.classList.toggle('hidden'); };
-playbackSpeed.onchange = (e) => { video.playbackRate = parseFloat(e.target.value); };
-
-// --- Time Display ---
-setInterval(() => {
-  const mins = Math.floor(video.currentTime/60).toString().padStart(2,'0');
-  const secs = Math.floor(video.currentTime%60).toString().padStart(2,'0');
-  timeDisplay.textContent = `${mins}:${secs}`;
-}, 500);
-
-// --- Close Player Button ---
-document.getElementById('btnClose').onclick = () => {
-  window.location.href = '/tv/index.html';
+// Play/Pause
+const btnPlayPause = document.getElementById('btnPlayPause');
+btnPlayPause.onclick = () => {
+  if(video.paused) { video.play(); btnPlayPause.innerHTML = '<i class="fa fa-pause fa-lg"></i>'; }
+  else { video.pause(); btnPlayPause.innerHTML = '<i class="fa fa-play fa-lg"></i>'; }
 };
 
-// --- Analytics ---
-video.addEventListener('play', () => console.log(`${channelNameParam} started at ${new Date().toISOString()}`));
-video.addEventListener('pause', () => console.log(`${channelNameParam} paused at ${new Date().toISOString()}`));
+// Fullscreen
+document.getElementById('btnFullscreen').onclick = () => { if(video.requestFullscreen) video.requestFullscreen(); };
 
-playAdThenStream();
+// Volume
+const volumeSlider = document.getElementById('volumeSlider');
+volumeSlider.oninput = (e) => { video.volume = e.target.value; };
+
+// Speed
+const speedSelect = document.getElementById('speedSelect');
+speedSelect.onchange = (e) => { video.playbackRate = parseFloat(e.target.value); };
+
+// HLS with quality selection
+const qualityContainer = document.getElementById('qualityContainer');
+const qualitySelect = document.getElementById('qualitySelect');
+const qualityIndicator = document.getElementById('qualityIndicator');
+
+function setupHLS(url) {
+  if(Hls.isSupported()) {
+    const hls = new Hls({ capLevelToPlayerSize:true });
+    hls.loadSource(url);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play();
+      const levels = hls.levels;
+      if(levels.length > 1) {
+        qualityContainer.style.display = "flex";
+        qualitySelect.innerHTML = '';
+        levels.forEach((level,i)=>{
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = level.height + 'p';
+          qualitySelect.appendChild(opt);
+        });
+        qualityIndicator.textContent = levels[hls.currentLevel]?.height + 'p';
+        qualitySelect.onchange = (e) => { hls.currentLevel = parseInt(e.target.value); qualityIndicator.textContent = levels[hls.currentLevel]?.height + 'p'; };
+      } else {
+        qualityContainer.style.display = "none";
+      }
+    });
+  } else if(video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = url;
+    video.addEventListener('loadedmetadata', () => video.play());
+    qualityContainer.style.display = "none";
+  }
+}
+
+setupHLS(streamURL);
+
 </script>
 </body>
 </html>
