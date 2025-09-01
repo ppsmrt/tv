@@ -37,9 +37,17 @@ body::-webkit-scrollbar { display: none; }
   box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
-/* Sticky header + category */
-.sticky-header { position: sticky; top:0; z-index:50; }
-.bottom-nav button.active { color:#4f46e5; transform:scale(1.1); }
+/* Category bar sticky */
+.category-bar {
+  position: sticky;
+  top:0;
+  z-index:40;
+  background:white;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+  padding:0.5rem 1rem;
+  display:flex;
+  gap:0.5rem;
+}
 
 /* Category button */
 .category-btn {
@@ -53,7 +61,10 @@ body::-webkit-scrollbar { display: none; }
 
 /* Bottom nav */
 .bottom-nav {
-  position:fixed; bottom:0; left:0; right:0;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
   background:white;
   display:flex;
   justify-around;
@@ -70,18 +81,22 @@ body::-webkit-scrollbar { display: none; }
   color:#6b7280;
   transition: all 0.3s ease;
 }
+.bottom-nav button.active { color:#4f46e5; transform:scale(1.1); }
+
+/* Header hide on scroll */
+#header { transition: transform 0.3s ease; }
 </style>
 </head>
 <body class="bg-gray-100 pb-24">
 
 <!-- Header -->
-<header class="sticky-header bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white p-5 text-center text-2xl font-bold shadow-md">
+<header id="header" class="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white p-5 text-center text-2xl font-bold shadow-md">
   Live TV
 </header>
 
 <!-- Category Bar -->
-<div id="categoryBar" class="sticky-header category-bar bg-white shadow-md m-2 rounded-xl flex gap-3 p-2">
-<!-- Categories dynamically injected -->
+<div id="categoryBar" class="category-bar rounded-xl m-2">
+  <!-- Categories dynamically injected -->
 </div>
 
 <!-- Channels Grid -->
@@ -198,8 +213,21 @@ function renderChannels(channels){
 function navigate(page){
   document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));
   event.currentTarget.classList.add("active");
-  // You can implement page switching logic here
+  // Optional: implement page switching logic
 }
+
+// Hide header on scroll
+let lastScroll = 0;
+const header = document.getElementById("header");
+window.addEventListener("scroll", ()=>{
+  const currentScroll = window.pageYOffset;
+  if(currentScroll > lastScroll && currentScroll > 50){
+    header.style.transform = "translateY(-100%)";
+  } else {
+    header.style.transform = "translateY(0)";
+  }
+  lastScroll = currentScroll;
+});
 </script>
 </body>
 </html>
