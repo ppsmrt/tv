@@ -16,7 +16,7 @@
 <body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden scroll-smooth">
 
   <!-- Header -->
-  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50 animate-slideDown">
     <button aria-label="Menu" class="text-white text-3xl">
       <i class="fas fa-bars"></i>
     </button>
@@ -30,7 +30,7 @@
 
   <!-- Categories Row -->
   <nav id="categoriesRow"
-    class="bg-gray-200/20 backdrop-blur-sm flex space-x-3 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-2 px-3 select-none scrollbar-hide">
+    class="bg-gray-200/20 backdrop-blur-sm flex space-x-3 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-3 px-3 select-none scrollbar-hide">
     <!-- Categories dynamically injected -->
   </nav>
 
@@ -39,9 +39,35 @@
     <!-- Channels dynamically injected -->
   </div>
 
+<!-- ✅ Animations CSS -->
+<script>
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+.animate-ripple { position: relative; overflow: hidden; }
+.animate-ripple::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  width: 100px; height: 100px;
+  transform: scale(0);
+  opacity: 0.75;
+  pointer-events: none;
+  animation: ripple 0.5s linear;
+}
+@keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); } }
+.animate-pop { animation: pop 0.35s ease-out forwards; }
+@keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+.animate-slideDown { animation: slideDown 0.5s ease-out forwards; }
+@keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+.animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
+`;
+document.head.appendChild(style);
+</script>
+
 <!-- Firebase & App Script -->
 <script type="module">
-  // Firebase Imports
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -56,7 +82,6 @@
     measurementId: "G-FNS9JWZ9LS"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
@@ -66,7 +91,6 @@
   let allChannels = [];
   let currentCategory = 'All';
 
-  // Fetch channels from Firebase
   const channelsRef = ref(db, 'channels');
   onValue(channelsRef, (snapshot) => {
     channelsGrid.innerHTML = '';
@@ -77,13 +101,11 @@
 
     allChannels = Object.values(data);
 
-    // Generate unique categories
     const categories = ['All', ...new Set(allChannels.map(c => c.category))];
 
-    // Render category buttons
     categories.forEach(cat => {
       const btn = document.createElement('button');
-      btn.className = `px-4 py-2 rounded-full ${cat === currentCategory ? 'bg-[#d92a1a] text-white' : 'bg-white text-gray-700'} shadow`;
+      btn.className = `px-4 py-2 rounded-full ${cat === currentCategory ? 'bg-[#d92a1a] text-white' : 'bg-white text-gray-700'} shadow animate-pop`;
       btn.textContent = cat;
       btn.onclick = () => {
         currentCategory = cat;
@@ -104,13 +126,18 @@
 
     filtered.forEach(ch => {
       const card = document.createElement('div');
-      card.className = 'bg-white rounded-xl shadow hover:shadow-lg overflow-hidden cursor-pointer transition transform hover:scale-105';
+      card.className = 'bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden cursor-pointer transform transition hover:scale-105 flex flex-col items-center justify-center p-3 animate-fadeUp';
       card.innerHTML = `
-        <img src="${ch.icon}" alt="${ch.name}" class="w-full h-32 object-contain bg-gray-100 p-2">
-        <div class="p-2 text-center text-gray-800 font-semibold">${ch.name}</div>
+        <div class="w-full h-28 bg-gray-100 flex items-center justify-center rounded-xl">
+          <img src="${ch.icon}" alt="${ch.name}" class="max-h-20 max-w-full object-contain">
+        </div>
+        <div class="mt-2 text-center text-gray-800 font-semibold text-sm">${ch.name}</div>
       `;
-      card.onclick = () => {
-        window.open(ch.stream, '_blank'); // OR implement custom player
+      card.onclick = (e) => {
+        rippleEffect(e, card);
+        setTimeout(() => {
+          window.open(ch.stream, '_blank');
+        }, 200);
       };
       channelsGrid.appendChild(card);
     });
@@ -119,11 +146,22 @@
   function updateCategoryButtons(categories) {
     categoriesRow.querySelectorAll('button').forEach(btn => {
       if (btn.textContent === currentCategory) {
-        btn.className = 'px-4 py-2 rounded-full bg-[#d92a1a] text-white shadow';
+        btn.className = 'px-4 py-2 rounded-full bg-[#d92a1a] text-white shadow animate-pop';
       } else {
-        btn.className = 'px-4 py-2 rounded-full bg-white text-gray-700 shadow';
+        btn.className = 'px-4 py-2 rounded-full bg-white text-gray-700 shadow animate-pop';
       }
     });
+  }
+
+  function rippleEffect(event, element) {
+    const ripple = document.createElement('span');
+    ripple.className = 'absolute bg-white rounded-full opacity-75 animate-ripple';
+    const rect = element.getBoundingClientRect();
+    ripple.style.width = ripple.style.height = `${Math.max(rect.width, rect.height)}px`;
+    ripple.style.left = `${event.clientX - rect.left - (rect.width / 2)}px`;
+    ripple.style.top = `${event.clientY - rect.top - (rect.height / 2)}px`;
+    element.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 500);
   }
 </script>
 </body>
