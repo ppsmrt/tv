@@ -54,7 +54,7 @@
 <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
-let streamUrl = params.get('stream') || "";
+let streamUrl = params.get('stream') ? decodeURIComponent(params.get('stream')) : "";
 const name = params.get('name') || "Unknown Channel";
 document.getElementById('channelName').textContent = name;
 
