@@ -1,4 +1,6 @@
 // assets/js/player.js
+console.log("✅ player.js loaded");
+
 const style = document.createElement('style');
 style.innerHTML = `
 @keyframes ripple { to { transform: scale(4); opacity: 0; } }
@@ -21,6 +23,10 @@ let channelsData = [];
 
 function renderCategories() {
   const row = document.getElementById('categoriesRow');
+  if (!row) {
+    console.error("❌ categoriesRow not found in DOM");
+    return;
+  }
   row.innerHTML = '';
   row.classList.add('animate-slideDown');
 
@@ -30,8 +36,8 @@ function renderCategories() {
     btn.href = "#";
     btn.className = `px-5 py-2 rounded-full whitespace-nowrap transform transition-all duration-200 shadow-sm opacity-0 ${
       selectedCategory === cat 
-        ? 'bg-white text-red-600 font-bold relative overflow-hidden' 
-        : 'bg-gray-200/50 text-gray-900 hover:bg-white hover:text-red-600 hover:scale-105 relative overflow-hidden'
+        ? 'bg-white text-red-600 font-bold' 
+        : 'bg-gray-200/50 text-gray-900 hover:bg-white hover:text-red-600 hover:scale-105'
     }`;
 
     btn.style.animation = `slideDown 0.5s ease-out forwards`;
@@ -50,6 +56,11 @@ function renderCategories() {
 
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
+  if (!grid) {
+    console.error("❌ channelsGrid not found in DOM");
+    return;
+  }
+
   grid.innerHTML = '';
   const filtered = channelsData.filter(
     c => selectedCategory === "All" || c.category === selectedCategory
@@ -84,17 +95,21 @@ function renderChannels() {
 
 async function loadChannels() {
   try {
-    const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
+    const url = "https://ppsmrt.github.io/tv/data/channels.json";
+    console.log("📡 Fetching:", url);
+    const res = await fetch(url);
     if (!res.ok) throw new Error("HTTP " + res.status);
     channelsData = await res.json();
-    console.log("Loaded channels:", channelsData); // Debug
+    console.log("✅ Loaded channels:", channelsData.length);
     renderCategories();
     renderChannels();
   } catch (err) {
-    console.error("Failed to load channels:", err);
-    document.getElementById('channelsGrid').innerHTML =
-      `<p class="col-span-4 text-center text-red-600">⚠️ Failed to load channels</p>`;
+    console.error("❌ Failed to load channels:", err);
+    const grid = document.getElementById('channelsGrid');
+    if (grid) {
+      grid.innerHTML = `<p class="col-span-4 text-center text-red-600">⚠️ Failed to load channels</p>`;
+    }
   }
 }
 
-loadChannels();
+document.addEventListener("DOMContentLoaded", loadChannels);
