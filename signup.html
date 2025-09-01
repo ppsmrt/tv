@@ -24,6 +24,15 @@
       <label class="block text-gray-700">Password</label>
       <input type="password" id="password" required placeholder="********" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </div>
+    <!-- Role selector only appears if admins exist and current user is admin -->
+    <div id="roleContainer" class="hidden">
+      <label class="block text-gray-700">Role</label>
+      <select id="role" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+
     <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors">Sign Up</button>
   </form>
 
@@ -32,7 +41,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -51,35 +60,54 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 
 const signupForm = document.getElementById('signupForm');
+const roleContainer = document.getElementById('roleContainer');
+
+// Check if admins exist
+const adminsSnap = await get(ref(db, "admins"));
+const adminsExist = adminsSnap.exists();
+if (adminsExist) {
+  // Show role selector only if current user is admin
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    const isAdminSnap = await get(ref(db, `admins/${user.uid}`));
+    if (isAdminSnap.exists()) {
+      roleContainer.classList.remove("hidden");
+    }
+  });
+}
 
 signupForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
+  const role = document.getElementById('role') ? document.getElementById('role').value : "user";
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    const uid = userCredential.user.uid;
 
-    // Wait until auth state is fully ready
-    onAuthStateChanged(auth, async (currentUser) => {
-      if (!currentUser) return;
-
-      // Check if admins exist
-      const adminsSnap = await get(ref(db, "admins"));
-      if (!adminsSnap.exists()) {
-        // First user → admin
-        await set(ref(db, "admins/" + currentUser.uid), { name, email });
-        alert("First admin account created! You are the admin.");
+    const adminsSnapAfter = await get(ref(db, "admins"));
+    if (!adminsSnapAfter.exists()) {
+      // First user → admin
+      await set(ref(db, "admins/" + uid), { name, email });
+      alert("First admin account created! You are the admin.");
+    } else {
+      if (role === "admin") {
+        // Only allow current signed-in admins to create new admin
+        const currentUser = auth.currentUser;
+        const currentAdminSnap = await get(ref(db, `admins/${currentUser.uid}`));
+        if (!currentAdminSnap.exists()) throw new Error("Only admins can create new admins.");
+        await set(ref(db, `admins/${uid}`), { name, email });
+        alert("Admin account created successfully!");
       } else {
-        // Regular user
-        await set(ref(db, "users/" + currentUser.uid), { name, email, role: "user" });
-        alert("Signup successful! You can now login.");
+        await set(ref(db, `users/${uid}`), { name, email, role: "user" });
+        alert("User account created successfully!");
       }
+    }
 
-      window.location.href = "signin.html";
-    });
+    window.location.href = "signin.html";
+
   } catch (error) {
     alert(error.message);
   }
