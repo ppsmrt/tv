@@ -10,7 +10,7 @@
 
 <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
   <h2 class="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-  
+
   <form id="signupForm" class="space-y-4">
     <div>
       <label class="block text-gray-700">Full Name</label>
@@ -28,11 +28,13 @@
     <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors">Sign Up</button>
   </form>
 
-  <p class="mt-4 text-center text-gray-600">Already have an account? <a href="signin.html" class="text-indigo-600 font-semibold">Sign In Now</a></p>
+  <p class="mt-4 text-center text-gray-600">Already have an account? <a href="signin.html" class="text-indigo-600 font-semibold">Sign In</a></p>
 </div>
 
 <script type="module">
+// Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
@@ -48,7 +50,9 @@ const firebaseConfig = {
   measurementId: "G-FNS9JWZ9LS"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
@@ -68,22 +72,21 @@ signupForm.addEventListener('submit', async (e) => {
 
     // 2️⃣ Check if any admins exist
     const adminsSnap = await get(ref(db, "admins"));
-    
+
     if (!adminsSnap.exists()) {
       // First user → admin
-      await set(ref(db, "admins/" + uid), { name, email });
+      await set(ref(db, `admins/${uid}`), { name, email });
       alert("First admin account created successfully!");
     } else {
       // Regular user
-      await set(ref(db, "users/" + uid), { name, email, role: "user" });
+      await set(ref(db, `users/${uid}`), { name, email, role: "user" });
       alert("User account created successfully!");
     }
 
-    // 3️⃣ Redirect to signin
     window.location.href = "signin.html";
 
   } catch (error) {
-    console.error("Error creating account:", error);
+    console.error(error);
     alert(error.message);
   }
 });
