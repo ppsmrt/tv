@@ -10,7 +10,7 @@
 <style>
   body { font-family: 'Baloo 2', cursive; background:#000; }
   #controlsBar,#topBar{transition:opacity 0.3s;}
-  #spinner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:3rem;animation:spin 1s linear infinite;z-index:40;}
+  #spinner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:3rem;animation:spin 1s linear infinite;z-index:40;display:none;}
   @keyframes spin{0%{transform:translate(-50%,-50%) rotate(0deg);}100%{transform:translate(-50%,-50%) rotate(360deg);}}
   #toast{position:fixed;bottom:5%;left:50%;transform:translateX(-50%);background:rgba(220,20,60,0.95);color:white;padding:1rem 2rem;border-radius:1rem;display:none;z-index:60;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
 </style>
@@ -22,7 +22,7 @@
 
 <div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
   <button id="closeBtn" class="text-white text-3xl"><i class="fas fa-times"></i></button>
-  <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]">Loading...</h1>
+  <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]"></h1>
   <div class="w-8"></div>
 </div>
 
@@ -42,7 +42,8 @@
 const params = new URLSearchParams(window.location.search);
 let streamUrl = params.get('stream') ? decodeURIComponent(params.get('stream')) : "";
 const name = params.get('name') || "Unknown Channel";
-document.getElementById('channelName').textContent = name;
+const channelNameEl = document.getElementById('channelName');
+channelNameEl.textContent = name;
 
 const spinner = document.getElementById('spinner');
 const toast = document.getElementById('toast');
@@ -58,34 +59,38 @@ function showToast(msg){
 const CORS_PROXY = "https://corsproxy.io/?";
 
 async function playStream(url){
-  spinner.style.display='block';
   const ext = url.split('?')[0].split('.').pop().toLowerCase();
   const proxiedUrl = (ext==='m3u8'||ext==='ts'||ext==='mpd') ? CORS_PROXY + encodeURIComponent(url) : url;
 
+  spinner.style.display='block'; // show spinner while loading
+
   try {
     if((ext==='m3u8'||ext==='ts') && video.canPlayType('application/vnd.apple.mpegurl')){
+      // Native HLS
       video.src = proxiedUrl;
-      video.onloadedmetadata = ()=> video.play();
-      video.onplaying = ()=> spinner.style.display='none';
-      video.onerror = ()=> showToast('Cannot play HLS stream natively');
+      video.addEventListener('loadedmetadata',()=>video.play());
     }
     else if(ext==='m3u8'||ext==='ts'){
+      // Hls.js fallback
       if(Hls.isSupported()){
         const hls = new Hls();
         hls.loadSource(proxiedUrl);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, ()=> video.play());
-        hls.on(Hls.Events.ERROR, (_,data)=> showToast('HLS Error: '+data.details));
-        video.onplaying = ()=> spinner.style.display='none';
+        hls.on(Hls.Events.MANIFEST_PARSED,()=>video.play());
+        hls.on(Hls.Events.ERROR,(_,data)=> showToast('HLS Error: '+data.details));
       } else throw "HLS not supported";
     }
     else if(ext==='mpd'){
       const player = dashjs.MediaPlayer().create();
       player.initialize(video, proxiedUrl, true);
-      player.on('error', ()=> showToast('DASH stream failed'));
-      video.onplaying = ()=> spinner.style.display='none';
+      player.on('error',()=> showToast('DASH stream failed'));
     }
     else throw "Unsupported format";
+
+    // Remove spinner when playback starts
+    video.addEventListener('playing',()=> spinner.style.display='none');
+    video.addEventListener('waiting',()=> spinner.style.display='block'); // show spinner if buffering
+    video.addEventListener('ended',()=> spinner.style.display='none');
   } catch(e){
     console.error(e);
     showToast('Failed to play stream');
@@ -93,23 +98,37 @@ async function playStream(url){
   }
 }
 
-// Play
+// Play stream
 if(streamUrl) playStream(streamUrl);
 else showToast('No stream URL provided');
 
 // Controls
 const playPauseBtn = document.getElementById('playPauseBtn');
-playPauseBtn.addEventListener('click', ()=>{if(video.paused){video.play();playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'}else{video.pause();playPauseBtn.innerHTML='<i class="fas fa-play"></i>'}});
+playPauseBtn.addEventListener('click',()=>{
+  if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
+  else { video.pause(); playPauseBtn.innerHTML='<i class="fas fa-play"></i>'; }
+});
+
 const volumeRange = document.getElementById('volumeRange');
 volumeRange.value = video.volume;
-volumeRange.addEventListener('input', ()=> video.volume = volumeRange.value);
-document.getElementById('fullscreenBtn').addEventListener('click', ()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();});
-document.getElementById('closeBtn').addEventListener('click', ()=> window.location.href='index.html');
+volumeRange.addEventListener('input',()=> video.volume = volumeRange.value);
 
+document.getElementById('fullscreenBtn').addEventListener('click',()=>{
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+});
+
+document.getElementById('closeBtn').addEventListener('click',()=> window.location.href='index.html');
+
+// Tap to hide controls
 let controlsVisible = true;
 const controlsBar = document.getElementById('controlsBar');
 const topBar = document.getElementById('topBar');
-video.addEventListener('click', ()=>{controlsVisible = !controlsVisible;controlsBar.style.opacity = controlsVisible?'1':'0';topBar.style.opacity = controlsVisible?'1':'0';});
+video.addEventListener('click',()=>{
+  controlsVisible = !controlsVisible;
+  controlsBar.style.opacity = controlsVisible?'1':'0';
+  topBar.style.opacity = controlsVisible?'1':'0';
+});
 </script>
 </body>
 </html>
