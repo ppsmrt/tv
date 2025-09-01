@@ -1,134 +1,413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live TV</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Live TV - Clean Premium UI</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: SF Pro Display fallback with system fonts -->
+  <style>
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: local('SF Pro Display'), local('San Francisco'), local('Helvetica Neue'), local('Arial'), sans-serif;
+      font-weight: 400 900;
+      font-style: normal;
+    }
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: #f9fafb;
+      color: #111827;
+      margin: 0;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <style>
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: white;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      user-select: none;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #111827;
+      letter-spacing: 0.05em;
+    }
+
+    /* Search bar */
+    .search-container {
+      position: relative;
+      max-width: 320px;
+      width: 100%;
+    }
+    .search-container input {
+      width: 100%;
+      padding: 8px 40px 8px 16px;
+      border-radius: 9999px;
+      border: 1.5px solid #d1d5db;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #374151;
+      background: #f3f4f6;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .search-container input::placeholder {
+      color: #9ca3af;
+    }
+    .search-container input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 8px #3b82f6aa;
+      background: white;
+    }
+    .search-container .material-icons {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #3b82f6;
+      font-size: 20px;
+      pointer-events: none;
+    }
+
+    /* Main content */
+    main {
+      padding: 80px 24px 96px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Category bar */
+    .category-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .category-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .category-btn {
+      flex-shrink: 0;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #6b7280;
+      background: #e5e7eb;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      white-space: nowrap;
+      border: none;
+    }
+    .category-btn:hover {
+      background: #3b82f6;
+      color: white;
+    }
+    .category-btn.active {
+      background: #3b82f6;
+      color: white;
+      box-shadow: 0 4px 12px rgb(59 130 246 / 0.4);
+    }
+    .category-btn:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+    }
+
+    /* Channel grid */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 24px;
+    }
+
+    /* Channel card */
+    .channel-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      user-select: none;
+    }
+    .channel-card:hover,
+    .channel-card:focus-visible {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgb(59 130 246 / 0.3);
+      outline: none;
+    }
+    .channel-card:focus-visible {
+      outline: 3px solid #2563eb;
+      outline-offset: 2px;
+      z-index: 10;
+    }
+
+    /* Channel image */
+    .channel-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-bottom: 1px solid #e5e7eb;
+      transition: filter 0.3s ease;
+    }
+    .channel-card:hover .channel-image {
+      filter: brightness(1.1);
+    }
+
+    /* Channel name */
+    .channel-name {
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 1.2;
+      text-align: center;
+      user-select: text;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Bottom navigation */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: white;
+      box-shadow: 0 -2px 8px rgb(0 0 0 / 0.1);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      user-select: none;
+    }
+    .bottom-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #6b7280;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      border: none;
+      background: none;
+      padding: 0;
+    }
+    .bottom-nav-btn .material-icons {
+      font-size: 24px;
+      margin-bottom: 2px;
+      transition: filter 0.3s ease;
+    }
+    .bottom-nav-btn:hover,
+    .bottom-nav-btn:focus-visible {
+      color: #3b82f6;
+      outline: none;
+      transform: scale(1.15);
+    }
+    .bottom-nav-btn.active {
+      color: #3b82f6;
+      transform: scale(1.25);
+      font-weight: 700;
+    }
+    .bottom-nav-btn.active .material-icons {
+      filter: drop-shadow(0 0 6px #3b82f6);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .channels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 16px;
+      }
+      .channel-name {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 pb-24">
+<body>
 
-<!-- Header -->
-<header class="bg-red-600 text-white p-4 shadow-md sticky top-0 z-50">
-  <h1 class="text-xl font-bold text-center">Live TV</h1>
-</header>
+  <header>
+    <h1>Live TV</h1>
+    <div class="search-container" style="width: 280px;">
+      <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels" autocomplete="off" spellcheck="false" />
+      <span class="material-icons">search</span>
+    </div>
+  </header>
 
-<!-- Category Bar -->
-<nav id="categoryBar" class="flex overflow-x-auto gap-2 p-2 bg-white sticky top-16 z-40 shadow-md rounded-xl mx-2">
-  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">All</button>
-  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">News</button>
-  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">Music</button>
-  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">Entertainment</button>
-</nav>
+  <main>
+    <nav class="category-bar" role="navigation" aria-label="Channel categories" tabindex="0">
+      <button class="category-btn active" data-category="All" aria-pressed="true" tabindex="0">All</button>
+      <button class="category-btn" data-category="News" aria-pressed="false" tabindex="0">News</button>
+      <button class="category-btn" data-category="Music" aria-pressed="false" tabindex="0">Music</button>
+      <button class="category-btn" data-category="Entertainment" aria-pressed="false" tabindex="0">Entertainment</button>
+    </nav>
 
-<!-- Search Bar -->
-<div class="p-4">
-  <input type="text" id="searchInput" placeholder="Search channels..." class="w-full p-2 rounded-lg border focus:ring-2 focus:ring-red-500 focus:outline-none">
-</div>
+    <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
+  </main>
 
-<!-- Channels Grid -->
-<main id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-  <!-- Channel cards will be inserted here dynamically -->
-</main>
+  <footer role="navigation" aria-label="Bottom navigation">
+    <button class="bottom-nav-btn active" aria-current="page" aria-label="Home" tabindex="0">
+      <span class="material-icons">home</span>
+      Home
+    </button>
+    <button class="bottom-nav-btn" aria-label="Live" tabindex="0">
+      <span class="material-icons">live_tv</span>
+      Live
+    </button>
+    <button class="bottom-nav-btn" aria-label="Search" tabindex="0">
+      <span class="material-icons">search</span>
+      Search
+    </button>
+    <button class="bottom-nav-btn" aria-label="Profile" tabindex="0">
+      <span class="material-icons">person</span>
+      Profile
+    </button>
+  </footer>
 
-<!-- Bottom Navigation -->
-<footer class="fixed bottom-0 left-0 w-full bg-white shadow-t p-2 flex justify-around text-gray-600">
-  <button class="flex flex-col items-center">
-    <i class="fa fa-home text-xl"></i>
-    <span class="text-xs">Home</span>
-  </button>
-  <button class="flex flex-col items-center">
-    <i class="fa fa-tv text-xl"></i>
-    <span class="text-xs">Live</span>
-  </button>
-  <button class="flex flex-col items-center">
-    <i class="fa fa-search text-xl"></i>
-    <span class="text-xs">Search</span>
-  </button>
-  <button class="flex flex-col items-center">
-    <i class="fa fa-user text-xl"></i>
-    <span class="text-xs">Profile</span>
-  </button>
-</footer>
+  <script>
+    const channels = [
+      {
+        name: "Global News",
+        category: "News",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/CNN_Logo.svg/320px-CNN_Logo.svg.png",
+        url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+      },
+      {
+        name: "Music Mania",
+        category: "Music",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/MTV_Logo_2010.svg/320px-MTV_Logo_2010.svg.png",
+        url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+      },
+      {
+        name: "Entertainment Hub",
+        category: "Entertainment",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/HBO_Max_Logo.svg/320px-HBO_Max_Logo.svg.png",
+        url: "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
+      },
+      {
+        name: "World News",
+        category: "News",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/BBC_News_2019.svg/320px-BBC_News_2019.svg.png",
+        url: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"
+      },
+      {
+        name: "Pop Hits",
+        category: "Music",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/VH1_Logo.svg/320px-VH1_Logo.svg.png",
+        url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+      },
+      {
+        name: "Movie Central",
+        category: "Entertainment",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Netflix_2015_logo.svg/320px-Netflix_2015_logo.svg.png",
+        url: "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
+      },
+      {
+        name: "Jazz Beats",
+        category: "Music",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Jazz_FM_Logo.svg/320px-Jazz_FM_Logo.svg.png",
+        url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+      },
+      {
+        name: "Breaking News",
+        category: "News",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Al_Jazeera_English_logo.svg/320px-Al_Jazeera_English_logo.svg.png",
+        url: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"
+      }
+    ];
 
-<!-- Scripts -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+    const channelsGrid = document.getElementById('channelsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const categoryButtons = document.querySelectorAll('.category-btn');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.appspot.com",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-};
+    let selectedCategory = 'All';
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-const channelsGrid = document.getElementById("channelsGrid");
-const searchInput = document.getElementById("searchInput");
-const categoryBar = document.getElementById("categoryBar");
-
-let allChannels = {};
-
-// Load channels from Firebase
-const channelsRef = ref(db, "channels");
-onValue(channelsRef, snapshot => {
-  allChannels = snapshot.val() || {};
-  renderChannels(allChannels);
-});
-
-// Render channel cards
-function renderChannels(channels) {
-  const searchTerm = searchInput.value.toLowerCase();
-  const selectedCategory = categoryBar.querySelector(".selected")?.textContent || "All";
-
-  channelsGrid.innerHTML = "";
-  Object.entries(channels)
-    .filter(([id, ch]) => {
-      const matchesName = ch.name.toLowerCase().includes(searchTerm);
-      const matchesCategory = selectedCategory === "All" ? true : ch.category === selectedCategory;
-      return matchesName && matchesCategory;
-    })
-    .forEach(([id, ch]) => {
-      const card = document.createElement("div");
-      card.className = "bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200";
-      card.innerHTML = `
-        <img src="${ch.icon}" alt="${ch.name}" class="w-full h-28 object-cover">
-        <div class="p-2">
-          <h3 class="text-sm font-bold truncate">${ch.name}</h3>
-          <p class="text-xs text-gray-500">${ch.category}</p>
-        </div>
-      `;
-      card.addEventListener("click", () => {
-        // Play channel stream (call your player.js function here)
-        console.log("Play channel:", ch.stream);
+    function renderChannels(filter = '') {
+      channelsGrid.innerHTML = '';
+      const filtered = channels.filter(c => {
+        const matchCategory = selectedCategory === 'All' || c.category === selectedCategory;
+        const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
+        return matchCategory && matchSearch;
       });
-      channelsGrid.appendChild(card);
+      if (filtered.length === 0) {
+        channelsGrid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
+        return;
+      }
+      filtered.forEach(channel => {
+        const a = document.createElement('a');
+        a.href = channel.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'channel-card';
+        a.setAttribute('aria-label', `Watch ${channel.name}`);
+
+        const img = document.createElement('img');
+        img.src = channel.logo;
+        img.alt = channel.name + ' logo';
+        img.className = 'channel-image';
+
+        const name = document.createElement('div');
+        name.className = 'channel-name';
+        name.textContent = channel.name;
+
+        a.appendChild(img);
+        a.appendChild(name);
+        channelsGrid.appendChild(a);
+      });
+    }
+
+    searchInput.addEventListener('input', e => {
+      renderChannels(e.target.value);
     });
 
-  if (!channelsGrid.hasChildNodes()) {
-    channelsGrid.innerHTML = "<p class='text-center col-span-full text-gray-500'>No channels found.</p>";
-  }
-}
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        selectedCategory = btn.dataset.category;
+        renderChannels(searchInput.value);
+      });
+    });
 
-// Search input filter
-searchInput.addEventListener("input", () => renderChannels(allChannels));
-
-// Category filter
-categoryBar.querySelectorAll("button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    categoryBar.querySelectorAll("button").forEach(b => b.classList.remove("selected", "bg-red-600", "text-white"));
-    btn.classList.add("selected", "bg-red-600", "text-white");
-    renderChannels(allChannels);
-  });
-});
-</script>
-
+    // Initial render
+    renderChannels();
+  </script>
 </body>
 </html>
