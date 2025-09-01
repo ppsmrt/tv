@@ -10,22 +10,24 @@
 <style>
   body { margin:0; background:#111; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:sans-serif; }
   .player-card { position:relative; max-width:900px; width:100%; background:#1c1c1c; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
-  video { width:100%; display:block; object-fit:cover; border-radius:16px; z-index:0; }
+  video { width:100%; display:block; object-fit:cover; border-radius:16px 16px 0 0; z-index:0; }
   video::-webkit-media-controls { display:none !important; }
-  #header { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:50; }
+  #header { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:50; border-bottom-left-radius:12px; border-bottom-right-radius:12px; }
   #header button { background:rgba(255,255,255,0.2); padding:6px 10px; border-radius:6px; transition:all 0.3s; }
   #header button:hover { background:rgba(255,255,255,0.4); transform:scale(1.1); }
-  .controls { position:absolute; bottom:15px; left:0; right:0; display:flex; justify-content:space-around; align-items:center; padding:0 20px; opacity:0; transition:opacity 0.3s; z-index:30; }
+  #controlsContainer { position:relative; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:10px 20px; display:flex; justify-content:space-around; align-items:center; border-radius:0 0 16px 16px; margin-top:-8px; opacity:0; transition:opacity 0.3s; z-index:40; }
   .control-btn { color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
   .control-btn:hover { transform:scale(1.2); }
   #volumeSlider, #speedSelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
-  #overlayInfo { position:absolute; top:80px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; z-index:25; }
-  .premium-watermark { position:absolute; top:10px; right:10px; color:white; font-weight:bold; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:6px; animation:pulse 2s infinite; z-index:25; }
-  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
-  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:40; transition:transform 0.3s; }
-  #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
   #qualityContainer { display:flex; align-items:center; color:white; }
   #qualityIndicator { margin-left:6px; font-weight:bold; }
+  #overlayInfo { position:absolute; top:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; z-index:30; }
+  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:35; transition:transform 0.3s; }
+  #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
+  /* Ads section */
+  #adsSection { width:100%; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:8px 0; overflow:hidden; border-radius:0 0 16px 16px; margin-top:10px; }
+  #adsText { display:inline-block; white-space:nowrap; color:white; font-weight:bold; animation:scrollAds 10s linear infinite; }
+  @keyframes scrollAds { 0% { transform:translateX(100%);} 100% { transform:translateX(-100%);} }
 </style>
 </head>
 <body>
@@ -37,14 +39,12 @@
   <!-- Play/Pause Overlay -->
   <div id="btnPlayPause"><i class="fa fa-play"></i></div>
 
-  <!-- Premium watermark -->
-  <div class="premium-watermark">Premium</div>
-
   <!-- Overlay Info -->
-  <div id="overlayInfo">Live Now</div>
+  <div id="overlayInfo">Live TV</div>
 
-  <!-- Controls -->
-  <div class="controls" id="controlsBar">
+  <!-- Controls frosted panel -->
+  <div id="controlsContainer">
+    <div class="control-btn" id="btnPlayPauseBottom"><i class="fa fa-play fa-lg"></i></div>
     <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand fa-lg"></i></div>
     <div class="control-btn" id="btnPiP"><i class="fa fa-window-restore fa-lg"></i></div>
     <div class="control-btn">
@@ -64,6 +64,11 @@
       <span id="qualityIndicator">HD</span>
     </div>
   </div>
+
+  <!-- Ads section -->
+  <div id="adsSection">
+    <div id="adsText">Ad: Thanks for watching the videos</div>
+  </div>
 </div>
 
 <!-- Header -->
@@ -79,33 +84,40 @@ const streamURL = decodeURIComponent(urlParams.get('stream') || "");
 
 const video = document.getElementById('videoPlayer');
 const btnPlayPause = document.getElementById('btnPlayPause');
+const btnPlayPauseBottom = document.getElementById('btnPlayPauseBottom');
 const btnClose = document.getElementById('btnClose');
-const controlsBar = document.getElementById('controlsBar');
+const controlsContainer = document.getElementById('controlsContainer');
 const channelNameEl = document.getElementById('channelName');
 const qualityIndicator = document.getElementById('qualityIndicator');
 const qualityContainer = document.getElementById('qualityContainer');
 
 channelNameEl.textContent = channelNameParam;
 
-// Close
+// Close button
 btnClose.onclick = () => window.location.href = '/tv/index.html';
 
-// Hide/show controls when clicking video
-video.addEventListener('click', ()=>{
-  if(controlsBar.style.opacity == 0 || !controlsBar.style.opacity){
-    controlsBar.style.opacity = 1;
-    btnPlayPause.style.opacity = 1;
-  } else {
-    controlsBar.style.opacity = 0;
-    btnPlayPause.style.opacity = 0;
-  }
-});
+// Function to show controls
+let hideControlsTimeout;
+function showControls(){
+  controlsContainer.style.opacity = 1;
+  btnPlayPause.style.opacity = 1;
+  clearTimeout(hideControlsTimeout);
+  hideControlsTimeout = setTimeout(()=>{ controlsContainer.style.opacity = 0; btnPlayPause.style.opacity = 0; }, 3000);
+}
 
-// Play/Pause overlay
-btnPlayPause.onclick = ()=>{
-  if(video.paused){ video.play(); btnPlayPause.innerHTML = '<i class="fa fa-pause"></i>'; }
-  else { video.pause(); btnPlayPause.innerHTML = '<i class="fa fa-play"></i>'; }
-};
+// Initial show
+showControls();
+
+// Show/hide controls on video click
+video.addEventListener('click', showControls);
+
+// Play/Pause
+function togglePlay(){
+  if(video.paused){ video.play(); btnPlayPause.innerHTML = '<i class="fa fa-pause"></i>'; btnPlayPauseBottom.innerHTML='<i class="fa fa-pause fa-lg"></i>'; }
+  else { video.pause(); btnPlayPause.innerHTML = '<i class="fa fa-play"></i>'; btnPlayPauseBottom.innerHTML='<i class="fa fa-play fa-lg"></i>'; }
+}
+btnPlayPause.onclick = togglePlay;
+btnPlayPauseBottom.onclick = togglePlay;
 
 // Fullscreen
 document.getElementById('btnFullscreen').onclick = ()=>{ if(video.requestFullscreen) video.requestFullscreen(); };
@@ -123,7 +135,7 @@ document.getElementById('volumeSlider').oninput = e=>video.volume=e.target.value
 // Speed
 document.getElementById('speedSelect').onchange = e=>video.playbackRate=parseFloat(e.target.value);
 
-// HLS with HD/SD indicator
+// HLS setup with HD/SD indicator
 function setupHLS(url){
   if(Hls.isSupported()){
     const hls = new Hls();
@@ -147,7 +159,8 @@ function setupHLS(url){
   }
 }
 
-video.controls = false; // hide native controls
+// Hide native controls
+video.controls = false;
 setupHLS(streamURL);
 </script>
 
