@@ -4,131 +4,178 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live TV App</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <style>
-  body { background: #f9fafb; font-family: 'Inter', sans-serif; }
-  .active-category { background: #2563eb; color: white; }
-  @keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-  .animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
-  @keyframes ripple { to { transform: scale(4); opacity: 0; } }
-  .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.4); transform: scale(0); animation: ripple 0.6s linear; pointer-events: none; }
+/* Animations */
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+.animate-ripple { animation: ripple 0.5s linear; }
+@keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); } }
+.animate-pop { animation: pop 0.35s ease-out forwards; }
+@keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+.animate-slideDown { animation: slideDown 0.5s ease-out forwards; }
+@keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+.animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
+
+/* Scrollbar hidden for app-like feel */
+body::-webkit-scrollbar { display: none; }
+
+/* Category scroll bar */
+.category-bar { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+.category-bar::-webkit-scrollbar { display: none; }
+
+/* Card improvements */
+.channel-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+.channel-card:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 50;
+}
+.bottom-nav button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+}
+.bottom-nav button.active {
+    color: #2563eb;
+}
 </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="bg-gray-50 min-h-screen pb-16">
 
 <!-- Header -->
-<header class="bg-blue-600 text-white p-4 text-center text-lg font-bold sticky top-0 z-50 shadow-md">
-  Live TV
+<header class="p-4 bg-blue-600 text-white text-center text-xl font-bold shadow-md">
+    Live TV
 </header>
 
 <!-- Category Bar -->
-<div id="categoryBar" class="flex overflow-x-auto space-x-3 px-4 py-2 bg-white shadow-md sticky top-[56px] z-40">
-  <button class="category-btn active-category px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap" data-category="All">All</button>
+<div class="category-bar flex gap-3 p-3 bg-white shadow-sm">
+    <button class="category-btn px-4 py-2 rounded-full bg-blue-600 text-white font-semibold" data-category="All">All</button>
 </div>
 
 <!-- Channels Grid -->
-<main class="flex-1 p-4">
-  <div id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
-</main>
+<div id="channels" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4"></div>
 
 <!-- Bottom Navigation -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t flex justify-around py-2 z-50">
-  <button class="flex flex-col items-center text-gray-600 hover:text-blue-600">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8l2 2m-2 6h6" /></svg>
-    <span class="text-xs">Home</span>
-  </button>
-  <button class="flex flex-col items-center text-gray-600 hover:text-blue-600">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-    <span class="text-xs">Favorites</span>
-  </button>
-  <button class="flex flex-col items-center text-gray-600 hover:text-blue-600">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-    <span class="text-xs">Categories</span>
-  </button>
-</nav>
+<div class="bottom-nav">
+    <button class="active" onclick="navigate('home')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" /></svg>
+        Home
+    </button>
+    <button onclick="navigate('categories')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        Categories
+    </button>
+    <button onclick="navigate('favorites')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
+        Favorites
+    </button>
+    <button onclick="navigate('settings')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V7a4 4 0 014-4h4M7 7v4a4 4 0 004 4h4" /></svg>
+        Settings
+    </button>
+</div>
 
-<script>
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-  };
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+<script type="module">
+// Firebase setup
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-  const categoryBar = document.getElementById('categoryBar');
-  const channelsGrid = document.getElementById('channelsGrid');
-  let allChannels = [];
-  let currentCategory = 'All';
+const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+};
 
-  // Ripple Effect
-  function rippleEffect(event, element) {
-    const ripple = document.createElement('span');
-    ripple.className = 'ripple';
-    const rect = element.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
-    ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
-    element.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-  }
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-  // Fetch Channels from Firebase
-  async function fetchChannels() {
-    const snapshot = await db.collection('channels').get();
-    allChannels = snapshot.docs.map(doc => doc.data());
-    renderCategories();
-    renderChannels();
-  }
+const channelsDiv = document.getElementById("channels");
+const categoryBar = document.querySelector(".category-bar");
 
-  // Render Categories
-  function renderCategories() {
-    const categories = ['All', ...new Set(allChannels.map(ch => ch.category))];
-    categoryBar.innerHTML = '';
+let allChannels = [];
+
+// Fetch channels from Firebase
+onValue(ref(db, "channels"), (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+        allChannels = Object.values(data);
+        renderCategories(allChannels);
+        renderChannels(allChannels);
+    }
+});
+
+// Render categories dynamically
+function renderCategories(channels) {
+    const categories = ["All", ...new Set(channels.map(ch => ch.category))];
+    categoryBar.innerHTML = "";
     categories.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.textContent = cat;
-      btn.className = `category-btn px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition ${cat === currentCategory ? 'active-category' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`;
-      btn.onclick = () => {
-        currentCategory = cat;
-        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active-category'));
-        btn.classList.add('active-category');
-        renderChannels(true);
-      };
-      categoryBar.appendChild(btn);
+        const btn = document.createElement("button");
+        btn.textContent = cat;
+        btn.className = "category-btn px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium";
+        btn.onclick = () => filterCategory(cat, btn);
+        categoryBar.appendChild(btn);
     });
-  }
+    categoryBar.querySelector("button").classList.add("bg-blue-600", "text-white");
+}
 
-  // Render Channels
-  function renderChannels(animated = false) {
-    channelsGrid.innerHTML = '';
-    const filtered = currentCategory === 'All' ? allChannels : allChannels.filter(c => c.category === currentCategory);
-
-    filtered.forEach((ch, i) => {
-      const card = document.createElement('div');
-      card.className = `relative bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden cursor-pointer flex flex-col items-center justify-between p-3 h-44 transform transition hover:scale-105 ${animated ? 'animate-fadeUp' : ''}`;
-      card.style.animationDelay = `${i * 0.05}s`;
-      card.innerHTML = `
-        <div class="w-full h-28 bg-gray-100 flex items-center justify-center rounded-xl">
-          <img src="${ch.icon}" alt="${ch.name}" class="h-20 w-auto max-w-[80%] object-contain">
-        </div>
-        <div class="mt-2 text-center text-gray-800 font-semibold text-sm truncate w-full">${ch.name}</div>
-      `;
-      card.onclick = (e) => {
-        rippleEffect(e, card);
-        setTimeout(() => {
-          window.location.href = \`player.html?name=\${encodeURIComponent(ch.name)}&url=\${encodeURIComponent(ch.stream)}\`;
-        }, 200);
-      };
-      channelsGrid.appendChild(card);
+// Render channels
+function renderChannels(channels) {
+    channelsDiv.innerHTML = "";
+    channels.forEach(ch => {
+        const card = document.createElement("div");
+        card.className = "channel-card p-3 flex flex-col items-center cursor-pointer animate-fadeUp";
+        card.innerHTML = `
+            <img src="${ch.icon}" class="w-20 h-20 object-contain mb-2" alt="${ch.name}">
+            <p class="text-center text-sm font-semibold">${ch.name}</p>
+        `;
+        card.onclick = () => {
+            window.location.href = `player.html?name=${encodeURIComponent(ch.name)}&stream=${encodeURIComponent(ch.stream)}`;
+        };
+        channelsDiv.appendChild(card);
     });
-  }
+}
 
-  fetchChannels();
+// Filter by category
+function filterCategory(category, btn) {
+    document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("bg-blue-600", "text-white"));
+    btn.classList.add("bg-blue-600", "text-white");
+    if (category === "All") {
+        renderChannels(allChannels);
+    } else {
+        const filtered = allChannels.filter(ch => ch.category === category);
+        renderChannels(filtered);
+    }
+}
+
+// Bottom nav handler
+function navigate(page) {
+    document.querySelectorAll(".bottom-nav button").forEach(b => b.classList.remove("active"));
+    event.currentTarget.classList.add("active");
+    alert("Navigating to " + page);
+}
 </script>
 </body>
 </html>
