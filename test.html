@@ -3,119 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live TV</title>
+<title>Live TV App</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
 <style>
-  body {
-    background: #f8fafc;
-    font-family: 'Inter', sans-serif;
-  }
-  .sticky-top {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: #fff;
-  }
-  .category-active {
-    background: #2563eb;
-    color: white !important;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fadeIn { animation: fadeIn 0.3s ease-in-out; }
+  body { background: #f9fafb; font-family: 'Inter', sans-serif; }
+  .active-category { background: #2563eb; color: white; }
+  @keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+  .animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
+  @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+  .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.4); transform: scale(0); animation: ripple 0.6s linear; pointer-events: none; }
 </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
 <!-- Header -->
-<header class="bg-blue-600 text-white text-xl font-bold p-4 text-center shadow-lg">
-  📺 Live TV
+<header class="bg-blue-600 text-white p-4 text-center text-lg font-bold sticky top-0 z-50 shadow-md">
+  Live TV
 </header>
 
 <!-- Category Bar -->
-<nav id="categoryBar" class="sticky-top flex gap-2 overflow-x-auto p-3 shadow-sm">
-  <!-- Buttons dynamically added -->
-</nav>
+<div id="categoryBar" class="flex overflow-x-auto space-x-3 px-4 py-2 bg-white shadow-md sticky top-[56px] z-40">
+  <button class="category-btn active-category px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap" data-category="All">All</button>
+</div>
 
 <!-- Channels Grid -->
-<main class="p-3">
+<main class="flex-1 p-4">
   <div id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
 </main>
 
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t flex justify-around py-2 z-50">
+  <button class="flex flex-col items-center text-gray-600 hover:text-blue-600">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8l2 2m-2 6h6" /></svg>
+    <span class="text-xs">Home</span>
+  </button>
+  <button class="flex flex-col items-center text-gray-600 hover:text-blue-600">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+    <span class="text-xs">Favorites</span>
+  </button>
+  <button class="flex flex-col items-center text-gray-600 hover:text-blue-600">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+    <span class="text-xs">Categories</span>
+  </button>
+</nav>
+
 <script>
-const categories = ['All', 'Entertainment', 'Music', 'News'];
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+  };
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-const channels = [
-  { name: 'MN Music', icon: 'https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0846274573125433222986374.png', stream: 'https://mntv.livebox.co.in/musichls/live.m3u8', category: 'Music' },
-  { name: 'MN TV', icon: 'https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0846274573125433222986374.png', stream: 'https://mntv.livebox.co.in/mntvhls/live.m3u8', category: 'Entertainment' },
-  { name: 'News 24', icon: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/News_24_logo.svg/2560px-News_24_logo.svg.png', stream: 'https://news24.stream/live.m3u8', category: 'News' },
-];
+  const categoryBar = document.getElementById('categoryBar');
+  const channelsGrid = document.getElementById('channelsGrid');
+  let allChannels = [];
+  let currentCategory = 'All';
 
-let currentCategory = 'All';
-
-// Create category buttons
-const categoryBar = document.getElementById('categoryBar');
-categories.forEach(cat => {
-  const btn = document.createElement('button');
-  btn.textContent = cat;
-  btn.className = `
-    px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-800
-    hover:bg-blue-100 transition whitespace-nowrap
-  `;
-  if (cat === 'All') btn.classList.add('category-active');
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('#categoryBar button').forEach(b => b.classList.remove('category-active'));
-    btn.classList.add('category-active');
-    currentCategory = cat;
-    renderChannels();
-  });
-  categoryBar.appendChild(btn);
-});
-
-// Render channels grid
-function renderChannels() {
-  const grid = document.getElementById('channelsGrid');
-  grid.innerHTML = '';
-  const filtered = currentCategory === 'All' ? channels : channels.filter(ch => ch.category === currentCategory);
-
-  filtered.forEach(ch => {
-    const card = document.createElement('div');
-    card.className = `
-      bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:scale-105
-      flex flex-col items-center justify-between p-3 animate-fadeIn h-44
-    `;
-    card.innerHTML = `
-      <div class="w-full h-28 bg-gray-50 flex items-center justify-center rounded-xl">
-        <img src="${ch.icon}" alt="${ch.name}" class="h-20 w-auto max-w-[80%] object-contain">
-      </div>
-      <div class="mt-2 text-center text-gray-800 font-semibold text-sm truncate w-full">
-        ${ch.name}
-      </div>
-    `;
-    card.onclick = () => {
-      window.location.href = `player.html?name=${encodeURIComponent(ch.name)}&url=${encodeURIComponent(ch.stream)}`;
-    };
-    grid.appendChild(card);
-  });
-
-  // Fillers for balanced grid
-  const totalCards = filtered.length;
-  const cols = window.innerWidth >= 768 ? 4 : (window.innerWidth >= 640 ? 3 : 2);
-  const remainder = totalCards % cols;
-  if (remainder > 0) {
-    for (let i = 0; i < cols - remainder; i++) {
-      const filler = document.createElement('div');
-      filler.className = 'invisible';
-      grid.appendChild(filler);
-    }
+  // Ripple Effect
+  function rippleEffect(event, element) {
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+    element.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
   }
-}
 
-renderChannels();
+  // Fetch Channels from Firebase
+  async function fetchChannels() {
+    const snapshot = await db.collection('channels').get();
+    allChannels = snapshot.docs.map(doc => doc.data());
+    renderCategories();
+    renderChannels();
+  }
+
+  // Render Categories
+  function renderCategories() {
+    const categories = ['All', ...new Set(allChannels.map(ch => ch.category))];
+    categoryBar.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.textContent = cat;
+      btn.className = `category-btn px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition ${cat === currentCategory ? 'active-category' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`;
+      btn.onclick = () => {
+        currentCategory = cat;
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active-category'));
+        btn.classList.add('active-category');
+        renderChannels(true);
+      };
+      categoryBar.appendChild(btn);
+    });
+  }
+
+  // Render Channels
+  function renderChannels(animated = false) {
+    channelsGrid.innerHTML = '';
+    const filtered = currentCategory === 'All' ? allChannels : allChannels.filter(c => c.category === currentCategory);
+
+    filtered.forEach((ch, i) => {
+      const card = document.createElement('div');
+      card.className = `relative bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden cursor-pointer flex flex-col items-center justify-between p-3 h-44 transform transition hover:scale-105 ${animated ? 'animate-fadeUp' : ''}`;
+      card.style.animationDelay = `${i * 0.05}s`;
+      card.innerHTML = `
+        <div class="w-full h-28 bg-gray-100 flex items-center justify-center rounded-xl">
+          <img src="${ch.icon}" alt="${ch.name}" class="h-20 w-auto max-w-[80%] object-contain">
+        </div>
+        <div class="mt-2 text-center text-gray-800 font-semibold text-sm truncate w-full">${ch.name}</div>
+      `;
+      card.onclick = (e) => {
+        rippleEffect(e, card);
+        setTimeout(() => {
+          window.location.href = \`player.html?name=\${encodeURIComponent(ch.name)}&url=\${encodeURIComponent(ch.stream)}\`;
+        }, 200);
+      };
+      channelsGrid.appendChild(card);
+    });
+  }
+
+  fetchChannels();
 </script>
-
 </body>
 </html>
