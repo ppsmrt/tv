@@ -32,7 +32,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -59,23 +59,27 @@ signupForm.addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    // 1️⃣ Create user in Firebase Auth
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // 2️⃣ Check if admins node exists
-    const adminsSnapshot = await get(ref(db, "admins"));
-    if (!adminsSnapshot.exists()) {
-      // First user → create as admin
-      await set(ref(db, 'admins/' + user.uid), { name, email });
-      alert("First admin account created! You are the admin.");
-    } else {
-      // Regular user → write to users node
-      await set(ref(db, 'users/' + user.uid), { name, email, role: "user" });
-      alert("Signup successful! You can now login.");
-    }
+    // Wait until auth state is fully ready
+    onAuthStateChanged(auth, async (currentUser) => {
+      if (!currentUser) return;
 
-    window.location.href = "signin.html";
+      // Check if admins exist
+      const adminsSnap = await get(ref(db, "admins"));
+      if (!adminsSnap.exists()) {
+        // First user → admin
+        await set(ref(db, "admins/" + currentUser.uid), { name, email });
+        alert("First admin account created! You are the admin.");
+      } else {
+        // Regular user
+        await set(ref(db, "users/" + currentUser.uid), { name, email, role: "user" });
+        alert("Signup successful! You can now login.");
+      }
+
+      window.location.href = "signin.html";
+    });
   } catch (error) {
     alert(error.message);
   }
