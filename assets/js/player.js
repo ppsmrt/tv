@@ -1,5 +1,4 @@
 // assets/js/player.js
-// Tailwind keyframe animations for ripple, pop, slide, fade-up
 const style = document.createElement('style');
 style.innerHTML = `
 @keyframes ripple { to { transform: scale(4); opacity: 0; } }
@@ -16,16 +15,15 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// Categories & Channel Data
 const categories = ["All", "Entertainment", "Music", "News"];
 let selectedCategory = "All";
 let channelsData = [];
 
-// Render categories dynamically
 function renderCategories() {
   const row = document.getElementById('categoriesRow');
   row.innerHTML = '';
-  row.classList.add('animate-slideDown'); // Slide-in entire row
+  row.classList.add('animate-slideDown');
+
   categories.forEach((cat, i) => {
     const btn = document.createElement('a');
     btn.textContent = cat;
@@ -35,42 +33,32 @@ function renderCategories() {
         ? 'bg-white text-red-600 font-bold relative overflow-hidden' 
         : 'bg-gray-200/50 text-gray-900 hover:bg-white hover:text-red-600 hover:scale-105 relative overflow-hidden'
     }`;
-    
-    // Slide-in stagger
+
     btn.style.animation = `slideDown 0.5s ease-out forwards`;
     btn.style.animationDelay = `${i * 80}ms`;
 
-    // Ripple effect
-    btn.addEventListener('click', (e)=>{
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
-      
-      const ripple = document.createElement('span');
-      ripple.className = 'absolute rounded-full bg-white/30 transform scale-0 animate-ripple';
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${e.clientX - rect.left - size/2}px`;
-      ripple.style.top = `${e.clientY - rect.top - size/2}px`;
-      btn.appendChild(ripple);
-      setTimeout(()=> ripple.remove(), 500);
-
       selectedCategory = cat;
       renderCategories();
       renderChannels();
     });
+
     row.appendChild(btn);
   });
 }
 
-// Render channels dynamically with fade-up + pop
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
-  const filtered = channelsData.filter(c => selectedCategory === "All" || c.category === selectedCategory);
+  const filtered = channelsData.filter(
+    c => selectedCategory === "All" || c.category === selectedCategory
+  );
+
   filtered.forEach((channel, index) => {
     const div = document.createElement('div');
     div.className = 'flex flex-col items-center justify-between h-28 sm:h-32 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-md bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop p-2';
-    div.style.animationDelay = `${index * 80}ms`; // stagger fade-up + pop
+    div.style.animationDelay = `${index * 80}ms`;
     div.innerHTML = `
       <img src="${channel.icon}" alt="${channel.name}" 
            class="w-14 h-14 sm:w-16 sm:h-16 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
@@ -80,20 +68,19 @@ function renderChannels() {
     `;
     div.addEventListener('click', () => {
       const nameParam = encodeURIComponent(channel.name);
-      window.location.href = \`https://ppsmrt.github.io/tv/player.html?name=\${nameParam}\`;
+      window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${nameParam}`;
     });
     grid.appendChild(div);
   });
 }
 
-// Load channels from JSON
 async function loadChannels() {
   try {
     const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
     channelsData = await res.json();
     renderCategories();
     renderChannels();
-  } catch(err) {
+  } catch (err) {
     console.error("Failed to load channels:", err);
   }
 }
