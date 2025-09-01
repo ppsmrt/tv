@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -20,6 +21,14 @@ const categoryBar = document.getElementById("categoryBar");
 let allChannels = [];
 let currentCategory = "All";
 
+// Toast helper
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.style.display = "block";
+  setTimeout(() => (toast.style.display = "none"), 4000);
+}
+
 // Fetch channels from Firebase
 onValue(ref(db, "channels"), (snapshot) => {
   const data = snapshot.val();
@@ -32,18 +41,18 @@ onValue(ref(db, "channels"), (snapshot) => {
 
 // Render categories dynamically
 function renderCategories(channels) {
-  const categories = ["All", ...new Set(channels.map(ch => ch.category))];
+  const categories = ["All", ...new Set(channels.map((ch) => ch.category))];
   categoryBar.innerHTML = "";
-  categories.forEach(cat => {
+  categories.forEach((cat) => {
     const btn = document.createElement("button");
     btn.textContent = cat;
     btn.className = "category-btn bg-gray-200 text-gray-700";
     if (cat === currentCategory) btn.classList.add("bg-purple-600", "text-white", "animate-pop");
     btn.onclick = () => {
       currentCategory = cat;
-      document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("bg-purple-600", "text-white"));
+      document.querySelectorAll(".category-btn").forEach((b) => b.classList.remove("bg-purple-600", "text-white"));
       btn.classList.add("bg-purple-600", "text-white", "animate-pop");
-      renderChannels(currentCategory === "All" ? allChannels : allChannels.filter(c => c.category === cat));
+      renderChannels(currentCategory === "All" ? allChannels : allChannels.filter((c) => c.category === cat));
     };
     categoryBar.appendChild(btn);
   });
@@ -60,8 +69,9 @@ function renderChannels(channels) {
       <img src="${ch.icon}" alt="${ch.name}">
       <p>${ch.name}</p>
     `;
-    
-    card.onclick = e => {
+
+    card.onclick = (e) => {
+      // Ripple effect
       const ripple = document.createElement("span");
       ripple.className = "ripple";
       const rect = card.getBoundingClientRect();
@@ -72,10 +82,15 @@ function renderChannels(channels) {
       card.appendChild(ripple);
       setTimeout(() => ripple.remove(), 600);
 
-      // Navigate to player.html using only the stream name
-      setTimeout(() => {
-        window.location.href = `player.html?name=${encodeURIComponent(ch.name)}`;
-      }, 200);
+      // Navigate to player.html with name and stream URL
+      if (ch.stream) {
+        const encodedStream = encodeURIComponent(ch.stream);
+        setTimeout(() => {
+          window.location.href = `player.html?name=${encodeURIComponent(ch.name)}&stream=${encodedStream}`;
+        }, 200);
+      } else {
+        showToast("Stream URL not available for this channel");
+      }
     };
 
     channelsGrid.appendChild(card);
