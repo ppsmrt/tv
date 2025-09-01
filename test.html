@@ -3,231 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live TV App</title>
+<title>Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<style>
-/* Animations */
-@keyframes fadeUp { 0% { transform: translateY(20px); opacity:0; } 100% { transform: translateY(0); opacity:1; } }
-.animate-fadeUp { animation: fadeUp 0.4s ease-out forwards; }
-@keyframes pop { 0% { transform: scale(0.95); opacity:0; } 50% { transform: scale(1.05); opacity:1; } 100% { transform: scale(1); } }
-.animate-pop { animation: pop 0.35s ease-out forwards; }
-@keyframes ripple { to { transform: scale(4); opacity:0; } }
-.ripple { position:absolute; border-radius:50%; background:rgba(255,255,255,0.3); transform:scale(0); animation:ripple 0.6s linear; pointer-events:none; }
-
-/* Hide scrollbars */
-body::-webkit-scrollbar { display: none; }
-.category-bar::-webkit-scrollbar { display: none; }
-
-/* Card styling */
-.channel-card {
-  background: linear-gradient(145deg, #ffffff, #f0f0f3);
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:1rem;
-  cursor:pointer;
-  height:12rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.channel-card:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-}
-
-/* Category bar sticky */
-.category-bar {
-  position: sticky;
-  top:0;
-  z-index:40;
-  background:white;
-  box-shadow:0 2px 10px rgba(0,0,0,0.08);
-  padding:0.5rem 1rem;
-  display:flex;
-  gap:0.5rem;
-}
-
-/* Category button */
-.category-btn {
-  padding:0.5rem 1rem;
-  border-radius:9999px;
-  font-semibold;
-  cursor:pointer;
-  transition: all 0.3s ease;
-}
-.category-btn.active { background:#4f46e5; color:white; transform:scale(1.05); }
-
-/* Bottom nav */
-.bottom-nav {
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  display:flex;
-  justify-around;
-  padding:0.5rem 0;
-  border-top:1px solid #e5e7eb;
-  box-shadow:0 -4px 12px rgba(0,0,0,0.08);
-  z-index:50;
-}
-.bottom-nav button {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-size:0.75rem;
-  color:#6b7280;
-  transition: all 0.3s ease;
-}
-.bottom-nav button.active { color:#4f46e5; transform:scale(1.1); }
-
-/* Header hide on scroll */
-#header { transition: transform 0.3s ease; }
-</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-100 pb-24">
 
 <!-- Header -->
-<header id="header" class="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white p-5 text-center text-2xl font-bold shadow-md">
-  Live TV
+<header class="bg-red-600 text-white p-4 shadow-md sticky top-0 z-50">
+  <h1 class="text-xl font-bold text-center">Live TV</h1>
 </header>
 
 <!-- Category Bar -->
-<div id="categoryBar" class="category-bar rounded-xl m-2">
-  <!-- Categories dynamically injected -->
+<nav id="categoryBar" class="flex overflow-x-auto gap-2 p-2 bg-white sticky top-16 z-40 shadow-md rounded-xl mx-2">
+  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">All</button>
+  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">News</button>
+  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">Music</button>
+  <button class="px-4 py-2 bg-red-100 text-red-600 rounded-full whitespace-nowrap hover:bg-red-200">Entertainment</button>
+</nav>
+
+<!-- Search Bar -->
+<div class="p-4">
+  <input type="text" id="searchInput" placeholder="Search channels..." class="w-full p-2 rounded-lg border focus:ring-2 focus:ring-red-500 focus:outline-none">
 </div>
 
 <!-- Channels Grid -->
-<div id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4"></div>
+<main id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+  <!-- Channel cards will be inserted here dynamically -->
+</main>
 
 <!-- Bottom Navigation -->
-<div class="bottom-nav">
-  <button class="active" onclick="navigate('home')">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" />
-    </svg>
-    Home
+<footer class="fixed bottom-0 left-0 w-full bg-white shadow-t p-2 flex justify-around text-gray-600">
+  <button class="flex flex-col items-center">
+    <i class="fa fa-home text-xl"></i>
+    <span class="text-xs">Home</span>
   </button>
-  <button onclick="navigate('categories')">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-    Categories
+  <button class="flex flex-col items-center">
+    <i class="fa fa-tv text-xl"></i>
+    <span class="text-xs">Live</span>
   </button>
-  <button onclick="navigate('favorites')">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-    </svg>
-    Favorites
+  <button class="flex flex-col items-center">
+    <i class="fa fa-search text-xl"></i>
+    <span class="text-xs">Search</span>
   </button>
-  <button onclick="navigate('settings')">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V7a4 4 0 014-4h4M7 7v4a4 4 0 004 4h4" />
-    </svg>
-    Settings
+  <button class="flex flex-col items-center">
+    <i class="fa fa-user text-xl"></i>
+    <span class="text-xs">Profile</span>
   </button>
-</div>
+</footer>
 
+<!-- Scripts -->
 <script type="module">
-// Firebase setup
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
   databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
+  storageBucket: "tnm3ulive.appspot.com",
   messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const channelsGrid = document.getElementById("channelsGrid");
+const searchInput = document.getElementById("searchInput");
 const categoryBar = document.getElementById("categoryBar");
-let allChannels = [];
-let currentCategory = "All";
 
-// Fetch channels
-onValue(ref(db, "channels"), (snapshot) => {
-  const data = snapshot.val();
-  if(data){
-    allChannels = Object.values(data);
-    renderCategories(allChannels);
-    renderChannels(allChannels);
-  }
+let allChannels = {};
+
+// Load channels from Firebase
+const channelsRef = ref(db, "channels");
+onValue(channelsRef, snapshot => {
+  allChannels = snapshot.val() || {};
+  renderChannels(allChannels);
 });
 
-// Render categories
-function renderCategories(channels){
-  const categories = ["All", ...new Set(channels.map(ch=>ch.category))];
-  categoryBar.innerHTML = "";
-  categories.forEach(cat=>{
-    const btn = document.createElement("button");
-    btn.textContent = cat;
-    btn.className="category-btn bg-gray-200 text-gray-700";
-    if(cat===currentCategory) btn.classList.add("bg-purple-600","text-white","animate-pop");
-    btn.onclick=()=>{
-      currentCategory=cat;
-      document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("bg-purple-600","text-white"));
-      btn.classList.add("bg-purple-600","text-white","animate-pop");
-      renderChannels(currentCategory==="All"?allChannels:allChannels.filter(c=>c.category===cat));
-    };
-    categoryBar.appendChild(btn);
-  });
-}
+// Render channel cards
+function renderChannels(channels) {
+  const searchTerm = searchInput.value.toLowerCase();
+  const selectedCategory = categoryBar.querySelector(".selected")?.textContent || "All";
 
-// Render channels
-function renderChannels(channels){
-  channelsGrid.innerHTML="";
-  channels.forEach((ch,i)=>{
-    const card=document.createElement("div");
-    card.className="channel-card animate-fadeUp relative";
-    card.style.animationDelay=`${i*0.05}s`;
-    card.innerHTML=`
-      <img src="${ch.icon}" alt="${ch.name}">
-      <p>${ch.name}</p>
-    `;
-    card.onclick=e=>{
-      const ripple=document.createElement("span");
-      ripple.className="ripple";
-      const rect=card.getBoundingClientRect();
-      const size=Math.max(rect.width,rect.height);
-      ripple.style.width=ripple.style.height=size+"px";
-      ripple.style.left=`${e.clientX-rect.left-size/2}px`;
-      ripple.style.top=`${e.clientY-rect.top-size/2}px`;
-      card.appendChild(ripple);
-      setTimeout(()=>ripple.remove(),600);
-      setTimeout(()=>window.location.href=`player.html?name=${encodeURIComponent(ch.name)}&url=${encodeURIComponent(ch.stream)}`,200);
-    };
-    channelsGrid.appendChild(card);
-  });
-}
+  channelsGrid.innerHTML = "";
+  Object.entries(channels)
+    .filter(([id, ch]) => {
+      const matchesName = ch.name.toLowerCase().includes(searchTerm);
+      const matchesCategory = selectedCategory === "All" ? true : ch.category === selectedCategory;
+      return matchesName && matchesCategory;
+    })
+    .forEach(([id, ch]) => {
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200";
+      card.innerHTML = `
+        <img src="${ch.icon}" alt="${ch.name}" class="w-full h-28 object-cover">
+        <div class="p-2">
+          <h3 class="text-sm font-bold truncate">${ch.name}</h3>
+          <p class="text-xs text-gray-500">${ch.category}</p>
+        </div>
+      `;
+      card.addEventListener("click", () => {
+        // Play channel stream (call your player.js function here)
+        console.log("Play channel:", ch.stream);
+      });
+      channelsGrid.appendChild(card);
+    });
 
-// Bottom nav
-function navigate(page){
-  document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));
-  event.currentTarget.classList.add("active");
-  // Optional: implement page switching logic
-}
-
-// Hide header on scroll
-let lastScroll = 0;
-const header = document.getElementById("header");
-window.addEventListener("scroll", ()=>{
-  const currentScroll = window.pageYOffset;
-  if(currentScroll > lastScroll && currentScroll > 50){
-    header.style.transform = "translateY(-100%)";
-  } else {
-    header.style.transform = "translateY(0)";
+  if (!channelsGrid.hasChildNodes()) {
+    channelsGrid.innerHTML = "<p class='text-center col-span-full text-gray-500'>No channels found.</p>";
   }
-  lastScroll = currentScroll;
+}
+
+// Search input filter
+searchInput.addEventListener("input", () => renderChannels(allChannels));
+
+// Category filter
+categoryBar.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    categoryBar.querySelectorAll("button").forEach(b => b.classList.remove("selected", "bg-red-600", "text-white"));
+    btn.classList.add("selected", "bg-red-600", "text-white");
+    renderChannels(allChannels);
+  });
 });
 </script>
+
 </body>
 </html>
