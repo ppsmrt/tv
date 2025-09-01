@@ -8,9 +8,9 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
-  body { background:#111; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:sans-serif; }
+  body { background:#111; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:sans-serif; margin:0; }
   .player-card { position:relative; max-width:900px; width:100%; background:#1c1c1c; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
-  video { width:100%; border-radius:16px; background:black; object-fit:cover; outline:none; }
+  video { width:100%; border-radius:16px; background:black; object-fit:cover; outline:none; display:block; }
   video::-webkit-media-controls { display:none !important; } /* hide default controls */
   #header { width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:15; }
   #header button { background:rgba(255,255,255,0.2); padding:6px 10px; border-radius:6px; transition:all 0.3s; }
@@ -18,12 +18,14 @@
   .controls { position:absolute; bottom:15px; left:0; right:0; display:flex; justify-content:space-around; align-items:center; padding:0 20px; opacity:0.95; transition:opacity 0.3s; }
   .control-btn { color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
   .control-btn:hover { transform:scale(1.2); }
-  #volumeSlider, #speedSelect, #qualitySelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
+  #volumeSlider, #speedSelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
   #overlayInfo { position:absolute; top:60px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; }
   .premium-watermark { position:absolute; top:10px; right:10px; color:white; font-weight:bold; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:6px; animation:pulse 2s infinite; }
   @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
   #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:20; transition:transform 0.3s; }
   #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
+  #qualityContainer { display:flex; align-items:center; color:white; }
+  #qualityIndicator { margin-left:6px; font-weight:bold; }
 </style>
 </head>
 <body>
@@ -63,10 +65,9 @@
         <option value="3">3x</option>
       </select>
     </div>
-    <div class="control-btn" id="qualityContainer" style="display:none;">
+    <div class="control-btn" id="qualityContainer">
       <i class="fa fa-tv fa-lg"></i>
-      <select id="qualitySelect"></select>
-      <span id="qualityIndicator" class="ml-2 text-sm"></span>
+      <span id="qualityIndicator">HD</span>
     </div>
   </div>
 </div>
@@ -81,16 +82,18 @@ const channelNameEl = document.getElementById('channelName');
 const overlayInfo = document.getElementById('overlayInfo');
 const btnPlayPause = document.getElementById('btnPlayPause');
 const btnClose = document.getElementById('btnClose');
+const qualityIndicator = document.getElementById('qualityIndicator');
+const qualityContainer = document.getElementById('qualityContainer');
 
 channelNameEl.textContent = channelNameParam;
 overlayInfo.textContent = "Live Now: " + channelNameParam;
 
-// Close Player
+// Close player
 btnClose.onclick = () => window.location.href = '/tv/index.html';
 
-// --- Play/Pause button ---
+// Play/Pause toggle
 btnPlayPause.onclick = () => {
-  if(video.paused) {
+  if(video.paused){
     video.play();
     btnPlayPause.innerHTML = '<i class="fa fa-pause"></i>';
   } else {
@@ -99,35 +102,26 @@ btnPlayPause.onclick = () => {
   }
 };
 
-// --- Fullscreen ---
-document.getElementById('btnFullscreen').onclick = () => {
-  if(video.requestFullscreen) video.requestFullscreen();
-};
+// Fullscreen
+document.getElementById('btnFullscreen').onclick = () => { if(video.requestFullscreen) video.requestFullscreen(); };
 
-// --- PiP ---
+// PiP
 document.getElementById('btnPiP').onclick = async () => {
-  try {
-    if(document.pictureInPictureElement) await document.exitPictureInPicture();
-    else await video.requestPictureInPicture();
+  try { if(document.pictureInPictureElement) await document.exitPictureInPicture();
+  else await video.requestPictureInPicture();
   } catch(e){ console.log(e); }
 };
 
-// --- Volume ---
-const volumeSlider = document.getElementById('volumeSlider');
-volumeSlider.oninput = (e) => video.volume = e.target.value;
+// Volume
+document.getElementById('volumeSlider').oninput = (e) => video.volume = e.target.value;
 
-// --- Speed ---
-const speedSelect = document.getElementById('speedSelect');
-speedSelect.onchange = (e) => video.playbackRate = parseFloat(e.target.value);
+// Speed
+document.getElementById('speedSelect').onchange = (e) => video.playbackRate = parseFloat(e.target.value);
 
-// --- Quality Selector ---
-const qualityContainer = document.getElementById('qualityContainer');
-const qualitySelect = document.getElementById('qualitySelect');
-const qualityIndicator = document.getElementById('qualityIndicator');
-
+// HLS setup with HD/SD indicator
 function setupHLS(url){
   if(Hls.isSupported()){
-    const hls = new Hls({ capLevelToPlayerSize:true });
+    const hls = new Hls();
     hls.loadSource(url);
     hls.attachMedia(video);
 
@@ -135,29 +129,30 @@ function setupHLS(url){
       video.play();
       const levels = hls.levels;
       if(levels.length>1){
-        qualityContainer.style.display="flex";
-        qualitySelect.innerHTML="";
-        levels.forEach((level,i)=>{
-          const opt=document.createElement('option');
-          opt.value=i;
-          opt.textContent=level.height+'p';
-          qualitySelect.appendChild(opt);
+        // Determine HD/SD
+        hls.on(Hls.Events.LEVEL_SWITCHED, () => {
+          const height = hls.levels[hls.currentLevel].height;
+          qualityIndicator.textContent = height >= 720 ? 'HD' : 'SD';
         });
-        qualityIndicator.textContent=levels[hls.currentLevel]?.height+'p';
-        qualitySelect.onchange = e => { hls.currentLevel=parseInt(e.target.value); qualityIndicator.textContent=levels[hls.currentLevel]?.height+'p'; };
+        // Set initial quality indicator
+        const initHeight = hls.levels[hls.currentLevel].height;
+        qualityIndicator.textContent = initHeight >= 720 ? 'HD' : 'SD';
+      } else {
+        qualityContainer.style.display="none";
       }
     });
   } else if(video.canPlayType('application/vnd.apple.mpegurl')){
-    video.src=url;
+    video.src = url;
     video.addEventListener('loadedmetadata',()=>video.play());
     qualityContainer.style.display="none";
   }
 }
 
+// Hide default video controls completely
+video.controls = false;
+
 setupHLS(streamURL);
 
-// Hide native controls bar
-video.controls = false;
 </script>
 </body>
 </html>
