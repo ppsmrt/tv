@@ -68,9 +68,9 @@
   <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+    import { getDatabase, ref, push, set, update, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
       authDomain: "tnm3ulive.firebaseapp.com",
@@ -83,15 +83,40 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
     const db = getDatabase(app);
 
     const form = document.getElementById("channelForm");
     const statusMsg = document.getElementById("statusMsg");
     const channelList = document.getElementById("channelList");
 
+    let isAdmin = false;
+
+    // Check admin status
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        statusMsg.textContent = "❌ You must be logged in to access this page.";
+        form.querySelectorAll("input, select, button").forEach(el => el.disabled = true);
+        return;
+      }
+
+      const adminRef = ref(db, "admins/" + user.uid);
+      const snapshot = await get(adminRef);
+
+      if (!snapshot.exists()) {
+        statusMsg.textContent = "❌ Access denied! You are not an admin.";
+        form.querySelectorAll("input, select, button").forEach(el => el.disabled = true);
+        return;
+      }
+
+      isAdmin = true;
+      loadChannels();
+    });
+
     // Submit form: add/update channel
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (!isAdmin) return;
 
       const channelId = document.getElementById("channelId").value;
       const name = document.getElementById("name").value.trim();
@@ -119,63 +144,65 @@
         document.getElementById("channelId").value = "";
       } catch (error) {
         console.error(error);
-        statusMsg.textContent = "❌ Error saving channel.";
+        statusMsg.textContent = "❌ Error saving channel. Check admin privileges.";
         statusMsg.className = "text-red-600 font-semibold text-center";
       }
     });
 
-    // Render channels dynamically
-    onValue(ref(db, "channels"), (snapshot) => {
-      channelList.innerHTML = "";
-      const data = snapshot.val();
-      if (!data) {
-        channelList.innerHTML = "<p class='text-gray-500'>No channels added yet.</p>";
-        return;
-      }
+    // Load channels
+    function loadChannels() {
+      onValue(ref(db, "channels"), (snapshot) => {
+        channelList.innerHTML = "";
+        const data = snapshot.val();
+        if (!data) {
+          channelList.innerHTML = "<p class='text-gray-500'>No channels added yet.</p>";
+          return;
+        }
 
-      Object.entries(data).forEach(([id, ch]) => {
-        const card = document.createElement("div");
-        card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
+        Object.entries(data).forEach(([id, ch]) => {
+          const card = document.createElement("div");
+          card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
 
-        card.innerHTML = `
-          <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
-          <div class="flex-1">
-            <h3 class="text-lg font-bold">${ch.name}</h3>
-            <p class="text-gray-600 text-sm">${ch.category}</p>
-          </div>
-          <div class="flex gap-2">
-            <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
-            <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
-          </div>
-        `;
+          card.innerHTML = `
+            <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold">${ch.name}</h3>
+              <p class="text-gray-600 text-sm">${ch.category}</p>
+            </div>
+            <div class="flex gap-2">
+              <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
+              <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
+            </div>
+          `;
+          channelList.appendChild(card);
+        });
 
-        channelList.appendChild(card);
-      });
+        // Edit channel
+        document.querySelectorAll(".editBtn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const id = e.target.dataset.id;
+            const ch = data[id];
+            document.getElementById("channelId").value = id;
+            document.getElementById("name").value = ch.name;
+            document.getElementById("icon").value = ch.icon;
+            document.getElementById("stream").value = ch.stream;
+            document.getElementById("category").value = ch.category;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        });
 
-      // Edit channel
-      document.querySelectorAll(".editBtn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = e.target.dataset.id;
-          const ch = data[id];
-          document.getElementById("channelId").value = id;
-          document.getElementById("name").value = ch.name;
-          document.getElementById("icon").value = ch.icon;
-          document.getElementById("stream").value = ch.stream;
-          document.getElementById("category").value = ch.category;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Delete channel
+        document.querySelectorAll(".deleteBtn").forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            if (!isAdmin) return;
+            const id = e.target.dataset.id;
+            if (confirm("Are you sure you want to delete this channel?")) {
+              await remove(ref(db, "channels/" + id));
+            }
+          });
         });
       });
-
-      // Delete channel
-      document.querySelectorAll(".deleteBtn").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          const id = e.target.dataset.id;
-          if (confirm("Are you sure you want to delete this channel?")) {
-            await remove(ref(db, "channels/" + id));
-          }
-        });
-      });
-    });
+    }
   </script>
 </body>
 </html>
