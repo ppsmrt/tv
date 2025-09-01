@@ -8,12 +8,12 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
-  body { font-family: 'Baloo 2', cursive; }
+  body { font-family: 'Baloo 2', cursive; background: #fafafa; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
 </head>
-<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden scroll-smooth">
+<body class="w-screen h-screen flex flex-col overflow-hidden scroll-smooth">
 
   <!-- Header -->
   <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50 animate-slideDown">
@@ -30,7 +30,7 @@
 
   <!-- Categories Row -->
   <nav id="categoriesRow"
-    class="bg-gray-200/20 backdrop-blur-sm flex space-x-3 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-3 px-3 select-none scrollbar-hide">
+    class="bg-white shadow-md flex space-x-3 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-3 px-3 select-none scrollbar-hide sticky top-[64px] z-40">
     <!-- Categories dynamically injected -->
   </nav>
 
@@ -56,12 +56,15 @@ style.innerHTML = `
   pointer-events: none;
   animation: ripple 0.5s linear;
 }
+
 @keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); } }
 .animate-pop { animation: pop 0.35s ease-out forwards; }
+
 @keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 .animate-slideDown { animation: slideDown 0.5s ease-out forwards; }
-@keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-.animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
+
+@keyframes fadeUp { 0% { transform: translateY(20px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+.animate-fadeUp { animation: fadeUp 0.4s ease-out forwards; }
 `;
 document.head.appendChild(style);
 </script>
@@ -105,10 +108,14 @@ document.head.appendChild(style);
 
     categories.forEach(cat => {
       const btn = document.createElement('button');
-      btn.className = `px-4 py-2 rounded-full ${cat === currentCategory ? 'bg-[#d92a1a] text-white' : 'bg-white text-gray-700'} shadow animate-pop`;
+      btn.className = `
+        px-4 py-2 rounded-full transition-all duration-300
+        ${cat === currentCategory ? 'bg-[#d92a1a] text-white scale-105 shadow-lg' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}
+      `;
       btn.textContent = cat;
       btn.onclick = () => {
         currentCategory = cat;
+        animateCategoryChange();
         renderChannels();
         updateCategoryButtons(categories);
       };
@@ -124,14 +131,21 @@ document.head.appendChild(style);
       ? allChannels
       : allChannels.filter(c => c.category === currentCategory);
 
-    filtered.forEach(ch => {
+    filtered.forEach((ch, index) => {
       const card = document.createElement('div');
-      card.className = 'bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden cursor-pointer transform transition hover:scale-105 flex flex-col items-center justify-center p-3 animate-fadeUp';
+      card.className = `
+        bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden cursor-pointer
+        transform transition hover:scale-105 flex flex-col items-center justify-between
+        p-3 h-44 relative animate-fadeUp
+      `;
+      card.style.animationDelay = `${index * 0.05}s`; // Staggered animation for premium feel
       card.innerHTML = `
         <div class="w-full h-28 bg-gray-100 flex items-center justify-center rounded-xl">
-          <img src="${ch.icon}" alt="${ch.name}" class="max-h-20 max-w-full object-contain">
+          <img src="${ch.icon}" alt="${ch.name}" class="h-20 w-auto max-w-[80%] object-contain">
         </div>
-        <div class="mt-2 text-center text-gray-800 font-semibold text-sm">${ch.name}</div>
+        <div class="mt-2 text-center text-gray-800 font-semibold text-base truncate w-full">
+          ${ch.name}
+        </div>
       `;
       card.onclick = (e) => {
         rippleEffect(e, card);
@@ -141,14 +155,31 @@ document.head.appendChild(style);
       };
       channelsGrid.appendChild(card);
     });
+
+    // Fill empty grid cells for balance if needed
+    const totalCards = filtered.length;
+    const cols = window.innerWidth >= 768 ? 4 : (window.innerWidth >= 640 ? 3 : 2);
+    const remainder = totalCards % cols;
+    if (remainder > 0) {
+      const fillers = cols - remainder;
+      for (let i = 0; i < fillers; i++) {
+        const emptyCard = document.createElement('div');
+        emptyCard.className = 'invisible';
+        channelsGrid.appendChild(emptyCard);
+      }
+    }
   }
 
   function updateCategoryButtons(categories) {
     categoriesRow.querySelectorAll('button').forEach(btn => {
       if (btn.textContent === currentCategory) {
-        btn.className = 'px-4 py-2 rounded-full bg-[#d92a1a] text-white shadow animate-pop';
+        btn.className = `
+          px-4 py-2 rounded-full bg-[#d92a1a] text-white scale-105 shadow-lg transition-all duration-300
+        `;
       } else {
-        btn.className = 'px-4 py-2 rounded-full bg-white text-gray-700 shadow animate-pop';
+        btn.className = `
+          px-4 py-2 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-all duration-300
+        `;
       }
     });
   }
@@ -162,6 +193,13 @@ document.head.appendChild(style);
     ripple.style.top = `${event.clientY - rect.top - (rect.height / 2)}px`;
     element.appendChild(ripple);
     setTimeout(() => ripple.remove(), 500);
+  }
+
+  function animateCategoryChange() {
+    channelsGrid.style.opacity = '0';
+    setTimeout(() => {
+      channelsGrid.style.opacity = '1';
+    }, 150);
   }
 </script>
 </body>
