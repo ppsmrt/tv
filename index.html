@@ -1,46 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-<style>
-  body { font-family: 'Baloo 2', cursive; }
-  /* Hide native scrollbar but keep scrolling */
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden scroll-smooth">
+<body class="bg-gray-100 pb-24">
 
-  <!-- Header -->
-  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
-    <button aria-label="Menu" class="text-white text-3xl">
-      <i class="fas fa-bars"></i>
-    </button>
-    <h1 class="text-white text-2xl sm:text-3xl font-extrabold tracking-wider select-none">
-      Live TV
-    </h1>
-    <button aria-label="Notifications" class="text-white text-3xl">
-      <i class="fas fa-bell"></i>
-    </button>
-  </div>
+<!-- Header -->
+<div id="header-container"></div>
 
-  <!-- Categories Row -->
-  <nav id="categoriesRow"
-    class="bg-gray-200/20 backdrop-blur-sm flex space-x-3 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-2 px-3 select-none scrollbar-hide">
-    <!-- Categories dynamically injected -->
-  </nav>
+<!-- Category Bar -->
+<div id="categoryBar" class="category-bar rounded-xl m-2"></div>
 
-  <!-- Channels Grid (JS controls styling, not hardcoded) -->
-  <div id="channelsGrid" class="flex-1 overflow-y-auto overscroll-contain bg-gray-50">
-    <!-- Channels dynamically injected -->
-  </div>
+<!-- Channels Grid -->
+<div id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4"></div>
 
-<!-- ✅ Important: use correct path, adjust if player.js is not found -->
-<script src="https://ppsmrt.github.io/tv/assets/js/player.js" type="module"></script>
+<!-- Bottom Navigation -->
+<div id="footer-container"></div>
+
+<!-- Scripts -->
+<script type="module" src="assets/js/player.js"></script>
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
 </body>
 </html>
