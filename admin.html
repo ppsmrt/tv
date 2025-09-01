@@ -48,6 +48,17 @@
   <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
 </div>
 
+<!-- Search and Filter -->
+<div class="flex flex-col md:flex-row gap-4 px-5 mb-5">
+  <input type="text" id="searchInput" placeholder="Search by name..." class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+  <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+    <option value="">All Categories</option>
+    <option value="News">News</option>
+    <option value="Music">Music</option>
+    <option value="Entertainment">Entertainment</option>
+  </select>
+</div>
+
 <!-- Channels List -->
 <div class="flex-1 overflow-y-auto p-5 m-5">
   <h2 class="text-xl font-bold mb-4">Channels</h2>
@@ -77,6 +88,10 @@ const auth = getAuth(app);
 const form = document.getElementById("channelForm");
 const statusMsg = document.getElementById("statusMsg");
 const channelList = document.getElementById("channelList");
+const searchInput = document.getElementById("searchInput");
+const filterCategory = document.getElementById("filterCategory");
+
+let allChannels = {}; // Store all channels for search/filter
 
 // Admin check and load channels
 onAuthStateChanged(auth, async (user) => {
@@ -92,56 +107,74 @@ onAuthStateChanged(auth, async (user) => {
   // Load and display channels
   const channelsRef = ref(db, "channels");
   onValue(channelsRef, (snapshot) => {
-    const data = snapshot.val() || {}; // Safe fallback
-    channelList.innerHTML = "";
-
-    if (Object.keys(data).length === 0) {
-      channelList.innerHTML = "<p class='text-gray-500'>No channels available.</p>";
-      return;
-    }
-
-    Object.entries(data).forEach(([id, ch]) => {
-      const card = document.createElement("div");
-      card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
-      card.innerHTML = `
-        <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
-        <div class="flex-1">
-          <h3 class="text-lg font-bold">${ch.name}</h3>
-          <p class="text-gray-600 text-sm">${ch.category}</p>
-        </div>
-        <div class="flex gap-2">
-          <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
-          <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
-        </div>
-      `;
-      channelList.appendChild(card);
-    });
-
-    // Edit buttons
-    document.querySelectorAll(".editBtn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const id = e.target.dataset.id;
-        const ch = data[id];
-        document.getElementById("channelId").value = id;
-        document.getElementById("name").value = ch.name;
-        document.getElementById("icon").value = ch.icon;
-        document.getElementById("stream").value = ch.stream;
-        document.getElementById("category").value = ch.category;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-
-    // Delete buttons
-    document.querySelectorAll(".deleteBtn").forEach(btn => {
-      btn.addEventListener("click", async (e) => {
-        const id = e.target.dataset.id;
-        if (confirm("Are you sure you want to delete this channel?")) {
-          await remove(ref(db, "channels/" + id));
-        }
-      });
-    });
+    allChannels = snapshot.val() || {};
+    renderChannels(allChannels);
   });
 });
+
+// Render channels with optional filter/search
+function renderChannels(channels) {
+  const searchTerm = searchInput.value.toLowerCase();
+  const categoryFilter = filterCategory.value;
+  
+  channelList.innerHTML = "";
+
+  const filtered = Object.entries(channels).filter(([id, ch]) => {
+    const matchesName = ch.name.toLowerCase().includes(searchTerm);
+    const matchesCategory = categoryFilter ? ch.category === categoryFilter : true;
+    return matchesName && matchesCategory;
+  });
+
+  if (filtered.length === 0) {
+    channelList.innerHTML = "<p class='text-gray-500'>No channels found.</p>";
+    return;
+  }
+
+  filtered.forEach(([id, ch]) => {
+    const card = document.createElement("div");
+    card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
+    card.innerHTML = `
+      <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+      <div class="flex-1">
+        <h3 class="text-lg font-bold">${ch.name}</h3>
+        <p class="text-gray-600 text-sm">${ch.category}</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
+        <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
+      </div>
+    `;
+    channelList.appendChild(card);
+  });
+
+  // Edit buttons
+  document.querySelectorAll(".editBtn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const id = e.target.dataset.id;
+      const ch = channels[id];
+      document.getElementById("channelId").value = id;
+      document.getElementById("name").value = ch.name;
+      document.getElementById("icon").value = ch.icon;
+      document.getElementById("stream").value = ch.stream;
+      document.getElementById("category").value = ch.category;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Delete buttons
+  document.querySelectorAll(".deleteBtn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const id = e.target.dataset.id;
+      if (confirm("Are you sure you want to delete this channel?")) {
+        await remove(ref(db, "channels/" + id));
+      }
+    });
+  });
+}
+
+// Search/filter events
+searchInput.addEventListener("input", () => renderChannels(allChannels));
+filterCategory.addEventListener("change", () => renderChannels(allChannels));
 
 // Handle channel form submission
 form.addEventListener("submit", async (e) => {
