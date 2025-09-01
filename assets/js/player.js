@@ -1,9 +1,5 @@
-// assets/js/player.js
-console.log("✅ player.js loaded");
-
-// --- Firebase ---
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
@@ -15,134 +11,66 @@ const firebaseConfig = {
   appId: "1:80664356882:web:c8464819b0515ec9b210cb",
   measurementId: "G-FNS9JWZ9LS"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// --- Animations ---
-const style = document.createElement('style');
-style.innerHTML = `
-@keyframes ripple { to { transform: scale(4); opacity: 0; } }
-.animate-ripple { animation: ripple 0.5s linear; }
+const channelsGrid = document.getElementById("channelsGrid");
+const categoryBar = document.getElementById("categoryBar");
+let allChannels = [];
+let currentCategory = "All";
 
-@keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); } }
-.animate-pop { animation: pop 0.35s ease-out forwards; }
-
-@keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-.animate-slideDown { animation: slideDown 0.5s ease-out forwards; }
-
-@keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-.animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
-`;
-document.head.appendChild(style);
-
-// --- Globals ---
-const categories = ["All", "Entertainment", "Music", "News"];
-let selectedCategory = "All";
-let channelsData = [];
-
-// --- Render Categories ---
-function renderCategories() {
-  const row = document.getElementById('categoriesRow');
-  if (!row) {
-    console.error("❌ categoriesRow not found in DOM");
-    return;
+// Fetch channels
+onValue(ref(db, "channels"), (snapshot) => {
+  const data = snapshot.val();
+  if(data){
+    allChannels = Object.values(data);
+    renderCategories(allChannels);
+    renderChannels(allChannels);
   }
-  row.innerHTML = '';
-  row.classList.add('animate-slideDown');
+});
 
-  categories.forEach((cat, i) => {
-    const btn = document.createElement('a');
+// Render categories
+function renderCategories(channels){
+  const categories = ["All", ...new Set(channels.map(ch=>ch.category))];
+  categoryBar.innerHTML = "";
+  categories.forEach(cat=>{
+    const btn = document.createElement("button");
     btn.textContent = cat;
-    btn.href = "#";
-    btn.className = `px-5 py-2 rounded-full whitespace-nowrap transform transition-all duration-200 shadow-sm opacity-0 ${
-      selectedCategory === cat 
-        ? 'bg-white text-red-600 font-bold' 
-        : 'bg-gray-200/50 text-gray-900 hover:bg-white hover:text-red-600 hover:scale-105'
-    }`;
-
-    btn.style.animation = `slideDown 0.5s ease-out forwards`;
-    btn.style.animationDelay = `${i * 80}ms`;
-
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      selectedCategory = cat;
-      renderCategories();
-      renderChannels();
-    });
-
-    row.appendChild(btn);
+    btn.className="category-btn bg-gray-200 text-gray-700";
+    if(cat===currentCategory) btn.classList.add("bg-purple-600","text-white","animate-pop");
+    btn.onclick=()=>{
+      currentCategory=cat;
+      document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("bg-purple-600","text-white"));
+      btn.classList.add("bg-purple-600","text-white","animate-pop");
+      renderChannels(currentCategory==="All"?allChannels:allChannels.filter(c=>c.category===cat));
+    };
+    categoryBar.appendChild(btn);
   });
 }
 
-// --- Render Channels ---
-function renderChannels() {
-  const grid = document.getElementById('channelsGrid');
-  if (!grid) {
-    console.error("❌ channelsGrid not found in DOM");
-    return;
-  }
-
-  grid.className = "grid grid-cols-3 gap-4 p-4"; // 3 per row, equal spacing
-  grid.innerHTML = '';
-  
-  const filtered = channelsData.filter(
-    c => selectedCategory === "All" || c.category === selectedCategory
-  );
-
-  if (filtered.length === 0) {
-    grid.innerHTML = `<p class="col-span-3 text-center text-gray-500">No channels found</p>`;
-    return;
-  }
-
-  filtered.forEach((channel, index) => {
-    const div = document.createElement('div');
-    div.className =
-      'flex flex-col items-center cursor-pointer transform transition-all duration-300 hover:scale-105 animate-fadeUp animate-pop';
-    div.style.animationDelay = `${index * 80}ms`;
-    div.innerHTML = `
-      <div class="w-full aspect-square bg-white rounded-xl shadow-md flex items-center justify-center p-4">
-        <img src="${channel.icon}" alt="${channel.name}" 
-             class="w-20 h-20 object-contain"/>
-      </div>
-      <span class="text-base font-bold text-gray-900 text-center select-none w-full px-1 mt-2 leading-tight">
-        ${channel.name}
-      </span>
+// Render channels
+function renderChannels(channels){
+  channelsGrid.innerHTML="";
+  channels.forEach((ch,i)=>{
+    const card=document.createElement("div");
+    card.className="channel-card animate-fadeUp relative";
+    card.style.animationDelay=`${i*0.05}s`;
+    card.innerHTML=`
+      <img src="${ch.icon}" alt="${ch.name}">
+      <p>${ch.name}</p>
     `;
-    div.addEventListener('click', () => {
-      const nameParam = encodeURIComponent(channel.name);
-      window.location.href = \`https://ppsmrt.github.io/tv/player.html?name=\${nameParam}\`;
-    });
-    grid.appendChild(div);
+    card.onclick=e=>{
+      const ripple=document.createElement("span");
+      ripple.className="ripple";
+      const rect=card.getBoundingClientRect();
+      const size=Math.max(rect.width,rect.height);
+      ripple.style.width=ripple.style.height=size+"px";
+      ripple.style.left=`${e.clientX-rect.left-size/2}px`;
+      ripple.style.top=`${e.clientY-rect.top-size/2}px`;
+      card.appendChild(ripple);
+      setTimeout(()=>ripple.remove(),600);
+      setTimeout(()=>window.location.href=`player.html?name=${encodeURIComponent(ch.name)}&url=${encodeURIComponent(ch.stream)}`,200);
+    };
+    channelsGrid.appendChild(card);
   });
 }
-
-// --- Load Channels from Firebase ---
-function loadChannels() {
-  try {
-    const channelsRef = ref(db, "channels"); // expects channels stored at /channels
-    console.log("📡 Listening to Firebase...");
-    onValue(channelsRef, (snapshot) => {
-      if (snapshot.exists()) {
-        channelsData = Object.values(snapshot.val() || {});
-        console.log("✅ Channels loaded:", channelsData.length);
-        renderCategories();
-        renderChannels();
-      } else {
-        console.warn("⚠️ No channels found in Firebase");
-        const grid = document.getElementById('channelsGrid');
-        if (grid) {
-          grid.innerHTML = `<p class="col-span-3 text-center text-gray-500">No channels found</p>`;
-        }
-      }
-    }, (err) => {
-      console.error("❌ Firebase error:", err);
-    });
-  } catch (err) {
-    console.error("❌ Failed to load from Firebase:", err);
-  }
-}
-
-// --- Start immediately (fix for blank screen) ---
-console.log("🚀 Starting app…");
-loadChannels();
