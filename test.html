@@ -1,413 +1,176 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Live TV - Clean Premium UI</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Live TV - Premium UI</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style>
+  body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #f9fafb;
+    margin: 0; min-height: 100vh; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
 
-  <!-- Google Fonts: SF Pro Display fallback with system fonts -->
-  <style>
-    @font-face {
-      font-family: 'SF Pro Display';
-      src: local('SF Pro Display'), local('San Francisco'), local('Helvetica Neue'), local('Arial'), sans-serif;
-      font-weight: 400 900;
-      font-style: normal;
-    }
-    body {
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      background: #f9fafb;
-      color: #111827;
-      margin: 0;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-  </style>
+  /* Header */
+  header {
+    position: fixed; top:0; left:0; right:0; height:64px;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(6px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; z-index:100;
+  }
+  header h1 { font-weight:700; font-size:1.5rem; letter-spacing:0.05em; color:#111827; }
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  .search-container { position:relative; width:280px; }
+  .search-container input {
+    width:100%; padding:8px 40px 8px 16px; border-radius:9999px;
+    border:1.5px solid #d1d5db; font-size:1rem; font-weight:500; color:#374151;
+    background:#f3f4f6; transition:0.3s; 
+  }
+  .search-container input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 8px #3b82f6aa; background:white; }
+  .search-container .material-icons { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#3b82f6; font-size:20px; pointer-events:none; }
 
-  <style>
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background: white;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      z-index: 100;
-      user-select: none;
-    }
-    header h1 {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #111827;
-      letter-spacing: 0.05em;
-    }
+  main { padding:80px 1.5rem 96px; max-width:1200px; margin:0 auto; }
 
-    /* Search bar */
-    .search-container {
-      position: relative;
-      max-width: 320px;
-      width: 100%;
-    }
-    .search-container input {
-      width: 100%;
-      padding: 8px 40px 8px 16px;
-      border-radius: 9999px;
-      border: 1.5px solid #d1d5db;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #374151;
-      background: #f3f4f6;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .search-container input::placeholder {
-      color: #9ca3af;
-    }
-    .search-container input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 8px #3b82f6aa;
-      background: white;
-    }
-    .search-container .material-icons {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #3b82f6;
-      font-size: 20px;
-      pointer-events: none;
-    }
+  /* Category bar */
+  .category-bar { display:flex; gap:16px; margin-bottom:24px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
+  .category-bar::-webkit-scrollbar { display:none; }
+  .category-btn {
+    flex-shrink:0; padding:8px 20px; border-radius:9999px;
+    font-weight:600; font-size:0.875rem; color:#6b7280; background:#e5e7eb;
+    cursor:pointer; transition:0.3s; white-space:nowrap; border:none;
+  }
+  .category-btn:hover { background:#3b82f6; color:white; }
+  .category-btn.active { background:#3b82f6; color:white; box-shadow:0 4px 12px rgb(59 130 246 / 0.4); }
 
-    /* Main content */
-    main {
-      padding: 80px 24px 96px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+  /* Channel grid */
+  .channels-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:24px; }
 
-    /* Category bar */
-    .category-bar {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 24px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .category-bar::-webkit-scrollbar {
-      display: none;
-    }
-    .category-btn {
-      flex-shrink: 0;
-      padding: 8px 20px;
-      border-radius: 9999px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: #6b7280;
-      background: #e5e7eb;
-      cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      user-select: none;
-      white-space: nowrap;
-      border: none;
-    }
-    .category-btn:hover {
-      background: #3b82f6;
-      color: white;
-    }
-    .category-btn.active {
-      background: #3b82f6;
-      color: white;
-      box-shadow: 0 4px 12px rgb(59 130 246 / 0.4);
-    }
-    .category-btn:focus-visible {
-      outline: 2px solid #2563eb;
-      outline-offset: 2px;
-    }
+  /* Channel card */
+  .channel-card {
+    position:relative; background:white; border-radius:16px; overflow:hidden;
+    box-shadow:0 4px 12px rgb(0 0 0 / 0.08); cursor:pointer;
+    display:flex; flex-direction:column; transition:transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+    opacity:0; transform:translateY(20px);
+  }
+  .channel-card.show { opacity:1; transform:translateY(0); }
 
-    /* Channel grid */
-    .channels-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 24px;
-    }
+  .channel-card:hover, .channel-card:focus-visible { transform:translateY(-6px); box-shadow:0 12px 24px rgb(59 130 246 / 0.3); }
 
-    /* Channel card */
-    .channel-card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-      cursor: pointer;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      user-select: none;
-    }
-    .channel-card:hover,
-    .channel-card:focus-visible {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 24px rgb(59 130 246 / 0.3);
-      outline: none;
-    }
-    .channel-card:focus-visible {
-      outline: 3px solid #2563eb;
-      outline-offset: 2px;
-      z-index: 10;
-    }
+  .channel-image { width:100%; aspect-ratio:16/9; object-fit:cover; border-bottom:1px solid #e5e7eb; transition:filter 0.3s ease; }
+  .channel-card:hover .channel-image { filter:brightness(1.1); }
 
-    /* Channel image */
-    .channel-image {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      border-bottom: 1px solid #e5e7eb;
-      transition: filter 0.3s ease;
-    }
-    .channel-card:hover .channel-image {
-      filter: brightness(1.1);
-    }
+  .channel-overlay {
+    position:absolute; inset:0; background:rgba(0,0,0,0.35);
+    display:flex; align-items:center; justify-content:center; color:white;
+    font-weight:700; font-size:1rem; opacity:0; transition:opacity 0.3s ease;
+  }
+  .channel-card:hover .channel-overlay { opacity:1; }
 
-    /* Channel name */
-    .channel-name {
-      padding: 12px 16px;
-      font-weight: 700;
-      font-size: 1.125rem;
-      line-height: 1.2;
-      text-align: center;
-      user-select: text;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  .channel-name { padding:12px 8px; font-weight:700; font-size:1.125rem; text-align:center; user-select:text; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-    /* Bottom navigation */
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background: white;
-      box-shadow: 0 -2px 8px rgb(0 0 0 / 0.1);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 100;
-      user-select: none;
-    }
-    .bottom-nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-weight: 600;
-      font-size: 0.75rem;
-      color: #6b7280;
-      cursor: pointer;
-      transition: color 0.3s ease, transform 0.3s ease;
-      user-select: none;
-      border: none;
-      background: none;
-      padding: 0;
-    }
-    .bottom-nav-btn .material-icons {
-      font-size: 24px;
-      margin-bottom: 2px;
-      transition: filter 0.3s ease;
-    }
-    .bottom-nav-btn:hover,
-    .bottom-nav-btn:focus-visible {
-      color: #3b82f6;
-      outline: none;
-      transform: scale(1.15);
-    }
-    .bottom-nav-btn.active {
-      color: #3b82f6;
-      transform: scale(1.25);
-      font-weight: 700;
-    }
-    .bottom-nav-btn.active .material-icons {
-      filter: drop-shadow(0 0 6px #3b82f6);
-    }
+  /* Bottom navigation */
+  footer {
+    position:fixed; bottom:0; left:0; right:0; height:64px;
+    background:white; box-shadow:0 -2px 12px rgba(0,0,0,0.08);
+    display:flex; justify-content:space-around; align-items:center; z-index:100;
+  }
+  .bottom-nav-btn {
+    display:flex; flex-direction:column; align-items:center; font-weight:600; font-size:0.75rem; color:#6b7280;
+    cursor:pointer; transition:color 0.3s ease, transform 0.3s ease; border:none; background:none; padding:0;
+  }
+  .bottom-nav-btn .material-icons { font-size:24px; margin-bottom:2px; transition:filter 0.3s ease; }
+  .bottom-nav-btn:hover, .bottom-nav-btn:focus-visible { color:#3b82f6; outline:none; transform:scale(1.15); }
+  .bottom-nav-btn.active { color:#3b82f6; transform:scale(1.25); font-weight:700; }
+  .bottom-nav-btn.active .material-icons { filter:drop-shadow(0 0 6px #3b82f6); }
 
-    /* Responsive */
-    @media (max-width: 640px) {
-      .channels-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 16px;
-      }
-      .channel-name {
-        font-size: 1rem;
-      }
-    }
-  </style>
+  @media(max-width:640px){ .channels-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px;} .channel-name{font-size:1rem;} }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Live TV</h1>
-    <div class="search-container" style="width: 280px;">
-      <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels" autocomplete="off" spellcheck="false" />
-      <span class="material-icons">search</span>
-    </div>
-  </header>
+<header>
+  <h1>Live TV</h1>
+  <div class="search-container">
+    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
+    <span class="material-icons">search</span>
+  </div>
+</header>
 
-  <main>
-    <nav class="category-bar" role="navigation" aria-label="Channel categories" tabindex="0">
-      <button class="category-btn active" data-category="All" aria-pressed="true" tabindex="0">All</button>
-      <button class="category-btn" data-category="News" aria-pressed="false" tabindex="0">News</button>
-      <button class="category-btn" data-category="Music" aria-pressed="false" tabindex="0">Music</button>
-      <button class="category-btn" data-category="Entertainment" aria-pressed="false" tabindex="0">Entertainment</button>
-    </nav>
+<main>
+  <nav class="category-bar" role="navigation" aria-label="Channel categories">
+    <button class="category-btn active" data-category="All" aria-pressed="true">All</button>
+    <button class="category-btn" data-category="News" aria-pressed="false">News</button>
+    <button class="category-btn" data-category="Music" aria-pressed="false">Music</button>
+    <button class="category-btn" data-category="Entertainment" aria-pressed="false">Entertainment</button>
+  </nav>
 
-    <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
-  </main>
+  <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
+</main>
 
-  <footer role="navigation" aria-label="Bottom navigation">
-    <button class="bottom-nav-btn active" aria-current="page" aria-label="Home" tabindex="0">
-      <span class="material-icons">home</span>
-      Home
-    </button>
-    <button class="bottom-nav-btn" aria-label="Live" tabindex="0">
-      <span class="material-icons">live_tv</span>
-      Live
-    </button>
-    <button class="bottom-nav-btn" aria-label="Search" tabindex="0">
-      <span class="material-icons">search</span>
-      Search
-    </button>
-    <button class="bottom-nav-btn" aria-label="Profile" tabindex="0">
-      <span class="material-icons">person</span>
-      Profile
-    </button>
-  </footer>
+<footer role="navigation">
+  <button class="bottom-nav-btn active"><span class="material-icons">home</span>Home</button>
+  <button class="bottom-nav-btn"><span class="material-icons">live_tv</span>Live</button>
+  <button class="bottom-nav-btn"><span class="material-icons">search</span>Search</button>
+  <button class="bottom-nav-btn"><span class="material-icons">person</span>Profile</button>
+</footer>
 
-  <script>
-    const channels = [
-      {
-        name: "Global News",
-        category: "News",
-        logo: "https://tataprime.wordpress.com/wp-content/uploads/2024/06/20240606_1011166927911394281629855.png",
-        url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      {
-        name: "Music Mania",
-        category: "Music",
-        logo: "https://tataprime.wordpress.com/wp-content/uploads/2024/06/20240625_0838033378788475647664566.png",
-        url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
-      },
-      {
-        name: "Entertainment Hub",
-        category: "Entertainment",
-        logo: "https://tataprime.wordpress.com/wp-content/uploads/2024/06/20240606_1013061257258474280240322.png",
-        url: "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
-      },
-      {
-        name: "World News",
-        category: "News",
-        logo: "https://tataprime.wordpress.com/wp-content/uploads/2024/04/imagecontent-11218-j9ichyag-m15342394670787239236.png",
-        url: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"
-      },
-      {
-        name: "Pop Hits",
-        category: "Music",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/VH1_Logo.svg/320px-VH1_Logo.svg.png",
-        url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
-      },
-      {
-        name: "Movie Central",
-        category: "Entertainment",
-        logo: "https://tataprime.wordpress.com/wp-content/uploads/2024/06/20240607_1900469005020969747794276.png",
-        url: "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
-      },
-      {
-        name: "Jazz Beats",
-        category: "Music",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Jazz_FM_Logo.svg/320px-Jazz_FM_Logo.svg.png",
-        url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
-      },
-      {
-        name: "Breaking News",
-        category: "News",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Al_Jazeera_English_logo.svg/320px-Al_Jazeera_English_logo.svg.png",
-        url: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"
-      }
-    ];
+<script>
+const channels = [
+  {name:"Global News",category:"News",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/CNN_Logo.svg/320px-CNN_Logo.svg.png",url:"#"},
+  {name:"Music Mania",category:"Music",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/MTV_Logo_2010.svg/320px-MTV_Logo_2010.svg.png",url:"#"},
+  {name:"Entertainment Hub",category:"Entertainment",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/HBO_Max_Logo.svg/320px-HBO_Max_Logo.svg.png",url:"#"},
+  {name:"World News",category:"News",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/BBC_News_2019.svg/320px-BBC_News_2019.svg.png",url:"#"},
+  {name:"Pop Hits",category:"Music",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/VH1_Logo.svg/320px-VH1_Logo.svg.png",url:"#"},
+  {name:"Movie Central",category:"Entertainment",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Netflix_2015_logo.svg/320px-Netflix_2015_logo.svg.png",url:"#"}
+];
 
-    const channelsGrid = document.getElementById('channelsGrid');
-    const searchInput = document.getElementById('searchInput');
-    const categoryButtons = document.querySelectorAll('.category-btn');
+const grid=document.getElementById('channelsGrid');
+const searchInput=document.getElementById('searchInput');
+const categoryButtons=document.querySelectorAll('.category-btn');
+let selectedCategory='All';
 
-    let selectedCategory = 'All';
+function createChannelCard(c){
+  const a=document.createElement('a');
+  a.href=c.url; a.target='_blank'; a.rel='noopener noreferrer';
+  a.className='channel-card';
+  a.setAttribute('aria-label',`Watch ${c.name}`);
+  const img=document.createElement('img'); img.src=c.logo; img.alt=c.name+' logo'; img.className='channel-image';
+  const overlay=document.createElement('div'); overlay.className='channel-overlay'; overlay.textContent='▶ Watch';
+  const nameDiv=document.createElement('div'); nameDiv.className='channel-name'; nameDiv.textContent=c.name;
+  a.appendChild(img); a.appendChild(overlay); a.appendChild(nameDiv);
+  return a;
+}
 
-    function renderChannels(filter = '') {
-      channelsGrid.innerHTML = '';
-      const filtered = channels.filter(c => {
-        const matchCategory = selectedCategory === 'All' || c.category === selectedCategory;
-        const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
-        return matchCategory && matchSearch;
-      });
-      if (filtered.length === 0) {
-        channelsGrid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
-        return;
-      }
-      filtered.forEach(channel => {
-        const a = document.createElement('a');
-        a.href = channel.url;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.className = 'channel-card';
-        a.setAttribute('aria-label', `Watch ${channel.name}`);
+function renderChannels(filter=''){
+  grid.innerHTML='';
+  const filtered=channels.filter(c=>{
+    const matchCat=selectedCategory==='All'||c.category===selectedCategory;
+    const matchSearch=c.name.toLowerCase().includes(filter.toLowerCase());
+    return matchCat&&matchSearch;
+  });
+  if(filtered.length===0){grid.innerHTML='<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>'; return;}
+  filtered.forEach((c,i)=>{
+    const card=createChannelCard(c);
+    grid.appendChild(card);
+    setTimeout(()=>card.classList.add('show'),i*100);
+  });
+}
 
-        const img = document.createElement('img');
-        img.src = channel.logo;
-        img.alt = channel.name + ' logo';
-        img.className = 'channel-image';
+searchInput.addEventListener('input',e=>{renderChannels(e.target.value);});
+categoryButtons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    categoryButtons.forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});
+    btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+    selectedCategory=btn.dataset.category; renderChannels(searchInput.value);
+  });
+});
 
-        const name = document.createElement('div');
-        name.className = 'channel-name';
-        name.textContent = channel.name;
+renderChannels();
+</script>
 
-        a.appendChild(img);
-        a.appendChild(name);
-        channelsGrid.appendChild(a);
-      });
-    }
-
-    searchInput.addEventListener('input', e => {
-      renderChannels(e.target.value);
-    });
-
-    categoryButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        categoryButtons.forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-        selectedCategory = btn.dataset.category;
-        renderChannels(searchInput.value);
-      });
-    });
-
-    // Initial render
-    renderChannels();
-  </script>
 </body>
 </html>
