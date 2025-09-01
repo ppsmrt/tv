@@ -6,126 +6,141 @@
 <title>Premium Live Player</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
-  /* Ripple & overlay effects */
-  .premium-watermark {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    background: rgba(0,0,0,0.4);
-    padding: 4px 8px;
-    border-radius: 4px;
-    pointer-events: none;
-    z-index: 10;
-  }
-  #adOverlay {
-    position: absolute;
-    top:0; left:0;
-    width: 100%; height: 100%;
-    background: black;
-    color: white;
-    font-size: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 20;
-  }
+  body { background: #111; }
+  .premium-watermark { position: absolute; top:10px; left:10px; font-size:14px; font-weight:bold; color:white; background:rgba(0,0,0,0.4); padding:4px 8px; border-radius:4px; z-index:10; pointer-events:none; }
+  #overlayInfo { position:absolute; bottom:10px; left:10px; right:10px; background:rgba(0,0,0,0.5); color:white; padding:8px 12px; border-radius:6px; font-size:14px; display:flex; justify-content:space-between; align-items:center; z-index:10; opacity:0; transition:opacity 0.5s; }
+  #overlayInfo.show { opacity:1; }
+  #adOverlay { position:absolute;top:0;left:0;width:100%;height:100%;background:black;color:white;display:flex;justify-content:center;align-items:center;font-size:2rem;z-index:20; flex-direction:column;}
+  #header { width:100%; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.6); padding:10px 20px; color:white; font-size:1.5rem; font-weight:bold; position:absolute; top:0; z-index:15; border-bottom-left-radius:10px; border-bottom-right-radius:10px; }
+  #header button { background:rgba(255,255,255,0.2); padding:5px 10px; border-radius:6px; transition:all 0.3s; }
+  #header button:hover { background:rgba(255,255,255,0.5); transform:scale(1.1); }
+  .control-btn { display:flex; align-items:center; justify-content:center; padding:10px; border-radius:8px; background:rgba(255,255,255,0.1); transition:all 0.3s; cursor:pointer; }
+  .control-btn:hover { background:rgba(255,255,255,0.3); transform:scale(1.1); }
+  .control-btn i { margin-right:4px; }
 </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen">
+<body class="flex flex-col items-center justify-center min-h-screen">
 
-<!-- Header -->
-<h1 id="channelName" class="text-2xl font-bold mb-4"></h1>
-
-<!-- Video Player Container -->
-<div class="relative w-full max-w-4xl">
-  <video id="videoPlayer" class="w-full rounded-lg shadow-lg bg-black" controls autoplay></video>
-  
-  <!-- Premium watermark -->
-  <div class="premium-watermark">Premium</div>
-  
-  <!-- Pre-roll ad overlay -->
-  <div id="adOverlay">Ad: Watch this before your stream...</div>
+<!-- Header with Channel Name & Close Button -->
+<div id="header">
+  <span id="channelName">Loading...</span>
+  <button id="btnClose"><i class="fa fa-times"></i> Close</button>
 </div>
 
-<!-- Player Controls -->
-<div class="flex space-x-4 mt-4">
-  <button id="btnFullscreen" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">Fullscreen</button>
-  <button id="btnPiP" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">Picture-in-Picture</button>
+<!-- Video Player -->
+<div class="relative w-full max-w-5xl mt-16">
+  <video id="videoPlayer" class="w-full rounded-lg shadow-lg bg-black" autoplay muted></video>
+
+  <div class="premium-watermark animate-pulse">Premium</div>
+
+  <!-- Overlay Info -->
+  <div id="overlayInfo">
+    <span id="currentProgram">Live Now: Loading...</span>
+    <span id="timeDisplay">00:00</span>
+  </div>
+
+  <!-- Pre-roll Ad -->
+  <div id="adOverlay">
+    <div>Ad: Watch this before your stream</div>
+    <div id="adCountdown" class="text-lg mt-2">4</div>
+  </div>
 </div>
+
+<!-- Controls -->
+<div class="flex flex-wrap gap-3 mt-4">
+  <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand"></i> Fullscreen</div>
+  <div class="control-btn" id="btnPiP"><i class="fa fa-window-restore"></i> PiP</div>
+  <div class="control-btn" id="btnMute"><i class="fa fa-volume-up"></i> Mute</div>
+  <div class="control-btn" id="btnSpeed"><i class="fa fa-tachometer-alt"></i> Speed</div>
+</div>
+
+<!-- Playback Speed Dropdown -->
+<select id="playbackSpeed" class="px-3 py-1 bg-gray-800 rounded mt-2 hidden">
+  <option value="0.5">0.5x</option>
+  <option value="1" selected>1x</option>
+  <option value="1.5">1.5x</option>
+  <option value="2">2x</option>
+</select>
 
 <script type="module">
-  const urlParams = new URLSearchParams(window.location.search);
-  const channelName = urlParams.get('name') || "Unknown Channel";
-  const streamURL = decodeURIComponent(urlParams.get('stream') || "");
+const urlParams = new URLSearchParams(window.location.search);
+const channelNameParam = urlParams.get('name') || "Unknown Channel";
+const streamURL = decodeURIComponent(urlParams.get('stream') || "");
 
-  const video = document.getElementById('videoPlayer');
-  const nameEl = document.getElementById('channelName');
-  const adOverlay = document.getElementById('adOverlay');
+const video = document.getElementById('videoPlayer');
+const channelNameEl = document.getElementById('channelName');
+const adOverlay = document.getElementById('adOverlay');
+const adCountdown = document.getElementById('adCountdown');
+const overlayInfo = document.getElementById('overlayInfo');
+const currentProgram = document.getElementById('currentProgram');
+const timeDisplay = document.getElementById('timeDisplay');
+const playbackSpeed = document.getElementById('playbackSpeed');
 
-  nameEl.textContent = channelName;
+channelNameEl.textContent = channelNameParam;
+currentProgram.textContent = "Live Now: " + channelNameParam;
 
-  // --- Pre-roll Ad Simulation ---
-  function playAdThenStream() {
-    adOverlay.style.display = 'flex';
-    video.pause();
+// Show overlay on hover
+video.addEventListener('mousemove', () => overlayInfo.classList.add('show'));
+video.addEventListener('mouseleave', () => overlayInfo.classList.remove('show'));
 
-    setTimeout(() => {
+// --- Pre-roll Ad ---
+function playAdThenStream() {
+  adOverlay.style.display = 'flex';
+  video.pause();
+  let countdown = 4;
+  adCountdown.textContent = countdown;
+  const interval = setInterval(() => {
+    countdown--;
+    adCountdown.textContent = countdown;
+    if (countdown <= 0) {
+      clearInterval(interval);
       adOverlay.style.display = 'none';
       startStream();
-    }, 4000); // 4-second ad
-  }
-
-  // --- Start HLS stream ---
-  function startStream() {
-    if (!streamURL) {
-      alert("Stream URL not available.");
-      return;
     }
+  }, 1000);
+}
 
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(streamURL);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = streamURL;
-      video.addEventListener('loadedmetadata', () => video.play());
-    } else {
-      alert("Your browser does not support HLS streaming.");
-    }
-  }
+// --- HLS Streaming ---
+function startStream() {
+  if (!streamURL) { alert("Stream URL not available."); return; }
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(streamURL);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = streamURL;
+    video.addEventListener('loadedmetadata', () => video.play());
+  } else { alert("Your browser does not support HLS."); }
+}
 
-  // --- Fullscreen Button ---
-  document.getElementById('btnFullscreen').onclick = () => {
-    if (video.requestFullscreen) video.requestFullscreen();
-    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
-  };
+// --- Controls ---
+document.getElementById('btnFullscreen').onclick = () => { if(video.requestFullscreen) video.requestFullscreen(); };
+document.getElementById('btnPiP').onclick = async () => { try { if(document.pictureInPictureElement){ await document.exitPictureInPicture(); } else { await video.requestPictureInPicture(); } } catch(e){console.log(e);} };
+document.getElementById('btnMute').onclick = () => { video.muted = !video.muted; };
+document.getElementById('btnSpeed').onclick = () => { playbackSpeed.classList.toggle('hidden'); };
+playbackSpeed.onchange = (e) => { video.playbackRate = parseFloat(e.target.value); };
 
-  // --- Picture-in-Picture Button ---
-  document.getElementById('btnPiP').onclick = async () => {
-    try {
-      if (document.pictureInPictureElement) {
-        await document.exitPictureInPicture();
-      } else {
-        await video.requestPictureInPicture();
-      }
-    } catch (err) {
-      console.error("PiP not supported:", err);
-    }
-  };
+// --- Time Display ---
+setInterval(() => {
+  const mins = Math.floor(video.currentTime/60).toString().padStart(2,'0');
+  const secs = Math.floor(video.currentTime%60).toString().padStart(2,'0');
+  timeDisplay.textContent = `${mins}:${secs}`;
+}, 500);
 
-  // --- Playback Analytics ---
-  video.addEventListener('play', () => console.log(`${channelName} started playing at ${new Date().toISOString()}`));
-  video.addEventListener('pause', () => console.log(`${channelName} paused at ${new Date().toISOString()}`));
-  video.addEventListener('ended', () => console.log(`${channelName} ended at ${new Date().toISOString()}`));
+// --- Close Player Button ---
+document.getElementById('btnClose').onclick = () => {
+  window.location.href = '/tv/index.html';
+};
 
-  // Start pre-roll ad first
-  playAdThenStream();
+// --- Analytics ---
+video.addEventListener('play', () => console.log(`${channelNameParam} started at ${new Date().toISOString()}`));
+video.addEventListener('pause', () => console.log(`${channelNameParam} paused at ${new Date().toISOString()}`));
+
+playAdThenStream();
 </script>
 </body>
 </html>
