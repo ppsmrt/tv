@@ -105,29 +105,62 @@ function showToast(message) {
 }
 
 async function loadStream() {
+  spinner.style.display = 'flex';
   try {
-    spinner.style.display = 'flex';
     const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
     const channels = await res.json();
     const channel = channels.find(c => c.name === name);
     if(!channel) throw "Channel not found";
 
-    if(Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(channel.stream);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-      hls.on(Hls.Events.ERROR, (_, data) => {
-        if(data.fatal){ hls.destroy(); showToast("Failed to load stream"); spinner.style.display='none'; }
-      });
-    } else {
-      video.src = channel.stream;
-      video.addEventListener('error', () => { showToast("Failed to load stream"); spinner.style.display='none'; });
-      video.play().catch(() => { showToast("Failed to load stream"); spinner.style.display='none'; });
+    const originalURL = channel.stream;
+    const corsProxy = 'https://corsproxy.io/?'; // fallback proxy
+
+    function attachHls(url) {
+      if(Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+        hls.on(Hls.Events.ERROR, (_, data) => {
+          if(data.fatal){
+            if(url === originalURL){
+              // Retry with CORS proxy
+              showToast("Retrying with proxy...");
+              attachHls(corsProxy + encodeURIComponent(originalURL));
+            } else {
+              spinner.style.display='none';
+              showToast("Failed to load stream");
+              hls.destroy();
+            }
+          }
+        });
+      } else {
+        video.src = url;
+        video.addEventListener('error', () => {
+          if(url === originalURL){
+            showToast("Retrying with proxy...");
+            attachHls(corsProxy + encodeURIComponent(originalURL));
+          } else {
+            spinner.style.display='none';
+            showToast("Failed to load stream");
+          }
+        });
+        video.play().catch(() => {
+          if(url === originalURL){
+            attachHls(corsProxy + encodeURIComponent(originalURL));
+          } else {
+            spinner.style.display='none';
+            showToast("Failed to load stream");
+          }
+        });
+      }
     }
+
+    attachHls(originalURL);
 
     video.addEventListener('playing', ()=> spinner.style.display='none');
     video.addEventListener('pause', ()=> spinner.style.display='none');
+
   } catch(err) {
     console.error(err);
     spinner.style.display='none';
