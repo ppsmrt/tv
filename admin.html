@@ -91,12 +91,16 @@ const channelList = document.getElementById("channelList");
 const searchInput = document.getElementById("searchInput");
 const filterCategory = document.getElementById("filterCategory");
 
-let allChannels = {}; // Store all channels for search/filter
+let allChannels = {}; // store all channels for search/filter
 
-// Admin check and load channels
+// Wait for auth
 onAuthStateChanged(auth, async (user) => {
-  if (!user) window.location.href = "signin.html";
+  if (!user) {
+    window.location.href = "signin.html";
+    return;
+  }
 
+  // Check if admin
   const adminSnap = await get(ref(db, "admins/" + user.uid));
   if (!adminSnap.exists()) {
     alert("Access denied. Only admins can access this page.");
@@ -104,7 +108,7 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  // Load and display channels
+  // Load channels
   const channelsRef = ref(db, "channels");
   onValue(channelsRef, (snapshot) => {
     allChannels = snapshot.val() || {};
@@ -112,11 +116,10 @@ onAuthStateChanged(auth, async (user) => {
   });
 });
 
-// Render channels with optional filter/search
+// Render channels
 function renderChannels(channels) {
   const searchTerm = searchInput.value.toLowerCase();
   const categoryFilter = filterCategory.value;
-  
   channelList.innerHTML = "";
 
   const filtered = Object.entries(channels).filter(([id, ch]) => {
@@ -147,7 +150,6 @@ function renderChannels(channels) {
     channelList.appendChild(card);
   });
 
-  // Edit buttons
   document.querySelectorAll(".editBtn").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const id = e.target.dataset.id;
@@ -161,7 +163,6 @@ function renderChannels(channels) {
     });
   });
 
-  // Delete buttons
   document.querySelectorAll(".deleteBtn").forEach(btn => {
     btn.addEventListener("click", async (e) => {
       const id = e.target.dataset.id;
@@ -176,7 +177,7 @@ function renderChannels(channels) {
 searchInput.addEventListener("input", () => renderChannels(allChannels));
 filterCategory.addEventListener("change", () => renderChannels(allChannels));
 
-// Handle channel form submission
+// Handle channel form submit
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const channelId = document.getElementById("channelId").value;
