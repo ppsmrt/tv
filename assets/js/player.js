@@ -66,8 +66,8 @@ function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
 
-  // ✅ Fix: apply responsive grid layout with proper spacing
-  grid.className = 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 p-2';
+  // ✅ Auto-fit grid layout with proper spacing
+  grid.className = 'grid [grid-template-columns:repeat(auto-fit,minmax(80px,1fr))] gap-4 p-3 overflow-y-auto';
 
   const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
   filtered.forEach((channel, index)=>{
