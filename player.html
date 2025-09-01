@@ -9,31 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
   body { font-family: 'Baloo 2', cursive; background: #000; }
-  #controlsBar, #topBar { transition: opacity 0.3s; }
-  #spinner {
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    font-size:3rem; color:white; z-index:50; display:none;
-    animation:spin 1s linear infinite;
-  }
-  @keyframes spin { 0%{transform:translate(-50%,-50%) rotate(0deg);} 100%{transform:translate(-50%,-50%) rotate(360deg);} }
-  #toast {
-    position:fixed; bottom:5%; left:50%; transform:translateX(-50%);
-    background:rgba(220,20,60,0.95); color:white; padding:1rem 2rem; border-radius:1rem;
-    display:none; z-index:60; font-weight:bold; box-shadow:0 4px 15px rgba(0,0,0,0.5);
-  }
+  /* Smooth hide/show controls */
+  #controlsBar { transition: opacity 0.3s; }
+  #topBar { transition: opacity 0.3s; }
 </style>
 </head>
 <body class="w-screen h-screen flex flex-col overflow-hidden relative bg-black">
 
-  <!-- Spinner & Toast -->
-  <div id="spinner"><i class="fas fa-circle-notch"></i></div>
-  <div id="toast"></div>
-
   <!-- Header / Top Bar -->
   <div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
-    <button id="closeBtn" class="text-white text-3xl"><i class="fas fa-times"></i></button>
-    <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]"></h1>
-    <div class="w-8"></div>
+    <button id="closeBtn" class="text-white text-3xl">
+      <i class="fas fa-times"></i>
+    </button>
+    <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]">
+      Loading...
+    </h1>
+    <div class="w-8"></div> <!-- placeholder for spacing -->
   </div>
 
   <!-- Video Player -->
@@ -43,95 +34,50 @@
 
   <!-- Bottom Controls -->
   <div id="controlsBar" class="absolute bottom-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-around px-6 py-3 rounded-t-xl">
-    <button id="playPauseBtn" class="text-white text-2xl"><i class="fas fa-pause"></i></button>
+    <button id="playPauseBtn" class="text-white text-2xl">
+      <i class="fas fa-pause"></i>
+    </button>
     <input id="volumeRange" type="range" min="0" max="1" step="0.01" class="w-24 h-1 accent-red-600"/>
-    <button id="fullscreenBtn" class="text-white text-2xl"><i class="fas fa-expand"></i></button>
+    <button id="fullscreenBtn" class="text-white text-2xl">
+      <i class="fas fa-expand"></i>
+    </button>
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-// URL parameters
+// URL parameter
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name') || "Unknown Channel";
-const streamUrl = params.get('stream') ? decodeURIComponent(params.get('stream')) : "";
+document.getElementById('channelName').textContent = name;
 
-const channelNameEl = document.getElementById('channelName');
-const video = document.getElementById('videoPlayer');
-const spinner = document.getElementById('spinner');
-const toast = document.getElementById('toast');
-
-channelNameEl.textContent = name;
-
-// Toast helper
-function showToast(msg){
-  toast.textContent = msg;
-  toast.style.display='block';
-  setTimeout(()=>toast.style.display='none',4000);
-}
-
-// CORS proxy
-const CORS_PROXY = "https://corsproxy.io/?";
-
-// Retry settings
-let retryCount = 0;
-const maxRetries = 3;
-
-async function playStream(url){
-  if(!url){ showToast("No stream URL provided"); return; }
-
-  spinner.style.display='block';
-  const ext = url.split('?')[0].split('.').pop().toLowerCase();
-
-  // Only handle .m3u8 or .ts
-  if(ext !== 'm3u8' && ext !== 'ts'){ 
-    showToast("Unsupported stream format"); 
-    spinner.style.display='none';
-    return;
-  }
-
-  const proxiedUrl = CORS_PROXY + encodeURIComponent(url);
-
+// Load stream from channels.json
+async function loadStream() {
   try {
-    if(Hls.isSupported()){
+    const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
+    const channels = await res.json();
+    const channel = channels.find(c => c.name === name);
+    if(!channel) throw "Channel not found";
+
+    const video = document.getElementById('videoPlayer');
+
+    if(Hls.isSupported()) {
       const hls = new Hls();
-      hls.loadSource(proxiedUrl);
+      hls.loadSource(channel.stream);
       hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, ()=> video.play());
-      hls.on(Hls.Events.ERROR, (_,data)=>{
-        console.warn('HLS Error', data);
-        if(retryCount < maxRetries){
-          retryCount++;
-          showToast(`Retrying... (${retryCount})`);
-          setTimeout(()=>playStream(url), 2000);
-        } else showToast('Failed to play stream');
-      });
     } else {
-      // Native HLS fallback (Safari, iOS)
-      video.src = proxiedUrl;
-      video.addEventListener('error',()=>{
-        if(retryCount < maxRetries){
-          retryCount++;
-          showToast(`Retrying... (${retryCount})`);
-          setTimeout(()=>playStream(url),2000);
-        } else showToast('Failed to play stream');
-      });
+      video.src = channel.stream;
     }
-
-    video.addEventListener('playing', ()=> spinner.style.display='none');
-    video.addEventListener('waiting', ()=> spinner.style.display='block');
-    video.addEventListener('ended', ()=> spinner.style.display='none');
-
-  } catch(e){
-    console.error(e);
-    showToast('Failed to play stream');
-    spinner.style.display='none';
+    video.play();
+  } catch(err) {
+    console.error(err);
+    alert("Failed to load stream.");
   }
 }
 
-// Start playback
-playStream(streamUrl);
+loadStream();
 
 // Controls
+const video = document.getElementById('videoPlayer');
 const playPauseBtn = document.getElementById('playPauseBtn');
 playPauseBtn.addEventListener('click', ()=>{
   if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
@@ -161,5 +107,6 @@ video.addEventListener('click', ()=>{
   topBar.style.opacity = controlsVisible ? '1' : '0';
 });
 </script>
+
 </body>
 </html>
