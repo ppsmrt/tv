@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Live TV</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<style>
+  body { font-family: 'Baloo 2', cursive; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+</head>
+<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden scroll-smooth">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+    <button aria-label="Menu" class="text-white text-3xl">
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1 class="text-white text-2xl sm:text-3xl font-extrabold tracking-wider select-none">
+      Live TV
+    </h1>
+    <button aria-label="Notifications" class="text-white text-3xl">
+      <i class="fas fa-bell"></i>
+    </button>
+  </div>
+
+  <!-- Categories Row -->
+  <nav id="categoriesRow"
+    class="bg-gray-200/20 backdrop-blur-sm flex space-x-3 overflow-x-auto text-gray-900 text-sm font-semibold tracking-wide py-2 px-3 select-none scrollbar-hide">
+    <!-- Categories dynamically injected -->
+  </nav>
+
+  <!-- Channels Grid -->
+  <div id="channelsGrid" class="flex-1 overflow-y-auto overscroll-contain bg-gray-50 p-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    <!-- Channels dynamically injected -->
+  </div>
+
+<!-- Firebase & App Script -->
+<script type="module">
+  // Firebase Imports
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const categoriesRow = document.getElementById('categoriesRow');
+  const channelsGrid = document.getElementById('channelsGrid');
+
+  let allChannels = [];
+  let currentCategory = 'All';
+
+  // Fetch channels from Firebase
+  const channelsRef = ref(db, 'channels');
+  onValue(channelsRef, (snapshot) => {
+    channelsGrid.innerHTML = '';
+    categoriesRow.innerHTML = '';
+
+    const data = snapshot.val();
+    if (!data) return;
+
+    allChannels = Object.values(data);
+
+    // Generate unique categories
+    const categories = ['All', ...new Set(allChannels.map(c => c.category))];
+
+    // Render category buttons
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `px-4 py-2 rounded-full ${cat === currentCategory ? 'bg-[#d92a1a] text-white' : 'bg-white text-gray-700'} shadow`;
+      btn.textContent = cat;
+      btn.onclick = () => {
+        currentCategory = cat;
+        renderChannels();
+        updateCategoryButtons(categories);
+      };
+      categoriesRow.appendChild(btn);
+    });
+
+    renderChannels();
+  });
+
+  function renderChannels() {
+    channelsGrid.innerHTML = '';
+    const filtered = currentCategory === 'All'
+      ? allChannels
+      : allChannels.filter(c => c.category === currentCategory);
+
+    filtered.forEach(ch => {
+      const card = document.createElement('div');
+      card.className = 'bg-white rounded-xl shadow hover:shadow-lg overflow-hidden cursor-pointer transition transform hover:scale-105';
+      card.innerHTML = `
+        <img src="${ch.icon}" alt="${ch.name}" class="w-full h-32 object-contain bg-gray-100 p-2">
+        <div class="p-2 text-center text-gray-800 font-semibold">${ch.name}</div>
+      `;
+      card.onclick = () => {
+        window.open(ch.stream, '_blank'); // OR implement custom player
+      };
+      channelsGrid.appendChild(card);
+    });
+  }
+
+  function updateCategoryButtons(categories) {
+    categoriesRow.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent === currentCategory) {
+        btn.className = 'px-4 py-2 rounded-full bg-[#d92a1a] text-white shadow';
+      } else {
+        btn.className = 'px-4 py-2 rounded-full bg-white text-gray-700 shadow';
+      }
+    });
+  }
+</script>
+</body>
+</html>
