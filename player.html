@@ -8,22 +8,23 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
-  body { margin:0; background:#111; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:sans-serif; }
-  .player-card { position:relative; max-width:900px; width:100%; background:#1c1c1c; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
+  body { margin:0; background:#111; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+  .player-card { position:relative; max-width:900px; width:100%; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
   video { width:100%; display:block; object-fit:cover; border-radius:16px 16px 0 0; z-index:0; }
   video::-webkit-media-controls { display:none !important; }
-  #header { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:50; border-bottom-left-radius:12px; border-bottom-right-radius:12px; }
+  video::-moz-media-controls { display:none !important; }
+  #header { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:60; border-bottom-left-radius:12px; border-bottom-right-radius:12px; }
   #header button { background:rgba(255,255,255,0.2); padding:6px 10px; border-radius:6px; transition:all 0.3s; }
   #header button:hover { background:rgba(255,255,255,0.4); transform:scale(1.1); }
-  #controlsContainer { position:relative; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:10px 20px; display:flex; justify-content:space-around; align-items:center; border-radius:0 0 16px 16px; margin-top:-8px; opacity:0; transition:opacity 0.3s; z-index:40; }
+  #overlayInfo { position:absolute; top:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; z-index:30; }
+  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:50; transition:transform 0.3s; }
+  #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
+  #controlsContainer { position:relative; display:flex; justify-content:space-around; align-items:center; padding:10px 20px; border-radius:0 0 16px 16px; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); margin-top:-8px; opacity:0; transition:opacity 0.3s; z-index:45; }
   .control-btn { color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
   .control-btn:hover { transform:scale(1.2); }
   #volumeSlider, #speedSelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
   #qualityContainer { display:flex; align-items:center; color:white; }
   #qualityIndicator { margin-left:6px; font-weight:bold; }
-  #overlayInfo { position:absolute; top:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; z-index:30; }
-  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:35; transition:transform 0.3s; }
-  #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
   /* Ads section */
   #adsSection { width:100%; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:8px 0; overflow:hidden; border-radius:0 0 16px 16px; margin-top:10px; }
   #adsText { display:inline-block; white-space:nowrap; color:white; font-weight:bold; animation:scrollAds 10s linear infinite; }
@@ -34,7 +35,7 @@
 
 <div class="player-card">
   <!-- Video -->
-  <video id="videoPlayer" autoplay muted playsinline></video>
+  <video id="videoPlayer" autoplay muted playsinline controlslist="nodownload nofullscreen noremoteplayback"></video>
 
   <!-- Play/Pause Overlay -->
   <div id="btnPlayPause"><i class="fa fa-play"></i></div>
@@ -42,7 +43,7 @@
   <!-- Overlay Info -->
   <div id="overlayInfo">Live TV</div>
 
-  <!-- Controls frosted panel -->
+  <!-- Controls -->
   <div id="controlsContainer">
     <div class="control-btn" id="btnPlayPauseBottom"><i class="fa fa-play fa-lg"></i></div>
     <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand fa-lg"></i></div>
@@ -65,7 +66,7 @@
     </div>
   </div>
 
-  <!-- Ads section -->
+  <!-- Ads Section -->
   <div id="adsSection">
     <div id="adsText">Ad: Thanks for watching the videos</div>
   </div>
@@ -96,7 +97,7 @@ channelNameEl.textContent = channelNameParam;
 // Close button
 btnClose.onclick = () => window.location.href = '/tv/index.html';
 
-// Function to show controls
+// Show/Hide Controls with auto-hide
 let hideControlsTimeout;
 function showControls(){
   controlsContainer.style.opacity = 1;
@@ -104,17 +105,12 @@ function showControls(){
   clearTimeout(hideControlsTimeout);
   hideControlsTimeout = setTimeout(()=>{ controlsContainer.style.opacity = 0; btnPlayPause.style.opacity = 0; }, 3000);
 }
-
-// Initial show
-showControls();
-
-// Show/hide controls on video click
 video.addEventListener('click', showControls);
 
 // Play/Pause
 function togglePlay(){
-  if(video.paused){ video.play(); btnPlayPause.innerHTML = '<i class="fa fa-pause"></i>'; btnPlayPauseBottom.innerHTML='<i class="fa fa-pause fa-lg"></i>'; }
-  else { video.pause(); btnPlayPause.innerHTML = '<i class="fa fa-play"></i>'; btnPlayPauseBottom.innerHTML='<i class="fa fa-play fa-lg"></i>'; }
+  if(video.paused){ video.play(); btnPlayPause.innerHTML='<i class="fa fa-pause"></i>'; btnPlayPauseBottom.innerHTML='<i class="fa fa-pause fa-lg"></i>'; }
+  else{ video.pause(); btnPlayPause.innerHTML='<i class="fa fa-play"></i>'; btnPlayPauseBottom.innerHTML='<i class="fa fa-play fa-lg"></i>'; }
 }
 btnPlayPause.onclick = togglePlay;
 btnPlayPauseBottom.onclick = togglePlay;
@@ -135,7 +131,7 @@ document.getElementById('volumeSlider').oninput = e=>video.volume=e.target.value
 // Speed
 document.getElementById('speedSelect').onchange = e=>video.playbackRate=parseFloat(e.target.value);
 
-// HLS setup with HD/SD indicator
+// HLS with HD/SD indicator
 function setupHLS(url){
   if(Hls.isSupported()){
     const hls = new Hls();
@@ -143,10 +139,12 @@ function setupHLS(url){
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,()=>{
       video.play();
+      video.controls=false;
+      video.removeAttribute('controls');
       const levels = hls.levels;
       if(levels.length>1){
         hls.on(Hls.Events.LEVEL_SWITCHED,()=>{
-          const height = hls.levels[hls.currentLevel].height;
+          const height=hls.levels[hls.currentLevel].height;
           qualityIndicator.textContent = height>=720?'HD':'SD';
         });
         qualityIndicator.textContent = hls.levels[hls.currentLevel].height>=720?'HD':'SD';
@@ -159,9 +157,10 @@ function setupHLS(url){
   }
 }
 
-// Hide native controls
-video.controls = false;
+video.controls=false;
+video.removeAttribute('controls');
 setupHLS(streamURL);
+showControls();
 </script>
 
 </body>
