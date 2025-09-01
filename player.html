@@ -10,45 +10,55 @@
 <style>
   body { font-family: 'Baloo 2', cursive; background: #000; }
   /* Smooth hide/show controls */
-  #controlsBar { transition: opacity 0.3s; }
-  #topBar { transition: opacity 0.3s; }
+  #controlsBar, #topBar { transition: opacity 0.3s; }
+  /* Loader spinner */
+  #loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #d92a1a;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 60;
+  }
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+  }
 </style>
 </head>
 <body class="w-screen h-screen flex flex-col overflow-hidden relative bg-black">
 
-  <!-- Header / Top Bar -->
-  <div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
-    <button id="closeBtn" class="text-white text-3xl">
-      <i class="fas fa-times"></i>
-    </button>
-    <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]">
-      Loading...
-    </h1>
-    <div class="w-8"></div> <!-- placeholder for spacing -->
+  <!-- Loader Spinner -->
+  <div id="loader">
+    <i class="fas fa-spinner spin"></i>
   </div>
+
+  <!-- Header / Top Bar (loaded via JS) -->
+  <div id="topBarContainer"></div>
 
   <!-- Video Player -->
   <div class="flex-1 flex items-center justify-center">
     <video id="videoPlayer" class="w-full h-full object-contain bg-black" autoplay playsinline></video>
   </div>
 
-  <!-- Bottom Controls -->
-  <div id="controlsBar" class="absolute bottom-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-around px-6 py-3 rounded-t-xl">
-    <button id="playPauseBtn" class="text-white text-2xl">
-      <i class="fas fa-pause"></i>
-    </button>
-    <input id="volumeRange" type="range" min="0" max="1" step="0.01" class="w-24 h-1 accent-red-600"/>
-    <button id="fullscreenBtn" class="text-white text-2xl">
-      <i class="fas fa-expand"></i>
-    </button>
-  </div>
+  <!-- Bottom Controls (loaded via JS) -->
+  <div id="controlsContainer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<!-- Load Header & Footer -->
+<script src="/tv/assets/js/header.js"></script>
+<script src="/tv/assets/js/footer.js"></script>
 <script>
 // URL parameter
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name') || "Unknown Channel";
-document.getElementById('channelName').textContent = name;
 
 // Load stream from channels.json
 async function loadStream() {
@@ -67,7 +77,12 @@ async function loadStream() {
     } else {
       video.src = channel.stream;
     }
-    video.play();
+
+    // When video is ready, hide loader
+    video.addEventListener('loadeddata', () => {
+      document.getElementById('loader').style.display = 'none';
+      video.play();
+    });
   } catch(err) {
     console.error(err);
     alert("Failed to load stream.");
@@ -79,23 +94,32 @@ loadStream();
 // Controls
 const video = document.getElementById('videoPlayer');
 const playPauseBtn = document.getElementById('playPauseBtn');
-playPauseBtn.addEventListener('click', ()=>{
-  if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
-  else { video.pause(); playPauseBtn.innerHTML='<i class="fas fa-play"></i>'; }
-});
+if(playPauseBtn){
+  playPauseBtn.addEventListener('click', ()=>{
+    if(video.paused){ playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; video.play(); }
+    else { playPauseBtn.innerHTML='<i class="fas fa-play"></i>'; video.pause(); }
+  });
+}
 
 const volumeRange = document.getElementById('volumeRange');
-volumeRange.value = video.volume;
-volumeRange.addEventListener('input', ()=> video.volume = volumeRange.value);
+if(volumeRange){
+  volumeRange.value = video.volume;
+  volumeRange.addEventListener('input', ()=> video.volume = volumeRange.value);
+}
 
 const fullscreenBtn = document.getElementById('fullscreenBtn');
-fullscreenBtn.addEventListener('click', ()=>{
-  if(!document.fullscreenElement){ document.documentElement.requestFullscreen(); }
-  else { document.exitFullscreen(); }
-});
+if(fullscreenBtn){
+  fullscreenBtn.addEventListener('click', ()=>{
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen(); }
+    else { document.exitFullscreen(); }
+  });
+}
 
 // Close button
-document.getElementById('closeBtn').addEventListener('click', ()=> window.location.href='index.html');
+const closeBtn = document.getElementById('closeBtn');
+if(closeBtn){
+  closeBtn.addEventListener('click', ()=> window.location.href='index.html');
+}
 
 // Tap-to-hide controls
 let controlsVisible = true;
@@ -103,8 +127,8 @@ const controlsBar = document.getElementById('controlsBar');
 const topBar = document.getElementById('topBar');
 video.addEventListener('click', ()=>{
   controlsVisible = !controlsVisible;
-  controlsBar.style.opacity = controlsVisible ? '1' : '0';
-  topBar.style.opacity = controlsVisible ? '1' : '0';
+  if(controlsBar) controlsBar.style.opacity = controlsVisible ? '1' : '0';
+  if(topBar) topBar.style.opacity = controlsVisible ? '1' : '0';
 });
 </script>
 
