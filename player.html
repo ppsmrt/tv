@@ -8,89 +8,102 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
-  body { font-family: 'Baloo 2', cursive; background:#000; }
-  #controlsBar,#topBar{transition:opacity 0.3s;}
-  #spinner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:3rem;animation:spin 1s linear infinite;z-index:40;display:none;}
-  @keyframes spin{0%{transform:translate(-50%,-50%) rotate(0deg);}100%{transform:translate(-50%,-50%) rotate(360deg);}}
-  #toast{position:fixed;bottom:5%;left:50%;transform:translateX(-50%);background:rgba(220,20,60,0.95);color:white;padding:1rem 2rem;border-radius:1rem;display:none;z-index:60;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
+  body { font-family: 'Baloo 2', cursive; background: #000; }
+  #controlsBar, #topBar { transition: opacity 0.3s; }
+  #spinner {
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    font-size:3rem; color:white; z-index:50; display:none;
+    animation:spin 1s linear infinite;
+  }
+  @keyframes spin { 0%{transform:translate(-50%,-50%) rotate(0deg);}100%{transform:translate(-50%,-50%) rotate(360deg);} }
+  #toast {
+    position:fixed; bottom:5%; left:50%; transform:translateX(-50%);
+    background:rgba(220,20,60,0.95); color:white; padding:1rem 2rem; border-radius:1rem;
+    display:none; z-index:60; font-weight:bold; box-shadow:0 4px 15px rgba(0,0,0,0.5);
+  }
 </style>
 </head>
 <body class="w-screen h-screen flex flex-col overflow-hidden relative bg-black">
 
-<div id="spinner"><i class="fas fa-circle-notch"></i></div>
-<div id="toast"></div>
+  <!-- Spinner & Toast -->
+  <div id="spinner"><i class="fas fa-circle-notch"></i></div>
+  <div id="toast"></div>
 
-<div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
-  <button id="closeBtn" class="text-white text-3xl"><i class="fas fa-times"></i></button>
-  <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]"></h1>
-  <div class="w-8"></div>
-</div>
+  <!-- Header / Top Bar -->
+  <div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
+    <button id="closeBtn" class="text-white text-3xl"><i class="fas fa-times"></i></button>
+    <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]"></h1>
+    <div class="w-8"></div>
+  </div>
 
-<div class="flex-1 flex items-center justify-center">
-  <video id="videoPlayer" class="w-full h-full object-contain bg-black" autoplay playsinline controls></video>
-</div>
+  <!-- Video Player -->
+  <div class="flex-1 flex items-center justify-center">
+    <video id="videoPlayer" class="w-full h-full object-contain bg-black" autoplay playsinline></video>
+  </div>
 
-<div id="controlsBar" class="absolute bottom-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-around px-6 py-3 rounded-t-xl">
-  <button id="playPauseBtn" class="text-white text-2xl"><i class="fas fa-pause"></i></button>
-  <input id="volumeRange" type="range" min="0" max="1" step="0.01" class="w-24 h-1 accent-red-600"/>
-  <button id="fullscreenBtn" class="text-white text-2xl"><i class="fas fa-expand"></i></button>
-</div>
+  <!-- Bottom Controls -->
+  <div id="controlsBar" class="absolute bottom-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-around px-6 py-3 rounded-t-xl">
+    <button id="playPauseBtn" class="text-white text-2xl"><i class="fas fa-pause"></i></button>
+    <input id="volumeRange" type="range" min="0" max="1" step="0.01" class="w-24 h-1 accent-red-600"/>
+    <button id="fullscreenBtn" class="text-white text-2xl"><i class="fas fa-expand"></i></button>
+  </div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 <script>
+// URL parameters
 const params = new URLSearchParams(window.location.search);
-let streamUrl = params.get('stream') ? decodeURIComponent(params.get('stream')) : "";
 const name = params.get('name') || "Unknown Channel";
-const channelNameEl = document.getElementById('channelName');
-channelNameEl.textContent = name;
+const streamUrl = params.get('stream') ? decodeURIComponent(params.get('stream')) : "";
 
+const channelNameEl = document.getElementById('channelName');
+const video = document.getElementById('videoPlayer');
 const spinner = document.getElementById('spinner');
 const toast = document.getElementById('toast');
-const video = document.getElementById('videoPlayer');
 
+channelNameEl.textContent = name;
+
+// Toast helper
 function showToast(msg){
   toast.textContent = msg;
   toast.style.display='block';
   setTimeout(()=>toast.style.display='none',4000);
 }
 
-// Lightweight CORS proxy
+// CORS proxy
 const CORS_PROXY = "https://corsproxy.io/?";
 
 async function playStream(url){
+  if(!url){ showToast("No stream URL provided"); return; }
+
+  spinner.style.display='block';
   const ext = url.split('?')[0].split('.').pop().toLowerCase();
   const proxiedUrl = (ext==='m3u8'||ext==='ts'||ext==='mpd') ? CORS_PROXY + encodeURIComponent(url) : url;
 
-  spinner.style.display='block'; // show spinner while loading
-
   try {
     if((ext==='m3u8'||ext==='ts') && video.canPlayType('application/vnd.apple.mpegurl')){
-      // Native HLS
       video.src = proxiedUrl;
-      video.addEventListener('loadedmetadata',()=>video.play());
+      video.addEventListener('loadedmetadata',()=> video.play());
     }
     else if(ext==='m3u8'||ext==='ts'){
-      // Hls.js fallback
       if(Hls.isSupported()){
         const hls = new Hls();
         hls.loadSource(proxiedUrl);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED,()=>video.play());
-        hls.on(Hls.Events.ERROR,(_,data)=> showToast('HLS Error: '+data.details));
+        hls.on(Hls.Events.MANIFEST_PARSED, ()=> video.play());
+        hls.on(Hls.Events.ERROR, (_,data)=> showToast('HLS Error: '+data.details));
       } else throw "HLS not supported";
     }
     else if(ext==='mpd'){
       const player = dashjs.MediaPlayer().create();
       player.initialize(video, proxiedUrl, true);
-      player.on('error',()=> showToast('DASH stream failed'));
+      player.on('error', ()=> showToast('DASH stream failed'));
     }
     else throw "Unsupported format";
 
-    // Remove spinner when playback starts
-    video.addEventListener('playing',()=> spinner.style.display='none');
-    video.addEventListener('waiting',()=> spinner.style.display='block'); // show spinner if buffering
-    video.addEventListener('ended',()=> spinner.style.display='none');
+    video.addEventListener('playing', ()=> spinner.style.display='none');
+    video.addEventListener('waiting', ()=> spinner.style.display='block');
+    video.addEventListener('ended', ()=> spinner.style.display='none');
   } catch(e){
     console.error(e);
     showToast('Failed to play stream');
@@ -98,36 +111,37 @@ async function playStream(url){
   }
 }
 
-// Play stream
-if(streamUrl) playStream(streamUrl);
-else showToast('No stream URL provided');
+// Start playback
+playStream(streamUrl);
 
 // Controls
 const playPauseBtn = document.getElementById('playPauseBtn');
-playPauseBtn.addEventListener('click',()=>{
+playPauseBtn.addEventListener('click', ()=>{
   if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
   else { video.pause(); playPauseBtn.innerHTML='<i class="fas fa-play"></i>'; }
 });
 
 const volumeRange = document.getElementById('volumeRange');
 volumeRange.value = video.volume;
-volumeRange.addEventListener('input',()=> video.volume = volumeRange.value);
+volumeRange.addEventListener('input', ()=> video.volume = volumeRange.value);
 
-document.getElementById('fullscreenBtn').addEventListener('click',()=>{
-  if(!document.fullscreenElement) document.documentElement.requestFullscreen();
-  else document.exitFullscreen();
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+fullscreenBtn.addEventListener('click', ()=>{
+  if(!document.fullscreenElement){ document.documentElement.requestFullscreen(); }
+  else { document.exitFullscreen(); }
 });
 
-document.getElementById('closeBtn').addEventListener('click',()=> window.location.href='index.html');
+// Close button
+document.getElementById('closeBtn').addEventListener('click', ()=> window.location.href='index.html');
 
-// Tap to hide controls
+// Tap-to-hide controls
 let controlsVisible = true;
 const controlsBar = document.getElementById('controlsBar');
 const topBar = document.getElementById('topBar');
-video.addEventListener('click',()=>{
+video.addEventListener('click', ()=>{
   controlsVisible = !controlsVisible;
-  controlsBar.style.opacity = controlsVisible?'1':'0';
-  topBar.style.opacity = controlsVisible?'1':'0';
+  controlsBar.style.opacity = controlsVisible ? '1' : '0';
+  topBar.style.opacity = controlsVisible ? '1' : '0';
 });
 </script>
 </body>
