@@ -78,12 +78,9 @@ const form = document.getElementById("channelForm");
 const statusMsg = document.getElementById("statusMsg");
 const channelList = document.getElementById("channelList");
 
-// Check admin access
+// Admin check and load channels
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "signin.html";
-    return;
-  }
+  if (!user) window.location.href = "signin.html";
 
   const adminSnap = await get(ref(db, "admins/" + user.uid));
   if (!adminSnap.exists()) {
@@ -92,12 +89,13 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  // Load channels
+  // Load and display channels
   const channelsRef = ref(db, "channels");
   onValue(channelsRef, (snapshot) => {
+    const data = snapshot.val() || {}; // Safe fallback
     channelList.innerHTML = "";
-    const data = snapshot.val();
-    if (!data) {
+
+    if (Object.keys(data).length === 0) {
       channelList.innerHTML = "<p class='text-gray-500'>No channels available.</p>";
       return;
     }
@@ -119,7 +117,7 @@ onAuthStateChanged(auth, async (user) => {
       channelList.appendChild(card);
     });
 
-    // Edit channels
+    // Edit buttons
     document.querySelectorAll(".editBtn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const id = e.target.dataset.id;
@@ -133,7 +131,7 @@ onAuthStateChanged(auth, async (user) => {
       });
     });
 
-    // Delete channels
+    // Delete buttons
     document.querySelectorAll(".deleteBtn").forEach(btn => {
       btn.addEventListener("click", async (e) => {
         const id = e.target.dataset.id;
@@ -145,7 +143,7 @@ onAuthStateChanged(auth, async (user) => {
   });
 });
 
-// Handle form submission
+// Handle channel form submission
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const channelId = document.getElementById("channelId").value;
