@@ -1,203 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV Player</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Player</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-<style>
-  body { font-family: 'Baloo 2', cursive; background: #000; }
-  #controlsBar, #topBar { transition: opacity 0.3s; }
-
-  /* Dotted spinner */
-  #spinner {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    gap: 0.3rem;
-  }
-  .dot {
-    width: 12px; height: 12px;
-    background: #d92a1a;
-    border-radius: 50%;
-    animation: bounce 1.2s infinite ease-in-out;
-  }
-  .dot:nth-child(1) { animation-delay: 0s; }
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes bounce {
-    0%, 80%, 100% { transform: scale(0); }
-    40% { transform: scale(1); }
-  }
-
-  /* Toast */
-  #toast {
-    position: absolute;
-    bottom: 20px; left: 50%;
-    transform: translateX(-50%);
-    background: rgba(217, 42, 26, 0.95);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 100;
-  }
-  #toast.show { opacity: 1; transform: translateX(-50%) translateY(-10px); }
-</style>
-</head>
-<body class="w-screen h-screen flex flex-col overflow-hidden relative bg-black">
-
-  <!-- Header / Top Bar -->
-  <div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
-    <button id="closeBtn" class="text-white text-3xl">
-      <i class="fas fa-times"></i>
-    </button>
-    <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]">
-      Loading...
-    </h1>
-    <div class="w-8"></div>
-  </div>
-
-  <!-- Video Player -->
-  <div class="flex-1 flex items-center justify-center relative">
-    <video id="videoPlayer" class="w-full h-full object-contain bg-black" autoplay playsinline></video>
-    <div id="spinner">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-  </div>
-
-  <!-- Bottom Controls -->
-  <div id="controlsBar" class="absolute bottom-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-around px-6 py-3 rounded-t-xl">
-    <button id="playPauseBtn" class="text-white text-2xl">
-      <i class="fas fa-pause"></i>
-    </button>
-    <input id="volumeRange" type="range" min="0" max="1" step="0.01" class="w-24 h-1 accent-red-600"/>
-    <button id="fullscreenBtn" class="text-white text-2xl">
-      <i class="fas fa-expand"></i>
-    </button>
-  </div>
-
-  <!-- Toast -->
-  <div id="toast"></div>
-
+<!-- HLS.js for .m3u8 streaming -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script>
-const params = new URLSearchParams(window.location.search);
-const name = params.get('name') || "Unknown Channel";
-document.getElementById('channelName').textContent = name;
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen">
 
-const video = document.getElementById('videoPlayer');
-const spinner = document.getElementById('spinner');
-const toast = document.getElementById('toast');
+<!-- Header -->
+<h1 id="channelName" class="text-2xl font-bold mb-4"></h1>
 
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-}
+<!-- Video Player -->
+<div class="relative w-full max-w-4xl">
+  <video id="videoPlayer" class="w-full rounded-lg shadow-lg" controls autoplay></video>
+  
+  <!-- Optional overlay for premium features -->
+  <div id="premiumOverlay" class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-xl font-semibold text-white bg-black/50 hidden">
+    Premium Feature Active
+  </div>
+</div>
 
-async function loadStream() {
-  spinner.style.display = 'flex';
-  try {
-    const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
-    const channels = await res.json();
-    const channel = channels.find(c => c.name === name);
-    if(!channel) throw "Channel not found";
+<!-- Player Controls -->
+<div class="flex space-x-4 mt-4">
+  <button id="btnFullscreen" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">Fullscreen</button>
+  <button id="btnToggleOverlay" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">Toggle Premium Overlay</button>
+</div>
 
-    const originalURL = channel.stream;
-    const corsProxy = 'https://corsproxy.io/?'; // fallback proxy
+<script type="module">
+  // Parse query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const channelName = urlParams.get('name');
+  const streamURL = decodeURIComponent(urlParams.get('stream'));
 
-    function attachHls(url) {
-      if(Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        hls.on(Hls.Events.ERROR, (_, data) => {
-          if(data.fatal){
-            if(url === originalURL){
-              // Retry with CORS proxy
-              showToast("Retrying with proxy...");
-              attachHls(corsProxy + encodeURIComponent(originalURL));
-            } else {
-              spinner.style.display='none';
-              showToast("Failed to load stream");
-              hls.destroy();
-            }
-          }
-        });
-      } else {
-        video.src = url;
-        video.addEventListener('error', () => {
-          if(url === originalURL){
-            showToast("Retrying with proxy...");
-            attachHls(corsProxy + encodeURIComponent(originalURL));
-          } else {
-            spinner.style.display='none';
-            showToast("Failed to load stream");
-          }
-        });
-        video.play().catch(() => {
-          if(url === originalURL){
-            attachHls(corsProxy + encodeURIComponent(originalURL));
-          } else {
-            spinner.style.display='none';
-            showToast("Failed to load stream");
-          }
-        });
-      }
-    }
+  const video = document.getElementById('videoPlayer');
+  const nameEl = document.getElementById('channelName');
+  const overlay = document.getElementById('premiumOverlay');
 
-    attachHls(originalURL);
+  nameEl.textContent = channelName || "Unknown Channel";
 
-    video.addEventListener('playing', ()=> spinner.style.display='none');
-    video.addEventListener('pause', ()=> spinner.style.display='none');
-
-  } catch(err) {
-    console.error(err);
-    spinner.style.display='none';
-    showToast("Failed to load stream");
+  // HLS streaming for .m3u8
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(streamURL);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play();
+    });
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = streamURL;
+    video.addEventListener('loadedmetadata', () => video.play());
+  } else {
+    alert("Your browser does not support HLS streaming.");
   }
-}
 
-loadStream();
+  // Fullscreen button
+  document.getElementById('btnFullscreen').onclick = () => {
+    if (video.requestFullscreen) video.requestFullscreen();
+    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+  };
 
-// Controls
-const playPauseBtn = document.getElementById('playPauseBtn');
-playPauseBtn.addEventListener('click', ()=>{
-  if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
-  else { video.pause(); playPauseBtn.innerHTML='<i class="fas fa-play"></i>'; }
-});
+  // Toggle premium overlay
+  document.getElementById('btnToggleOverlay').onclick = () => {
+    overlay.classList.toggle('hidden');
+  };
 
-const volumeRange = document.getElementById('volumeRange');
-volumeRange.value = video.volume;
-volumeRange.addEventListener('input', ()=> video.volume = volumeRange.value);
-
-const fullscreenBtn = document.getElementById('fullscreenBtn');
-fullscreenBtn.addEventListener('click', ()=>{
-  if(!document.fullscreenElement){ document.documentElement.requestFullscreen(); }
-  else { document.exitFullscreen(); }
-});
-
-document.getElementById('closeBtn').addEventListener('click', ()=> window.location.href='index.html');
-
-let controlsVisible = true;
-const controlsBar = document.getElementById('controlsBar');
-const topBar = document.getElementById('topBar');
-video.addEventListener('click', ()=>{
-  controlsVisible = !controlsVisible;
-  controlsBar.style.opacity = controlsVisible ? '1' : '0';
-  topBar.style.opacity = controlsVisible ? '1' : '0';
-});
+  // Optional: Log playback events for premium analytics
+  video.addEventListener('play', () => console.log(`${channelName} started playing`));
+  video.addEventListener('pause', () => console.log(`${channelName} paused`));
 </script>
-
 </body>
 </html>
