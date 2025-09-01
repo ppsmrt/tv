@@ -3,74 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Player</title>
+<title>Premium Live Player</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- HLS.js for .m3u8 streaming -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* Ripple & overlay effects */
+  .premium-watermark {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  #adOverlay {
+    position: absolute;
+    top:0; left:0;
+    width: 100%; height: 100%;
+    background: black;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+  }
+</style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen">
 
 <!-- Header -->
 <h1 id="channelName" class="text-2xl font-bold mb-4"></h1>
 
-<!-- Video Player -->
+<!-- Video Player Container -->
 <div class="relative w-full max-w-4xl">
-  <video id="videoPlayer" class="w-full rounded-lg shadow-lg" controls autoplay></video>
+  <video id="videoPlayer" class="w-full rounded-lg shadow-lg bg-black" controls autoplay></video>
   
-  <!-- Optional overlay for premium features -->
-  <div id="premiumOverlay" class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-xl font-semibold text-white bg-black/50 hidden">
-    Premium Feature Active
-  </div>
+  <!-- Premium watermark -->
+  <div class="premium-watermark">Premium</div>
+  
+  <!-- Pre-roll ad overlay -->
+  <div id="adOverlay">Ad: Watch this before your stream...</div>
 </div>
 
 <!-- Player Controls -->
 <div class="flex space-x-4 mt-4">
   <button id="btnFullscreen" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">Fullscreen</button>
-  <button id="btnToggleOverlay" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">Toggle Premium Overlay</button>
+  <button id="btnPiP" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">Picture-in-Picture</button>
 </div>
 
 <script type="module">
-  // Parse query parameters
   const urlParams = new URLSearchParams(window.location.search);
-  const channelName = urlParams.get('name');
-  const streamURL = decodeURIComponent(urlParams.get('stream'));
+  const channelName = urlParams.get('name') || "Unknown Channel";
+  const streamURL = decodeURIComponent(urlParams.get('stream') || "");
 
   const video = document.getElementById('videoPlayer');
   const nameEl = document.getElementById('channelName');
-  const overlay = document.getElementById('premiumOverlay');
+  const adOverlay = document.getElementById('adOverlay');
 
-  nameEl.textContent = channelName || "Unknown Channel";
+  nameEl.textContent = channelName;
 
-  // HLS streaming for .m3u8
-  if (Hls.isSupported()) {
-    const hls = new Hls();
-    hls.loadSource(streamURL);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play();
-    });
-  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = streamURL;
-    video.addEventListener('loadedmetadata', () => video.play());
-  } else {
-    alert("Your browser does not support HLS streaming.");
+  // --- Pre-roll Ad Simulation ---
+  function playAdThenStream() {
+    adOverlay.style.display = 'flex';
+    video.pause();
+
+    setTimeout(() => {
+      adOverlay.style.display = 'none';
+      startStream();
+    }, 4000); // 4-second ad
   }
 
-  // Fullscreen button
+  // --- Start HLS stream ---
+  function startStream() {
+    if (!streamURL) {
+      alert("Stream URL not available.");
+      return;
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(streamURL);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = streamURL;
+      video.addEventListener('loadedmetadata', () => video.play());
+    } else {
+      alert("Your browser does not support HLS streaming.");
+    }
+  }
+
+  // --- Fullscreen Button ---
   document.getElementById('btnFullscreen').onclick = () => {
     if (video.requestFullscreen) video.requestFullscreen();
     else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
   };
 
-  // Toggle premium overlay
-  document.getElementById('btnToggleOverlay').onclick = () => {
-    overlay.classList.toggle('hidden');
+  // --- Picture-in-Picture Button ---
+  document.getElementById('btnPiP').onclick = async () => {
+    try {
+      if (document.pictureInPictureElement) {
+        await document.exitPictureInPicture();
+      } else {
+        await video.requestPictureInPicture();
+      }
+    } catch (err) {
+      console.error("PiP not supported:", err);
+    }
   };
 
-  // Optional: Log playback events for premium analytics
-  video.addEventListener('play', () => console.log(`${channelName} started playing`));
-  video.addEventListener('pause', () => console.log(`${channelName} paused`));
+  // --- Playback Analytics ---
+  video.addEventListener('play', () => console.log(`${channelName} started playing at ${new Date().toISOString()}`));
+  video.addEventListener('pause', () => console.log(`${channelName} paused at ${new Date().toISOString()}`));
+  video.addEventListener('ended', () => console.log(`${channelName} ended at ${new Date().toISOString()}`));
+
+  // Start pre-roll ad first
+  playAdThenStream();
 </script>
 </body>
 </html>
