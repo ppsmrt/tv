@@ -57,18 +57,18 @@ function renderChannels() {
 
   filtered.forEach((channel, index) => {
     const div = document.createElement('div');
-    div.className = 'flex flex-col items-center justify-between h-28 sm:h-32 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-md bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop p-2';
+    div.className = 'flex flex-col items-center justify-between h-36 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-md bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop p-3';
     div.style.animationDelay = `${index * 80}ms`;
     div.innerHTML = `
       <img src="${channel.icon}" alt="${channel.name}" 
-           class="w-14 h-14 sm:w-16 sm:h-16 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
-      <span class="text-xs sm:text-sm text-gray-900 text-center select-none w-full px-1 leading-tight line-clamp-2 mt-1">
+           class="w-20 h-20 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
+      <span class="text-base font-semibold text-gray-900 text-center select-none w-full px-2 leading-tight line-clamp-2 mt-2">
         ${channel.name}
       </span>
     `;
     div.addEventListener('click', () => {
       const nameParam = encodeURIComponent(channel.name);
-      window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${nameParam}`;
+      window.location.href = \`https://ppsmrt.github.io/tv/player.html?name=\${nameParam}\`;
     });
     grid.appendChild(div);
   });
