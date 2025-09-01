@@ -32,12 +32,10 @@
 </div>
 
 <script type="module">
-  // Import Firebase modules (v10)
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+  import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
-  // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
     authDomain: "tnm3ulive.firebaseapp.com",
@@ -49,12 +47,10 @@
     measurementId: "G-FNS9JWZ9LS"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getDatabase(app);
 
-  // Handle Signup Form
   const signupForm = document.getElementById('signupForm');
   signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -64,19 +60,29 @@
     const password = document.getElementById('password').value;
 
     try {
-      // Create user with email/password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Store user info in Realtime Database with default role 'user'
-      await set(ref(db, 'users/' + user.uid), {
-        name: name,
-        email: email,
-        role: "user"
-      });
+      // Check if admins node exists
+      const adminsSnapshot = await get(ref(db, "admins"));
+      if (!adminsSnapshot.exists()) {
+        // First user → add to admins
+        await set(ref(db, 'admins/' + user.uid), {
+          name: name,
+          email: email
+        });
+        alert("Admin account created! You are the first admin.");
+      } else {
+        // Regular user
+        await set(ref(db, 'users/' + user.uid), {
+          name: name,
+          email: email,
+          role: "user"
+        });
+        alert("Signup successful! You can now login.");
+      }
 
-      alert("Signup successful! You can now login.");
-      window.location.href = "signin.html"; // redirect to signin page
+      window.location.href = "signin.html";
     } catch (error) {
       alert(error.message);
     }
