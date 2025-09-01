@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Signup - Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -35,11 +32,12 @@
 </div>
 
 <script type="module">
+  // Import Firebase modules (v10)
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
   import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 
-  // Firebase config
+  // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
     authDomain: "tnm3ulive.firebaseapp.com",
@@ -56,32 +54,32 @@
   const auth = getAuth(app);
   const db = getDatabase(app);
 
-  // Signup form submit
+  // Handle Signup Form
   const signupForm = document.getElementById('signupForm');
-  signupForm.addEventListener('submit', (e) => {
+  signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+    try {
+      // Create user with email/password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-        // Store user info in Realtime Database
-        set(ref(db, 'users/' + user.uid), {
-          name: name,
-          email: email,
-          role: "user" // default role
-        });
-
-        alert("Signup successful! You can now login.");
-        window.location.href = "signin.html"; // redirect to signin page
-      })
-      .catch((error) => {
-        alert(error.message);
+      // Store user info in Realtime Database with default role 'user'
+      await set(ref(db, 'users/' + user.uid), {
+        name: name,
+        email: email,
+        role: "user"
       });
+
+      alert("Signup successful! You can now login.");
+      window.location.href = "signin.html"; // redirect to signin page
+    } catch (error) {
+      alert(error.message);
+    }
   });
 </script>
 
