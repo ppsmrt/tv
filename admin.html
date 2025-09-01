@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Live TV</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-6 text-center">Admin Panel - Manage Channels</h1>
+
+  <!-- Add Channel Form -->
+  <div class="bg-white p-6 rounded-xl shadow mb-6">
+    <h2 class="text-xl font-semibold mb-4">Add New Channel</h2>
+    <form id="addChannelForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <input type="text" id="channelName" placeholder="Channel Name" class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      <input type="url" id="channelURL" placeholder="Stream URL" class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors col-span-1 sm:col-span-2">Add Channel</button>
+    </form>
+  </div>
+
+  <!-- Channels List -->
+  <div class="bg-white p-6 rounded-xl shadow">
+    <h2 class="text-xl font-semibold mb-4">Channels</h2>
+    <div id="channelsList" class="space-y-4"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+  import { getDatabase, ref, set, push, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  // Verify admin access
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const adminRef = ref(db, 'admins/' + user.uid);
+      const snapshot = await get(adminRef);
+      if (!snapshot.exists()) {
+        alert("Access denied! Only admins can view this page.");
+        window.location.href = "index.html";
+      } else {
+        loadChannels();
+      }
+    } else {
+      window.location.href = "signin.html";
+    }
+  });
+
+  // Load channels from Realtime Database
+  async function loadChannels() {
+    const channelsRef = ref(db, 'channels');
+    const snapshot = await get(channelsRef);
+    const channelsList = document.getElementById('channelsList');
+    channelsList.innerHTML = '';
+
+    if (snapshot.exists()) {
+      const channels = snapshot.val();
+      for (const id in channels) {
+        const channel = channels[id];
+        const channelDiv = document.createElement('div');
+        channelDiv.classList.add('flex', 'justify-between', 'items-center', 'border-b', 'py-2');
+
+        channelDiv.innerHTML = `
+          <span>${channel.name} - <a href="${channel.url}" target="_blank" class="text-indigo-600 hover:underline">Stream Link</a></span>
+          <div class="space-x-2">
+            <button class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600" onclick="editChannel('${id}', '${channel.name}', '${channel.url}')">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteChannel('${id}')">Delete</button>
+          </div>
+        `;
+        channelsList.appendChild(channelDiv);
+      }
+    } else {
+      channelsList.innerHTML = '<p class="text-gray-500">No channels found.</p>';
+    }
+  }
+
+  // Add a new channel
+  const addChannelForm = document.getElementById('addChannelForm');
+  addChannelForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('channelName').value.trim();
+    const url = document.getElementById('channelURL').value.trim();
+    if (!name || !url) return;
+
+    const newChannelRef = push(ref(db, 'channels'));
+    await set(newChannelRef, { name, url });
+    addChannelForm.reset();
+    loadChannels();
+  });
+
+  // Edit an existing channel
+  window.editChannel = async (id, oldName, oldURL) => {
+    const newName = prompt("Edit Channel Name:", oldName);
+    const newURL = prompt("Edit Channel URL:", oldURL);
+    if (newName && newURL) {
+      await update(ref(db, 'channels/' + id), { name: newName, url: newURL });
+      loadChannels();
+    }
+  };
+
+  // Delete a channel
+  window.deleteChannel = async (id) => {
+    if (confirm("Are you sure you want to delete this channel?")) {
+      await remove(ref(db, 'channels/' + id));
+      loadChannels();
+    }
+  };
+</script>
+
+</body>
+</html>
