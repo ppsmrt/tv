@@ -9,9 +9,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
   body { font-family: 'Baloo 2', cursive; background: #000; }
-  /* Smooth hide/show controls */
-  #controlsBar { transition: opacity 0.3s; }
-  #topBar { transition: opacity 0.3s; }
+  #controlsBar, #topBar { transition: opacity 0.3s; }
+
+  /* Dotted spinner */
+  #spinner {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 0.3rem;
+  }
+  .dot {
+    width: 12px; height: 12px;
+    background: #d92a1a;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite ease-in-out;
+  }
+  .dot:nth-child(1) { animation-delay: 0s; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+  }
+
+  /* Toast */
+  #toast {
+    position: absolute;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(217, 42, 26, 0.95);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 100;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(-10px); }
 </style>
 </head>
 <body class="w-screen h-screen flex flex-col overflow-hidden relative bg-black">
@@ -24,12 +61,17 @@
     <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]">
       Loading...
     </h1>
-    <div class="w-8"></div> <!-- placeholder for spacing -->
+    <div class="w-8"></div>
   </div>
 
   <!-- Video Player -->
-  <div class="flex-1 flex items-center justify-center">
+  <div class="flex-1 flex items-center justify-center relative">
     <video id="videoPlayer" class="w-full h-full object-contain bg-black" autoplay playsinline></video>
+    <div id="spinner">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
   </div>
 
   <!-- Bottom Controls -->
@@ -43,41 +85,59 @@
     </button>
   </div>
 
+  <!-- Toast -->
+  <div id="toast"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-// URL parameter
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name') || "Unknown Channel";
 document.getElementById('channelName').textContent = name;
 
-// Load stream from channels.json
+const video = document.getElementById('videoPlayer');
+const spinner = document.getElementById('spinner');
+const toast = document.getElementById('toast');
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
 async function loadStream() {
   try {
+    spinner.style.display = 'flex';
     const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
     const channels = await res.json();
     const channel = channels.find(c => c.name === name);
     if(!channel) throw "Channel not found";
 
-    const video = document.getElementById('videoPlayer');
-
     if(Hls.isSupported()) {
       const hls = new Hls();
       hls.loadSource(channel.stream);
       hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+      hls.on(Hls.Events.ERROR, (_, data) => {
+        if(data.fatal){ hls.destroy(); showToast("Failed to load stream"); spinner.style.display='none'; }
+      });
     } else {
       video.src = channel.stream;
+      video.addEventListener('error', () => { showToast("Failed to load stream"); spinner.style.display='none'; });
+      video.play().catch(() => { showToast("Failed to load stream"); spinner.style.display='none'; });
     }
-    video.play();
+
+    video.addEventListener('playing', ()=> spinner.style.display='none');
+    video.addEventListener('pause', ()=> spinner.style.display='none');
   } catch(err) {
     console.error(err);
-    alert("Failed to load stream.");
+    spinner.style.display='none';
+    showToast("Failed to load stream");
   }
 }
 
 loadStream();
 
 // Controls
-const video = document.getElementById('videoPlayer');
 const playPauseBtn = document.getElementById('playPauseBtn');
 playPauseBtn.addEventListener('click', ()=>{
   if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
@@ -94,10 +154,8 @@ fullscreenBtn.addEventListener('click', ()=>{
   else { document.exitFullscreen(); }
 });
 
-// Close button
 document.getElementById('closeBtn').addEventListener('click', ()=> window.location.href='index.html');
 
-// Tap-to-hide controls
 let controlsVisible = true;
 const controlsBar = document.getElementById('controlsBar');
 const topBar = document.getElementById('topBar');
