@@ -9,12 +9,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 <style>
   body { font-family: 'Baloo 2', cursive; background: #000; }
-  /* Smooth hide/show controls */
-  #controlsBar { transition: opacity 0.3s; }
-  #topBar { transition: opacity 0.3s; }
+  #controlsBar, #topBar { transition: opacity 0.3s; }
+  
+  /* Spinner */
+  #spinner {
+    position: absolute;
+    top:50%; left:50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3rem;
+    animation: spin 1s linear infinite;
+    z-index: 40;
+  }
+  @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+  /* Toast */
+  #toast {
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(220,20,60,0.95);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    display: none;
+    z-index: 60;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
 </style>
 </head>
 <body class="w-screen h-screen flex flex-col overflow-hidden relative bg-black">
+
+  <!-- Spinner -->
+  <div id="spinner"><i class="fas fa-circle-notch"></i></div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
 
   <!-- Header / Top Bar -->
   <div id="topBar" class="absolute top-0 left-0 right-0 z-50 bg-[#d92a1a] flex items-center justify-between px-5 py-4 shadow-lg">
@@ -24,7 +56,7 @@
     <h1 id="channelName" class="text-white text-xl sm:text-2xl font-extrabold tracking-wider truncate max-w-[60%]">
       Loading...
     </h1>
-    <div class="w-8"></div> <!-- placeholder for spacing -->
+    <div class="w-8"></div>
   </div>
 
   <!-- Video Player -->
@@ -44,40 +76,67 @@
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 <script>
 // URL parameter
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name') || "Unknown Channel";
 document.getElementById('channelName').textContent = name;
 
-// Load stream from channels.json
+const spinner = document.getElementById('spinner');
+const toast = document.getElementById('toast');
+const video = document.getElementById('videoPlayer');
+
+function showToast(message){
+  toast.textContent = message;
+  toast.style.display = 'block';
+  setTimeout(()=>toast.style.display='none', 4000);
+}
+
+// Load stream
 async function loadStream() {
+  spinner.style.display = 'block';
   try {
     const res = await fetch('https://ppsmrt.github.io/tv/data/channels.json');
     const channels = await res.json();
     const channel = channels.find(c => c.name === name);
     if(!channel) throw "Channel not found";
 
-    const video = document.getElementById('videoPlayer');
+    const streamUrl = channel.stream;
+    const ext = streamUrl.split('.').pop().toLowerCase();
 
-    if(Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(channel.stream);
-      hls.attachMedia(video);
+    if(ext === 'm3u8' || ext === 'ts') {
+      if(Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, ()=>{ video.play(); spinner.style.display='none'; });
+        hls.on(Hls.Events.ERROR, (_, data)=> showToast('Stream error: '+data.details));
+      } else {
+        video.src = streamUrl;
+        video.onloadedmetadata = ()=>{ video.play(); spinner.style.display='none'; };
+        video.onerror = ()=> showToast('Failed to play stream');
+      }
+    } else if(ext === 'mpd') {
+      const player = dashjs.MediaPlayer().create();
+      player.initialize(video, streamUrl, true);
+      player.on('error', ()=> showToast('Failed to load DASH stream'));
+      video.onplaying = ()=> spinner.style.display='none';
     } else {
-      video.src = channel.stream;
+      video.src = streamUrl;
+      video.onloadedmetadata = ()=>{ video.play(); spinner.style.display='none'; };
+      video.onerror = ()=> showToast('Unsupported stream format');
     }
-    video.play();
   } catch(err) {
     console.error(err);
-    alert("Failed to load stream.");
+    showToast('Failed to load stream');
+    spinner.style.display='none';
   }
 }
 
 loadStream();
 
 // Controls
-const video = document.getElementById('videoPlayer');
 const playPauseBtn = document.getElementById('playPauseBtn');
 playPauseBtn.addEventListener('click', ()=>{
   if(video.paused){ video.play(); playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'; }
@@ -94,7 +153,6 @@ fullscreenBtn.addEventListener('click', ()=>{
   else { document.exitFullscreen(); }
 });
 
-// Close button
 document.getElementById('closeBtn').addEventListener('click', ()=> window.location.href='index.html');
 
 // Tap-to-hide controls
