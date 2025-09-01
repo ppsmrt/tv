@@ -1,129 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium IPTV App</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-  <style>
-    body {
-      background: #f9fafb;
-      font-family: 'Inter', sans-serif;
-    }
-    @keyframes ripple { to { transform: scale(4); opacity: 0; } }
-    .animate-ripple { animation: ripple 0.5s linear; }
-
-    @keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); } }
-    .animate-pop { animation: pop 0.35s ease-out forwards; }
-
-    @keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-    .animate-slideDown { animation: slideDown 0.5s ease-out forwards; }
-
-    @keyframes fadeUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-    .animate-fadeUp { animation: fadeUp 0.5s ease-out forwards; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live TV</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body {
+    background: #f8fafc;
+    font-family: 'Inter', sans-serif;
+  }
+  .sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #fff;
+  }
+  .category-active {
+    background: #2563eb;
+    color: white !important;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fadeIn { animation: fadeIn 0.3s ease-in-out; }
+</style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 text-center text-xl font-bold shadow-md animate-slideDown">
-    Premium Live TV
-  </header>
+<!-- Header -->
+<header class="bg-blue-600 text-white text-xl font-bold p-4 text-center shadow-lg">
+  📺 Live TV
+</header>
 
-  <!-- Categories -->
-  <div class="flex overflow-x-auto space-x-4 p-4 bg-white shadow-md sticky top-0 z-10" id="categoriesBar">
-    <button class="category-btn bg-indigo-600 text-white px-5 py-2 rounded-full font-semibold transition hover:bg-indigo-700 active:scale-95" data-category="All">All</button>
-    <button class="category-btn bg-gray-200 text-gray-800 px-5 py-2 rounded-full font-semibold transition hover:bg-gray-300 active:scale-95" data-category="Entertainment">Entertainment</button>
-    <button class="category-btn bg-gray-200 text-gray-800 px-5 py-2 rounded-full font-semibold transition hover:bg-gray-300 active:scale-95" data-category="Music">Music</button>
-    <button class="category-btn bg-gray-200 text-gray-800 px-5 py-2 rounded-full font-semibold transition hover:bg-gray-300 active:scale-95" data-category="News">News</button>
-  </div>
+<!-- Category Bar -->
+<nav id="categoryBar" class="sticky-top flex gap-2 overflow-x-auto p-3 shadow-sm">
+  <!-- Buttons dynamically added -->
+</nav>
 
-  <!-- Channels Grid -->
-  <main class="flex-1 p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="channelsGrid"></main>
+<!-- Channels Grid -->
+<main class="p-3">
+  <div id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+</main>
 
-  <script>
-    const allChannels = [
-      { name: "MN Music", icon: "https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0846274573125433222986374.png", stream: "https://mntv.livebox.co.in/musichls/live.m3u8", category: "Music" },
-      { name: "MN Tv", icon: "https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0846274573125433222986374.png", stream: "https://mntv.livebox.co.in/mntvhls/live.m3u8", category: "Entertainment" },
-      { name: "News 24", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/News24_logo.png/600px-News24_logo.png", stream: "https://news24.live/stream.m3u8", category: "News" }
-    ];
+<script>
+const categories = ['All', 'Entertainment', 'Music', 'News'];
 
-    let currentCategory = 'All';
-    const channelsGrid = document.getElementById('channelsGrid');
-    const categoryButtons = document.querySelectorAll('.category-btn');
+const channels = [
+  { name: 'MN Music', icon: 'https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0846274573125433222986374.png', stream: 'https://mntv.livebox.co.in/musichls/live.m3u8', category: 'Music' },
+  { name: 'MN TV', icon: 'https://tataprime.wordpress.com/wp-content/uploads/2024/03/20240315_0846274573125433222986374.png', stream: 'https://mntv.livebox.co.in/mntvhls/live.m3u8', category: 'Entertainment' },
+  { name: 'News 24', icon: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/News_24_logo.svg/2560px-News_24_logo.svg.png', stream: 'https://news24.stream/live.m3u8', category: 'News' },
+];
 
-    categoryButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        categoryButtons.forEach(b => {
-          b.classList.remove('bg-indigo-600', 'text-white');
-          b.classList.add('bg-gray-200', 'text-gray-800');
-        });
-        btn.classList.add('bg-indigo-600', 'text-white');
-        btn.classList.remove('bg-gray-200', 'text-gray-800');
+let currentCategory = 'All';
 
-        currentCategory = btn.dataset.category;
-        renderChannels();
-      });
-    });
-
-    function renderChannels() {
-      channelsGrid.innerHTML = '';
-
-      const filtered = currentCategory === 'All'
-        ? allChannels
-        : allChannels.filter(c => c.category === currentCategory);
-
-      filtered.forEach(ch => {
-        const card = document.createElement('div');
-        card.className = `
-          bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden cursor-pointer
-          transform transition hover:scale-105 flex flex-col items-center justify-between
-          p-3 animate-fadeUp h-44
-        `;
-        card.innerHTML = `
-          <div class="w-full h-28 bg-gray-100 flex items-center justify-center rounded-xl">
-            <img src="${ch.icon}" alt="${ch.name}" class="h-20 w-auto max-w-[80%] object-contain">
-          </div>
-          <div class="mt-2 text-center text-gray-800 font-semibold text-sm truncate w-full">
-            ${ch.name}
-          </div>
-        `;
-        card.onclick = (e) => {
-          rippleEffect(e, card);
-          setTimeout(() => {
-            window.location.href = \`player.html?stream=\${encodeURIComponent(ch.stream)}&name=\${encodeURIComponent(ch.name)}\`;
-          }, 200);
-        };
-        channelsGrid.appendChild(card);
-      });
-
-      const totalCards = filtered.length;
-      const cols = window.innerWidth >= 768 ? 4 : (window.innerWidth >= 640 ? 3 : 2);
-      const remainder = totalCards % cols;
-      if (remainder > 0) {
-        const fillers = cols - remainder;
-        for (let i = 0; i < fillers; i++) {
-          const emptyCard = document.createElement('div');
-          emptyCard.className = 'invisible';
-          channelsGrid.appendChild(emptyCard);
-        }
-      }
-    }
-
-    function rippleEffect(e, element) {
-      const ripple = document.createElement('span');
-      ripple.className = 'absolute bg-indigo-300 rounded-full opacity-50 animate-ripple';
-      const size = Math.max(element.offsetWidth, element.offsetHeight);
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = e.clientX - element.getBoundingClientRect().left - size / 2 + 'px';
-      ripple.style.top = e.clientY - element.getBoundingClientRect().top - size / 2 + 'px';
-      element.style.position = 'relative';
-      element.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 500);
-    }
-
+// Create category buttons
+const categoryBar = document.getElementById('categoryBar');
+categories.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.textContent = cat;
+  btn.className = `
+    px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-800
+    hover:bg-blue-100 transition whitespace-nowrap
+  `;
+  if (cat === 'All') btn.classList.add('category-active');
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#categoryBar button').forEach(b => b.classList.remove('category-active'));
+    btn.classList.add('category-active');
+    currentCategory = cat;
     renderChannels();
-  </script>
+  });
+  categoryBar.appendChild(btn);
+});
+
+// Render channels grid
+function renderChannels() {
+  const grid = document.getElementById('channelsGrid');
+  grid.innerHTML = '';
+  const filtered = currentCategory === 'All' ? channels : channels.filter(ch => ch.category === currentCategory);
+
+  filtered.forEach(ch => {
+    const card = document.createElement('div');
+    card.className = `
+      bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:scale-105
+      flex flex-col items-center justify-between p-3 animate-fadeIn h-44
+    `;
+    card.innerHTML = `
+      <div class="w-full h-28 bg-gray-50 flex items-center justify-center rounded-xl">
+        <img src="${ch.icon}" alt="${ch.name}" class="h-20 w-auto max-w-[80%] object-contain">
+      </div>
+      <div class="mt-2 text-center text-gray-800 font-semibold text-sm truncate w-full">
+        ${ch.name}
+      </div>
+    `;
+    card.onclick = () => {
+      window.location.href = `player.html?name=${encodeURIComponent(ch.name)}&url=${encodeURIComponent(ch.stream)}`;
+    };
+    grid.appendChild(card);
+  });
+
+  // Fillers for balanced grid
+  const totalCards = filtered.length;
+  const cols = window.innerWidth >= 768 ? 4 : (window.innerWidth >= 640 ? 3 : 2);
+  const remainder = totalCards % cols;
+  if (remainder > 0) {
+    for (let i = 0; i < cols - remainder; i++) {
+      const filler = document.createElement('div');
+      filler.className = 'invisible';
+      grid.appendChild(filler);
+    }
+  }
+}
+
+renderChannels();
+</script>
+
 </body>
 </html>
