@@ -65,10 +65,6 @@ function renderCategories() {
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
-
-  // ✅ Auto-fit grid layout with proper spacing
-  grid.className = 'grid [grid-template-columns:repeat(auto-fit,minmax(80px,1fr))] gap-4 p-3 overflow-y-auto';
-
   const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
   filtered.forEach((channel, index)=>{
     const div = document.createElement('div');
@@ -82,7 +78,7 @@ function renderChannels() {
     `;
     div.addEventListener('click', ()=>{
       const nameParam = encodeURIComponent(channel.name);
-      window.location.href = \`https://ppsmrt.github.io/tv/player.html?name=\${nameParam}\`;
+      window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${nameParam}`;
     });
     grid.appendChild(div);
   });
