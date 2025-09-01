@@ -1,3 +1,4 @@
+// assets/js/player.js
 // Tailwind keyframe animations for ripple, pop, slide, fade-up
 const style = document.createElement('style');
 style.innerHTML = `
@@ -61,22 +62,22 @@ function renderCategories() {
   });
 }
 
-// Render channels dynamically with fade-up + pop
+// Render channels dynamically with fade-up + pop and reduced spacing
 function renderChannels() {
   const grid = document.getElementById('channelsGrid');
   grid.innerHTML = '';
-  const filtered = channelsData.filter(c => selectedCategory==="All" || c.category===selectedCategory);
-  filtered.forEach((channel, index)=>{
+  const filtered = channelsData.filter(c => selectedCategory === "All" || c.category === selectedCategory);
+  filtered.forEach((channel, index) => {
     const div = document.createElement('div');
-    div.className = 'flex flex-col items-center space-y-1 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-xl bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop';
+    div.className = 'flex flex-col items-center space-y-0.5 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl rounded-lg bg-gradient-to-br from-white to-gray-50 animate-fadeUp animate-pop';
     div.style.animationDelay = `${index * 80}ms`; // stagger fade-up + pop
     div.innerHTML = `
-      <img src="${channel.icon}" alt="${channel.name}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
-      <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:56px;">
+      <img src="${channel.icon}" alt="${channel.name}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-md object-contain transform transition-transform duration-200 hover:scale-110"/>
+      <span class="text-xs sm:text-sm text-gray-900 text-center select-none truncate" style="max-width:48px;">
         ${channel.name}
       </span>
     `;
-    div.addEventListener('click', ()=>{
+    div.addEventListener('click', () => {
       const nameParam = encodeURIComponent(channel.name);
       window.location.href = `https://ppsmrt.github.io/tv/player.html?name=${nameParam}`;
     });
