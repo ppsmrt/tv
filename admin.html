@@ -17,60 +17,83 @@
     <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
       Channel Manager
     </h1>
+    <button id="logoutBtn" class="hidden bg-white text-[#d92a1a] px-4 py-2 rounded-lg font-bold hover:bg-gray-100 transition">Logout</button>
   </div>
 
-  <!-- Form -->
-  <div class="p-5 bg-white shadow-lg">
-    <form id="channelForm" class="grid gap-4 md:grid-cols-2">
-      <input type="hidden" id="channelId"/>
-
+  <!-- Login Form -->
+  <div id="loginSection" class="p-5 bg-white shadow-lg">
+    <form id="loginForm" class="grid gap-4 md:grid-cols-2">
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
-        <input type="text" id="name" required
+        <label class="block text-gray-700 font-semibold mb-1">Email</label>
+        <input type="email" id="loginEmail" required
           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
-
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">Icon URL</label>
-        <input type="url" id="icon" required
+        <label class="block text-gray-700 font-semibold mb-1">Password</label>
+        <input type="password" id="loginPassword" required
           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
-        <input type="url" id="stream" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Category</label>
-        <select id="category" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-          <option value="News">News</option>
-          <option value="Music">Music</option>
-          <option value="Entertainment">Entertainment</option>
-        </select>
-      </div>
-
-      <button type="submit" id="submitBtn"
-        class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
-        Save Channel
+      <button type="submit" class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
+        Login
       </button>
     </form>
-
-    <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
+    <p id="loginMsg" class="text-center mt-3 font-semibold"></p>
   </div>
 
-  <!-- Channel List -->
-  <div class="flex-1 overflow-y-auto p-5">
-    <h2 class="text-xl font-bold mb-4">Channels</h2>
-    <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+  <!-- Channel Form (hidden until login) -->
+  <div id="channelSection" class="hidden">
+    <div class="p-5 bg-white shadow-lg">
+      <form id="channelForm" class="grid gap-4 md:grid-cols-2">
+        <input type="hidden" id="channelId"/>
+
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
+          <input type="text" id="name" required
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Icon URL</label>
+          <input type="url" id="icon" required
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
+          <input type="url" id="stream" required
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Category</label>
+          <select id="category" required
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+            <option value="News">News</option>
+            <option value="Music">Music</option>
+            <option value="Entertainment">Entertainment</option>
+          </select>
+        </div>
+
+        <button type="submit" id="submitBtn"
+          class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
+          Save Channel
+        </button>
+      </form>
+      <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
+    </div>
+
+    <!-- Channel List -->
+    <div class="flex-1 overflow-y-auto p-5">
+      <h2 class="text-xl font-bold mb-4">Channels</h2>
+      <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
   </div>
 
   <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
     import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
     // Firebase config
     const firebaseConfig = {
@@ -87,24 +110,65 @@
     // Init Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+    const auth = getAuth(app);
 
+    // UI elements
+    const loginSection = document.getElementById("loginSection");
+    const loginForm = document.getElementById("loginForm");
+    const loginMsg = document.getElementById("loginMsg");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const channelSection = document.getElementById("channelSection");
     const form = document.getElementById("channelForm");
     const statusMsg = document.getElementById("statusMsg");
     const channelList = document.getElementById("channelList");
     const submitBtn = document.getElementById("submitBtn");
 
-    function showStatus(message, isError = false) {
-      statusMsg.textContent = message;
-      statusMsg.className = isError ? "text-red-600 font-semibold text-center" : "text-green-600 font-semibold text-center";
-      setTimeout(() => {
-        statusMsg.textContent = "";
-      }, 3000);
+    // Show status messages
+    function showStatus(el, message, isError = false) {
+      el.textContent = message;
+      el.className = isError ? "text-red-600 font-semibold text-center" : "text-green-600 font-semibold text-center";
+      setTimeout(() => { el.textContent = ""; }, 3000);
     }
 
-    // Submit form
+    // Auth state listener
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("✅ Logged in as:", user.email);
+        loginSection.classList.add("hidden");
+        channelSection.classList.remove("hidden");
+        logoutBtn.classList.remove("hidden");
+        loadChannels();
+      } else {
+        console.log("❌ Not logged in");
+        loginSection.classList.remove("hidden");
+        channelSection.classList.add("hidden");
+        logoutBtn.classList.add("hidden");
+      }
+    });
+
+    // Login
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showStatus(loginMsg, "✅ Logged in!");
+      } catch (err) {
+        console.error(err);
+        showStatus(loginMsg, "❌ " + err.message, true);
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    // Submit channel form
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const channelId = document.getElementById("channelId").value;
       const name = document.getElementById("name").value.trim();
       const icon = document.getElementById("icon").value.trim();
@@ -112,92 +176,87 @@
       const category = document.getElementById("category").value;
 
       if (!name || !icon || !stream || !category) {
-        showStatus("⚠️ Please fill all fields.", true);
+        showStatus(statusMsg, "⚠️ Please fill all fields.", true);
         return;
       }
 
       submitBtn.disabled = true;
-
       try {
         if (channelId) {
-          // Update existing
           await update(ref(db, "channels/" + channelId), { name, icon, stream, category });
-          showStatus("✅ Channel updated!");
+          showStatus(statusMsg, "✅ Channel updated!");
         } else {
-          // Add new
           const newRef = push(ref(db, "channels"));
           await set(newRef, { name, icon, stream, category });
-          showStatus("✅ Channel added!");
+          showStatus(statusMsg, "✅ Channel added!");
         }
-
         form.reset();
         document.getElementById("channelId").value = "";
       } catch (error) {
         console.error(error);
-        showStatus("❌ Error saving channel.", true);
+        showStatus(statusMsg, "❌ Error saving channel.", true);
       } finally {
         submitBtn.disabled = false;
       }
     });
 
-    // Render channel list
-    onValue(ref(db, "channels"), (snapshot) => {
-      channelList.innerHTML = "";
-      const data = snapshot.val();
-      if (!data) {
-        channelList.innerHTML = "<p class='text-gray-500'>No channels added yet.</p>";
-        return;
-      }
-
-      Object.entries(data).forEach(([id, ch]) => {
-        const card = document.createElement("div");
-        card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
-
-        card.innerHTML = `
-          <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
-          <div class="flex-1">
-            <h3 class="text-lg font-bold">${ch.name}</h3>
-            <p class="text-gray-600 text-sm">${ch.category}</p>
-          </div>
-          <div class="flex gap-2">
-            <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
-            <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
-          </div>
-        `;
-
-        channelList.appendChild(card);
-      });
-
-      // Edit channel
-      document.querySelectorAll(".editBtn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = e.target.dataset.id;
-          const ch = data[id];
-          document.getElementById("channelId").value = id;
-          document.getElementById("name").value = ch.name;
-          document.getElementById("icon").value = ch.icon;
-          document.getElementById("stream").value = ch.stream;
-          document.getElementById("category").value = ch.category;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Load channels
+    function loadChannels() {
+      onValue(ref(db, "channels"), (snapshot) => {
+        channelList.innerHTML = "";
+        const data = snapshot.val();
+        if (!data) {
+          channelList.innerHTML = "<p class='text-gray-500'>No channels added yet.</p>";
+          return;
+        }
+        Object.entries(data).forEach(([id, ch]) => {
+          const card = document.createElement("div");
+          card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
+          card.innerHTML = `
+            <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold">${ch.name}</h3>
+              <p class="text-gray-600 text-sm">${ch.category}</p>
+            </div>
+            <div class="flex gap-2">
+              <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
+              <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
+            </div>
+          `;
+          channelList.appendChild(card);
         });
-      });
 
-      // Delete channel
-      document.querySelectorAll(".deleteBtn").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          const id = e.target.dataset.id;
-          if (confirm("Are you sure you want to delete this channel?")) {
-            try {
-              await remove(ref(db, "channels/" + id));
-              showStatus("✅ Channel deleted!");
-            } catch (err) {
-              console.error(err);
-              showStatus("❌ Error deleting channel.", true);
+        // Edit buttons
+        document.querySelectorAll(".editBtn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const id = e.target.dataset.id;
+            const ch = data[id];
+            document.getElementById("channelId").value = id;
+            document.getElementById("name").value = ch.name;
+            document.getElementById("icon").value = ch.icon;
+            document.getElementById("stream").value = ch.stream;
+            document.getElementById("category").value = ch.category;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        });
+
+        // Delete buttons
+        document.querySelectorAll(".deleteBtn").forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            const id = e.target.dataset.id;
+            if (confirm("Are you sure you want to delete this channel?")) {
+              try {
+                await remove(ref(db, "channels/" + id));
+                showStatus(statusMsg, "✅ Channel deleted!");
+              } catch (err) {
+                console.error(err);
+                showStatus(statusMsg, "❌ Error deleting channel.", true);
+              }
             }
-          }
+          });
         });
       });
-    });
+    }
   </script>
 </body>
 </html>
