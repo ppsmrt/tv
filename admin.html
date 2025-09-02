@@ -116,11 +116,15 @@ onAuthStateChanged(auth, async (user) => {
 
   console.log("✅ Admin recognized:", adminSnap.val());
 
-  // ✅ Load channels
+  // ✅ Load channels with logging
   const channelsRef = ref(db, "channels");
   onValue(channelsRef, (snapshot) => {
     allChannels = snapshot.val() || {};
-    console.log("Channels loaded:", allChannels);
+    console.log("🔥 Raw channels from Firebase:", allChannels);
+
+    // make it visible in DevTools
+    window.allChannels = allChannels;
+
     renderChannels(allChannels);
   });
 });
@@ -213,11 +217,9 @@ form.addEventListener("submit", async (e) => {
 
   try {
     if (channelId) {
-      // Update (but overwrite missing fields too)
       await set(ref(db, "channels/" + channelId), data);
       statusMsg.textContent = "✅ Channel updated!";
     } else {
-      // Add new
       const newRef = push(ref(db, "channels"));
       await set(newRef, data);
       statusMsg.textContent = "✅ Channel added!";
