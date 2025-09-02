@@ -1,312 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Admin Panel - Live TV</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-<style>
-  body { font-family: 'Baloo 2', cursive; }
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Channel Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Baloo 2', cursive; }
+  </style>
 </head>
-<body class="bg-gray-100 flex flex-col min-h-screen">
+<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden">
 
-<!-- Header -->
-<div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
-  <h1 class="text-white text-2xl font-extrabold select-none">Channel Manager</h1>
-  <div class="text-white text-sm opacity-90" id="connStatus">Connecting…</div>
-</div>
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+    <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
+      Channel Manager
+    </h1>
+  </div>
 
-<!-- Channel Form -->
-<div class="p-5 bg-white shadow-lg m-5 rounded-xl">
-  <form id="channelForm" class="grid gap-4 md:grid-cols-2">
-    <input type="hidden" id="channelId"/>
-    <div>
-      <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
-      <input type="text" id="name" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-    </div>
-    <div>
-      <label class="block text-gray-700 font-semibold mb-1">Icon URL</label>
-      <input type="url" id="icon" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-    </div>
-    <div>
-      <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
-      <input type="url" id="stream" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-    </div>
-    <div>
-      <label class="block text-gray-700 font-semibold mb-1">Category</label>
-      <select id="category" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-        <option value="News">News</option>
-        <option value="Music">Music</option>
-        <option value="Entertainment">Entertainment</option>
-      </select>
-    </div>
-    <button type="submit" class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
-      Save Channel
-    </button>
-  </form>
-  <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
-</div>
+  <!-- Form -->
+  <div class="p-5 bg-white shadow-lg">
+    <form id="channelForm" class="grid gap-4 md:grid-cols-2">
+      <input type="hidden" id="channelId"/>
 
-<!-- Search/Filter -->
-<div class="flex flex-col md:flex-row gap-4 px-5 mb-5">
-  <input type="text" id="searchInput" placeholder="Search by name..." class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-  <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-    <option value="">All Categories</option>
-    <option value="News">News</option>
-    <option value="Music">Music</option>
-    <option value="Entertainment">Entertainment</option>
-  </select>
-  <button id="refreshBtn" class="px-4 py-2 bg-gray-800 text-white rounded-lg">Refresh</button>
-</div>
-
-<!-- Channels List -->
-<div class="flex-1 overflow-y-auto p-5 m-5">
-  <h2 class="text-xl font-bold mb-4">Channels</h2>
-  <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getDatabase, ref, push, set, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-
-// 🔥 Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.appspot.com",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
-
-const form = document.getElementById("channelForm");
-const statusMsg = document.getElementById("statusMsg");
-const channelList = document.getElementById("channelList");
-const searchInput = document.getElementById("searchInput");
-const filterCategory = document.getElementById("filterCategory");
-const refreshBtn = document.getElementById("refreshBtn");
-const connStatus = document.getElementById("connStatus");
-
-let allChannels = {};
-window.allChannels = allChannels; // keep stable reference
-
-// Small helper to normalize each row
-function normalizeChannel(ch) {
-  const obj = (typeof ch === "object" && ch) ? ch : {};
-  return {
-    name: obj.name ?? "",
-    icon: obj.icon ?? "",
-    stream: obj.stream ?? "",
-    category: obj.category ?? ""
-  };
-}
-
-// Renders everything safely, even if incomplete
-function renderChannels(channels) {
-  console.log("Rendering channels:", channels);
-  const searchTerm = (searchInput.value || "").toLowerCase();
-  const categoryFilter = filterCategory.value;
-
-  // sort by name (fallback to id)
-  const entries = Object.entries(channels).sort((a, b) => {
-    const na = (a[1]?.name || "").toLowerCase();
-    const nb = (b[1]?.name || "").toLowerCase();
-    return na.localeCompare(nb);
-  });
-
-  const filtered = entries.filter(([id, ch]) => {
-    if (!ch) return false;
-    const name = (ch.name || "Unnamed").toLowerCase();
-    const matchesName = name.includes(searchTerm);
-    const matchesCategory = categoryFilter ? ch.category === categoryFilter : true;
-    return matchesName && matchesCategory;
-  });
-
-  channelList.innerHTML = "";
-  if (filtered.length === 0) {
-    channelList.innerHTML = "<p class='text-gray-500'>No channels found.</p>";
-    return;
-  }
-
-  for (const [id, chRaw] of filtered) {
-    const ch = normalizeChannel(chRaw);
-    const card = document.createElement("div");
-    card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
-    card.innerHTML = `
-      <img src="${ch.icon || 'https://via.placeholder.com/64?text=No+Icon'}"
-           alt="${ch.name || 'Unnamed'}"
-           class="w-16 h-16 object-contain rounded-lg border"/>
-      <div class="flex-1">
-        <h3 class="text-lg font-bold">${ch.name || "Unnamed"}</h3>
-        <p class="text-gray-600 text-sm">${ch.category || "Uncategorized"}</p>
-        ${!ch.stream ? "<p class='text-red-500 text-xs mt-1'>⚠️ Missing stream URL</p>" : ""}
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
+        <input type="text" id="name" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
-      <div class="flex gap-2">
-        <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}" title="Edit">✏️</button>
-        <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}" title="Delete">❌</button>
+
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Icon URL</label>
+        <input type="url" id="icon" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
-    `;
-    channelList.appendChild(card);
-  }
 
-  // Attach handlers
-  document.querySelectorAll(".editBtn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const id = e.currentTarget.dataset.id;
-      const ch = normalizeChannel(allChannels[id]);
-      document.getElementById("channelId").value = id;
-      document.getElementById("name").value = ch.name;
-      document.getElementById("icon").value = ch.icon;
-      document.getElementById("stream").value = ch.stream;
-      document.getElementById("category").value = ch.category || "Entertainment";
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
+        <input type="url" id="stream" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+      </div>
 
-  document.querySelectorAll(".deleteBtn").forEach(btn => {
-    btn.addEventListener("click", async (e) => {
-      const id = e.currentTarget.dataset.id;
-      if (confirm("Are you sure you want to delete this channel?")) {
-        await remove(ref(db, "channels/" + id));
-        delete allChannels[id]; // update local cache
-        renderChannels(allChannels);
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Category</label>
+        <select id="category" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+          <option value="News">News</option>
+          <option value="Music">Music</option>
+          <option value="Entertainment">Entertainment</option>
+        </select>
+      </div>
+
+      <button type="submit" id="submitBtn"
+        class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
+        Save Channel
+      </button>
+    </form>
+
+    <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
+  </div>
+
+  <!-- Channel List -->
+  <div class="flex-1 overflow-y-auto p-5">
+    <h2 class="text-xl font-bold mb-4">Channels</h2>
+    <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+    import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+      authDomain: "tnm3ulive.firebaseapp.com",
+      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tnm3ulive",
+      storageBucket: "tnm3ulive.appspot.com",
+      messagingSenderId: "80664356882",
+      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+      measurementId: "G-FNS9JWZ9LS"
+    };
+
+    // Init Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const form = document.getElementById("channelForm");
+    const statusMsg = document.getElementById("statusMsg");
+    const channelList = document.getElementById("channelList");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function showStatus(message, isError = false) {
+      statusMsg.textContent = message;
+      statusMsg.className = isError ? "text-red-600 font-semibold text-center" : "text-green-600 font-semibold text-center";
+      setTimeout(() => {
+        statusMsg.textContent = "";
+      }, 3000);
+    }
+
+    // Submit form
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const channelId = document.getElementById("channelId").value;
+      const name = document.getElementById("name").value.trim();
+      const icon = document.getElementById("icon").value.trim();
+      const stream = document.getElementById("stream").value.trim();
+      const category = document.getElementById("category").value;
+
+      if (!name || !icon || !stream || !category) {
+        showStatus("⚠️ Please fill all fields.", true);
+        return;
+      }
+
+      submitBtn.disabled = true;
+
+      try {
+        if (channelId) {
+          // Update existing
+          await update(ref(db, "channels/" + channelId), { name, icon, stream, category });
+          showStatus("✅ Channel updated!");
+        } else {
+          // Add new
+          const newRef = push(ref(db, "channels"));
+          await set(newRef, { name, icon, stream, category });
+          showStatus("✅ Channel added!");
+        }
+
+        form.reset();
+        document.getElementById("channelId").value = "";
+      } catch (error) {
+        console.error(error);
+        showStatus("❌ Error saving channel.", true);
+      } finally {
+        submitBtn.disabled = false;
       }
     });
-  });
-}
 
-// REST fallback polling (when realtime is blocked by network)
-let restPollTimer = null;
-async function fetchChannelsREST() {
-  try {
-    const url = `${firebaseConfig.databaseURL}/channels.json`;
-    const res = await fetch(url, { cache: "no-store" });
-    const data = await res.json();
-    Object.assign(allChannels, data || {});
-    window.allChannels = allChannels;
-    console.log("🌐 REST channels:", allChannels);
-    renderChannels(allChannels);
-    connStatus.textContent = "Connected (REST)";
-  } catch (e) {
-    console.error("REST fetch failed:", e);
-    connStatus.textContent = "REST fetch failed";
-  }
-}
-function startRESTPolling(intervalMs = 5000) {
-  if (restPollTimer) return;
-  fetchChannelsREST();
-  restPollTimer = setInterval(fetchChannelsREST, intervalMs);
-}
+    // Render channel list
+    onValue(ref(db, "channels"), (snapshot) => {
+      channelList.innerHTML = "";
+      const data = snapshot.val();
+      if (!data) {
+        channelList.innerHTML = "<p class='text-gray-500'>No channels added yet.</p>";
+        return;
+      }
 
-// 🔐 Auth & admin check
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    console.warn("No user signed in → redirecting to signin.html");
-    window.location.href = "signin.html";
-    return;
-  }
-  console.log("Signed in UID:", user.uid);
+      Object.entries(data).forEach(([id, ch]) => {
+        const card = document.createElement("div");
+        card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
 
-  // Admin check
-  const adminSnap = await get(ref(db, "admins/" + user.uid));
-  if (!adminSnap.exists()) {
-    alert("Access denied. Your UID is not in /admins.");
-    console.warn("Your UID:", user.uid, "is not in admins.");
-    window.location.href = "index.html";
-    return;
-  }
-  console.log("✅ Admin recognized:", adminSnap.val());
+        card.innerHTML = `
+          <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold">${ch.name}</h3>
+            <p class="text-gray-600 text-sm">${ch.category}</p>
+          </div>
+          <div class="flex gap-2">
+            <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
+            <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
+          </div>
+        `;
 
-  // Realtime + fallback
-  const channelsRef = ref(db, "channels");
-  let gotRealtimeOnce = false;
+        channelList.appendChild(card);
+      });
 
-  // Try one immediate read (even if realtime is slow)
-  try {
-    const once = await get(channelsRef);
-    if (once.exists()) {
-      Object.assign(allChannels, once.val() || {});
-      window.allChannels = allChannels;
-      console.log("📦 Initial one-time load:", allChannels);
-      renderChannels(allChannels);
-      connStatus.textContent = "Connected (initial)";
-    }
-  } catch (e) {
-    console.warn("One-time get() failed:", e);
-  }
+      // Edit channel
+      document.querySelectorAll(".editBtn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = e.target.dataset.id;
+          const ch = data[id];
+          document.getElementById("channelId").value = id;
+          document.getElementById("name").value = ch.name;
+          document.getElementById("icon").value = ch.icon;
+          document.getElementById("stream").value = ch.stream;
+          document.getElementById("category").value = ch.category;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
 
-  // Realtime listener
-  onValue(channelsRef, (snapshot) => {
-    gotRealtimeOnce = true;
-    Object.assign(allChannels, snapshot.val() || {});
-    window.allChannels = allChannels;
-    console.log("⚡ Realtime channels:", allChannels);
-    renderChannels(allChannels);
-    connStatus.textContent = "Connected (realtime)";
-  }, (err) => {
-    console.warn("Realtime listener error:", err);
-  });
-
-  // If realtime never fires within 3s, start REST polling
-  setTimeout(() => {
-    if (!gotRealtimeOnce) {
-      console.warn("Realtime did not fire in time — switching to REST polling.");
-      connStatus.textContent = "Realtime blocked — using REST";
-      startRESTPolling();
-    }
-  }, 3000);
-});
-
-// Search / filter / manual refresh
-searchInput.addEventListener("input", () => renderChannels(allChannels));
-filterCategory.addEventListener("change", () => renderChannels(allChannels));
-refreshBtn.addEventListener("click", () => renderChannels(allChannels));
-
-// Save (overwrite to normalize every row)
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const channelId = document.getElementById("channelId").value;
-  const name = document.getElementById("name").value.trim();
-  const icon = document.getElementById("icon").value.trim();
-  const stream = document.getElementById("stream").value.trim();
-  const category = document.getElementById("category").value;
-
-  if (!name || !icon || !stream || !category) {
-    statusMsg.textContent = "⚠️ Please fill all fields.";
-    statusMsg.className = "text-red-600 font-semibold text-center";
-    return;
-  }
-
-  const data = { name, icon, stream, category };
-  try {
-    if (channelId) {
-      await set(ref(db, "channels/" + channelId), data);
-      allChannels[channelId] = data; // update local cache
-      statusMsg.textContent = "✅ Channel updated!";
-    } else {
-      const newRef = push(ref(db, "channels"));
-      await set(newRef, data);
-      allChannels[newRef.key] = data; // update local cache
-      statusMsg.textContent = "✅ Channel added!";
-    }
-    statusMsg.className = "text-green-600 font-semibold text-center";
-    form.reset();
-    document.getElementById("channelId").value = "";
-    renderChannels(allChannels); // refresh UI immediately
-  } catch (error) {
-    console.error(error);
-    statusMsg.textContent = "❌ Error saving channel.";
-    statusMsg.className = "text-red-600 font-semibold text-center";
-  }
-});
-</script>
+      // Delete channel
+      document.querySelectorAll(".deleteBtn").forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          const id = e.target.dataset.id;
+          if (confirm("Are you sure you want to delete this channel?")) {
+            try {
+              await remove(ref(db, "channels/" + id));
+              showStatus("✅ Channel deleted!");
+            } catch (err) {
+              console.error(err);
+              showStatus("❌ Error deleting channel.", true);
+            }
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
