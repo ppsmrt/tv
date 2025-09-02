@@ -15,6 +15,7 @@
 <!-- Header -->
 <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
   <h1 class="text-white text-2xl font-extrabold select-none">Channel Manager</h1>
+  <div class="text-white text-sm opacity-90" id="connStatus">Connecting…</div>
 </div>
 
 <!-- Channel Form -->
@@ -57,6 +58,7 @@
     <option value="Music">Music</option>
     <option value="Entertainment">Entertainment</option>
   </select>
+  <button id="refreshBtn" class="px-4 py-2 bg-gray-800 text-white rounded-lg">Refresh</button>
 </div>
 
 <!-- Channels List -->
@@ -67,7 +69,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getDatabase, ref, push, set, update, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getDatabase, ref, push, set, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
 // 🔥 Firebase Config
@@ -90,52 +92,36 @@ const statusMsg = document.getElementById("statusMsg");
 const channelList = document.getElementById("channelList");
 const searchInput = document.getElementById("searchInput");
 const filterCategory = document.getElementById("filterCategory");
+const refreshBtn = document.getElementById("refreshBtn");
+const connStatus = document.getElementById("connStatus");
 
 let allChannels = {};
+window.allChannels = allChannels; // for DevTools
 
-// 🔐 Authentication & Admin check
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    console.warn("No user signed in → redirecting to signin.html");
-    window.location.href = "signin.html";
-    return;
-  }
+// Small helper to normalize each row
+function normalizeChannel(ch) {
+  const obj = (typeof ch === "object" && ch) ? ch : {};
+  return {
+    name: obj.name ?? "",
+    icon: obj.icon ?? "",
+    stream: obj.stream ?? "",
+    category: obj.category ?? ""
+  };
+}
 
-  console.log("Signed in UID:", user.uid);
-
-  // 🔑 Check admin
-  const adminRef = ref(db, "admins/" + user.uid);
-  const adminSnap = await get(adminRef);
-
-  if (!adminSnap.exists()) {
-    alert("Access denied. Your UID is not in /admins.");
-    console.warn("Your UID:", user.uid, "is not in admins.");
-    window.location.href = "index.html";
-    return;
-  }
-
-  console.log("✅ Admin recognized:", adminSnap.val());
-
-  // ✅ Load channels with logging
-  const channelsRef = ref(db, "channels");
-  onValue(channelsRef, (snapshot) => {
-    allChannels = snapshot.val() || {};
-    console.log("🔥 Raw channels from Firebase:", allChannels);
-
-    // make it visible in DevTools
-    window.allChannels = allChannels;
-
-    renderChannels(allChannels);
-  });
-});
-
-// 🎨 Render channels (always show, even incomplete)
+// Renders everything safely, even if incomplete
 function renderChannels(channels) {
-  const searchTerm = searchInput.value.toLowerCase();
+  const searchTerm = (searchInput.value || "").toLowerCase();
   const categoryFilter = filterCategory.value;
-  channelList.innerHTML = "";
 
-  const filtered = Object.entries(channels).filter(([id, ch]) => {
+  // sort by name (fallback to id)
+  const entries = Object.entries(channels).sort((a, b) => {
+    const na = (a[1]?.name || "").toLowerCase();
+    const nb = (b[1]?.name || "").toLowerCase();
+    return na.localeCompare(nb);
+  });
+
+  const filtered = entries.filter(([id, ch]) => {
     if (!ch) return false;
     const name = (ch.name || "Unnamed").toLowerCase();
     const matchesName = name.includes(searchTerm);
@@ -143,50 +129,50 @@ function renderChannels(channels) {
     return matchesName && matchesCategory;
   });
 
+  channelList.innerHTML = "";
   if (filtered.length === 0) {
     channelList.innerHTML = "<p class='text-gray-500'>No channels found.</p>";
     return;
   }
 
-  filtered.forEach(([id, ch]) => {
+  for (const [id, chRaw] of filtered) {
+    const ch = normalizeChannel(chRaw);
     const card = document.createElement("div");
     card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
     card.innerHTML = `
-      <img src="${ch.icon || 'https://via.placeholder.com/64?text=No+Icon'}" 
-           alt="${ch.name || 'Unnamed'}" 
+      <img src="${ch.icon || 'https://via.placeholder.com/64?text=No+Icon'}"
+           alt="${ch.name || 'Unnamed'}"
            class="w-16 h-16 object-contain rounded-lg border"/>
       <div class="flex-1">
         <h3 class="text-lg font-bold">${ch.name || "Unnamed"}</h3>
         <p class="text-gray-600 text-sm">${ch.category || "Uncategorized"}</p>
-        ${!ch.stream ? "<p class='text-red-500 text-xs'>⚠️ Missing stream URL</p>" : ""}
+        ${!ch.stream ? "<p class='text-red-500 text-xs mt-1'>⚠️ Missing stream URL</p>" : ""}
       </div>
       <div class="flex gap-2">
-        <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
-        <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
+        <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}" title="Edit">✏️</button>
+        <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}" title="Delete">❌</button>
       </div>
     `;
     channelList.appendChild(card);
-  });
+  }
 
-  // ✏️ Edit
+  // Attach handlers (use currentTarget to avoid target issues)
   document.querySelectorAll(".editBtn").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      const id = e.target.dataset.id;
-      const ch = channels[id];
-      if (!ch) return;
+      const id = e.currentTarget.dataset.id;
+      const ch = normalizeChannel(allChannels[id]);
       document.getElementById("channelId").value = id;
-      document.getElementById("name").value = ch.name || "";
-      document.getElementById("icon").value = ch.icon || "";
-      document.getElementById("stream").value = ch.stream || "";
+      document.getElementById("name").value = ch.name;
+      document.getElementById("icon").value = ch.icon;
+      document.getElementById("stream").value = ch.stream;
       document.getElementById("category").value = ch.category || "Entertainment";
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 
-  // ❌ Delete
   document.querySelectorAll(".deleteBtn").forEach(btn => {
     btn.addEventListener("click", async (e) => {
-      const id = e.target.dataset.id;
+      const id = e.currentTarget.dataset.id;
       if (confirm("Are you sure you want to delete this channel?")) {
         await remove(ref(db, "channels/" + id));
       }
@@ -194,11 +180,94 @@ function renderChannels(channels) {
   });
 }
 
-// 🔎 Search + Filter
+// REST fallback polling (when realtime is blocked by network)
+let restPollTimer = null;
+async function fetchChannelsREST() {
+  try {
+    const url = `${firebaseConfig.databaseURL}/channels.json`;
+    const res = await fetch(url, { cache: "no-store" });
+    const data = await res.json();
+    allChannels = data || {};
+    window.allChannels = allChannels;
+    console.log("🌐 REST channels:", allChannels);
+    renderChannels(allChannels);
+    connStatus.textContent = "Connected (REST)";
+  } catch (e) {
+    console.error("REST fetch failed:", e);
+    connStatus.textContent = "REST fetch failed";
+  }
+}
+function startRESTPolling(intervalMs = 5000) {
+  if (restPollTimer) return;
+  fetchChannelsREST();
+  restPollTimer = setInterval(fetchChannelsREST, intervalMs);
+}
+
+// 🔐 Auth & admin check
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    console.warn("No user signed in → redirecting to signin.html");
+    window.location.href = "signin.html";
+    return;
+  }
+  console.log("Signed in UID:", user.uid);
+
+  // Admin check
+  const adminSnap = await get(ref(db, "admins/" + user.uid));
+  if (!adminSnap.exists()) {
+    alert("Access denied. Your UID is not in /admins.");
+    console.warn("Your UID:", user.uid, "is not in admins.");
+    window.location.href = "index.html";
+    return;
+  }
+  console.log("✅ Admin recognized:", adminSnap.val());
+
+  // Realtime + fallback
+  const channelsRef = ref(db, "channels");
+  let gotRealtimeOnce = false;
+
+  // Try one immediate read (even if realtime is slow)
+  try {
+    const once = await get(channelsRef);
+    if (once.exists()) {
+      allChannels = once.val() || {};
+      window.allChannels = allChannels;
+      console.log("📦 Initial one-time load:", allChannels);
+      renderChannels(allChannels);
+      connStatus.textContent = "Connected (initial)";
+    }
+  } catch (e) {
+    console.warn("One-time get() failed:", e);
+  }
+
+  // Realtime listener
+  onValue(channelsRef, (snapshot) => {
+    gotRealtimeOnce = true;
+    allChannels = snapshot.val() || {};
+    window.allChannels = allChannels;
+    console.log("⚡ Realtime channels:", allChannels);
+    renderChannels(allChannels);
+    connStatus.textContent = "Connected (realtime)";
+  }, (err) => {
+    console.warn("Realtime listener error:", err);
+  });
+
+  // If realtime never fires within 3s, start REST polling
+  setTimeout(() => {
+    if (!gotRealtimeOnce) {
+      console.warn("Realtime did not fire in time — switching to REST polling.");
+      connStatus.textContent = "Realtime blocked — using REST";
+      startRESTPolling();
+    }
+  }, 3000);
+});
+
+// Search / filter / manual refresh
 searchInput.addEventListener("input", () => renderChannels(allChannels));
 filterCategory.addEventListener("change", () => renderChannels(allChannels));
+refreshBtn.addEventListener("click", () => renderChannels(allChannels));
 
-// 💾 Save channel (always overwrite all fields)
+// Save (overwrite to normalize every row)
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const channelId = document.getElementById("channelId").value;
@@ -214,10 +283,9 @@ form.addEventListener("submit", async (e) => {
   }
 
   const data = { name, icon, stream, category };
-
   try {
     if (channelId) {
-      await set(ref(db, "channels/" + channelId), data);
+      await set(ref(db, "channels/" + channelId), data); // overwrite to normalize
       statusMsg.textContent = "✅ Channel updated!";
     } else {
       const newRef = push(ref(db, "channels"));
