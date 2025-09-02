@@ -8,11 +8,13 @@
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
 <style>
   body {
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     background: #f9fafb;
-    margin: 0; min-height: 100vh; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    margin: 0; min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Header */
@@ -35,7 +37,6 @@
 
   main { padding:80px 1.5rem 96px; max-width:1200px; margin:0 auto; }
 
-  /* Category bar */
   .category-bar { display:flex; gap:16px; margin-bottom:24px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
   .category-bar::-webkit-scrollbar { display:none; }
   .category-btn {
@@ -46,10 +47,8 @@
   .category-btn:hover { background:#3b82f6; color:white; }
   .category-btn.active { background:#3b82f6; color:white; box-shadow:0 4px 12px rgb(59 130 246 / 0.4); }
 
-  /* Channel grid */
   .channels-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:24px; }
 
-  /* Channel card */
   .channel-card {
     position:relative; background:white; border-radius:16px; overflow:hidden;
     box-shadow:0 4px 12px rgb(0 0 0 / 0.08); cursor:pointer;
@@ -57,7 +56,6 @@
     opacity:0; transform:translateY(20px);
   }
   .channel-card.show { opacity:1; transform:translateY(0); }
-
   .channel-card:hover, .channel-card:focus-visible { transform:translateY(-6px); box-shadow:0 12px 24px rgb(59 130 246 / 0.3); }
 
   .channel-image { width:100%; aspect-ratio:16/9; object-fit:cover; border-bottom:1px solid #e5e7eb; transition:filter 0.3s ease; }
@@ -72,7 +70,6 @@
 
   .channel-name { padding:12px 8px; font-weight:700; font-size:1.125rem; text-align:center; user-select:text; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-  /* Bottom navigation */
   footer {
     position:fixed; bottom:0; left:0; right:0; height:64px;
     background:white; box-shadow:0 -2px 12px rgba(0,0,0,0.08);
@@ -119,11 +116,9 @@
 </footer>
 
 <script type="module">
-  // Firebase SDK imports
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
     authDomain: "tnm3ulive.firebaseapp.com",
@@ -135,11 +130,9 @@
     measurementId: "G-FNS9JWZ9LS"
   };
 
-  // Init Firebase
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // UI elements
   const grid = document.getElementById('channelsGrid');
   const searchInput = document.getElementById('searchInput');
   const categoryButtons = document.querySelectorAll('.category-btn');
@@ -148,7 +141,9 @@
 
   function createChannelCard(c) {
     const a = document.createElement('a');
-    a.href = c.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    // Use player.html with stream parameter
+    const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'));
+    a.href = `player.html?stream=${safeName}`;
     a.className = 'channel-card';
     a.setAttribute('aria-label', `Watch ${c.name}`);
 
@@ -187,10 +182,7 @@
 
   categoryButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      categoryButtons.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed','false');
-      });
+      categoryButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
       btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
       selectedCategory = btn.dataset.category;
       renderChannels(searchInput.value);
@@ -199,7 +191,6 @@
 
   searchInput.addEventListener('input', e => renderChannels(e.target.value));
 
-  // Fetch channels from Firebase (map DB fields to UI fields)
   const channelsRef = ref(db, 'channels');
   onValue(channelsRef, snapshot => {
     if (snapshot.exists()) {
@@ -207,8 +198,8 @@
       channels = Object.values(data).map(c => ({
         name: c.name,
         category: c.category,
-        logo: c.icon,   // DB field "icon"
-        url: c.stream   // DB field "stream"
+        logo: c.icon,
+        stream: c.stream
       }));
       renderChannels(searchInput.value);
     } else {
