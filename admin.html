@@ -125,15 +125,16 @@ onAuthStateChanged(auth, async (user) => {
   });
 });
 
-// 🎨 Render channels
+// 🎨 Render channels (always show, even incomplete)
 function renderChannels(channels) {
   const searchTerm = searchInput.value.toLowerCase();
   const categoryFilter = filterCategory.value;
   channelList.innerHTML = "";
 
   const filtered = Object.entries(channels).filter(([id, ch]) => {
-    if (!ch || !ch.name) return false; // skip invalid/empty channels
-    const matchesName = ch.name.toLowerCase().includes(searchTerm);
+    if (!ch) return false;
+    const name = (ch.name || "Unnamed").toLowerCase();
+    const matchesName = name.includes(searchTerm);
     const matchesCategory = categoryFilter ? ch.category === categoryFilter : true;
     return matchesName && matchesCategory;
   });
@@ -147,10 +148,13 @@ function renderChannels(channels) {
     const card = document.createElement("div");
     card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
     card.innerHTML = `
-      <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+      <img src="${ch.icon || 'https://via.placeholder.com/64?text=No+Icon'}" 
+           alt="${ch.name || 'Unnamed'}" 
+           class="w-16 h-16 object-contain rounded-lg border"/>
       <div class="flex-1">
-        <h3 class="text-lg font-bold">${ch.name}</h3>
-        <p class="text-gray-600 text-sm">${ch.category}</p>
+        <h3 class="text-lg font-bold">${ch.name || "Unnamed"}</h3>
+        <p class="text-gray-600 text-sm">${ch.category || "Uncategorized"}</p>
+        ${!ch.stream ? "<p class='text-red-500 text-xs'>⚠️ Missing stream URL</p>" : ""}
       </div>
       <div class="flex gap-2">
         <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
@@ -167,10 +171,10 @@ function renderChannels(channels) {
       const ch = channels[id];
       if (!ch) return;
       document.getElementById("channelId").value = id;
-      document.getElementById("name").value = ch.name;
-      document.getElementById("icon").value = ch.icon;
-      document.getElementById("stream").value = ch.stream;
-      document.getElementById("category").value = ch.category;
+      document.getElementById("name").value = ch.name || "";
+      document.getElementById("icon").value = ch.icon || "";
+      document.getElementById("stream").value = ch.stream || "";
+      document.getElementById("category").value = ch.category || "Entertainment";
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
@@ -190,7 +194,7 @@ function renderChannels(channels) {
 searchInput.addEventListener("input", () => renderChannels(allChannels));
 filterCategory.addEventListener("change", () => renderChannels(allChannels));
 
-// 💾 Save channel
+// 💾 Save channel (always overwrite all fields)
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const channelId = document.getElementById("channelId").value;
@@ -205,13 +209,17 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
+  const data = { name, icon, stream, category };
+
   try {
     if (channelId) {
-      await update(ref(db, "channels/" + channelId), { name, icon, stream, category });
+      // Update (but overwrite missing fields too)
+      await set(ref(db, "channels/" + channelId), data);
       statusMsg.textContent = "✅ Channel updated!";
     } else {
+      // Add new
       const newRef = push(ref(db, "channels"));
-      await set(newRef, { name, icon, stream, category });
+      await set(newRef, data);
       statusMsg.textContent = "✅ Channel added!";
     }
     statusMsg.className = "text-green-600 font-semibold text-center";
