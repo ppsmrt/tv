@@ -20,6 +20,20 @@
 
 /* scrolling ad strip */ .ad-strip{ margin-top:16px; background:transparent; overflow:hidden; border-radius:12px; padding:8px 6px } .ad-track{ display:flex; gap:12px; align-items:center; animation:scroll 18s linear infinite } .ad-item{ flex:0 0 auto; display:flex; gap:8px; align-items:center; padding:8px 12px; background:white; border-radius:10px; box-shadow:0 6px 20px rgba(2,6,23,0.06) } .ad-item img{ width:56px; height:40px; object-fit:cover; border-radius:8px } @keyframes scroll{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
 
+footer {  
+    position:fixed; bottom:0; left:0; right:0; height:64px;  
+    background:white; box-shadow:0 -2px 12px rgba(0,0,0,0.08);  
+    display:flex; justify-content:space-around; align-items:center; z-index:100;  
+  }  
+  .bottom-nav-btn {  
+    display:flex; flex-direction:column; align-items:center; font-weight:600; font-size:0.75rem; color:#6b7280;  
+    cursor:pointer; transition:color 0.3s ease, transform 0.3s ease; border:none; background:none; padding:0;  
+  }  
+  .bottom-nav-btn .material-icons { font-size:24px; margin-bottom:2px; transition:filter 0.3s ease; }  
+  .bottom-nav-btn:hover, .bottom-nav-btn:focus-visible { color:#3b82f6; outline:none; transform:scale(1.15); }  
+  .bottom-nav-btn.active { color:#3b82f6; transform:scale(1.25); font-weight:700; }  
+  .bottom-nav-btn.active .material-icons { filter:drop-shadow(0 0 6px #3b82f6); }  
+
 /* responsive */ @media(max-width:640px){ main{ padding:72px 12px 96px } .icon-btn{ padding:8px } } </style>
 
 </head>
