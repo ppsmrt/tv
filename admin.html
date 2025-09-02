@@ -96,7 +96,7 @@ const refreshBtn = document.getElementById("refreshBtn");
 const connStatus = document.getElementById("connStatus");
 
 let allChannels = {};
-window.allChannels = allChannels; // for DevTools
+window.allChannels = allChannels; // keep stable reference
 
 // Small helper to normalize each row
 function normalizeChannel(ch) {
@@ -111,6 +111,7 @@ function normalizeChannel(ch) {
 
 // Renders everything safely, even if incomplete
 function renderChannels(channels) {
+  console.log("Rendering channels:", channels);
   const searchTerm = (searchInput.value || "").toLowerCase();
   const categoryFilter = filterCategory.value;
 
@@ -175,6 +176,8 @@ function renderChannels(channels) {
       const id = e.currentTarget.dataset.id;
       if (confirm("Are you sure you want to delete this channel?")) {
         await remove(ref(db, "channels/" + id));
+        delete allChannels[id]; // update local cache
+        renderChannels(allChannels);
       }
     });
   });
@@ -187,7 +190,7 @@ async function fetchChannelsREST() {
     const url = `${firebaseConfig.databaseURL}/channels.json`;
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
-    allChannels = data || {};
+    Object.assign(allChannels, data || {});
     window.allChannels = allChannels;
     console.log("🌐 REST channels:", allChannels);
     renderChannels(allChannels);
@@ -230,7 +233,7 @@ onAuthStateChanged(auth, async (user) => {
   try {
     const once = await get(channelsRef);
     if (once.exists()) {
-      allChannels = once.val() || {};
+      Object.assign(allChannels, once.val() || {});
       window.allChannels = allChannels;
       console.log("📦 Initial one-time load:", allChannels);
       renderChannels(allChannels);
@@ -243,7 +246,7 @@ onAuthStateChanged(auth, async (user) => {
   // Realtime listener
   onValue(channelsRef, (snapshot) => {
     gotRealtimeOnce = true;
-    allChannels = snapshot.val() || {};
+    Object.assign(allChannels, snapshot.val() || {});
     window.allChannels = allChannels;
     console.log("⚡ Realtime channels:", allChannels);
     renderChannels(allChannels);
@@ -285,16 +288,19 @@ form.addEventListener("submit", async (e) => {
   const data = { name, icon, stream, category };
   try {
     if (channelId) {
-      await set(ref(db, "channels/" + channelId), data); // overwrite to normalize
+      await set(ref(db, "channels/" + channelId), data);
+      allChannels[channelId] = data; // update local cache
       statusMsg.textContent = "✅ Channel updated!";
     } else {
       const newRef = push(ref(db, "channels"));
       await set(newRef, data);
+      allChannels[newRef.key] = data; // update local cache
       statusMsg.textContent = "✅ Channel added!";
     }
     statusMsg.className = "text-green-600 font-semibold text-center";
     form.reset();
     document.getElementById("channelId").value = "";
+    renderChannels(allChannels); // refresh UI immediately
   } catch (error) {
     console.error(error);
     statusMsg.textContent = "❌ Error saving channel.";
