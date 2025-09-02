@@ -10,67 +10,53 @@
   body{ font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; background:#f9fafb; margin:0; min-height:100vh; }
   header{ position:fixed; top:0; left:0; right:0; height:64px; background:rgba(255,255,255,0.95); backdrop-filter: blur(6px); box-shadow:0 2px 12px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; z-index:100 }
   header h1{ font-weight:700; font-size:1.25rem; letter-spacing:0.05em; color:#111827 }
-  .close-btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:9999px; background:#ef4444; color:white; font-weight:700; text-decoration:none }
-  main{ padding:80px 1.25rem 96px; max-width:1100px; margin:0 auto }
+  .close-btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:9999px; background:#ef4444; color:white; font-weight:700; text-decoration:none }main{ padding:80px 1.25rem 96px; max-width:1100px; margin:0 auto }
 
-/* Player card */ 
-.player-card{ background:white; border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(15,23,42,0.12); max-width:100%; } 
-.video-wrap{ position:relative; background:black; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; } 
-video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightness(1); transform-origin:center; }
+/* Player card */ .player-card{ background:white; border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(15,23,42,0.12); max-width:100%; } .video-wrap{ position:relative; background:black; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; } video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightness(1); transform-origin:center; }
 
-/* custom controls (icons only) */ 
-.controls{ position:absolute; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between; align-items:center; pointer-events:none } 
-.controls .left, .controls .right{ display:flex; gap:12px; align-items:center; pointer-events:auto } 
-.icon-btn{ background:rgba(0,0,0,0.45); border-radius:9999px; padding:10px; display:inline-flex; align-items:center; justify-content:center; backdrop-filter: blur(4px); } 
-.icon-btn .material-icons{ color:white; font-size:20px }
+/* custom controls (icons only) */ .controls{ position:absolute; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between; align-items:center; pointer-events:none } .controls .left, .controls .right{ display:flex; gap:12px; align-items:center; pointer-events:auto } .icon-btn{ background:rgba(0,0,0,0.45); border-radius:9999px; padding:10px; display:inline-flex; align-items:center; justify-content:center; backdrop-filter: blur(4px); } .icon-btn .material-icons{ color:white; font-size:20px }
 
-/* small overlay labels for volume/brightness */ 
-.indicator{ position:absolute; top:50%; transform:translateY(-50%); left:50%; translate: -50% -50%; background:rgba(0,0,0,0.6); color:white; padding:10px 14px; border-radius:10px; font-weight:700; display:none } 
-.indicator.show{ display:block }
+/* small overlay labels for volume/brightness */ .indicator{ position:absolute; top:50%; transform:translateY(-50%); left:50%; translate: -50% -50%; background:rgba(0,0,0,0.6); color:white; padding:10px 14px; border-radius:10px; font-weight:700; display:none } .indicator.show{ display:block }
 
-/* scrolling ad strip */ 
-.ad-strip{ margin-top:16px; background:transparent; overflow:hidden; border-radius:12px; padding:8px 6px } 
-.ad-track{ display:flex; gap:12px; align-items:center; animation:scroll 18s linear infinite } 
-.ad-item{ flex:0 0 auto; display:flex; gap:8px; align-items:center; padding:8px 12px; background:white; border-radius:10px; box-shadow:0 6px 20px rgba(2,6,23,0.06) } 
-.ad-item img{ width:56px; height:40px; object-fit:cover; border-radius:8px } 
-@keyframes scroll{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+/* scrolling ad strip */ .ad-strip{ margin-top:16px; background:transparent; overflow:hidden; border-radius:12px; padding:8px 6px } .ad-track{ display:flex; gap:12px; align-items:center; animation:scroll 18s linear infinite } .ad-item{ flex:0 0 auto; display:flex; gap:8px; align-items:center; padding:8px 12px; background:white; border-radius:10px; box-shadow:0 6px 20px rgba(2,6,23,0.06) } .ad-item img{ width:56px; height:40px; object-fit:cover; border-radius:8px } @keyframes scroll{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
 
-/* responsive */ 
-@media(max-width:640px){ main{ padding:72px 12px 96px } .icon-btn{ padding:8px } } 
-</style>
+/* responsive */ @media(max-width:640px){ main{ padding:72px 12px 96px } .icon-btn{ padding:8px } } </style>
+
 </head>
 <body>
 <header>
   <h1 id="channelTitle">Player</h1>
   <a class="close-btn" href="index.html" aria-label="Back to channels"><span class="material-icons">close</span>Close</a>
-</header>
-<main>
+</header><main>
   <div class="player-card" id="playerCard">
     <div class="video-wrap" id="videoWrap">
-      <video id="video" playsinline webkit-playsinline></video>
-      <div id="indicator" class="indicator">50%</div>
+      <!-- video element without native controls -->
+      <video id="video" playsinline webkit-playsinline></video><!-- overlay indicator -->
+  <div id="indicator" class="indicator">50%</div>
 
-      <div class="controls" id="controls" aria-hidden="false">
-        <div class="left">
-          <button id="playBtn" class="icon-btn" aria-label="Play/Pause"><span class="material-icons">play_arrow</span></button>
-        </div>
-        <div class="right">
-          <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture"><span class="material-icons">picture_in_picture_alt</span></button>
-          <button id="fsBtn" class="icon-btn" aria-label="Fullscreen"><span class="material-icons">fullscreen</span></button>
-        </div>
-      </div>
+  <!-- custom controls (icons only) -->
+  <div class="controls" id="controls" aria-hidden="false">
+    <div class="left">
+      <button id="playBtn" class="icon-btn" aria-label="Play/Pause"><span class="material-icons">play_arrow</span></button>
     </div>
-
-    <div class="ad-strip" aria-hidden="false">
-      <div class="ad-track" id="adTrack"></div>
+    <div class="right">
+      <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture"><span class="material-icons">picture_in_picture_alt</span></button>
+      <button id="fsBtn" class="icon-btn" aria-label="Fullscreen"><span class="material-icons">fullscreen</span></button>
     </div>
   </div>
-</main>
-<footer style="position:fixed;bottom:0;left:0;right:0;height:64px;background:white;box-shadow:0 -2px 12px rgba(0,0,0,0.08);display:flex;justify-content:space-around;align-items:center;z-index:100">
-  <button class="bottom-nav-btn active" style="display:flex;flex-direction:column;align-items:center;font-weight:600;color:#3b82f6;border:none;background:none"><span class="material-icons">home</span>Home</button>
-</footer>
+</div>
 
-<script type="module">
+<!-- ad strip -->
+<div class="ad-strip" aria-hidden="false">
+  <div class="ad-track" id="adTrack">
+    <!-- ad items appended via JS -->
+  </div>
+</div>
+
+  </div>
+</main><footer style="position:fixed;bottom:0;left:0;right:0;height:64px;background:white;box-shadow:0 -2px 12px rgba(0,0,0,0.08);display:flex;justify-content:space-around;align-items:center;z-index:100">
+  <button class="bottom-nav-btn active" style="display:flex;flex-direction:column;align-items:center;font-weight:600;color:#3b82f6;border:none;background:none"><span class="material-icons">home</span>Home</button>
+</footer><script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -141,7 +127,7 @@ video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightne
   // Fullscreen button
   fsBtn.addEventListener('click', async e => {
     e.stopPropagation();
-    const el = videoWrap;
+    const el = videoWrap; // use the video container for fullscreen
     try {
       if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
         if (el.requestFullscreen) await el.requestFullscreen();
@@ -152,7 +138,9 @@ video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightne
         else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
         else if (document.msExitFullscreen) await document.msExitFullscreen();
       }
-    } catch (err) { console.warn('Fullscreen failed:', err); }
+    } catch (err) {
+      console.warn('Fullscreen failed:', err);
+    }
   });
 
   // Picture-in-Picture button
@@ -160,10 +148,17 @@ video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightne
     e.stopPropagation();
     try {
       if ('pictureInPictureEnabled' in document) {
-        if (video !== document.pictureInPictureElement) { await video.requestPictureInPicture(); }
-        else { await document.exitPictureInPicture(); }
-      } else { console.warn('Picture-in-Picture not supported in this browser'); }
-    } catch (err) { console.warn('PiP failed:', err); }
+        if (video !== document.pictureInPictureElement) {
+          await video.requestPictureInPicture();
+        } else {
+          await document.exitPictureInPicture();
+        }
+      } else {
+        console.warn('Picture-in-Picture not supported in this browser');
+      }
+    } catch (err) {
+      console.warn('PiP failed:', err);
+    }
   });
 
   let pointerDown = false; let startX=0, startY=0; let currentVolume = 0.5; let currentBrightness = 1; video.volume = currentVolume;
@@ -180,20 +175,11 @@ video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightne
   videoWrap.addEventListener('click', async (e)=>{ const now = Date.now(); if(now - lastTap < 300){ if(video.paused){ await video.play(); } else { video.pause(); } } lastTap = now; });
   video.controls = false;
 
-  // **Autoplay with sound workaround**
-  (async () => {
-    try {
-      video.muted = true; // temporary mute to satisfy browser autoplay policy
-      await video.play();
-      isPlaying = true;
-      updatePlayButton();
-      setTimeout(() => { video.muted = false; }, 500); // unmute after starting
-    } catch(e) { console.warn('Autoplay failed:', e); }
-  })();
+  (async()=>{ try{ await video.play(); isPlaying=true; updatePlayButton(); }catch(e){ } })();
 
   window.addEventListener('keydown', e=>{ if(e.code === 'Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); } if(e.code === 'KeyF'){ fsBtn.click(); } });
+
   adTrack.addEventListener('mouseenter', ()=> adTrack.style.animationPlayState='paused');
   adTrack.addEventListener('mouseleave', ()=> adTrack.style.animationPlayState='running');
-</script>
-</body>
+</script></body>
 </html>
