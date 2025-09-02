@@ -157,7 +157,7 @@ function renderChannels(channels) {
     channelList.appendChild(card);
   }
 
-  // Attach handlers (use currentTarget to avoid target issues)
+  // Attach handlers
   document.querySelectorAll(".editBtn").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.dataset.id;
