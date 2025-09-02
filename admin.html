@@ -71,7 +71,6 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
     import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
     // Firebase config
     const firebaseConfig = {
@@ -88,7 +87,6 @@
     // Init Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const auth = getAuth(app);
 
     const form = document.getElementById("channelForm");
     const statusMsg = document.getElementById("statusMsg");
@@ -96,11 +94,12 @@
     const submitBtn = document.getElementById("submitBtn");
 
     function showStatus(message, isError = false) {
-      console.log(isError ? "❌ ERROR:" : "✅ INFO:", message);
+      console.log("STATUS:", message);
       statusMsg.textContent = message;
-      statusMsg.className = isError
-        ? "text-red-600 font-semibold text-center"
-        : "text-green-600 font-semibold text-center";
+      statusMsg.className = isError ? "text-red-600 font-semibold text-center" : "text-green-600 font-semibold text-center";
+      setTimeout(() => {
+        statusMsg.textContent = "";
+      }, 3000);
     }
 
     // Submit form
@@ -122,9 +121,11 @@
 
       try {
         if (channelId) {
+          // Update existing
           await update(ref(db, "channels/" + channelId), { name, icon, stream, category });
           showStatus("✅ Channel updated!");
         } else {
+          // Add new
           const newRef = push(ref(db, "channels"));
           await set(newRef, { name, icon, stream, category });
           showStatus("✅ Channel added!");
@@ -133,114 +134,82 @@
         form.reset();
         document.getElementById("channelId").value = "";
       } catch (error) {
-        console.error("❌ Save error:", error);
+        console.error("❌ Error saving channel:", error);
         showStatus("❌ Error saving channel: " + error.message, true);
       } finally {
         submitBtn.disabled = false;
       }
     });
 
-    // Load channels
-    function loadChannels() {
-      try {
-        const channelsRef = ref(db, "channels");
-        onValue(
-          channelsRef,
-          (snapshot) => {
-            console.log("🔥 Raw snapshot:", snapshot);
-            const data = snapshot.val();
-            console.log("🔥 Snapshot value:", data);
+    // Render channel list
+    try {
+      const channelsRef = ref(db, "channels");
+      onValue(channelsRef, (snapshot) => {
+        console.log("🔥 Snapshot received:", snapshot.val());
+        channelList.innerHTML = "";
+        const data = snapshot.val();
+        if (!data) {
+          channelList.innerHTML = "<p class='text-gray-500'>No channels added yet.</p>";
+          return;
+        }
 
-            channelList.innerHTML = "";
+        Object.entries(data).forEach(([id, ch]) => {
+          console.log("Rendering channel:", id, ch);
+          const card = document.createElement("div");
+          card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
 
-            if (!data) {
-              showStatus("⚠️ No channels found in database.", true);
-              channelList.innerHTML =
-                "<p class='text-gray-500 text-center'>No channels found in Firebase. Check your database path.</p>";
-              return;
+          card.innerHTML = `
+            <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold">${ch.name}</h3>
+              <p class="text-gray-600 text-sm">${ch.category}</p>
+            </div>
+            <div class="flex gap-2">
+              <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
+              <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
+            </div>
+          `;
+
+          channelList.appendChild(card);
+        });
+
+        // Edit channel
+        document.querySelectorAll(".editBtn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const id = e.target.dataset.id;
+            const ch = data[id];
+            document.getElementById("channelId").value = id;
+            document.getElementById("name").value = ch.name;
+            document.getElementById("icon").value = ch.icon;
+            document.getElementById("stream").value = ch.stream;
+            document.getElementById("category").value = ch.category;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        });
+
+        // Delete channel
+        document.querySelectorAll(".deleteBtn").forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            const id = e.target.dataset.id;
+            if (confirm("Are you sure you want to delete this channel?")) {
+              try {
+                await remove(ref(db, "channels/" + id));
+                showStatus("✅ Channel deleted!");
+              } catch (err) {
+                console.error("❌ Error deleting channel:", err);
+                showStatus("❌ Error deleting channel: " + err.message, true);
+              }
             }
-
-            Object.entries(data).forEach(([id, ch]) => {
-              console.log("Rendering channel:", id, ch);
-
-              const card = document.createElement("div");
-              card.className =
-                "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
-
-              card.innerHTML = `
-                <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
-                <div class="flex-1">
-                  <h3 class="text-lg font-bold">${ch.name}</h3>
-                  <p class="text-gray-600 text-sm">${ch.category}</p>
-                </div>
-                <div class="flex gap-2">
-                  <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">✏️</button>
-                  <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">❌</button>
-                </div>
-              `;
-
-              channelList.appendChild(card);
-            });
-
-            // Edit channel
-            document.querySelectorAll(".editBtn").forEach(btn => {
-              btn.addEventListener("click", (e) => {
-                const id = e.target.dataset.id;
-                const ch = data[id];
-                document.getElementById("channelId").value = id;
-                document.getElementById("name").value = ch.name;
-                document.getElementById("icon").value = ch.icon;
-                document.getElementById("stream").value = ch.stream;
-                document.getElementById("category").value = ch.category;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              });
-            });
-
-            // Delete channel
-            document.querySelectorAll(".deleteBtn").forEach(btn => {
-              btn.addEventListener("click", async (e) => {
-                const id = e.target.dataset.id;
-                if (confirm("Are you sure you want to delete this channel?")) {
-                  try {
-                    await remove(ref(db, "channels/" + id));
-                    showStatus("✅ Channel deleted!");
-                  } catch (err) {
-                    console.error("❌ Delete error:", err);
-                    showStatus("❌ Error deleting channel: " + err.message, true);
-                  }
-                }
-              });
-            });
-          },
-          (error) => {
-            console.error("❌ Firebase read error:", error);
-            showStatus("❌ Error loading channels: " + error.message, true);
-            channelList.innerHTML =
-              "<p class='text-red-600 text-center'>Error loading channels: " +
-              error.message +
-              "</p>";
-          }
-        );
-      } catch (err) {
-        console.error("❌ Unexpected error:", err);
-        showStatus("❌ Unexpected error: " + err.message, true);
-        channelList.innerHTML =
-          "<p class='text-red-600 text-center'>Unexpected error: " +
-          err.message +
-          "</p>";
-      }
+          });
+        });
+      }, (error) => {
+        console.error("❌ Error loading channels:", error);
+        channelList.innerHTML = `<p class="text-red-600 font-bold">Error loading channels: ${error.message}</p>`;
+      });
+    } catch (err) {
+      console.error("❌ Fatal error initializing channels:", err);
+      channelList.innerHTML = `<p class="text-red-600 font-bold">Fatal error: ${err.message}</p>`;
     }
-
-    // Run after auth check
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("✅ Authenticated as:", user.email || user.uid);
-        loadChannels();
-      } else {
-        console.warn("⚠️ Not signed in → can only read public data.");
-        loadChannels();
-      }
-    });
   </script>
 </body>
 </html>
