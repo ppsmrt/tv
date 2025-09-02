@@ -1,189 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Live Player</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Player - Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <style>
-  body { margin:0; background:#111; font-family:sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; }
-  .player-card { position:relative; max-width:900px; width:100%; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.7); }
-  video { width:100%; display:block; object-fit:cover; border-radius:16px 16px 0 0; z-index:0; }
-  video::-webkit-media-controls { display:none !important; }
-  #header { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#7b5cf7; color:white; font-size:1.4rem; font-weight:bold; z-index:60; border-bottom-left-radius:12px; border-bottom-right-radius:12px; }
-  #header button { background:rgba(255,255,255,0.2); padding:6px 10px; border-radius:6px; transition:all 0.3s; }
-  #header button:hover { background:rgba(255,255,255,0.4); transform:scale(1.1); }
-  #overlayInfo { position:absolute; top:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:6px 10px; border-radius:6px; font-size:14px; z-index:30; }
-  #btnPlayPause { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3rem; color:white; cursor:pointer; z-index:50; transition:transform 0.3s; display:none; }
-  #btnPlayPause:hover { transform:translate(-50%,-50%) scale(1.2); }
-  #startOverlay { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:55; color:white; font-size:2rem; background:rgba(0,0,0,0.5); padding:12px 24px; border-radius:12px; cursor:pointer; text-align:center; transition:all 0.3s; }
-  #controlsContainer { position:relative; display:flex; justify-content:space-around; align-items:center; padding:10px 20px; border-radius:0 0 16px 16px; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); margin-top:-8px; opacity:0; transition:opacity 0.3s; z-index:45; }
-  .control-btn { color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
-  .control-btn:hover { transform:scale(1.2); }
-  #volumeSlider, #speedSelect { background:rgba(255,255,255,0.1); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; }
-  #qualityContainer { display:flex; align-items:center; color:white; }
-  #qualityIndicator { margin-left:6px; font-weight:bold; }
-  /* Ads section */
-  #adsSection { width:100%; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:8px 0; overflow:hidden; border-radius:0 0 16px 16px; margin-top:10px; }
-  #adsText { display:inline-block; white-space:nowrap; color:white; font-weight:bold; animation:scrollAds 10s linear infinite; }
-  @keyframes scrollAds { 0% { transform:translateX(100%);} 100% { transform:translateX(-100%);} }
-</style>
+  body{ font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; background:#f9fafb; margin:0; min-height:100vh; }
+  header{ position:fixed; top:0; left:0; right:0; height:64px; background:rgba(255,255,255,0.95); backdrop-filter: blur(6px); box-shadow:0 2px 12px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; z-index:100 }
+  header h1{ font-weight:700; font-size:1.25rem; letter-spacing:0.05em; color:#111827 }
+  .close-btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:9999px; background:#ef4444; color:white; font-weight:700; text-decoration:none }main{ padding:80px 1.25rem 96px; max-width:1100px; margin:0 auto }
+
+/* Player card */ .player-card{ background:white; border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(15,23,42,0.12); max-width:100%; } .video-wrap{ position:relative; background:black; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; } video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightness(1); transform-origin:center; }
+
+/* custom controls (icons only) */ .controls{ position:absolute; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between; align-items:center; pointer-events:none } .controls .left, .controls .right{ display:flex; gap:12px; align-items:center; pointer-events:auto } .icon-btn{ background:rgba(0,0,0,0.45); border-radius:9999px; padding:10px; display:inline-flex; align-items:center; justify-content:center; backdrop-filter: blur(4px); } .icon-btn .material-icons{ color:white; font-size:20px }
+
+/* small overlay labels for volume/brightness */ .indicator{ position:absolute; top:50%; transform:translateY(-50%); left:50%; translate: -50% -50%; background:rgba(0,0,0,0.6); color:white; padding:10px 14px; border-radius:10px; font-weight:700; display:none } .indicator.show{ display:block }
+
+/* scrolling ad strip */ .ad-strip{ margin-top:16px; background:transparent; overflow:hidden; border-radius:12px; padding:8px 6px } .ad-track{ display:flex; gap:12px; align-items:center; animation:scroll 18s linear infinite } .ad-item{ flex:0 0 auto; display:flex; gap:8px; align-items:center; padding:8px 12px; background:white; border-radius:10px; box-shadow:0 6px 20px rgba(2,6,23,0.06) } .ad-item img{ width:56px; height:40px; object-fit:cover; border-radius:8px } @keyframes scroll{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+
+/* responsive */ @media(max-width:640px){ main{ padding:72px 12px 96px } .icon-btn{ padding:8px } } </style>
+
 </head>
 <body>
+<header>
+  <h1 id="channelTitle">Player</h1>
+  <a class="close-btn" href="index.html" aria-label="Back to channels"><span class="material-icons">close</span>Close</a>
+</header><main>
+  <div class="player-card" id="playerCard">
+    <div class="video-wrap" id="videoWrap">
+      <!-- video element without native controls -->
+      <video id="video" playsinline webkit-playsinline></video><!-- overlay indicator -->
+  <div id="indicator" class="indicator">50%</div>
 
-<div class="player-card">
-  <!-- Video -->
-  <video id="videoPlayer" playsinline controlslist="nodownload nofullscreen noremoteplayback"></video>
-
-  <!-- Start Overlay -->
-  <div id="startOverlay">Start The Live Stream</div>
-
-  <!-- Play/Pause Overlay -->
-  <div id="btnPlayPause"><i class="fa fa-play"></i></div>
-
-  <!-- Overlay Info -->
-  <div id="overlayInfo">Live TV</div>
-
-  <!-- Controls -->
-  <div id="controlsContainer">
-    <div class="control-btn" id="btnPlayPauseBottom"><i class="fa fa-play fa-lg"></i></div>
-    <div class="control-btn" id="btnFullscreen"><i class="fa fa-expand fa-lg"></i></div>
-    <div class="control-btn" id="btnPiP"><i class="fa fa-window-restore fa-lg"></i></div>
-    <div class="control-btn">
-      <i class="fa fa-volume-up fa-lg"></i>
-      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+  <!-- custom controls (icons only) -->
+  <div class="controls" id="controls" aria-hidden="false">
+    <div class="left">
+      <button id="playBtn" class="icon-btn" aria-label="Play/Pause"><span class="material-icons">play_arrow</span></button>
     </div>
-    <div class="control-btn">
-      <i class="fa fa-tachometer-alt fa-lg"></i>
-      <select id="speedSelect">
-        <option value="1" selected>1x</option>
-        <option value="2">2x</option>
-        <option value="3">3x</option>
-      </select>
+    <div class="right">
+      <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture"><span class="material-icons">picture_in_picture_alt</span></button>
+      <button id="fsBtn" class="icon-btn" aria-label="Fullscreen"><span class="material-icons">fullscreen</span></button>
     </div>
-    <div class="control-btn" id="qualityContainer">
-      <i class="fa fa-tv fa-lg"></i>
-      <span id="qualityIndicator">HD</span>
-    </div>
-  </div>
-
-  <!-- Ads Section -->
-  <div id="adsSection">
-    <div id="adsText">Ad: Thanks for watching the videos</div>
   </div>
 </div>
 
-<!-- Header -->
-<div id="header">
-  <span id="channelName">Channel</span>
-  <button id="btnClose"><i class="fa fa-times"></i></button>
+<!-- ad strip -->
+<div class="ad-strip" aria-hidden="false">
+  <div class="ad-track" id="adTrack">
+    <!-- ad items appended via JS -->
+  </div>
 </div>
 
-<script type="module">
-const urlParams = new URLSearchParams(window.location.search);
-const channelNameParam = urlParams.get('name') || "Unknown Channel";
-const streamURL = decodeURIComponent(urlParams.get('stream') || "");
+  </div>
+</main><footer style="position:fixed;bottom:0;left:0;right:0;height:64px;background:white;box-shadow:0 -2px 12px rgba(0,0,0,0.08);display:flex;justify-content:space-around;align-items:center;z-index:100">
+  <button class="bottom-nav-btn active" style="display:flex;flex-direction:column;align-items:center;font-weight:600;color:#3b82f6;border:none;background:none"><span class="material-icons">home</span>Home</button>
+</footer><script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const video = document.getElementById('videoPlayer');
-const startOverlay = document.getElementById('startOverlay');
-const btnPlayPause = document.getElementById('btnPlayPause');
-const btnPlayPauseBottom = document.getElementById('btnPlayPauseBottom');
-const btnClose = document.getElementById('btnClose');
-const controlsContainer = document.getElementById('controlsContainer');
-const channelNameEl = document.getElementById('channelName');
-const qualityIndicator = document.getElementById('qualityIndicator');
-const qualityContainer = document.getElementById('qualityContainer');
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
 
-channelNameEl.textContent = channelNameParam;
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-// Close button
-btnClose.onclick = () => window.location.href = '/tv/index.html';
+  function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
+  function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
 
-// Function to show/hide controls with auto-hide
-let hideControlsTimeout;
-function showControls(){
-  controlsContainer.style.opacity = 1;
-  btnPlayPause.style.opacity = 1;
-  clearTimeout(hideControlsTimeout);
-  hideControlsTimeout = setTimeout(()=>{ controlsContainer.style.opacity = 0; btnPlayPause.style.opacity = 0; }, 3000);
-}
+  const video = document.getElementById('video');
+  const playBtn = document.getElementById('playBtn');
+  const fsBtn = document.getElementById('fsBtn');
+  const pipBtn = document.getElementById('pipBtn');
+  const indicator = document.getElementById('indicator');
+  const channelTitle = document.getElementById('channelTitle');
+  const adTrack = document.getElementById('adTrack');
+  const videoWrap = document.getElementById('videoWrap');
 
-// Play/Pause function
-function togglePlay(){
-  if(video.paused){
-    video.play();
-    btnPlayPause.innerHTML='<i class="fa fa-pause"></i>';
-    btnPlayPauseBottom.innerHTML='<i class="fa fa-pause fa-lg"></i>';
-  } else {
-    video.pause();
-    btnPlayPause.innerHTML='<i class="fa fa-play"></i>';
-    btnPlayPauseBottom.innerHTML='<i class="fa fa-play fa-lg"></i>';
-  }
-}
+  const streamSlug = qs('stream');
+  let isPlaying = false;
+  let lastTap = 0;
 
-// Start overlay click
-startOverlay.onclick = () => {
-  startOverlay.style.display = 'none';
-  btnPlayPause.style.display = 'block';
-  video.play();
-  btnPlayPause.innerHTML='<i class="fa fa-pause"></i>';
-  btnPlayPauseBottom.innerHTML='<i class="fa fa-pause fa-lg"></i>';
-  showControls();
-};
+  const channelsRef = ref(db, 'channels');
+  onValue(channelsRef, snapshot => {
+    if(!snapshot.exists()) return;
+    const data = snapshot.val();
+    const list = Object.values(data).map(c=>({ name:c.name, category:c.category, logo:c.icon, url:c.stream }));
+    let match = list.find(ch=>slugify(ch.name) === streamSlug);
+    if(!match){ match = list.find(ch => slugify(ch.name).includes(streamSlug)); }
+    if(!match){ channelTitle.textContent = 'Stream not found'; video.poster = ''; return; }
+    channelTitle.textContent = match.name;
+    video.src = match.url;
+    video.setAttribute('playsinline','');
+    video.load();
 
-// Video click to show/hide controls
-video.addEventListener('click', showControls);
-
-// Bottom controls
-btnPlayPause.onclick = togglePlay;
-btnPlayPauseBottom.onclick = togglePlay;
-
-// Fullscreen
-document.getElementById('btnFullscreen').onclick = ()=>{ if(video.requestFullscreen) video.requestFullscreen(); };
-
-// PiP
-document.getElementById('btnPiP').onclick = async ()=>{
-  try{ if(document.pictureInPictureElement) await document.exitPictureInPicture();
-  else await video.requestPictureInPicture();
-  }catch(e){console.log(e);}
-};
-
-// Volume
-document.getElementById('volumeSlider').oninput = e => video.volume = e.target.value;
-
-// Speed
-document.getElementById('speedSelect').onchange = e => video.playbackRate = parseFloat(e.target.value);
-
-// HLS setup with HD/SD indicator
-function setupHLS(url){
-  if(Hls.isSupported()){
-    const hls = new Hls();
-    hls.loadSource(url);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED,()=>{
-      const levels = hls.levels;
-      if(levels.length>1){
-        hls.on(Hls.Events.LEVEL_SWITCHED,()=>{
-          const height = hls.levels[hls.currentLevel].height;
-          qualityIndicator.textContent = height>=720?'HD':'SD';
-        });
-        qualityIndicator.textContent = hls.levels[hls.currentLevel].height>=720?'HD':'SD';
-      } else qualityContainer.style.display='none';
+    const ads = [
+      {img:match.logo, text:`Watch ${match.name}`},
+      {img:'https://via.placeholder.com/120x80?text=Ad+1', text:'Premium Content'},
+      {img:'https://via.placeholder.com/120x80?text=Ad+2', text:'Subscribe Now'},
+      {img:'https://via.placeholder.com/120x80?text=Ad+3', text:'New Shows'}
+    ];
+    const items = ads.concat(ads);
+    adTrack.innerHTML = '';
+    items.forEach(a=>{
+      const div = document.createElement('div'); div.className='ad-item';
+      const im = document.createElement('img'); im.src=a.img; im.alt=a.text;
+      const t = document.createElement('div'); t.textContent = a.text; t.style.fontWeight='700';
+      div.appendChild(im); div.appendChild(t); adTrack.appendChild(div);
     });
-  } else if(video.canPlayType('application/vnd.apple.mpegurl')){
-    video.src = url;
-    video.addEventListener('loadedmetadata',()=>video.play());
-    qualityContainer.style.display='none';
-  }
-}
+  });
 
-video.controls = false;
-video.removeAttribute('controls');
-setupHLS(streamURL);
-</script>
+  function updatePlayButton(){ playBtn.querySelector('.material-icons').textContent = isPlaying ? 'pause' : 'play_arrow'; }
+  playBtn.addEventListener('click', async e=>{ e.stopPropagation(); if(video.paused){ await video.play(); isPlaying=true; } else { video.pause(); isPlaying=false; } updatePlayButton(); });
+  video.addEventListener('play', ()=>{ isPlaying=true; updatePlayButton(); });
+  video.addEventListener('pause', ()=>{ isPlaying=false; updatePlayButton(); });
 
-</body>
+  fsBtn.addEventListener('click', async e=>{ e.stopPropagation(); const el = document.documentElement; if(!document.fullscreenElement){ await el.requestFullscreen(); } else { await document.exitFullscreen(); } });
+
+  pipBtn.addEventListener('click', async e=>{ e.stopPropagation(); if('pictureInPictureEnabled' in document){ try{ if(video !== document.pictureInPictureElement) await video.requestPictureInPicture(); else await document.exitPictureInPicture(); }catch(err){ console.warn('PiP failed',err); } } });
+
+  let pointerDown = false; let startX=0, startY=0; let currentVolume = 0.5; let currentBrightness = 1; video.volume = currentVolume;
+
+  function showIndicator(text){ indicator.textContent = text; indicator.classList.add('show'); clearTimeout(indicator._timeout); indicator._timeout = setTimeout(()=>indicator.classList.remove('show'),800); }
+  function onPointerDown(e){ pointerDown = true; startX = e.clientX ?? e.touches?.[0]?.clientX; startY = e.clientY ?? e.touches?.[0]?.clientY; currentVolume = video.volume; const computed = window.getComputedStyle(video).getPropertyValue('filter'); const m = computed.match(/brightness([^)]+)/); currentBrightness = m ? parseFloat(m[1]) : 1; }
+  function onPointerMove(e){ if(!pointerDown) return; const x = e.clientX ?? e.touches?.[0]?.clientX; const y = e.clientY ?? e.touches?.[0]?.clientY; const dy = startY - y; const delta = dy / 200; const isLeft = startX < (window.innerWidth/2); if(isLeft){ let b = Math.min(2, Math.max(0.1, currentBrightness + delta)); video.style.filter = `brightness(${b})`; showIndicator(Math.round(b*100) + '% Brightness'); } else { let v = Math.min(1, Math.max(0, currentVolume + delta)); video.volume = v; showIndicator(Math.round(v*100) + '% Volume'); } }
+  function onPointerUp(e){ pointerDown=false; }
+
+  videoWrap.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+
+  videoWrap.addEventListener('click', async (e)=>{ const now = Date.now(); if(now - lastTap < 300){ if(video.paused){ await video.play(); } else { video.pause(); } } lastTap = now; });
+  video.controls = false;
+
+  (async()=>{ try{ await video.play(); isPlaying=true; updatePlayButton(); }catch(e){ } })();
+
+  window.addEventListener('keydown', e=>{ if(e.code === 'Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); } if(e.code === 'KeyF'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); } });
+
+  adTrack.addEventListener('mouseenter', ()=> adTrack.style.animationPlayState='paused');
+  adTrack.addEventListener('mouseleave', ()=> adTrack.style.animationPlayState='running');
+</script></body>
 </html>
