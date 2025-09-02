@@ -70,6 +70,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/fireba
 import { getDatabase, ref, push, set, update, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
+// 🔥 Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -92,28 +93,35 @@ const filterCategory = document.getElementById("filterCategory");
 
 let allChannels = {};
 
+// 🔐 Authentication & Admin check
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
+    console.warn("No user signed in → redirecting to signin.html");
     window.location.href = "signin.html";
     return;
   }
 
-  // Check admin
+  console.log("User UID:", user.uid);
+
   const adminSnap = await get(ref(db, "admins/" + user.uid));
+  console.log("Admin exists:", adminSnap.exists());
+
   if (!adminSnap.exists()) {
-    alert("Access denied.");
+    alert("Access denied. Your UID is not in /admins.");
     window.location.href = "index.html";
     return;
   }
 
-  // Load channels
+  // ✅ Load channels
   const channelsRef = ref(db, "channels");
   onValue(channelsRef, (snapshot) => {
     allChannels = snapshot.val() || {};
+    console.log("Channels loaded:", allChannels);
     renderChannels(allChannels);
   });
 });
 
+// 🎨 Render channels
 function renderChannels(channels) {
   const searchTerm = searchInput.value.toLowerCase();
   const categoryFilter = filterCategory.value;
@@ -147,6 +155,7 @@ function renderChannels(channels) {
     channelList.appendChild(card);
   });
 
+  // ✏️ Edit
   document.querySelectorAll(".editBtn").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const id = e.target.dataset.id;
@@ -160,6 +169,7 @@ function renderChannels(channels) {
     });
   });
 
+  // ❌ Delete
   document.querySelectorAll(".deleteBtn").forEach(btn => {
     btn.addEventListener("click", async (e) => {
       const id = e.target.dataset.id;
@@ -170,9 +180,11 @@ function renderChannels(channels) {
   });
 }
 
+// 🔎 Search + Filter
 searchInput.addEventListener("input", () => renderChannels(allChannels));
 filterCategory.addEventListener("change", () => renderChannels(allChannels));
 
+// 💾 Save channel
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const channelId = document.getElementById("channelId").value;
