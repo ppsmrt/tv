@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -123,9 +124,42 @@
   video.addEventListener('play', ()=>{ isPlaying=true; updatePlayButton(); });
   video.addEventListener('pause', ()=>{ isPlaying=false; updatePlayButton(); });
 
-  fsBtn.addEventListener('click', async e=>{ e.stopPropagation(); const el = document.documentElement; if(!document.fullscreenElement){ await el.requestFullscreen(); } else { await document.exitFullscreen(); } });
+  // Fullscreen button
+  fsBtn.addEventListener('click', async e => {
+    e.stopPropagation();
+    const el = videoWrap; // use the video container for fullscreen
+    try {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        if (el.requestFullscreen) await el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
+        else if (el.msRequestFullscreen) await el.msRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) await document.exitFullscreen();
+        else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) await document.msExitFullscreen();
+      }
+    } catch (err) {
+      console.warn('Fullscreen failed:', err);
+    }
+  });
 
-  pipBtn.addEventListener('click', async e=>{ e.stopPropagation(); if('pictureInPictureEnabled' in document){ try{ if(video !== document.pictureInPictureElement) await video.requestPictureInPicture(); else await document.exitPictureInPicture(); }catch(err){ console.warn('PiP failed',err); } } });
+  // Picture-in-Picture button
+  pipBtn.addEventListener('click', async e => {
+    e.stopPropagation();
+    try {
+      if ('pictureInPictureEnabled' in document) {
+        if (video !== document.pictureInPictureElement) {
+          await video.requestPictureInPicture();
+        } else {
+          await document.exitPictureInPicture();
+        }
+      } else {
+        console.warn('Picture-in-Picture not supported in this browser');
+      }
+    } catch (err) {
+      console.warn('PiP failed:', err);
+    }
+  });
 
   let pointerDown = false; let startX=0, startY=0; let currentVolume = 0.5; let currentBrightness = 1; video.volume = currentVolume;
 
@@ -143,7 +177,7 @@
 
   (async()=>{ try{ await video.play(); isPlaying=true; updatePlayButton(); }catch(e){ } })();
 
-  window.addEventListener('keydown', e=>{ if(e.code === 'Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); } if(e.code === 'KeyF'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); } });
+  window.addEventListener('keydown', e=>{ if(e.code === 'Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); } if(e.code === 'KeyF'){ fsBtn.click(); } });
 
   adTrack.addEventListener('mouseenter', ()=> adTrack.style.animationPlayState='paused');
   adTrack.addEventListener('mouseleave', ()=> adTrack.style.animationPlayState='running');
