@@ -118,59 +118,97 @@
   <button class="bottom-nav-btn"><span class="material-icons">person</span>Profile</button>
 </footer>
 
-<script>
-const channels = [
-  {name:"Global News",category:"News",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/CNN_Logo.svg/320px-CNN_Logo.svg.png",url:"#"},
-  {name:"Music Mania",category:"Music",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/MTV_Logo_2010.svg/320px-MTV_Logo_2010.svg.png",url:"#"},
-  {name:"Entertainment Hub",category:"Entertainment",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/HBO_Max_Logo.svg/320px-HBO_Max_Logo.svg.png",url:"#"},
-  {name:"World News",category:"News",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/BBC_News_2019.svg/320px-BBC_News_2019.svg.png",url:"#"},
-  {name:"Pop Hits",category:"Music",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/VH1_Logo.svg/320px-VH1_Logo.svg.png",url:"#"},
-  {name:"Movie Central",category:"Entertainment",logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Netflix_2015_logo.svg/320px-Netflix_2015_logo.svg.png",url:"#"}
-];
+<script type="module">
+  // Firebase SDK imports
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const grid=document.getElementById('channelsGrid');
-const searchInput=document.getElementById('searchInput');
-const categoryButtons=document.querySelectorAll('.category-btn');
-let selectedCategory='All';
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
 
-function createChannelCard(c){
-  const a=document.createElement('a');
-  a.href=c.url; a.target='_blank'; a.rel='noopener noreferrer';
-  a.className='channel-card';
-  a.setAttribute('aria-label',`Watch ${c.name}`);
-  const img=document.createElement('img'); img.src=c.logo; img.alt=c.name+' logo'; img.className='channel-image';
-  const overlay=document.createElement('div'); overlay.className='channel-overlay'; overlay.textContent='▶ Watch';
-  const nameDiv=document.createElement('div'); nameDiv.className='channel-name'; nameDiv.textContent=c.name;
-  a.appendChild(img); a.appendChild(overlay); a.appendChild(nameDiv);
-  return a;
-}
+  // Init Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-function renderChannels(filter=''){
-  grid.innerHTML='';
-  const filtered=channels.filter(c=>{
-    const matchCat=selectedCategory==='All'||c.category===selectedCategory;
-    const matchSearch=c.name.toLowerCase().includes(filter.toLowerCase());
-    return matchCat&&matchSearch;
+  // UI elements
+  const grid = document.getElementById('channelsGrid');
+  const searchInput = document.getElementById('searchInput');
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  let selectedCategory = 'All';
+  let channels = [];
+
+  function createChannelCard(c) {
+    const a = document.createElement('a');
+    a.href = c.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    a.className = 'channel-card';
+    a.setAttribute('aria-label', `Watch ${c.name}`);
+
+    const img = document.createElement('img');
+    img.src = c.logo; img.alt = c.name + ' logo'; img.className = 'channel-image';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'channel-overlay';
+    overlay.textContent = '▶ Watch';
+
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'channel-name';
+    nameDiv.textContent = c.name;
+
+    a.appendChild(img); a.appendChild(overlay); a.appendChild(nameDiv);
+    return a;
+  }
+
+  function renderChannels(filter='') {
+    grid.innerHTML = '';
+    const filtered = channels.filter(c => {
+      const matchCat = selectedCategory === 'All' || c.category === selectedCategory;
+      const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
+      return matchCat && matchSearch;
+    });
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
+      return;
+    }
+    filtered.forEach((c, i) => {
+      const card = createChannelCard(c);
+      grid.appendChild(card);
+      setTimeout(() => card.classList.add('show'), i * 100);
+    });
+  }
+
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoryButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
+      });
+      btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+      selectedCategory = btn.dataset.category;
+      renderChannels(searchInput.value);
+    });
   });
-  if(filtered.length===0){grid.innerHTML='<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>'; return;}
-  filtered.forEach((c,i)=>{
-    const card=createChannelCard(c);
-    grid.appendChild(card);
-    setTimeout(()=>card.classList.add('show'),i*100);
-  });
-}
 
-searchInput.addEventListener('input',e=>{renderChannels(e.target.value);});
-categoryButtons.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    categoryButtons.forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});
-    btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-    selectedCategory=btn.dataset.category; renderChannels(searchInput.value);
-  });
-});
+  searchInput.addEventListener('input', e => renderChannels(e.target.value));
 
-renderChannels();
+  // Fetch channels from Firebase (public read)
+  const channelsRef = ref(db, 'channels');
+  onValue(channelsRef, snapshot => {
+    if (snapshot.exists()) {
+      channels = Object.values(snapshot.val());
+      renderChannels(searchInput.value);
+    } else {
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels available.</p>';
+    }
+  });
 </script>
-
 </body>
 </html>
