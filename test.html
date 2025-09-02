@@ -152,7 +152,7 @@
 
     // Use channel name (lowercase, spaces → dashes) for player.html
     const safeName = c.name.toLowerCase().replace(/\s+/g, '-');
-    a.href = `/player.html?${safeName}`;
+    a.href = `player.html?${safeName}`;
 
     a.className = 'channel-card';
     a.setAttribute('aria-label', `Watch ${c.name}`);
