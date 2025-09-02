@@ -54,9 +54,25 @@
 </div>
 
   </div>
-</main><footer style="position:fixed;bottom:0;left:0;right:0;height:64px;background:white;box-shadow:0 -2px 12px rgba(0,0,0,0.08);display:flex;justify-content:space-around;align-items:center;z-index:100">
-  <button class="bottom-nav-btn active" style="display:flex;flex-direction:column;align-items:center;font-weight:600;color:#3b82f6;border:none;background:none"><span class="material-icons">home</span>Home</button>
-</footer><script type="module">
+</main>
+
+<!-- Footer Navigation -->
+  <footer role="navigation">
+    <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
+      <span class="material-icons">home</span>Home
+    </button>
+    <button class="bottom-nav-btn">
+      <span class="material-icons">live_tv</span>Live
+    </button>
+    <button class="bottom-nav-btn">
+      <span class="material-icons">search</span>Search
+    </button>
+    <button class="bottom-nav-btn active" onclick="window.location.href='signin.html'">
+      <span class="material-icons">person</span>Profile
+    </button>
+  </footer>
+
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
