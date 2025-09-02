@@ -199,11 +199,17 @@
 
   searchInput.addEventListener('input', e => renderChannels(e.target.value));
 
-  // Fetch channels from Firebase (public read)
+  // Fetch channels from Firebase (map DB fields to UI fields)
   const channelsRef = ref(db, 'channels');
   onValue(channelsRef, snapshot => {
     if (snapshot.exists()) {
-      channels = Object.values(snapshot.val());
+      const data = snapshot.val();
+      channels = Object.values(data).map(c => ({
+        name: c.name,
+        category: c.category,
+        logo: c.icon,   // DB field "icon"
+        url: c.stream   // DB field "stream"
+      }));
       renderChannels(searchInput.value);
     } else {
       grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels available.</p>';
