@@ -1,23 +1,19 @@
-const headerContainer = document.getElementById("header-container");
-headerContainer.innerHTML = `
-  <header id="header" class="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white p-5 text-2xl font-bold shadow-md flex justify-between items-center">
-    <span>Live TV</span>
-    <span class="notification-icon relative">
-      <i class="fa fa-bell text-2xl"></i>
-      <span class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full"></span>
-    </span>
-  </header>
-`;
+// Header search functionality
+const searchInput = document.getElementById('searchInput');
+const categoryButtons = document.querySelectorAll('.category-btn');
+let selectedCategory = 'All';
 
-// Hide header on scroll
-let lastScroll = 0;
-const header = document.getElementById("header");
-window.addEventListener("scroll", () => {
-  const currentScroll = window.pageYOffset;
-  if (currentScroll > lastScroll && currentScroll > 50) {
-    header.style.transform = "translateY(-100%)";
-  } else {
-    header.style.transform = "translateY(0)";
-  }
-  lastScroll = currentScroll;
+categoryButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    categoryButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+    btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+    selectedCategory = btn.dataset.category;
+    window.dispatchEvent(new CustomEvent('filterChanged', { detail: searchInput.value }));
+  });
 });
+
+searchInput.addEventListener('input', e => {
+  window.dispatchEvent(new CustomEvent('filterChanged', { detail: e.target.value }));
+});
+
+export { selectedCategory };
