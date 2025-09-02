@@ -34,57 +34,65 @@ footer {
   .bottom-nav-btn.active { color:#3b82f6; transform:scale(1.25); font-weight:700; }  
   .bottom-nav-btn.active .material-icons { filter:drop-shadow(0 0 6px #3b82f6); }  
 
-/* responsive */ @media(max-width:640px){ main{ padding:72px 12px 96px } .icon-btn{ padding:8px } } </style>
+/* responsive */ @media(max-width:640px){ main{ padding:72px 12px 96px } .icon-btn{ padding:8px } }
 
+/* Fullscreen fallback for WebView */
+.fullscreen-fallback {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background: black !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+</style>
 </head>
 <body>
 <header>
   <h1 id="channelTitle">Player</h1>
   <a class="close-btn" href="index.html" aria-label="Back to channels"><span class="material-icons">close</span>Close</a>
-</header><main>
+</header>
+<main>
   <div class="player-card" id="playerCard">
     <div class="video-wrap" id="videoWrap">
-      <!-- video element without native controls -->
-      <video id="video" playsinline webkit-playsinline></video><!-- overlay indicator -->
-  <div id="indicator" class="indicator">50%</div>
-
-  <!-- custom controls (icons only) -->
-  <div class="controls" id="controls" aria-hidden="false">
-    <div class="left">
-      <button id="playBtn" class="icon-btn" aria-label="Play/Pause"><span class="material-icons">play_arrow</span></button>
+      <video id="video" playsinline webkit-playsinline></video>
+      <div id="indicator" class="indicator">50%</div>
+      <div class="controls" id="controls" aria-hidden="false">
+        <div class="left">
+          <button id="playBtn" class="icon-btn" aria-label="Play/Pause"><span class="material-icons">play_arrow</span></button>
+        </div>
+        <div class="right">
+          <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture"><span class="material-icons">picture_in_picture_alt</span></button>
+          <button id="fsBtn" class="icon-btn" aria-label="Fullscreen"><span class="material-icons">fullscreen</span></button>
+        </div>
+      </div>
     </div>
-    <div class="right">
-      <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture"><span class="material-icons">picture_in_picture_alt</span></button>
-      <button id="fsBtn" class="icon-btn" aria-label="Fullscreen"><span class="material-icons">fullscreen</span></button>
-    </div>
-  </div>
-</div>
 
-<!-- ad strip -->
-<div class="ad-strip" aria-hidden="false">
-  <div class="ad-track" id="adTrack">
-    <!-- ad items appended via JS -->
-  </div>
-</div>
+    <div class="ad-strip" aria-hidden="false">
+      <div class="ad-track" id="adTrack"></div>
+    </div>
 
   </div>
 </main>
 
-<!-- Footer Navigation -->
-  <footer role="navigation">
-    <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
-      <span class="material-icons">home</span>Home
-    </button>
-    <button class="bottom-nav-btn active">
-      <span class="material-icons">live_tv</span>Live
-    </button>
-    <button class="bottom-nav-btn">
-      <span class="material-icons">search</span>Search
-    </button>
-    <button class="bottom-nav-btn" onclick="window.location.href='signin.html'">
-      <span class="material-icons">person</span>Profile
-    </button>
-  </footer>
+<footer role="navigation">
+  <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
+    <span class="material-icons">home</span>Home
+  </button>
+  <button class="bottom-nav-btn active">
+    <span class="material-icons">live_tv</span>Live
+  </button>
+  <button class="bottom-nav-btn">
+    <span class="material-icons">search</span>Search
+  </button>
+  <button class="bottom-nav-btn" onclick="window.location.href='signin.html'">
+    <span class="material-icons">person</span>Profile
+  </button>
+</footer>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -150,66 +158,93 @@ footer {
   });
 
   function updatePlayButton(){ playBtn.querySelector('.material-icons').textContent = isPlaying ? 'pause' : 'play_arrow'; }
-  playBtn.addEventListener('click', async e=>{ e.stopPropagation(); if(video.paused){ await video.play(); isPlaying=true; } else { video.pause(); isPlaying=false; } updatePlayButton(); });
+  playBtn.addEventListener('click', async e=>{
+    e.stopPropagation();
+    if(video.paused){ await video.play(); isPlaying=true; } else { video.pause(); isPlaying=false; }
+    updatePlayButton();
+  });
   video.addEventListener('play', ()=>{ isPlaying=true; updatePlayButton(); });
   video.addEventListener('pause', ()=>{ isPlaying=false; updatePlayButton(); });
 
-  // Fullscreen button
+  // Fullscreen / fallback
   fsBtn.addEventListener('click', async e => {
     e.stopPropagation();
-    const el = videoWrap; // use the video container for fullscreen
-    try {
-      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-        if (el.requestFullscreen) await el.requestFullscreen();
-        else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
-        else if (el.msRequestFullscreen) await el.msRequestFullscreen();
+    const isFullscreenSupported = document.fullscreenEnabled || 
+                                  document.webkitFullscreenEnabled ||
+                                  document.msFullscreenEnabled;
+
+    if (isFullscreenSupported) {
+      const el = videoWrap;
+      try {
+        if (!document.fullscreenElement) {
+          if (el.requestFullscreen) await el.requestFullscreen();
+          else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
+          else if (el.msRequestFullscreen) await el.msRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) await document.exitFullscreen();
+          else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
+          else if (document.msExitFullscreen) await document.msExitFullscreen();
+        }
+      } catch (err) { console.warn('Fullscreen failed:', err); }
+    } else {
+      // WebView fallback
+      if(!videoWrap.classList.contains('fullscreen-fallback')){
+        videoWrap.classList.add('fullscreen-fallback');
+        document.body.style.overflow='hidden';
       } else {
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
-        else if (document.msExitFullscreen) await document.msExitFullscreen();
+        videoWrap.classList.remove('fullscreen-fallback');
+        document.body.style.overflow='';
       }
-    } catch (err) {
-      console.warn('Fullscreen failed:', err);
     }
   });
 
-  // Picture-in-Picture button
-  pipBtn.addEventListener('click', async e => {
+  // Picture-in-Picture
+  pipBtn.addEventListener('click', async e=>{
     e.stopPropagation();
     try {
-      if ('pictureInPictureEnabled' in document) {
-        if (video !== document.pictureInPictureElement) {
+      if('pictureInPictureEnabled' in document){
+        if(video !== document.pictureInPictureElement){
           await video.requestPictureInPicture();
         } else {
           await document.exitPictureInPicture();
         }
-      } else {
-        console.warn('Picture-in-Picture not supported in this browser');
-      }
-    } catch (err) {
-      console.warn('PiP failed:', err);
-    }
+      } else { console.warn('PiP not supported in this browser'); }
+    } catch(err){ console.warn('PiP failed:', err); }
   });
 
-  let pointerDown = false; let startX=0, startY=0; let currentVolume = 0.5; let currentBrightness = 1; video.volume = currentVolume;
+  // Pointer gestures for volume/brightness
+  let pointerDown=false, startX=0, startY=0, currentVolume=0.5, currentBrightness=1;
+  video.volume = currentVolume;
 
-  function showIndicator(text){ indicator.textContent = text; indicator.classList.add('show'); clearTimeout(indicator._timeout); indicator._timeout = setTimeout(()=>indicator.classList.remove('show'),800); }
-  function onPointerDown(e){ pointerDown = true; startX = e.clientX ?? e.touches?.[0]?.clientX; startY = e.clientY ?? e.touches?.[0]?.clientY; currentVolume = video.volume; const computed = window.getComputedStyle(video).getPropertyValue('filter'); const m = computed.match(/brightness([^)]+)/); currentBrightness = m ? parseFloat(m[1]) : 1; }
-  function onPointerMove(e){ if(!pointerDown) return; const x = e.clientX ?? e.touches?.[0]?.clientX; const y = e.clientY ?? e.touches?.[0]?.clientY; const dy = startY - y; const delta = dy / 200; const isLeft = startX < (window.innerWidth/2); if(isLeft){ let b = Math.min(2, Math.max(0.1, currentBrightness + delta)); video.style.filter = `brightness(${b})`; showIndicator(Math.round(b*100) + '% Brightness'); } else { let v = Math.min(1, Math.max(0, currentVolume + delta)); video.volume = v; showIndicator(Math.round(v*100) + '% Volume'); } }
+  function showIndicator(text){ indicator.textContent=text; indicator.classList.add('show'); clearTimeout(indicator._timeout); indicator._timeout=setTimeout(()=>indicator.classList.remove('show'),800); }
+  function onPointerDown(e){ pointerDown=true; startX=e.clientX??e.touches?.[0]?.clientX; startY=e.clientY??e.touches?.[0]?.clientY; currentVolume=video.volume; const computed=window.getComputedStyle(video).getPropertyValue('filter'); const m=computed.match(/brightness\(([^)]+)\)/); currentBrightness=m?parseFloat(m[1]):1; }
+  function onPointerMove(e){ if(!pointerDown) return; const x=e.clientX??e.touches?.[0]?.clientX; const y=e.clientY??e.touches?.[0]?.clientY; const dy=startY-y; const delta=dy/200; const isLeft=startX<(window.innerWidth/2); if(isLeft){ let b=Math.min(2, Math.max(0.1, currentBrightness+delta)); video.style.filter=`brightness(${b})`; showIndicator(Math.round(b*100)+'% Brightness'); } else { let v=Math.min(1, Math.max(0, currentVolume+delta)); video.volume=v; showIndicator(Math.round(v*100)+'% Volume'); } }
   function onPointerUp(e){ pointerDown=false; }
 
   videoWrap.addEventListener('pointerdown', onPointerDown);
   window.addEventListener('pointermove', onPointerMove);
   window.addEventListener('pointerup', onPointerUp);
 
-  videoWrap.addEventListener('click', async (e)=>{ const now = Date.now(); if(now - lastTap < 300){ if(video.paused){ await video.play(); } else { video.pause(); } } lastTap = now; });
-  video.controls = false;
+  // Double tap to play/pause
+  videoWrap.addEventListener('click', async e=>{
+    const now=Date.now();
+    if(now-lastTap<300){
+      if(video.paused) await video.play();
+      else video.pause();
+    }
+    lastTap=now;
+  });
 
+  video.controls=false;
   (async()=>{ try{ await video.play(); isPlaying=true; updatePlayButton(); }catch(e){ } })();
 
-  window.addEventListener('keydown', e=>{ if(e.code === 'Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); } if(e.code === 'KeyF'){ fsBtn.click(); } });
+  window.addEventListener('keydown', e=>{
+    if(e.code==='Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); }
+    if(e.code==='KeyF'){ fsBtn.click(); }
+  });
 
   adTrack.addEventListener('mouseenter', ()=> adTrack.style.animationPlayState='paused');
   adTrack.addEventListener('mouseleave', ()=> adTrack.style.animationPlayState='running');
-</script></body>
+</script>
+</body>
 </html>
