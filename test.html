@@ -7,19 +7,13 @@
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-
 <!-- Google Fonts: Baloo 2 -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
 <style>
-  /* Apply Baloo 2 font to entire page */
-  html {
-    font-family: 'Baloo 2', cursive;
-  }
-  * {
-    font-family: inherit;
-  }
+  /* Global font for entire page */
+  html { font-family: 'Baloo 2', cursive; }
+  * { font-family: inherit; }
 
   body {
     background: #f9fafb;
@@ -34,8 +28,7 @@
     position: fixed; top:0; left:0; right:0; height:64px;
     background: rgba(255,255,255,0.95); backdrop-filter: blur(6px);
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    display:flex; align-items:center; justify-content:space-between;
-    padding:0 1.5rem; z-index:100;
+    display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; z-index:100;
   }
   header h1 { font-weight:700; font-size:1.5rem; letter-spacing:0.05em; color:#111827; }
 
@@ -45,20 +38,13 @@
     border:1.5px solid #d1d5db; font-size:1rem; font-weight:500; color:#374151;
     background:#f3f4f6; transition:0.3s; 
   }
-  .search-container input:focus {
-    outline:none; border-color:#3b82f6; box-shadow:0 0 8px #3b82f6aa; background:white;
-  }
-  .search-container .material-icons {
-    position:absolute; right:12px; top:50%; transform:translateY(-50%);
-    color:#3b82f6; font-size:20px; pointer-events:none;
-  }
+  .search-container input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 8px #3b82f6aa; background:white; }
+  .search-container .material-icons { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#3b82f6; font-size:20px; pointer-events:none; }
 
   main { padding:80px 1.5rem 96px; max-width:1200px; margin:0 auto; }
 
-  .category-bar {
-    display:flex; gap:16px; margin-bottom:24px;
-    overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
-  }
+  /* Category bar */
+  .category-bar { display:flex; gap:16px; margin-bottom:24px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
   .category-bar::-webkit-scrollbar { display:none; }
   .category-btn {
     flex-shrink:0; padding:8px 20px; border-radius:9999px;
@@ -68,9 +54,10 @@
   .category-btn:hover { background:#3b82f6; color:white; }
   .category-btn.active { background:#3b82f6; color:white; box-shadow:0 4px 12px rgb(59 130 246 / 0.4); }
 
-  .channels-grid {
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:24px;
-  }
+  /* Channel grid */
+  .channels-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:24px; }
+
+  /* Channel card */
   .channel-card {
     position:relative; background:white; border-radius:16px; overflow:hidden;
     box-shadow:0 4px 12px rgb(0 0 0 / 0.08); cursor:pointer;
@@ -89,9 +76,11 @@
   .channel-card:hover .channel-overlay { opacity:1; }
   .channel-name { padding:12px 8px; font-weight:700; font-size:1.125rem; text-align:center; user-select:text; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
+  /* Bottom navigation */
   footer {
-    position:fixed; bottom:0; left:0; right:0; height:64px; background:white;
-    box-shadow:0 -2px 12px rgba(0,0,0,0.08); display:flex; justify-content:space-around; align-items:center; z-index:100;
+    position:fixed; bottom:0; left:0; right:0; height:64px;
+    background:white; box-shadow:0 -2px 12px rgba(0,0,0,0.08);
+    display:flex; justify-content:space-around; align-items:center; z-index:100;
   }
   .bottom-nav-btn {
     display:flex; flex-direction:column; align-items:center; font-weight:600; font-size:0.75rem; color:#6b7280;
@@ -102,10 +91,7 @@
   .bottom-nav-btn.active { color:#3b82f6; transform:scale(1.25); font-weight:700; }
   .bottom-nav-btn.active .material-icons { filter:drop-shadow(0 0 6px #3b82f6); }
 
-  @media(max-width:640px){
-    .channels-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px;}
-    .channel-name{font-size:1rem;}
-  }
+  @media(max-width:640px){ .channels-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px;} .channel-name{font-size:1rem;} }
 </style>
 </head>
 <body>
