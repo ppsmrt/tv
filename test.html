@@ -4,248 +4,61 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Player - Live TV</title>
-
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-<!-- Baloo 2 Font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-
-<style>
-  html, body { font-family: 'Baloo 2', cursive; }
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-  #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
-  .controls { transition: opacity 0.3s; }
-  .controls.hidden { opacity: 0; pointer-events: none; }
-
-  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
-  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
-
-  .toast { 
-    background-color: rgba(31, 41, 55, 0.9); 
-    color: white; 
-    padding: 0.5rem 1rem; 
-    border-radius: 0.5rem; 
-    opacity: 0; 
-    transition: opacity 0.3s; 
-    font-weight: 500;
-  }
-  .toast.show { opacity: 1; }
-</style>
+<link rel="stylesheet" href="assets/css/player.css">
 </head>
-
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
-
-<!-- Toast Container -->
-<div id="toastContainer" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 space-y-2 z-50"></div>
-
-<main class="flex-grow pt-16 pb-24">
-
-  <!-- Video Player Card -->
-  <div id="videoWrap" class="relative mx-4 rounded-lg overflow-hidden bg-gray-800">
-    <video id="video" playsinline webkit-playsinline></video>
-
-    <!-- Ad strip -->
-    <div class="ad-strip absolute bottom-0 left-0 w-full">
-      <div id="adProgress" class="ad-progress"></div>
-    </div>
-
-    <!-- Controls -->
-    <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
-      <div class="flex items-center space-x-2">
-        <button id="playBtn" class="material-icons text-white">play_arrow</button>
-        <span id="currentTime" class="text-sm">00:00</span>
-        <div class="w-40 h-1 bg-gray-700 rounded relative">
-          <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
+<body>
+<header>
+  <h1 id="channelTitle">Player</h1>
+  <a class="close-btn" href="index.html" aria-label="Back to channels">
+    <span class="material-icons">close</span>Close
+  </a>
+</header>
+<main>
+  <div class="player-card" id="playerCard">
+    <div class="video-wrap" id="videoWrap">
+      <video id="video" playsinline webkit-playsinline></video>
+      <div id="indicator" class="indicator">50%</div>
+      <div class="controls" id="controls" aria-hidden="false">
+        <div class="left">
+          <button id="playBtn" class="icon-btn" aria-label="Play/Pause">
+            <span class="material-icons">play_arrow</span>
+          </button>
         </div>
-        <span id="duration" class="text-sm">00:00</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <button id="volumeBtn" class="material-icons text-white">volume_up</button>
-        <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
-        <button id="fsBtn" class="material-icons text-white">fullscreen</button>
+        <div class="right">
+          <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture">
+            <span class="material-icons">picture_in_picture_alt</span>
+          </button>
+          <button id="fsBtn" class="icon-btn" aria-label="Fullscreen">
+            <span class="material-icons">fullscreen</span>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Channel Title & Ads -->
-  <h2 id="channelTitle" class="mx-4 mt-2 text-xl font-bold text-white">Loading...</h2>
-  <div id="adTrack" class="flex space-x-2 overflow-x-auto mx-4 mt-2"></div>
+    <div class="ad-strip" aria-hidden="false">
+      <div class="ad-track" id="adTrack"></div>
+    </div>
 
-  <!-- Video Info Section -->
-  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 scrollbar-hide overflow-y-auto max-h-[40vh]">
-    <h2 class="text-xl font-bold">Video Title</h2>
-    <p class="text-gray-300 text-sm">
-      This is a sample description of the video. Here you can add information about the video, program rules, privacy policies, and open-source license notices.
-    </p>
-    <h3 class="font-semibold mt-2">Rules:</h3>
-    <ul class="list-disc list-inside text-gray-300 text-sm">
-      <li>No redistribution of content.</li>
-      <li>Respect copyright and license terms.</li>
-      <li>Use content for personal and educational purposes only.</li>
-    </ul>
-    <h3 class="font-semibold mt-2">Privacy:</h3>
-    <p class="text-gray-300 text-sm">Your data is not stored or shared without consent. For more info, refer to our privacy policies.</p>
-    <h3 class="font-semibold mt-2">Open Source Laws:</h3>
-    <p class="text-gray-300 text-sm">Some libraries used in this player are open-source and licensed under MIT/Apache/GPL. Please refer to individual licenses for details.</p>
   </div>
 </main>
 
-<!-- JS -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
+<footer role="navigation">
+  <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
+    <span class="material-icons">home</span>Home
+  </button>
+  <button class="bottom-nav-btn active">
+    <span class="material-icons">live_tv</span>Live
+  </button>
+  <button class="bottom-nav-btn">
+    <span class="material-icons">search</span>Search
+  </button>
+  <button class="bottom-nav-btn" onclick="window.location.href='signin.html'">
+    <span class="material-icons">person</span>Profile
+  </button>
+</footer>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import Hls from 'https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js';
-
-// Firebase config
-const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-// Utils
-function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
-function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
-
-// DOM
-const video = document.getElementById('video');
-const videoWrap = document.getElementById('videoWrap');
-const playBtn = document.getElementById('playBtn');
-const fsBtn = document.getElementById('fsBtn');
-const pipBtn = document.getElementById('pipBtn');
-const channelTitle = document.getElementById('channelTitle');
-const adTrack = document.getElementById('adTrack');
-const progressBar = document.getElementById('progressBar');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-
-video.volume = 0.5;
-
-// Toast
-function showToast(msg,d=3000){
-    const container=document.getElementById('toastContainer');
-    if(!container) return;
-    const t=document.createElement('div');
-    t.className='toast';
-    t.textContent=msg;
-    container.appendChild(t);
-    setTimeout(()=>t.classList.add('show'),50);
-    setTimeout(()=>{
-        t.classList.remove('show');
-        setTimeout(()=>container.removeChild(t),300);
-    },d);
-}
-
-// Fetch stream
-const streamSlug = qs('stream') || '';
-onValue(ref(db,'channels'), snapshot => {
-    if(!snapshot.exists()) return;
-    const data = snapshot.val();
-    const list = Object.values(data).map(c=>({ name:c.name, logo:c.icon, url:c.stream }));
-    let match = list.find(ch=>slugify(ch.name)===streamSlug);
-    if(!match) match=list.find(ch=>slugify(ch.name).includes(streamSlug));
-    if(!match){
-        channelTitle.textContent='Stream not found';
-        showToast("Channel not found or unavailable.",4000);
-        video.src='';
-        return;
-    }
-
-    channelTitle.textContent = match.name;
-    const streamUrl = match.url;
-
-    // HLS attach
-    function attachStream(url){
-        if(Hls.isSupported() && url.endsWith('.m3u8')){
-            const hls = new Hls({ enableWorker:true, maxRetry:8, startFragPrefetch:true });
-            hls.loadSource(url);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, ()=>{ video.play().catch(()=>showToast("Tap play to start")); });
-            hls.on(Hls.Events.ERROR,(event,data)=>{
-                console.warn("HLS ERROR:",data);
-                if(data.fatal){
-                    switch(data.type){
-                        case Hls.ErrorTypes.NETWORK_ERROR: hls.startLoad(); showToast("Network error, retrying..."); break;
-                        case Hls.ErrorTypes.MEDIA_ERROR: hls.recoverMediaError(); showToast("Media error, recovering..."); break;
-                        default: showToast("Cannot play this stream."); break;
-                    }
-                }
-            });
-        } else { video.src=url; video.play().catch(()=>showToast("Tap play to start")); }
-    }
-
-    attachStream(streamUrl);
-
-    // Ads (example)
-    const ads = [
-        {img:match.logo, text:`Streaming ${match.name} Live Now!`},
-        {img:'https://via.placeholder.com/120x80?text=Ad+2', text:'Subscribe Now'}
-    ];
-    adTrack.innerHTML='';
-    ads.forEach(a=>{
-        const div=document.createElement('div');
-        div.className='ad-item flex flex-col items-center';
-        const im=document.createElement('img'); im.src=a.img; im.alt=a.text; im.className='w-24 h-16 object-cover rounded';
-        const t=document.createElement('div'); t.textContent=a.text; t.className='text-xs mt-1 font-semibold';
-        div.appendChild(im); div.appendChild(t);
-        adTrack.appendChild(div);
-    });
-});
-
-// Play/Pause
-playBtn.addEventListener('click', ()=>{
-    if(video.paused){ video.play().catch(()=>showToast("Tap play to start")); playBtn.textContent='pause'; }
-    else { video.pause(); playBtn.textContent='play_arrow'; }
-});
-
-// Fullscreen
-fsBtn.addEventListener('click', ()=>{
-    if(!document.fullscreenElement) videoWrap.requestFullscreen();
-    else document.exitFullscreen();
-});
-
-// PiP
-pipBtn.addEventListener('click', async ()=>{
-    if(document.pictureInPictureElement) await document.exitPictureInPicture();
-    else await video.requestPictureInPicture();
-});
-
-// Update progress
-video.addEventListener('timeupdate', ()=>{
-    if(video.duration){
-        const prog = (video.currentTime/video.duration)*100;
-        progressBar.style.width=prog+'%';
-        currentTimeEl.textContent=new Date(video.currentTime*1000).toISOString().substr(14,5);
-        durationEl.textContent=new Date(video.duration*1000).toISOString().substr(14,5);
-    }
-});
-
-// Auto-hide controls
-let controlsTimeout;
-const showControls = ()=>{
-    controls.classList.remove('hidden');
-    clearTimeout(controlsTimeout);
-    controlsTimeout=setTimeout(()=>controls.classList.add('hidden'),3000);
-};
-video.addEventListener('mousemove', showControls);
-video.addEventListener('touchstart', showControls);
-</script>
+<script type="module" src="assets/js/player.js"></script>
 </body>
 </html>
