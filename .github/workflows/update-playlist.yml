@@ -2,8 +2,8 @@ name: Update IPTV Playlist
 
 on:
   schedule:
-    - cron: "*/10 * * * *" # every 10 min
-  workflow_dispatch: # manual trigger
+    - cron: "*/10 * * * *" # every 10 minutes
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,29 +17,51 @@ jobs:
       run: |
         echo "Fetching channels.json..."
         curl -s "https://tamilgeo-d10d6-default-rtdb.firebaseio.com/channels.json" -o channels.json
+        echo "Fetched channels.json content:"
+        cat channels.json
 
     - name: Generate playlist.m3u
       run: |
         echo "Generating playlist.m3u..."
         node <<'EOF'
         const fs = require('fs');
-        const data = JSON.parse(fs.readFileSync('channels.json'));
+
+        // Read Firebase data
+        let data;
+        try {
+          data = JSON.parse(fs.readFileSync('channels.json'));
+        } catch(e) {
+          console.error("Error parsing channels.json:", e);
+          process.exit(1);
+        }
+
+        if (!data || Object.keys(data).length === 0) {
+          console.error("No channels found in Firebase data!");
+          fs.writeFileSync("playlist.m3u", "#EXTM3U\n");
+          process.exit(0);
+        }
+
+        // Generate playlist
         let playlist = "#EXTM3U\n";
+        const validChannels = Object.values(data).filter(ch => ch.name && ch.stream);
 
-        if (data) {
-          // Sort channels by category then name
-          const sorted = Object.values(data).sort((a,b) =>
-            a.category.localeCompare(b.category) || a.name.localeCompare(b.name)
-          );
+        if(validChannels.length === 0){
+          console.error("No valid channels found (missing name or stream).");
+        }
 
-          for (const ch of sorted) {
-            playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category}" tvg-logo="${ch.logo}",${ch.name}\n`;
-            playlist += `${ch.stream}\n`;
-          }
+        // Sort by category then name
+        validChannels.sort((a,b) =>
+          (a.category||"").localeCompare(b.category||"") ||
+          (a.name||"").localeCompare(b.name||"")
+        );
+
+        for(const ch of validChannels){
+          playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category||''}" tvg-logo="${ch.logo||''}",${ch.name}\n`;
+          playlist += `${ch.stream}\n`;
         }
 
         fs.writeFileSync("playlist.m3u", playlist);
-        console.log("playlist.m3u generated successfully.");
+        console.log(`playlist.m3u generated successfully with ${validChannels.length} channels.`);
         EOF
 
     - name: Commit & Push playlist.m3u
@@ -47,7 +69,7 @@ jobs:
         git config user.name "GitHub Action"
         git config user.email "actions@github.com"
         git add playlist.m3u
-        git commit -m "Auto-update playlist.m3u" || echo "No changes"
+        git commit -m "Auto-update playlist.m3u" || echo "No changes to commit"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
