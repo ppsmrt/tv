@@ -127,65 +127,105 @@ const progressBar = document.getElementById('progressBar');
 let controlsTimeout;
 video.volume = 0.5;
 
+// Toast notification
+function showToast(message, duration=3000){
+  const container = document.getElementById('toastContainer');
+  if(!container) return;
+  const toast = document.createElement('div');
+  toast.className='toast';
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(()=>toast.classList.add('show'),50);
+  setTimeout(()=>{
+    toast.classList.remove('show');
+    setTimeout(()=>container.removeChild(toast),300);
+  }, duration);
+}
+
 // Fetch stream from Firebase
 const streamSlug = qs('stream') || '';
 onValue(ref(db,'channels'), snapshot => {
   if(!snapshot.exists()) return;
   const data = snapshot.val();
   const list = Object.values(data).map(c=>({ name:c.name, logo:c.icon, url:c.stream }));
+  
   let match = list.find(ch=>slugify(ch.name) === streamSlug);
   if(!match) match = list.find(ch=>slugify(ch.name).includes(streamSlug));
   if(!match){ 
     video.src=''; 
+    showToast("Channel not found or unavailable.",4000);
     return; 
   }
 
   const streamUrl = match.url;
 
+  // Only allow .m3u8 streams
+  if(!streamUrl.endsWith('.m3u8')){
+    video.src='';
+    showToast("Invalid stream format. Only .m3u8 supported.",4000);
+    return;
+  }
+
   // Attach HLS
-  if(Hls.isSupported() && streamUrl.endsWith('.m3u8')){
-    const hls = new Hls({ enableWorker:true, maxRetry:8, startFragPrefetch:true });
+  if(Hls.isSupported()){
+    const hls = new Hls({ enableWorker:true, maxRetry:8, startFragPrefetch:true, debug:false });
     hls.loadSource(streamUrl);
     hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, ()=>video.play().catch(e=>console.warn("Autoplay blocked:",e)));
+
+    hls.on(Hls.Events.MANIFEST_PARSED, ()=>{
+      video.play().catch(e=>showToast("Autoplay blocked, tap play.",3000));
+    });
+
     hls.on(Hls.Events.ERROR, (event,data)=>{
+      console.warn("HLS ERROR:", data);
       if(data.fatal){
         switch(data.type){
-          case Hls.ErrorTypes.NETWORK_ERROR: hls.startLoad(); break;
-          case Hls.ErrorTypes.MEDIA_ERROR: hls.recoverMediaError(); break;
-          default: console.error("Cannot recover HLS",data); break;
+          case Hls.ErrorTypes.NETWORK_ERROR:
+            hls.startLoad();
+            showToast("Network error, retrying...",3000);
+            break;
+          case Hls.ErrorTypes.MEDIA_ERROR:
+            hls.recoverMediaError();
+            showToast("Media error, recovering...",3000);
+            break;
+          default:
+            showToast("Cannot play this stream.",4000);
+            console.error("HLS fatal error:",data);
+            break;
         }
       }
     });
+
   } else {
+    // Safari or native HLS
     video.src = streamUrl;
-    video.play().catch(e=>console.warn("Autoplay blocked:",e));
+    video.play().catch(e=>showToast("Autoplay blocked, tap play.",3000));
   }
 });
 
 // Play/Pause toggle
 playBtn.addEventListener('click', () => {
-  if(video.paused){ video.play(); playBtn.textContent = 'pause'; }
-  else { video.pause(); playBtn.textContent = 'play_arrow'; }
+  if(video.paused){ video.play(); playBtn.textContent='pause'; }
+  else { video.pause(); playBtn.textContent='play_arrow'; }
 });
 
 // Update progress & time
 video.addEventListener('timeupdate', () => {
   const progress = (video.currentTime / video.duration) * 100;
   progressBar.style.width = progress + '%';
-  currentTimeEl.textContent = new Date(video.currentTime * 1000).toISOString().substr(14, 5);
-  durationEl.textContent = new Date(video.duration * 1000).toISOString().substr(14, 5);
+  currentTimeEl.textContent = new Date(video.currentTime*1000).toISOString().substr(14,5);
+  durationEl.textContent = isNaN(video.duration) ? '00:00' : new Date(video.duration*1000).toISOString().substr(14,5);
 });
 
 // Fullscreen toggle
 fsBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) video.parentElement.requestFullscreen();
+  if(!document.fullscreenElement) video.parentElement.requestFullscreen();
   else document.exitFullscreen();
 });
 
 // Picture-in-Picture
 pipBtn.addEventListener('click', async () => {
-  if (document.pictureInPictureElement) await document.exitPictureInPicture();
+  if(document.pictureInPictureElement) await document.exitPictureInPicture();
   else await video.requestPictureInPicture();
 });
 
