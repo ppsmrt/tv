@@ -58,7 +58,7 @@ onValue(channelsRef, snapshot => {
   video.play().catch(err => console.warn('Autoplay failed', err));
 });
 
-// --- Video Controls ---
+// --- Controls Logic ---
 
 // Play/Pause
 playBtn.addEventListener('click', () => {
@@ -74,7 +74,7 @@ playBtn.addEventListener('click', () => {
 // Fullscreen
 fsBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    if(video.requestFullscreen) video.requestFullscreen();
+    if(video.parentElement.requestFullscreen) video.parentElement.requestFullscreen();
     else if(video.webkitEnterFullscreen) video.webkitEnterFullscreen();
     else if(video.msRequestFullscreen) video.msRequestFullscreen();
   } else document.exitFullscreen();
@@ -91,7 +91,7 @@ volumeSlider.addEventListener('input', () => {
   muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
 });
 
-// Auto-hide controls after inactivity
+// Auto-hide controls
 const showControls = () => {
   controls.classList.remove('hidden');
   clearTimeout(controlsTimeout);
@@ -100,14 +100,13 @@ const showControls = () => {
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
 
-// Pinch / Wheel Zoom for Fullscreen
+// Pinch / Wheel Zoom
 video.addEventListener('wheel', e => {
   scale += e.deltaY * -0.001;
   scale = Math.min(Math.max(1, scale), 3);
   video.style.transform = `scale(${scale})`;
 });
 
-// Touch pinch
 video.addEventListener('touchstart', e => {
   if(e.touches.length === 2){
     initialDistance = Math.hypot(
@@ -129,16 +128,18 @@ video.addEventListener('touchmove', e => {
 });
 video.addEventListener('touchend', e => { if(e.touches.length < 2) initialDistance=null; });
 
-// Adjust video size on orientation change for proper fullscreen
-window.addEventListener('orientationchange', () => {
-  if(document.fullscreenElement){
-    video.style.width = '100vw';
-    video.style.height = '100vh';
-  }
-});
+// Maintain fullscreen scaling on resize/orientation change
 window.addEventListener('resize', () => {
   if(document.fullscreenElement){
-    video.style.width = '100vw';
-    video.style.height = '100vh';
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
+  }
+});
+window.addEventListener('orientationchange', () => {
+  if(document.fullscreenElement){
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
   }
 });
