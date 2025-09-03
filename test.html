@@ -15,14 +15,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body { font-family: 'Baloo 2', cursive; }
+  /* Apply Baloo 2 font globally */
+  html, body {
+    font-family: 'Baloo 2', cursive;
+  }
+
+  /* Custom scroll for info section */
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
+  /* Video & overlay */
   #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
   .controls { transition: opacity 0.3s; }
   .controls.hidden { opacity: 0; pointer-events: none; }
 
+  /* Ad strip */
   .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
   .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
 </style>
@@ -80,6 +87,8 @@
 </main>
 
 <!-- JS -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -94,15 +103,10 @@ const durationEl = document.getElementById('duration');
 const progressBar = document.getElementById('progressBar');
 const videoTitle = document.getElementById('videoTitle');
 
-let isPlaying = false;
 let controlsTimeout;
+let isPlaying = false;
 
-function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
-function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
-
-const streamSlug = qs('stream');
-
-// Firebase
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -116,20 +120,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
+function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
+
+const streamSlug = qs('stream');
+
+// Fetch stream from Firebase
 const channelsRef = ref(db, 'channels');
 onValue(channelsRef, snapshot => {
   if(!snapshot.exists()) return;
   const data = snapshot.val();
   const list = Object.values(data).map(c => ({ name: c.name, url: c.stream }));
-  
   let match = list.find(ch => slugify(ch.name) === streamSlug);
-  if(!match) match = list.find(ch => slugify(ch.name).includes(streamSlug));
+  if(!match) match = list.find(ch => slugify(c.name).includes(streamSlug));
   if(!match) return;
 
   videoTitle.textContent = match.name;
-
-  // Native HLS playback
-  video.src = match.url;
+  video.src = match.url; // Native HLS streaming
   video.setAttribute('playsinline','');
   video.load();
   video.play().catch(err => console.warn('Autoplay failed', err));
@@ -142,11 +149,10 @@ playBtn.addEventListener('click', () => {
 });
 
 video.addEventListener('timeupdate', () => {
-  const duration = isFinite(video.duration) ? video.duration : 0;
-  const progress = duration ? (video.currentTime / duration) * 100 : 0;
+  const progress = (video.currentTime / video.duration) * 100;
   progressBar.style.width = progress + '%';
-  currentTimeEl.textContent = new Date(video.currentTime*1000).toISOString().substr(14,5);
-  durationEl.textContent = duration ? new Date(video.duration*1000).toISOString().substr(14,5) : 'Live';
+  currentTimeEl.textContent = new Date(video.currentTime * 1000).toISOString().substr(14, 5);
+  durationEl.textContent = new Date(video.duration * 1000).toISOString().substr(14, 5);
 });
 
 fsBtn.addEventListener('click', () => {
@@ -168,6 +174,5 @@ const showControls = () => {
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
 </script>
-
 </body>
 </html>
