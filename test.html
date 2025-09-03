@@ -18,9 +18,14 @@
   /* Apply Baloo 2 font globally */
   html, body {
     font-family: 'Baloo 2', cursive;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #111;
+    overscroll-behavior: none;
   }
 
-  /* Video & overlay */
+  /* Video default */
   #video {
     width: 100%;
     height: auto;
@@ -30,12 +35,45 @@
     transition: transform 0.2s ease;
   }
 
-  .controls { transition: opacity 0.3s; }
-  .controls.hidden { opacity: 0; pointer-events: none; }
+  /* Fullscreen video adjustments */
+  video:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  /* Safe area for fullscreen */
+  :fullscreen {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Controls transition */
+  .controls {
+    transition: opacity 0.3s;
+  }
+  .controls.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   /* Ad strip */
-  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
-  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
+  .ad-strip {
+    height: 4px;
+    background-color: rgba(255,255,255,0.2);
+    margin-top: 8px;
+  }
+  .ad-progress {
+    height: 100%;
+    background-color: #f87171;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Fullscreen immersive behavior on mobile */
+  body:fullscreen {
+    background: black;
+  }
 </style>
 </head>
 
@@ -121,5 +159,6 @@
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 <script type="module" src="assets/js/test.js"></script>
+<script type="module" src="assets/js/Player.js"></script>
 </body>
 </html>
