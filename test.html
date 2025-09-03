@@ -15,23 +15,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body { font-family: 'Baloo 2', cursive; margin:0; padding:0; background:black; height:100%; }
-  #video { width:100%; height:100%; object-fit:cover; background:black; }
-  .controls { position:absolute; bottom:10px; left:10px; right:10px; display:flex; justify-between; align-items:center; background:rgba(0,0,0,0.5); padding:10px; border-radius:8px; }
-  .controls button { font-size:24px; color:white; cursor:pointer; }
-  .live-label { font-size:16px; color:#f87171; font-weight:bold; }
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    margin: 0; padding: 0;
+    background: #111;
+    color: #fff;
+    height: 100%;
+  }
+
+  /* Video & overlay */
+  #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
+  .controls { transition: opacity 0.3s; }
+  .controls.hidden { opacity: 0; pointer-events: none; }
+
+  /* Ad strip */
+  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
 </style>
 </head>
 
-<body>
-<video id="video" playsinline webkit-playsinline></video>
+<body class="flex flex-col min-h-screen">
 
-<div id="controls" class="controls">
-  <button id="playBtn" class="material-icons">play_arrow</button>
-  <span class="live-label">LIVE</span>
-  <button id="fsBtn" class="material-icons">fullscreen</button>
-</div>
+<main class="flex-grow pt-16 pb-24">
+  <!-- Video Player Card -->
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
+    <div class="relative">
+      <video id="video" playsinline webkit-playsinline></video>
 
+      <!-- Ad strip -->
+      <div class="ad-strip absolute bottom-0 left-0 w-full">
+        <div id="adProgress" class="ad-progress"></div>
+      </div>
+
+      <!-- Simplified Controls -->
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <button id="playBtn" class="material-icons text-white">play_arrow</button>
+          <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
+        </div>
+        <button id="fsBtn" class="material-icons text-white">fullscreen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Info Section (scrollbar intact) -->
+  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
+    <p class="text-gray-300 text-sm">
+      This is a sample description of the video. Here you can add information about the video, program rules, privacy policies, and open-source license notices.
+    </p>
+    <h3 class="font-semibold mt-2">Rules:</h3>
+    <ul class="list-disc list-inside text-gray-300 text-sm">
+      <li>No redistribution of content.</li>
+      <li>Respect copyright and license terms.</li>
+      <li>Use content for personal and educational purposes only.</li>
+    </ul>
+    <h3 class="font-semibold mt-2">Privacy:</h3>
+    <p class="text-gray-300 text-sm">Your data is not stored or shared without consent. For more info, refer to our privacy policies.</p>
+    <h3 class="font-semibold mt-2">Open Source Laws:</h3>
+    <p class="text-gray-300 text-sm">Some libraries used in this player are open-source and licensed under MIT/Apache/GPL. Please refer to individual licenses for details.</p>
+  </div>
+</main>
+
+<!-- JS -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -39,6 +85,11 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10
 const video = document.getElementById('video');
 const playBtn = document.getElementById('playBtn');
 const fsBtn = document.getElementById('fsBtn');
+const controls = document.getElementById('controls');
+const videoTitle = document.getElementById('videoTitle');
+
+let controlsTimeout;
+let isPlaying = false;
 
 // Firebase Config
 const firebaseConfig = {
@@ -69,23 +120,32 @@ onValue(channelsRef, snapshot => {
   if(!match) match = list.find(ch => slugify(c.name).includes(streamSlug));
   if(!match) return;
 
-  video.src = match.url; // Native HLS streaming
+  videoTitle.textContent = match.name;
+  video.src = match.url;
   video.setAttribute('playsinline','');
   video.load();
   video.play().catch(err => console.warn('Autoplay failed', err));
 });
 
-// Play/Pause toggle
+// --- Video Controls ---
 playBtn.addEventListener('click', () => {
-  if(video.paused){ video.play(); playBtn.textContent='pause'; }
-  else { video.pause(); playBtn.textContent='play_arrow'; }
+  if(video.paused){ video.play(); isPlaying=true; playBtn.textContent='pause'; }
+  else { video.pause(); isPlaying=false; playBtn.textContent='play_arrow'; }
 });
 
-// Fullscreen toggle
 fsBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) video.requestFullscreen();
+  if (!document.fullscreenElement) video.parentElement.requestFullscreen({ navigationUI: "hide" });
   else document.exitFullscreen();
 });
+
+// Auto-hide controls
+const showControls = () => {
+  controls.classList.remove('hidden');
+  clearTimeout(controlsTimeout);
+  controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+};
+video.addEventListener('mousemove', showControls);
+video.addEventListener('touchstart', showControls);
 </script>
 </body>
 </html>
