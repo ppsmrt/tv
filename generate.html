@@ -51,13 +51,14 @@ const GITHUB_USER = "ppsmrt";
 const GITHUB_REPO = "tv";
 const FILE_PATH = "playlist.m3u";
 const BRANCH = "main"; // or master
-const GITHUB_TOKEN = ""; // Optional: insert your Personal Access Token if you want push
+const GITHUB_TOKEN = ""; // Optional: insert your token if you want push
 
+// ---------------- DOM ELEMENTS ----------------
 const playlistBox = document.getElementById("playlist-box");
 const downloadBtn = document.getElementById("download");
 const pushBtn = document.getElementById("push");
 
-// ---------------- FETCH AND GENERATE ----------------
+// ---------------- GENERATE PLAYLIST ----------------
 function generatePlaylist(data) {
   let playlist = "#EXTM3U\n";
   const sorted = Object.values(data).sort((a,b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
@@ -68,28 +69,32 @@ function generatePlaylist(data) {
   return playlist;
 }
 
+// ---------------- LOAD FROM FIREBASE ----------------
 function loadPlaylist() {
   const channelsRef = ref(db, "channels");
   onValue(channelsRef, (snapshot) => {
     const data = snapshot.val();
     if (!data) {
-      playlistBox.textContent = "No channels found.";
+      playlistBox.textContent = "No channels found in Firebase.";
       return;
     }
 
     const playlist = generatePlaylist(data);
     playlistBox.textContent = playlist;
 
-    // Create download link
+    // Download link
     const blob = new Blob([playlist], { type: "audio/x-mpegurl" });
     const url = URL.createObjectURL(blob);
     downloadBtn.href = url;
     downloadBtn.download = "playlist.m3u";
     downloadBtn.style.display = "inline-block";
 
-    // Store playlist globally for push
+    // Store playlist for optional GitHub push
     window.currentPlaylist = playlist;
-    if(GITHUB_TOKEN) pushBtn.style.display = "inline-block";
+    if (GITHUB_TOKEN) pushBtn.style.display = "inline-block";
+  }, (error) => {
+    console.error("Firebase error:", error);
+    playlistBox.textContent = "Error loading channels from Firebase.";
   });
 }
 
@@ -102,13 +107,13 @@ async function pushToGitHub() {
 
   const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
 
-  // Get current SHA
+  // Get current file SHA
   const getRes = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` }});
   const getData = await getRes.json();
   const sha = getData.sha;
 
   const body = {
-    message: "Update playlist.m3u via web",
+    message: "Update playlist.m3u via generate.html",
     content: btoa(unescape(encodeURIComponent(window.currentPlaylist))),
     sha: sha,
     branch: BRANCH
@@ -137,7 +142,7 @@ loadPlaylist();
 </head>
 <body>
 <h1>IPTV Playlist Generator</h1>
-<p>Below is your playlist generated from Firebase. You can copy it, download it, or push directly to GitHub.</p>
+<p>Below is your playlist generated from Firebase. You can copy it, download it, or push to GitHub.</p>
 
 <div id="playlist-box">Loading playlist...</div>
 <a id="download" class="btn" style="display:none;">Download Playlist</a>
