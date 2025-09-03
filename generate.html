@@ -6,37 +6,17 @@
 <title>Generate IPTV Playlist</title>
 <style>
   body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; }
-  #playlist-box {
-    white-space: pre-wrap;
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    overflow-x: auto;
-    margin-top: 15px;
-    border: 1px solid #ddd;
-  }
-  .btn {
-    display: inline-block;
-    padding: 10px 15px;
-    margin-top: 15px;
-    background: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+  #playlist-box { white-space: pre-wrap; background: #fff; padding: 15px; border-radius: 8px; font-size: 14px; overflow-x: auto; margin-top: 15px; border: 1px solid #ddd; }
+  .btn { display: inline-block; padding: 10px 15px; margin-top: 15px; background: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
   .btn + .btn { margin-left: 10px; }
 </style>
 </head>
 <body>
 <h1>IPTV Playlist Generator</h1>
-<p>Below is your playlist generated from Firebase. You can copy it, download it, or trigger GitHub Actions to update it online.</p>
+<p>Below is your playlist generated from Firebase. You can copy it or download it.</p>
 
 <div id="playlist-box">Loading playlist...</div>
 <a id="download" class="btn" style="display:none;">Download Playlist</a>
-<button id="push" class="btn" style="display:none;">Trigger GitHub Update</button>
 
 <script>
 const FIREBASE_URL = "https://tamilgeo-d10d6-default-rtdb.firebaseio.com/channels.json";
@@ -44,7 +24,6 @@ const FIREBASE_URL = "https://tamilgeo-d10d6-default-rtdb.firebaseio.com/channel
 // DOM Elements
 const playlistBox = document.getElementById("playlist-box");
 const downloadBtn = document.getElementById("download");
-const pushBtn = document.getElementById("push");
 
 // Generate playlist content
 function generatePlaylist(channels) {
@@ -55,7 +34,7 @@ function generatePlaylist(channels) {
     (a.name||"").localeCompare(b.name||"")
   );
   for(const ch of validChannels) {
-    playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category||''}" tvg-logo="${ch.logo||''}",${ch.name}\n`;
+    playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category||''}" tvg-logo="${ch.icon||''}",${ch.name}\n`;
     playlist += `${ch.stream}\n`;
   }
   return playlist;
@@ -66,8 +45,9 @@ async function loadPlaylist() {
   try {
     const res = await fetch(FIREBASE_URL);
     const data = await res.json();
+    console.log("Fetched data:", data);  // DEBUG LOG
 
-    if(!data || Object.keys(data).length===0){
+    if (!data || Object.keys(data).length === 0) {
       playlistBox.textContent = "No channels found in Firebase.";
       return;
     }
@@ -82,41 +62,11 @@ async function loadPlaylist() {
     downloadBtn.download = "playlist.m3u";
     downloadBtn.style.display = "inline-block";
 
-    // Show push button for manual GitHub workflow trigger
-    pushBtn.style.display = "inline-block";
-    window.currentPlaylist = playlist;
-
   } catch(err) {
     console.error(err);
     playlistBox.textContent = "Error loading channels from Firebase.";
   }
 }
-
-// Optional: Trigger GitHub Actions workflow via API
-async function triggerWorkflow() {
-  const WORKFLOW_API = "https://api.github.com/repos/ppsmrt/tv/actions/workflows/update-playlist.yml/dispatches";
-  const TOKEN = ""; // Optional: your personal token if you want push
-  if(!TOKEN){
-    alert("Set GitHub token in the script to trigger workflow.");
-    return;
-  }
-  const res = await fetch(WORKFLOW_API, {
-    method: "POST",
-    headers: {
-      "Accept": "application/vnd.github+json",
-      "Authorization": `token ${TOKEN}`
-    },
-    body: JSON.stringify({ "ref": "main" })
-  });
-  if(res.ok){
-    alert("GitHub workflow triggered successfully!");
-  } else {
-    alert("Failed to trigger workflow. See console.");
-    console.error(await res.json());
-  }
-}
-
-pushBtn.addEventListener("click", triggerWorkflow);
 
 // Initialize
 loadPlaylist();
