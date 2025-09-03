@@ -9,12 +9,10 @@
 <link rel="stylesheet" href="assets/css/player.css">
 </head>
 <body>
-<header>
-  <h1 id="channelTitle">Player</h1>
-  <a class="close-btn" href="index.html" aria-label="Back to channels">
-    <span class="material-icons">close</span>Close
-  </a>
-</header>
+
+<!-- Header will be injected -->
+<div id="headerContainer"></div>
+
 <main>
   <div class="player-card" id="playerCard">
     <div class="video-wrap" id="videoWrap">
@@ -44,21 +42,11 @@
   </div>
 </main>
 
-<footer role="navigation">
-  <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
-    <span class="material-icons">home</span>Home
-  </button>
-  <button class="bottom-nav-btn active">
-    <span class="material-icons">live_tv</span>Live
-  </button>
-  <button class="bottom-nav-btn">
-    <span class="material-icons">search</span>Search
-  </button>
-  <button class="bottom-nav-btn" onclick="window.location.href='signin.html'">
-    <span class="material-icons">person</span>Profile
-  </button>
-</footer>
+<!-- Footer will be injected -->
+<div id="footerContainer"></div>
 
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
 <script type="module" src="assets/js/player.js"></script>
 </body>
 </html>
