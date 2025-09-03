@@ -15,12 +15,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body { font-family: 'Baloo 2', cursive; }
+  /* Apply Baloo 2 font globally */
+  html, body {
+    font-family: 'Baloo 2', cursive;
+  }
+
+  /* Custom scroll for info section */
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Video & overlay */
   #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
   .controls { transition: opacity 0.3s; }
   .controls.hidden { opacity: 0; pointer-events: none; }
+
+  /* Ad strip */
   .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
   .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
 </style>
@@ -29,12 +38,17 @@
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
 
 <main class="flex-grow pt-16 pb-24">
+  <!-- Video Player Card -->
   <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
     <div class="relative">
       <video id="video" playsinline webkit-playsinline></video>
+      
+      <!-- Ad strip -->
       <div class="ad-strip absolute bottom-0 left-0 w-full">
         <div id="adProgress" class="ad-progress"></div>
       </div>
+
+      <!-- Controls -->
       <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
         <div class="flex items-center space-x-2">
           <button id="playBtn" class="material-icons text-white">play_arrow</button>
@@ -53,19 +67,48 @@
     </div>
   </div>
 
+  <!-- Video Info Section -->
   <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 scrollbar-hide overflow-y-auto max-h-[40vh]">
     <h2 class="text-xl font-bold" id="videoTitle">Video Title</h2>
     <p class="text-gray-300 text-sm">
-      This is a sample description of the video. Add rules, privacy policies, or license info here.
+      This is a sample description of the video. Here you can add information about the video, program rules, privacy policies, and open-source license notices.
     </p>
+    <h3 class="font-semibold mt-2">Rules:</h3>
+    <ul class="list-disc list-inside text-gray-300 text-sm">
+      <li>No redistribution of content.</li>
+      <li>Respect copyright and license terms.</li>
+      <li>Use content for personal and educational purposes only.</li>
+    </ul>
+    <h3 class="font-semibold mt-2">Privacy:</h3>
+    <p class="text-gray-300 text-sm">Your data is not stored or shared without consent. For more info, refer to our privacy policies.</p>
+    <h3 class="font-semibold mt-2">Open Source Laws:</h3>
+    <p class="text-gray-300 text-sm">Some libraries used in this player are open-source and licensed under MIT/Apache/GPL. Please refer to individual licenses for details.</p>
   </div>
 </main>
 
+<!-- JS -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+
 <script type="module">
+import Hls from 'https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import Hls from 'https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js';
 
+const video = document.getElementById('video');
+const playBtn = document.getElementById('playBtn');
+const fsBtn = document.getElementById('fsBtn');
+const pipBtn = document.getElementById('pipBtn');
+const controls = document.getElementById('controls');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
+const progressBar = document.getElementById('progressBar');
+const videoTitle = document.getElementById('videoTitle');
+
+let controlsTimeout;
+let isPlaying=false;
+
+// --- Firebase Config ---
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -82,72 +125,68 @@ const db = getDatabase(app);
 function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
 function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
 
-const video = document.getElementById('video');
-const playBtn = document.getElementById('playBtn');
-const fsBtn = document.getElementById('fsBtn');
-const pipBtn = document.getElementById('pipBtn');
-const controls = document.getElementById('controls');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-const progressBar = document.getElementById('progressBar');
-const videoTitle = document.getElementById('videoTitle');
-
-let isPlaying=false, controlsTimeout;
 const streamSlug = qs('stream');
 
+// --- Fetch stream from Firebase ---
 const channelsRef = ref(db, 'channels');
-onValue(channelsRef, snapshot=>{
+onValue(channelsRef, snapshot => {
   if(!snapshot.exists()) return;
   const data = snapshot.val();
-  const list = Object.values(data).map(c=>({ name:c.name, url:c.stream }));
-  let match = list.find(ch=>slugify(ch.name) === streamSlug);
-  if(!match){ match = list.find(ch => slugify(ch.name).includes(streamSlug)); }
-  if(!match){ videoTitle.textContent='Stream not found'; return; }
+  const list = Object.values(data).map(c => ({ name: c.name, url: c.stream }));
+  let match = list.find(ch => slugify(ch.name) === streamSlug);
+  if(!match) match = list.find(ch => slugify(ch.name).includes(streamSlug));
+  if(!match) return;
 
   videoTitle.textContent = match.name;
 
-  // Setup HLS
+  // --- HLS Streaming ---
   if(Hls.isSupported()){
     const hls = new Hls();
     hls.loadSource(match.url);
     hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, ()=>{ video.play(); isPlaying=true; playBtn.textContent='pause'; });
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play();
+      playBtn.textContent='pause';
+      isPlaying=true;
+    });
   } else if(video.canPlayType('application/vnd.apple.mpegurl')){
     video.src = match.url;
-    video.addEventListener('loadedmetadata', ()=>{ video.play(); isPlaying=true; playBtn.textContent='pause'; });
+    video.addEventListener('loadedmetadata', () => {
+      video.play();
+      playBtn.textContent='pause';
+      isPlaying=true;
+    });
   }
 });
 
-// Controls
-playBtn.addEventListener('click', ()=>{
+// --- Video Controls ---
+playBtn.addEventListener('click', () => {
   if(video.paused){ video.play(); playBtn.textContent='pause'; isPlaying=true; }
   else { video.pause(); playBtn.textContent='play_arrow'; isPlaying=false; }
 });
 
-video.addEventListener('timeupdate', ()=>{
-  const progress = (video.currentTime/video.duration)*100;
-  progressBar.style.width = progress+'%';
-  currentTimeEl.textContent = new Date(video.currentTime*1000).toISOString().substr(14,5);
-  durationEl.textContent = new Date(video.duration*1000).toISOString().substr(14,5);
+video.addEventListener('timeupdate', () => {
+  const progress = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = progress + '%';
+  currentTimeEl.textContent = new Date(video.currentTime * 1000).toISOString().substr(14, 5);
+  durationEl.textContent = new Date(video.duration * 1000).toISOString().substr(14, 5);
 });
 
-// Fullscreen toggle
-fsBtn.addEventListener('click', ()=>{
-  if(!document.fullscreenElement) video.parentElement.requestFullscreen();
+fsBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) video.parentElement.requestFullscreen();
   else document.exitFullscreen();
 });
 
-// PiP
-pipBtn.addEventListener('click', async ()=>{
-  if(document.pictureInPictureElement) await document.exitPictureInPicture();
+pipBtn.addEventListener('click', async () => {
+  if (document.pictureInPictureElement) await document.exitPictureInPicture();
   else await video.requestPictureInPicture();
 });
 
 // Auto-hide controls
-const showControls = ()=>{
+const showControls = () => {
   controls.classList.remove('hidden');
   clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(()=>controls.classList.add('hidden'), 3000);
+  controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
 };
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
