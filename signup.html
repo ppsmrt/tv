@@ -1,15 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In - Live TV</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Sign Up - Live TV</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-<link rel="stylesheet" href="assets/css/signin.css">
+  <style>
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
+    header, footer {
+      position: fixed;
+      left: 0; right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+    }
+    header {
+      top: 0;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #111827;
+    }
+
+    footer {
+      bottom: 0;
+      height: 64px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .bottom-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #6b7280;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .bottom-nav-btn .material-icons {
+      font-size: 24px;
+      margin-bottom: 2px;
+    }
+    .bottom-nav-btn:hover,
+    .bottom-nav-btn:focus-visible {
+      color: #3b82f6;
+      transform: scale(1.1);
+    }
+    .bottom-nav-btn.active {
+      color: #3b82f6;
+      transform: scale(1.2);
+      font-weight: 700;
+    }
+
+    /* Animation */
+    @keyframes fadeScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .animate-fade-scale {
+      animation: fadeScale 0.6s ease-out forwards;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      margin-top: 64px;
+      margin-bottom: 64px;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: 0.3rem !important;
+      font-size: 0.75rem !important;
+      color: #3b82f6 !important;
+      font-weight: 600;
+    }
+  </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
   <!-- Header -->
   <header>
@@ -17,57 +115,55 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-grow flex flex-col items-center justify-center w-full min-h-screen bg-gradient relative px-4 py-8 sm:py-12">
-  <div class="relative w-full max-w-md animate-fade-scale">
-    <!-- Glassmorphism container -->
-    <div class="glass-container p-6 sm:p-8 rounded-xl shadow-lg">
-      <h2 class="title text-2xl sm:text-3xl font-bold text-center mb-6">Welcome Back</h2>
-      
-      <form id="signinForm" class="space-y-4">
-        <!-- Email -->
-        <div class="relative">
-          <input type="email" id="email" required placeholder=" " class="peer input-field w-full"/>
-          <label for="email" class="input-label">Email</label>
-        </div>
+  <main class="bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div class="relative w-full max-w-md animate-fade-scale">
+      <div class="bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-2xl rounded-2xl shadow-xl p-8 border border-white/30">
+        <h2 class="text-2xl font-extrabold mb-6 text-center text-gray-800">Create Account</h2>
 
-        <!-- Password -->
-        <div class="relative">
-          <input type="password" id="password" required placeholder=" " class="peer input-field w-full"/>
-          <label for="password" class="input-label">Password</label>
-
-          <!-- Show/Hide Password Button -->
-          <button type="button" id="togglePassword" class="toggle-btn">
-            <span class="material-icons">visibility</span>
-          </button>
-
-          <!-- Password Strength -->
-          <div class="strength-bar-container mt-2">
-            <div id="passwordStrength" class="strength-bar"></div>
+        <form id="signupForm" class="space-y-5">
+          <!-- Name -->
+          <div class="relative">
+            <input type="text" id="name" required placeholder=" " 
+                   class="peer w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-transparent transition-all shadow-sm"/>
+            <label for="name" class="absolute left-4 top-3 text-gray-400 text-base transition-all">
+              Full Name
+            </label>
           </div>
-          <p id="strengthText" class="strength-text text-sm mt-1">Password Strength</p>
-        </div>
 
-        <div class="text-right">
-          <a href="forgot-password.html" class="forgot-link text-sm">Forgot Password?</a>
-        </div>
+          <!-- Email -->
+          <div class="relative">
+            <input type="email" id="email" required placeholder=" " 
+                   class="peer w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-transparent transition-all shadow-sm"/>
+            <label for="email" class="absolute left-4 top-3 text-gray-400 text-base transition-all">
+              Email
+            </label>
+          </div>
 
-        <button type="submit" class="signin-btn w-full mt-4">Sign In</button>
-      </form>
+          <!-- Password -->
+          <div class="relative">
+            <input type="password" id="password" required placeholder=" " 
+                   class="peer w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-transparent transition-all shadow-sm"/>
+            <label for="password" class="absolute left-4 top-3 text-gray-400 text-base transition-all">
+              Password
+            </label>
+          </div>
 
-      <p class="mt-4 text-center text-gray-600 text-sm sm:text-base">
-        Don't have an account? 
-        <a href="signup.html" class="signup-link font-medium">Sign Up</a>
-      </p>
+          <!-- Sign Up Button -->
+          <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold shadow-lg hover:scale-105 transition-transform">
+            Sign Up
+          </button>
+        </form>
+
+        <p class="mt-4 text-center text-gray-600">
+          Already have an account? 
+          <a href="signin.html" class="text-indigo-600 font-semibold hover:underline">Sign In</a>
+        </p>
+      </div>
     </div>
+  </main>
 
-    <!-- Decorative circles -->
-    <div class="circle circle-top hidden sm:block"></div>
-    <div class="circle circle-bottom hidden sm:block"></div>
-  </div>
-</main>
-
-  <!-- Footer -->
-  <footer role="navigation">
+  <!-- Footer Navigation -->
+  <footer>
     <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
       <span class="material-icons">home</span>Home
     </button>
@@ -82,6 +178,56 @@
     </button>
   </footer>
 
-  <script type="module" src="assets/js/signin.js"></script>
+  <!-- Firebase & JS -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, browserLocalPersistence, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+      authDomain: "tnm3ulive.firebaseapp.com",
+      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tnm3ulive",
+      storageBucket: "tnm3ulive.appspot.com",
+      messagingSenderId: "80664356882",
+      appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    setPersistence(auth, browserLocalPersistence);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) window.location.href = "index.html";
+    });
+
+    const signupForm = document.getElementById("signupForm");
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Update display name
+        await updateProfile(user, { displayName: name });
+
+        // Add to database
+        await set(ref(db, 'users/' + user.uid), { name, email });
+
+        alert("Account created successfully!");
+        window.location.href = "signin.html";
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+  </script>
+
 </body>
 </html>
