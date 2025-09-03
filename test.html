@@ -24,7 +24,17 @@
   }
 
   /* Video & overlay */
-  #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
+  #video {
+    width: 100%;
+    height: auto;
+    background: black;
+    object-fit: cover;
+  }
+  #video:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
   .controls { transition: opacity 0.3s; }
   .controls.hidden { opacity: 0; pointer-events: none; }
 
@@ -57,7 +67,7 @@
     </div>
   </div>
 
-  <!-- Video Info Section (scrollbar intact) -->
+  <!-- Video Info Section (scrollable) -->
   <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
     <p class="text-gray-300 text-sm">
       This is a sample description of the video. Here you can add information about the video, program rules, privacy policies, and open-source license notices.
@@ -133,9 +143,15 @@ playBtn.addEventListener('click', () => {
   else { video.pause(); isPlaying=false; playBtn.textContent='play_arrow'; }
 });
 
+// Fullscreen works correctly on mobile & desktop
 fsBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) video.parentElement.requestFullscreen({ navigationUI: "hide" });
-  else document.exitFullscreen();
+  if (!document.fullscreenElement) {
+    if (video.requestFullscreen) video.requestFullscreen();
+    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen(); // iOS Safari
+    else if (video.msRequestFullscreen) video.msRequestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
 });
 
 // Auto-hide controls
