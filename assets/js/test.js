@@ -71,13 +71,25 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-// Fullscreen
+// Fullscreen (immersive)
 fsBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    if(video.parentElement.requestFullscreen) video.parentElement.requestFullscreen();
-    else if(video.webkitEnterFullscreen) video.webkitEnterFullscreen();
-    else if(video.msRequestFullscreen) video.msRequestFullscreen();
-  } else document.exitFullscreen();
+    if(video.parentElement.requestFullscreen){
+      video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
+    } else if(video.webkitEnterFullscreen) {
+      video.webkitEnterFullscreen();
+    } else if(video.msRequestFullscreen) {
+      video.msRequestFullscreen();
+    }
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('landscape').catch(()=>{});
+    }
+  } else {
+    document.exitFullscreen();
+    if (screen.orientation && screen.orientation.unlock) {
+      screen.orientation.unlock();
+    }
+  }
 });
 
 // Mute / Volume
@@ -91,14 +103,40 @@ volumeSlider.addEventListener('input', () => {
   muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
 });
 
-// Auto-hide controls
+// Auto-hide controls on interaction
 const showControls = () => {
   controls.classList.remove('hidden');
   clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+  }
 };
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
+
+// Hide controls in landscape by default, visible in portrait
+function updateControlsVisibility() {
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    controls.classList.add('hidden'); // hide in landscape
+  } else {
+    controls.classList.remove('hidden'); // show in portrait
+  }
+}
+window.addEventListener('orientationchange', updateControlsVisibility);
+document.addEventListener('DOMContentLoaded', updateControlsVisibility);
+
+// Tap to toggle controls in landscape
+video.addEventListener('click', () => {
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    if (controls.classList.contains('hidden')) {
+      controls.classList.remove('hidden');
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+    } else {
+      controls.classList.add('hidden');
+    }
+  }
+});
 
 // Pinch / Wheel Zoom
 video.addEventListener('wheel', e => {
@@ -129,17 +167,19 @@ video.addEventListener('touchmove', e => {
 video.addEventListener('touchend', e => { if(e.touches.length < 2) initialDistance=null; });
 
 // Maintain fullscreen scaling on resize/orientation change
-window.addEventListener('resize', () => {
+function applyFullscreenStyles() {
   if(document.fullscreenElement){
     video.style.width = '100%';
     video.style.height = '100%';
     video.style.objectFit = 'cover';
+    video.style.transform = `scale(${scale})`;
+  } else {
+    video.style.width = '';
+    video.style.height = '';
+    video.style.objectFit = '';
+    video.style.transform = '';
   }
-});
-window.addEventListener('orientationchange', () => {
-  if(document.fullscreenElement){
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.objectFit = 'cover';
-  }
-});
+}
+document.addEventListener('fullscreenchange', applyFullscreenStyles);
+window.addEventListener('resize', applyFullscreenStyles);
+window.addEventListener('orientationchange', applyFullscreenStyles);
