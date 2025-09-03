@@ -64,7 +64,12 @@ jobs:
         console.log(`playlist.m3u generated successfully with ${validChannels.length} channels.`);
         EOF
 
-    - name: Show playlist.m3u
+    - name: Commit & Push updated playlist.m3u
       run: |
-        echo "----- playlist.m3u -----"
-        cat playlist.m3u
+        git config user.name "GitHub Action"
+        git config user.email "actions@github.com"
+        git add playlist.m3u
+        git diff --quiet && echo "No changes to commit" || git commit -m "Auto-update playlist.m3u from Firebase"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
