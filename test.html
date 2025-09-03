@@ -68,16 +68,23 @@
     <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
   </div>
 
-  <!-- Filter & Search -->
+  <!-- Filter, Sort & Search -->
   <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
-    <div>
+    <div class="flex gap-3">
       <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
         <option value="All">All Categories</option>
         <option value="News">News</option>
         <option value="Music">Music</option>
         <option value="Entertainment">Entertainment</option>
       </select>
+
+      <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+        <option value="az">Sort By A-Z</option>
+        <option value="latest">Sort By Latest</option>
+        <option value="oldest">Sort By Oldest</option>
+      </select>
     </div>
+
     <div class="flex items-center gap-2 w-full md:w-auto">
       <i class="fa-solid fa-magnifying-glass text-gray-600"></i>
       <input type="text" id="searchInput" placeholder="Search channel..."
@@ -122,6 +129,7 @@
     const submitBtn = document.getElementById("submitBtn");
     const filterCategory = document.getElementById("filterCategory");
     const searchInput = document.getElementById("searchInput");
+    const sortOption = document.getElementById("sortOption");
 
     let channelsData = {};
 
@@ -148,12 +156,13 @@
 
       submitBtn.disabled = true;
       try {
+        const now = new Date().toISOString();
         if (channelId) {
           await update(ref(db, "channels/" + channelId), { name, icon, stream, category });
           showStatus("✅ Channel updated!");
         } else {
           const newRef = push(ref(db, "channels"));
-          await set(newRef, { name, icon, stream, category });
+          await set(newRef, { name, icon, stream, category, createdAt: now });
           showStatus("✅ Channel added!");
         }
         form.reset();
@@ -169,12 +178,22 @@
       channelList.innerHTML = "";
       const searchTerm = searchInput.value.toLowerCase();
       const selectedCategory = filterCategory.value;
+      const sortBy = sortOption.value;
 
-      const filteredChannels = Object.entries(channelsData).filter(([id, ch]) => {
+      let filteredChannels = Object.entries(channelsData).filter(([id, ch]) => {
         const matchesCategory = selectedCategory === "All" || ch.category === selectedCategory;
         const matchesSearch = ch.name.toLowerCase().includes(searchTerm);
         return matchesCategory && matchesSearch;
       });
+
+      // Sort logic
+      if (sortBy === "az") {
+        filteredChannels.sort((a, b) => a[1].name.localeCompare(b[1].name));
+      } else if (sortBy === "latest") {
+        filteredChannels.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
+      } else if (sortBy === "oldest") {
+        filteredChannels.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
+      }
 
       if (filteredChannels.length === 0) {
         channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>";
@@ -242,6 +261,7 @@
 
     filterCategory.addEventListener("change", renderChannels);
     searchInput.addEventListener("input", renderChannels);
+    sortOption.addEventListener("change", renderChannels);
   </script>
 </body>
 </html>
