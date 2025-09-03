@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Fetch channels from Firebase REST API
@@ -22,7 +22,6 @@ jobs:
 
     - name: Generate playlist.m3u
       run: |
-        echo "Generating playlist.m3u..."
         node <<'EOF'
         const fs = require('fs');
 
@@ -41,21 +40,22 @@ jobs:
           process.exit(0);
         }
 
-        // Generate playlist
-        let playlist = "#EXTM3U\n";
+        // Filter valid channels
         const validChannels = Object.values(data).filter(ch => ch.name && ch.stream);
 
-        if(validChannels.length === 0){
+        if (validChannels.length === 0) {
           console.error("No valid channels found (missing name or stream).");
         }
 
-        // Sort by category then name
+        // Sort channels by category then name
         validChannels.sort((a,b) =>
           (a.category||"").localeCompare(b.category||"") ||
           (a.name||"").localeCompare(b.name||"")
         );
 
-        for(const ch of validChannels){
+        // Generate playlist content
+        let playlist = "#EXTM3U\n";
+        for (const ch of validChannels) {
           playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category||''}" tvg-logo="${ch.logo||''}",${ch.name}\n`;
           playlist += `${ch.stream}\n`;
         }
@@ -64,12 +64,7 @@ jobs:
         console.log(`playlist.m3u generated successfully with ${validChannels.length} channels.`);
         EOF
 
-    - name: Commit & Push playlist.m3u
+    - name: Show playlist.m3u
       run: |
-        git config user.name "GitHub Action"
-        git config user.email "actions@github.com"
-        git add playlist.m3u
-        git commit -m "Auto-update playlist.m3u" || echo "No changes to commit"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        echo "----- playlist.m3u -----"
+        cat playlist.m3u
