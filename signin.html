@@ -11,7 +11,7 @@
 <style>
   body {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    background: #111827; /* Dark background like player page */
+    background: #111827; 
     margin: 0;
     height: 100vh;
     display: flex;
@@ -20,69 +20,14 @@
     -moz-osx-font-smoothing: grayscale;
     color: white;
   }
-  header, footer {
-    position: fixed;
-    left: 0; right: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(6px);
-    z-index: 100;
-  }
-  header {
-    top: 0;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
-  }
-  header h1 {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: white;
-  }
-  footer {
-    bottom: 0;
-    height: 56px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color: #9ca3af;
-  }
-  .bottom-nav-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: 600;
-    font-size: 0.75rem;
-    color: #9ca3af;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-    transition: color 0.3s ease, transform 0.3s ease;
-  }
-  .bottom-nav-btn .material-icons {
-    font-size: 24px;
-    margin-bottom: 2px;
-  }
-  .bottom-nav-btn:hover,
-  .bottom-nav-btn:focus-visible {
-    color: #f87171; /* accent red like player */
-    transform: scale(1.1);
-  }
-  .bottom-nav-btn.active {
-    color: #f87171;
-    transform: scale(1.2);
-    font-weight: 700;
-  }
   main {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    margin-top: 56px;
-    margin-bottom: 56px;
+    margin-top: 56px; /* Leave space for injected header */
+    margin-bottom: 56px; /* Leave space for injected footer */
   }
   input:focus + label,
   input:not(:placeholder-shown) + label {
@@ -95,45 +40,32 @@
 </head>
 <body>
 
-<!-- Header -->
-<header>
-  <div class="flex items-center space-x-2 cursor-pointer" onclick="history.back()">
-    <i class="fa-solid fa-chevron-left text-lg text-white"></i>
-    <span class="font-bold text-lg text-white">Sign In</span>
-  </div>
-  <div class="cursor-pointer">
-    <i class="fa-regular fa-bell text-lg text-white"></i>
-  </div>
-</header>
+<!-- Header placeholder -->
+<div id="header-placeholder"></div>
 
 <!-- Main Content -->
 <main>
   <div class="relative w-full max-w-md animate-fade-scale">
-    <!-- Glassmorphism Container -->
     <div class="bg-gray-800/90 backdrop-blur-2xl rounded-2xl shadow-xl p-8 border border-gray-700/30">
       <h2 class="text-2xl font-extrabold mb-6 text-center text-white">Welcome Back</h2>
 
       <form id="signinForm" class="space-y-5">
-        <!-- Email -->
         <div class="relative">
           <input type="email" id="email" required placeholder=" " 
                  class="peer w-full px-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 text-white placeholder-transparent transition-all shadow-sm"/>
           <label for="email" class="absolute left-4 top-3 text-gray-400 text-base transition-all">Email</label>
         </div>
 
-        <!-- Password -->
         <div class="relative">
           <input type="password" id="password" required placeholder=" " 
                  class="peer w-full px-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 text-white placeholder-transparent transition-all shadow-sm"/>
           <label for="password" class="absolute left-4 top-3 text-gray-400 text-base transition-all">Password</label>
         </div>
 
-        <!-- Forgot Password -->
         <div class="text-right">
           <a href="forgot-password.html" class="text-red-400 text-sm font-medium hover:underline">Forgot Password?</a>
         </div>
 
-        <!-- Sign In Button -->
         <button type="submit" class="w-full py-3 rounded-xl bg-red-500 text-white font-semibold shadow-lg hover:scale-105 transition-transform">
           Sign In
         </button>
@@ -147,21 +79,12 @@
   </div>
 </main>
 
-<!-- Footer Navigation -->
-<footer>
-  <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
-    <span class="material-icons">home</span>Home
-  </button>
-  <button class="bottom-nav-btn">
-    <span class="material-icons">live_tv</span>Live
-  </button>
-  <button class="bottom-nav-btn">
-    <span class="material-icons">search</span>Search
-  </button>
-  <button class="bottom-nav-btn active" onclick="window.location.href='signin.html'">
-    <span class="material-icons">person</span>Profile
-  </button>
-</footer>
+<!-- Footer placeholder -->
+<div id="footer-placeholder"></div>
+
+<!-- Inject Header and Footer -->
+<script src="assets/js/header.js"></script>
+<script src="assets/js/footer.js"></script>
 
 <!-- Firebase & JS -->
 <script type="module">
