@@ -23,7 +23,11 @@
         Channel Manager
       </h1>
     </div>
-    <div></div>
+    <div>
+  <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </button>
+</div>
   </div>
 
   <!-- Form -->
@@ -262,6 +266,21 @@
     filterCategory.addEventListener("change", renderChannels);
     searchInput.addEventListener("input", renderChannels);
     sortOption.addEventListener("change", renderChannels);
+
+//Logout//
+
+const auth = getAuth(app);
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  signOut(auth)
+    .then(() => {
+      alert("✅ Logged out successfully!");
+      window.location.href = "index.html"; // redirect to login page
+    })
+    .catch((error) => {
+      alert("❌ Logout failed: " + error.message);
+    });
+});
   </script>
 </body>
 </html>
