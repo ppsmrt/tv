@@ -171,6 +171,49 @@
         alert(error.message);
       }
     });
+
+  // Show/Hide Password
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+  togglePassword.addEventListener('click', () => {
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+    togglePassword.innerHTML = `<span class="material-icons">${type === 'password' ? 'visibility' : 'visibility_off'}</span>`;
+  });
+
+  // Password Strength Meter
+  const passwordStrength = document.getElementById('passwordStrength');
+  const strengthText = document.getElementById('strengthText');
+
+  passwordInput.addEventListener('input', () => {
+    const val = passwordInput.value;
+    let strength = 0;
+
+    if (val.length >= 6) strength++;
+    if (/[A-Z]/.test(val)) strength++;
+    if (/[0-9]/.test(val)) strength++;
+    if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+    switch(strength) {
+      case 0:
+      case 1:
+        passwordStrength.style.width = '25%';
+        passwordStrength.style.backgroundColor = '#ef4444'; // red
+        strengthText.textContent = 'Weak';
+        break;
+      case 2:
+      case 3:
+        passwordStrength.style.width = '60%';
+        passwordStrength.style.backgroundColor = '#f59e0b'; // orange
+        strengthText.textContent = 'Medium';
+        break;
+      case 4:
+        passwordStrength.style.width = '100%';
+        passwordStrength.style.backgroundColor = '#10b981'; // green
+        strengthText.textContent = 'Strong';
+        break;
+    }
+  });
   </script>
 
 </body>
