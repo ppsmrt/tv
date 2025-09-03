@@ -82,6 +82,15 @@
     .bottom-nav-btn.active .material-icons {
       filter: drop-shadow(0 0 6px #3b82f6);
     }
+
+    /* Animation */
+    @keyframes fadeScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .animate-fade-scale {
+      animation: fadeScale 0.8s ease-out forwards;
+    }
   </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -92,17 +101,18 @@
   </header>
 
   <!-- Main Content -->
-<main class="flex-grow flex items-center justify-center w-full bg-gradient-to-br from-indigo-50 via-white to-purple-50" style="padding-top: 64px; padding-bottom: 64px;">
-  <div class="relative w-full max-w-md">
+<main class="flex-grow flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 px-4"
+      style="min-height: calc(100vh - 128px); margin-top:64px; margin-bottom:64px;">
+  <div class="relative w-full max-w-md animate-fade-scale">
     <!-- Glassmorphism container -->
-    <div class="bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-10 border border-white/30">
+    <div class="bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-2xl rounded-3xl shadow-2xl p-10 border border-white/30">
       <h2 class="text-3xl font-extrabold mb-6 text-center text-gray-800">Welcome Back</h2>
       
       <form id="signinForm" class="space-y-6">
         <!-- Email -->
         <div class="relative">
           <input type="email" id="email" required placeholder=" " 
-                 class="peer w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-transparent transition-all shadow-sm hover:shadow-md transform hover:scale-[1.01]"/>
+                 class="peer w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-transparent transition-all shadow-sm hover:shadow-lg transform hover:scale-[1.01]"/>
           <label for="email" class="absolute left-5 top-4 text-gray-500 text-sm peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-indigo-500 peer-focus:text-sm peer-focus:font-semibold transition-all">
             Email
           </label>
@@ -111,7 +121,7 @@
         <!-- Password -->
         <div class="relative">
           <input type="password" id="password" required placeholder=" " 
-                 class="peer w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-transparent transition-all shadow-sm hover:shadow-md transform hover:scale-[1.01]"/>
+                 class="peer w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 text-gray-800 placeholder-transparent transition-all shadow-sm hover:shadow-lg transform hover:scale-[1.01]"/>
           <label for="password" class="absolute left-5 top-4 text-gray-500 text-sm peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-indigo-500 peer-focus:text-sm peer-focus:font-semibold transition-all">
             Password
           </label>
@@ -123,7 +133,7 @@
         </div>
 
         <!-- Sign In Button -->
-        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold shadow-lg hover:scale-105 transform transition-all">
+        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transform transition-all">
           Sign In
         </button>
       </form>
