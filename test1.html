@@ -14,20 +14,12 @@
 <!-- Baloo 2 Font -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
-<!-- Tailwind config for Baloo 2 -->
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['Baloo 2', 'cursive'],
-        }
-      }
-    }
-  }
-</script>
-
 <style>
+  /* Apply Baloo 2 font globally */
+  html, body {
+    font-family: 'Baloo 2', cursive;
+  }
+
   /* Custom scroll for info section */
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
@@ -43,7 +35,7 @@
 </style>
 </head>
 
-<body class="font-sans bg-gray-900 text-white flex flex-col min-h-screen">
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
 
 <main class="flex-grow pt-16 pb-24">
   <!-- Video Player Card -->
