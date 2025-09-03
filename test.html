@@ -7,22 +7,23 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <style>
-  /* Custom scroll for info section */
+  body { font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; background: #111; color: white; margin: 0; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-  /* Video & overlay */
   #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
   .controls { transition: opacity 0.3s; }
   .controls.hidden { opacity: 0; pointer-events: none; }
-
-  /* Ad strip */
   .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
-  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
-
+  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; display:flex; gap:5px; overflow-x:auto; }
+  .ad-item { display:flex; flex-shrink:0; align-items:center; gap:5px; margin-right:10px; font-size:12px; font-weight:600; }
+  .ad-item img { width:40px; height:30px; object-fit:cover; border-radius:4px; }
+  #indicator { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); padding:5px 10px; background:rgba(0,0,0,0.7); border-radius:6px; display:none; font-weight:700; }
+  #indicator.show { display:block; animation:fadeOut 0.8s forwards; }
+  @keyframes fadeOut { 0% { opacity:1 } 100% { opacity:0 } }
+  .fullscreen-fallback { position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:999; }
 </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen">
 
 <!-- Header -->
 <header class="flex items-center justify-between p-3 bg-black bg-opacity-50 fixed w-full top-0 z-50">
@@ -34,31 +35,27 @@
 </header>
 
 <main class="flex-grow pt-16 pb-24">
-  <!-- Video Player Card -->
-  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
-    <div class="relative">
-      <video id="video" playsinline webkit-playsinline src="assets/video/sample.mp4"></video>
-      
-      <!-- Ad strip -->
-      <div class="ad-strip absolute bottom-0 left-0 w-full">
-        <div id="adProgress" class="ad-progress"></div>
-      </div>
 
-      <!-- Controls -->
-      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
-        <div class="flex items-center space-x-2">
-          <button id="playBtn" class="material-icons text-white">play_arrow</button>
-          <span id="currentTime" class="text-sm">00:00</span>
-          <div class="w-40 h-1 bg-gray-700 rounded relative">
-            <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
-          </div>
-          <span id="duration" class="text-sm">00:00</span>
+  <!-- Video Player Card -->
+  <div id="videoWrap" class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800 relative">
+    <video id="video" playsinline webkit-playsinline></video>
+    <div id="adTrack" class="ad-progress absolute bottom-0 left-0 w-full"></div>
+    <div id="indicator"></div>
+
+    <!-- Controls -->
+    <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
+      <div class="flex items-center space-x-2">
+        <button id="playBtn" class="material-icons text-white">play_arrow</button>
+        <span id="currentTime" class="text-sm">00:00</span>
+        <div class="w-40 h-1 bg-gray-700 rounded relative">
+          <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
         </div>
-        <div class="flex items-center space-x-2">
-          <button id="volumeBtn" class="material-icons text-white">volume_up</button>
-          <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
-          <button id="fsBtn" class="material-icons text-white">fullscreen</button>
-        </div>
+        <span id="duration" class="text-sm">00:00</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <button id="volumeBtn" class="material-icons text-white">volume_up</button>
+        <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
+        <button id="fsBtn" class="material-icons text-white">fullscreen</button>
       </div>
     </div>
   </div>
@@ -80,6 +77,7 @@
     <h3 class="font-semibold mt-2">Open Source Laws:</h3>
     <p class="text-gray-300 text-sm">Some libraries used in this player are open-source and licensed under MIT/Apache/GPL. Please refer to individual licenses for details.</p>
   </div>
+
 </main>
 
 <!-- Bottom Navigation -->
@@ -99,53 +97,7 @@
 </footer>
 
 <!-- JS -->
-<script type="module">
-const video = document.getElementById('video');
-const playBtn = document.getElementById('playBtn');
-const fsBtn = document.getElementById('fsBtn');
-const pipBtn = document.getElementById('pipBtn');
-const controls = document.getElementById('controls');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-const progressBar = document.getElementById('progressBar');
+<script type="module" src="assets/js/test.js"></script>
 
-let controlsTimeout;
-
-// Play/Pause toggle
-playBtn.addEventListener('click', () => {
-  if(video.paused) { video.play(); playBtn.textContent = 'pause'; }
-  else { video.pause(); playBtn.textContent = 'play_arrow'; }
-});
-
-// Update progress & time
-video.addEventListener('timeupdate', () => {
-  const progress = (video.currentTime / video.duration) * 100;
-  progressBar.style.width = progress + '%';
-  currentTimeEl.textContent = new Date(video.currentTime * 1000).toISOString().substr(14, 5);
-  durationEl.textContent = new Date(video.duration * 1000).toISOString().substr(14, 5);
-});
-
-// Fullscreen toggle
-fsBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) video.parentElement.requestFullscreen();
-  else document.exitFullscreen();
-});
-
-// Picture-in-Picture
-pipBtn.addEventListener('click', async () => {
-  if (document.pictureInPictureElement) await document.exitPictureInPicture();
-  else await video.requestPictureInPicture();
-});
-
-// Auto-hide controls
-const showControls = () => {
-  controls.classList.remove('hidden');
-  clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
-};
-video.addEventListener('mousemove', showControls);
-video.addEventListener('touchstart', showControls);
-
-</script>
 </body>
 </html>
