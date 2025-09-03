@@ -2,16 +2,19 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+// HLS.js import (for all non-Safari browsers)
+import Hls from 'https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js';
+
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -43,146 +46,75 @@ const streamSlug = qs('stream') || '';
 const channelsRef = ref(db, 'channels');
 
 onValue(channelsRef, snapshot => {
-  if(!snapshot.exists()) return;
-  const data = snapshot.val();
-  const list = Object.values(data).map(c=>({ name:c.name, category:c.category, logo:c.icon, url:c.stream }));
-  let match = list.find(ch=>slugify(ch.name) === streamSlug);
-  if(!match) match = list.find(ch=>slugify(ch.name).includes(streamSlug));
-  if(!match){ channelTitle.textContent = 'Stream not found'; video.src=''; return; }
+    if(!snapshot.exists()) return;
+    const data = snapshot.val();
+    const list = Object.values(data).map(c=>({ name:c.name, category:c.category, logo:c.icon, url:c.stream }));
+    let match = list.find(ch=>slugify(ch.name) === streamSlug);
+    if(!match) match = list.find(ch=>slugify(ch.name).includes(streamSlug));
+    if(!match){ 
+        channelTitle.textContent = 'Stream not found'; 
+        video.src=''; 
+        return; 
+    }
 
-  channelTitle.textContent = match.name;
-  video.src = match.url;
-  video.setAttribute('playsinline','');
-  video.load();
+    channelTitle.textContent = match.name;
 
-  // Ad placeholders
-  const ads = [
-    {img:match.logo, text:`Streaming ${match.name} Live Now!`},
-    {img:'https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0045275084995112584913406.png', text:'Premium Player Controls'},
-    {img:'https://via.placeholder.com/120x80?text=Ad+2', text:'Subscribe Now'},
-    {img:'https://via.placeholder.com/120x80?text=Ad+3', text:'New Shows'}
-  ];
-  const items = ads.concat(ads);
-  adTrack.innerHTML = '';
-  items.forEach(a=>{
-    const div = document.createElement('div');
-    div.className='ad-item';
-    const im = document.createElement('img'); im.src=a.img; im.alt=a.text;
-    const t = document.createElement('div'); t.textContent = a.text;
-    t.style.fontWeight='700';
-    div.appendChild(im); div.appendChild(t);
-    adTrack.appendChild(div);
-  });
-});
+    const streamUrl = match.url;
 
-// Play/pause toggle
-function updatePlayButton(){ playBtn.textContent = isPlaying?'pause':'play_arrow'; }
-
-playBtn.addEventListener('click', async e=>{
-  e.stopPropagation();
-  if(video.paused){ await video.play(); isPlaying=true; } 
-  else { video.pause(); isPlaying=false; }
-  updatePlayButton();
-});
-
-video.addEventListener('play', ()=>{ isPlaying=true; updatePlayButton(); });
-video.addEventListener('pause', ()=>{ isPlaying=false; updatePlayButton(); });
-
-// Video time/progress
-video.addEventListener('timeupdate', () => {
-  if(video.duration){
-    const progress = (video.currentTime/video.duration)*100;
-    progressBar.style.width = progress+'%';
-    currentTimeEl.textContent = new Date(video.currentTime*1000).toISOString().substr(14,5);
-    durationEl.textContent = new Date(video.duration*1000).toISOString().substr(14,5);
-  }
-});
-
-// Fullscreen
-fsBtn.addEventListener('click', async e=>{
-  e.stopPropagation();
-  const el = videoWrap;
-  try{
-    if(!document.fullscreenElement){
-      if(el.requestFullscreen) await el.requestFullscreen();
-      else if(el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
-      else if(el.msRequestFullscreen) await el.msRequestFullscreen();
+    // HLS support
+    if(Hls.isSupported() && streamUrl.endsWith('.m3u8')){
+        const hls = new Hls({
+            enableWorker: true,
+            // retry settings for HTTP errors
+            xhrSetup: (xhr, url) => { xhr.timeout = 10000; },
+            maxRetry: 6,
+            fragLoadingTimeOut: 10000,
+            fragLoadingMaxRetry: 6
+        });
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.ERROR, (event, data) => {
+            console.warn('HLS.js error', data);
+            if(data.fatal){
+                switch(data.type){
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        console.warn("Fatal network error, trying to recover...");
+                        hls.startLoad();
+                        break;
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        console.warn("Fatal media error, trying to recover...");
+                        hls.recoverMediaError();
+                        break;
+                    default:
+                        console.error("Cannot recover", data);
+                        break;
+                }
+            }
+        });
     } else {
-      if(document.exitFullscreen) await document.exitFullscreen();
-      else if(document.webkitExitFullscreen) await document.webkitExitFullscreen();
-      else if(document.msExitFullscreen) await document.msExitFullscreen();
+        // Native playback (Safari or TS fallback)
+        video.src = streamUrl;
     }
-  } catch(err){ console.warn('Fullscreen failed:', err); }
+
+    video.setAttribute('playsinline','');
+    video.load();
+
+    // Ad placeholders
+    const ads = [
+        {img:match.logo, text:`Streaming ${match.name} Live Now!`},
+        {img:'https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0045275084995112584913406.png', text:'Premium Player Controls'},
+        {img:'https://via.placeholder.com/120x80?text=Ad+2', text:'Subscribe Now'},
+        {img:'https://via.placeholder.com/120x80?text=Ad+3', text:'New Shows'}
+    ];
+    const items = ads.concat(ads);
+    adTrack.innerHTML = '';
+    items.forEach(a=>{
+        const div = document.createElement('div');
+        div.className='ad-item';
+        const im = document.createElement('img'); im.src=a.img; im.alt=a.text;
+        const t = document.createElement('div'); t.textContent = a.text;
+        t.style.fontWeight='700';
+        div.appendChild(im); div.appendChild(t);
+        adTrack.appendChild(div);
+    });
 });
-
-// Picture-in-Picture
-pipBtn.addEventListener('click', async e=>{
-  e.stopPropagation();
-  try{
-    if('pictureInPictureEnabled' in document){
-      if(video !== document.pictureInPictureElement) await video.requestPictureInPicture();
-      else await document.exitPictureInPicture();
-    }
-  } catch(err){ console.warn('PiP failed',err); }
-});
-
-// Gesture: brightness/volume
-function showIndicator(text){ indicator.textContent=text; indicator.classList.add('show'); clearTimeout(indicator._timeout); indicator._timeout=setTimeout(()=>indicator.classList.remove('show'),800); }
-
-function onPointerDown(e){
-  pointerDown=true;
-  startX=e.clientX??e.touches?.[0]?.clientX;
-  startY=e.clientY??e.touches?.[0]?.clientY;
-  currentVolume=video.volume;
-  const computed=window.getComputedStyle(video).getPropertyValue('filter');
-  const m=computed.match(/brightness\(([^)]+)\)/);
-  currentBrightness=m?parseFloat(m[1]):1;
-}
-function onPointerMove(e){
-  if(!pointerDown) return;
-  const x=e.clientX??e.touches?.[0]?.clientX;
-  const y=e.clientY??e.touches?.[0]?.clientY;
-  const dy=startY-y;
-  const delta=dy/200;
-  const isLeft=startX<(window.innerWidth/2);
-  if(isLeft){
-    let b=Math.min(2, Math.max(0.1, currentBrightness+delta));
-    video.style.filter=`brightness(${b})`;
-    showIndicator(Math.round(b*100)+'% Brightness');
-  } else {
-    let v=Math.min(1, Math.max(0, currentVolume+delta));
-    video.volume=v;
-    showIndicator(Math.round(v*100)+'% Volume');
-  }
-}
-function onPointerUp(){ pointerDown=false; }
-
-videoWrap.addEventListener('pointerdown', onPointerDown);
-window.addEventListener('pointermove', onPointerMove);
-window.addEventListener('pointerup', onPointerUp);
-
-// Double tap play/pause
-videoWrap.addEventListener('click', async e=>{
-  const now = Date.now();
-  if(now-lastTap<300){
-    if(video.paused) await video.play();
-    else video.pause();
-  }
-  lastTap=now;
-});
-
-// Keyboard shortcuts
-window.addEventListener('keydown', e=>{
-  if(e.code==='Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); }
-  if(e.code==='KeyF'){ fsBtn.click(); }
-});
-
-// Hide default controls
-video.controls=false;
-
-// Auto-play
-(async()=>{ try{ await video.play(); isPlaying=true; updatePlayButton(); } catch(e){ } })();
-
-// Optional: pause adTrack animation on hover
-adTrack.addEventListener('mouseenter', ()=> adTrack.style.animationPlayState='paused');
-adTrack.addEventListener('mouseleave', ()=> adTrack.style.animationPlayState='running');
