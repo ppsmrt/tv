@@ -14,18 +14,39 @@
 <!-- Baloo 2 Font -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
-<!-- Custom CSS -->
-<link rel="stylesheet" href="assets/css/player.css">
+<style>
+  /* Apply Baloo 2 font globally */
+  html, body {
+    font-family: 'Baloo 2', cursive;
+  }
+
+  /* Video & overlay */
+  #video {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    background: black;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
+
+  .controls { transition: opacity 0.3s; }
+  .controls.hidden { opacity: 0; pointer-events: none; }
+
+  /* Ad strip */
+  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
+  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
+</style>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
 
 <main class="flex-grow pt-16 pb-24">
   <!-- Video Player Card -->
   <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
     <div class="relative">
       <video id="video" playsinline webkit-playsinline></video>
-
+      
       <!-- Ad strip -->
       <div class="ad-strip absolute bottom-0 left-0 w-full">
         <div id="adProgress" class="ad-progress"></div>
@@ -66,6 +87,6 @@
 <!-- JS -->
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/test.js"></script>
+<script type="module" src="assets/js/player.js"></script>
 </body>
 </html>
