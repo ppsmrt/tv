@@ -1,10 +1,18 @@
 // header.js
-
 const path = window.location.pathname.split("/").pop(); // get current page filename
+
+// Function to convert filename to pretty page name
+function getPrettyPageName(filename) {
+  if (!filename) return 'Page'; // fallback
+  const name = filename.replace('.html', '');        // remove .html
+  const words = name.split(/[-_]/);                 // split by - or _
+  const capitalized = words.map(w => w.charAt(0).toUpperCase() + w.slice(1));
+  return capitalized.join(' ');                     // join with spaces
+}
 
 let headerHTML = '';
 
-if(path === 'index.html' || path === '') {
+if (path === 'index.html' || path === '') {
   // Home page header
   headerHTML = `
   <header class="flex items-center justify-between p-3 bg-black bg-opacity-50 fixed w-full top-0 z-50">
@@ -12,9 +20,9 @@ if(path === 'index.html' || path === '') {
     <button aria-label="Notifications" class="material-icons">notifications</button>
   </header>
   `;
-} else if(path === 'player.html') {
+} else if (path === 'player.html') {
   // Player page header
-  const streamName = document.title || 'Channel Name'; // you can dynamically set title
+  const streamName = 'Channel Name'; // or dynamically set if needed
   headerHTML = `
   <header class="flex items-center justify-between p-3 bg-black bg-opacity-50 fixed w-full top-0 z-50">
     <a href="index.html" aria-label="Back" class="flex items-center space-x-1">
@@ -26,7 +34,8 @@ if(path === 'index.html' || path === '') {
   `;
 } else {
   // Other pages
-  const pageName = document.title || 'Page';
+  const pageName = getPrettyPageName(path);
+
   headerHTML = `
   <header class="flex items-center justify-between p-3 bg-black bg-opacity-50 fixed w-full top-0 z-50">
     <a href="javascript:history.back()" aria-label="Back" class="flex items-center space-x-1">
