@@ -29,52 +29,45 @@
   }
   .btn + .btn { margin-left: 10px; }
 </style>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js";
+</head>
+<body>
+<h1>IPTV Playlist Generator</h1>
+<p>Below is your playlist generated from Firebase. You can copy it, download it, or trigger GitHub Actions to update it online.</p>
 
-// ---------------- FIREBASE CONFIG ----------------
-const firebaseConfig = {
-  apiKey: "AIzaSyBJoxttxIrGMSYU-ROjrYng2swbB0owOoA",
-  authDomain: "tamilgeo-d10d6.firebaseapp.com",
-  databaseURL: "https://tamilgeo-d10d6-default-rtdb.firebaseio.com",
-  projectId: "tamilgeo-d10d6",
-  storageBucket: "tamilgeo-d10d6.appspot.com",
-  messagingSenderId: "789895210550",
-  appId: "1:789895210550:web:63f757c9cac09581275a97"
-};
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+<div id="playlist-box">Loading playlist...</div>
+<a id="download" class="btn" style="display:none;">Download Playlist</a>
+<button id="push" class="btn" style="display:none;">Trigger GitHub Update</button>
 
-// ---------------- GITHUB CONFIG ----------------
-const GITHUB_USER = "ppsmrt";
-const GITHUB_REPO = "tv";
-const FILE_PATH = "playlist.m3u";
-const BRANCH = "main"; // or master
-const GITHUB_TOKEN = ""; // Optional: insert your token if you want push
+<script>
+const FIREBASE_URL = "https://tamilgeo-d10d6-default-rtdb.firebaseio.com/channels.json";
 
-// ---------------- DOM ELEMENTS ----------------
+// DOM Elements
 const playlistBox = document.getElementById("playlist-box");
 const downloadBtn = document.getElementById("download");
 const pushBtn = document.getElementById("push");
 
-// ---------------- GENERATE PLAYLIST ----------------
-function generatePlaylist(data) {
+// Generate playlist content
+function generatePlaylist(channels) {
   let playlist = "#EXTM3U\n";
-  const sorted = Object.values(data).sort((a,b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
-  for (const ch of sorted) {
-    playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category}" tvg-logo="${ch.logo}",${ch.name}\n`;
+  const validChannels = Object.values(channels || {}).filter(ch => ch.name && ch.stream);
+  validChannels.sort((a,b) =>
+    (a.category||"").localeCompare(b.category||"") ||
+    (a.name||"").localeCompare(b.name||"")
+  );
+  for(const ch of validChannels) {
+    playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category||''}" tvg-logo="${ch.logo||''}",${ch.name}\n`;
     playlist += `${ch.stream}\n`;
   }
   return playlist;
 }
 
-// ---------------- LOAD FROM FIREBASE ----------------
-function loadPlaylist() {
-  const channelsRef = ref(db, "channels");
-  onValue(channelsRef, (snapshot) => {
-    const data = snapshot.val();
-    if (!data) {
+// Load playlist from Firebase
+async function loadPlaylist() {
+  try {
+    const res = await fetch(FIREBASE_URL);
+    const data = await res.json();
+
+    if(!data || Object.keys(data).length===0){
       playlistBox.textContent = "No channels found in Firebase.";
       return;
     }
@@ -89,63 +82,44 @@ function loadPlaylist() {
     downloadBtn.download = "playlist.m3u";
     downloadBtn.style.display = "inline-block";
 
-    // Store playlist for optional GitHub push
+    // Show push button for manual GitHub workflow trigger
+    pushBtn.style.display = "inline-block";
     window.currentPlaylist = playlist;
-    if (GITHUB_TOKEN) pushBtn.style.display = "inline-block";
-  }, (error) => {
-    console.error("Firebase error:", error);
+
+  } catch(err) {
+    console.error(err);
     playlistBox.textContent = "Error loading channels from Firebase.";
-  });
+  }
 }
 
-// ---------------- PUSH TO GITHUB ----------------
-async function pushToGitHub() {
-  if (!GITHUB_TOKEN) {
-    alert("GitHub token not set in the script.");
+// Optional: Trigger GitHub Actions workflow via API
+async function triggerWorkflow() {
+  const WORKFLOW_API = "https://api.github.com/repos/ppsmrt/tv/actions/workflows/update-playlist.yml/dispatches";
+  const TOKEN = ""; // Optional: your personal token if you want push
+  if(!TOKEN){
+    alert("Set GitHub token in the script to trigger workflow.");
     return;
   }
-
-  const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
-
-  // Get current file SHA
-  const getRes = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` }});
-  const getData = await getRes.json();
-  const sha = getData.sha;
-
-  const body = {
-    message: "Update playlist.m3u via generate.html",
-    content: btoa(unescape(encodeURIComponent(window.currentPlaylist))),
-    sha: sha,
-    branch: BRANCH
-  };
-
-  const putRes = await fetch(url, {
-    method: "PUT",
+  const res = await fetch(WORKFLOW_API, {
+    method: "POST",
     headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
-      Accept: "application/vnd.github+json"
+      "Accept": "application/vnd.github+json",
+      "Authorization": `token ${TOKEN}`
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify({ "ref": "main" })
   });
-
-  if (putRes.ok) {
-    alert("playlist.m3u pushed to GitHub successfully!");
+  if(res.ok){
+    alert("GitHub workflow triggered successfully!");
   } else {
-    const err = await putRes.json();
-    alert("Error pushing to GitHub: " + JSON.stringify(err));
+    alert("Failed to trigger workflow. See console.");
+    console.error(await res.json());
   }
 }
 
-// ---------------- INIT ----------------
+pushBtn.addEventListener("click", triggerWorkflow);
+
+// Initialize
 loadPlaylist();
 </script>
-</head>
-<body>
-<h1>IPTV Playlist Generator</h1>
-<p>Below is your playlist generated from Firebase. You can copy it, download it, or push to GitHub.</p>
-
-<div id="playlist-box">Loading playlist...</div>
-<a id="download" class="btn" style="display:none;">Download Playlist</a>
-<button id="push" class="btn" style="display:none;" onclick="pushToGitHub()">Push to GitHub</button>
 </body>
 </html>
