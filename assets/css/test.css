@@ -1,0 +1,6 @@
+.video-wrap { position: relative; }
+.live-badge { font-size: 0.75rem; }
+.controls { opacity: 1; transition: opacity 0.3s; }
+.controls.hidden { opacity: 0; pointer-events: none; }
+input[type=range] { -webkit-appearance:none; height:4px; background:#555; border-radius:2px; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; height:14px; width:14px; border-radius:50%; background:#f87171; cursor:pointer; margin-top:-5px; }
