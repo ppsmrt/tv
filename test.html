@@ -6,59 +6,146 @@
 <title>Player - Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/player.css">
+<style>
+  /* Custom scroll for info section */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Video & overlay */
+  #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
+  .controls { transition: opacity 0.3s; }
+  .controls.hidden { opacity: 0; pointer-events: none; }
+
+  /* Ad strip */
+  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
+  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
+
+</style>
 </head>
-<body>
-<header>
-  <h1 id="channelTitle">Player</h1>
-  <a class="close-btn" href="index.html" aria-label="Back to channels">
-    <span class="material-icons">close</span>Close
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+
+<!-- Header -->
+<header class="flex items-center justify-between p-3 bg-black bg-opacity-50 fixed w-full top-0 z-50">
+  <a href="index.html" aria-label="Back" class="flex items-center space-x-1">
+    <span class="material-icons">arrow_back</span>
   </a>
+  <h1 id="channelTitle" class="text-lg font-semibold truncate">Channel Name</h1>
+  <button aria-label="More" class="material-icons">more_vert</button>
 </header>
-<main>
-  <div class="player-card" id="playerCard">
-    <div class="video-wrap" id="videoWrap">
-      <video id="video" playsinline webkit-playsinline></video>
-      <div id="indicator" class="indicator">50%</div>
-      <div class="controls" id="controls" aria-hidden="false">
-        <div class="left">
-          <button id="playBtn" class="icon-btn" aria-label="Play/Pause">
-            <span class="material-icons">play_arrow</span>
-          </button>
+
+<main class="flex-grow pt-16 pb-24">
+  <!-- Video Player Card -->
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
+    <div class="relative">
+      <video id="video" playsinline webkit-playsinline src="assets/video/sample.mp4"></video>
+      
+      <!-- Ad strip -->
+      <div class="ad-strip absolute bottom-0 left-0 w-full">
+        <div id="adProgress" class="ad-progress"></div>
+      </div>
+
+      <!-- Controls -->
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <button id="playBtn" class="material-icons text-white">play_arrow</button>
+          <span id="currentTime" class="text-sm">00:00</span>
+          <div class="w-40 h-1 bg-gray-700 rounded relative">
+            <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
+          </div>
+          <span id="duration" class="text-sm">00:00</span>
         </div>
-        <div class="right">
-          <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture">
-            <span class="material-icons">picture_in_picture_alt</span>
-          </button>
-          <button id="fsBtn" class="icon-btn" aria-label="Fullscreen">
-            <span class="material-icons">fullscreen</span>
-          </button>
+        <div class="flex items-center space-x-2">
+          <button id="volumeBtn" class="material-icons text-white">volume_up</button>
+          <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
+          <button id="fsBtn" class="material-icons text-white">fullscreen</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="ad-strip" aria-hidden="false">
-      <div class="ad-track" id="adTrack"></div>
-    </div>
-
+  <!-- Video Info Section -->
+  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 scrollbar-hide overflow-y-auto max-h-[40vh]">
+    <h2 class="text-xl font-bold">Video Title</h2>
+    <p class="text-gray-300 text-sm">
+      This is a sample description of the video. Here you can add information about the video, program rules, privacy policies, and open-source license notices.
+    </p>
+    <h3 class="font-semibold mt-2">Rules:</h3>
+    <ul class="list-disc list-inside text-gray-300 text-sm">
+      <li>No redistribution of content.</li>
+      <li>Respect copyright and license terms.</li>
+      <li>Use content for personal and educational purposes only.</li>
+    </ul>
+    <h3 class="font-semibold mt-2">Privacy:</h3>
+    <p class="text-gray-300 text-sm">Your data is not stored or shared without consent. For more info, refer to our privacy policies.</p>
+    <h3 class="font-semibold mt-2">Open Source Laws:</h3>
+    <p class="text-gray-300 text-sm">Some libraries used in this player are open-source and licensed under MIT/Apache/GPL. Please refer to individual licenses for details.</p>
   </div>
 </main>
 
-<footer role="navigation">
-  <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
+<!-- Bottom Navigation -->
+<footer class="fixed bottom-0 w-full flex justify-around bg-black bg-opacity-60 p-2">
+  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" onclick="window.location.href='index.html'">
     <span class="material-icons">home</span>Home
   </button>
-  <button class="bottom-nav-btn active">
+  <button class="flex flex-col items-center text-sm text-red-500">
     <span class="material-icons">live_tv</span>Live
   </button>
-  <button class="bottom-nav-btn">
+  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500">
     <span class="material-icons">search</span>Search
   </button>
-  <button class="bottom-nav-btn" onclick="window.location.href='signin.html'">
+  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" onclick="window.location.href='signin.html'">
     <span class="material-icons">person</span>Profile
   </button>
 </footer>
 
-<script type="module" src="assets/js/player.js"></script>
+<!-- JS -->
+<script type="module">
+const video = document.getElementById('video');
+const playBtn = document.getElementById('playBtn');
+const fsBtn = document.getElementById('fsBtn');
+const pipBtn = document.getElementById('pipBtn');
+const controls = document.getElementById('controls');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
+const progressBar = document.getElementById('progressBar');
+
+let controlsTimeout;
+
+// Play/Pause toggle
+playBtn.addEventListener('click', () => {
+  if(video.paused) { video.play(); playBtn.textContent = 'pause'; }
+  else { video.pause(); playBtn.textContent = 'play_arrow'; }
+});
+
+// Update progress & time
+video.addEventListener('timeupdate', () => {
+  const progress = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = progress + '%';
+  currentTimeEl.textContent = new Date(video.currentTime * 1000).toISOString().substr(14, 5);
+  durationEl.textContent = new Date(video.duration * 1000).toISOString().substr(14, 5);
+});
+
+// Fullscreen toggle
+fsBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) video.parentElement.requestFullscreen();
+  else document.exitFullscreen();
+});
+
+// Picture-in-Picture
+pipBtn.addEventListener('click', async () => {
+  if (document.pictureInPictureElement) await document.exitPictureInPicture();
+  else await video.requestPictureInPicture();
+});
+
+// Auto-hide controls
+const showControls = () => {
+  controls.classList.remove('hidden');
+  clearTimeout(controlsTimeout);
+  controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+};
+video.addEventListener('mousemove', showControls);
+video.addEventListener('touchstart', showControls);
+
+</script>
 </body>
 </html>
