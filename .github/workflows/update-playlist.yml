@@ -2,71 +2,60 @@ name: Update IPTV Playlist
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # Every 10 mins
+    - cron: "*/10 * * * *" # Runs every 10 mins
   workflow_dispatch: # Manual trigger
 
-permissions:
-  contents: write
-
 jobs:
-  update-playlist:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
 
-      - name: Create Firebase Service Account File
-        run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > firebase-service-account.json
+    - name: Install dependencies
+      run: npm install firebase-admin
 
-      - name: Install Firebase Admin SDK
-        run: npm install firebase-admin
+    - name: Generate playlist.m3u
+      run: |
+        node <<'EOF'
+        const fs = require('fs');
+        const admin = require('firebase-admin');
 
-      - name: Generate playlist.m3u from Firebase
-        run: |
-          node <<'EOF'
-          const fs = require('fs');
-          const admin = require('firebase-admin');
+        const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
-          const serviceAccount = require('./firebase-service-account.json');
-          admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount),
-            databaseURL: "https://tamilgeo-d10d6-default-rtdb.firebaseio.com"
-          });
+        admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount),
+          databaseURL: "https://tamilgeo-d10d6-default-rtdb.firebaseio.com"
+        });
 
-          const db = admin.database();
-          const ref = db.ref("channels");
-
-          ref.once("value", (snapshot) => {
-            const data = snapshot.val();
-            if (!data) {
-              console.log("No channels found.");
-              return;
-            }
-
-            let playlist = "#EXTM3U\n";
+        const db = admin.database();
+        db.ref("channels").once("value").then(snapshot => {
+          const data = snapshot.val();
+          let playlist = "#EXTM3U\n";
+          if (data) {
             const sorted = Object.values(data).sort((a,b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
-
             for (const ch of sorted) {
               playlist += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category}" tvg-logo="${ch.logo}",${ch.name}\n`;
               playlist += `${ch.stream}\n`;
             }
+          }
+          fs.writeFileSync("playlist.m3u", playlist);
+          console.log("playlist.m3u generated");
+        });
+        EOF
 
-            fs.writeFileSync('playlist.m3u', playlist);
-            console.log("playlist.m3u generated successfully!");
-          });
-          EOF
-
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add playlist.m3u
-          git commit -m "Auto-update playlist.m3u" || echo "No changes to commit"
-          git push
+    - name: Commit and push playlist.m3u
+      run: |
+        git config user.name "GitHub Action"
+        git config user.email "actions@github.com"
+        git add playlist.m3u
+        git commit -m "Update playlist.m3u" || echo "No changes"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
