@@ -7,62 +7,22 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <style>
-  body { background-color: #111; color: white; }
-
-  /* Video styling */
-  #video { width: 100%; max-height: 60vh; object-fit: cover; background: black; }
-
-  /* Controls styling */
-  .controls { 
-    transition: opacity 0.3s ease-in-out; 
-  }
-  .controls.hidden { 
-    opacity: 0; 
-    pointer-events: none; 
-  }
-
-  /* Volume slider */
-  input[type=range] { 
-    -webkit-appearance: none; 
-    background: #555; 
-    height: 4px; 
-    border-radius: 2px; 
-  }
-  input[type=range]::-webkit-slider-thumb { 
-    -webkit-appearance: none; 
-    height: 14px; width: 14px; 
-    border-radius: 50%; 
-    background: #f87171; 
-    cursor: pointer; 
-    margin-top: -5px; 
-  }
-
-  /* Live badge */
-  .live-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: red;
-    color: white;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    font-weight: bold;
-    border-radius: 4px;
-    animation: pulse 1.5s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  /* Scrollable info */
+  /* Custom scroll for info section */
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
+  /* Video & overlay */
+  #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
+  .controls { transition: opacity 0.3s; }
+  .controls.hidden { opacity: 0; pointer-events: none; }
+
+  /* Ad strip */
+  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
+  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
+
 </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
 
 <!-- Header -->
 <header class="flex items-center justify-between p-3 bg-black bg-opacity-50 fixed w-full top-0 z-50">
@@ -74,29 +34,31 @@
 </header>
 
 <main class="flex-grow pt-16 pb-24">
-  <!-- Video Player -->
-  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800 relative">
-    <video id="video" playsinline webkit-playsinline src="assets/video/sample.mp4"></video>
-
-    <!-- Live Indicator -->
-    <div class="live-badge">LIVE</div>
-
-    <!-- Controls -->
-    <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
-      <div class="flex items-center space-x-2">
-        <button id="playBtn" class="material-icons">play_arrow</button>
-        <span id="currentTime" class="text-sm">00:00</span>
-        <div class="w-40 h-1 bg-gray-700 rounded relative">
-          <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
-        </div>
-        <span id="duration" class="text-sm">00:00</span>
+  <!-- Video Player Card -->
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
+    <div class="relative">
+      <video id="video" playsinline webkit-playsinline src="assets/video/sample.mp4"></video>
+      
+      <!-- Ad strip -->
+      <div class="ad-strip absolute bottom-0 left-0 w-full">
+        <div id="adProgress" class="ad-progress"></div>
       </div>
-      <div class="flex items-center space-x-2">
-        <!-- Volume slider -->
-        <button id="volumeBtn" class="material-icons">volume_up</button>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-        <button id="pipBtn" class="material-icons">picture_in_picture_alt</button>
-        <button id="fsBtn" class="material-icons">fullscreen</button>
+
+      <!-- Controls -->
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <button id="playBtn" class="material-icons text-white">play_arrow</button>
+          <span id="currentTime" class="text-sm">00:00</span>
+          <div class="w-40 h-1 bg-gray-700 rounded relative">
+            <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
+          </div>
+          <span id="duration" class="text-sm">00:00</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button id="volumeBtn" class="material-icons text-white">volume_up</button>
+          <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
+          <button id="fsBtn" class="material-icons text-white">fullscreen</button>
+        </div>
       </div>
     </div>
   </div>
@@ -146,8 +108,6 @@ const controls = document.getElementById('controls');
 const currentTimeEl = document.getElementById('currentTime');
 const durationEl = document.getElementById('duration');
 const progressBar = document.getElementById('progressBar');
-const volumeBtn = document.getElementById('volumeBtn');
-const volumeSlider = document.getElementById('volumeSlider');
 
 let controlsTimeout;
 
@@ -177,12 +137,6 @@ pipBtn.addEventListener('click', async () => {
   else await video.requestPictureInPicture();
 });
 
-// Volume slider
-volumeSlider.addEventListener('input', () => {
-  video.volume = volumeSlider.value;
-  volumeSlider.value == 0 ? volumeBtn.textContent = 'volume_off' : volumeBtn.textContent = 'volume_up';
-});
-
 // Auto-hide controls
 const showControls = () => {
   controls.classList.remove('hidden');
@@ -191,7 +145,7 @@ const showControls = () => {
 };
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
-</script>
 
+</script>
 </body>
 </html>
