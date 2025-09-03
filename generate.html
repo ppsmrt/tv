@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generate M3U Playlist</title>
+</head>
+<body>
+<h1>Updating Playlist...</h1>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js";
+
+// --------- FIREBASE CONFIG ---------
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// --------- GITHUB CONFIG ---------
+const GITHUB_USER = "ppsmrt";
+const GITHUB_REPO = "tv";
+const FILE_PATH = "playlist.m3u";
+const BRANCH = "main"; // or "master"
+const GITHUB_TOKEN = "YOUR_PERSONAL_ACCESS_TOKEN"; // Never share publicly
+
+// --------- Generate M3U content ---------
+function generateM3U(channels) {
+  let content = "#EXTM3U\n";
+  for (const key in channels) {
+    const ch = channels[key];
+    content += `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category}" tvg-logo="${ch.logo}",${ch.name}\n`;
+    content += `${ch.stream}\n`;
+  }
+  return content;
+}
+
+// --------- Update file in GitHub ---------
+async function updateGithubFile(content) {
+  // Get current file SHA
+  const getUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+  const getRes = await fetch(getUrl);
+  const data = await getRes.json();
+  const sha = data.sha;
+
+  const putRes = await fetch(getUrl, {
+    method: "PUT",
+    headers: {
+      "Authorization": `token ${GITHUB_TOKEN}`,
+      "Accept": "application/vnd.github+json"
+    },
+    body: JSON.stringify({
+      message: "Update playlist.m3u",
+      content: btoa(unescape(encodeURIComponent(content))),
+      sha: sha,
+      branch: BRANCH
+    })
+  });
+
+  if (putRes.ok) {
+    console.log("playlist.m3u updated successfully on GitHub!");
+  } else {
+    const err = await putRes.json();
+    console.error("GitHub update failed:", err);
+  }
+}
+
+// --------- Listen Firebase DB ---------
+const channelsRef = ref(db, "channels");
+onValue(channelsRef, (snapshot) => {
+  const data = snapshot.val();
+  if (data) {
+    const m3uContent = generateM3U(data);
+    updateGithubFile(m3uContent);
+  }
+});
+</script>
+</body>
+</html>
