@@ -15,379 +15,142 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body {
-    font-family: 'Baloo 2', cursive;
-    background-color: #1f2937; /* Tailwind gray-800 */
-    color: white;
-    margin: 0; padding: 0; min-height: 100vh;
-  }
-  #video {
-    width: 100%;
-    max-height: 60vh;
-    background: black;
-    object-fit: cover;
-  }
-  .controls {
-    transition: opacity 0.3s;
-  }
-  .controls.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-  .ad-strip {
-    height: 4px;
-    background-color: rgba(255,255,255,0.2);
-    margin-top: 8px;
-    position: relative;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  .ad-progress {
-    height: 100%;
-    background-color: #f87171; /* Tailwind red-400 */
-    width: 0%;
-    transition: width 0.3s;
-  }
-  .ad-track {
-    display: inline-flex;
-    gap: 12px;
-    padding: 4px 0;
-    align-items: center;
-  }
-  .ad-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 120px;
-    color: white;
-    font-weight: 700;
-    font-size: 0.75rem;
-  }
-  .ad-item img {
-    width: 120px;
-    height: 80px;
-    object-fit: contain;
-    border-radius: 6px;
-    margin-bottom: 4px;
-  }
-  #controls {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-    background: rgba(0,0,0,0.5);
-    border-radius: 12px;
-    padding: 8px 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  #controls .left, #controls .right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  #progressContainer {
-    position: relative;
-    width: 200px;
-    height: 6px;
-    background: #374151; /* Tailwind gray-700 */
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  #progressBar {
-    position: absolute;
-    top: 0; left: 0; height: 100%;
-    background: #ef4444; /* Tailwind red-500 */
-    width: 0%;
-    border-radius: 3px;
-  }
-  #currentTime, #duration {
-    font-size: 0.875rem;
-    width: 40px;
-    text-align: center;
-    user-select: none;
-  }
-  button.material-icons {
-    cursor: pointer;
-    font-size: 24px;
-    user-select: none;
-  }
-  button.material-icons:hover {
-    color: #ef4444;
-  }
-  .player-card {
-    position: relative;
-    max-width: 900px;
-    margin: 2rem auto;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #374151; /* Tailwind gray-700 */
-  }
-  main {
-    padding-bottom: 3rem;
-  }
+  html, body { font-family: 'Baloo 2', cursive; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
+  .controls { transition: opacity 0.3s; }
+  .controls.hidden { opacity: 0; pointer-events: none; }
+  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
+  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
 </style>
 </head>
-<body>
 
-<main>
-  <div class="player-card">
-    <video id="video" playsinline webkit-playsinline></video>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
 
-    <div class="ad-strip" aria-hidden="true">
-      <div id="adProgress" class="ad-progress"></div>
-      <div id="adTrack" class="ad-track"></div>
-    </div>
-
-    <div id="controls" class="controls">
-      <div class="left">
-        <button id="playBtn" class="material-icons" aria-label="Play/Pause">play_arrow</button>
-        <span id="currentTime">00:00</span>
-        <div id="progressContainer" aria-label="Video progress bar" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <div id="progressBar"></div>
-        </div>
-        <span id="duration">00:00</span>
+<main class="flex-grow pt-16 pb-24">
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
+    <div class="relative">
+      <video id="video" playsinline webkit-playsinline></video>
+      <div class="ad-strip absolute bottom-0 left-0 w-full">
+        <div id="adProgress" class="ad-progress"></div>
       </div>
-      <div class="right">
-        <button id="pipBtn" class="material-icons" aria-label="Picture-in-Picture">picture_in_picture_alt</button>
-        <button id="fsBtn" class="material-icons" aria-label="Fullscreen">fullscreen</button>
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <button id="playBtn" class="material-icons text-white">play_arrow</button>
+          <span id="currentTime" class="text-sm">00:00</span>
+          <div class="w-40 h-1 bg-gray-700 rounded relative">
+            <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
+          </div>
+          <span id="duration" class="text-sm">00:00</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button id="volumeBtn" class="material-icons text-white">volume_up</button>
+          <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
+          <button id="fsBtn" class="material-icons text-white">fullscreen</button>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 scrollbar-hide overflow-y-auto max-h-[40vh]">
+    <h2 class="text-xl font-bold" id="videoTitle">Video Title</h2>
+    <p class="text-gray-300 text-sm">
+      This is a sample description of the video. Add rules, privacy policies, or license info here.
+    </p>
+  </div>
 </main>
 
-<!-- Firebase and HLS.js -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-  import Hls from "https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import Hls from 'https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js';
 
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+};
 
-  // Utils
-  function slugify(name) {
-    return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-');
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
+function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
+
+const video = document.getElementById('video');
+const playBtn = document.getElementById('playBtn');
+const fsBtn = document.getElementById('fsBtn');
+const pipBtn = document.getElementById('pipBtn');
+const controls = document.getElementById('controls');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
+const progressBar = document.getElementById('progressBar');
+const videoTitle = document.getElementById('videoTitle');
+
+let isPlaying=false, controlsTimeout;
+const streamSlug = qs('stream');
+
+const channelsRef = ref(db, 'channels');
+onValue(channelsRef, snapshot=>{
+  if(!snapshot.exists()) return;
+  const data = snapshot.val();
+  const list = Object.values(data).map(c=>({ name:c.name, url:c.stream }));
+  let match = list.find(ch=>slugify(ch.name) === streamSlug);
+  if(!match){ match = list.find(ch => slugify(ch.name).includes(streamSlug)); }
+  if(!match){ videoTitle.textContent='Stream not found'; return; }
+
+  videoTitle.textContent = match.name;
+
+  // Setup HLS
+  if(Hls.isSupported()){
+    const hls = new Hls();
+    hls.loadSource(match.url);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, ()=>{ video.play(); isPlaying=true; playBtn.textContent='pause'; });
+  } else if(video.canPlayType('application/vnd.apple.mpegurl')){
+    video.src = match.url;
+    video.addEventListener('loadedmetadata', ()=>{ video.play(); isPlaying=true; playBtn.textContent='pause'; });
   }
-  function formatTime(seconds) {
-    if (isNaN(seconds)) return '00:00';
-    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
-    return `${m}:${s}`;
-  }
+});
 
-  // DOM elements
-  const video = document.getElementById('video');
-  const playBtn = document.getElementById('playBtn');
-  const fsBtn = document.getElementById('fsBtn');
-  const pipBtn = document.getElementById('pipBtn');
-  const adTrack = document.getElementById('adTrack');
-  const adProgress = document.getElementById('adProgress');
-  const progressBar = document.getElementById('progressBar');
-  const progressContainer = document.getElementById('progressContainer');
-  const currentTimeEl = document.getElementById('currentTime');
-  const durationEl = document.getElementById('duration');
+// Controls
+playBtn.addEventListener('click', ()=>{
+  if(video.paused){ video.play(); playBtn.textContent='pause'; isPlaying=true; }
+  else { video.pause(); playBtn.textContent='play_arrow'; isPlaying=false; }
+});
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+video.addEventListener('timeupdate', ()=>{
+  const progress = (video.currentTime/video.duration)*100;
+  progressBar.style.width = progress+'%';
+  currentTimeEl.textContent = new Date(video.currentTime*1000).toISOString().substr(14,5);
+  durationEl.textContent = new Date(video.duration*1000).toISOString().substr(14,5);
+});
 
-  // Get stream slug from URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const streamSlug = urlParams.get('stream') || '';
+// Fullscreen toggle
+fsBtn.addEventListener('click', ()=>{
+  if(!document.fullscreenElement) video.parentElement.requestFullscreen();
+  else document.exitFullscreen();
+});
 
-  let hls;
-  let ads = [];
-  let adIndex = 0;
-  let adInterval;
+// PiP
+pipBtn.addEventListener('click', async ()=>{
+  if(document.pictureInPictureElement) await document.exitPictureInPicture();
+  else await video.requestPictureInPicture();
+});
 
-  // Load channels from Firebase
-  onValue(ref(db, 'channels'), snapshot => {
-    if (!snapshot.exists()) {
-      alert('No channels found.');
-      return;
-    }
-    const channels = Object.values(snapshot.val());
-    let channel = channels.find(c => slugify(c.name) === streamSlug);
-    if (!channel) {
-      // Try partial match
-      channel = channels.find(c => slugify(c.name).includes(streamSlug));
-    }
-    if (!channel) {
-      alert('Stream not found.');
-      return;
-    }
-
-    // Setup video stream
-    function attachStream(url) {
-      if (hls) {
-        hls.destroy();
-        hls = null;
-      }
-      if (Hls.isSupported() && url.endsWith('.m3u8')) {
-        hls = new Hls({
-          enableWorker: true,
-          maxRetry: 8,
-          fragLoadingTimeOut: 15000,
-          fragLoadingMaxRetry: 8,
-          startFragPrefetch: true,
-        });
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play().catch(e => console.warn("Autoplay blocked:", e));
-        });
-        hls.on(Hls.Events.ERROR, (event, data) => {
-          console.warn("HLS.js error", data);
-          if (data.fatal) {
-            switch (data.type) {
-              case Hls.ErrorTypes.NETWORK_ERROR:
-                console.warn("Network error, retrying...");
-                hls.startLoad();
-                break;
-              case Hls.ErrorTypes.MEDIA_ERROR:
-                console.warn("Media error, recovering...");
-                hls.recoverMediaError();
-                break;
-              default:
-                console.error("Cannot recover", data);
-                break;
-            }
-          }
-        });
-      } else {
-        // Safari fallback
-        video.src = url;
-        video.play().catch(e => console.warn("Autoplay blocked on Safari:", e));
-      }
-    }
-
-    attachStream(channel.stream);
-
-    // Setup ads
-    ads = [
-      { img: channel.icon || '', text: `Streaming ${channel.name} Live Now!` },
-      { img: 'https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0045275084995112584913406.png', text: 'Premium Player Controls' },
-      { img: 'https://via.placeholder.com/120x80?text=Ad+2', text: 'Subscribe Now' },
-      { img: 'https://via.placeholder.com/120x80?text=Ad+3', text: 'New Shows' }
-    ];
-    adTrack.innerHTML = '';
-    ads.forEach(ad => {
-      const div = document.createElement('div');
-      div.className = 'ad-item';
-      const img = document.createElement('img');
-      img.src = ad.img;
-      img.alt = ad.text;
-      const text = document.createElement('div');
-      text.textContent = ad.text;
-      div.appendChild(img);
-      div.appendChild(text);
-      adTrack.appendChild(div);
-    });
-
-    // Optional: Animate ad progress bar (loop)
-    let adProgressPercent = 0;
-    clearInterval(adInterval);
-    adInterval = setInterval(() => {
-      adProgressPercent += 1;
-      if (adProgressPercent > 100) adProgressPercent = 0;
-      adProgress.style.width = adProgressPercent + '%';
-    }, 100);
-  });
-
-  // Play/pause toggle
-  playBtn.addEventListener('click', () => {
-    if (video.paused) {
-      video.play();
-      playBtn.textContent = 'pause';
-    } else {
-      video.pause();
-      playBtn.textContent = 'play_arrow';
-    }
-  });
-
-  // Update progress bar and time
-  video.addEventListener('timeupdate', () => {
-    if (!video.duration) return;
-    const progressPercent = (video.currentTime / video.duration) * 100;
-    progressBar.style.width = progressPercent + '%';
-    currentTimeEl.textContent = formatTime(video.currentTime);
-    durationEl.textContent = formatTime(video.duration);
-    progressContainer.setAttribute('aria-valuenow', Math.floor(progressPercent));
-  });
-
-  // Seek video on progress bar click
-  progressContainer.addEventListener('click', e => {
-    const rect = progressContainer.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const newTime = (clickX / rect.width) * video.duration;
-    video.currentTime = newTime;
-  });
-
-  // Keyboard accessibility for progress bar
-  progressContainer.addEventListener('keydown', e => {
-    if (!video.duration) return;
-    let newTime = video.currentTime;
-    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
-      newTime = Math.min(video.currentTime + 5, video.duration);
-      video.currentTime = newTime;
-      e.preventDefault();
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
-      newTime = Math.max(video.currentTime - 5, 0);
-      video.currentTime = newTime;
-      e.preventDefault();
-    }
-  });
-
-  // Fullscreen toggle
-  fsBtn.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-      video.parentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  });
-
-  // Picture-in-Picture toggle
-  pipBtn.addEventListener('click', async () => {
-    try {
-      if (document.pictureInPictureElement) {
-        await document.exitPictureInPicture();
-      } else {
-        await video.requestPictureInPicture();
-      }
-    } catch (err) {
-      console.warn('PiP not supported or failed:', err);
-    }
-  });
-
-  // Auto-hide controls after inactivity
-  let controlsTimeout;
-  const controls = document.getElementById('controls');
-  function showControls() {
-    controls.classList.remove('hidden');
-    clearTimeout(controlsTimeout);
-    controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
-  }
-  video.addEventListener('mousemove', showControls);
-  video.addEventListener('touchstart', showControls);
-  showControls();
-
-  // Initialize play button icon based on video state
-  video.addEventListener('play', () => playBtn.textContent = 'pause');
-  video.addEventListener('pause', () => playBtn.textContent = 'play_arrow');
-
+// Auto-hide controls
+const showControls = ()=>{
+  controls.classList.remove('hidden');
+  clearTimeout(controlsTimeout);
+  controlsTimeout = setTimeout(()=>controls.classList.add('hidden'), 3000);
+};
+video.addEventListener('mousemove', showControls);
+video.addEventListener('touchstart', showControls);
 </script>
-
 </body>
 </html>
