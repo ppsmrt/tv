@@ -6,68 +6,54 @@
 <title>Player - Live TV</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<style>
-  body { background-color: #111; color: white; }
-  #video { width: 100%; max-height: 60vh; object-fit: cover; background: black; }
-
-  .controls { transition: opacity 0.3s ease-in-out; }
-  .controls.hidden { opacity: 0; pointer-events: none; }
-
-  input[type=range] {
-    -webkit-appearance: none; background: #555; height: 4px; border-radius: 2px;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; height: 14px; width: 14px; border-radius: 50%;
-    background: #f87171; cursor: pointer; margin-top: -5px;
-  }
-
-  .live-badge {
-    position: absolute; top: 10px; left: 10px;
-    background: red; color: white; padding: 0.25rem 0.5rem;
-    font-size: 0.75rem; font-weight: bold; border-radius: 4px;
-    animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
-
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
+<link rel="stylesheet" href="assets/css/test.css">
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen bg-black text-white">
 
-<!-- Header -->
 <header class="flex items-center justify-between p-3 bg-black bg-opacity-50 fixed w-full top-0 z-50">
   <a href="index.html" aria-label="Back" class="flex items-center space-x-1">
     <span class="material-icons">arrow_back</span>
   </a>
-  <h1 id="channelTitle" class="text-lg font-semibold truncate">Channel Name</h1>
+  <h1 id="channelTitle" class="text-lg font-semibold truncate">Player</h1>
   <button aria-label="More" class="material-icons">more_vert</button>
 </header>
 
 <main class="flex-grow pt-16 pb-24">
-  <!-- Video Player -->
-  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800 relative">
-    <video id="video" playsinline webkit-playsinline src="assets/video/sample.mp4"></video>
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-900 relative">
+    <div class="video-wrap relative" id="videoWrap">
+      <video id="video" playsinline webkit-playsinline></video>
+      <div class="live-badge absolute top-2 left-2 bg-red-600 px-2 py-0.5 rounded font-bold animate-pulse">LIVE</div>
 
-    <!-- Live Indicator -->
-    <div class="live-badge">LIVE</div>
-
-    <!-- Controls -->
-    <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
-      <div class="flex items-center space-x-2">
-        <button id="playBtn" class="material-icons">play_arrow</button>
-        <span id="currentTime" class="text-sm">00:00</span>
-        <div class="w-40 h-1 bg-gray-700 rounded relative">
-          <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
+      <!-- Controls -->
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg transition-opacity duration-300">
+        <div class="flex items-center space-x-2">
+          <button id="playBtn" class="material-icons">play_arrow</button>
+          <span id="currentTime" class="text-sm">00:00</span>
+          <div class="w-40 h-1 bg-gray-700 rounded relative">
+            <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
+          </div>
+          <span id="duration" class="text-sm">00:00</span>
         </div>
-        <span id="duration" class="text-sm">00:00</span>
+        <div class="flex items-center space-x-2">
+          <button id="volumeBtn" class="material-icons">volume_up</button>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+          <button id="pipBtn" class="material-icons">picture_in_picture_alt</button>
+          <button id="fsBtn" class="material-icons">fullscreen</button>
+        </div>
       </div>
-      <div class="flex items-center space-x-2">
-        <button id="volumeBtn" class="material-icons">volume_up</button>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-        <button id="pipBtn" class="material-icons">picture_in_picture_alt</button>
-        <button id="fsBtn" class="material-icons">fullscreen</button>
+    </div>
+
+    <!-- Mid-Roll Sponsor Ad Overlay (hidden by default) -->
+    <div id="sponsorAd" class="absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+      <div class="relative">
+        <a id="sponsorLink" href="#" target="_blank"><img id="sponsorImg" src="" class="rounded-lg max-w-xs"></a>
+        <button id="closeSponsor" class="absolute top-1 right-1 text-white material-icons">close</button>
       </div>
+    </div>
+
+    <!-- Banner Ad below video -->
+    <div id="adBanner" class="mt-2 mx-4 bg-gray-800 rounded-lg p-2 flex justify-center items-center">
+      <img src="https://via.placeholder.com/468x60?text=Demo+Banner+Ad" alt="Ad Banner">
     </div>
   </div>
 
@@ -79,9 +65,9 @@
   </div>
 
   <!-- Video Info Section -->
-  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 scrollbar-hide overflow-y-auto max-h-[40vh]">
+  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 max-h-[40vh] overflow-y-auto">
     <h2 class="text-xl font-bold">Video Title</h2>
-    <p class="text-gray-300 text-sm">This is a sample description of the video. Here you can add information about the video, program rules, privacy policies, and open-source license notices.</p>
+    <p class="text-gray-300 text-sm">This is a sample description of the video. Include rules, privacy policies, and open-source licenses here.</p>
     <h3 class="font-semibold mt-2">Rules:</h3>
     <ul class="list-disc list-inside text-gray-300 text-sm">
       <li>No redistribution of content.</li>
@@ -90,12 +76,12 @@
     </ul>
     <h3 class="font-semibold mt-2">Privacy:</h3>
     <p class="text-gray-300 text-sm">Your data is not stored or shared without consent. For more info, refer to our privacy policies.</p>
-    <h3 class="font-semibold mt-2">Open Source Laws:</h3>
-    <p class="text-gray-300 text-sm">Some libraries used in this player are open-source and licensed under MIT/Apache/GPL. Please refer to individual licenses for details.</p>
+    <h3 class="font-semibold mt-2">Open Source:</h3>
+    <p class="text-gray-300 text-sm">Some libraries used in this player are open-source. Refer to their respective licenses.</p>
   </div>
 </main>
 
-<!-- Bottom Navigation -->
+<!-- Footer Navigation -->
 <footer class="fixed bottom-0 w-full flex justify-around bg-black bg-opacity-60 p-2">
   <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" onclick="window.location.href='index.html'">
     <span class="material-icons">home</span>Home
@@ -111,110 +97,6 @@
   </button>
 </footer>
 
-<!-- JS -->
-<script type="module">
-import { ads } from './assets/js/ads.js';
-
-const video = document.getElementById('video');
-const playBtn = document.getElementById('playBtn');
-const fsBtn = document.getElementById('fsBtn');
-const pipBtn = document.getElementById('pipBtn');
-const controls = document.getElementById('controls');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-const progressBar = document.getElementById('progressBar');
-const volumeBtn = document.getElementById('volumeBtn');
-const volumeSlider = document.getElementById('volumeSlider');
-const likeBtn = document.getElementById('likeBtn');
-const dislikeBtn = document.getElementById('dislikeBtn');
-const saveBtn = document.getElementById('saveBtn');
-
-let controlsTimeout;
-let adShown = false;
-
-// Play/Pause
-playBtn.addEventListener('click', () => {
-  if(video.paused) { video.play(); playBtn.textContent='pause'; }
-  else { video.pause(); playBtn.textContent='play_arrow'; }
-});
-
-// Progress & Time Update
-video.addEventListener('timeupdate', () => {
-  const progress = (video.currentTime / video.duration) * 100;
-  progressBar.style.width = progress+'%';
-  currentTimeEl.textContent = new Date(video.currentTime*1000).toISOString().substr(14,5);
-  durationEl.textContent = new Date(video.duration*1000).toISOString().substr(14,5);
-
-  // Mid-roll ad (once)
-  if(!adShown && video.currentTime > video.duration/3){
-    adShown = true;
-    showAd(ads[0]);
-  }
-});
-
-// Fullscreen
-fsBtn.addEventListener('click', ()=> {
-  if(!document.fullscreenElement) video.parentElement.requestFullscreen();
-  else document.exitFullscreen();
-});
-
-// Picture-in-Picture
-pipBtn.addEventListener('click', async () => {
-  if(document.pictureInPictureElement) await document.exitPictureInPicture();
-  else await video.requestPictureInPicture();
-});
-
-// Volume
-volumeSlider.addEventListener('input', ()=> {
-  video.volume = volumeSlider.value;
-  volumeSlider.value==0 ? volumeBtn.textContent='volume_off' : volumeBtn.textContent='volume_up';
-});
-
-// Like / Dislike / Save
-likeBtn.addEventListener('click', ()=> { likeBtn.classList.toggle('text-red-500'); dislikeBtn.classList.remove('text-blue-500'); });
-dislikeBtn.addEventListener('click', ()=> { dislikeBtn.classList.toggle('text-blue-500'); likeBtn.classList.remove('text-red-500'); });
-saveBtn.addEventListener('click', ()=> { saveBtn.classList.toggle('text-yellow-500'); });
-
-// Auto-hide controls
-const showControls = () => {
-  controls.classList.remove('hidden');
-  clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(()=>controls.classList.add('hidden'), 3000);
-};
-video.addEventListener('mousemove', showControls);
-video.addEventListener('touchstart', showControls);
-
-// Gesture Controls
-let startX, startY, startVolume;
-video.addEventListener('touchstart', e=>{
-  const touch = e.touches[0];
-  startX=touch.clientX;
-  startY=touch.clientY;
-  startVolume=video.volume;
-});
-video.addEventListener('touchmove', e=>{
-  const touch = e.touches[0];
-  const dx = touch.clientX - startX;
-  const dy = touch.clientY - startY;
-  if(Math.abs(dx)>Math.abs(dy)) video.currentTime += dx/5;
-  else { let newVol = startVolume - dy/200; video.volume=Math.min(1,Math.max(0,newVol)); volumeSlider.value=video.volume; }
-});
-
-// Mid-roll Sponsor Ads
-function showAd(ad){
-  const adDiv = document.createElement('div');
-  adDiv.className='absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50';
-  adDiv.innerHTML = `<div class="relative">
-    <a href="${ad.url}" target="_blank"><img src="${ad.image}" class="rounded-lg max-w-xs"></a>
-    <button id="closeAd" class="absolute top-1 right-1 text-white material-icons">close</button>
-  </div>`;
-  document.body.appendChild(adDiv);
-  video.pause();
-  document.getElementById('closeAd').addEventListener('click', ()=>{
-    adDiv.remove(); video.play();
-  });
-}
-</script>
-
+<script type="module" src="assets/js/test.js"></script>
 </body>
 </html>
