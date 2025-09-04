@@ -3,116 +3,215 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV - Premium UI</title>
+<title>Live TV - Premium Dark UI</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
 <style>
-  body {
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    background: #f9fafb;
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #fff;
     margin: 0;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Header */
   header {
-    position: fixed; top:0; left:0; right:0; height:64px;
-    background: rgba(255,255,255,0.95); backdrop-filter: blur(6px);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; z-index:100;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 20;
   }
-  header h1 { font-weight:700; font-size:1.5rem; letter-spacing:0.05em; color:#111827; }
 
-  .search-container { position:relative; width:280px; }
+  main {
+    padding: 20px 1rem 100px; /* changed bottom padding from 0 to 100px */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+  /* Search Bar */
+  .search-container {
+    display: flex;
+    align-items: center;
+    background: rgba(31, 41, 55, 0.85);
+    border-radius: 9999px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .search-container:focus-within {
+    background: rgba(55, 65, 81, 0.9);
+    box-shadow: 0 0 12px rgba(248, 113, 113, 0.6);
+  }
+  .search-container .material-icons {
+    color: #f87171;
+    font-size: 22px;
+    margin-right: 8px;
+  }
   .search-container input {
-    width:100%; padding:8px 40px 8px 16px; border-radius:9999px;
-    border:1.5px solid #d1d5db; font-size:1rem; font-weight:500; color:#374151;
-    background:#f3f4f6; transition:0.3s; 
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #f9fafb;
+    font-size: 1rem;
+    font-weight: 500;
   }
-  .search-container input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 8px #3b82f6aa; background:white; }
-  .search-container .material-icons { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#3b82f6; font-size:20px; pointer-events:none; }
+  .search-container input::placeholder {
+    color: #9ca3af;
+  }
 
-  main { padding:80px 1.5rem 96px; max-width:1200px; margin:0 auto; }
-
-  .category-bar { display:flex; gap:16px; margin-bottom:24px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
-  .category-bar::-webkit-scrollbar { display:none; }
+  /* Category Bar */
+  .category-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .category-bar::-webkit-scrollbar {
+    display: none;
+  }
   .category-btn {
-    flex-shrink:0; padding:8px 20px; border-radius:9999px;
-    font-weight:600; font-size:0.875rem; color:#6b7280; background:#e5e7eb;
-    cursor:pointer; transition:0.3s; white-space:nowrap; border:none;
+    flex-shrink: 0;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #d1d5db;
+    background: #1f2937;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    border: none;
   }
-  .category-btn:hover { background:#3b82f6; color:white; }
-  .category-btn.active { background:#3b82f6; color:white; box-shadow:0 4px 12px rgb(59 130 246 / 0.4); }
+  .category-btn:hover {
+    background: #f87171;
+    color: white;
+  }
+  .category-btn.active {
+    background: #f87171;
+    color: white;
+    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
+  }
 
-  .channels-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:24px; }
+  /* Channels Grid */
+  .channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+  }
 
+  /* Channel Cards */
   .channel-card {
-    position:relative; background:white; border-radius:16px; overflow:hidden;
-    box-shadow:0 4px 12px rgb(0 0 0 / 0.08); cursor:pointer;
-    display:flex; flex-direction:column; transition:transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
-    opacity:0; transform:translateY(20px);
+    background: #1f2937;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
   }
-  .channel-card.show { opacity:1; transform:translateY(0); }
-  .channel-card:hover, .channel-card:focus-visible { transform:translateY(-6px); box-shadow:0 12px 24px rgb(59 130 246 / 0.3); }
+  .channel-card.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .channel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
+  }
 
-  .channel-image { width:100%; aspect-ratio:16/9; object-fit:cover; border-bottom:1px solid #e5e7eb; transition:filter 0.3s ease; }
-  .channel-card:hover .channel-image { filter:brightness(1.1); }
+  .channel-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-bottom: 1px solid #374151;
+    transition: filter 0.3s ease;
+  }
+  .channel-card:hover .channel-image {
+    filter: brightness(1.1);
+  }
 
   .channel-overlay {
-    position:absolute; inset:0; background:rgba(0,0,0,0.35);
-    display:flex; align-items:center; justify-content:center; color:white;
-    font-weight:700; font-size:1rem; opacity:0; transition:opacity 0.3s ease;
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  .channel-card:hover .channel-overlay { opacity:1; }
+  .channel-card:hover .channel-overlay {
+    opacity: 1;
+  }
 
-  .channel-name { padding:12px 8px; font-weight:700; font-size:1.125rem; text-align:center; user-select:text; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
-  footer {
-    position:fixed; bottom:0; left:0; right:0; height:64px;
-    background:white; box-shadow:0 -2px 12px rgba(0,0,0,0.08);
-    display:flex; justify-content:space-around; align-items:center; z-index:100;
+  .channel-name {
+    padding: 12px 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #f9fafb;
   }
-  .bottom-nav-btn {
-    display:flex; flex-direction:column; align-items:center; font-weight:600; font-size:0.75rem; color:#6b7280;
-    cursor:pointer; transition:color 0.3s ease, transform 0.3s ease; border:none; background:none; padding:0;
-  }
-  .bottom-nav-btn .material-icons { font-size:24px; margin-bottom:2px; transition:filter 0.3s ease; }
-  .bottom-nav-btn:hover, .bottom-nav-btn:focus-visible { color:#3b82f6; outline:none; transform:scale(1.15); }
-  .bottom-nav-btn.active { color:#3b82f6; transform:scale(1.25); font-weight:700; }
-  .bottom-nav-btn.active .material-icons { filter:drop-shadow(0 0 6px #3b82f6); }
 
   @media(max-width:640px){
-    .channels-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px;}
-    .channel-name{font-size:1rem;}
+    .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .channel-name { font-size: 0.95rem; }
   }
 </style>
 </head>
-<body>
+<body class="bg-gray-900 text-white">
+
+<!-- Header -->
 <header>
-  <h1>Live</h1>
-  <div class="search-container">
-    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
-    <span class="material-icons">search</span>
-  </div>
+  <span class="material-icons">live_tv</span>
+  <h1 class="ml-2 text-lg font-bold">Live Player</h1>
 </header>
+
 <main>
+  <!-- Premium Search Bar -->
+  <div class="search-container">
+    <span class="material-icons">search</span>
+    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
+  </div>
+
+  <!-- Category Buttons -->
   <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories">
-    <!-- Buttons will load dynamically -->
+    <!-- Categories dynamically rendered -->
   </nav>
+
+  <!-- Channels Grid -->
   <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
-<footer role="navigation">
-  <button class="bottom-nav-btn active" onclick="window.location.href='index.html'"><span class="material-icons">home</span>Home</button>
-  <button class="bottom-nav-btn"><span class="material-icons">live_tv</span>Live</button>
-  <button class="bottom-nav-btn"><span class="material-icons">search</span>Search</button>
-  <button class="bottom-nav-btn" onclick="window.location.href='signin.html'"><span class="material-icons">person</span>Profile</button>
-</footer>
 
+<!-- Footer -->
+<div id="footer"></div>
+
+<!-- JS Files -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+
+<!-- Firebase and App Logic (Working Player Logic) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -161,7 +260,7 @@
 
   function renderCategories() {
     const categories = ['All', ...new Set(channels.map(c => c.category))];
-    categories.sort(); // Alphabetical
+    categories.sort();
     categoryBar.innerHTML = '';
     categories.forEach(cat => {
       const btn = document.createElement('button');
@@ -186,31 +285,31 @@
       return matchCat && matchSearch;
     });
 
-    // Sort alphabetically
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
+    filtered.sort((a,b) => a.name.localeCompare(b.name));
 
-    if (filtered.length === 0) {
+    if(filtered.length === 0){
       grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
       return;
     }
-    filtered.forEach((c, i) => {
+
+    filtered.forEach((c,i)=>{
       const card = createChannelCard(c);
       grid.appendChild(card);
-      setTimeout(() => card.classList.add('show'), i * 100);
+      setTimeout(()=>card.classList.add('show'), i*100);
     });
   }
 
-  searchInput.addEventListener('input', e => renderChannels(e.target.value));
+  searchInput.addEventListener('input', e=>renderChannels(e.target.value));
 
-  const channelsRef = ref(db, 'channels');
-  onValue(channelsRef, snapshot => {
-    if (snapshot.exists()) {
+  const channelsRef = ref(db,'channels');
+  onValue(channelsRef, snapshot=>{
+    if(snapshot.exists()){
       const data = snapshot.val();
-      channels = Object.values(data).map(c => ({
-        name: c.name,
-        category: c.category,
-        logo: c.icon,
-        stream: c.stream
+      channels = Object.values(data).map(c=>({
+        name:c.name,
+        category:c.category,
+        logo:c.icon,
+        stream:c.stream
       }));
       renderCategories();
       renderChannels(searchInput.value);
