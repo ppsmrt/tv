@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV Player</title>
+<title>Player - Live TV</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,102 +15,238 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  body {
+  /* Apply Baloo 2 font globally */
+  html, body {
     font-family: 'Baloo 2', cursive;
-    background-color: #111827;
-    color: #fff;
     margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    padding: 0;
+    height: 100%;
+    background: #111;
+    overscroll-behavior: none;
   }
 
-  header {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    padding: 0 1.5rem;
-    background: rgba(31,41,55,0.9);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  /* Video default */
+  #video {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    background: black;
+    object-fit: cover;
+    transition: transform 0.2s ease;
   }
 
-  main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+  /* Fullscreen video adjustments */
+  video:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
   }
 
-  video {
-    max-width: 100%;
-    width: 800px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-    background-color: black;
+  /* Safe area for fullscreen */
+  :fullscreen {
+    padding: 0;
+    margin: 0;
   }
 
-  .placeholder {
-    color: #f87171;
-    font-weight: 700;
-    font-size: 1.25rem;
-    text-align: center;
+  /* Controls transition */
+  .controls {
+    transition: opacity 0.3s;
+  }
+  .controls.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Ad strip */
+  .ad-strip {
+    height: 4px;
+    background-color: rgba(255,255,255,0.2);
+    margin-top: 8px;
+  }
+  .ad-progress {
+    height: 100%;
+    background-color: #f87171;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* Fullscreen immersive behavior on mobile */
+  body:fullscreen {
+    background: black;
+  }
+
+  /* Scrolling text ad animation */
+  @keyframes scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  .animate-scroll {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 12s linear infinite;
   }
 </style>
 </head>
-<body>
 
-<header>
-  <span class="material-icons">live_tv</span>
-  <h1 class="ml-2 text-lg font-bold">Live Player</h1>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
+  <div class="flex items-center">
+    <span class="material-icons text-white">live_tv</span>
+    <h1 class="ml-2 text-lg font-bold text-white">Live Player</h1>
+  </div>
+  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+    <span class="material-icons">arrow_back</span>
+    <span class="font-semibold">Back</span>
+  </button>
 </header>
 
-<main>
-  <video id="livePlayer" controls autoplay>
-    Your browser does not support HTML5 video.
-  </video>
-  <div id="placeholder" class="placeholder" style="display:none;">No stream available</div>
+<main class="flex-grow pt-20 pb-24">
+
+  <!-- Video Player Card -->  
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">  
+    <div class="relative">  
+      <video id="video" playsinline webkit-playsinline></video>  
+
+      <!-- Scrolling Text Ad Above Controls -->  
+      <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-70 text-white text-sm py-1">  
+        <div class="animate-scroll whitespace-nowrap">  
+          🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥  
+        </div>  
+      </div>  
+
+      <!-- Ad strip -->  
+      <div class="ad-strip absolute bottom-0 left-0 w-full">  
+        <div id="adProgress" class="ad-progress"></div>  
+      </div>  
+
+      <!-- Controls -->  
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">  
+        <div class="flex items-center space-x-2">  
+          <button id="playBtn" class="material-icons text-white">play_arrow</button>  
+          <button id="muteBtn" class="material-icons text-white">volume_up</button>  
+          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">  
+          <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
+          <!-- Favorites Button -->
+          <button id="favBtn" class="material-icons text-yellow-400" title="Add to Favorites">star_border</button>
+        </div>  
+        <button id="fsBtn" class="material-icons text-white">fullscreen</button>  
+      </div>  
+    </div>
+  </div>
+
+  <!-- Video Info Section -->
+  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">  
+    <div id="extraInfo" class="text-gray-300 text-sm"></div>  
+
+    <!-- Stream Info -->  
+    <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.   
+      All rights remain with their original providers. This platform only provides an interface to access them for convenience.  
+    </p>  
+
+    <!-- Rules -->  
+    <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>  
+    <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
+      <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>  
+      <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>  
+      <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>  
+    </ul>  
+
+    <!-- Privacy & Technical -->  
+    <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>  
+    <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
+      <li>No personal data is collected, stored, or shared.</li>  
+      <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>  
+      <li>No server-side caching, recording, or proxying is done on our platform.</li>  
+      <li>Playback happens on your device using standard open-source player libraries.</li>  
+    </ul>  
+
+    <!-- Open Source -->  
+    <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.   
+      For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.  
+    </p>  
+
+    <!-- Legal Disclaimer -->  
+    <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.   
+      However, you must comply with your local laws and the content owner's terms.   
+      We do not guarantee the legality of accessing any specific content in your jurisdiction.  
+    </p>  
+
+    <!-- Takedown Policy -->  
+    <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.   
+      We review and process valid requests within <strong>48 hours</strong>.  
+    </p>  
+  </div>  
+
+  <!-- Bottom Banner Ad -->  
+  <div class="w-full text-center my-4">  
+    <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
+  </div>  
 </main>
 
+<!-- JS -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+<script type="module" src="assets/js/test.js"></script>
+
 <script>
-  // Function to get query parameters
-  function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  }
+// Favorites Feature
+const video = document.getElementById('video');
+const videoTitle = document.getElementById('videoTitle');
+const favBtn = document.getElementById('favBtn');
 
-  const player = document.getElementById('livePlayer');
-  const placeholder = document.getElementById('placeholder');
+// Example thumbnail URL (replace with dynamic if available)
+const videoThumbnail = 'https://via.placeholder.com/150';
 
-  // Get the 'stream' parameter from URL
-  const streamParam = getQueryParam('stream');
+// Load selected video from favorites page
+const selectedVideo = localStorage.getItem('selectedVideo');
+if(selectedVideo){
+  video.src = selectedVideo;
+  videoTitle.textContent = localStorage.getItem('selectedVideoTitle') || 'Video Title';
+  localStorage.removeItem('selectedVideo');
+  localStorage.removeItem('selectedVideoTitle');
+}
 
-  if(streamParam) {
-    // Assuming the streamParam matches the key in Firebase or static stream mapping
-    // Here, you can create a mapping if needed, for example:
-    const streams = {
-      "channel-1": "https://example.com/stream1.m3u8",
-      "channel-2": "https://example.com/stream2.m3u8",
-      "channel-3": "https://example.com/stream3.m3u8"
-      // Add all channels here
-    };
+// Get favorites
+function getFavorites() {
+  return JSON.parse(localStorage.getItem('favorites')) || [];
+}
 
-    const streamURL = streams[streamParam];
+// Save favorites
+function saveFavorites(favs) {
+  localStorage.setItem('favorites', JSON.stringify(favs));
+}
 
-    if(streamURL){
-      player.src = streamURL;
-      player.style.display = 'block';
-      placeholder.style.display = 'none';
-    } else {
-      player.style.display = 'none';
-      placeholder.textContent = "Stream not found";
-      placeholder.style.display = 'block';
-    }
+// Update favorite button icon
+function updateFavIcon() {
+  const favs = getFavorites();
+  const exists = favs.some(fav => fav.src === video.src);
+  favBtn.textContent = exists ? 'star' : 'star_border';
+}
+
+// Add/remove favorite
+favBtn.addEventListener('click', () => {
+  let favs = getFavorites();
+  const exists = favs.some(fav => fav.src === video.src);
+  if(exists){
+    favs = favs.filter(fav => fav.src !== video.src);
   } else {
-    player.style.display = 'none';
-    placeholder.textContent = "No stream specified";
-    placeholder.style.display = 'block';
+    favs.push({ title: videoTitle.textContent, src: video.src, thumb: videoThumbnail });
   }
+  saveFavorites(favs);
+  updateFavIcon();
+});
+
+// Initialize favorite icon
+updateFavIcon();
 </script>
 
 </body>
