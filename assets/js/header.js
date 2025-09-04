@@ -8,4 +8,3 @@ export function injectHeader() {
   `;
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
 }
-
