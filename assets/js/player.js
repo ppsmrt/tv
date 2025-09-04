@@ -5,10 +5,10 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10
 const video = document.getElementById('video');
 const playBtn = document.getElementById('playBtn');
 const fsBtn = document.getElementById('fsBtn');
-const muteBtn = document.getElementById('muteBtn');
+const muteBtn = const volumeBtn = document.getElementById('volumeBtn');
+const volumeContainer = document.getElementById('volumeContainer');
 const muteToggle = document.getElementById('muteToggle');
 const volumeSlider = document.getElementById('volumeSlider');
-const volumeContainer = document.getElementById('volumeContainer');
 const controls = document.getElementById('controls');
 const videoTitle = document.getElementById('videoTitle');
 const extraInfo = document.getElementById('extraInfo');
