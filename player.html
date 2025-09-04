@@ -1,182 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Player - Live TV</title>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8"/>  
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>  
+<title>Player - Live TV</title>  <!-- Tailwind CSS -->  <script src="https://cdn.tailwindcss.com"></script>  <!-- Material Icons -->  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>  <!-- Baloo 2 Font -->  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>  <style>  
+  /* Apply Baloo 2 font globally */  
+  html, body {  
+    font-family: 'Baloo 2', cursive;  
+    margin: 0;  
+    padding: 0;  
+    height: 100%;  
+    background: #111;  
+    overscroll-behavior: none;  
+  }  
+  
+  /* Video default */  
+  #video {  
+    width: 100%;  
+    height: auto;  
+    max-height: 60vh;  
+    background: black;  
+    object-fit: cover;  
+    transition: transform 0.2s ease;  
+  }  
+  
+  /* Fullscreen video adjustments */  
+  video:fullscreen {  
+    width: 100% !important;  
+    height: 100% !important;  
+    object-fit: cover;  
+  }  
+  
+  /* Safe area for fullscreen */  
+  :fullscreen {  
+    padding: 0;  
+    margin: 0;  
+  }  
+  
+  /* Controls transition */  
+  .controls {  
+    transition: opacity 0.3s;  
+  }  
+  .controls.hidden {  
+    opacity: 0;  
+    pointer-events: none;  
+  }  
+  
+  /* Ad strip */  
+  .ad-strip {  
+    height: 4px;  
+    background-color: rgba(255,255,255,0.2);  
+    margin-top: 8px;  
+  }  
+  .ad-progress {  
+    height: 100%;  
+    background-color: #f87171;  
+    width: 0%;  
+    transition: width 0.3s;  
+  }  
+  
+  /* Fullscreen immersive behavior on mobile */  
+  body:fullscreen {  
+    background: black;  
+  }  
+  
+  /* Scrolling text ad animation */  
+  @keyframes scroll {  
+    0% { transform: translateX(100%); }  
+    100% { transform: translateX(-100%); }  
+  }  
+  .animate-scroll {  
+    display: inline-block;  
+    padding-left: 100%;  
+    animation: scroll 12s linear infinite;  
+  }  
+</style>  </head>  <body class="bg-gray-900 text-white flex flex-col min-h-screen">  <main class="flex-grow pt-16 pb-24">  
+  <!-- Video Player Card -->  
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">  
+    <div class="relative">  
+      <video id="video" playsinline webkit-playsinline></video>  <!-- Scrolling Text Ad Above Controls -->  
+  <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-70 text-white text-sm py-1">  
+    <div class="animate-scroll whitespace-nowrap">  
+      🔥 Advertisement: Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥  
+    </div>  
+  </div>  
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
+  <!-- Ad strip -->  
+  <div class="ad-strip absolute bottom-0 left-0 w-full">  
+    <div id="adProgress" class="ad-progress"></div>  
+  </div>  
 
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <!-- Controls -->  
+  <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">  
+    <div class="flex items-center space-x-2">  
+      <button id="playBtn" class="material-icons text-white">play_arrow</button>  
+      <button id="muteBtn" class="material-icons text-white">volume_up</button>  
+      <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">  
+      <span id="videoTitle" class="font-semibold text-lg">Video Title</span>  
+    </div>  
+    <button id="fsBtn" class="material-icons text-white">fullscreen</button>  
+  </div>  
+</div>
 
-<!-- Baloo 2 Font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-
-<style>
-  html, body {
-    font-family: 'Baloo 2', cursive;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #111;
-    overscroll-behavior: none;
-  }
-
-  /* Header */
-  header {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-    background: rgba(31,41,55,0.9);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  main {
-    flex: 1;
-  }
-
-  /* Video default */
-  #video {
-    width: 100%;
-    height: auto;
-    max-height: 60vh;
-    background: black;
-    object-fit: cover;
-    transition: transform 0.2s ease;
-    border-radius: 0.5rem;
-  }
-
-  /* Fullscreen video adjustments */
-  video:fullscreen {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
-  }
-
-  /* Controls */
-  .controls {
-    transition: opacity 0.3s, backdrop 0.3s;
-  }
-  .controls.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* Frosted glass effect */
-  .backdrop-blur-md {
-    backdrop-filter: blur(10px);
-  }
-
-  /* Ad strip */
-  .ad-strip {
-    height: 4px;
-    background-color: rgba(255,255,255,0.2);
-    margin-top: 8px;
-  }
-  .ad-progress {
-    height: 100%;
-    background-color: #f87171;
-    width: 0%;
-    transition: width 0.3s;
-  }
-
-  /* Scrolling text ad animation */
-  @keyframes scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-  .animate-scroll {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll 12s linear infinite;
-  }
-
-  /* Volume slider */
-  #volumeContainer {
-    opacity: 0;
-    scale: 0;
-  }
-  .scale-100 { transform: scale(1); }
-  .scale-0 { transform: scale(0); }
-  .opacity-100 { opacity: 1; }
-  .opacity-0 { opacity: 0; }
-</style>
-</head>
-
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
-
-<!-- Header -->
-<header>
-  <div class="flex items-center space-x-2">
-    <span class="material-icons">live_tv</span>
-    <h1 class="text-lg font-bold">Live Player</h1>
-  </div>
-  <button onclick="history.back()" class="material-icons text-white">arrow_back</button>
-</header>
-
-<main class="flex-grow pt-4 pb-24">
-
-  <!-- Video Player Card -->
-  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
-    <div class="relative">
-      <video id="video" playsinline webkit-playsinline></video>
-      
-      <!-- Scrolling Text Ad Above Controls -->
-      <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-70 text-white text-sm py-1">
-        <div class="animate-scroll whitespace-nowrap">
-          🔥 Advertisement: Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
-        </div>
-      </div>
-
-      <!-- Ad strip -->
-      <div class="ad-strip absolute bottom-0 left-0 w-full">
-        <div id="adProgress" class="ad-progress"></div>
-      </div>
-
-      <!-- Controls -->
-      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 backdrop-blur-md p-2 rounded-lg transition-all duration-300">
-        <div class="flex items-center space-x-2 relative">
-          <button id="playBtn" class="material-icons text-white">play_arrow</button>
-          
-          <!-- Volume Container -->
-          <div class="relative">
-            <button id="volumeBtn" class="material-icons text-white">volume_up</button>
-            <div id="volumeContainer" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 backdrop-blur-md p-2 rounded-lg flex flex-col items-center transition-all duration-300">
-              <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" class="rotate-[-90deg] w-20">
-              <button id="muteToggle" class="material-icons text-white mt-1">volume_off</button>
-            </div>
-          </div>
-          
-        </div>
-        <button id="fsBtn" class="material-icons text-white">fullscreen</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Video Info Section -->
-  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
-    <div id="extraInfo" class="text-gray-300 text-sm"></div>
-    <!-- Stream info, rules, privacy, etc. kept intact from previous code -->
-  </div>
-
-  <!-- Bottom Banner Ad -->
-  <div class="w-full text-center my-4">
-    <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">
-  </div>
-
-</main>
-
-<!-- JS -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/player.js"></script>
-</body>
+  </div>    <!-- Video Info Section -->  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">  
+  <div id="extraInfo" class="text-gray-300 text-sm"></div>    <!-- Stream Info -->    <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>  
+  <p class="text-gray-300 text-sm leading-relaxed">  
+    All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.   
+    All rights remain with their original providers. This platform only provides an interface to access them for convenience.  
+  </p>    <!-- Rules -->    <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>  
+  <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
+    <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>  
+    <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>  
+    <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>  
+  </ul>    <!-- Privacy & Technical -->    <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>  
+  <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
+    <li>No personal data is collected, stored, or shared.</li>  
+    <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>  
+    <li>No server-side caching, recording, or proxying is done on our platform.</li>  
+    <li>Playback happens on your device using standard open-source player libraries.</li>  
+  </ul>    <!-- Open Source -->    <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>  
+  <p class="text-gray-300 text-sm leading-relaxed">  
+    This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.   
+    For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.  
+  </p>    <!-- Legal Disclaimer -->    <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>  
+  <p class="text-gray-300 text-sm leading-relaxed">  
+    Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.   
+    However, you must comply with your local laws and the content owner's terms.   
+    We do not guarantee the legality of accessing any specific content in your jurisdiction.  
+  </p>    <!-- Takedown Policy -->    <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>  
+  <p class="text-gray-300 text-sm leading-relaxed">  
+    If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.   
+    We review and process valid requests within <strong>48 hours</strong>.  
+  </p>  
+</div>  <!-- Bottom Banner Ad -->  <div class="w-full text-center my-4">  
+  <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
+</div>  </main>  <!-- JS -->  <script type="module" src="assets/js/header.js"></script>  <script type="module" src="assets/js/footer.js"></script>  <script type="module" src="assets/js/test.js"></script>  </body>  
 </html>
