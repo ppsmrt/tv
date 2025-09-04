@@ -1,3 +1,7 @@
+<!-- Add HLS.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -13,6 +17,7 @@ const extraInfo = document.getElementById('extraInfo');
 let controlsTimeout;
 let scale = 1;
 let initialDistance = null;
+let hlsInstance = null; // <-- HLS.js instance
 
 // Firebase Config
 const firebaseConfig = {
@@ -34,6 +39,27 @@ function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g
 
 const streamSlug = qs('stream');
 
+// Function to play HLS or fallback
+function playStream(url) {
+  if(hlsInstance){
+    hlsInstance.destroy();
+    hlsInstance = null;
+  }
+
+  if(Hls.isSupported()){
+    hlsInstance = new Hls();
+    hlsInstance.loadSource(url);
+    hlsInstance.attachMedia(video);
+    hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(err => console.warn('Autoplay failed', err)));
+  } else if(video.canPlayType('application/vnd.apple.mpegurl')){
+    // Native HLS (Safari)
+    video.src = url;
+    video.play().catch(err => console.warn('Autoplay failed', err));
+  } else {
+    console.error('HLS not supported in this browser');
+  }
+}
+
 // Fetch stream data from Firebase
 const channelsRef = ref(db, 'channels');
 onValue(channelsRef, snapshot => {
@@ -52,13 +78,13 @@ onValue(channelsRef, snapshot => {
 
   videoTitle.textContent = match.name;
   extraInfo.textContent = `Host: ${match.host || 'N/A'} | Genre: ${match.genre || 'N/A'} | Viewers: ${match.viewers || '0'}`;
-  video.src = match.url;
-  video.setAttribute('playsinline','');
-  video.load();
-  video.play().catch(err => console.warn('Autoplay failed', err));
-});
 
-// --- Controls Logic ---
+  // Play the stream (HLS or native)
+  playStream(match.url);
+  video.setAttribute('playsinline','');
+}
+
+// --- Controls Logic (UNCHANGED) ---
 
 // Play/Pause
 playBtn.addEventListener('click', () => {
@@ -183,3 +209,5 @@ function applyFullscreenStyles() {
 document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
+
+</script>
