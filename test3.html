@@ -21,6 +21,8 @@
     color: #fff;
     margin: 0;
     min-height: 100vh;
+    position: relative;
+    padding-bottom: 160px; /* space for sticky ad */
   }
 
   header {
@@ -30,10 +32,11 @@
     padding: 0 1.5rem;
     background: rgba(31,41,55,0.9);
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 20;
   }
 
   main {
-    padding: 20px 1rem 96px; /* reduced top padding to remove extra space */
+    padding: 20px 1rem 0; /* top padding reduced, bottom handled by body padding */
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -178,6 +181,20 @@
     .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
     .channel-name { font-size: 0.95rem; }
   }
+
+  /* Sticky Bottom Ad */
+  .sticky-ad {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(31,41,55,0.95);
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+    z-index: 30;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.5);
+  }
 </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -207,12 +224,12 @@
 <!-- Footer -->
 <div id="footer"></div>
 
-<!-- Bottom Ad Banner -->
-<div class="my-6 flex justify-center">
+<!-- Sticky Bottom Ad Banner -->
+<div class="sticky-ad">
   <img 
     src="https://i.ibb.co/QvhQLrrg/ad1.jpg" 
     alt="Ad" 
-    class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg"
+    class="max-w-[728px] w-[90%] h-auto rounded-lg shadow-lg"
   >
 </div>
 
