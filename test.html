@@ -175,6 +175,8 @@
 </head>
 <body>
 
+<!-- Header injected via header.js -->
+
 <main>
   <!-- Premium Search Bar -->
   <div class="search-container">
@@ -191,10 +193,16 @@
   <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
 
+<!-- Footer injected via footer.js -->
+
 <!-- Firebase and App Logic -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  // Inject Header and Footer
+  import './assets/js/header.js';
+  import './assets/js/footer.js';
 
   const firebaseConfig = {
     apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
@@ -220,7 +228,8 @@
   function createChannelCard(c) {
     const a = document.createElement('a');
     const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, '-'));
-    a.href = `player.html?channel-name=${safeName}`; // Updated to player.html
+    // Pass stream URL to player.html
+    a.href = `player.html?channel=${safeName}&stream=${encodeURIComponent(c.stream)}`;
     a.className = 'channel-card';
     a.setAttribute('aria-label', `Watch ${c.name}`);
 
