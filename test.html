@@ -15,7 +15,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  /* Apply Baloo 2 font globally */
   html, body {
     font-family: 'Baloo 2', cursive;
     margin: 0;
@@ -25,7 +24,6 @@
     overscroll-behavior: none;
   }
 
-  /* Video default */
   #video {
     width: 100%;
     height: auto;
@@ -35,29 +33,17 @@
     transition: transform 0.2s ease;
   }
 
-  /* Fullscreen video adjustments */
   video:fullscreen {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
   }
 
-  /* Safe area for fullscreen */
-  :fullscreen {
-    padding: 0;
-    margin: 0;
-  }
+  :fullscreen { padding: 0; margin: 0; }
 
-  /* Controls transition */
-  .controls {
-    transition: opacity 0.3s;
-  }
-  .controls.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
+  .controls { transition: opacity 0.3s; }
+  .controls.hidden { opacity: 0; pointer-events: none; }
 
-  /* Ad strip */
   .ad-strip {
     height: 4px;
     background-color: rgba(255,255,255,0.2);
@@ -70,12 +56,8 @@
     transition: width 0.3s;
   }
 
-  /* Fullscreen immersive behavior on mobile */
-  body:fullscreen {
-    background: black;
-  }
+  body:fullscreen { background: black; }
 
-  /* Scrolling text ad animation */
   @keyframes scroll {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
@@ -85,10 +67,27 @@
     padding-left: 100%;
     animation: scroll 12s linear infinite;
   }
+
+  /* Toast notification */
+  #toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f87171;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 999;
+    font-weight: 500;
+    font-family: 'Baloo 2', cursive;
+  }
 </style>
 </head>
 
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
+
 <!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
   <div class="flex items-center">
@@ -127,26 +126,28 @@
           <button id="muteBtn" class="material-icons text-white">volume_up</button>  
           <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">  
           <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
-          <!-- Favorites Button -->
-          <button id="favBtn" class="material-icons text-yellow-400" title="Add to Favorites">star_border</button>
         </div>  
         <button id="fsBtn" class="material-icons text-white">fullscreen</button>  
       </div>  
     </div>
   </div>
 
+  <!-- Add to Playlist Section -->
+  <div class="mx-4 mt-4 flex flex-col items-start bg-gray-800 p-3 rounded-lg">
+    <span class="font-semibold text-white mb-2">Add to Playlist</span>
+    <button id="playlistBtn" class="flex items-center space-x-2 px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition">
+      <span id="playlistIcon" class="material-icons text-yellow-400">playlist_add</span>
+      <span id="playlistText" class="text-white font-medium">Add to Playlist</span>
+    </button>
+  </div>
+
   <!-- Video Info Section -->
   <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">  
     <div id="extraInfo" class="text-gray-300 text-sm"></div>  
 
-    <!-- Stream Info -->  
     <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">  
-      All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.   
-      All rights remain with their original providers. This platform only provides an interface to access them for convenience.  
-    </p>  
+    <p class="text-gray-300 text-sm leading-relaxed">All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way. All rights remain with their original providers. This platform only provides an interface to access them for convenience.</p>  
 
-    <!-- Rules -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>  
     <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
       <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>  
@@ -154,7 +155,6 @@
       <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>  
     </ul>  
 
-    <!-- Privacy & Technical -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>  
     <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
       <li>No personal data is collected, stored, or shared.</li>  
@@ -163,27 +163,14 @@
       <li>Playback happens on your device using standard open-source player libraries.</li>  
     </ul>  
 
-    <!-- Open Source -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">  
-      This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.   
-      For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.  
-    </p>  
+    <p class="text-gray-300 text-sm leading-relaxed">This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>. For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.</p>  
 
-    <!-- Legal Disclaimer -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">  
-      Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.   
-      However, you must comply with your local laws and the content owner's terms.   
-      We do not guarantee the legality of accessing any specific content in your jurisdiction.  
-    </p>  
+    <p class="text-gray-300 text-sm leading-relaxed">Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions. However, you must comply with your local laws and the content owner's terms. We do not guarantee the legality of accessing any specific content in your jurisdiction.</p>  
 
-    <!-- Takedown Policy -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">  
-      If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.   
-      We review and process valid requests within <strong>48 hours</strong>.  
-    </p>  
+    <p class="text-gray-300 text-sm leading-relaxed">If you are a content owner and wish to request removal of a stream, please submit a verified takedown request. We review and process valid requests within <strong>48 hours</strong>.</p>  
   </div>  
 
   <!-- Bottom Banner Ad -->  
@@ -192,61 +179,69 @@
   </div>  
 </main>
 
+<!-- Toast Notification -->
+<div id="toast">Added to Playlist</div>
+
 <!-- JS -->
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 <script type="module" src="assets/js/test.js"></script>
 
 <script>
-// Favorites Feature
-const video = document.getElementById('video');
-const videoTitle = document.getElementById('videoTitle');
-const favBtn = document.getElementById('favBtn');
+// Playlist Feature
+const playlistBtn = document.getElementById('playlistBtn');
+const playlistIcon = document.getElementById('playlistIcon');
+const playlistText = document.getElementById('playlistText');
+const toast = document.getElementById('toast');
 
-// Example thumbnail URL (replace with dynamic if available)
-const videoThumbnail = 'https://via.placeholder.com/150';
-
-// Load selected video from favorites page
 const selectedVideo = localStorage.getItem('selectedVideo');
 if(selectedVideo){
-  video.src = selectedVideo;
-  videoTitle.textContent = localStorage.getItem('selectedVideoTitle') || 'Video Title';
+  document.getElementById('video').src = selectedVideo;
+  document.getElementById('videoTitle').textContent = localStorage.getItem('selectedVideoTitle') || 'Video Title';
   localStorage.removeItem('selectedVideo');
   localStorage.removeItem('selectedVideoTitle');
 }
 
-// Get favorites
-function getFavorites() {
-  return JSON.parse(localStorage.getItem('favorites')) || [];
+const videoEl = document.getElementById('video');
+const videoTitle = document.getElementById('videoTitle');
+
+// Get playlist from localStorage
+function getPlaylist() {
+  return JSON.parse(localStorage.getItem('playlist')) || [];
 }
 
-// Save favorites
-function saveFavorites(favs) {
-  localStorage.setItem('favorites', JSON.stringify(favs));
+// Save playlist to localStorage
+function savePlaylist(list) {
+  localStorage.setItem('playlist', JSON.stringify(list));
 }
 
-// Update favorite button icon
-function updateFavIcon() {
-  const favs = getFavorites();
-  const exists = favs.some(fav => fav.src === video.src);
-  favBtn.textContent = exists ? 'star' : 'star_border';
+// Update button based on playlist
+function updatePlaylistButton() {
+  const list = getPlaylist();
+  const exists = list.some(item => item.src === videoEl.src);
+  playlistIcon.textContent = exists ? 'playlist_add_check' : 'playlist_add';
+  playlistText.textContent = exists ? 'Added to Playlist' : 'Add to Playlist';
 }
 
-// Add/remove favorite
-favBtn.addEventListener('click', () => {
-  let favs = getFavorites();
-  const exists = favs.some(fav => fav.src === video.src);
-  if(exists){
-    favs = favs.filter(fav => fav.src !== video.src);
-  } else {
-    favs.push({ title: videoTitle.textContent, src: video.src, thumb: videoThumbnail });
+// Show toast
+function showToast() {
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 1500);
+}
+
+// Add/remove from playlist
+playlistBtn.addEventListener('click', () => {
+  let list = getPlaylist();
+  const exists = list.some(item => item.src === videoEl.src);
+  if(!exists){
+    list.push({ title: videoTitle.textContent, src: videoEl.src });
+    savePlaylist(list);
+    updatePlaylistButton();
+    showToast();
   }
-  saveFavorites(favs);
-  updateFavIcon();
 });
 
-// Initialize favorite icon
-updateFavIcon();
+updatePlaylistButton();
 </script>
 
 </body>
