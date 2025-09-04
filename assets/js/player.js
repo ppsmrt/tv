@@ -85,25 +85,32 @@ fsBtn.addEventListener('click', () => {
   }
 });
 
-// Mute / Volume
-muteBtn.addEventListener('click', () => {
-  volumeContainer.style.display = volumeContainer.style.display === 'flex' ? 'none' : 'flex';
+
+// Toggle volume slider visibility
+volumeBtn.addEventListener('click', () => {
+  const isOpen = volumeContainer.classList.contains('opacity-100');
+  if(isOpen){
+    volumeContainer.classList.remove('opacity-100','scale-100');
+    volumeContainer.classList.add('opacity-0','scale-0');
+  } else {
+    volumeContainer.classList.remove('opacity-0','scale-0');
+    volumeContainer.classList.add('opacity-100','scale-100');
+  }
 });
 
-volumeSlider.addEventListener('input', () => {
-  video.volume = volumeSlider.value;
-  video.muted = video.volume === 0;
-  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
-});
-
-// Separate Mute Toggle
+// Mute / Unmute separately
 muteToggle.addEventListener('click', () => {
   video.muted = !video.muted;
   muteToggle.textContent = video.muted ? 'volume_off' : 'volume_up';
-  if(video.muted) volumeSlider.value = 0;
-  else if(volumeSlider.value == 0) volumeSlider.value = 0.5;
+  volumeSlider.value = video.muted ? 0 : video.volume;
 });
 
+// Update volume
+volumeSlider.addEventListener('input', () => {
+  video.volume = volumeSlider.value;
+  video.muted = video.volume == 0;
+  muteToggle.textContent = video.muted ? 'volume_off' : 'volume_up';
+});
 // Auto-hide controls
 const showControls = () => {
   controls.classList.remove('hidden');
