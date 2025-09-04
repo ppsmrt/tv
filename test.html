@@ -116,6 +116,8 @@
     transform: translateY(20px);
     opacity: 0;
     transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+    position: relative;
+    text-decoration: none;
   }
   .channel-card.show {
     transform: translateY(0);
@@ -171,10 +173,7 @@
   }
 </style>
 </head>
-<body class="bg-gray-900 text-white">
-
-<!-- Header -->
-<div id="header"></div>
+<body>
 
 <main>
   <!-- Premium Search Bar -->
@@ -191,13 +190,6 @@
   <!-- Channels Grid -->
   <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
-
-<!-- Footer -->
-<div id="footer"></div>
-
-<!-- JS Files -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
 
 <!-- Firebase and App Logic -->
 <script type="module">
@@ -228,8 +220,8 @@
   function createChannelCard(c) {
     const a = document.createElement('a');
     const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, '-'));
-    a.href = `test.html?stream=${safeName}`;
-    a.className = 'channel-card relative';
+    a.href = `player.html?channel-name=${safeName}`; // Updated to player.html
+    a.className = 'channel-card';
     a.setAttribute('aria-label', `Watch ${c.name}`);
 
     const img = document.createElement('img');
@@ -311,5 +303,6 @@
     }
   });
 </script>
+
 </body>
 </html>
