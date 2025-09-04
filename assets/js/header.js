@@ -1,32 +1,3 @@
-// header.js
-
-// Create header container
-const header = document.createElement('header');
-header.style.cssText = `
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #1f2937; /* gray-800 */
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  font-family: Arial, sans-serif;
-  z-index: 1000;
-  overflow: hidden;
-`;
-
-// Create title
-const title = document.createElement('h1');
-title.textContent = 'My App';
-title.style.cssText = `
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
-header.appendChild(title);
-
-// Create pull-to-refresh indicator
 const ptrIndicator = document.createElement('div');
 ptrIndicator.textContent = '↓ Pull to refresh';
 ptrIndicator.style.cssText = `
