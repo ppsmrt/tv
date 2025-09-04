@@ -88,7 +88,13 @@ fsBtn.addEventListener('click', () => {
       screen.orientation.lock('landscape').catch(()=>{});
     }
 
-    // Apply fullscreen styles immediately
+    // Apply immersive fullscreen styles
+    document.documentElement.style.margin = '0';
+    document.documentElement.style.padding = '0';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    video.parentElement.style.width = '100vw';
+    video.parentElement.style.height = '100vh';
     video.style.width = '100%';
     video.style.height = '100%';
     video.style.objectFit = 'cover';
@@ -100,7 +106,13 @@ fsBtn.addEventListener('click', () => {
       screen.orientation.unlock();
     }
 
-    // Reset video styles
+    // Reset styles
+    document.documentElement.style.margin = '';
+    document.documentElement.style.padding = '';
+    document.body.style.margin = '';
+    document.body.style.padding = '';
+    video.parentElement.style.width = '';
+    video.parentElement.style.height = '';
     video.style.width = '';
     video.style.height = '';
     video.style.objectFit = '';
@@ -108,9 +120,27 @@ fsBtn.addEventListener('click', () => {
   }
 });
 
-// Ensure fullscreen styles persist on fullscreenchange
+// Maintain fullscreen styles persistently
+function applyFullscreenStyles() {
+  if(document.fullscreenElement){
+    video.parentElement.style.width = '100vw';
+    video.parentElement.style.height = '100vh';
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
+    video.style.transform = `scale(${scale})`;
+  } else {
+    video.parentElement.style.width = '';
+    video.parentElement.style.height = '';
+    video.style.width = '';
+    video.style.height = '';
+    video.style.objectFit = '';
+    video.style.transform = '';
+  }
+}
 document.addEventListener('fullscreenchange', applyFullscreenStyles);
-
+window.addEventListener('resize', applyFullscreenStyles);
+window.addEventListener('orientationchange', applyFullscreenStyles);
 
 // Mute / Volume
 muteBtn.addEventListener('click', () => {
@@ -185,21 +215,3 @@ video.addEventListener('touchmove', e => {
   }
 });
 video.addEventListener('touchend', e => { if(e.touches.length < 2) initialDistance=null; });
-
-// Maintain fullscreen scaling on resize/orientation change
-function applyFullscreenStyles() {
-  if(document.fullscreenElement){
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.objectFit = 'cover';
-    video.style.transform = `scale(${scale})`;
-  } else {
-    video.style.width = '';
-    video.style.height = '';
-    video.style.objectFit = '';
-    video.style.transform = '';
-  }
-}
-document.addEventListener('fullscreenchange', applyFullscreenStyles);
-window.addEventListener('resize', applyFullscreenStyles);
-window.addEventListener('orientationchange', applyFullscreenStyles);
