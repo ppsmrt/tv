@@ -1,10 +1,80 @@
 // header.js
-export function injectHeader() {
-  const headerHTML = `
-    <header class="flex items-center px-6 h-16 bg-gray-900/90 shadow-md z-50">
-      <span class="material-icons text-white">live_tv</span>
-      <h1 class="ml-2 text-lg font-bold text-white">Live Player</h1>
-    </header>
-  `;
-  document.body.insertAdjacentHTML('afterbegin', headerHTML);
-}
+
+// Create header container
+const header = document.createElement('header');
+header.style.cssText = `
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #1f2937; /* gray-800 */
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  z-index: 1000;
+  overflow: hidden;
+`;
+
+// Create title
+const title = document.createElement('h1');
+title.textContent = 'My App';
+title.style.cssText = `
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+header.appendChild(title);
+
+// Create pull-to-refresh indicator
+const ptrIndicator = document.createElement('div');
+ptrIndicator.textContent = '↓ Pull to refresh';
+ptrIndicator.style.cssText = `
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  transition: top 0.3s;
+  color: #facc15; /* yellow-400 */
+`;
+header.appendChild(ptrIndicator);
+
+document.body.prepend(header);
+
+// Pull-to-refresh logic
+let startY = 0;
+let isPulling = false;
+
+window.addEventListener('touchstart', (e) => {
+  if (window.scrollY === 0) {
+    startY = e.touches[0].clientY;
+    isPulling = true;
+  }
+});
+
+window.addEventListener('touchmove', (e) => {
+  if (!isPulling) return;
+  const distance = e.touches[0].clientY - startY;
+  if (distance > 0) {
+    ptrIndicator.style.top = `${-40 + distance}px`;
+    if (distance > 60) ptrIndicator.textContent = '↻ Release to refresh';
+    else ptrIndicator.textContent = '↓ Pull to refresh';
+  }
+});
+
+window.addEventListener('touchend', (e) => {
+  if (!isPulling) return;
+  const distance = e.changedTouches[0].clientY - startY;
+  if (distance > 60) {
+    ptrIndicator.textContent = '⟳ Refreshing...';
+    // Simulate refresh (replace with your own fetch or reload logic)
+    setTimeout(() => {
+      ptrIndicator.style.top = '-40px';
+      ptrIndicator.textContent = '↓ Pull to refresh';
+    }, 1500);
+  } else {
+    ptrIndicator.style.top = '-40px';
+  }
+  isPulling = false;
+});
