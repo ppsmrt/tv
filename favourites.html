@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Favorites - Live TV</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
+  <h1 class="text-lg font-bold">Favorites</h1>
+  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+    <span class="material-icons">arrow_back</span>
+    <span>Back</span>
+  </button>
+</header>
+
+<main class="flex-grow pt-20 px-4">
+  <div id="favList" class="space-y-2"></div>
+</main>
+
+<script>
+  const favList = document.getElementById('favList');
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+  if (favorites.length === 0) {
+    favList.innerHTML = '<p class="text-gray-300">No favorites added yet.</p>';
+  } else {
+    favorites.forEach(fav => {
+      const div = document.createElement('div');
+      div.className = 'p-4 bg-gray-800 rounded flex justify-between items-center';
+      div.innerHTML = `
+        <span>${fav.title}</span>
+        <button class="material-icons text-red-400" onclick="playFav('${fav.src}')">play_arrow</button>
+      `;
+      favList.appendChild(div);
+    });
+  }
+
+  function playFav(src) {
+    // Redirect to player page with selected favorite video
+    localStorage.setItem('selectedVideo', src);
+    window.location.href = 'player.html';
+  }
+</script>
+
+</body>
+</html>
