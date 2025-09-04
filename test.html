@@ -1,109 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Player - Live TV</title>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8"/>  
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>  
+<title>Player - Live TV</title>  
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->  
+<script src="https://cdn.tailwindcss.com"></script>  
 
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Material Icons -->  
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>  
 
-<!-- Baloo 2 Font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<!-- Baloo 2 Font -->  
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>  
 
-<style>
-  html, body {
-    font-family: 'Baloo 2', cursive;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #111;
-    overscroll-behavior: none;
-  }
+<style>  
+  /* Apply Baloo 2 font globally */  
+  html, body {  
+    font-family: 'Baloo 2', cursive;  
+    margin: 0;  
+    padding: 0;  
+    height: 100%;  
+    background: #111;  
+    overscroll-behavior: none;  
+  }  
 
-  #video {
-    width: 100%;
-    height: auto;
-    max-height: 60vh;
-    background: black;
-    object-fit: cover;
-    transition: transform 0.2s ease;
-  }
+  /* Video default */  
+  #video {  
+    width: 100%;  
+    height: auto;  
+    max-height: 60vh;  
+    background: black;  
+    object-fit: cover;  
+    transition: transform 0.2s ease;  
+  }  
 
-  video:fullscreen {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
-  }
+  /* Fullscreen video adjustments */  
+  video:fullscreen,  
+  video:-webkit-full-screen,  
+  video:-moz-full-screen,  
+  video:-ms-fullscreen {  
+    width: 100% !important;  
+    height: 100% !important;  
+    object-fit: cover;  
+  }  
 
-  :fullscreen { padding: 0; margin: 0; }
+  /* Safe area for fullscreen */  
+  :fullscreen {  
+    padding: 0;  
+    margin: 0;  
+  }  
 
-  .controls { transition: opacity 0.3s; }
-  .controls.hidden { opacity: 0; pointer-events: none; }
+  /* Controls transition */  
+  .controls {  
+    transition: opacity 0.3s;  
+  }  
+  .controls.hidden {  
+    opacity: 0;  
+    pointer-events: none;  
+  }  
 
-  .ad-strip {
-    height: 4px;
-    background-color: rgba(255,255,255,0.2);
-    margin-top: 8px;
-  }
-  .ad-progress {
-    height: 100%;
-    background-color: #f87171;
-    width: 0%;
-    transition: width 0.3s;
-  }
+  /* Ad strip */  
+  .ad-strip {  
+    height: 4px;  
+    background-color: rgba(255,255,255,0.2);  
+    margin-top: 8px;  
+  }  
+  .ad-progress {  
+    height: 100%;  
+    background-color: #f87171;  
+    width: 0%;  
+    transition: width 0.3s;  
+  }  
 
-  body:fullscreen { background: black; }
+  /* Fullscreen immersive behavior on mobile */  
+  body:fullscreen {  
+    background: black;  
+  }  
 
-  @keyframes scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-  .animate-scroll {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll 12s linear infinite;
-  }
+  /* Scrolling text ad animation */  
+  @keyframes scroll {  
+    0% { transform: translateX(100%); }  
+    100% { transform: translateX(-100%); }  
+  }  
+  .animate-scroll {  
+    display: inline-block;  
+    padding-left: 100%;  
+    animation: scroll 12s linear infinite;  
+  }  
+</style>  
+</head>  
 
-  /* Toast notification */
-  #toast {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #f87171;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    display: none;
-    z-index: 999;
-    font-weight: 500;
-    font-family: 'Baloo 2', cursive;
-  }
-</style>
-</head>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">  
 
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<!-- Header -->  
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">  
+  <div class="flex items-center">  
+    <span class="material-icons text-white">live_tv</span>  
+    <!-- Channel name will be injected here -->  
+    <h1 id="channelName" class="ml-2 text-lg font-bold text-white"></h1>  
+  </div>  
+  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">  
+    <span class="material-icons">arrow_back</span>  
+    <span class="font-semibold">Back</span>  
+  </button>  
+</header>  
 
-<!-- Header -->
-<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
-  <div class="flex items-center">
-    <span class="material-icons text-white">live_tv</span>
-    <h1 id="headerTitle" class="ml-2 text-lg font-bold text-white">Live Player</h1>
-  </div>
-  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
-    <span class="material-icons">arrow_back</span>
-    <span class="font-semibold">Back</span>
-  </button>
-</header>
-
-<main class="flex-grow pt-20 pb-24">
-
-  <!-- Channel Name Above Video -->
-  <h2 id="channelTitle" class="mx-4 mb-2 text-xl font-bold text-white">Live Channel</h2>
+<main class="flex-grow pt-20 pb-24">  
 
   <!-- Video Player Card -->  
   <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">  
@@ -128,28 +131,25 @@
           <button id="playBtn" class="material-icons text-white">play_arrow</button>  
           <button id="muteBtn" class="material-icons text-white">volume_up</button>  
           <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">  
+          <!-- Removed channel name from controls -->  
         </div>  
         <button id="fsBtn" class="material-icons text-white">fullscreen</button>  
       </div>  
-    </div>
-  </div>
+    </div>  
+  </div>  
 
-  <!-- Add to Playlist Section -->
-  <div class="mx-4 mt-4 flex flex-col items-start bg-gray-800 p-3 rounded-lg">
-    <span class="font-semibold text-white mb-2">Add to Playlist</span>
-    <button id="playlistBtn" class="flex items-center space-x-2 px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition">
-      <span id="playlistIcon" class="material-icons text-yellow-400">playlist_add</span>
-      <span id="playlistText" class="text-white font-medium">Add to Playlist</span>
-    </button>
-  </div>
-
-  <!-- Video Info Section -->
+  <!-- Video Info Section -->  
   <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">  
     <div id="extraInfo" class="text-gray-300 text-sm"></div>  
 
+    <!-- Stream Info -->  
     <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way. All rights remain with their original providers. This platform only provides an interface to access them for convenience.</p>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.   
+      All rights remain with their original providers. This platform only provides an interface to access them for convenience.  
+    </p>  
 
+    <!-- Rules -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>  
     <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
       <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>  
@@ -157,6 +157,7 @@
       <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>  
     </ul>  
 
+    <!-- Privacy & Technical -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>  
     <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
       <li>No personal data is collected, stored, or shared.</li>  
@@ -165,89 +166,69 @@
       <li>Playback happens on your device using standard open-source player libraries.</li>  
     </ul>  
 
+    <!-- Open Source -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>. For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.</p>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.   
+      For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.  
+    </p>  
 
+    <!-- Legal Disclaimer -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions. However, you must comply with your local laws and the content owner's terms. We do not guarantee the legality of accessing any specific content in your jurisdiction.</p>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.   
+      However, you must comply with your local laws and the content owner's terms.   
+      We do not guarantee the legality of accessing any specific content in your jurisdiction.  
+    </p>  
 
+    <!-- Takedown Policy -->  
     <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>  
-    <p class="text-gray-300 text-sm leading-relaxed">If you are a content owner and wish to request removal of a stream, please submit a verified takedown request. We review and process valid requests within <strong>48 hours</strong>.</p>  
+    <p class="text-gray-300 text-sm leading-relaxed">  
+      If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.   
+      We review and process valid requests within <strong>48 hours</strong>.  
+    </p>  
   </div>  
 
   <!-- Bottom Banner Ad -->  
   <div class="w-full text-center my-4">  
     <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
   </div>  
-</main>
+</main>  
 
-<!-- Toast Notification -->
-<div id="toast">Added to Playlist</div>
+<!-- JS -->  
+<script type="module" src="assets/js/header.js"></script>  
+<script type="module" src="assets/js/footer.js"></script>  
+<script type="module" src="assets/js/test.js"></script>  
 
-<!-- JS -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/test.js"></script>
+<script>  
+// Example: Set channel name dynamically  
+const channelName = "My Channel"; // Replace with dynamic channel name variable  
+document.getElementById("channelName").textContent = channelName;  
 
-<script>
-// Playlist Feature
-const playlistBtn = document.getElementById('playlistBtn');
-const playlistIcon = document.getElementById('playlistIcon');
-const playlistText = document.getElementById('playlistText');
-const toast = document.getElementById('toast');
+// Fullscreen toggle fix  
+const video = document.getElementById("video");  
+const fsBtn = document.getElementById("fsBtn");  
 
-const channelTitleEl = document.getElementById('channelTitle');
-const headerTitleEl = document.getElementById('headerTitle');
-const videoEl = document.getElementById('video');
+fsBtn.addEventListener("click", () => {  
+  if (!document.fullscreenElement) {  
+    if (video.requestFullscreen) {  
+      video.requestFullscreen();  
+    } else if (video.webkitRequestFullscreen) {  
+      video.webkitRequestFullscreen();  
+    } else if (video.msRequestFullscreen) {  
+      video.msRequestFullscreen();  
+    }  
+  } else {  
+    if (document.exitFullscreen) {  
+      document.exitFullscreen();  
+    } else if (document.webkitExitFullscreen) {  
+      document.webkitExitFullscreen();  
+    } else if (document.msExitFullscreen) {  
+      document.msExitFullscreen();  
+    }  
+  }  
+});  
+</script>  
 
-const selectedVideo = localStorage.getItem('selectedVideo');
-if (selectedVideo) {
-  videoEl.src = selectedVideo;
-  const title = localStorage.getItem('selectedVideoTitle') || 'Live Channel';
-  channelTitleEl.textContent = title;
-  headerTitleEl.textContent = title;
-  localStorage.removeItem('selectedVideo');
-  localStorage.removeItem('selectedVideoTitle');
-}
-
-// Get playlist from localStorage
-function getPlaylist() {
-  return JSON.parse(localStorage.getItem('playlist')) || [];
-}
-
-// Save playlist to localStorage
-function savePlaylist(list) {
-  localStorage.setItem('playlist', JSON.stringify(list));
-}
-
-// Update button based on playlist
-function updatePlaylistButton() {
-  const list = getPlaylist();
-  const exists = list.some(item => item.src === videoEl.src);
-  playlistIcon.textContent = exists ? 'playlist_add_check' : 'playlist_add';
-  playlistText.textContent = exists ? 'Added to Playlist' : 'Add to Playlist';
-}
-
-// Show toast
-function showToast() {
-  toast.style.display = 'block';
-  setTimeout(() => { toast.style.display = 'none'; }, 1500);
-}
-
-// Add/remove from playlist
-playlistBtn.addEventListener('click', () => {
-  let list = getPlaylist();
-  const exists = list.some(item => item.src === videoEl.src);
-  if (!exists) {
-    list.push({ title: channelTitleEl.textContent, src: videoEl.src });
-    savePlaylist(list);
-    updatePlaylistButton();
-    showToast();
-  }
-});
-
-updatePlaylistButton();
-</script>
-
-</body>
+</body>  
 </html>
