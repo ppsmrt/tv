@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>404 Not Found</title>
+<title>404 - Not Found</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
   /* Reset */
   * {
@@ -16,52 +16,92 @@
 
   body, html {
     height: 100%;
-    background-color: #fff;
+    background: #f7f7f7 url('https://www.transparenttextures.com/patterns/cubes.png') repeat;
     font-family: 'Quicksand', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 20px;
   }
 
   .container {
-    text-align: center;
+    background: #fff;
+    padding: 40px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 380px;
     width: 100%;
-    max-width: 360px;
-    padding: 20px;
+    animation: fadeIn 1s ease-out;
   }
 
   .title {
     font-weight: 700;
-    font-size: 1.6rem;
-    margin-bottom: 25px;
-    color: #000;
-    letter-spacing: 0;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #FF4C4C;
   }
 
   .image-wrapper {
-    display: flex;
-    justify-content: center;
     margin-bottom: 25px;
   }
+
   .image-wrapper img {
     width: 250px;
     height: auto;
     max-width: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .image-wrapper img:hover {
+    transform: scale(1.05);
   }
 
   .description {
     font-weight: 400;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #555;
-    max-width: 280px;
-    margin: 0 auto;
-    line-height: 1.4;
+    max-width: 300px;
+    margin: 0 auto 25px;
+    line-height: 1.5;
+  }
+
+  .description a {
+    color: #FF4C4C;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .description a:hover {
+    text-decoration: underline;
+  }
+
+  .btn-home {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #FF4C4C;
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-home:hover {
+    background-color: #e03e3e;
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
   }
 </style>
 </head>
 <body>
   <div class="container" role="main" aria-label="404 Not Found message">
-    <div class="title" lang="ta">ஒன்னும் இல்லை</div>
+    <div class="title" lang="ta">ஒன்னும் இல்லை!</div>
 
     <div class="image-wrapper" aria-hidden="true">
       <img src="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0032382345023889667523819.jpg" 
@@ -69,9 +109,11 @@
     </div>
 
     <div class="description" lang="en">
-      The page you have requested os not foun in this server, go back to <a href='index.html'>Home</a><br>
+      Oops! The page you requested is not found.<br>
+      Return to <a href='index.html'>Home</a> or click the button below.
     </div>
+
+    <a href="index.html" class="btn-home">Back to Home</a>
   </div>
 </body>
 </html>
-
