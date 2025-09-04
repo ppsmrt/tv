@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Player - Live TV</title>
+<title>Live TV - Premium Dark UI</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,173 +15,255 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  /* Apply Baloo 2 font globally */
   html, body {
     font-family: 'Baloo 2', cursive;
+    background-color: #111827; /* Dark gray background */
+    color: #fff;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #111;
-    overscroll-behavior: none;
+    min-height: 100vh;
   }
 
-  /* Video default */
-  #video {
-    width: 100%;
-    height: auto;
-    max-height: 60vh;
-    background: black;
-    object-fit: cover;
-    transition: transform 0.2s ease;
+  main {
+    padding: 80px 1rem 96px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  /* Fullscreen video adjustments */
-  video:fullscreen {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
+  /* Category Bar */
+  .category-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .category-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .category-btn {
+    flex-shrink: 0;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #d1d5db;
+    background: #1f2937;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    border: none;
+  }
+  .category-btn:hover {
+    background: #f87171;
+    color: white;
+  }
+  .category-btn.active {
+    background: #f87171;
+    color: white;
+    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
   }
 
-  /* Safe area for fullscreen */
-  :fullscreen {
-    padding: 0;
-    margin: 0;
+  /* Channels Grid */
+  .channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
   }
 
-  /* Controls transition */
-  .controls {
-    transition: opacity 0.3s;
-  }
-  .controls.hidden {
+  /* Channel Cards */
+  .channel-card {
+    background: #1f2937;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px);
     opacity: 0;
-    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+  }
+  .channel-card.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .channel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
   }
 
-  /* Ad strip */
-  .ad-strip {
-    height: 4px;
-    background-color: rgba(255,255,255,0.2);
-    margin-top: 8px;
+  .channel-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-bottom: 1px solid #374151;
+    transition: filter 0.3s ease;
   }
-  .ad-progress {
-    height: 100%;
-    background-color: #f87171;
-    width: 0%;
-    transition: width 0.3s;
+  .channel-card:hover .channel-image {
+    filter: brightness(1.1);
   }
 
-  /* Fullscreen immersive behavior on mobile */
-  body:fullscreen {
-    background: black;
+  .channel-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .channel-card:hover .channel-overlay {
+    opacity: 1;
   }
 
-  /* Scrolling text ad animation */
-  @keyframes scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+  .channel-name {
+    padding: 12px 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #f9fafb;
   }
-  .animate-scroll {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll 12s linear infinite;
+
+  @media(max-width:640px){
+    .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .channel-name { font-size: 0.95rem; }
   }
 </style>
 </head>
+<body class="bg-gray-900 text-white">
 
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<!-- Header (Injected by header.js) -->
+<div id="header"></div>
 
-<main class="flex-grow pt-16 pb-24">
-  <!-- Video Player Card -->
-  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
-    <div class="relative">
-      <video id="video" playsinline webkit-playsinline></video>
-      
-      <!-- Scrolling Text Ad Above Controls -->
-      <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-70 text-white text-sm py-1">
-        <div class="animate-scroll whitespace-nowrap">
-          🔥 Advertisement: Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
-        </div>
-      </div>
-
-      <!-- Ad strip -->
-      <div class="ad-strip absolute bottom-0 left-0 w-full">
-        <div id="adProgress" class="ad-progress"></div>
-      </div>
-
-      <!-- Controls -->
-      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
-        <div class="flex items-center space-x-2">
-          <button id="playBtn" class="material-icons text-white">play_arrow</button>
-          <button id="muteBtn" class="material-icons text-white">volume_up</button>
-          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">
-          <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
-        </div>
-        <button id="fsBtn" class="material-icons text-white">fullscreen</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Video Info Section -->
-<div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
-  <div id="extraInfo" class="text-gray-300 text-sm"></div>
-
-  <!-- Stream Info -->
-  <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>
-  <p class="text-gray-300 text-sm leading-relaxed">
-    All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way. 
-    All rights remain with their original providers. This platform only provides an interface to access them for convenience.
-  </p>
-
-  <!-- Rules -->
-  <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>
-  <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
-    <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>
-    <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>
-    <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>
-  </ul>
-
-  <!-- Privacy & Technical -->
-  <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>
-  <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
-    <li>No personal data is collected, stored, or shared.</li>
-    <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>
-    <li>No server-side caching, recording, or proxying is done on our platform.</li>
-    <li>Playback happens on your device using standard open-source player libraries.</li>
-  </ul>
-
-  <!-- Open Source -->
-  <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>
-  <p class="text-gray-300 text-sm leading-relaxed">
-    This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>. 
-    For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.
-  </p>
-
-  <!-- Legal Disclaimer -->
-  <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>
-  <p class="text-gray-300 text-sm leading-relaxed">
-    Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions. 
-    However, you must comply with your local laws and the content owner's terms. 
-    We do not guarantee the legality of accessing any specific content in your jurisdiction.
-  </p>
-
-  <!-- Takedown Policy -->
-  <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>
-  <p class="text-gray-300 text-sm leading-relaxed">
-    If you are a content owner and wish to request removal of a stream, please submit a verified takedown request. 
-    We review and process valid requests within <strong>48 hours</strong>.
-  </p>
-</div>
-
-<!-- Bottom Banner Ad -->
-<div class="w-full text-center my-4">
-  <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">
-</div>
-
+<main>
+  <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories">
+    <!-- Categories dynamically rendered -->
+  </nav>
+  <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
 
-<!-- JS -->
+<!-- Footer (Injected by footer.js) -->
+<div id="footer"></div>
+
+<!-- JS Files -->
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/test.js"></script>
+
+<!-- Firebase and App Logic -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const grid = document.getElementById('channelsGrid');
+  const categoryBar = document.getElementById('categoryBar');
+  let selectedCategory = 'All';
+  let channels = [];
+
+  function createChannelCard(c) {
+    const a = document.createElement('a');
+    const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, '-'));
+    a.href = `test.html?stream=${safeName}`;
+    a.className = 'channel-card relative';
+    a.setAttribute('aria-label', `Watch ${c.name}`);
+
+    const img = document.createElement('img');
+    img.src = c.logo;
+    img.alt = c.name + ' logo';
+    img.className = 'channel-image';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'channel-overlay';
+    overlay.textContent = '▶ Watch';
+
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'channel-name';
+    nameDiv.textContent = c.name;
+
+    a.appendChild(img);
+    a.appendChild(overlay);
+    a.appendChild(nameDiv);
+    return a;
+  }
+
+  function renderCategories() {
+    const categories = ['All', ...new Set(channels.map(c => c.category))];
+    categories.sort();
+    categoryBar.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `category-btn ${cat === selectedCategory ? 'active' : ''}`;
+      btn.dataset.category = cat;
+      btn.textContent = cat;
+      btn.setAttribute('aria-pressed', cat === selectedCategory ? 'true' : 'false');
+      btn.addEventListener('click', () => {
+        selectedCategory = cat;
+        renderCategories();
+        renderChannels();
+      });
+      categoryBar.appendChild(btn);
+    });
+  }
+
+  function renderChannels(filter = '') {
+    grid.innerHTML = '';
+    const filtered = channels.filter(c => {
+      const matchCat = selectedCategory === 'All' || c.category === selectedCategory;
+      const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
+      return matchCat && matchSearch;
+    });
+
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p class="text-gray-400 text-center p-4">No channels found.</p>';
+      return;
+    }
+
+    filtered.forEach((c, i) => {
+      const card = createChannelCard(c);
+      grid.appendChild(card);
+      setTimeout(() => card.classList.add('show'), i * 100);
+    });
+  }
+
+  const channelsRef = ref(db, 'channels');
+  onValue(channelsRef, snapshot => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      channels = Object.values(data).map(c => ({
+        name: c.name,
+        category: c.category,
+        logo: c.icon,
+        stream: c.stream
+      }));
+      renderCategories();
+      renderChannels();
+    } else {
+      grid.innerHTML = '<p class="text-gray-400 text-center p-4">No channels available.</p>';
+    }
+  });
+</script>
 </body>
 </html>
