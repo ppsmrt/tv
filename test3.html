@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV - Home</title>
+<title>Live TV - Premium Dark UI</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -186,7 +186,7 @@
 <!-- Header -->
 <header>
   <span class="material-icons">live_tv</span>
-  <h1 class="ml-2 text-lg font-bold">Live Tv</h1>
+  <h1 class="ml-2 text-lg font-bold">Live Player</h1>
 </header>
 
 <main>
@@ -212,7 +212,7 @@
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 
-<!-- Firebase and App Logic -->
+<!-- Firebase and App Logic (Working Player Logic) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -234,21 +234,18 @@
   const grid = document.getElementById('channelsGrid');
   const categoryBar = document.getElementById('categoryBar');
   const searchInput = document.getElementById('searchInput');
-
   let selectedCategory = 'All';
   let channels = [];
 
   function createChannelCard(c) {
     const a = document.createElement('a');
-    const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, '-'));
-    a.href = `test.html?stream=${safeName}`;
-    a.className = 'channel-card relative';
+    const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'));
+    a.href = `player.html?stream=${safeName}`;
+    a.className = 'channel-card';
     a.setAttribute('aria-label', `Watch ${c.name}`);
 
     const img = document.createElement('img');
-    img.src = c.logo;
-    img.alt = c.name + ' logo';
-    img.className = 'channel-image';
+    img.src = c.logo; img.alt = c.name + ' logo'; img.className = 'channel-image';
 
     const overlay = document.createElement('div');
     overlay.className = 'channel-overlay';
@@ -258,9 +255,7 @@
     nameDiv.className = 'channel-name';
     nameDiv.textContent = c.name;
 
-    a.appendChild(img);
-    a.appendChild(overlay);
-    a.appendChild(nameDiv);
+    a.appendChild(img); a.appendChild(overlay); a.appendChild(nameDiv);
     return a;
   }
 
@@ -291,36 +286,36 @@
       return matchCat && matchSearch;
     });
 
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
+    filtered.sort((a,b) => a.name.localeCompare(b.name));
 
-    if (filtered.length === 0) {
-      grid.innerHTML = '<p class="text-gray-400 text-center p-4">No channels found.</p>';
+    if(filtered.length === 0){
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
       return;
     }
 
-    filtered.forEach((c, i) => {
+    filtered.forEach((c,i)=>{
       const card = createChannelCard(c);
       grid.appendChild(card);
-      setTimeout(() => card.classList.add('show'), i * 100);
+      setTimeout(()=>card.classList.add('show'), i*100);
     });
   }
 
-  searchInput.addEventListener('input', e => renderChannels(e.target.value));
+  searchInput.addEventListener('input', e=>renderChannels(e.target.value));
 
-  const channelsRef = ref(db, 'channels');
-  onValue(channelsRef, snapshot => {
-    if (snapshot.exists()) {
+  const channelsRef = ref(db,'channels');
+  onValue(channelsRef, snapshot=>{
+    if(snapshot.exists()){
       const data = snapshot.val();
-      channels = Object.values(data).map(c => ({
-        name: c.name,
-        category: c.category,
-        logo: c.icon,
-        stream: c.stream
+      channels = Object.values(data).map(c=>({
+        name:c.name,
+        category:c.category,
+        logo:c.icon,
+        stream:c.stream
       }));
       renderCategories();
       renderChannels(searchInput.value);
     } else {
-      grid.innerHTML = '<p class="text-gray-400 text-center p-4">No channels available.</p>';
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels available.</p>';
     }
   });
 </script>
