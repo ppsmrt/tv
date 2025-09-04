@@ -92,7 +92,7 @@
 <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
   <div class="flex items-center">
     <span class="material-icons text-white">live_tv</span>
-    <h1 class="ml-2 text-lg font-bold text-white">Live Player</h1>
+    <h1 id="headerTitle" class="ml-2 text-lg font-bold text-white">Live Player</h1>
   </div>
   <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
     <span class="material-icons">arrow_back</span>
@@ -101,6 +101,9 @@
 </header>
 
 <main class="flex-grow pt-20 pb-24">
+
+  <!-- Channel Name Above Video -->
+  <h2 id="channelTitle" class="mx-4 mb-2 text-xl font-bold text-white">Live Channel</h2>
 
   <!-- Video Player Card -->  
   <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">  
@@ -125,7 +128,6 @@
           <button id="playBtn" class="material-icons text-white">play_arrow</button>  
           <button id="muteBtn" class="material-icons text-white">volume_up</button>  
           <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">  
-          <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
         </div>  
         <button id="fsBtn" class="material-icons text-white">fullscreen</button>  
       </div>  
@@ -194,16 +196,19 @@ const playlistIcon = document.getElementById('playlistIcon');
 const playlistText = document.getElementById('playlistText');
 const toast = document.getElementById('toast');
 
+const channelTitleEl = document.getElementById('channelTitle');
+const headerTitleEl = document.getElementById('headerTitle');
+const videoEl = document.getElementById('video');
+
 const selectedVideo = localStorage.getItem('selectedVideo');
-if(selectedVideo){
-  document.getElementById('video').src = selectedVideo;
-  document.getElementById('videoTitle').textContent = localStorage.getItem('selectedVideoTitle') || 'Video Title';
+if (selectedVideo) {
+  videoEl.src = selectedVideo;
+  const title = localStorage.getItem('selectedVideoTitle') || 'Live Channel';
+  channelTitleEl.textContent = title;
+  headerTitleEl.textContent = title;
   localStorage.removeItem('selectedVideo');
   localStorage.removeItem('selectedVideoTitle');
 }
-
-const videoEl = document.getElementById('video');
-const videoTitle = document.getElementById('videoTitle');
 
 // Get playlist from localStorage
 function getPlaylist() {
@@ -233,8 +238,8 @@ function showToast() {
 playlistBtn.addEventListener('click', () => {
   let list = getPlaylist();
   const exists = list.some(item => item.src === videoEl.src);
-  if(!exists){
-    list.push({ title: videoTitle.textContent, src: videoEl.src });
+  if (!exists) {
+    list.push({ title: channelTitleEl.textContent, src: videoEl.src });
     savePlaylist(list);
     updatePlaylistButton();
     showToast();
