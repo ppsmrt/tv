@@ -74,6 +74,7 @@ playBtn.addEventListener('click', () => {
 // Fullscreen (immersive)
 fsBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
+    // Request fullscreen on parent container
     if(video.parentElement.requestFullscreen){
       video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
     } else if(video.webkitEnterFullscreen) {
@@ -81,16 +82,35 @@ fsBtn.addEventListener('click', () => {
     } else if(video.msRequestFullscreen) {
       video.msRequestFullscreen();
     }
+
+    // Lock orientation to landscape
     if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock('landscape').catch(()=>{});
     }
+
+    // Apply fullscreen styles immediately
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
+    video.style.transform = `scale(${scale})`;
   } else {
+    // Exit fullscreen
     document.exitFullscreen();
     if (screen.orientation && screen.orientation.unlock) {
       screen.orientation.unlock();
     }
+
+    // Reset video styles
+    video.style.width = '';
+    video.style.height = '';
+    video.style.objectFit = '';
+    video.style.transform = '';
   }
 });
+
+// Ensure fullscreen styles persist on fullscreenchange
+document.addEventListener('fullscreenchange', applyFullscreenStyles);
+
 
 // Mute / Volume
 muteBtn.addEventListener('click', () => {
