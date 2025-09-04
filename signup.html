@@ -8,87 +8,19 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
     body {
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-family: 'Baloo 2', cursive;
       background: #f9fafb;
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    header, footer {
-      position: fixed;
-      left: 0; right: 0;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(6px);
-      z-index: 100;
-    }
-    header {
-      top: 0;
-      height: 64px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1rem;
-    }
-    header h1 {
-      font-weight: 700;
-      font-size: 1.4rem;
-      color: #111827;
-    }
-
-    footer {
-      bottom: 0;
-      height: 64px;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-    .bottom-nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-weight: 600;
-      font-size: 0.75rem;
-      color: #6b7280;
-      cursor: pointer;
-      border: none;
-      background: none;
-      padding: 0;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-    .bottom-nav-btn .material-icons {
-      font-size: 24px;
-      margin-bottom: 2px;
-    }
-    .bottom-nav-btn:hover,
-    .bottom-nav-btn:focus-visible {
-      color: #3b82f6;
-      transform: scale(1.1);
-    }
-    .bottom-nav-btn.active {
-      color: #3b82f6;
-      transform: scale(1.2);
-      font-weight: 700;
-    }
-
-    /* Animation */
-    @keyframes fadeScale {
-      0% { opacity: 0; transform: scale(0.95); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-    .animate-fade-scale {
-      animation: fadeScale 0.6s ease-out forwards;
     }
 
     main {
@@ -108,23 +40,21 @@
       color: #3b82f6 !important;
       font-weight: 600;
     }
+
+    /* Animation */
+    @keyframes fadeScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .animate-fade-scale {
+      animation: fadeScale 0.6s ease-out forwards;
+    }
   </style>
 </head>
-<body>
+<body class="bg-gray-100">
 
-  <!-- Header -->
-  <header class="flex justify-between items-center px-4">
-    <!-- Left: Back Icon + Page Name -->
-    <div class="flex items-center space-x-2 cursor-pointer" onclick="history.back()">
-      <i class="fa-solid fa-chevron-left text-lg text-black-800"></i>
-      <span class="font-bold text-lg text-gray-800">Sign Up</span>
-    </div>
-
-    <!-- Right: Bell Icon -->
-    <div class="cursor-pointer">
-      <i class="fa-regular fa-bell text-lg text-black-800"></i>
-    </div>
-  </header>
+  <!-- Header Placeholder -->
+  <div id="header"></div>
 
   <!-- Main Content -->
   <main class="bg-gradient-to-br from-indigo-50 via-white to-purple-50">
@@ -174,21 +104,12 @@
     </div>
   </main>
 
-  <!-- Footer Navigation -->
-  <footer>
-    <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
-      <span class="material-icons">home</span>Home
-    </button>
-    <button class="bottom-nav-btn">
-      <span class="material-icons">live_tv</span>Live
-    </button>
-    <button class="bottom-nav-btn">
-      <span class="material-icons">search</span>Search
-    </button>
-    <button class="bottom-nav-btn active" onclick="window.location.href='signin.html'">
-      <span class="material-icons">person</span>Profile
-    </button>
-  </footer>
+  <!-- Footer Placeholder -->
+  <div id="footer"></div>
+
+  <!-- Inject Header & Footer -->
+  <script type="module" src="assets/js/header.js"></script>
+  <script type="module" src="assets/js/footer.js"></script>
 
   <!-- Firebase & JS -->
   <script type="module">
@@ -237,6 +158,5 @@
       }
     });
   </script>
-
 </body>
 </html>
