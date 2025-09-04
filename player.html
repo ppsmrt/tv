@@ -4,247 +4,184 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Player - Live TV</title>
+
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
 <style>
-  body{ font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; background:#f9fafb; margin:0; min-height:100vh; }
-  header{ position:fixed; top:0; left:0; right:0; height:64px; background:rgba(255,255,255,0.95); backdrop-filter: blur(6px); box-shadow:0 2px 12px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; z-index:100 }
-  header h1{ font-weight:700; font-size:1.25rem; letter-spacing:0.05em; color:#111827 }
-  .close-btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:9999px; background:#ef4444; color:white; font-weight:700; text-decoration:none }main{ padding:80px 1.25rem 96px; max-width:1100px; margin:0 auto }
+  /* Apply Baloo 2 font globally */
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #111;
+    overscroll-behavior: none;
+  }
 
-/* Player card */ .player-card{ background:white; border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(15,23,42,0.12); max-width:100%; } .video-wrap{ position:relative; background:black; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; } video{ width:100%; height:100%; object-fit:cover; display:block; filter:brightness(1); transform-origin:center; }
+  /* Video default */
+  #video {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    background: black;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
 
-/* custom controls (icons only) */ .controls{ position:absolute; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between; align-items:center; pointer-events:none } .controls .left, .controls .right{ display:flex; gap:12px; align-items:center; pointer-events:auto } .icon-btn{ background:rgba(0,0,0,0.45); border-radius:9999px; padding:10px; display:inline-flex; align-items:center; justify-content:center; backdrop-filter: blur(4px); } .icon-btn .material-icons{ color:white; font-size:20px }
+  /* Fullscreen video adjustments */
+  video:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
 
-/* small overlay labels for volume/brightness */ .indicator{ position:absolute; top:50%; transform:translateY(-50%); left:50%; translate: -50% -50%; background:rgba(0,0,0,0.6); color:white; padding:10px 14px; border-radius:10px; font-weight:700; display:none } .indicator.show{ display:block }
+  /* Safe area for fullscreen */
+  :fullscreen {
+    padding: 0;
+    margin: 0;
+  }
 
-/* scrolling ad strip */ .ad-strip{ margin-top:16px; background:transparent; overflow:hidden; border-radius:12px; padding:8px 6px } .ad-track{ display:flex; gap:12px; align-items:center; animation:scroll 18s linear infinite } .ad-item{ flex:0 0 auto; display:flex; gap:8px; align-items:center; padding:8px 12px; background:white; border-radius:10px; box-shadow:0 6px 20px rgba(2,6,23,0.06) } .ad-item img{ width:56px; height:40px; object-fit:cover; border-radius:8px } @keyframes scroll{ from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+  /* Controls transition */
+  .controls {
+    transition: opacity 0.3s;
+  }
+  .controls.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
 
-footer {  
-    position:fixed; bottom:0; left:0; right:0; height:64px;  
-    background:white; box-shadow:0 -2px 12px rgba(0,0,0,0.08);  
-    display:flex; justify-content:space-around; align-items:center; z-index:100;  
-  }  
-  .bottom-nav-btn {  
-    display:flex; flex-direction:column; align-items:center; font-weight:600; font-size:0.75rem; color:#6b7280;  
-    cursor:pointer; transition:color 0.3s ease, transform 0.3s ease; border:none; background:none; padding:0;  
-  }  
-  .bottom-nav-btn .material-icons { font-size:24px; margin-bottom:2px; transition:filter 0.3s ease; }  
-  .bottom-nav-btn:hover, .bottom-nav-btn:focus-visible { color:#3b82f6; outline:none; transform:scale(1.15); }  
-  .bottom-nav-btn.active { color:#3b82f6; transform:scale(1.25); font-weight:700; }  
-  .bottom-nav-btn.active .material-icons { filter:drop-shadow(0 0 6px #3b82f6); }  
+  /* Ad strip */
+  .ad-strip {
+    height: 4px;
+    background-color: rgba(255,255,255,0.2);
+    margin-top: 8px;
+  }
+  .ad-progress {
+    height: 100%;
+    background-color: #f87171;
+    width: 0%;
+    transition: width 0.3s;
+  }
 
-/* responsive */ @media(max-width:640px){ main{ padding:72px 12px 96px } .icon-btn{ padding:8px } }
+  /* Fullscreen immersive behavior on mobile */
+  body:fullscreen {
+    background: black;
+  }
 
-/* Fullscreen fallback for WebView */
-.fullscreen-fallback {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  z-index: 9999 !important;
-  background: black !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
+  /* Scrolling text ad animation */
+  @keyframes scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  .animate-scroll {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 12s linear infinite;
+  }
 </style>
 </head>
-<body>
-<header>
-  <h1 id="channelTitle">Player</h1>
-  <a class="close-btn" href="index.html" aria-label="Back to channels"><span class="material-icons">close</span>Close</a>
-</header>
-<main>
-  <div class="player-card" id="playerCard">
-    <div class="video-wrap" id="videoWrap">
+
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+
+<main class="flex-grow pt-16 pb-24">
+  <!-- Video Player Card -->
+  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
+    <div class="relative">
       <video id="video" playsinline webkit-playsinline></video>
-      <div id="indicator" class="indicator">50%</div>
-      <div class="controls" id="controls" aria-hidden="false">
-        <div class="left">
-          <button id="playBtn" class="icon-btn" aria-label="Play/Pause"><span class="material-icons">play_arrow</span></button>
-        </div>
-        <div class="right">
-          <button id="pipBtn" class="icon-btn" aria-label="Picture-in-Picture"><span class="material-icons">picture_in_picture_alt</span></button>
-          <button id="fsBtn" class="icon-btn" aria-label="Fullscreen"><span class="material-icons">fullscreen</span></button>
+      
+      <!-- Scrolling Text Ad Above Controls -->
+      <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-70 text-white text-sm py-1">
+        <div class="animate-scroll whitespace-nowrap">
+          🔥 Advertisement: Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
         </div>
       </div>
-    </div>
 
-    <div class="ad-strip" aria-hidden="false">
-      <div class="ad-track" id="adTrack"></div>
-    </div>
+      <!-- Ad strip -->
+      <div class="ad-strip absolute bottom-0 left-0 w-full">
+        <div id="adProgress" class="ad-progress"></div>
+      </div>
 
+      <!-- Controls -->
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <button id="playBtn" class="material-icons text-white">play_arrow</button>
+          <button id="muteBtn" class="material-icons text-white">volume_up</button>
+          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">
+          <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
+        </div>
+        <button id="fsBtn" class="material-icons text-white">fullscreen</button>
+      </div>
+    </div>
   </div>
+
+  <!-- Video Info Section -->
+<div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
+  <div id="extraInfo" class="text-gray-300 text-sm"></div>
+
+  <!-- Stream Info -->
+  <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>
+  <p class="text-gray-300 text-sm leading-relaxed">
+    All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way. 
+    All rights remain with their original providers. This platform only provides an interface to access them for convenience.
+  </p>
+
+  <!-- Rules -->
+  <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>
+  <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
+    <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>
+    <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>
+    <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>
+  </ul>
+
+  <!-- Privacy & Technical -->
+  <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>
+  <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
+    <li>No personal data is collected, stored, or shared.</li>
+    <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>
+    <li>No server-side caching, recording, or proxying is done on our platform.</li>
+    <li>Playback happens on your device using standard open-source player libraries.</li>
+  </ul>
+
+  <!-- Open Source -->
+  <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>
+  <p class="text-gray-300 text-sm leading-relaxed">
+    This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>. 
+    For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.
+  </p>
+
+  <!-- Legal Disclaimer -->
+  <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>
+  <p class="text-gray-300 text-sm leading-relaxed">
+    Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions. 
+    However, you must comply with your local laws and the content owner's terms. 
+    We do not guarantee the legality of accessing any specific content in your jurisdiction.
+  </p>
+
+  <!-- Takedown Policy -->
+  <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>
+  <p class="text-gray-300 text-sm leading-relaxed">
+    If you are a content owner and wish to request removal of a stream, please submit a verified takedown request. 
+    We review and process valid requests within <strong>48 hours</strong>.
+  </p>
+</div>
+
+<!-- Bottom Banner Ad -->
+<div class="w-full text-center my-4">
+  <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">
+</div>
+
 </main>
 
-<footer role="navigation">
-  <button class="bottom-nav-btn" onclick="window.location.href='index.html'">
-    <span class="material-icons">home</span>Home
-  </button>
-  <button class="bottom-nav-btn active">
-    <span class="material-icons">live_tv</span>Live
-  </button>
-  <button class="bottom-nav-btn">
-    <span class="material-icons">search</span>Search
-  </button>
-  <button class="bottom-nav-btn" onclick="window.location.href='signin.html'">
-    <span class="material-icons">person</span>Profile
-  </button>
-</footer>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
-  function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
-
-  const video = document.getElementById('video');
-  const playBtn = document.getElementById('playBtn');
-  const fsBtn = document.getElementById('fsBtn');
-  const pipBtn = document.getElementById('pipBtn');
-  const indicator = document.getElementById('indicator');
-  const channelTitle = document.getElementById('channelTitle');
-  const adTrack = document.getElementById('adTrack');
-  const videoWrap = document.getElementById('videoWrap');
-
-  const streamSlug = qs('stream');
-  let isPlaying = false;
-  let lastTap = 0;
-
-  const channelsRef = ref(db, 'channels');
-  onValue(channelsRef, snapshot => {
-    if(!snapshot.exists()) return;
-    const data = snapshot.val();
-    const list = Object.values(data).map(c=>({ name:c.name, category:c.category, logo:c.icon, url:c.stream }));
-    let match = list.find(ch=>slugify(ch.name) === streamSlug);
-    if(!match){ match = list.find(ch => slugify(ch.name).includes(streamSlug)); }
-    if(!match){ channelTitle.textContent = 'Stream not found'; video.poster = ''; return; }
-    channelTitle.textContent = match.name;
-    video.src = match.url;
-    video.setAttribute('playsinline','');
-    video.load();
-
-    const ads = [
-      {img:match.logo, text:`Streaming ${match.name} Live Now!`},
-      {img:'https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0045275084995112584913406.png', text:'Premium Player Controls'},
-      {img:'https://via.placeholder.com/120x80?text=Ad+2', text:'Subscribe Now'},
-      {img:'https://via.placeholder.com/120x80?text=Ad+3', text:'New Shows'}
-    ];
-    const items = ads.concat(ads);
-    adTrack.innerHTML = '';
-    items.forEach(a=>{
-      const div = document.createElement('div'); div.className='ad-item';
-      const im = document.createElement('img'); im.src=a.img; im.alt=a.text;
-      const t = document.createElement('div'); t.textContent = a.text; t.style.fontWeight='700';
-      div.appendChild(im); div.appendChild(t); adTrack.appendChild(div);
-    });
-  });
-
-  function updatePlayButton(){ playBtn.querySelector('.material-icons').textContent = isPlaying ? 'pause' : 'play_arrow'; }
-  playBtn.addEventListener('click', async e=>{
-    e.stopPropagation();
-    if(video.paused){ await video.play(); isPlaying=true; } else { video.pause(); isPlaying=false; }
-    updatePlayButton();
-  });
-  video.addEventListener('play', ()=>{ isPlaying=true; updatePlayButton(); });
-  video.addEventListener('pause', ()=>{ isPlaying=false; updatePlayButton(); });
-
-  // Fullscreen / fallback
-  fsBtn.addEventListener('click', async e => {
-    e.stopPropagation();
-    const isFullscreenSupported = document.fullscreenEnabled || 
-                                  document.webkitFullscreenEnabled ||
-                                  document.msFullscreenEnabled;
-
-    if (isFullscreenSupported) {
-      const el = videoWrap;
-      try {
-        if (!document.fullscreenElement) {
-          if (el.requestFullscreen) await el.requestFullscreen();
-          else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
-          else if (el.msRequestFullscreen) await el.msRequestFullscreen();
-        } else {
-          if (document.exitFullscreen) await document.exitFullscreen();
-          else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
-          else if (document.msExitFullscreen) await document.msExitFullscreen();
-        }
-      } catch (err) { console.warn('Fullscreen failed:', err); }
-    } else {
-      // WebView fallback
-      if(!videoWrap.classList.contains('fullscreen-fallback')){
-        videoWrap.classList.add('fullscreen-fallback');
-        document.body.style.overflow='hidden';
-      } else {
-        videoWrap.classList.remove('fullscreen-fallback');
-        document.body.style.overflow='';
-      }
-    }
-  });
-
-  // Picture-in-Picture
-  pipBtn.addEventListener('click', async e=>{
-    e.stopPropagation();
-    try {
-      if('pictureInPictureEnabled' in document){
-        if(video !== document.pictureInPictureElement){
-          await video.requestPictureInPicture();
-        } else {
-          await document.exitPictureInPicture();
-        }
-      } else { console.warn('PiP not supported in this browser'); }
-    } catch(err){ console.warn('PiP failed:', err); }
-  });
-
-  // Pointer gestures for volume/brightness
-  let pointerDown=false, startX=0, startY=0, currentVolume=0.5, currentBrightness=1;
-  video.volume = currentVolume;
-
-  function showIndicator(text){ indicator.textContent=text; indicator.classList.add('show'); clearTimeout(indicator._timeout); indicator._timeout=setTimeout(()=>indicator.classList.remove('show'),800); }
-  function onPointerDown(e){ pointerDown=true; startX=e.clientX??e.touches?.[0]?.clientX; startY=e.clientY??e.touches?.[0]?.clientY; currentVolume=video.volume; const computed=window.getComputedStyle(video).getPropertyValue('filter'); const m=computed.match(/brightness\(([^)]+)\)/); currentBrightness=m?parseFloat(m[1]):1; }
-  function onPointerMove(e){ if(!pointerDown) return; const x=e.clientX??e.touches?.[0]?.clientX; const y=e.clientY??e.touches?.[0]?.clientY; const dy=startY-y; const delta=dy/200; const isLeft=startX<(window.innerWidth/2); if(isLeft){ let b=Math.min(2, Math.max(0.1, currentBrightness+delta)); video.style.filter=`brightness(${b})`; showIndicator(Math.round(b*100)+'% Brightness'); } else { let v=Math.min(1, Math.max(0, currentVolume+delta)); video.volume=v; showIndicator(Math.round(v*100)+'% Volume'); } }
-  function onPointerUp(e){ pointerDown=false; }
-
-  videoWrap.addEventListener('pointerdown', onPointerDown);
-  window.addEventListener('pointermove', onPointerMove);
-  window.addEventListener('pointerup', onPointerUp);
-
-  // Double tap to play/pause
-  videoWrap.addEventListener('click', async e=>{
-    const now=Date.now();
-    if(now-lastTap<300){
-      if(video.paused) await video.play();
-      else video.pause();
-    }
-    lastTap=now;
-  });
-
-  video.controls=false;
-  (async()=>{ try{ await video.play(); isPlaying=true; updatePlayButton(); }catch(e){ } })();
-
-  window.addEventListener('keydown', e=>{
-    if(e.code==='Space'){ e.preventDefault(); if(video.paused) video.play(); else video.pause(); }
-    if(e.code==='KeyF'){ fsBtn.click(); }
-  });
-
-  adTrack.addEventListener('mouseenter', ()=> adTrack.style.animationPlayState='paused');
-  adTrack.addEventListener('mouseleave', ()=> adTrack.style.animationPlayState='running');
-</script>
+<!-- JS -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+<script type="module" src="assets/js/test.js"></script>
 </body>
 </html>
