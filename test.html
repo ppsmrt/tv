@@ -195,12 +195,11 @@
 
 <!-- Footer injected via footer.js -->
 
-<!-- Firebase and App Logic -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  // Inject Header and Footer
+  // Header & Footer injection
   import './assets/js/header.js';
   import './assets/js/footer.js';
 
@@ -228,8 +227,8 @@
   function createChannelCard(c) {
     const a = document.createElement('a');
     const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, '-'));
-    // Pass stream URL to player.html
-    a.href = `player.html?channel=${safeName}&stream=${encodeURIComponent(c.stream)}`;
+    // Keep exactly same URL as previous version
+    a.href = `test.html?stream=${safeName}`;
     a.className = 'channel-card';
     a.setAttribute('aria-label', `Watch ${c.name}`);
 
@@ -312,6 +311,5 @@
     }
   });
 </script>
-
 </body>
 </html>
