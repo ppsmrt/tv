@@ -1,11 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+// Elements
 const video = document.getElementById('video');
 const playBtn = document.getElementById('playBtn');
 const fsBtn = document.getElementById('fsBtn');
 const muteBtn = document.getElementById('muteBtn');
+const muteToggle = document.getElementById('muteToggle');
 const volumeSlider = document.getElementById('volumeSlider');
+const volumeContainer = document.getElementById('volumeContainer');
 const controls = document.getElementById('controls');
 const videoTitle = document.getElementById('videoTitle');
 const extraInfo = document.getElementById('extraInfo');
@@ -28,13 +31,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Helper functions
+// Helpers
 function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
 function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
 
 const streamSlug = qs('stream');
 
-// Fetch stream data from Firebase
+// --- Fetch Firebase stream ---
 const channelsRef = ref(db, 'channels');
 onValue(channelsRef, snapshot => {
   if(!snapshot.exists()) return;
@@ -71,70 +74,60 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-// Fullscreen (immersive)
+// Fullscreen
 fsBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     if(video.parentElement.requestFullscreen){
       video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
-    } else if(video.webkitEnterFullscreen) {
-      video.webkitEnterFullscreen();
-    } else if(video.msRequestFullscreen) {
-      video.msRequestFullscreen();
-    }
-    if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock('landscape').catch(()=>{});
     }
   } else {
     document.exitFullscreen();
-    if (screen.orientation && screen.orientation.unlock) {
-      screen.orientation.unlock();
-    }
   }
 });
 
 // Mute / Volume
 muteBtn.addEventListener('click', () => {
-  video.muted = !video.muted;
-  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
+  volumeContainer.style.display = volumeContainer.style.display === 'flex' ? 'none' : 'flex';
 });
+
 volumeSlider.addEventListener('input', () => {
   video.volume = volumeSlider.value;
   video.muted = video.volume === 0;
   muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
 });
 
-// Auto-hide controls on interaction
+// Separate Mute Toggle
+muteToggle.addEventListener('click', () => {
+  video.muted = !video.muted;
+  muteToggle.textContent = video.muted ? 'volume_off' : 'volume_up';
+  if(video.muted) volumeSlider.value = 0;
+  else if(volumeSlider.value == 0) volumeSlider.value = 0.5;
+});
+
+// Auto-hide controls
 const showControls = () => {
   controls.classList.remove('hidden');
   clearTimeout(controlsTimeout);
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
-  }
+  controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
 };
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
 
-// Hide controls in landscape by default, visible in portrait
+// Hide controls on landscape by default
 function updateControlsVisibility() {
   if (window.matchMedia("(orientation: landscape)").matches) {
-    controls.classList.add('hidden'); // hide in landscape
+    controls.classList.add('hidden');
   } else {
-    controls.classList.remove('hidden'); // show in portrait
+    controls.classList.remove('hidden');
   }
 }
 window.addEventListener('orientationchange', updateControlsVisibility);
 document.addEventListener('DOMContentLoaded', updateControlsVisibility);
 
-// Tap to toggle controls in landscape
+// Tap to toggle controls
 video.addEventListener('click', () => {
   if (window.matchMedia("(orientation: landscape)").matches) {
-    if (controls.classList.contains('hidden')) {
-      controls.classList.remove('hidden');
-      clearTimeout(controlsTimeout);
-      controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
-    } else {
-      controls.classList.add('hidden');
-    }
+    controls.classList.toggle('hidden');
   }
 });
 
@@ -166,7 +159,7 @@ video.addEventListener('touchmove', e => {
 });
 video.addEventListener('touchend', e => { if(e.touches.length < 2) initialDistance=null; });
 
-// Maintain fullscreen scaling on resize/orientation change
+// Fullscreen scaling
 function applyFullscreenStyles() {
   if(document.fullscreenElement){
     video.style.width = '100%';
@@ -183,3 +176,10 @@ function applyFullscreenStyles() {
 document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
+
+// Hide volume slider if clicked outside
+document.addEventListener('click', (e) => {
+  if(!volumeContainer.contains(e.target) && !muteBtn.contains(e.target)){
+    volumeContainer.style.display = 'none';
+  }
+});
