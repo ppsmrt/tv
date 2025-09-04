@@ -92,7 +92,12 @@ header {
 <div id="footer-placeholder"></div>
 
 <!-- Inject Header and Footer -->
-<script src="assets/js/header.js"></script>
+<script type="module">
+  import { injectHeader } from './header.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    injectHeader();
+  });
+</script>
 <script src="assets/js/footer.js"></script>
 
 <!-- Firebase & JS -->
