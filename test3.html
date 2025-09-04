@@ -21,8 +21,6 @@
     color: #fff;
     margin: 0;
     min-height: 100vh;
-    position: relative;
-    padding-bottom: 200px; /* space for sticky ad */
   }
 
   header {
@@ -181,31 +179,6 @@
     .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
     .channel-name { font-size: 0.95rem; }
   }
-
-  /* Sticky Bottom Ad */
-  .sticky-ad {
-    position: fixed;
-    left: 0;
-    width: 100%;
-    bottom: 80px; /* float above footer */
-    background: rgba(31,41,55,0.95);
-    padding: 12px 0;
-    display: flex;
-    justify-content: center;
-    z-index: 30;
-    box-shadow: 0 -4px 16px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
-  }
-
-  /* Responsive adjustments for mobile */
-  @media(max-width:768px){
-    .sticky-ad {
-      bottom: 100px; /* adjust if needed for smaller screens */
-    }
-    .sticky-ad img {
-      max-width: 95%;
-    }
-  }
 </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -234,16 +207,6 @@
 
 <!-- Footer -->
 <div id="footer"></div>
-
-<!-- Sticky Bottom Ad Banner -->
-<div id="stickyAd" class="sticky-ad relative">
-  <button id="closeAd" class="absolute top-1 right-2 text-white text-xl font-bold hover:text-red-500">&times;</button>
-  <img 
-    src="https://i.ibb.co/QvhQLrrg/ad1.jpg" 
-    alt="Ad" 
-    class="max-w-[728px] w-[90%] h-auto rounded-lg shadow-lg mx-auto"
-  >
-</div>
 
 <!-- JS Files -->
 <script type="module" src="assets/js/header.js"></script>
@@ -359,17 +322,6 @@
     } else {
       grid.innerHTML = '<p class="text-gray-400 text-center p-4">No channels available.</p>';
     }
-  });
-
-  // Sticky Ad Close Button
-  const closeBtn = document.getElementById('closeAd');
-  const stickyAd = document.getElementById('stickyAd');
-
-  closeBtn.addEventListener('click', () => {
-    stickyAd.style.transform = 'translateY(120%)';
-    setTimeout(() => {
-      stickyAd.style.display = 'none'; // remains hidden until page refresh
-    }, 300);
   });
 </script>
 </body>
