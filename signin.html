@@ -11,45 +11,39 @@
 <!-- Baloo 2 Font -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-jQ7o+Yp2RcnvHCm2bRo9a4/eK7D9A0Cq0p1Kk2dGEmrRzFQpX5b3BzZk+KJc0C5NrrpQFJ0GNRx0VQW+9i0C2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
   body {
-    background: #111827; 
+    background: #111827;
     margin: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Baloo 2', cursive;
     color: white;
   }
+
   main {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    margin-top: 56px; /* Leave space for injected header */
-    margin-bottom: 56px; /* Leave space for injected footer */
+    margin-top: 64px;
+    margin-bottom: 56px;
   }
+
   input:focus + label,
   input:not(:placeholder-shown) + label {
     top: 0.3rem !important;
     font-size: 0.75rem !important;
     color: #f87171 !important;
     font-weight: 600;
-  }
-html, body {
-    font-family: 'Baloo 2', cursive;
-    background-color: #111827;
-    color: #fff;
-    margin: 0;
-    min-height: 100vh;
   }
 
   header {
@@ -59,155 +53,8 @@ html, body {
     padding: 0 1.5rem;
     background: rgba(31,41,55,0.9);
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    z-index: 20;
+    z-index: 50;
   }
-
-  main {
-    padding: 20px 1rem 100px; /* changed bottom padding from 0 to 100px */
-    max-width: 1200px;
-    margin: 0 auto;
-}
-  /* Search Bar */
-  .search-container {
-    display: flex;
-    align-items: center;
-    background: rgba(31, 41, 55, 0.85);
-    border-radius: 9999px;
-    padding: 10px 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.3s ease, background 0.3s ease;
-  }
-  .search-container:focus-within {
-    background: rgba(55, 65, 81, 0.9);
-    box-shadow: 0 0 12px rgba(248, 113, 113, 0.6);
-  }
-  .search-container .material-icons {
-    color: #f87171;
-    font-size: 22px;
-    margin-right: 8px;
-  }
-  .search-container input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #f9fafb;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-  .search-container input::placeholder {
-    color: #9ca3af;
-  }
-
-  /* Category Bar */
-  .category-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .category-bar::-webkit-scrollbar {
-    display: none;
-  }
-  .category-btn {
-    flex-shrink: 0;
-    padding: 8px 20px;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #d1d5db;
-    background: #1f2937;
-    cursor: pointer;
-    transition: 0.3s;
-    white-space: nowrap;
-    border: none;
-  }
-  .category-btn:hover {
-    background: #f87171;
-    color: white;
-  }
-  .category-btn.active {
-    background: #f87171;
-    color: white;
-    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
-  }
-
-  /* Channels Grid */
-  .channels-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-  }
-
-  /* Channel Cards */
-  .channel-card {
-    background: #1f2937;
-    border-radius: 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
-  }
-  .channel-card.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  .channel-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
-  }
-
-  .channel-image {
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    border-bottom: 1px solid #374151;
-    transition: filter 0.3s ease;
-  }
-  .channel-card:hover .channel-image {
-    filter: brightness(1.1);
-  }
-
-  .channel-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .channel-card:hover .channel-overlay {
-    opacity: 1;
-  }
-
-  .channel-name {
-    padding: 12px 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #f9fafb;
-  }
-
-  @media(max-width:640px){
-    .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
-    .channel-name { font-size: 0.95rem; }
-  }
-
 </style>
 </head>
 <body>
@@ -215,8 +62,7 @@ html, body {
 <!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
   <div class="flex items-center">
-    <span class="material-symbols-outlined">
-account_circle</span>
+    <span class="material-icons">account_circle</span>
     <h1 class="ml-2 text-lg font-bold text-white">Sign In</h1>
   </div>
   <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
@@ -227,7 +73,7 @@ account_circle</span>
 
 <!-- Main Content -->
 <main>
-  <div class="relative w-full max-w-md animate-fade-scale">
+  <div class="relative w-full max-w-md">
     <div class="bg-gray-800/90 backdrop-blur-2xl rounded-2xl shadow-xl p-8 border border-gray-700/30">
       <h2 class="text-2xl font-extrabold mb-6 text-center text-white">Welcome Back</h2>
 
@@ -260,13 +106,6 @@ account_circle</span>
     </div>
   </div>
 </main>
-
-<!-- Footer placeholder -->
-<div id="footer-placeholder"></div>
-
-<!-- Inject Header and Footer -->
-<script src="assets/js/header.js"></script>
-<script src="assets/js/footer.js"></script>
 
 <!-- Firebase & JS -->
 <script type="module">
