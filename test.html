@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Generate Playlist - Live TV</title>
+<title>Favorites - Live TV</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,248 +15,193 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  body {
+  html, body {
     font-family: 'Baloo 2', cursive;
-    background-color: #111827;
-    color: #f9fafb;
     margin: 0;
-    min-height: 100vh;
+    padding: 0;
+    height: 100%;
+    background: #111827;
+  }
+
+  header h1 {
+    background: linear-gradient(to right, #f472b6, #f87171);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  }
+
+  .fav-list {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    gap: 12px;
   }
 
-  header {
-    height: 64px;
+  .fav-item {
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
-    background: rgba(31,41,55,0.9);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    z-index: 20;
-    width: 100%;
-  }
-
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 2rem;
-    width: 100%;
-  }
-
-  footer {
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.875rem;
-    color: #9ca3af;
-    border-top: 1px solid #1f2937;
-    background: rgba(17,24,39,0.95);
-    width: 100%;
-  }
-
-  /* App-style Toast */
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: #16a34a;
-    color: #fff;
-    padding: 12px 20px;
+    background: #1f2937;
     border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .fav-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.6);
+  }
+
+  .fav-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  .fav-info {
+    flex: 1;
+  }
+
+  .fav-title {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
+    color: #f9fafb;
+  }
+
+  .fav-category {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-bottom: 4px;
+  }
+
+  .fav-actions {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
-    z-index: 50;
+    gap: 12px;
   }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+
+  .fav-actions button {
+    border: none;
+    background: transparent;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
   }
-  .toast .material-icons {
-    font-size: 1.3rem;
-    animation: pop 0.3s ease;
+
+  .fav-actions button:hover {
+    transform: scale(1.3);
   }
-  @keyframes pop {
-    0% { transform: scale(0.7); opacity: 0; }
-    50% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+
+  .play-btn {
+    color: #22c55e;
+  }
+
+  .delete-btn {
+    color: #f87171;
+  }
+
+  .empty-msg {
+    color: #9ca3af;
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 1.1rem;
   }
 </style>
 </head>
-<body>
+
+<body class="flex flex-col min-h-screen">
 
 <!-- Header -->
-<header class="flex items-center justify-between">
-  <div class="flex items-center">
-    <span class="material-icons">playlist_add</span>
-    <h1 class="ml-2 text-lg font-bold">Generate Playlist</h1>
-  </div>
-  <button onclick="window.history.back()" 
-    class="flex items-center gap-1 text-gray-300 hover:text-white transition">
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
+  <h1 class="text-lg font-bold">Favorites</h1>
+  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400 font-semibold">
     <span class="material-icons">arrow_back</span>
-    <span class="text-sm font-medium">Back</span>
+    <span>Back</span>
   </button>
 </header>
 
-<!-- Main Content -->
-<main>
-
-  <!-- Combined Premium Card -->
-  <section class="w-full max-w-3xl mx-auto p-8 bg-gradient-to-r from-gray-900/90 to-gray-800/90 rounded-3xl shadow-2xl">
-    
-    <!-- Intro -->
-    <h2 class="text-3xl font-extrabold mb-4 text-white">Your Premium Live TV Playlist</h2>
-    <p class="text-gray-200 leading-relaxed mb-4 text-lg">
-      Unlock a world of entertainment with our <span class="font-semibold text-red-400">exclusive IPTV playlist</span>.  
-      Stream your favorite TV channels instantly — news, sports, movies, lifestyle, and music — all curated for a seamless viewing experience.
-    </p>
-    <p class="text-gray-400 text-sm leading-relaxed mb-6">
-      Designed for both newcomers and pros, our playlist integrates smoothly with the most popular IPTV apps.  
-      Check our <span class="underline text-red-400 cursor-pointer"><a href='guide'>guide page</a></span> to set up your IPTV app and enjoy uninterrupted streaming.
-    </p>
-
-    <!-- Feature Highlights -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
-      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
-        <span class="material-icons text-red-400 text-3xl mb-2">hd</span>
-        <span class="text-gray-200 font-medium text-sm">HD & 4K Streams</span>
-      </div>
-      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
-        <span class="material-icons text-red-400 text-3xl mb-2">category</span>
-        <span class="text-gray-200 font-medium text-sm">Multi-Category Channels</span>
-      </div>
-      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
-        <span class="material-icons text-red-400 text-3xl mb-2">devices</span>
-        <span class="text-gray-200 font-medium text-sm">Cross-Platform Access</span>
-      </div>
-    </div>
-
-    <!-- Buttons side by side -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-      <button 
-        id="copyUrlBtn"
-        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
-      >
-        Copy Playlist URL
-      </button>
-      <button 
-        id="generateBtn"
-        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
-      >
-        Generate Playlist
-      </button>
-    </div>
-
-    <span id="urlText" class="text-gray-300 text-sm mt-3 block select-all break-all">https://tnm3u.live/playlist.m3u</span>
-    <p class="text-xs text-gray-500 italic mt-1">Use this link in your favorite IPTV player to unlock streaming instantly.</p>
-
-  </section>
-
+<main class="flex-grow pt-20 px-4 pb-6">
+  <div id="favList" class="fav-list"></div>
 </main>
 
-<!-- Footer -->
-<footer>
-  &copy; 2025 Live TV. All Rights Reserved.
-</footer>
+<script>
+const favList = document.getElementById('favList');
+let favorites = [
+  {
+    title: "BBC News",
+    src: "https://example.com/bbc",
+    thumb: "https://upload.wikimedia.org/wikipedia/en/thumb/b/bc/BBC_News_2022.svg/1200px-BBC_News_2022.svg.png",
+    category: "News"
+  },
+  {
+    title: "ESPN Sports",
+    src: "https://example.com/espn",
+    thumb: "https://upload.wikimedia.org/wikipedia/commons/2/2e/ESPN_logo.svg",
+    category: "Sports"
+  },
+  {
+    title: "Discovery Channel",
+    src: "https://example.com/discovery",
+    thumb: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Discovery_Channel_logo.svg",
+    category: "Entertainment"
+  },
+  {
+    title: "Cartoon Network",
+    src: "https://example.com/cartoon",
+    thumb: "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Cartoon_Network_2010_logo.svg/1200px-Cartoon_Network_2010_logo.svg.png",
+    category: "Kids"
+  },
+  {
+    title: "Netflix Originals",
+    src: "https://example.com/netflix",
+    thumb: "https://upload.wikimedia.org/wikipedia/commons/6/69/Netflix_logo.svg",
+    category: "Movies"
+  }
+];
 
-<!-- App-style Toast -->
-<div id="toast" class="toast">
-  <span class="material-icons">check_circle</span>
-  <span>Playlist (playlist.m3u) generated successfully!</span>
-</div>
-
-<!-- Firebase + Logic -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  function detectField(channel, keys) {
-    for (const key of keys) {
-      if (channel[key]) return channel[key];
-    }
-    return "";
+// Render favorites list
+function renderFavorites() {
+  favList.innerHTML = '';
+  if(favorites.length === 0){
+    favList.innerHTML = '<p class="empty-msg">No favorites added yet.</p>';
+    return;
   }
 
-  function showToast(message, type="success") {
-    const toast = document.getElementById('toast');
-    toast.querySelector('span:last-child').textContent = message;
-    toast.style.background = type === "error" ? "#dc2626" : "#16a34a"; // red for error, green for success
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-  }
+  favorites.forEach((fav, index) => {
+    const div = document.createElement('div');
+    div.className = 'fav-item';
 
-  // Copy Playlist URL
-  const copyBtn = document.getElementById('copyUrlBtn');
-  const urlText = document.getElementById('urlText').textContent;
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(urlText)
-      .then(() => showToast("Playlist URL copied to clipboard!", "success"))
-      .catch(() => showToast("Failed to copy URL. Please copy manually.", "error"));
+    div.innerHTML = `
+      <img src="${fav.thumb}" alt="${fav.title}" class="fav-thumb">
+      <div class="fav-info">
+        <div class="fav-category">${fav.category}</div>
+        <div class="fav-title">${fav.title}</div>
+      </div>
+      <div class="fav-actions">
+        <button class="material-icons play-btn" onclick="playFav('${fav.src}', '${fav.title}')">play_arrow</button>
+        <button class="material-icons delete-btn" onclick="removeFav(${index})">delete</button>
+      </div>
+    `;
+    favList.appendChild(div);
   });
+}
 
-  // Generate Playlist
-  async function generateM3U8() {
-    const channelsRef = ref(db, 'channels');
-    const snapshot = await get(channelsRef);
-    if (!snapshot.exists()) {
-      showToast("No channels found in the database!", "error");
-      return;
-    }
+// Play favorite video
+function playFav(src, title){
+  localStorage.setItem('selectedVideo', src);
+  localStorage.setItem('selectedVideoTitle', title);
+  window.location.href = 'player.html';
+}
 
-    const channels = snapshot.val();
-    let m3uContent = "#EXTM3U\n";
+// Remove favorite
+function removeFav(index){
+  favorites.splice(index, 1);
+  renderFavorites();
+}
 
-    for (const channelId in channels) {
-      const channel = channels[channelId];
-      const name = detectField(channel, ['name', 'title']) || "Unknown";
-      const category = detectField(channel, ['category', 'group', 'group-title']) || "General";
-      const logo = detectField(channel, ['logo', 'image', 'icon']) || "";
-      const streamUrl = detectField(channel, ['url', 'stream', 'link']) || "";
-
-      if (!streamUrl) continue;
-
-      m3uContent += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
-      m3uContent += `${streamUrl}\n`;
-    }
-
-    const blob = new Blob([m3uContent], { type: 'application/octet-stream' }); // prevent auto .m3u8
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'playlist.m3u';   // forced filename
-    link.click();
-    URL.revokeObjectURL(url);
-
-    showToast("Playlist (playlist.m3u) generated successfully!", "success");
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('generateBtn').addEventListener('click', generateM3U8);
-  });
+// Initial render
+renderFavorites();
 </script>
+
 </body>
 </html>
