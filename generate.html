@@ -73,29 +73,38 @@
     background: rgba(17,24,39,0.95);
   }
 
-  /* Toast */
+  /* App-style Toast */
   .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
     background: #16a34a;
-    color: white;
-    padding: 14px 22px;
-    border-radius: 9999px;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 12px;
     font-weight: 600;
     font-size: 0.95rem;
     display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    gap: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
     opacity: 0;
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
     z-index: 50;
   }
   .toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+  .toast .material-icons {
+    font-size: 1.3rem;
+    animation: pop 0.3s ease;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
   }
 </style>
 </head>
@@ -119,7 +128,7 @@
   &copy; 2025 Live TV. All Rights Reserved.
 </footer>
 
-<!-- Toast -->
+<!-- App-style Toast -->
 <div id="toast" class="toast">
   <span class="material-icons">check_circle</span>
   <span>Playlist (playlist.m3u) generated successfully!</span>
@@ -151,9 +160,10 @@
     return "";
   }
 
-  function showToast(message) {
+  function showToast(message, type="success") {
     const toast = document.getElementById('toast');
     toast.querySelector('span:last-child').textContent = message;
+    toast.style.background = type === "error" ? "#dc2626" : "#16a34a"; // green for success, red for error
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
@@ -162,7 +172,7 @@
     const channelsRef = ref(db, 'channels');
     const snapshot = await get(channelsRef);
     if (!snapshot.exists()) {
-      showToast("No channels found in the database!");
+      showToast("No channels found in the database!", "error");
       return;
     }
 
@@ -182,16 +192,15 @@
       m3uContent += `${streamUrl}\n`;
     }
 
-    const blob = new Blob([m3uContent], { type: 'application/vnd.apple.mpegurl' });
+    const blob = new Blob([m3uContent], { type: 'application/octet-stream' }); // prevent auto .m3u8
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'playlist.m3u';   // ✅ filename updated
+    link.download = 'playlist.m3u';   // ✅ forced filename
     link.click();
     URL.revokeObjectURL(url);
 
-    // ✅ Show success toast
-    showToast("Playlist (playlist.m3u) generated successfully!");
+    showToast("Playlist (playlist.m3u) generated successfully!", "success");
   }
 
   window.addEventListener('DOMContentLoaded', () => {
