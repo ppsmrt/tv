@@ -4,8 +4,8 @@ const footerHTML = `
   <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="index.html">
     <span class="material-icons">home</span>Home
   </button>
-  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="live.html">
-    <span class="material-icons">live_tv</span>Live
+  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="generate">
+    <span class="material-icons">subscriptions</span>Playlist
   </button>
   <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="search.html">
     <span class="material-icons">search</span>Search
