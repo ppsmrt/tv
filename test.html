@@ -45,25 +45,6 @@
     padding: 2rem;
   }
 
-  .generate-btn {
-    padding: 14px 32px;
-    background: linear-gradient(90deg, #f87171, #ef4444);
-    color: #fff;
-    font-size: 1.125rem;
-    font-weight: 700;
-    border: none;
-    border-radius: 9999px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(248,113,113,0.5);
-    transition: all 0.3s ease;
-  }
-
-  .generate-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(248,113,113,0.6);
-    background: linear-gradient(90deg, #ef4444, #dc2626);
-  }
-
   footer {
     padding: 1rem;
     text-align: center;
@@ -151,12 +132,36 @@
   </section>
 
   <!-- Generate Playlist Button -->
-  <section class="mb-20">
-    <h2 class="text-2xl font-bold mb-3">Generate Your Personal Playlist</h2>
-    <p class="mb-6 text-gray-300 max-w-xl mx-auto leading-relaxed">
-      With just one click, create a fully compatible <strong>playlist.m3u</strong> file directly from our Firebase-powered channel list. This ensures that your playlist is always up-to-date with the latest available streams, giving you a smooth and uninterrupted viewing experience.
+  <section class="mb-20 w-full max-w-2xl mx-auto text-center">
+    <h2 class="text-2xl font-extrabold mb-3 text-white">Generate Your Personal Playlist</h2>
+    <p class="mb-6 text-gray-300 leading-relaxed">
+      With a single click, instantly create your own <strong>playlist.m3u</strong> file from our up-to-date channel library.  
+      This ensures you always enjoy the latest streams with a smooth and uninterrupted viewing experience.  
     </p>
-    <button id="generateBtn" class="generate-btn">Generate Playlist</button>
+
+    <!-- Features (premium highlights) -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 text-gray-300 text-sm">
+      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg">
+        <span class="material-icons text-red-400 mb-1">update</span>
+        Always Up-to-Date
+      </div>
+      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg">
+        <span class="material-icons text-red-400 mb-1">live_tv</span>
+        Wide Channel Range
+      </div>
+      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg">
+        <span class="material-icons text-red-400 mb-1">bolt</span>
+        One-Click Download
+      </div>
+    </div>
+
+    <!-- Generate Playlist Button (matches Copy button) -->
+    <button 
+      id="generateBtn"
+      class="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
+    >
+      Generate Playlist
+    </button>
   </section>
 </main>
 
@@ -239,11 +244,11 @@
       m3uContent += `${streamUrl}\n`;
     }
 
-    const blob = new Blob([m3uContent], { type: 'application/octet-stream' }); // prevent auto .m3u8
+    const blob = new Blob([m3uContent], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'playlist.m3u';   // forced filename
+    link.download = 'playlist.m3u';
     link.click();
     URL.revokeObjectURL(url);
 
