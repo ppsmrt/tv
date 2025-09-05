@@ -114,18 +114,43 @@
     });
   }
 
-  function fetchPlaylist(url){
-    // Try direct fetch first
-    fetch(url)
-      .then(r=>{ if(!r.ok) throw new Error("Bad response"); return r.text(); })
-      .then(txt=>{ channels=parseM3U(txt); renderPlaylist(); })
-      .catch(()=>{
-        // Fallback: CORS proxy
-        fetch("https://cors-anywhere.herokuapp.com/"+url)
-          .then(r=>r.text())
-          .then(txt=>{ channels=parseM3U(txt); renderPlaylist(); })
-          .catch(()=>alert("Error loading playlist, CORS blocked"));
-      });
+  async function fetchPlaylist(url){
+    try {
+      // Direct fetch first
+      let res = await fetch(url);
+      if(!res.ok) throw new Error("Bad response");
+      let txt = await res.text();
+      channels = parseM3U(txt);
+      renderPlaylist();
+      return;
+    } catch(e1) {
+      console.warn("Direct fetch failed, trying AllOrigins...", e1);
+    }
+
+    try {
+      // AllOrigins proxy
+      let res = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(url));
+      if(!res.ok) throw new Error("Bad response from AllOrigins");
+      let txt = await res.text();
+      channels = parseM3U(txt);
+      renderPlaylist();
+      return;
+    } catch(e2) {
+      console.warn("AllOrigins failed, trying Thingproxy...", e2);
+    }
+
+    try {
+      // Thingproxy fallback
+      let res = await fetch("https://thingproxy.freeboard.io/fetch/" + url);
+      if(!res.ok) throw new Error("Bad response from Thingproxy");
+      let txt = await res.text();
+      channels = parseM3U(txt);
+      renderPlaylist();
+      return;
+    } catch(e3) {
+      console.error("Thingproxy failed too.", e3);
+      alert("Error loading playlist (CORS blocked on all proxies)");
+    }
   }
 
   loadBtn.onclick=()=>{
