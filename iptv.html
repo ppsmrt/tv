@@ -1,147 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Universal IPTV Player</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Premium IPTV Player</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Baloo 2 Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
   <style>
-    body { margin:0; font-family:Arial, sans-serif; background:#111; color:#fff; }
-    #player { width:100%; height:60vh; background:#000; }
-    #controls { display:flex; gap:8px; padding:8px; background:#222; }
-    #playlist { max-height:40vh; overflow:auto; background:#181818; }
-    .channel { display:flex; align-items:center; gap:8px; padding:6px; cursor:pointer; }
-    .channel:hover { background:#333; }
-    .active { background:#444; }
-    .channel img { width:40px; height:40px; object-fit:contain; border-radius:6px; }
-    input, select, button { padding:6px; border:none; border-radius:4px; }
+    body { font-family: 'Baloo 2', cursive; background:#111827; color:#fff; }
+    header { height:64px; display:flex; align-items:center; padding:0 1.5rem; background:rgba(31,41,55,.95); box-shadow:0 2px 8px rgba(0,0,0,.5); }
+    video { width:100%; height:70vh; background:#000; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.6); }
+    .playlist-item { display:flex; align-items:center; gap:12px; padding:10px; background:#1f2937; margin-bottom:10px; border-radius:12px; cursor:pointer; transition:.3s; }
+    .playlist-item:hover { background:#374151; }
+    .playlist-item.active { background:#f87171; color:white; }
+    .playlist-item img { width:50px; height:50px; object-fit:contain; border-radius:8px; }
   </style>
 </head>
 <body>
-  <video id="player" controls autoplay playsinline></video>
-  <div id="controls">
-    <input id="urlInput" type="text" placeholder="Enter playlist (.m3u) or stream URL (.m3u8/.mpd/.ts)" style="flex:1" />
-    <button id="loadBtn">Load</button>
-    <input id="filter" type="text" placeholder="Search channel..." />
-    <select id="group"></select>
+
+<!-- Header -->
+<header>
+  <span class="material-icons">live_tv</span>
+  <h1 class="ml-2 text-lg font-bold">IPTV Player</h1>
+</header>
+
+<!-- Main -->
+<main class="p-4 lg:p-8">
+  <!-- Input Controls -->
+  <div class="flex gap-2 mb-6">
+    <input id="urlInput" type="text" placeholder="Enter .m3u playlist or stream URL (.m3u8/.mpd/.ts)" class="flex-1 px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-400"/>
+    <button id="loadBtn" class="px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 flex items-center gap-1"><span class="material-icons">play_arrow</span> Load</button>
   </div>
-  <div id="playlist"></div>
 
-  <!-- Dependencies -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.16/dist/hls.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dashjs@4.7.4/dist/dash.all.min.js"></script>
+  <div class="grid lg:grid-cols-3 gap-6">
+    <!-- Video -->
+    <div class="lg:col-span-2">
+      <video id="player" controls autoplay playsinline></video>
+    </div>
 
-  <script>
-    const video = document.getElementById('player');
-    const urlInput = document.getElementById('urlInput');
-    const loadBtn = document.getElementById('loadBtn');
-    const filterInput = document.getElementById('filter');
-    const groupSelect = document.getElementById('group');
-    const playlistDiv = document.getElementById('playlist');
+    <!-- Playlist -->
+    <aside>
+      <h2 class="text-xl font-bold mb-4">Playlist</h2>
+      <div id="playlist" class="overflow-y-auto max-h-[70vh] pr-2"></div>
+    </aside>
+  </div>
+</main>
 
-    let hls, dash;
-    let channels = [];
-    let currentIndex = -1;
+<!-- Dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.16/dist/hls.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dashjs@4.7.4/dist/dash.all.min.js"></script>
 
-    function destroyEngines() {
-      if (hls) { hls.destroy(); hls = null; }
-      if (dash) { dash.reset(); dash = null; }
-      video.src = '';
-    }
+<script>
+  const video=document.getElementById('player');
+  const urlInput=document.getElementById('urlInput');
+  const loadBtn=document.getElementById('loadBtn');
+  const playlistDiv=document.getElementById('playlist');
+  let hls,dash,channels=[],currentIndex=-1;
 
-    function ext(url) {
-      const clean = url.split('?')[0];
-      return (clean.split('.').pop() || '').toLowerCase();
-    }
+  function destroyEngines(){ if(hls){hls.destroy();hls=null;} if(dash){dash.reset();dash=null;} video.src=''; }
 
-    function playStream(url) {
-      destroyEngines();
-      const extension = ext(url);
+  function ext(url){ return (url.split('?')[0].split('.').pop()||'').toLowerCase(); }
 
-      if (extension === 'm3u8') {
-        if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = url;
-          video.play().catch(()=>{});
-        } else if (Hls.isSupported()) {
-          hls = new Hls();
-          hls.loadSource(url);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(()=>{}));
-        } else {
-          alert('HLS not supported in this browser');
-        }
-      } else if (extension === 'mpd') {
-        dash = dashjs.MediaPlayer().create();
-        dash.initialize(video, url, true);
-      } else if (extension === 'ts') {
-        video.src = url;
-        video.type = 'video/mp2t';
-        video.play().catch(()=>{});
-      } else {
-        video.src = url;
-        video.play().catch(()=>{});
+  function playStream(url){
+    destroyEngines();
+    const e=ext(url);
+    if(e==='m3u8'){
+      if(video.canPlayType('application/vnd.apple.mpegurl')){ video.src=url; video.play().catch(()=>{}); }
+      else if(Hls.isSupported()){ hls=new Hls(); hls.loadSource(url); hls.attachMedia(video); hls.on(Hls.Events.MANIFEST_PARSED,()=>video.play().catch(()=>{})); }
+    } else if(e==='mpd'){ dash=dashjs.MediaPlayer().create(); dash.initialize(video,url,true); }
+    else if(e==='ts'){ video.src=url; video.type='video/mp2t'; video.play().catch(()=>{}); }
+    else { video.src=url; video.play().catch(()=>{}); }
+  }
+
+  function parseM3U(text){
+    const lines=text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+    const out=[]; let meta=null;
+    for(let line of lines){
+      if(line.startsWith('#EXTINF')){
+        const title=line.split(',').slice(1).join(',').trim();
+        const attrs={}; line.replace(/(\w+)="([^"]*)"/g,(_,k,v)=>attrs[k]=v);
+        meta={title,attrs};
+      } else if(!line.startsWith('#')){
+        out.push({
+          name:meta?.attrs?.['tvg-name']||meta?.title||line,
+          url:line,
+          logo:meta?.attrs?.['tvg-logo']||''
+        });
+        meta=null;
       }
     }
+    return out;
+  }
 
-    function parseM3U(text) {
-      const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-      const out = [];
-      let meta = null;
-      for (let line of lines) {
-        if (line.startsWith('#EXTINF')) {
-          const title = line.split(',').slice(1).join(',').trim();
-          const attrs = {};
-          line.replace(/(\w+)="([^"]*)"/g, (_, k, v) => { attrs[k] = v; });
-          meta = { title, attrs };
-        } else if (!line.startsWith('#')) {
-          out.push({
-            name: meta?.attrs?.['tvg-name'] || meta?.title || line,
-            url: line,
-            group: meta?.attrs?.['group-title'] || 'Other',
-            logo: meta?.attrs?.['tvg-logo'] || ''
-          });
-          meta = null;
-        }
-      }
-      return out;
+  function renderPlaylist(){
+    playlistDiv.innerHTML='';
+    channels.forEach((c,i)=>{
+      const div=document.createElement('div');
+      div.className='playlist-item'+(i===currentIndex?' active':'');
+      div.innerHTML=(c.logo?`<img src="${c.logo}" alt="">`:'')+`<span>${c.name}</span>`;
+      div.onclick=()=>{currentIndex=i;playStream(c.url);renderPlaylist();};
+      playlistDiv.appendChild(div);
+    });
+  }
+
+  loadBtn.onclick=()=>{
+    const u=urlInput.value.trim();
+    if(!u) return;
+    if(u.endsWith('.m3u')){
+      fetch(u).then(r=>r.text()).then(txt=>{
+        channels=parseM3U(txt);
+        renderPlaylist();
+      }).catch(()=>alert('Error loading playlist'));
+    } else {
+      channels=[{name:u,url:u,logo:''}];
+      currentIndex=0;
+      renderPlaylist();
+      playStream(u);
     }
-
-    function renderPlaylist() {
-      playlistDiv.innerHTML = '';
-      const f = filterInput.value.toLowerCase();
-      const g = groupSelect.value;
-      channels.forEach((c,i) => {
-        if ((g==='All'||c.group===g) && c.name.toLowerCase().includes(f)) {
-          const div = document.createElement('div');
-          div.className = 'channel'+(i===currentIndex?' active':'');
-          div.innerHTML = (c.logo?`<img src="${c.logo}" />`:'')+`<span>${c.name}</span>`;
-          div.onclick = () => { currentIndex=i; playStream(c.url); renderPlaylist(); };
-          playlistDiv.appendChild(div);
-        }
-      });
-    }
-
-    function updateGroups() {
-      const groups = ['All', ...new Set(channels.map(c=>c.group))];
-      groupSelect.innerHTML = groups.map(g=>`<option>${g}</option>`).join('');
-    }
-
-    filterInput.oninput = renderPlaylist;
-    groupSelect.onchange = renderPlaylist;
-
-    loadBtn.onclick = () => {
-      const u = urlInput.value.trim();
-      if (!u) return;
-      if (u.endsWith('.m3u')) {
-        fetch(u).then(r=>r.text()).then(txt => {
-          channels = parseM3U(txt);
-          updateGroups(); renderPlaylist();
-        }).catch(()=>alert("Error loading playlist"));
-      } else {
-        channels = [{name:u,url:u,group:'Direct'}];
-        updateGroups(); renderPlaylist();
-        currentIndex=0; playStream(u);
-      }
-    };
-  </script>
+  };
+</script>
 </body>
 </html>
