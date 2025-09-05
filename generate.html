@@ -39,7 +39,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
     padding: 2rem;
@@ -118,9 +118,33 @@
 
 <!-- Main Content -->
 <main>
-  <h2 class="text-2xl font-bold mb-4">Create Your M3U Playlist</h2>
-  <p class="mb-6 text-gray-300">Click the button below to generate <strong>playlist.m3u</strong> from your Firebase channels.</p>
-  <button id="generateBtn" class="generate-btn">Generate Playlist</button>
+  <!-- Live TV Playlist Intro -->
+  <section class="w-full max-w-xl mx-auto mb-8 text-center">
+    <h2 class="text-2xl font-bold mb-3">Live TV Playlist</h2>
+    <p class="text-gray-300 mb-2">
+      We are excited to introduce our Live TV playlist, which you can watch using any IPTV application of your choice.
+    </p>
+    <p class="text-gray-400 text-sm mb-4">
+      If you are new to IPTV or unfamiliar with how to use a playlist URL, we will guide you through the process. Visit our guide page to learn how to use IPTV apps and playlists, and download recommended IPTV applications.
+    </p>
+    <!-- Playlist URL Button -->
+    <div class="flex flex-col items-center gap-2">
+      <button 
+        id="copyUrlBtn"
+        class="px-5 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
+      >
+        Copy Playlist URL
+      </button>
+      <span id="urlText" class="text-gray-300 text-sm select-all break-all">https://tnm3u.live/playlist</span>
+    </div>
+  </section>
+
+  <!-- Generate Playlist Button -->
+  <section class="mb-16">
+    <h2 class="text-2xl font-bold mb-4">Create Your M3U Playlist</h2>
+    <p class="mb-6 text-gray-300">Click the button below to generate <strong>playlist.m3u</strong> from your Firebase channels.</p>
+    <button id="generateBtn" class="generate-btn">Generate Playlist</button>
+  </section>
 </main>
 
 <!-- Footer -->
@@ -163,11 +187,21 @@
   function showToast(message, type="success") {
     const toast = document.getElementById('toast');
     toast.querySelector('span:last-child').textContent = message;
-    toast.style.background = type === "error" ? "#dc2626" : "#16a34a"; // green for success, red for error
+    toast.style.background = type === "error" ? "#dc2626" : "#16a34a"; // red for error, green for success
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
 
+  // Copy Playlist URL
+  const copyBtn = document.getElementById('copyUrlBtn');
+  const urlText = document.getElementById('urlText').textContent;
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(urlText)
+      .then(() => showToast("Playlist URL copied to clipboard!", "success"))
+      .catch(() => showToast("Failed to copy URL. Please copy manually.", "error"));
+  });
+
+  // Generate Playlist
   async function generateM3U8() {
     const channelsRef = ref(db, 'channels');
     const snapshot = await get(channelsRef);
@@ -196,7 +230,7 @@
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'playlist.m3u';   // ✅ forced filename
+    link.download = 'playlist.m3u';   // forced filename
     link.click();
     URL.revokeObjectURL(url);
 
