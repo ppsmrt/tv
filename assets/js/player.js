@@ -3,7 +3,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// ✅ Firebase config
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBJoxttxIrGMSYU-ROjrYng2swbB0owOoA",
   authDomain: "tamilgeo-d10d6.firebaseapp.com",
@@ -17,21 +17,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Get elements
-const video = document.getElementById("video");
+// Elements
+const video = document.getElementById("video"); // Correct ID from your HTML
 const playBtn = document.getElementById("playBtn");
 const muteBtn = document.getElementById("muteBtn");
 const volumeSlider = document.getElementById("volumeSlider");
 const fsBtn = document.getElementById("fsBtn");
 const videoTitle = document.getElementById("videoTitle");
 
-// 🔥 Load HLS stream function
+// HLS loader
 function loadStream(url, title = "Video Title") {
   videoTitle.textContent = title;
-  
   if (!url) return;
 
-  // Destroy any previous Hls instance
+  // Destroy previous HLS instance if exists
   if (video.hls) {
     video.hls.destroy();
     video.hls = null;
@@ -41,9 +40,7 @@ function loadStream(url, title = "Video Title") {
     const hls = new Hls();
     hls.loadSource(url);
     hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play().catch(() => console.log("Autoplay blocked"));
-    });
+    hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(() => console.log("Autoplay blocked")));
     video.hls = hls;
   } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
     video.src = url;
@@ -53,36 +50,38 @@ function loadStream(url, title = "Video Title") {
   }
 }
 
-// Example: Default stream (if URL param exists)
+// Get URL param for stream
 const params = new URLSearchParams(window.location.search);
 const streamName = params.get("stream");
 
-// Firebase: Listen for currentChannel updates
-const channelRef = ref(db, "channels");
-onValue(channelRef, snapshot => {
+// Load stream from Firebase
+const channelsRef = ref(db, "channels");
+onValue(channelsRef, snapshot => {
   if (!snapshot.exists()) return;
 
   const channels = snapshot.val();
-  let selectedStream = null;
+  let selectedChannel = null;
 
-  // Match URL param or default to first channel
+  // Match ?stream= param
   for (const key in channels) {
     const ch = channels[key];
     const safeName = ch.name.toLowerCase().replace(/\s+/g, "-");
     if (streamName === safeName) {
-      selectedStream = ch;
+      selectedChannel = ch;
       break;
     }
   }
-  if (!selectedStream) {
+
+  // Default to first channel if not found
+  if (!selectedChannel) {
     const firstKey = Object.keys(channels)[0];
-    selectedStream = channels[firstKey];
+    selectedChannel = channels[firstKey];
   }
 
-  loadStream(selectedStream.stream, selectedStream.name);
+  loadStream(selectedChannel.stream, selectedChannel.name);
 });
 
-// ✅ Controls
+// Controls
 playBtn.addEventListener("click", () => {
   if (video.paused) { video.play(); playBtn.textContent = "pause"; }
   else { video.pause(); playBtn.textContent = "play_arrow"; }
@@ -105,7 +104,7 @@ fsBtn.addEventListener("click", () => {
   else if (video.msRequestFullscreen) video.msRequestFullscreen();
 });
 
-// 🔥 Pinch zoom support
+// Pinch zoom
 let scale = 1, lastDist = null;
 video.addEventListener("touchmove", e => {
   if (e.touches.length === 2) {
