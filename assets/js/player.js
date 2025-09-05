@@ -5,13 +5,12 @@ import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/fireb
 
 // ✅ Your Firebase config (unchanged)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT.firebaseio.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBJoxttxIrGMSYU-ROjrYng2swbB0owOoA",
+  authDomain: "tamilgeo-d10d6.firebaseapp.com",
+  projectId: "tamilgeo-d10d6",
+  storageBucket: "tamilgeo-d10d6.firebasestorage.app",
+  messagingSenderId: "789895210550",
+  appId: "1:789895210550:android:63f757c9cac09581275a97"
 };
 
 const app = initializeApp(firebaseConfig);
