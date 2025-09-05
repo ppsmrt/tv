@@ -1,0 +1,62 @@
+name: Auto-update playlist.m3u
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Generate playlist.m3u
+      run: |
+        npm install node-fetch@2
+        node <<'EOF'
+        const fs = require('fs');
+        const fetch = require('node-fetch');
+
+        const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+
+        (async () => {
+          const res = await fetch(url);
+          const data = await res.json();
+          if (!data) {
+            console.log("No channels found.");
+            return;
+          }
+
+          let m3u = "#EXTM3U\n";
+
+          for (const id in data) {
+            const ch = data[id];
+            const name = ch.name || ch.title || "Unknown";
+            const category = ch.category || ch.group || "General";
+            const logo = ch.logo || ch.image || ch.icon || "";
+            const stream = ch.url || ch.stream || ch.link || "";
+            if (!stream) continue;
+            m3u += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
+            m3u += `${stream}\n`;
+          }
+
+          fs.writeFileSync('playlist.m3u', m3u);
+          console.log('playlist.m3u updated successfully.');
+        })();
+        EOF
+
+    - name: Commit and push
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add playlist.m3u
+        git commit -m "Auto-update playlist.m3u [skip ci]" || echo "No changes"
+        git push
