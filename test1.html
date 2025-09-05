@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Player - Live TV</title>
+<title>Live TV - Stream Live</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,126 +15,308 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  /* Apply Baloo 2 font globally */
   html, body {
     font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
   }
 
-  /* Custom scroll for info section */
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 20;
+  }
 
-  /* Video & overlay */
-  #video { width: 100%; height: auto; max-height: 60vh; background: black; object-fit: cover; }
-  .controls { transition: opacity 0.3s; }
-  .controls.hidden { opacity: 0; pointer-events: none; }
+  main {
+    padding: 20px 1rem 100px; /* changed bottom padding from 0 to 100px */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+  /* Search Bar */
+  .search-container {
+    display: flex;
+    align-items: center;
+    background: rgba(31, 41, 55, 0.85);
+    border-radius: 9999px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .search-container:focus-within {
+    background: rgba(55, 65, 81, 0.9);
+    box-shadow: 0 0 12px rgba(248, 113, 113, 0.6);
+  }
+  .search-container .material-icons {
+    color: #f87171;
+    font-size: 22px;
+    margin-right: 8px;
+  }
+  .search-container input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #f9fafb;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .search-container input::placeholder {
+    color: #9ca3af;
+  }
 
-  /* Ad strip */
-  .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
-  .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
+  /* Category Bar */
+  .category-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .category-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .category-btn {
+    flex-shrink: 0;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #d1d5db;
+    background: #1f2937;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    border: none;
+  }
+  .category-btn:hover {
+    background: #f87171;
+    color: white;
+  }
+  .category-btn.active {
+    background: #f87171;
+    color: white;
+    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
+  }
+
+  /* Channels Grid */
+  .channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  /* Channel Cards */
+  .channel-card {
+    background: #1f2937;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+  }
+  .channel-card.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .channel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
+  }
+
+  .channel-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-bottom: 1px solid #374151;
+    transition: filter 0.3s ease;
+  }
+  .channel-card:hover .channel-image {
+    filter: brightness(1.1);
+  }
+
+  .channel-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .channel-card:hover .channel-overlay {
+    opacity: 1;
+  }
+
+  .channel-name {
+    padding: 12px 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #f9fafb;
+  }
+
+  @media(max-width:640px){
+    .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .channel-name { font-size: 0.95rem; }
+  }
 </style>
 </head>
+<body class="bg-gray-900 text-white">
 
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<!-- Header -->
+<header>
+  <span class="material-icons">live_tv</span>
+  <h1 class="ml-2 text-lg font-bold">Live Tv</h1>
+</header>
 
-<main class="flex-grow pt-16 pb-24">
-  <!-- Video Player Card -->
-  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
-    <div class="relative">
-      <video id="video" playsinline webkit-playsinline src="assets/video/sample.mp4"></video>
-      
-      <!-- Ad strip -->
-      <div class="ad-strip absolute bottom-0 left-0 w-full">
-        <div id="adProgress" class="ad-progress"></div>
-      </div>
-
-      <!-- Controls -->
-      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-50 p-2 rounded-lg">
-        <div class="flex items-center space-x-2">
-          <button id="playBtn" class="material-icons text-white">play_arrow</button>
-          <span id="currentTime" class="text-sm">00:00</span>
-          <div class="w-40 h-1 bg-gray-700 rounded relative">
-            <div id="progressBar" class="h-1 bg-red-500 rounded absolute left-0 top-0"></div>
-          </div>
-          <span id="duration" class="text-sm">00:00</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <button id="volumeBtn" class="material-icons text-white">volume_up</button>
-          <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
-          <button id="fsBtn" class="material-icons text-white">fullscreen</button>
-        </div>
-      </div>
-    </div>
+<main>
+  <!-- Premium Search Bar -->
+  <div class="search-container">
+    <span class="material-icons">search</span>
+    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
   </div>
 
-  <!-- Video Info Section -->
-  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 scrollbar-hide overflow-y-auto max-h-[40vh]">
-    <h2 class="text-xl font-bold">Video Title</h2>
-    <p class="text-gray-300 text-sm">
-      This is a sample description of the video. Here you can add information about the video, program rules, privacy policies, and open-source license notices.
-    </p>
-    <h3 class="font-semibold mt-2">Rules:</h3>
-    <ul class="list-disc list-inside text-gray-300 text-sm">
-      <li>No redistribution of content.</li>
-      <li>Respect copyright and license terms.</li>
-      <li>Use content for personal and educational purposes only.</li>
-    </ul>
-    <h3 class="font-semibold mt-2">Privacy:</h3>
-    <p class="text-gray-300 text-sm">Your data is not stored or shared without consent. For more info, refer to our privacy policies.</p>
-    <h3 class="font-semibold mt-2">Open Source Laws:</h3>
-    <p class="text-gray-300 text-sm">Some libraries used in this player are open-source and licensed under MIT/Apache/GPL. Please refer to individual licenses for details.</p>
-  </div>
+  <!-- Category Buttons -->
+  <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories">
+    <!-- Categories dynamically rendered -->
+  </nav>
+
+  <!-- Channels Grid -->
+  <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
 
-<!-- JS -->
+<!-- Footer -->
+<div id="footer"></div>
+
+<!-- JS Files -->
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
+
+<!-- Firebase and App Logic (Working Player Logic) -->
 <script type="module">
-const video = document.getElementById('video');
-const playBtn = document.getElementById('playBtn');
-const fsBtn = document.getElementById('fsBtn');
-const pipBtn = document.getElementById('pipBtn');
-const controls = document.getElementById('controls');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-const progressBar = document.getElementById('progressBar');
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-let controlsTimeout;
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
 
-// Play/Pause toggle
-playBtn.addEventListener('click', () => {
-  if(video.paused) { video.play(); playBtn.textContent = 'pause'; }
-  else { video.pause(); playBtn.textContent = 'play_arrow'; }
-});
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-// Update progress & time
-video.addEventListener('timeupdate', () => {
-  const progress = (video.currentTime / video.duration) * 100;
-  progressBar.style.width = progress + '%';
-  currentTimeEl.textContent = new Date(video.currentTime * 1000).toISOString().substr(14, 5);
-  durationEl.textContent = new Date(video.duration * 1000).toISOString().substr(14, 5);
-});
+  const grid = document.getElementById('channelsGrid');
+  const categoryBar = document.getElementById('categoryBar');
+  const searchInput = document.getElementById('searchInput');
+  let selectedCategory = 'All';
+  let channels = [];
 
-// Fullscreen toggle
-fsBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) video.parentElement.requestFullscreen();
-  else document.exitFullscreen();
-});
+  function createChannelCard(c) {
+    const a = document.createElement('a');
+    const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'));
+    a.href = `test.html?stream=${safeName}`;
+    a.className = 'channel-card';
+    a.setAttribute('aria-label', `Watch ${c.name}`);
 
-// Picture-in-Picture
-pipBtn.addEventListener('click', async () => {
-  if (document.pictureInPictureElement) await document.exitPictureInPicture();
-  else await video.requestPictureInPicture();
-});
+    const img = document.createElement('img');
+    img.src = c.logo; img.alt = c.name + ' logo'; img.className = 'channel-image';
 
-// Auto-hide controls
-const showControls = () => {
-  controls.classList.remove('hidden');
-  clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
-};
-video.addEventListener('mousemove', showControls);
-video.addEventListener('touchstart', showControls);
+    const overlay = document.createElement('div');
+    overlay.className = 'channel-overlay';
+    overlay.textContent = '▶ Watch';
+
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'channel-name';
+    nameDiv.textContent = c.name;
+
+    a.appendChild(img); a.appendChild(overlay); a.appendChild(nameDiv);
+    return a;
+  }
+
+  function renderCategories() {
+    const categories = ['All', ...new Set(channels.map(c => c.category))];
+    categories.sort();
+    categoryBar.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `category-btn ${cat === selectedCategory ? 'active' : ''}`;
+      btn.dataset.category = cat;
+      btn.textContent = cat;
+      btn.setAttribute('aria-pressed', cat === selectedCategory ? 'true' : 'false');
+      btn.addEventListener('click', () => {
+        selectedCategory = cat;
+        renderCategories();
+        renderChannels(searchInput.value);
+      });
+      categoryBar.appendChild(btn);
+    });
+  }
+
+  function renderChannels(filter = '') {
+    grid.innerHTML = '';
+    const filtered = channels.filter(c => {
+      const matchCat = selectedCategory === 'All' || c.category === selectedCategory;
+      const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
+      return matchCat && matchSearch;
+    });
+
+    filtered.sort((a,b) => a.name.localeCompare(b.name));
+
+    if(filtered.length === 0){
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
+      return;
+    }
+
+    filtered.forEach((c,i)=>{
+      const card = createChannelCard(c);
+      grid.appendChild(card);
+      setTimeout(()=>card.classList.add('show'), i*100);
+    });
+  }
+
+  searchInput.addEventListener('input', e=>renderChannels(e.target.value));
+
+  const channelsRef = ref(db,'channels');
+  onValue(channelsRef, snapshot=>{
+    if(snapshot.exists()){
+      const data = snapshot.val();
+      channels = Object.values(data).map(c=>({
+        name:c.name,
+        category:c.category,
+        logo:c.icon,
+        stream:c.stream
+      }));
+      renderCategories();
+      renderChannels(searchInput.value);
+    } else {
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels available.</p>';
+    }
+  });
 </script>
 </body>
 </html>
