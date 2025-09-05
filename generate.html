@@ -109,8 +109,8 @@
 
 <!-- Main Content -->
 <main>
-  <h2 class="text-2xl font-bold mb-4">Create Your M3U8 Playlist</h2>
-  <p class="mb-6 text-gray-300">Click the button below to generate <strong>playlist.m3u</strong> from my website. This playlist includes all the tv channels available in the app.</p>
+  <h2 class="text-2xl font-bold mb-4">Create Your M3U Playlist</h2>
+  <p class="mb-6 text-gray-300">Click the button below to generate <strong>playlist.m3u</strong> from your Firebase channels.</p>
   <button id="generateBtn" class="generate-btn">Generate Playlist</button>
 </main>
 
@@ -122,7 +122,7 @@
 <!-- Toast -->
 <div id="toast" class="toast">
   <span class="material-icons">check_circle</span>
-  <span>Playlist generated successfully!</span>
+  <span>Playlist (playlist.m3u) generated successfully!</span>
 </div>
 
 <!-- Firebase + Logic -->
@@ -162,7 +162,7 @@
     const channelsRef = ref(db, 'channels');
     const snapshot = await get(channelsRef);
     if (!snapshot.exists()) {
-      alert("No channels found in the database.");
+      showToast("No channels found in the database!");
       return;
     }
 
@@ -186,16 +186,16 @@
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'playlist.m3u';
+    link.download = 'playlist.m3u';   // ✅ filename updated
     link.click();
     URL.revokeObjectURL(url);
 
     // ✅ Show success toast
-    showToast("Playlist generated successfully!");
+    showToast("Playlist (playlist.m3u) generated successfully!");
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('generateBtn').addEventListener('click', generateM3U);
+    document.getElementById('generateBtn').addEventListener('click', generateM3U8);
   });
 </script>
 </body>
