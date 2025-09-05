@@ -109,15 +109,35 @@
 
 <!-- Main Content -->
 <main>
+
   <!-- Live TV Playlist Intro -->
-  <section class="w-full max-w-2xl mx-auto mb-10 text-center">
+  <section class="w-full max-w-2xl mx-auto mb-10 text-center bg-gradient-to-r from-gray-900/80 to-gray-800/80 p-8 rounded-2xl shadow-xl">
     <h2 class="text-3xl font-extrabold mb-4 text-white">Your Premium Live TV Playlist</h2>
-    <p class="text-gray-200 leading-relaxed mb-3">
-      Experience live entertainment the smarter way. Our <span class="font-semibold text-red-400">curated IPTV playlist</span> delivers instant access to a wide range of TV channels across categories — from news and sports to movies and lifestyle. All at your fingertips.
+    <p class="text-gray-200 leading-relaxed mb-4 text-lg">
+      Unlock a world of entertainment with our <span class="font-semibold text-red-400">exclusive IPTV playlist</span>.  
+      Stream your favorite TV channels instantly, from live news and sports to movies, lifestyle, and music — all curated for a seamless viewing experience.
     </p>
     <p class="text-gray-400 text-sm leading-relaxed mb-6">
-      Whether you’re new to IPTV or an experienced viewer, our playlist is designed for seamless integration with the most popular IPTV apps. Visit our guide page for a step-by-step tutorial, best app recommendations, and quick tips to get started without hassle.
+      Designed for both newcomers and pros, our playlist integrates smoothly with the most popular IPTV apps.  
+      Check our <span class="underline text-red-400 cursor-pointer">guide page</span> to set up your IPTV app, explore playlists, and discover pro tips for uninterrupted streaming.
     </p>
+
+    <!-- Feature Highlights -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
+        <span class="material-icons text-red-400 text-3xl mb-2">hd</span>
+        <span class="text-gray-200 font-medium text-sm">HD & 4K Streams</span>
+      </div>
+      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
+        <span class="material-icons text-red-400 text-3xl mb-2">category</span>
+        <span class="text-gray-200 font-medium text-sm">Multi-Category Channels</span>
+      </div>
+      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
+        <span class="material-icons text-red-400 text-3xl mb-2">devices</span>
+        <span class="text-gray-200 font-medium text-sm">Cross-Platform Access</span>
+      </div>
+    </div>
+
     <!-- Playlist URL Button -->
     <div class="flex flex-col items-center gap-3">
       <button 
@@ -141,21 +161,21 @@
 
     <!-- Features (premium highlights) -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 text-gray-300 text-sm">
-      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg">
+      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
         <span class="material-icons text-red-400 mb-1">update</span>
         Always Up-to-Date
       </div>
-      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg">
+      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
         <span class="material-icons text-red-400 mb-1">live_tv</span>
         Wide Channel Range
       </div>
-      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg">
+      <div class="flex flex-col items-center bg-gray-800/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
         <span class="material-icons text-red-400 mb-1">bolt</span>
         One-Click Download
       </div>
     </div>
 
-    <!-- Generate Playlist Button (matches Copy button) -->
+    <!-- Generate Playlist Button -->
     <button 
       id="generateBtn"
       class="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
@@ -205,12 +225,11 @@
   function showToast(message, type="success") {
     const toast = document.getElementById('toast');
     toast.querySelector('span:last-child').textContent = message;
-    toast.style.background = type === "error" ? "#dc2626" : "#16a34a"; // red for error, green for success
+    toast.style.background = type === "error" ? "#dc2626" : "#16a34a";
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
 
-  // Copy Playlist URL
   const copyBtn = document.getElementById('copyUrlBtn');
   const urlText = document.getElementById('urlText').textContent;
   copyBtn.addEventListener('click', () => {
@@ -219,7 +238,6 @@
       .catch(() => showToast("Failed to copy URL. Please copy manually.", "error"));
   });
 
-  // Generate Playlist
   async function generateM3U8() {
     const channelsRef = ref(db, 'channels');
     const snapshot = await get(channelsRef);
