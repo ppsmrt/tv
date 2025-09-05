@@ -239,7 +239,7 @@
   function createChannelCard(c) {
     const a = document.createElement('a');
     const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'));
-    a.href = `min-player.html?stream=${safeName}`;
+    a.href = `player.html?stream=${safeName}`;
     a.className = 'channel-card';
     a.setAttribute('aria-label', `Watch ${c.name}`);
 
