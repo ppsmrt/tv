@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Player - Live TV</title>
+<title>Generate Playlist - Live TV</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,145 +15,244 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body {
+  body {
     font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #f9fafb;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #111;
-    overscroll-behavior: none;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
-  #video {
-    width: 100%;
-    height: auto;
-    max-height: 100vh;
-    background: black;
-    object-fit: cover;
-    transition: transform 0.2s ease;
+  header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 20;
   }
 
-  video:fullscreen {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
   }
 
-  :fullscreen { padding:0; margin:0; }
-
-  .controls { transition: opacity 0.3s; }
-  .controls.hidden { opacity:0; pointer-events:none; }
-
-  .ad-strip { height:4px; background-color: rgba(255,255,255,0.2); margin-top:8px; }
-  .ad-progress { height:100%; background-color:#f87171; width:0%; transition: width 0.3s; }
-
-  @keyframes scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+  .generate-btn {
+    padding: 14px 32px;
+    background: linear-gradient(90deg, #f87171, #ef4444);
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(248,113,113,0.5);
+    transition: all 0.3s ease;
   }
-  .animate-scroll {
-    display:inline-block;
-    padding-left:100%;
-    animation: scroll 20s linear infinite;
+
+  .generate-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(248,113,113,0.6);
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+  }
+
+  footer {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #9ca3af;
+    border-top: 1px solid #1f2937;
+    background: rgba(17,24,39,0.95);
+  }
+
+  /* App-style Toast */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #16a34a;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
+    z-index: 50;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast .material-icons {
+    font-size: 1.3rem;
+    animation: pop 0.3s ease;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
   }
 </style>
 </head>
-
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<body>
 
 <!-- Header -->
-<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
+<header class="flex items-center justify-between">
+  <!-- Left: Title + Icon -->
   <div class="flex items-center">
-    <span class="material-icons text-white">live_tv</span>
-    <h1 class="ml-2 text-lg font-bold text-white">
-      <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
-    </h1>
+    <span class="material-icons">playlist_add</span>
+    <h1 class="ml-2 text-lg font-bold">Generate Playlist</h1>
   </div>
-  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+
+  <!-- Right: Back button -->
+  <button onclick="window.history.back()" 
+    class="flex items-center gap-1 text-gray-300 hover:text-white transition">
     <span class="material-icons">arrow_back</span>
-    <span class="font-semibold">Back</span>
+    <span class="text-sm font-medium">Back</span>
   </button>
 </header>
 
-<main class="flex-grow pt-20 pb-24">
-
-  <!-- Video Player Card -->
-  <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
-    <div class="relative">
-      <video id="video" playsinline webkit-playsinline></video>
-
-      <!-- Scrolling Text Ad -->
-      <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1">
-        <div class="animate-scroll whitespace-nowrap">
-          🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
-        </div>
-      </div>
-
-      <!-- Ad strip -->
-      <div class="ad-strip absolute bottom-0 left-0 w-full">
-        <div id="adProgress" class="ad-progress"></div>
-      </div>
-
-      <!-- Controls -->
-      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg">
-        <div class="flex items-center space-x-2">
-          <button id="playBtn" class="material-icons text-white">play_arrow</button>
-          <button id="muteBtn" class="material-icons text-white">volume_up</button>
-          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">
-        </div>
-        <button id="fsBtn" class="material-icons text-white">fullscreen</button>
-      </div>
+<!-- Main Content -->
+<main>
+  <!-- Live TV Playlist Intro -->
+  <section class="w-full max-w-2xl mx-auto mb-10 text-center">
+    <h2 class="text-3xl font-extrabold mb-4 text-white">Your Premium Live TV Playlist</h2>
+    <p class="text-gray-200 leading-relaxed mb-3">
+      Experience live entertainment the smarter way. Our <span class="font-semibold text-red-400">curated IPTV playlist</span> delivers instant access to a wide range of TV channels across categories — from news and sports to movies and lifestyle. All at your fingertips.
+    </p>
+    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+      Whether you’re new to IPTV or an experienced viewer, our playlist is designed for seamless integration with the most popular IPTV apps. Visit our guide page for a step-by-step tutorial, best app recommendations, and quick tips to get started without hassle.
+    </p>
+    <!-- Playlist URL Button -->
+    <div class="flex flex-col items-center gap-3">
+      <button 
+        id="copyUrlBtn"
+        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
+      >
+        Copy Playlist URL
+      </button>
+      <span id="urlText" class="text-gray-300 text-sm select-all break-all">https://tnm3u.live/playlist.m3u</span>
+      <p class="text-xs text-gray-500 italic">Use this link in your favorite IPTV player to unlock streaming instantly.</p>
     </div>
-  </div>
+  </section>
 
-  <!-- Video Info Section -->
-  <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
-    <p id="extraInfo" class="text-gray-300 text-sm mt-2"></p>
-    <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>
-    <p class="text-gray-300 text-sm leading-relaxed">
-      All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.
-      All rights remain with their original providers. This platform only provides an interface to access them for convenience.
+  <!-- Generate Playlist Button -->
+  <section class="mb-20">
+    <h2 class="text-2xl font-bold mb-3">Generate Your Personal Playlist</h2>
+    <p class="mb-6 text-gray-300 max-w-xl mx-auto leading-relaxed">
+      With just one click, create a fully compatible <strong>playlist.m3u</strong> file directly from our Firebase-powered channel list. This ensures that your playlist is always up-to-date with the latest available streams, giving you a smooth and uninterrupted viewing experience.
     </p>
-    <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>
-    <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
-      <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>
-      <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>
-      <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>
-    </ul>
-    <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>
-    <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
-      <li>No personal data is collected, stored, or shared.</li>
-      <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>
-      <li>No server-side caching, recording, or proxying is done on our platform.</li>
-      <li>Playback happens on your device using standard open-source player libraries.</li>
-    </ul>
-    <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>
-    <p class="text-gray-300 text-sm leading-relaxed">
-      This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.
-      For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.
-    </p>
-    <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>
-    <p class="text-gray-300 text-sm leading-relaxed">
-      Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.
-      However, you must comply with your local laws and the content owner's terms.
-      We do not guarantee the legality of accessing any specific content in your jurisdiction.
-    </p>
-    <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>
-    <p class="text-gray-300 text-sm leading-relaxed">
-      If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.
-      We review and process valid requests within <strong>48 hours</strong>.
-    </p>
-  </div>
-
-  <!-- Bottom Banner Ad -->
-  <div class="w-full text-center my-4">
-    <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">
-  </div>
+    <button id="generateBtn" class="generate-btn">Generate Playlist</button>
+  </section>
 </main>
 
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/player.js"></script>
+<!-- Footer -->
+<footer>
+  &copy; 2025 Live TV. All Rights Reserved.
+</footer>
 
+<!-- App-style Toast -->
+<div id="toast" class="toast">
+  <span class="material-icons">check_circle</span>
+  <span>Playlist (playlist.m3u) generated successfully!</span>
+</div>
+
+<!-- Firebase + Logic -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  function detectField(channel, keys) {
+    for (const key of keys) {
+      if (channel[key]) return channel[key];
+    }
+    return "";
+  }
+
+  function showToast(message, type="success") {
+    const toast = document.getElementById('toast');
+    toast.querySelector('span:last-child').textContent = message;
+    toast.style.background = type === "error" ? "#dc2626" : "#16a34a"; // red for error, green for success
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  // Copy Playlist URL
+  const copyBtn = document.getElementById('copyUrlBtn');
+  const urlText = document.getElementById('urlText').textContent;
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(urlText)
+      .then(() => showToast("Playlist URL copied to clipboard!", "success"))
+      .catch(() => showToast("Failed to copy URL. Please copy manually.", "error"));
+  });
+
+  // Generate Playlist
+  async function generateM3U8() {
+    const channelsRef = ref(db, 'channels');
+    const snapshot = await get(channelsRef);
+    if (!snapshot.exists()) {
+      showToast("No channels found in the database!", "error");
+      return;
+    }
+
+    const channels = snapshot.val();
+    let m3uContent = "#EXTM3U\n";
+
+    for (const channelId in channels) {
+      const channel = channels[channelId];
+      const name = detectField(channel, ['name', 'title']) || "Unknown";
+      const category = detectField(channel, ['category', 'group', 'group-title']) || "General";
+      const logo = detectField(channel, ['logo', 'image', 'icon']) || "";
+      const streamUrl = detectField(channel, ['url', 'stream', 'link']) || "";
+
+      if (!streamUrl) continue;
+
+      m3uContent += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
+      m3uContent += `${streamUrl}\n`;
+    }
+
+    const blob = new Blob([m3uContent], { type: 'application/octet-stream' }); // prevent auto .m3u8
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'playlist.m3u';   // forced filename
+    link.click();
+    URL.revokeObjectURL(url);
+
+    showToast("Playlist (playlist.m3u) generated successfully!", "success");
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('generateBtn').addEventListener('click', generateM3U8);
+  });
+</script>
 </body>
 </html>
