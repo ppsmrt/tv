@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generate M3U Playlist</title>
+<title>Generate M3U8 Playlist</title>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -23,8 +23,15 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // Function to generate M3U
-  async function generateM3U() {
+  // Helper to find logo and URL fields dynamically
+  function detectField(channel, keys) {
+    for (const key of keys) {
+      if (channel[key]) return channel[key];
+    }
+    return "";
+  }
+
+  async function generateM3U8() {
     const channelsRef = ref(db, 'channels');
     const snapshot = await get(channelsRef);
     if (!snapshot.exists()) {
@@ -33,37 +40,42 @@
     }
 
     const channels = snapshot.val();
+    console.log(channels); // Check actual structure in console
+
     let m3uContent = "#EXTM3U\n";
 
     for (const channelId in channels) {
       const channel = channels[channelId];
-      const name = channel.name || "Unknown";
-      const category = channel.category || "General";
-      const logo = channel.logo || "";
-      const streamUrl = channel.url || "";
+      const name = detectField(channel, ['name', 'title']) || "Unknown";
+      const category = detectField(channel, ['category', 'group', 'group-title']) || "General";
+      const logo = detectField(channel, ['logo', 'image', 'icon']) || "";
+      const streamUrl = detectField(channel, ['url', 'stream', 'link']) || "";
+
+      // Skip if stream URL is missing
+      if (!streamUrl) continue;
 
       m3uContent += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
       m3uContent += `${streamUrl}\n`;
     }
 
-    // Create a downloadable link
+    // Create downloadable playlist.m3u8
     const blob = new Blob([m3uContent], { type: 'application/vnd.apple.mpegurl' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'playlist.m3u';
+    link.download = 'playlist.m3u8';
     link.click();
     URL.revokeObjectURL(url);
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('generateBtn').addEventListener('click', generateM3U);
+    document.getElementById('generateBtn').addEventListener('click', generateM3U8);
   });
 </script>
 </head>
 <body style="font-family:sans-serif; text-align:center; margin-top:50px;">
-  <h1>Generate M3U Playlist</h1>
+  <h1>Generate M3U8 Playlist</h1>
   <button id="generateBtn" style="padding:10px 20px; font-size:16px; cursor:pointer;">Generate Playlist</button>
-  <p>Click the button to generate <strong>playlist.m3u</strong> from your Firebase channels.</p>
+  <p>Click the button to generate <strong>playlist.m3u8</strong> from your Firebase channels.</p>
 </body>
 </html>
