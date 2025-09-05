@@ -7,7 +7,6 @@
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -16,40 +15,47 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-html, body {
-  font-family: 'Baloo 2', cursive;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #111;
-  overscroll-behavior: none;
-}
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #111;
+    overscroll-behavior: none;
+  }
 
-/* Video default */
-#video {
-  width: 100%;
-  height: auto;
-  max-height: 100vh;
-  background: black;
-  object-fit: cover;
-  transition: transform 0.2s ease;
-}
+  #video {
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    background: black;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
 
-/* Fullscreen adjustments */
-video:fullscreen { width:100%!important; height:100%!important; object-fit:cover; }
-:fullscreen { padding:0; margin:0; }
+  video:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
 
-/* Controls */
-.controls { transition: opacity 0.3s; }
-.controls.hidden { opacity:0; pointer-events:none; }
+  :fullscreen { padding:0; margin:0; }
 
-/* Ad strip */
-.ad-strip { height:4px; background-color: rgba(255,255,255,0.2); margin-top:8px; }
-.ad-progress { height:100%; background-color:#f87171; width:0%; transition: width 0.3s; }
+  .controls { transition: opacity 0.3s; }
+  .controls.hidden { opacity:0; pointer-events:none; }
 
-/* Scrolling text ad animation */
-@keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-.animate-scroll { display:inline-block; padding-left:100%; animation: scroll 20s linear infinite; }
+  .ad-strip { height:4px; background-color: rgba(255,255,255,0.2); margin-top:8px; }
+  .ad-progress { height:100%; background-color:#f87171; width:0%; transition: width 0.3s; }
+
+  @keyframes scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  .animate-scroll {
+    display:inline-block;
+    padding-left:100%;
+    animation: scroll 20s linear infinite;
+  }
 </style>
 </head>
 
@@ -59,7 +65,9 @@ video:fullscreen { width:100%!important; height:100%!important; object-fit:cover
 <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
   <div class="flex items-center">
     <span class="material-icons text-white">live_tv</span>
-    <h1 class="ml-2 text-lg font-bold text-white"><span id="videoTitle">Video Title</span></h1>
+    <h1 class="ml-2 text-lg font-bold text-white">
+      <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
+    </h1>
   </div>
   <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
     <span class="material-icons">arrow_back</span>
@@ -69,7 +77,7 @@ video:fullscreen { width:100%!important; height:100%!important; object-fit:cover
 
 <main class="flex-grow pt-20 pb-24">
 
-  <!-- Video Player Card -->  
+  <!-- Video Player Card -->
   <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
     <div class="relative">
       <video id="video" playsinline webkit-playsinline></video>
@@ -122,11 +130,13 @@ video:fullscreen { width:100%!important; height:100%!important; object-fit:cover
     <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>
     <p class="text-gray-300 text-sm leading-relaxed">
       This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.
+      For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.
     </p>
     <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>
     <p class="text-gray-300 text-sm leading-relaxed">
       Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.
       However, you must comply with your local laws and the content owner's terms.
+      We do not guarantee the legality of accessing any specific content in your jurisdiction.
     </p>
     <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>
     <p class="text-gray-300 text-sm leading-relaxed">
@@ -139,10 +149,8 @@ video:fullscreen { width:100%!important; height:100%!important; object-fit:cover
   <div class="w-full text-center my-4">
     <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">
   </div>
-
 </main>
 
-<!-- JS -->
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 <script type="module" src="assets/js/player.js"></script>
