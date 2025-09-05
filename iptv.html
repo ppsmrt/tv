@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>IPTV Player</title>
+  <title>Universal IPTV Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body { margin:0; font-family:Arial, sans-serif; background:#111; color:#fff; }
@@ -19,12 +19,10 @@
 <body>
   <video id="player" controls autoplay playsinline></video>
   <div id="controls">
+    <input id="urlInput" type="text" placeholder="Enter playlist (.m3u) or stream URL (.m3u8/.mpd/.ts)" style="flex:1" />
+    <button id="loadBtn">Load</button>
     <input id="filter" type="text" placeholder="Search channel..." />
     <select id="group"></select>
-    <button id="loadSample">Load Sample Playlist</button>
-    <input id="fileInput" type="file" accept=".m3u,.txt" />
-    <input id="urlInput" type="text" placeholder="Playlist or stream URL" style="flex:1" />
-    <button id="loadUrl">Load URL</button>
   </div>
   <div id="playlist"></div>
 
@@ -34,13 +32,11 @@
 
   <script>
     const video = document.getElementById('player');
-    const playlistDiv = document.getElementById('playlist');
+    const urlInput = document.getElementById('urlInput');
+    const loadBtn = document.getElementById('loadBtn');
     const filterInput = document.getElementById('filter');
     const groupSelect = document.getElementById('group');
-    const fileInput = document.getElementById('fileInput');
-    const urlInput = document.getElementById('urlInput');
-    const loadUrlBtn = document.getElementById('loadUrl');
-    const loadSampleBtn = document.getElementById('loadSample');
+    const playlistDiv = document.getElementById('playlist');
 
     let hls, dash;
     let channels = [];
@@ -57,7 +53,7 @@
       return (clean.split('.').pop() || '').toLowerCase();
     }
 
-    function playUrl(url) {
+    function playStream(url) {
       destroyEngines();
       const extension = ext(url);
 
@@ -71,7 +67,7 @@
           hls.attachMedia(video);
           hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(()=>{}));
         } else {
-          alert('HLS not supported');
+          alert('HLS not supported in this browser');
         }
       } else if (extension === 'mpd') {
         dash = dashjs.MediaPlayer().create();
@@ -94,13 +90,12 @@
         if (line.startsWith('#EXTINF')) {
           const title = line.split(',').slice(1).join(',').trim();
           const attrs = {};
-          line.replace(/(\\w+)=\"([^\"]*)\"/g, (_, k, v) => { attrs[k] = v; });
+          line.replace(/(\w+)="([^"]*)"/g, (_, k, v) => { attrs[k] = v; });
           meta = { title, attrs };
         } else if (!line.startsWith('#')) {
-          const url = line;
           out.push({
-            name: meta?.attrs?.['tvg-name'] || meta?.title || url,
-            url,
+            name: meta?.attrs?.['tvg-name'] || meta?.title || line,
+            url: line,
             group: meta?.attrs?.['group-title'] || 'Other',
             logo: meta?.attrs?.['tvg-logo'] || ''
           });
@@ -118,8 +113,8 @@
         if ((g==='All'||c.group===g) && c.name.toLowerCase().includes(f)) {
           const div = document.createElement('div');
           div.className = 'channel'+(i===currentIndex?' active':'');
-          div.innerHTML = (c.logo?`<img src=\"${c.logo}\" />`:'')+`<span>${c.name}</span>`;
-          div.onclick = () => { currentIndex=i; playUrl(c.url); renderPlaylist(); };
+          div.innerHTML = (c.logo?`<img src="${c.logo}" />`:'')+`<span>${c.name}</span>`;
+          div.onclick = () => { currentIndex=i; playStream(c.url); renderPlaylist(); };
           playlistDiv.appendChild(div);
         }
       });
@@ -133,43 +128,20 @@
     filterInput.oninput = renderPlaylist;
     groupSelect.onchange = renderPlaylist;
 
-    fileInput.onchange = e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        channels = parseM3U(reader.result);
-        updateGroups(); renderPlaylist();
-      };
-      reader.readAsText(file);
-    };
-
-    loadUrlBtn.onclick = () => {
+    loadBtn.onclick = () => {
       const u = urlInput.value.trim();
       if (!u) return;
       if (u.endsWith('.m3u')) {
         fetch(u).then(r=>r.text()).then(txt => {
           channels = parseM3U(txt);
           updateGroups(); renderPlaylist();
-        }).catch(()=>alert('Error loading playlist'));
+        }).catch(()=>alert("Error loading playlist"));
       } else {
         channels = [{name:u,url:u,group:'Direct'}];
         updateGroups(); renderPlaylist();
-        currentIndex=0; playUrl(u);
+        currentIndex=0; playStream(u);
       }
     };
-
-    loadSampleBtn.onclick = () => {
-      channels = parseM3U(`#EXTM3U
-#EXTINF:-1 tvg-name="Raj Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Xxp6tLPX/rajtv.jpg",Raj Tv
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
-#EXTINF:-1 tvg-name="News 18 Tamil" group-title="News" tvg-logo="https://i.ibb.co/cXJnSr1w/news18.jpg",News 18 Tamil
-https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8`);
-      updateGroups(); renderPlaylist();
-    };
-
-    // Default empty
-    updateGroups(); renderPlaylist();
   </script>
 </body>
 </html>
