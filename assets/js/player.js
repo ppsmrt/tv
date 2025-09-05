@@ -1,12 +1,13 @@
 // player.js
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// Firebase config
+// ✅ Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBJoxttxIrGMSYU-ROjrYng2swbB0owOoA",
   authDomain: "tamilgeo-d10d6.firebaseapp.com",
-  databaseURL: "https://tamilgeo-d10d6-default-rtdb.firebaseio.com",
+  databaseURL: "https://tamilgeo-d10d6-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tamilgeo-d10d6",
   storageBucket: "tamilgeo-d10d6.firebasestorage.app",
   messagingSenderId: "789895210550",
@@ -16,50 +17,75 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Elements
+// Get elements
 const video = document.getElementById("video");
 const playBtn = document.getElementById("playBtn");
 const muteBtn = document.getElementById("muteBtn");
 const volumeSlider = document.getElementById("volumeSlider");
-const fullscreenBtn = document.getElementById("fullscreenBtn");
+const fsBtn = document.getElementById("fsBtn");
 const videoTitle = document.getElementById("videoTitle");
 
-// Get stream param
+// 🔥 Load HLS stream function
+function loadStream(url, title = "Video Title") {
+  videoTitle.textContent = title;
+  
+  if (!url) return;
+
+  // Destroy any previous Hls instance
+  if (video.hls) {
+    video.hls.destroy();
+    video.hls = null;
+  }
+
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(url);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play().catch(() => console.log("Autoplay blocked"));
+    });
+    video.hls = hls;
+  } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    video.src = url;
+    video.addEventListener("loadedmetadata", () => video.play().catch(() => console.log("Autoplay blocked")));
+  } else {
+    console.error("HLS not supported in this browser");
+  }
+}
+
+// Example: Default stream (if URL param exists)
 const params = new URLSearchParams(window.location.search);
 const streamName = params.get("stream");
 
-// Fetch channel from Firebase
-const channelsRef = ref(db, "channels");
-onValue(channelsRef, snapshot => {
-  if(snapshot.exists()){
-    const data = snapshot.val();
-    const channels = Object.values(data);
-    const channel = channels.find(c => encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-')) === streamName);
+// Firebase: Listen for currentChannel updates
+const channelRef = ref(db, "channels");
+onValue(channelRef, snapshot => {
+  if (!snapshot.exists()) return;
 
-    if(channel){
-      videoTitle.textContent = channel.name;
-      const streamURL = channel.stream;
+  const channels = snapshot.val();
+  let selectedStream = null;
 
-      // HLS setup
-      if(Hls.isSupported()){
-        const hls = new Hls();
-        hls.loadSource(streamURL);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-      } else if(video.canPlayType("application/vnd.apple.mpegurl")){
-        video.src = streamURL;
-        video.addEventListener("loadedmetadata", () => video.play());
-      }
-    } else {
-      videoTitle.textContent = "Channel not found";
+  // Match URL param or default to first channel
+  for (const key in channels) {
+    const ch = channels[key];
+    const safeName = ch.name.toLowerCase().replace(/\s+/g, "-");
+    if (streamName === safeName) {
+      selectedStream = ch;
+      break;
     }
   }
+  if (!selectedStream) {
+    const firstKey = Object.keys(channels)[0];
+    selectedStream = channels[firstKey];
+  }
+
+  loadStream(selectedStream.stream, selectedStream.name);
 });
 
-// Controls
+// ✅ Controls
 playBtn.addEventListener("click", () => {
-  if(video.paused){ video.play(); playBtn.textContent="pause"; }
-  else { video.pause(); playBtn.textContent="play_arrow"; }
+  if (video.paused) { video.play(); playBtn.textContent = "pause"; }
+  else { video.pause(); playBtn.textContent = "play_arrow"; }
 });
 
 muteBtn.addEventListener("click", () => {
@@ -69,23 +95,31 @@ muteBtn.addEventListener("click", () => {
 
 volumeSlider.addEventListener("input", e => {
   video.volume = e.target.value;
-  video.muted = e.target.value==0;
+  video.muted = e.target.value == 0;
   muteBtn.textContent = video.muted ? "volume_off" : "volume_up";
 });
 
-fullscreenBtn.addEventListener("click", () => {
-  if(!document.fullscreenElement){
-    video.requestFullscreen().catch(err=>console.log(err));
-  } else {
-    document.exitFullscreen();
-  }
+fsBtn.addEventListener("click", () => {
+  if (video.requestFullscreen) video.requestFullscreen();
+  else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+  else if (video.msRequestFullscreen) video.msRequestFullscreen();
 });
 
-// Optional: hide controls on idle
-let mouseTimer;
-video.parentElement.addEventListener("mousemove", () => {
-  const controls = document.getElementById("controls");
-  controls.classList.remove("hidden");
-  clearTimeout(mouseTimer);
-  mouseTimer = setTimeout(()=>controls.classList.add("hidden"), 4000);
+// 🔥 Pinch zoom support
+let scale = 1, lastDist = null;
+video.addEventListener("touchmove", e => {
+  if (e.touches.length === 2) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    if (lastDist) {
+      const diff = dist - lastDist;
+      scale += diff * 0.002;
+      scale = Math.max(1, Math.min(scale, 3));
+      video.style.transform = `scale(${scale})`;
+    }
+    lastDist = dist;
+  }
 });
+video.addEventListener("touchend", () => lastDist = null);
