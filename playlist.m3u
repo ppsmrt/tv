@@ -19,7 +19,7 @@ https://cdn.smartstream.video/smartstream-us/velichamtv/velichamtv/playlist.m3u8
 https://cdn.zionmediait.com/zionmediaitserver2024/97484f5ce6da96e496a9b87c439835d0.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Vikatan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/kg7DFJzM/vikatan.jpg",Vikatan Tv
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/vikatan-tv/master.m3u8
-#EXTINF:-1 tvg-name="Isai Aruvi" group-title="Music" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_233253329275990566368619.jpg",Isai Aruvi
+#EXTINF:-1 tvg-name="Isai Aruvi" group-title="Music" tvg-logo="https://i.ibb.co/dJ4dk5T6/20250902-233253329275990566368619.jpg",Isai Aruvi
 https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
 #EXTINF:-1 tvg-name="Vasantham Tv" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_2331256390089163949888562.jpg",Vasantham Tv
 https://edge2-moblive.yuppcdn.net/trans1sd/smil:vatv07.smil/playlist.m3u8
@@ -29,21 +29,25 @@ https://segment.yuppcdn.net/240122/siripoli/playlist.m3u8
 https://segment.yuppcdn.net/050522/murasu/playlist.m3u8
 #EXTINF:-1 tvg-name="Sha Tv" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_2347216560944487863427205.jpg",Sha Tv
 http://applelive.in/shatv/shatv.m3u8
-#EXTINF:-1 tvg-name="Suriyan Tv" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_2346011532959842106847561.jpg",Suriyan Tv
+#EXTINF:-1 tvg-name="Suriyan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/ksYnxnVt/20250906-013409.jpg",Suriyan Tv
 http://applelive.in/suryantv/suryantv.m3u8
 #EXTINF:-1 tvg-name="S Max HD" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_1928366723473282713429482.jpg",S Max HD
 http://applelive.in/smaxtv/smaxtv.m3u8
-#EXTINF:-1 tvg-name="Raja Tv" group-title="Entertainment" tvg-logo="https://tataprime.wordpress.com/wp-content/uploads/2024/07/20240718_0257158735407588855150609.png",Raja Tv
+#EXTINF:-1 tvg-name="Raja Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/PvY1QcrY/20250906-014019.jpg",Raja Tv
 http://brightmeltech.in/rajatv/rajatv.m3u8
 #EXTINF:-1 tvg-name="Yarl Entertainment" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0124023711442757188983337.jpg",Yarl Entertainment
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="News7" group-title="News" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1119328195574168590766761.jpg",News7
 https://segment.yuppcdn.net/240122/news7/playlist.m3u8
-#EXTINF:-1 tvg-name="Puthia Thalaimurai" group-title="News" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1122294094613058960471509.jpg",Puthia Thalaimurai
+#EXTINF:-1 tvg-name="Puthia Thalaimurai" group-title="News" tvg-logo="https://i.ibb.co/fG1PDnNX/20250906-013827.jpg",Puthia Thalaimurai
 https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1208513745079790217062467.jpg",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
-#EXTINF:-1 tvg-name="Raj Digital" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1233513890272704535640985.jpg",Raj Digital
+#EXTINF:-1 tvg-name="Raj Digital" group-title="Entertainment" tvg-logo="https://i.ibb.co/dsZQWxBR/20250903-1233513890272704535640985.jpg",Raj Digital
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/bjqKRT24/20250904-171740.jpg",K Tv
 http://89.187.189.98/KTVHD/index.m3u8
+#EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/G4D6WKM4/eyetvca.jpg",Eye Tv
+https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
+#EXTINF:-1 tvg-name="Sooriyan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/m571qhwn/20250906-012626.jpg",Sooriyan Tv
+https://cdn.bozztv.com/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
