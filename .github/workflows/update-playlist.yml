@@ -10,53 +10,65 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Generate playlist.m3u
-      run: |
-        npm install node-fetch@2
-        node <<'EOF'
-        const fs = require('fs');
-        const fetch = require('node-fetch');
+      - name: Generate playlist.m3u
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
 
-        const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
 
-        (async () => {
-          const res = await fetch(url);
-          const data = await res.json();
-          if (!data) {
-            console.log("No channels found.");
-            return;
-          }
+          (async () => {
+            try {
+              const res = await fetch(url);
+              const data = await res.json();
+              if (!data) {
+                console.log("No channels found.");
+                return;
+              }
 
-          let m3u = "#EXTM3U\n";
+              console.log("Fetched channels:", Object.keys(data));
 
-          for (const id in data) {
-            const ch = data[id];
-            const name = ch.name || ch.title || "Unknown";
-            const category = ch.category || ch.group || "General";
-            const logo = ch.logo || ch.image || ch.icon || "";
-            const stream = ch.url || ch.stream || ch.link || "";
-            if (!stream) continue;
-            m3u += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
-            m3u += `${stream}\n`;
-          }
+              let m3u = "#EXTM3U\n";
 
-          fs.writeFileSync('playlist.m3u', m3u);
-          console.log('playlist.m3u updated successfully.');
-        })();
-        EOF
+              for (const id in data) {
+                const ch = data[id];
 
-    - name: Commit and push
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add playlist.m3u
-        git commit -m "Auto-update playlist.m3u [skip ci]" || echo "No changes"
-        git push
+                // Map exactly according to your DB
+                const name = ch.name || "Unknown";
+                const category = ch.category || "General";
+                const logo = ch.icon || "";
+                const stream = ch.stream || "";
+                if (!stream) {
+                  console.log(`Skipping channel ${name}: no stream URL`);
+                  continue;
+                }
+
+                m3u += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
+                m3u += `${stream}\n`;
+              }
+
+              fs.writeFileSync('playlist.m3u', m3u);
+              console.log('playlist.m3u updated successfully.');
+            } catch (err) {
+              console.error('Error fetching channels:', err);
+            }
+          })();
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add playlist.m3u
+          git commit -m "Auto-update playlist.m3u [skip ci]" || echo "No changes to commit"
+          git push
