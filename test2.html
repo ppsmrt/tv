@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV - Premium Dark UI</title>
+<title>Player - Live TV</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,301 +15,204 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body {
-    font-family: 'Baloo 2', cursive;
-    background-color: #111827;
-    color: #fff;
-    margin: 0;
-    min-height: 100vh;
-  }
+html, body {
+  font-family: 'Baloo 2', cursive;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #0f111a;
+}
 
-  main {
-    padding: 80px 1rem 96px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+/* Video Card Glassmorphism */
+.player-card {
+  background: rgba(30, 30, 40, 0.7);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  overflow: hidden;
+  position: relative;
+}
 
-  /* Search Bar */
-  .search-container {
-    display: flex;
-    align-items: center;
-    background: rgba(31, 41, 55, 0.85);
-    border-radius: 9999px;
-    padding: 10px 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.3s ease, background 0.3s ease;
-  }
-  .search-container:focus-within {
-    background: rgba(55, 65, 81, 0.9);
-    box-shadow: 0 0 12px rgba(248, 113, 113, 0.6);
-  }
-  .search-container .material-icons {
-    color: #f87171;
-    font-size: 22px;
-    margin-right: 8px;
-  }
-  .search-container input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #f9fafb;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-  .search-container input::placeholder {
-    color: #9ca3af;
-  }
+/* Video Styling */
+#video {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
 
-  /* Category Bar */
-  .category-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .category-bar::-webkit-scrollbar {
-    display: none;
-  }
-  .category-btn {
-    flex-shrink: 0;
-    padding: 8px 20px;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #d1d5db;
-    background: #1f2937;
-    cursor: pointer;
-    transition: 0.3s;
-    white-space: nowrap;
-    border: none;
-  }
-  .category-btn:hover {
-    background: #f87171;
-    color: white;
-  }
-  .category-btn.active {
-    background: #f87171;
-    color: white;
-    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
-  }
+/* Video title gradient animation */
+#videoTitle {
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: linear-gradient(90deg, #f87171, #f472b6, #fbbf24, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 4s ease infinite;
+}
+@keyframes gradient {
+  0% { background-position: 0% }
+  50% { background-position: 100% }
+  100% { background-position: 0% }
+}
 
-  /* Channels Grid */
-  .channels-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-  }
+/* Controls Glass Overlay */
+.controls {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(20,20,30,0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+}
+.controls button {
+  font-size: 1.6rem;
+  color: white;
+  background: rgba(255,255,255,0.05);
+  border-radius: 9999px;
+  padding: 4px;
+  transition: all 0.3s ease;
+}
+.controls button:hover {
+  background: linear-gradient(90deg, #f87171, #f472b6);
+  transform: scale(1.2);
+}
 
-  /* Channel Cards */
-  .channel-card {
-    background: #1f2937;
-    border-radius: 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
-  }
-  .channel-card.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  .channel-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
-  }
+/* Volume Slider */
+#volumeSlider {
+  width: 100px;
+  accent-color: #f87171;
+}
 
-  .channel-image {
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    border-bottom: 1px solid #374151;
-    transition: filter 0.3s ease;
-  }
-  .channel-card:hover .channel-image {
-    filter: brightness(1.1);
-  }
+/* Marquee scrolling */
+@keyframes scroll {
+  0% { transform: translateX(100%) }
+  100% { transform: translateX(-100%) }
+}
+.animate-scroll {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: scroll 20s linear infinite;
+  font-weight: 600;
+  color: #fbbf24;
+  text-shadow: 0 0 4px #f87171, 0 0 8px #f472b6;
+}
 
-  .channel-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .channel-card:hover .channel-overlay {
-    opacity: 1;
-  }
+/* Info Section Glass Card */
+.info-section {
+  background: rgba(25,25,35,0.7);
+  backdrop-filter: blur(15px);
+  padding: 16px;
+  margin-top: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  max-height: 45vh;
+  overflow-y: auto;
+}
+.info-section h3 {
+  font-weight: 700;
+  color: #fff;
+  margin-top: 12px;
+}
+.info-section p, .info-section li {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.info-section ul li {
+  margin-bottom: 6px;
+}
 
-  .channel-name {
-    padding: 12px 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #f9fafb;
-  }
+/* Bottom Banner Ad */
+.bottom-ad img {
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+}
+.bottom-ad img:hover {
+  transform: scale(1.03);
+}
 
-  @media(max-width:640px){
-    .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
-    .channel-name { font-size: 0.95rem; }
-  }
 </style>
 </head>
-<body class="bg-gray-900 text-white">
+
+<body class="flex flex-col min-h-screen">
 
 <!-- Header -->
-<div id="header"></div>
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-900 bg-opacity-90 shadow-md">
+  <div class="flex items-center space-x-2">
+    <span class="material-icons text-white">live_tv</span>
+    <h1 id="videoTitle">Video Title</h1>
+  </div>
+  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+    <span class="material-icons">arrow_back</span>
+    <span>Back</span>
+  </button>
+</header>
 
-<main>
-  <!-- Premium Search Bar -->
-  <div class="search-container">
-    <span class="material-icons">search</span>
-    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
+<main class="flex-grow pt-20 pb-24 px-4">
+
+  <!-- Video Player Card -->
+  <div class="player-card mx-auto">
+    <div class="relative">
+      <video id="video" playsinline webkit-playsinline></video>
+
+      <!-- Marquee Text -->
+      <div class="absolute bottom-16 left-0 w-full overflow-hidden text-sm py-1">
+        <div class="animate-scroll">
+          🔥 Premium Features Coming Soon! Stay Tuned! 🔥
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div id="controls" class="controls">
+        <div class="flex items-center space-x-2">
+          <button id="playBtn" class="material-icons">play_arrow</button>
+          <button id="muteBtn" class="material-icons">volume_up</button>
+          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">
+        </div>
+        <button id="fsBtn" class="material-icons">fullscreen</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Category Buttons -->
-  <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories">
-    <!-- Categories dynamically rendered -->
-  </nav>
+  <!-- Info Section -->
+  <div class="info-section">
+    <p id="extraInfo"></p>
+    <h3>Stream Information</h3>
+    <p>All streams are publicly available. We do not host or modify any content.</p>
 
-  <!-- Channels Grid -->
-  <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
+    <h3>Usage Rules</h3>
+    <ul>
+      <li><strong>Personal Use Only:</strong> No commercial use.</li>
+      <li><strong>No Redistribution:</strong> Do not share streams.</li>
+      <li><strong>Respect Copyright:</strong> Follow provider terms.</li>
+    </ul>
+
+    <h3>Privacy & Technical</h3>
+    <ul>
+      <li>No personal data collected.</li>
+      <li>Streams loaded directly from source.</li>
+      <li>No server-side caching or recording.</li>
+    </ul>
+
+    <h3>Legal Notice</h3>
+    <p>Accessing publicly available streams is generally legal. Comply with local laws.</p>
+  </div>
+
+  <!-- Bottom Banner Ad -->
+  <div class="bottom-ad text-center my-4">
+    <img src="https://i.ibb.co/QvhQLrrg/ad1.jpg" alt="Ad" class="max-w-[728px] w-[90%] mx-auto">
+  </div>
+
 </main>
-
-<!-- Footer -->
-<div id="footer"></div>
-
-<!-- JS Files -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-
-<!-- Firebase and App Logic -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  const grid = document.getElementById('channelsGrid');
-  const categoryBar = document.getElementById('categoryBar');
-  const searchInput = document.getElementById('searchInput');
-
-  let selectedCategory = 'All';
-  let channels = [];
-
-  function createChannelCard(c) {
-    const a = document.createElement('a');
-    const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, '-'));
-    a.href = `test.html?stream=${safeName}`;
-    a.className = 'channel-card relative';
-    a.setAttribute('aria-label', `Watch ${c.name}`);
-
-    const img = document.createElement('img');
-    img.src = c.logo;
-    img.alt = c.name + ' logo';
-    img.className = 'channel-image';
-
-    const overlay = document.createElement('div');
-    overlay.className = 'channel-overlay';
-    overlay.textContent = '▶ Watch';
-
-    const nameDiv = document.createElement('div');
-    nameDiv.className = 'channel-name';
-    nameDiv.textContent = c.name;
-
-    a.appendChild(img);
-    a.appendChild(overlay);
-    a.appendChild(nameDiv);
-    return a;
-  }
-
-  function renderCategories() {
-    const categories = ['All', ...new Set(channels.map(c => c.category))];
-    categories.sort();
-    categoryBar.innerHTML = '';
-    categories.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = `category-btn ${cat === selectedCategory ? 'active' : ''}`;
-      btn.dataset.category = cat;
-      btn.textContent = cat;
-      btn.setAttribute('aria-pressed', cat === selectedCategory ? 'true' : 'false');
-      btn.addEventListener('click', () => {
-        selectedCategory = cat;
-        renderCategories();
-        renderChannels(searchInput.value);
-      });
-      categoryBar.appendChild(btn);
-    });
-  }
-
-  function renderChannels(filter = '') {
-    grid.innerHTML = '';
-    const filtered = channels.filter(c => {
-      const matchCat = selectedCategory === 'All' || c.category === selectedCategory;
-      const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
-      return matchCat && matchSearch;
-    });
-
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
-
-    if (filtered.length === 0) {
-      grid.innerHTML = '<p class="text-gray-400 text-center p-4">No channels found.</p>';
-      return;
-    }
-
-    filtered.forEach((c, i) => {
-      const card = createChannelCard(c);
-      grid.appendChild(card);
-      setTimeout(() => card.classList.add('show'), i * 100);
-    });
-  }
-
-  searchInput.addEventListener('input', e => renderChannels(e.target.value));
-
-  const channelsRef = ref(db, 'channels');
-  onValue(channelsRef, snapshot => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      channels = Object.values(data).map(c => ({
-        name: c.name,
-        category: c.category,
-        logo: c.icon,
-        stream: c.stream
-      }));
-      renderCategories();
-      renderChannels(searchInput.value);
-    } else {
-      grid.innerHTML = '<p class="text-gray-400 text-center p-4">No channels available.</p>';
-    }
-  });
-</script>
 </body>
 </html>
