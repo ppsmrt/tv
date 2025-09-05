@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Welcome - Live TV App</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
+<style>
+body {
+  font-family: 'Baloo 2', cursive;
+  background-color: #111827;
+  color: #f9fafb;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  background: rgba(31,41,55,0.95);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  z-index: 20;
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  border-top: 1px solid #1f2937;
+  background: rgba(17,24,39,0.95);
+}
+
+button {
+  cursor: pointer;
+}
+
+/* App-style Toast */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #16a34a;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
+  z-index: 50;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast .material-icons {
+  font-size: 1.3rem;
+  animation: pop 0.3s ease;
+}
+@keyframes pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="flex items-center justify-between">
+  <div class="flex items-center">
+    <span class="material-icons">live_tv</span>
+    <h1 class="ml-2 text-lg font-bold">Live TV App</h1>
+  </div>
+</header>
+
+<main class="flex-1 w-full flex flex-col items-center px-4 py-10">
+
+  <!-- Hero Section -->
+  <section class="w-full max-w-4xl text-center bg-gradient-to-r from-red-600 to-pink-500 rounded-3xl p-12 shadow-2xl mb-12">
+    <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Welcome to Live TV App</h2>
+    <p class="text-gray-100 text-lg sm:text-xl leading-relaxed mb-6">
+      Stream your favorite TV channels anytime, anywhere. Enjoy HD & 4K live streams from multiple categories — news, sports, movies, music, and more.
+      All curated for a seamless, premium viewing experience.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+      <a href="generate.html" class="px-6 py-3 bg-white text-red-500 font-semibold rounded-full shadow-lg hover:scale-105 transition-transform duration-200">Get Started</a>
+      <a href="#features" class="px-6 py-3 bg-white text-red-500 font-semibold rounded-full shadow-lg hover:scale-105 transition-transform duration-200">Explore Features</a>
+    </div>
+  </section>
+
+  <!-- About App Section -->
+  <section class="w-full max-w-4xl mb-12 text-center">
+    <h3 class="text-3xl font-bold mb-4 text-white">About Live TV App</h3>
+    <p class="text-gray-300 text-lg leading-relaxed">
+      Live TV App brings all your favorite channels into one place. Whether you are a sports fan, a movie enthusiast, or love catching the latest news, our platform provides:
+    </p>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+    <div class="flex flex-col items-center bg-gray-800/80 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-200">
+      <span class="material-icons text-red-400 text-4xl mb-2">hd</span>
+      <h4 class="text-white font-semibold mb-1">HD & 4K Streams</h4>
+      <p class="text-gray-300 text-sm text-center">Enjoy crystal-clear high definition and 4K live streaming for all channels.</p>
+    </div>
+    <div class="flex flex-col items-center bg-gray-800/80 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-200">
+      <span class="material-icons text-red-400 text-4xl mb-2">category</span>
+      <h4 class="text-white font-semibold mb-1">Multi-Category Channels</h4>
+      <p class="text-gray-300 text-sm text-center">Access a wide range of categories including sports, news, movies, and music.</p>
+    </div>
+    <div class="flex flex-col items-center bg-gray-800/80 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-200">
+      <span class="material-icons text-red-400 text-4xl mb-2">devices</span>
+      <h4 class="text-white font-semibold mb-1">Cross-Platform</h4>
+      <p class="text-gray-300 text-sm text-center">Use the app on smart TVs, phones, tablets, and web browsers seamlessly.</p>
+    </div>
+    <div class="flex flex-col items-center bg-gray-800/80 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-200">
+      <span class="material-icons text-red-400 text-4xl mb-2">update</span>
+      <h4 class="text-white font-semibold mb-1">Always Updated</h4>
+      <p class="text-gray-300 text-sm text-center">Playlist and channel links are regularly updated to ensure uninterrupted streaming.</p>
+    </div>
+    <div class="flex flex-col items-center bg-gray-800/80 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-200">
+      <span class="material-icons text-red-400 text-4xl mb-2">bolt</span>
+      <h4 class="text-white font-semibold mb-1">Fast & Reliable</h4>
+      <p class="text-gray-300 text-sm text-center">Experience low-latency streaming and smooth playback across all channels.</p>
+    </div>
+    <div class="flex flex-col items-center bg-gray-800/80 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-200">
+      <span class="material-icons text-red-400 text-4xl mb-2">download</span>
+      <h4 class="text-white font-semibold mb-1">Offline Access</h4>
+      <p class="text-gray-300 text-sm text-center">Download your favorite playlists to watch offline anytime, anywhere.</p>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="w-full max-w-4xl text-center mb-12">
+    <p class="text-gray-200 text-lg mb-4">
+      Ready to experience the best live TV streaming app?
+    </p>
+    <a href="generate.html" class="px-8 py-3 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-transform duration-200">Generate Your Playlist Now</a>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 Live TV App. All Rights Reserved.
+</footer>
+
+</body>
+</html>
