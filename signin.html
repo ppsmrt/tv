@@ -55,6 +55,16 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 50;
   }
+
+  /* Toast animation */
+  #toast {
+    transform: translateY(100px);
+    transition: all 0.5s ease;
+  }
+  #toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
 </style>
 </head>
 <body>
@@ -117,14 +127,14 @@
         </div>
 
         <!-- Sign In Button -->
-<button type="submit" id="signinBtn" 
-        class="w-full py-3 rounded-xl bg-red-500 text-white font-semibold shadow-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform">
-  <svg id="spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-  </svg>
-  <span id="btnText">Sign In</span>
-</button>
+        <button type="submit" id="signinBtn" 
+                class="w-full py-3 rounded-xl bg-red-500 text-white font-semibold shadow-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform">
+          <svg id="spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+          <span id="btnText">Sign In</span>
+        </button>
       </form>
 
       <!-- Sign Up -->
@@ -134,17 +144,16 @@
       </p>
     </div>
   </div>
-  <!-- Toast Notification -->
-<div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none transition-all z-50">
-  <span id="toastMsg"></span>
-</div>
-<div id="footer"></div>
-
-  <script type="module" src="assets/js/header.js"></script>  
-<script type="module" src="assets/js/footer.js"></script>
 </main>
 
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none z-50">
+  <span id="toastMsg"></span>
+</div>
 
+<div id="footer"></div>
+<script type="module" src="assets/js/header.js"></script>  
+<script type="module" src="assets/js/footer.js"></script>
 
 <!-- Firebase & JS -->
 <script type="module">
@@ -168,6 +177,7 @@
 
   setPersistence(auth, browserLocalPersistence);
 
+  // Redirect if already signed in
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       const adminRef = ref(db, "admins/" + user.uid);
@@ -177,10 +187,21 @@
   });
 
   const signinForm = document.getElementById("signinForm");
+  const signinBtn = document.getElementById("signinBtn");
+  const spinner = document.getElementById("spinner");
+  const btnText = document.getElementById("btnText");
+  const toast = document.getElementById("toast");
+  const toastMsg = document.getElementById("toastMsg");
+
   signinForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
+
+    // Show spinner
+    spinner.classList.remove("hidden");
+    btnText.textContent = "Logging in...";
+    signinBtn.disabled = true;
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -189,50 +210,22 @@
       const adminSnapshot = await get(adminRef);
       window.location.href = adminSnapshot.exists() ? "admin" : "/";
     } catch (error) {
-      alert(error.message);
+      // Show toast only
+      toastMsg.textContent = error.message;
+      toast.classList.add("show");
+      toast.classList.remove("opacity-0", "pointer-events-none");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+        toast.classList.add("opacity-0", "pointer-events-none");
+      }, 3000);
+    } finally {
+      // Hide spinner
+      spinner.classList.add("hidden");
+      btnText.textContent = "Sign In";
+      signinBtn.disabled = false;
     }
   });
-  
-  const signinBtn = document.getElementById("signinBtn");
-const spinner = document.getElementById("spinner");
-const btnText = document.getElementById("btnText");
-const toast = document.getElementById("toast");
-const toastMsg = document.getElementById("toastMsg");
-
-signinForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  // Show spinner
-  spinner.classList.remove("hidden");
-  btnText.textContent = "Logging in...";
-  signinBtn.disabled = true;
-
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    const adminRef = ref(db, "admins/" + user.uid);
-    const adminSnapshot = await get(adminRef);
-    window.location.href = adminSnapshot.exists() ? "admin" : "/";
-  } catch (error) {
-    // Show toast
-    toastMsg.textContent = error.message;
-    toast.classList.remove("opacity-0", "pointer-events-none");
-    toast.classList.add("opacity-100");
-    setTimeout(() => {
-      toast.classList.add("opacity-0");
-      toast.classList.remove("opacity-100");
-      toast.classList.add("pointer-events-none");
-    }, 3000);
-  } finally {
-    // Hide spinner
-    spinner.classList.add("hidden");
-    btnText.textContent = "Sign In";
-    signinBtn.disabled = false;
-  }
-});
 </script>
-
 </body>
 </html>
