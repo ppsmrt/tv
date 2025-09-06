@@ -22,16 +22,22 @@
 </head>
 <body>
 
-<header>
+<!-- Header -->
+<header class="flex justify-between items-center px-6 h-16 bg-gray-800 shadow-md">
+  <!-- Left: Icon + Title -->
   <div class="flex items-center gap-2">
-    <span class="material-icons">live_tv</span>
-    <h1 class="ml-2 text-lg font-bold">Live TV Dashboard</h1>
-    <button id="logout-btn" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition-colors">Logout</button>
-</div>
-<div class="flex items-center gap-4">
-    <p id="welcome-msg" class="text-lg font-semibold"></p>
+    <span class="material-icons text-white">live_tv</span>
+    <h1 class="text-lg font-bold text-white">Live TV Dashboard</h1>
   </div>
+
+  <!-- Right: Logout Button -->
+  <button id="logout-btn" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition-colors">Logout</button>
 </header>
+
+<!-- Welcome Message -->
+<div class="bg-gray-700 text-white px-6 py-3">
+  <p id="welcome-msg" class="text-lg font-semibold">Welcome, User</p>
+</div>
 
 <main>
   <!-- User Section -->
