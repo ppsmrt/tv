@@ -1,4 +1,5 @@
-<!DOCTYPE html>  <html lang="en">  
+<!DOCTYPE html>  
+<html lang="en">  
 <head>  
 <meta charset="UTF-8"/>  
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>  
@@ -54,7 +55,7 @@
 }
 
 /* Fullscreen Fallback */
-.css-fullscreen {
+#videoContainer.css-fullscreen {
   position: fixed !important;
   top: 0;
   left: 0;
@@ -62,7 +63,12 @@
   height: 100vh !important;
   z-index: 9999;
   background: black;
-  object-fit: contain;
+}
+#videoContainer.css-fullscreen video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  border-radius: 0 !important;
 }
 
 /* Video Title Gradient */
@@ -216,32 +222,31 @@
 
   <!-- Video Player Card -->  
   <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">  
-    <div class="relative">  
+    <div id="videoContainer" class="relative">  
       <video id="video" playsinline webkit-playsinline></video>  
 
-<!-- Scrolling Text Ad Above Controls -->  
-  <div class="absolute bottom-16 left-0 w-full overflow-hidden text-sm py-1">
+      <!-- Scrolling Text Ad Above Controls -->  
+      <div class="absolute bottom-16 left-0 w-full overflow-hidden text-sm py-1">
         <div class="animate-scroll">
           🔥 Playlist Features Added 🔥 Join Our Telegram for more Updates
         </div>
       </div>
 
-  <!-- Ad strip -->  
-  <div class="ad-strip absolute bottom-0 left-0 w-full">  
-    <div id="adProgress" class="ad-progress"></div>  
-  </div>  
+      <!-- Ad strip -->  
+      <div class="ad-strip absolute bottom-0 left-0 w-full">  
+        <div id="adProgress" class="ad-progress"></div>  
+      </div>  
 
-  <!-- Controls -->  
-  <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg">  
-    <div class="flex items-center space-x-2">  
-      <button id="playBtn" class="material-icons text-white">play_arrow</button>  
-      <button id="muteBtn" class="material-icons text-white">volume_up</button>  
-      <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">   
-    </div>  
-    <button id="fsBtn" class="material-icons text-white">fullscreen</button>  
-  </div>  
-</div>
-
+      <!-- Controls -->  
+      <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg">  
+        <div class="flex items-center space-x-2">  
+          <button id="playBtn" class="material-icons text-white">play_arrow</button>  
+          <button id="muteBtn" class="material-icons text-white">volume_up</button>  
+          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1">   
+        </div>  
+        <button id="fsBtn" class="material-icons text-white">fullscreen</button>  
+      </div>  
+    </div>
   </div>    
 
 <!-- Video Info Section -->  
@@ -252,16 +257,18 @@
   <p class="text-gray-300 text-sm leading-relaxed">  
     All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.   
     All rights remain with their original providers. This platform only provides an interface to access them for convenience.  
-  </p>    <!-- Rules -->    <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>  
+  </p>    
+
+  <!-- Rules -->    
+  <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>  
   <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
-    <li>
-<strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>  
+    <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>  
     <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>  
     <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>  
   </ul>    
 
-<!-- Privacy & Technical -->    
-<h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>  
+  <!-- Privacy & Technical -->    
+  <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>  
   <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">  
     <li>No personal data is collected, stored, or shared.</li>  
     <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>  
@@ -269,23 +276,23 @@
     <li>Playback happens on your device using standard open-source player libraries.</li>  
   </ul>    
 
-<!-- Open Source -->    
-<h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>  
+  <!-- Open Source -->    
+  <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>  
   <p class="text-gray-300 text-sm leading-relaxed">  
     This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.   
     For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.  
   </p>    
 
-<!-- Legal Disclaimer -->    
-<h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>  
+  <!-- Legal Disclaimer -->    
+  <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>  
   <p class="text-gray-300 text-sm leading-relaxed">  
     Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.   
     However, you must comply with your local laws and the content owner's terms.   
     We do not guarantee the legality of accessing any specific content in your jurisdiction.  
   </p>    
 
-<!-- Takedown Policy -->    
-<h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>  
+  <!-- Takedown Policy -->    
+  <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>  
   <p class="text-gray-300 text-sm leading-relaxed">  
     If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.   
     We review and process valid requests within <strong>48 hours</strong>.  
@@ -306,7 +313,6 @@
 <!-- JS -->  
 <script type="module" src="assets/js/header.js"></script>  
 <script type="module" src="assets/js/footer.js"></script>  
-<script type="module" src="assets/js/player.js">
-</script>  
+<script type="module" src="assets/js/player.js"></script>  
 </body>  
 </html>
