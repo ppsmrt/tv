@@ -86,29 +86,57 @@
         <p class="text-gray-400 text-xs">Your credentials are safe and encrypted.</p>
       </div>
 
-      <form id="signupForm" class="space-y-3">
-        <div class="relative">
-          <input type="text" id="name" required placeholder="Name" 
-                 class="peer w-full px-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 text-black placeholder-gray-400 transition-all shadow-sm"/>
-          <label for="name" class="absolute left-4 top-3 text-gray-400 text-base transition-all">Full Name</label>
-        </div>
+     <form id="signupForm" class="space-y-4 relative w-full max-w-md mx-auto">
 
-        <div class="relative">
-          <input type="email" id="email" required placeholder="Email" 
-                 class="peer w-full px-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 text-black placeholder-gray-400 transition-all shadow-sm"/>
-          <label for="email" class="absolute left-4 top-3 text-gray-400 text-base transition-all">Email</label>
-        </div>
+  <!-- Name -->
+  <div class="relative">
+    <span class="material-icons absolute left-3 top-3 text-gray-400 pointer-events-none">person</span>
+    <input type="text" id="name" required placeholder="Full Name"
+           class="peer w-full pl-10 pr-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 bg-gray-900 text-white placeholder-transparent transition-all shadow-sm"/>
+    <label for="name"
+           class="absolute left-10 top-3 text-gray-400 text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-red-400 peer-focus:text-sm font-medium">
+      Full Name
+    </label>
+  </div>
 
-        <div class="relative">
-          <input type="password" id="password" required placeholder="Password" 
-                 class="peer w-full px-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 text-black placeholder-gray-400 transition-all shadow-sm"/>
-          <label for="password" class="absolute left-4 top-3 text-gray-400 text-base transition-all">Password</label>
-        </div>
+  <!-- Email -->
+  <div class="relative">
+    <span class="material-icons absolute left-3 top-3 text-gray-400 pointer-events-none">email</span>
+    <input type="email" id="email" required placeholder="Email"
+           class="peer w-full pl-10 pr-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 bg-gray-900 text-white placeholder-transparent transition-all shadow-sm"/>
+    <label for="email"
+           class="absolute left-10 top-3 text-gray-400 text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-red-400 peer-focus:text-sm font-medium">
+      Email
+    </label>
+  </div>
 
-        <button type="submit" class="w-full py-3 rounded-xl bg-red-500 text-white font-semibold shadow-lg hover:scale-105 transition-transform">
-          Sign Up
-        </button>
-      </form>
+  <!-- Password -->
+  <div class="relative">
+    <span class="material-icons absolute left-3 top-3 text-gray-400 pointer-events-none">lock</span>
+    <input type="password" id="password" required placeholder="Password"
+           class="peer w-full pl-10 pr-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 bg-gray-900 text-white placeholder-transparent transition-all shadow-sm"/>
+    <label for="password"
+           class="absolute left-10 top-3 text-gray-400 text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-red-400 peer-focus:text-sm font-medium">
+      Password
+    </label>
+  </div>
+
+  <!-- Sign Up Button with Spinner -->
+  <button type="submit" id="signupBtn"
+          class="w-full py-3 rounded-xl bg-red-500 text-white font-semibold shadow-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform">
+    <svg id="signupSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
+    <span id="signupBtnText">Sign Up</span>
+  </button>
+
+  <!-- Toast Notification -->
+  <div id="signupToast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none transition-all z-50">
+    <span id="signupToastMsg"></span>
+  </div>
+
+</form>
 
       <p class="mt-3 text-center text-gray-300">
         Already have an account? 
