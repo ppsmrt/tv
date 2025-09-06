@@ -20,49 +20,166 @@
     margin: 0;
     padding: 0;
     height: 100%;
-    background: #111;
-    overscroll-behavior: none;
+    background: #111827;
+  }
+
+  header h1 {
+    background: linear-gradient(to right, #f472b6, #f87171);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  }
+
+  .fav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .fav-item {
+    display: flex;
+    align-items: center;
+    background: #1f2937;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .fav-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.6);
+  }
+
+  .fav-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  .fav-info {
+    flex: 1;
+  }
+
+  .fav-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #f9fafb;
+  }
+
+  .fav-category {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-bottom: 4px;
+  }
+
+  .fav-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .fav-actions button {
+    border: none;
+    background: transparent;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .fav-actions button:hover {
+    transform: scale(1.3);
+  }
+
+  .play-btn {
+    color: #22c55e;
+  }
+
+  .delete-btn {
+    color: #f87171;
+  }
+
+  .empty-msg {
+    color: #9ca3af;
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 1.1rem;
   }
 </style>
 </head>
 
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen">
 
 <!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
-  <h1 class="text-lg font-bold text-white">Favorites</h1>
-  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+  <h1 class="text-lg font-bold">Favorites</h1>
+  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400 font-semibold">
     <span class="material-icons">arrow_back</span>
     <span>Back</span>
   </button>
 </header>
 
-<main class="flex-grow pt-20 px-4 pb-4">
-  <div id="favList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+<main class="flex-grow pt-20 px-4 pb-6">
+  <div id="favList" class="fav-list"></div>
 </main>
 
 <script>
 const favList = document.getElementById('favList');
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+let favorites = [
+  {
+    title: "BBC News",
+    src: "https://example.com/bbc",
+    thumb: "https://upload.wikimedia.org/wikipedia/en/thumb/b/bc/BBC_News_2022.svg/1200px-BBC_News_2022.svg.png",
+    category: "News"
+  },
+  {
+    title: "ESPN Sports",
+    src: "https://example.com/espn",
+    thumb: "https://upload.wikimedia.org/wikipedia/commons/2/2e/ESPN_logo.svg",
+    category: "Sports"
+  },
+  {
+    title: "Discovery Channel",
+    src: "https://example.com/discovery",
+    thumb: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Discovery_Channel_logo.svg",
+    category: "Entertainment"
+  },
+  {
+    title: "Cartoon Network",
+    src: "https://example.com/cartoon",
+    thumb: "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Cartoon_Network_2010_logo.svg/1200px-Cartoon_Network_2010_logo.svg.png",
+    category: "Kids"
+  },
+  {
+    title: "Netflix Originals",
+    src: "https://example.com/netflix",
+    thumb: "https://upload.wikimedia.org/wikipedia/commons/6/69/Netflix_logo.svg",
+    category: "Movies"
+  }
+];
 
-// Render favorites grid
+// Render favorites list
 function renderFavorites() {
   favList.innerHTML = '';
   if(favorites.length === 0){
-    favList.innerHTML = '<p class="text-gray-300 text-center mt-10">No favorites added yet.</p>';
+    favList.innerHTML = '<p class="empty-msg">No favorites added yet.</p>';
     return;
   }
 
   favorites.forEach((fav, index) => {
     const div = document.createElement('div');
-    div.className = 'bg-gray-800 p-2 rounded-lg flex flex-col items-center shadow hover:shadow-lg transition';
+    div.className = 'fav-item';
 
     div.innerHTML = `
-      <img src="${fav.thumb || 'https://via.placeholder.com/150'}" alt="${fav.title}" class="w-full h-32 object-cover rounded">
-      <h3 class="mt-2 text-white font-semibold text-center">${fav.title}</h3>
-      <div class="flex justify-between w-full mt-2">
-        <button class="material-icons text-green-400" onclick="playFav('${fav.src}', '${fav.title}')">play_arrow</button>
-        <button class="material-icons text-red-400" onclick="removeFav(${index})">delete</button>
+      <img src="${fav.thumb}" alt="${fav.title}" class="fav-thumb">
+      <div class="fav-info">
+        <div class="fav-category">${fav.category}</div>
+        <div class="fav-title">${fav.title}</div>
+      </div>
+      <div class="fav-actions">
+        <button class="material-icons play-btn" onclick="playFav('${fav.src}', '${fav.title}')">play_arrow</button>
+        <button class="material-icons delete-btn" onclick="removeFav(${index})">delete</button>
       </div>
     `;
     favList.appendChild(div);
@@ -79,7 +196,6 @@ function playFav(src, title){
 // Remove favorite
 function removeFav(index){
   favorites.splice(index, 1);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
   renderFavorites();
 }
 
