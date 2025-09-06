@@ -73,7 +73,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, get, onValue, push, remove, update, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { getDatabase, ref, set, get, onValue, push, remove, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
@@ -96,6 +96,21 @@ const welcomeMsg = document.getElementById('welcome-msg');
 const userPending = document.getElementById('user-pending');
 const userApproved = document.getElementById('user-approved');
 const adminRequestsList = document.getElementById('admin-requests');
+
+// Helper: Get user name from UID
+async function getUserName(uid) {
+  if (!uid) return "Unknown";
+  try {
+    const snap = await get(ref(db, `users/${uid}/name`));
+    if (snap.exists()) {
+      return snap.val();
+    }
+    return uid; // fallback
+  } catch (err) {
+    console.error("Error fetching user name:", err);
+    return uid;
+  }
+}
 
 // Auth listener
 onAuthStateChanged(auth, async (user) => {
@@ -121,8 +136,8 @@ onAuthStateChanged(auth, async (user) => {
 // ================= User Functions =================
 async function submitChannel(){
   const name = document.getElementById('channel-name').value.trim();
-  const icon = document.getElementById('channel-icon').value.trim();   // logo
-  const url = document.getElementById('channel-url').value.trim();     // stream
+  const icon = document.getElementById('channel-icon').value.trim();
+  const url = document.getElementById('channel-url').value.trim();
   const category = document.getElementById('channel-category').value;
   const user = auth.currentUser;
 
@@ -151,18 +166,20 @@ async function submitChannel(){
 
 function loadUserChannels(uid){
   const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(q, (snap) => {
+  onValue(q, async (snap) => {
     userPending.innerHTML = '';
     userApproved.innerHTML = '';
-    snap.forEach(child => {
-      const c = child.val();
+    for (const child of snap._node.children.values()) {
+      const c = child.value_;
+      const userName = await getUserName(c.submittedBy);
       const card = document.createElement('div');
       card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
       card.innerHTML = `
-        <img src="${c.icon || 'https://via.placeholder.com/50'}" alt="${c.name}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+        <img src="${c.icon || 'https://via.placeholder.com/50'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
         <div class="flex-1">
           <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
           <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+          <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
         </div>
         <span class="px-3 py-1 rounded-full text-sm font-semibold ${c.status === 'pending' ? 'bg-yellow-500 text-gray-900' : 'bg-green-500 text-white'}">
           ${c.status ? c.status.charAt(0).toUpperCase() + c.status.slice(1) : 'Unknown'}
@@ -170,7 +187,7 @@ function loadUserChannels(uid){
       `;
       if(c.status === 'pending') userPending.appendChild(card);
       else if(c.status === 'approved') userApproved.appendChild(card);
-    });
+    }
   });
 }
 
@@ -184,20 +201,18 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 // ================= Admin Functions =================
 function loadAdminRequests() {
   const requestsRef = ref(db, 'channelRequests');
-
-  onValue(requestsRef, (snap) => {
+  onValue(requestsRef, async (snap) => {
     adminRequestsList.innerHTML = '';
     if (!snap.exists()) {
       adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
       return;
     }
-
     let hasPending = false;
-    snap.forEach(childSnap => {
+    snap.forEach(async (childSnap) => {
       const r = childSnap.val();
       if (r.status !== 'pending') return;
       hasPending = true;
-
+      const userName = await getUserName(r.submittedBy);
       const li = document.createElement('div');
       li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
       li.innerHTML = `
@@ -206,28 +221,23 @@ function loadAdminRequests() {
           <div>
             <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
             <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${r.submittedBy || 'Unknown'}</span>
+            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
           </div>
         </div>
       `;
-
       const btns = document.createElement('div'); btns.className = 'flex gap-2';
       const approve = document.createElement('button');
       approve.textContent = 'Approve';
       approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
       approve.onclick = () => approveRequest(childSnap.key, r);
-
       const reject = document.createElement('button');
       reject.textContent = 'Reject';
       reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
       reject.onclick = () => rejectRequest(childSnap.key);
-
       btns.appendChild(approve); btns.appendChild(reject);
       li.appendChild(btns);
-
       adminRequestsList.appendChild(li);
     });
-
     if (!hasPending) {
       adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
     }
@@ -238,7 +248,6 @@ function loadAdminRequests() {
 async function approveRequest(requestId, requestData) {
   const adminId = auth.currentUser.uid;
   if (!requestData) return;
-
   const newChannelRef = push(ref(db, 'channels'));
   await set(newChannelRef, {
     name: requestData.name || 'Unnamed Channel',
@@ -249,7 +258,6 @@ async function approveRequest(requestId, requestData) {
     approvedBy: adminId,
     approvedAt: Date.now()
   });
-
   await remove(ref(db, `channelRequests/${requestId}`));
   console.log('Request approved & moved:', requestId);
 }
