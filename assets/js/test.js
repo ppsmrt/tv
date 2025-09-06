@@ -71,7 +71,7 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-// Fullscreen (immersive)
+// Fullscreen (immersive + Kodular fallback)
 fsBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     if(video.parentElement.requestFullscreen){
@@ -80,12 +80,20 @@ fsBtn.addEventListener('click', () => {
       video.webkitEnterFullscreen();
     } else if(video.msRequestFullscreen) {
       video.msRequestFullscreen();
+    } else {
+      // 🚀 Kodular / WebView fallback fullscreen
+      video.classList.add("css-fullscreen");
     }
     if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock('landscape').catch(()=>{});
     }
   } else {
-    document.exitFullscreen();
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else {
+      // 🚀 Exit Kodular / WebView fallback
+      video.classList.remove("css-fullscreen");
+    }
     if (screen.orientation && screen.orientation.unlock) {
       screen.orientation.unlock();
     }
