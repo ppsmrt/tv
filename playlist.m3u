@@ -51,3 +51,17 @@ http://89.187.189.98/KTVHD/index.m3u8
 https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
 #EXTINF:-1 tvg-name="Sooriyan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/m571qhwn/20250906-012626.jpg",Sooriyan Tv
 https://cdn.bozztv.com/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
+#EXTINF:-1 tvg-name="PR Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/sp8K36WT/20250902-234822.jpg",PR Tv
+http://applelive.in/prtv/prtv.m3u8
+#EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
+http://applelive.in/thalapathytv/thalapathytv.m3u8
+#EXTINF:-1 tvg-name="ATN Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/jPXTLj0Q/atntv.jpg",ATN Tv
+http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
+#EXTINF:-1 tvg-name="Phoneix Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/2YhYtQsT/phoneixtv.jpg",Phoneix Tv
+http://phoenixtv.stream.onecloudlive.in:8080/phoenixtv/phoenixtv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="Sachin Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/k26gSjy0/sachintv.jpg",Sachin Tv
+https://ipcloud.live/sachintv/sachintvhd/index.m3u8
+#EXTINF:-1 tvg-name="Dhoni Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/W4LysrS4/dhonitv.jpg",Dhoni Tv
+https://ipcloud.live/sachintv/dhonitv/index.m3u8
+#EXTINF:-1 tvg-name="Saami Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/0bHwvYd/samitv.jpg",Saami Tv
+https://ipcloud.live/msntv/saamitv/index.m3u8
