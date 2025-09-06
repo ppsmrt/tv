@@ -19,7 +19,7 @@ https://cdn.smartstream.video/smartstream-us/velichamtv/velichamtv/playlist.m3u8
 https://cdn.zionmediait.com/zionmediaitserver2024/97484f5ce6da96e496a9b87c439835d0.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Vikatan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/kg7DFJzM/vikatan.jpg",Vikatan Tv
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/vikatan-tv/master.m3u8
-#EXTINF:-1 tvg-name="Isai Aruvi" group-title="Music" tvg-logo="https://i.ibb.co/dJ4dk5T6/20250902-233253329275990566368619.jpg",Isai Aruvi
+#EXTINF:-1 tvg-name="Isai Aruvi" group-title="Tamil" tvg-logo="https://i.ibb.co/dJ4dk5T6/20250902-233253329275990566368619.jpg",Isai Aruvi
 https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
 #EXTINF:-1 tvg-name="Vasantham Tv" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_2331256390089163949888562.jpg",Vasantham Tv
 https://edge2-moblive.yuppcdn.net/trans1sd/smil:vatv07.smil/playlist.m3u8
@@ -45,21 +45,21 @@ https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital" group-title="Entertainment" tvg-logo="https://i.ibb.co/dsZQWxBR/20250903-1233513890272704535640985.jpg",Raj Digital
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
-#EXTINF:-1 tvg-name="K Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/bjqKRT24/20250904-171740.jpg",K Tv
+#EXTINF:-1 tvg-name="K Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/bjqKRT24/20250904-171740.jpg",K Tv
 http://89.187.189.98/KTVHD/index.m3u8
-#EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/G4D6WKM4/eyetvca.jpg",Eye Tv
+#EXTINF:-1 tvg-name="Eye Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/G4D6WKM4/eyetvca.jpg",Eye Tv
 https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
 #EXTINF:-1 tvg-name="PR Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/sp8K36WT/20250902-234822.jpg",PR Tv
 http://applelive.in/prtv/prtv.m3u8
 #EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
 http://applelive.in/thalapathytv/thalapathytv.m3u8
-#EXTINF:-1 tvg-name="ATN Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/jPXTLj0Q/atntv.jpg",ATN Tv
+#EXTINF:-1 tvg-name="ATN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/jPXTLj0Q/atntv.jpg",ATN Tv
 http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
 #EXTINF:-1 tvg-name="Phoneix Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/2YhYtQsT/phoneixtv.jpg",Phoneix Tv
 http://phoenixtv.stream.onecloudlive.in:8080/phoenixtv/phoenixtv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="Sachin Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/k26gSjy0/sachintv.jpg",Sachin Tv
 https://ipcloud.live/sachintv/sachintvhd/index.m3u8
-#EXTINF:-1 tvg-name="Dhoni Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/W4LysrS4/dhonitv.jpg",Dhoni Tv
+#EXTINF:-1 tvg-name="Dhoni Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/W4LysrS4/dhonitv.jpg",Dhoni Tv
 https://ipcloud.live/sachintv/dhonitv/index.m3u8
 #EXTINF:-1 tvg-name="Saami Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/0bHwvYd/samitv.jpg",Saami Tv
 https://ipcloud.live/msntv/saamitv/index.m3u8
