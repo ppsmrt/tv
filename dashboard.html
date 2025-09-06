@@ -24,7 +24,10 @@
 
 <header>
   <span class="material-icons">live_tv</span>
-  <h1 class="ml-2 text-lg font-bold">Live TV Dashboard</h1>
+  <h1 class="ml-2 text-lg font-bold">Live TV Dashboard</h1> <div class="flex justify-between items-center mb-4 max-w-3xl mx-auto">
+  <p id="welcome-msg" class="text-lg font-semibold"></p>
+  <button id="logout-btn" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition-colors">Logout</button>
+</div>
 </header>
 
 <main>
@@ -202,6 +205,20 @@ function approveRequest(id,r){
 function rejectRequest(id){
   db.ref(`channelRequests/${id}`).update({status:'rejected'});
 }
+
+// Logout Button
+const logoutBtn = document.getElementById('logout-btn');
+logoutBtn.addEventListener('click', () => {
+  auth.signOut()
+    .then(() => {
+      // Redirect to home page
+      window.location.href = '/';
+    })
+    .catch(error => {
+      console.error("Logout Error:", error);
+      alert("Error logging out. Please try again.");
+    });
+});
 </script>
 </body>
 </html>
