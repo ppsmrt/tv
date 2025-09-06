@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Notifications - Live TV</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
+<style>
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 20;
+  }
+
+  main {
+    padding: 20px 1rem 100px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Notification card */
+  .notification-card {
+    display: flex;
+    align-items: center;
+    background: #1f2937;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+  }
+  .notification-card:hover {
+    background: #374151;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(248,113,113,0.4);
+  }
+
+  .notification-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  .notification-content {
+    flex: 1;
+  }
+  .notification-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #f9fafb;
+  }
+  .notification-category {
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+
+  .no-notifications {
+    text-align: center;
+    color: #9ca3af;
+    margin-top: 2rem;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <span class="material-icons">notifications</span>
+  <h1 class="ml-2 text-lg font-bold">Notifications</h1>
+</header>
+
+<main id="notificationsContainer">
+  <p class="no-notifications">Loading notifications...</p>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Replace with current logged-in user's UID
+const currentUserId = "USER_UID"; 
+
+const container = document.getElementById('notificationsContainer');
+
+function createNotificationCard(notification) {
+  const card = document.createElement('div');
+  card.className = 'notification-card';
+
+  const img = document.createElement('img');
+  img.className = 'notification-icon';
+  img.src = notification.logo || 'https://via.placeholder.com/50';
+  img.alt = notification.name + ' logo';
+
+  const content = document.createElement('div');
+  content.className = 'notification-content';
+
+  const title = document.createElement('div');
+  title.className = 'notification-title';
+  title.textContent = notification.message;
+
+  const category = document.createElement('div');
+  category.className = 'notification-category';
+  if(notification.category) category.textContent = 'Category: ' + notification.category;
+
+  content.appendChild(title);
+  if(notification.category) content.appendChild(category);
+
+  card.appendChild(img);
+  card.appendChild(content);
+
+  return card;
+}
+
+function renderNotifications(notifications) {
+  container.innerHTML = '';
+  if(notifications.length === 0) {
+    container.innerHTML = '<p class="no-notifications">No notifications yet.</p>';
+    return;
+  }
+  notifications.forEach(n => container.appendChild(createNotificationCard(n)));
+}
+
+// Listen for notifications
+const notificationsRef = ref(db, 'notifications');
+onValue(notificationsRef, snapshot => {
+  const data = snapshot.val();
+  const notifications = [];
+
+  if(data){
+    Object.values(data).forEach(n => {
+      // Show only approval notifications for this user if user submitted channel
+      if(n.type === 'user_approved' && n.userId !== currentUserId) return;
+
+      // For new channel, show for all
+      notifications.push({
+        name: n.name,
+        logo: n.logo,
+        category: n.category,
+        message: n.type === 'new_channel' ? `New channel added: ${n.name}` :
+                 n.type === 'user_approved' ? `Your channel "${n.name}" is approved` : ''
+      });
+    });
+  }
+
+  renderNotifications(notifications.reverse()); // newest first
+});
+</script>
+
+</body>
+</html>
