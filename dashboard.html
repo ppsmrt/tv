@@ -71,11 +71,11 @@
   </div>
 </main>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getDatabase, ref, set, get, onValue, push, remove, update, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-<script>
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -87,9 +87,9 @@ const firebaseConfig = {
   measurementId: "G-FNS9JWZ9LS"
 };
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
 const userSection = document.getElementById('user-section');
 const adminSection = document.getElementById('admin-section');
@@ -99,13 +99,18 @@ const userApproved = document.getElementById('user-approved');
 const adminRequestsList = document.getElementById('admin-requests');
 
 // Auth listener
-auth.onAuthStateChanged(async user => {
-  if(!user){ alert('Please log in'); window.location.href='login.html'; return; }
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    alert('Please log in');
+    window.location.href='login.html';
+    return;
+  }
   welcomeMsg.textContent = `Welcome, ${user.email}`;
 
-  const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap=>snap.exists());
+  const adminSnap = await get(ref(db, `admins/${user.uid}`));
+  const isAdmin = adminSnap.exists();
 
-  if(isAdmin){
+  if (isAdmin) {
     adminSection.classList.remove('hidden');
     loadAdminRequests();
   } else {
@@ -115,7 +120,7 @@ auth.onAuthStateChanged(async user => {
 });
 
 // ================= User Functions =================
-function submitChannel(){
+async function submitChannel(){
   const name = document.getElementById('channel-name').value.trim();
   const icon = document.getElementById('channel-icon').value.trim();   // logo
   const url = document.getElementById('channel-url').value.trim();     // stream
@@ -127,8 +132,8 @@ function submitChannel(){
     return;
   }
 
-  const requestId = db.ref('channelRequests').push().key;
-  db.ref(`channelRequests/${requestId}`).set({
+  const requestRef = push(ref(db, 'channelRequests'));
+  await set(requestRef, {
     name,
     icon,
     url,
@@ -136,17 +141,18 @@ function submitChannel(){
     submittedBy: user.uid,
     status: 'pending',
     timestamp: Date.now()
-  }).then(()=>{
-    alert('Channel request submitted');
-    document.getElementById('channel-name').value = '';
-    document.getElementById('channel-icon').value = '';
-    document.getElementById('channel-url').value = '';
-    loadUserChannels(user.uid);
   });
+
+  alert('Channel request submitted');
+  document.getElementById('channel-name').value = '';
+  document.getElementById('channel-icon').value = '';
+  document.getElementById('channel-url').value = '';
+  loadUserChannels(user.uid);
 }
 
 function loadUserChannels(uid){
-  db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid).on('value', snap => {
+  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
+  onValue(q, (snap) => {
     userPending.innerHTML = '';
     userApproved.innerHTML = '';
     snap.forEach(child => {
@@ -171,33 +177,34 @@ function loadUserChannels(uid){
 
 // ================= Logout =================
 document.getElementById('logout-btn').addEventListener('click', () => {
-  auth.signOut()
+  signOut(auth)
     .then(() => { window.location.href = '/'; })
     .catch(error => { console.error("Logout Error:", error); alert("Error logging out."); });
 });
 
 // ================= Admin Functions =================
 function loadAdminRequests() {
-  const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
+  const requestsRef = ref(db, 'channelRequests');
 
-  requestsRef.on('value', snap => {
+  onValue(requestsRef, (snap) => {
+    adminRequestsList.innerHTML = '';
     if (!snap.exists()) {
       adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
       return;
     }
 
-    adminRequestsList.innerHTML = '';
-
-    snap.forEach(child => {
-      const r = child.val();
+    let hasPending = false;
+    snap.forEach(childSnap => {
+      const r = childSnap.val();
+      if (r.status !== 'pending') return; // only pending
+      hasPending = true;
 
       const li = document.createElement('div');
       li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
       li.innerHTML = `
         <div class="flex items-center gap-4">
-          <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}"
-               class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-          <div class="flex flex-col">
+          <img src="${r.icon || 'https://via.placeholder.com/50'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
+          <div>
             <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
             <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
             <span class="text-sm text-gray-400">Submitted by: ${r.submittedBy || 'Unknown'}</span>
@@ -209,29 +216,32 @@ function loadAdminRequests() {
       const approve = document.createElement('button');
       approve.textContent = 'Approve';
       approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
-      approve.onclick = () => approveRequest(child.key, r);
+      approve.onclick = () => approveRequest(childSnap.key, r);
 
       const reject = document.createElement('button');
       reject.textContent = 'Reject';
       reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
-      reject.onclick = () => rejectRequest(child.key);
+      reject.onclick = () => rejectRequest(childSnap.key);
 
       btns.appendChild(approve); btns.appendChild(reject);
       li.appendChild(btns);
 
       adminRequestsList.appendChild(li);
     });
+
+    if (!hasPending) {
+      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
+    }
   });
 }
 
 // Approve request: move to channels + remove request
-function approveRequest(requestId, requestData) {
+async function approveRequest(requestId, requestData) {
   const adminId = auth.currentUser.uid;
+  if (!requestData) return;
 
-  if (!requestData) return console.error('No request data!');
-
-  const newChannelRef = db.ref('channels').push();
-  newChannelRef.set({
+  const newChannelRef = push(ref(db, 'channels'));
+  await set(newChannelRef, {
     name: requestData.name || 'Unnamed Channel',
     icon: requestData.icon || '',
     category: requestData.category || 'Uncategorized',
@@ -239,18 +249,16 @@ function approveRequest(requestId, requestData) {
     createdBy: requestData.submittedBy || 'unknown',
     approvedBy: adminId,
     approvedAt: Date.now()
-  }).then(() => {
-    db.ref(`channelRequests/${requestId}`).remove()
-      .then(() => console.log('Request moved & removed:', requestId))
-      .catch(err => console.error('Error deleting old request:', err));
-  }).catch(err => console.error('Error adding to channels:', err));
+  });
+
+  await remove(ref(db, `channelRequests/${requestId}`));
+  console.log('Request moved & removed:', requestId);
 }
 
 // Reject request
-function rejectRequest(requestId){
-  db.ref(`channelRequests/${requestId}`).update({ status: 'rejected' })
-    .then(()=>console.log('Request rejected:', requestId))
-    .catch(err => console.error('Error rejecting request:', err));
+async function rejectRequest(requestId){
+  await update(ref(db, `channelRequests/${requestId}`), { status: 'rejected' });
+  console.log('Request rejected:', requestId);
 }
 </script>
 
