@@ -63,7 +63,7 @@ https://ipcloud.live/sachintv/sachintvhd/index.m3u8
 https://ipcloud.live/sachintv/dhonitv/index.m3u8
 #EXTINF:-1 tvg-name="Saami Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/0bHwvYd/samitv.jpg",Saami Tv
 https://ipcloud.live/msntv/saamitv/index.m3u8
-#EXTINF:-1 tvg-name="Rich Tv" group-title="News" tvg-logo="https://i.ibb.co/9HfP7V8H/richtv.jpg",Rich Tv
+#EXTINF:-1 tvg-name="Rich Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/9HfP7V8H/richtv.jpg",Rich Tv
 http://richtv.stream.onecloudlive.in/richtv/richtvhd/index.m3u8
 #EXTINF:-1 tvg-name="Sooriyan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/rKSHwyjv/20250906-012626.jpg",Sooriyan Tv
 https://cdn.bozztv.com/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
