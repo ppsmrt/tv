@@ -1,6 +1,8 @@
+// Player.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+// ----- DOM Elements -----
 const video = document.getElementById('video');
 const playBtn = document.getElementById('playBtn');
 const fsBtn = document.getElementById('fsBtn');
@@ -13,7 +15,7 @@ let controlsTimeout;
 let scale = 1;
 let initialDistance = null;
 
-// Firebase Config
+// ----- Firebase Config -----
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -27,104 +29,102 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Helper functions
-function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
-function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
-
+// ----- Helpers -----
+const qs = (name) => new URL(location.href).searchParams.get(name);
 const streamSlug = qs('stream');
 
-// --- Controls Logic ---
+// ----- Fetch Video from Firebase -----
+const loadVideo = () => {
+  if(!streamSlug){
+    console.error('No stream slug provided!');
+    return;
+  }
 
-// Play/Pause
+  const videoRef = ref(db, `streams/${streamSlug}`);
+  onValue(videoRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data && data.url) {
+      video.src = data.url;
+      videoTitle.textContent = data.title || 'Live Stream';
+      video.muted = true; // to bypass autoplay restrictions
+      video.load();
+      video.play().catch(err => console.warn('Autoplay blocked:', err));
+    } else {
+      console.error('Video not found in Firebase for slug:', streamSlug);
+    }
+  });
+};
+
+// ----- Play / Pause -----
 playBtn.addEventListener('click', () => {
-  if(video.paused){ 
-    video.play(); 
-    playBtn.textContent='pause'; 
-  } else { 
-    video.pause(); 
-    playBtn.textContent='play_arrow'; 
+  if(video.paused){
+    video.play();
+    playBtn.textContent = 'pause';
+  } else {
+    video.pause();
+    playBtn.textContent = 'play_arrow';
   }
 });
 
-// Fullscreen (immersive + Kodular fallback)
+// ----- Fullscreen -----
 fsBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    if(video.parentElement.requestFullscreen){
-      video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
-    } else if(video.webkitEnterFullscreen) {
-      video.webkitEnterFullscreen();
-    } else if(video.msRequestFullscreen) {
-      video.msRequestFullscreen();
-    } else {
-      // 🚀 Kodular / WebView fallback fullscreen
-      video.classList.add("css-fullscreen");
-    }
-    if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock('landscape').catch(()=>{});
-    }
+    if(video.parentElement.requestFullscreen) video.parentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{});
+    else if(video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    else video.classList.add('css-fullscreen');
+    if(screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(()=>{});
   } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else {
-      // 🚀 Exit Kodular / WebView fallback
-      video.classList.remove("css-fullscreen");
-    }
-    if (screen.orientation && screen.orientation.unlock) {
-      screen.orientation.unlock();
-    }
+    if(document.exitFullscreen) document.exitFullscreen();
+    else video.classList.remove('css-fullscreen');
+    if(screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
   }
 });
 
-// Mute / Volume
+// ----- Mute / Volume -----
 muteBtn.addEventListener('click', () => {
   video.muted = !video.muted;
   muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
 });
+
 volumeSlider.addEventListener('input', () => {
   video.volume = volumeSlider.value;
   video.muted = video.volume === 0;
   muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
 });
 
-// Auto-hide controls on interaction
+// ----- Auto-hide Controls -----
 const showControls = () => {
   controls.classList.remove('hidden');
   clearTimeout(controlsTimeout);
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+  if(window.matchMedia("(orientation: landscape)").matches){
+    controlsTimeout = setTimeout(()=> controls.classList.add('hidden'), 3000);
   }
 };
+
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
 
-// Hide controls in landscape by default, visible in portrait
-function updateControlsVisibility() {
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    controls.classList.add('hidden'); // hide in landscape
-  } else {
-    controls.classList.remove('hidden'); // show in portrait
-  }
-}
+const updateControlsVisibility = () => {
+  if(window.matchMedia("(orientation: landscape)").matches) controls.classList.add('hidden');
+  else controls.classList.remove('hidden');
+};
+
 window.addEventListener('orientationchange', updateControlsVisibility);
 document.addEventListener('DOMContentLoaded', updateControlsVisibility);
 
 // Tap to toggle controls in landscape
 video.addEventListener('click', () => {
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    if (controls.classList.contains('hidden')) {
-      controls.classList.remove('hidden');
-      clearTimeout(controlsTimeout);
-      controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
-    } else {
-      controls.classList.add('hidden');
-    }
+  if(window.matchMedia("(orientation: landscape)").matches){
+    if(controls.classList.contains('hidden')){
+      showControls();
+    } else controls.classList.add('hidden');
   }
 });
 
-// Pinch / Wheel Zoom
+// ----- Pinch / Wheel Zoom -----
 video.addEventListener('wheel', e => {
   scale += e.deltaY * -0.001;
-  scale = Math.min(Math.max(1, scale), 3);
+  scale = Math.min(Math.max(1, scale),3);
   video.style.transform = `scale(${scale})`;
 });
 
@@ -136,6 +136,7 @@ video.addEventListener('touchstart', e => {
     );
   }
 });
+
 video.addEventListener('touchmove', e => {
   if(e.touches.length === 2 && initialDistance){
     const currentDistance = Math.hypot(
@@ -147,10 +148,11 @@ video.addEventListener('touchmove', e => {
     initialDistance = currentDistance;
   }
 });
-video.addEventListener('touchend', e => { if(e.touches.length < 2) initialDistance=null; });
 
-// Maintain fullscreen scaling on resize/orientation change
-function applyFullscreenStyles() {
+video.addEventListener('touchend', e => { if(e.touches.length < 2) initialDistance = null; });
+
+// Maintain fullscreen scaling
+const applyFullscreenStyles = () => {
   if(document.fullscreenElement){
     video.style.width = '100%';
     video.style.height = '100%';
@@ -162,7 +164,11 @@ function applyFullscreenStyles() {
     video.style.objectFit = '';
     video.style.transform = '';
   }
-}
+};
+
 document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
+
+// ----- Initialize -----
+loadVideo();
