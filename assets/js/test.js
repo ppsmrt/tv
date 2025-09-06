@@ -8,7 +8,6 @@ const muteBtn = document.getElementById('muteBtn');
 const volumeSlider = document.getElementById('volumeSlider');
 const controls = document.getElementById('controls');
 const videoTitle = document.getElementById('videoTitle');
-const extraInfo = document.getElementById('extraInfo');
 
 let controlsTimeout;
 let scale = 1;
@@ -33,30 +32,6 @@ function qs(name){ const u=new URL(location.href); return u.searchParams.get(nam
 function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
 
 const streamSlug = qs('stream');
-
-// Fetch stream data from Firebase
-const channelsRef = ref(db, 'channels');
-onValue(channelsRef, snapshot => {
-  if(!snapshot.exists()) return;
-  const data = snapshot.val();
-  const list = Object.values(data).map(c => ({
-    name: c.name,
-    url: c.stream,
-    host: c.host,
-    genre: c.genre,
-    viewers: c.viewers
-  }));
-  let match = list.find(ch => slugify(ch.name) === streamSlug);
-  if(!match) match = list.find(ch => slugify(ch.name).includes(streamSlug));
-  if(!match) return;
-
-  videoTitle.textContent = match.name;
-  extraInfo.textContent = `Host: ${match.host || 'N/A'} | Genre: ${match.genre || 'N/A'} | Viewers: ${match.viewers || '0'}`;
-  video.src = match.url;
-  video.setAttribute('playsinline','');
-  video.load();
-  video.play().catch(err => console.warn('Autoplay failed', err));
-});
 
 // --- Controls Logic ---
 
