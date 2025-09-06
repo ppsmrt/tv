@@ -24,19 +24,15 @@
 
 <!-- Header -->
 <header class="flex justify-between items-center px-6 h-20 bg-gray-800 shadow-md">
-  <!-- Left: Icon + Title -->
   <div class="flex items-center gap-2">
     <span class="material-icons text-white text-3xl">live_tv</span>
     <h1 class="text-xl font-bold text-white">Live TV Dashboard</h1>
   </div>
-
-  <!-- Right: Logout Icon -->
   <span id="logout-btn" class="material-icons text-white text-2xl cursor-pointer hover:text-red-500" title="Logout">
     logout
   </span>
 </header>
 
-<!-- Welcome Message -->
 <div class="bg-gray-700 text-white px-6 py-3">
   <p id="welcome-msg" class="text-lg font-semibold">Welcome, User</p>
 </div>
@@ -47,8 +43,8 @@
     <div class="bg-gray-800 p-6 rounded-xl shadow-lg max-w-lg mx-auto space-y-4">
       <h2 class="text-2xl font-bold text-red-500">Submit a Channel</h2>
       <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
-      <input type="text" id="channel-icon" placeholder="Channel Icon URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
-      <input type="text" id="channel-url" placeholder="Stream URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
+      <input type="text" id="channel-icon" placeholder="Channel Logo URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
+      <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
       <select id="channel-category" class="w-full p-3 rounded-lg bg-gray-700 text-white">
         <option value="News">News</option>
         <option value="Music">Music</option>
@@ -121,8 +117,8 @@ auth.onAuthStateChanged(async user => {
 // ================= User Functions =================
 function submitChannel(){
   const name = document.getElementById('channel-name').value.trim();
-  const icon = document.getElementById('channel-icon').value.trim();
-  const url = document.getElementById('channel-url').value.trim();
+  const icon = document.getElementById('channel-icon').value.trim();   // logo
+  const url = document.getElementById('channel-url').value.trim();     // stream
   const category = document.getElementById('channel-category').value;
   const user = auth.currentUser;
 
@@ -158,13 +154,13 @@ function loadUserChannels(uid){
       const card = document.createElement('div');
       card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
       card.innerHTML = `
-        <img src="${c.icon}" alt="${c.name}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+        <img src="${c.icon || 'https://via.placeholder.com/50'}" alt="${c.name}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
         <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name}</h4>
-          <p class="text-gray-300">${c.category}</p>
+          <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+          <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
         </div>
         <span class="px-3 py-1 rounded-full text-sm font-semibold ${c.status === 'pending' ? 'bg-yellow-500 text-gray-900' : 'bg-green-500 text-white'}">
-          ${c.status.charAt(0).toUpperCase() + c.status.slice(1)}
+          ${c.status ? c.status.charAt(0).toUpperCase() + c.status.slice(1) : 'Unknown'}
         </span>
       `;
       if(c.status === 'pending') userPending.appendChild(card);
@@ -185,7 +181,6 @@ function loadAdminRequests() {
   const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
 
   requestsRef.on('value', snap => {
-    console.log('--- Admin Requests Debug ---', snap.val());
     if (!snap.exists()) {
       adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
       return;
@@ -195,17 +190,17 @@ function loadAdminRequests() {
 
     snap.forEach(child => {
       const r = child.val();
-      console.log('Processing request:', child.key, r);
 
       const li = document.createElement('div');
       li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
       li.innerHTML = `
         <div class="flex items-center gap-4">
-          <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+          <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}"
+               class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
           <div class="flex flex-col">
-            <h4 class="font-semibold text-white">${r.name || 'No Name'}</h4>
-            <p class="text-gray-300">${r.category || 'No category'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${r.submittedBy}</span>
+            <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
+            <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
+            <span class="text-sm text-gray-400">Submitted by: ${r.submittedBy || 'Unknown'}</span>
           </div>
         </div>
       `;
@@ -229,28 +224,26 @@ function loadAdminRequests() {
   });
 }
 
-// Approve request and move to channels
+// Approve request: move to channels + remove request
 function approveRequest(requestId, requestData) {
   const adminId = auth.currentUser.uid;
-  console.log('Approving request:', requestId, requestData);
 
   if (!requestData) return console.error('No request data!');
 
-  db.ref(`channelRequests/${requestId}`).update({ status: 'approved' })
-    .then(() => {
-      const newChannelRef = db.ref('channels').push();
-      newChannelRef.set({
-        name: requestData.name || 'Unnamed Channel',
-        icon: requestData.icon || '',
-        category: requestData.category || 'Uncategorized',
-        stream: requestData.url || '',
-        createdBy: requestData.submittedBy || 'unknown',
-        approvedBy: adminId,
-        approvedAt: Date.now()
-      }).then(() => {
-        console.log('Channel added to global channels:', newChannelRef.key);
-      }).catch(err => console.error('Error adding to channels:', err));
-    }).catch(err => console.error('Error updating request status:', err));
+  const newChannelRef = db.ref('channels').push();
+  newChannelRef.set({
+    name: requestData.name || 'Unnamed Channel',
+    icon: requestData.icon || '',
+    category: requestData.category || 'Uncategorized',
+    stream: requestData.url || '',
+    createdBy: requestData.submittedBy || 'unknown',
+    approvedBy: adminId,
+    approvedAt: Date.now()
+  }).then(() => {
+    db.ref(`channelRequests/${requestId}`).remove()
+      .then(() => console.log('Request moved & removed:', requestId))
+      .catch(err => console.error('Error deleting old request:', err));
+  }).catch(err => console.error('Error adding to channels:', err));
 }
 
 // Reject request
