@@ -128,7 +128,7 @@ async function getUserName(uid) {
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     showToast("Please log in", "error");
-    window.location.href='login.html';
+    window.location.href='signin';
     return;
   }
   welcomeMsg.textContent = `Welcome, ${user.email}`;
