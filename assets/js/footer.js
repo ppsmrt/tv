@@ -7,11 +7,11 @@ const footerHTML = `
   <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="generate">
     <span class="material-icons">subscriptions</span>Playlist
   </button>
-  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="search">
-    <span class="material-icons">search</span>Search
-  </button>
   <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="signin">
     <span class="material-icons">person</span>Profile
+  </button>
+  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="signin">
+    <span class="material-icons">dashboard</span>Dashboard
   </button>
 </footer>
 `;
