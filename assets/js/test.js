@@ -1,4 +1,3 @@
-// Player.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -33,7 +32,7 @@ const db = getDatabase(app);
 const qs = (name) => new URL(location.href).searchParams.get(name);
 const streamSlug = qs('stream');
 
-// ----- Fetch Video from Firebase -----
+// ----- Load Video from Firebase -----
 const loadVideo = () => {
   if(!streamSlug){
     console.error('No stream slug provided!');
@@ -43,12 +42,15 @@ const loadVideo = () => {
   const videoRef = ref(db, `streams/${streamSlug}`);
   onValue(videoRef, (snapshot) => {
     const data = snapshot.val();
-    if (data && data.url) {
-      video.src = data.url;
+    if(data && data.url){
       videoTitle.textContent = data.title || 'Live Stream';
-      video.muted = true; // to bypass autoplay restrictions
-      video.load();
-      video.play().catch(err => console.warn('Autoplay blocked:', err));
+
+      if(video.src !== data.url){
+        video.classList.add('loading');
+        video.src = data.url;
+        video.load();
+        video.play().then(()=> video.classList.remove('loading')).catch(err => console.warn('Autoplay blocked:', err));
+      }
     } else {
       console.error('Video not found in Firebase for slug:', streamSlug);
     }
@@ -68,7 +70,7 @@ playBtn.addEventListener('click', () => {
 
 // ----- Fullscreen -----
 fsBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) {
+  if(!document.fullscreenElement){
     if(video.parentElement.requestFullscreen) video.parentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{});
     else if(video.webkitEnterFullscreen) video.webkitEnterFullscreen();
     else video.classList.add('css-fullscreen');
@@ -112,12 +114,10 @@ const updateControlsVisibility = () => {
 window.addEventListener('orientationchange', updateControlsVisibility);
 document.addEventListener('DOMContentLoaded', updateControlsVisibility);
 
-// Tap to toggle controls in landscape
 video.addEventListener('click', () => {
   if(window.matchMedia("(orientation: landscape)").matches){
-    if(controls.classList.contains('hidden')){
-      showControls();
-    } else controls.classList.add('hidden');
+    if(controls.classList.contains('hidden')) showControls();
+    else controls.classList.add('hidden');
   }
 });
 
