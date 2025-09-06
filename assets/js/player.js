@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const video = document.getElementById('video');
 const playBtn = document.getElementById('playBtn');
@@ -33,29 +33,44 @@ function qs(name) {
   return u.searchParams.get(name);
 }
 
-const streamSlug = qs('stream');
+// Convert slug → normalized (lowercase, replace - with space)
+let streamSlug = qs('stream');
+if (streamSlug) {
+  streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
+}
 
 if (!streamSlug) {
   alert('No stream specified');
 } else {
-  const streamRef = ref(db, 'streams/' + streamSlug);
-  onValue(streamRef, (snapshot) => {
-    const data = snapshot.val();
-    if (data && data.url) {
-      video.src = data.url;
-      videoTitle.textContent = data.title || 'Live Stream';
-      localStorage.setItem('selectedVideo', data.url);
-      localStorage.setItem('selectedVideoTitle', data.title || 'Live Stream');
-      video.load();
-      video.play().catch(() => {});
+  const channelsRef = ref(db, 'channels');
+  get(channelsRef).then(snapshot => {
+    if (snapshot.exists()) {
+      let found = false;
+      snapshot.forEach(childSnap => {
+        const data = childSnap.val();
+        if (data.name && data.name.toLowerCase() === streamSlug) {
+          found = true;
+          video.src = data.stream;
+          videoTitle.textContent = data.name || 'Live Stream';
+          localStorage.setItem('selectedVideo', data.stream);
+          localStorage.setItem('selectedVideoTitle', data.name || 'Live Stream');
+          video.load();
+          video.play().catch(() => {});
+        }
+      });
+      if (!found) {
+        alert('Channel not found: ' + streamSlug);
+      }
     } else {
-      alert('Stream not found or URL missing');
+      alert('No channels available in database');
     }
-  }, (error) => {
-    console.error('Firebase read failed:', error);
+  }).catch(err => {
+    console.error('Firebase read failed:', err);
     alert('Failed to load stream data');
   });
 }
+
+// --- the rest of your code stays the same ---
 
 // Play/Pause toggle
 playBtn.addEventListener('click', () => {
