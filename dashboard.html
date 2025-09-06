@@ -170,6 +170,20 @@ function loadUserChannels(uid){
   });
 }
 
+// Logout Button
+const logoutBtn = document.getElementById('logout-btn');
+logoutBtn.addEventListener('click', () => {
+  auth.signOut()
+    .then(() => {
+      // Redirect to home page
+      window.location.href = '/';
+    })
+    .catch(error => {
+      console.error("Logout Error:", error);
+      alert("Error logging out. Please try again.");
+    });
+});
+
 // ================= Admin Functions =================
 function loadAdminRequests() {
   const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
