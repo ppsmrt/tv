@@ -1,6 +1,11 @@
 // header.js
 
-// Mapping pages to their icons and titles
+// --- Firebase setup ---
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const db = getDatabase();
+
+// Page configuration
 const pageConfig = {
   'index.html': { leftIcon: 'live_tv', title: 'TamilGeo Live', rightIcon: 'notifications', rightAction: () => window.location.href = 'notifications.html' },
   'playlist.html': { leftIcon: 'arrow_back', title: 'Playlist', pageIcon: 'queue_music' },
@@ -14,7 +19,7 @@ const pageConfig = {
 const path = window.location.pathname.split("/").pop() || 'index.html';
 const config = pageConfig[path] || { leftIcon: 'arrow_back', title: 'Page' };
 
-// Get container
+// Container
 const app = document.getElementById('app') || document.body;
 
 // Create header
@@ -31,42 +36,43 @@ if (config.leftIcon === 'arrow_back') {
   leftIcon.onclick = () => window.location.href = 'index.html';
 }
 
-// Title container (with optional page-specific icon)
+// Title container
 const titleContainer = document.createElement('div');
 titleContainer.className = 'flex items-center flex-1 truncate ml-2';
-
-// Page-specific icon (material icon left of title)
 if (config.pageIcon) {
   const pageIcon = document.createElement('span');
   pageIcon.className = 'material-icons text-base mr-1';
   pageIcon.textContent = config.pageIcon;
   titleContainer.appendChild(pageIcon);
 }
-
-// Title text
 const title = document.createElement('h1');
 title.className = 'text-lg font-bold truncate';
 title.textContent = config.title;
 titleContainer.appendChild(title);
 
 // Right icon
-let rightIcon;
+let rightIcon, notifBadge;
 if (config.rightIcon) {
   rightIcon = document.createElement('span');
-  rightIcon.className = 'material-icons cursor-pointer text-2xl';
+  rightIcon.className = 'material-icons cursor-pointer text-2xl relative';
   rightIcon.textContent = config.rightIcon;
   rightIcon.onclick = config.rightAction;
+
+  // Red notification badge
+  notifBadge = document.createElement('span');
+  notifBadge.className = 'absolute top-0 right-0 w-4 h-4 bg-red-600 text-white rounded-full text-xs flex items-center justify-center';
+  notifBadge.style.fontSize = '10px';
+  notifBadge.style.display = 'none'; // hide by default
+  rightIcon.appendChild(notifBadge);
 }
 
 // Append to header
 header.appendChild(leftIcon);
 header.appendChild(titleContainer);
 if (rightIcon) header.appendChild(rightIcon);
-
-// Inject header
 app.prepend(header);
 
-// Special case: player page shows channel name dynamically
+// Player page dynamic channel name
 if (config.dynamicChannelName) {
   const channelName = document.getElementById('channelName')?.textContent || 'Live Channel';
   title.textContent = channelName;
@@ -89,7 +95,7 @@ document.addEventListener('touchmove', (e) => {
     isRefreshing = true;
     refreshCircle.style.opacity = '1';
     refreshCircle.style.animation = 'spin 1s linear infinite';
-    window.location.reload(); // simple refresh
+    window.location.reload();
   }
 });
 
@@ -100,3 +106,18 @@ style.textContent = `
   100% { transform: translateX(-50%) translateY(-10px) rotate(360deg);}
 }`;
 document.head.appendChild(style);
+
+// --- Firebase: live notifications count for home page ---
+if (path === 'index.html' && notifBadge) {
+  const notifRef = ref(db, 'notifications'); // adjust path based on your DB structure
+  onValue(notifRef, (snapshot) => {
+    const notifications = snapshot.val() || {};
+    const count = Object.keys(notifications).length;
+    if (count > 0) {
+      notifBadge.style.display = 'flex';
+      notifBadge.textContent = count;
+    } else {
+      notifBadge.style.display = 'none';
+    }
+  });
+}
