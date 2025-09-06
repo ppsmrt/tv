@@ -1,46 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .section { margin-bottom: 40px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-    h2 { margin-top: 0; }
-    input, button { padding: 8px; margin: 5px 0; width: 100%; max-width: 400px; }
-    ul { list-style-type: none; padding: 0; }
-    li { margin-bottom: 10px; }
-    .hidden { display: none; }
-    .approve-btn, .reject-btn { margin-left: 10px; padding: 4px 8px; }
-  </style>
-</head>
-<body>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Live TV - Dashboard</title>
 
-  <h1>Dashboard</h1>
-  <p id="welcome-msg"></p>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
+<style>
+  html, body { font-family: 'Baloo 2', cursive; background-color: #111827; color: #fff; margin: 0; min-height: 100vh; }
+  header { height: 64px; display: flex; align-items: center; padding: 0 1.5rem; background: rgba(31,41,55,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.5); z-index: 20; }
+  main { padding: 20px 1rem 100px; max-width: 1200px; margin: 0 auto; }
+  .hidden { display: none; }
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+
+<!-- Header -->
+<header>
+  <span class="material-icons">live_tv</span>
+  <h1 class="ml-2 text-lg font-bold">Live TV Dashboard</h1>
+</header>
+
+<main>
+  <p id="welcome-msg" class="mb-4 text-lg"></p>
 
   <!-- User Section -->
-  <div id="user-section" class="section hidden">
-    <h2>Submit a Channel</h2>
-    <input type="text" id="channel-name" placeholder="Channel Name">
-    <input type="text" id="channel-url" placeholder="Channel URL">
-    <button onclick="submitChannel()">Submit Channel</button>
+  <div id="user-section" class="hidden space-y-6">
+    <h2 class="text-xl font-semibold">Submit a Channel</h2>
+    <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-2 rounded bg-gray-800 text-white"/>
+    <input type="text" id="channel-url" placeholder="Channel URL" class="w-full p-2 rounded bg-gray-800 text-white"/>
+    <button onclick="submitChannel()" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600">Submit Channel</button>
 
-    <h3>Your Channel Requests</h3>
-    <ul id="user-requests"></ul>
+    <h3 class="text-lg font-semibold mt-6">Your Channel Requests</h3>
+    <ul id="user-requests" class="space-y-2"></ul>
+
+    <h3 class="text-lg font-semibold mt-6">Approved Channels</h3>
+    <div class="channels-grid" id="live-channels"></div>
   </div>
 
   <!-- Admin Section -->
-  <div id="admin-section" class="section hidden">
-    <h2>Pending Channel Requests</h2>
-    <ul id="admin-requests"></ul>
+  <div id="admin-section" class="hidden space-y-6">
+    <h2 class="text-xl font-semibold">Pending Channel Requests</h2>
+    <ul id="admin-requests" class="space-y-2"></ul>
   </div>
+</main>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <script src="asssets/js/dashboard.js"></script>
+<!-- Footer -->
+<div id="footer"></div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<!-- Dashboard JS -->
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+const userSection = document.getElementById('user-section');
+const adminSection = document.getElementById('admin-section');
+const welcomeMsg = document.getElementById('welcome-msg');
+const userRequestsList = document.getElementById('user-requests');
+const adminRequestsList = document.getElementById('admin-requests');
+const liveChannelsGrid = document.getElementById('live-channels');
+
+auth.onAuthStateChanged(async user => {
+  if(!user){ alert('Please log in.'); window.location.href='login.html'; return; }
+  welcomeMsg.textContent = `Welcome, ${user.email}`;
+
+  const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap=>snap.exists());
+
+  if(isAdmin){
+    adminSection.classList.remove('hidden');
+    loadAdminRequests();
+  } else {
+    userSection.classList.remove('hidden');
+    loadUserRequests(user.uid);
+    loadLiveChannels();
+  }
+});
+
+// ================= User Functions =================
+function submitChannel(){
+  const name = document.getElementById('channel-name').value.trim();
+  const url = document.getElementById('channel-url').value.trim();
+  const user = auth.currentUser;
+  if(!name || !url){ alert('Please enter both name and URL'); return; }
+
+  const requestId = db.ref('channelRequests').push().key;
+  db.ref(`channelRequests/${requestId}`).set({
+    name, url, submittedBy: user.uid, status:'pending', timestamp:Date.now()
+  }).then(()=>{
+    alert('Channel request submitted!');
+    document.getElementById('channel-name').value='';
+    document.getElementById('channel-url').value='';
+  });
+}
+
+function loadUserRequests(uid){
+  db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid)
+    .on('value', snapshot=>{
+      userRequestsList.innerHTML='';
+      snapshot.forEach(child=>{
+        const r = child.val();
+        const li = document.createElement('li');
+        li.textContent = `${r.name} - ${r.status}`;
+        userRequestsList.appendChild(li);
+      });
+    });
+}
+
+function loadLiveChannels(){
+  db.ref('channels').on('value', snapshot=>{
+    liveChannelsGrid.innerHTML='';
+    snapshot.forEach(child=>{
+      const c = child.val();
+      const card = document.createElement('div');
+      card.className='channel-card show';
+      card.innerHTML = `<div class="channel-name">${c.name}</div>`;
+      liveChannelsGrid.appendChild(card);
+    });
+  });
+}
+
+// ================= Admin Functions =================
+function loadAdminRequests(){
+  db.ref('channelRequests').orderByChild('status').equalTo('pending')
+    .on('value', snapshot=>{
+      adminRequestsList.innerHTML='';
+      snapshot.forEach(child=>{
+        const r = child.val();
+        const li = document.createElement('li');
+        li.className='flex justify-between items-center bg-gray-800 p-2 rounded';
+        li.innerHTML = `<span>${r.name} by ${r.submittedBy}</span>`;
+        const btns = document.createElement('span');
+
+        const approve = document.createElement('button');
+        approve.textContent='Approve';
+        approve.className='px-2 py-1 bg-green-500 rounded ml-2';
+        approve.onclick=()=>approveRequest(child.key,r);
+
+        const reject = document.createElement('button');
+        reject.textContent='Reject';
+        reject.className='px-2 py-1 bg-red-500 rounded ml-2';
+        reject.onclick=()=>rejectRequest(child.key);
+
+        btns.appendChild(approve); btns.appendChild(reject);
+        li.appendChild(btns);
+        adminRequestsList.appendChild(li);
+      });
+    });
+}
+
+function approveRequest(requestId, r){
+  const adminId = auth.currentUser.uid;
+  const channelId = db.ref('channels').push().key;
+  db.ref(`channels/${channelId}`).set({ name:r.name, url:r.url, addedBy:adminId })
+    .then(()=> db.ref(`channelRequests/${requestId}`).update({status:'approved'}));
+}
+
+function rejectRequest(requestId){
+  db.ref(`channelRequests/${requestId}`).update({status:'rejected'});
+}
+</script>
 
 </body>
 </html>
