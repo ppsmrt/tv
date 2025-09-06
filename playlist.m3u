@@ -49,8 +49,6 @@ https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/mas
 http://89.187.189.98/KTVHD/index.m3u8
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/G4D6WKM4/eyetvca.jpg",Eye Tv
 https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
-#EXTINF:-1 tvg-name="Sooriyan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/m571qhwn/20250906-012626.jpg",Sooriyan Tv
-https://cdn.bozztv.com/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
 #EXTINF:-1 tvg-name="PR Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/sp8K36WT/20250902-234822.jpg",PR Tv
 http://applelive.in/prtv/prtv.m3u8
 #EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
@@ -65,3 +63,7 @@ https://ipcloud.live/sachintv/sachintvhd/index.m3u8
 https://ipcloud.live/sachintv/dhonitv/index.m3u8
 #EXTINF:-1 tvg-name="Saami Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/0bHwvYd/samitv.jpg",Saami Tv
 https://ipcloud.live/msntv/saamitv/index.m3u8
+#EXTINF:-1 tvg-name="Rich Tv" group-title="News" tvg-logo="https://i.ibb.co/9HfP7V8H/richtv.jpg",Rich Tv
+http://richtv.stream.onecloudlive.in/richtv/richtvhd/index.m3u8
+#EXTINF:-1 tvg-name="Sooriyan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/rKSHwyjv/20250906-012626.jpg",Sooriyan Tv
+https://cdn.bozztv.com/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
