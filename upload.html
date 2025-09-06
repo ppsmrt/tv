@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Image Uploader</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
+<style>
+  html, body { font-family: 'Baloo 2', cursive; background-color: #111827; color: #fff; margin: 0; min-height: 100vh; }
+  header { height: 64px; display: flex; align-items: center; padding: 0 1.5rem; background: rgba(31,41,55,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.5); justify-content: center; }
+  main { padding: 20px 1rem; max-width: 600px; margin: 0 auto; }
+  input, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; background: #1f2937; color: white; }
+  button:hover { background: #f87171; }
+  img { max-width: 100%; border-radius: 12px; margin-top: 12px; }
+  #toast { position: fixed; bottom: 20px; right: 20px; z-index: 50; }
+  .toast-msg { margin-top: 8px; padding: 10px 16px; border-radius: 8px; font-weight: 600; animation: fadein 0.3s, fadeout 0.3s 3s; }
+  @keyframes fadein { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
+  @keyframes fadeout { from { opacity:1;} to { opacity:0; transform: translateY(10px);} }
+  .copy-box { display: flex; gap: 8px; margin-top: 12px; }
+  .copy-box input { flex: 1; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="text-2xl font-bold text-red-500">Image Uploader</h1>
+</header>
+
+<main>
+  <input type="file" id="image-file" accept="image/*"/>
+  <button id="upload-btn">Upload Image</button>
+  
+  <p id="status" class="text-gray-400 mt-2">No file selected</p>
+  <img id="preview" class="hidden" src="" alt="Preview"/>
+  
+  <div class="copy-box hidden" id="copy-container">
+    <input type="text" id="image-url" readonly/>
+    <button id="copy-btn">Copy URL</button>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+const imgbbKey = '8604e4b4050c63c460d0bca39cf28708';
+const fileInput = document.getElementById('image-file');
+const uploadBtn = document.getElementById('upload-btn');
+const preview = document.getElementById('preview');
+const status = document.getElementById('status');
+const copyContainer = document.getElementById('copy-container');
+const imageUrlInput = document.getElementById('image-url');
+const copyBtn = document.getElementById('copy-btn');
+
+function showToast(msg, type="info") {
+  const div = document.createElement('div');
+  div.className = `toast-msg ${type==="success" ? "bg-green-500" : type==="error" ? "bg-red-500" : "bg-blue-500"} text-white shadow-lg`;
+  div.textContent = msg;
+  document.getElementById('toast').appendChild(div);
+  setTimeout(() => div.remove(), 3500);
+}
+
+uploadBtn.addEventListener('click', async () => {
+  const file = fileInput.files[0];
+  if (!file) {
+    showToast('Please select a file', 'error');
+    return;
+  }
+
+  status.textContent = 'Uploading...';
+  preview.classList.add('hidden');
+  copyContainer.classList.add('hidden');
+
+  const formData = new FormData();
+  formData.append('image', file);
+
+  try {
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+    if (data.success) {
+      const url = data.data.url;
+      preview.src = url;
+      preview.classList.remove('hidden');
+      imageUrlInput.value = url;
+      copyContainer.classList.remove('hidden');
+      status.textContent = 'Upload successful!';
+      showToast('Image uploaded!', 'success');
+    } else {
+      status.textContent = 'Upload failed.';
+      showToast('Upload failed!', 'error');
+    }
+  } catch(err) {
+    console.error(err);
+    status.textContent = 'Error uploading image.';
+    showToast('Error uploading image!', 'error');
+  }
+});
+
+copyBtn.addEventListener('click', () => {
+  imageUrlInput.select();
+  navigator.clipboard.writeText(imageUrlInput.value).then(() => {
+    showToast('URL copied to clipboard', 'success');
+  });
+});
+</script>
+
+</body>
+</html>
