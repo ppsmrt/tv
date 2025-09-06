@@ -28,37 +28,58 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // Helper functions
-function qs(name){ const u=new URL(location.href); return u.searchParams.get(name); }
-function slugify(name){ return name.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-'); }
+function qs(name) {
+  const u = new URL(location.href);
+  return u.searchParams.get(name);
+}
 
 const streamSlug = qs('stream');
 
+if (!streamSlug) {
+  alert('No stream specified');
+} else {
+  const streamRef = ref(db, 'streams/' + streamSlug);
+  onValue(streamRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data && data.url) {
+      video.src = data.url;
+      videoTitle.textContent = data.title || 'Live Stream';
+      localStorage.setItem('selectedVideo', data.url);
+      localStorage.setItem('selectedVideoTitle', data.title || 'Live Stream');
+      video.load();
+      video.play().catch(() => {});
+    } else {
+      alert('Stream not found or URL missing');
+    }
+  }, (error) => {
+    console.error('Firebase read failed:', error);
+    alert('Failed to load stream data');
+  });
+}
 
-// --- Controls Logic ---
-
-// Play/Pause
+// Play/Pause toggle
 playBtn.addEventListener('click', () => {
-  if(video.paused){ 
-    video.play(); 
-    playBtn.textContent='pause'; 
-  } else { 
-    video.pause(); 
-    playBtn.textContent='play_arrow'; 
+  if (video.paused) {
+    video.play();
+    playBtn.textContent = 'pause';
+  } else {
+    video.pause();
+    playBtn.textContent = 'play_arrow';
   }
 });
 
-// Fullscreen (immersive)
+// Fullscreen toggle
 fsBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    if(video.parentElement.requestFullscreen){
-      video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
-    } else if(video.webkitEnterFullscreen) {
+    if (video.parentElement.requestFullscreen) {
+      video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+    } else if (video.webkitEnterFullscreen) {
       video.webkitEnterFullscreen();
-    } else if(video.msRequestFullscreen) {
+    } else if (video.msRequestFullscreen) {
       video.msRequestFullscreen();
     }
     if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock('landscape').catch(()=>{});
+      screen.orientation.lock('landscape').catch(() => {});
     }
   } else {
     document.exitFullscreen();
@@ -68,7 +89,7 @@ fsBtn.addEventListener('click', () => {
   }
 });
 
-// Mute / Volume
+// Mute toggle and volume slider
 muteBtn.addEventListener('click', () => {
   video.muted = !video.muted;
   muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
@@ -79,7 +100,7 @@ volumeSlider.addEventListener('input', () => {
   muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
 });
 
-// Auto-hide controls on interaction
+// Show controls on interaction
 const showControls = () => {
   controls.classList.remove('hidden');
   clearTimeout(controlsTimeout);
@@ -90,12 +111,12 @@ const showControls = () => {
 video.addEventListener('mousemove', showControls);
 video.addEventListener('touchstart', showControls);
 
-// Hide controls in landscape by default, visible in portrait
+// Controls visibility based on orientation
 function updateControlsVisibility() {
   if (window.matchMedia("(orientation: landscape)").matches) {
-    controls.classList.add('hidden'); // hide in landscape
+    controls.classList.add('hidden');
   } else {
-    controls.classList.remove('hidden'); // show in portrait
+    controls.classList.remove('hidden');
   }
 }
 window.addEventListener('orientationchange', updateControlsVisibility);
@@ -114,15 +135,14 @@ video.addEventListener('click', () => {
   }
 });
 
-// Pinch / Wheel Zoom
+// Pinch and wheel zoom
 video.addEventListener('wheel', e => {
   scale += e.deltaY * -0.001;
   scale = Math.min(Math.max(1, scale), 3);
   video.style.transform = `scale(${scale})`;
 });
-
 video.addEventListener('touchstart', e => {
-  if(e.touches.length === 2){
+  if (e.touches.length === 2) {
     initialDistance = Math.hypot(
       e.touches[0].pageX - e.touches[1].pageX,
       e.touches[0].pageY - e.touches[1].pageY
@@ -130,21 +150,23 @@ video.addEventListener('touchstart', e => {
   }
 });
 video.addEventListener('touchmove', e => {
-  if(e.touches.length === 2 && initialDistance){
+  if (e.touches.length === 2 && initialDistance) {
     const currentDistance = Math.hypot(
       e.touches[0].pageX - e.touches[1].pageX,
       e.touches[0].pageY - e.touches[1].pageY
     );
-    scale = Math.min(Math.max(1, scale * (currentDistance/initialDistance)),3);
+    scale = Math.min(Math.max(1, scale * (currentDistance / initialDistance)), 3);
     video.style.transform = `scale(${scale})`;
     initialDistance = currentDistance;
   }
 });
-video.addEventListener('touchend', e => { if(e.touches.length < 2) initialDistance=null; });
+video.addEventListener('touchend', e => {
+  if (e.touches.length < 2) initialDistance = null;
+});
 
-// Maintain fullscreen scaling on resize/orientation change
+// Maintain fullscreen styles
 function applyFullscreenStyles() {
-  if(document.fullscreenElement){
+  if (document.fullscreenElement) {
     video.style.width = '100%';
     video.style.height = '100%';
     video.style.objectFit = 'cover';
@@ -160,21 +182,16 @@ document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
 
-// Get current video info from localStorage
-const videoSrc = localStorage.getItem('selectedVideo');
-const videoTitle = localStorage.getItem('selectedVideoTitle');
-
-// Favorite buttons
+// Favorites buttons
 const addFavBtn = document.getElementById('addFav');
 const removeFavBtn = document.getElementById('removeFav');
 
-// Load favorites from localStorage
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-// Update button visibility
 function updateFavButtons() {
+  const videoSrc = localStorage.getItem('selectedVideo');
   const isFav = favorites.some(fav => fav.src === videoSrc);
-  if(isFav){
+  if (isFav) {
     addFavBtn.classList.add('hidden');
     removeFavBtn.classList.remove('hidden');
   } else {
@@ -185,21 +202,22 @@ function updateFavButtons() {
 
 updateFavButtons();
 
-// Add to favorites
 addFavBtn.addEventListener('click', () => {
-  const newFav = {
-    title: videoTitle,
+  const videoSrc = localStorage.getItem('selectedVideo');
+  const videoTitleStored = localStorage.getItem('selectedVideoTitle') || 'Unknown';
+  if (!videoSrc) return;
+  favorites.push({
+    title: videoTitleStored,
     src: videoSrc,
-    thumb: '', // optional thumbnail
+    thumb: '',
     category: 'Unknown'
-  };
-  favorites.push(newFav);
+  });
   localStorage.setItem('favorites', JSON.stringify(favorites));
   updateFavButtons();
 });
 
-// Remove from favorites
 removeFavBtn.addEventListener('click', () => {
+  const videoSrc = localStorage.getItem('selectedVideo');
   favorites = favorites.filter(fav => fav.src !== videoSrc);
   localStorage.setItem('favorites', JSON.stringify(favorites));
   updateFavButtons();
