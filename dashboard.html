@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .section { margin-bottom: 40px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+    h2 { margin-top: 0; }
+    input, button { padding: 8px; margin: 5px 0; width: 100%; max-width: 400px; }
+    ul { list-style-type: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    .hidden { display: none; }
+    .approve-btn, .reject-btn { margin-left: 10px; padding: 4px 8px; }
+  </style>
+</head>
+<body>
+
+  <h1>Dashboard</h1>
+  <p id="welcome-msg"></p>
+
+  <!-- User Section -->
+  <div id="user-section" class="section hidden">
+    <h2>Submit a Channel</h2>
+    <input type="text" id="channel-name" placeholder="Channel Name">
+    <input type="text" id="channel-url" placeholder="Channel URL">
+    <button onclick="submitChannel()">Submit Channel</button>
+
+    <h3>Your Channel Requests</h3>
+    <ul id="user-requests"></ul>
+  </div>
+
+  <!-- Admin Section -->
+  <div id="admin-section" class="section hidden">
+    <h2>Pending Channel Requests</h2>
+    <ul id="admin-requests"></ul>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="dashboard.js"></script>
+
+</body>
+</html>
