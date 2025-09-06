@@ -1,5 +1,3 @@
-// header.js
-
 // --- Firebase setup ---
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -19,12 +17,12 @@ const pageConfig = {
 const path = window.location.pathname.split("/").pop() || 'index.html';
 const config = pageConfig[path] || { leftIcon: 'arrow_back', title: 'Page' };
 
-// Container
-const app = document.getElementById('app') || document.body;
+// Target the <div id="header">
+const headerContainer = document.getElementById("header");
 
-// Create header
+// Create header element
 const header = document.createElement('header');
-header.className = 'flex items-center justify-between p-3 bg-white shadow-md fixed top-0 left-0 right-0 z-50';
+header.className = 'flex items-center justify-between p-3 bg-gray-900 shadow-md fixed top-0 left-0 right-0 z-50';
 
 // Left icon
 const leftIcon = document.createElement('span');
@@ -58,19 +56,21 @@ if (config.rightIcon) {
   rightIcon.textContent = config.rightIcon;
   rightIcon.onclick = config.rightAction;
 
-  // Red notification badge
   notifBadge = document.createElement('span');
   notifBadge.className = 'absolute top-0 right-0 w-4 h-4 bg-red-600 text-white rounded-full text-xs flex items-center justify-center';
   notifBadge.style.fontSize = '10px';
-  notifBadge.style.display = 'none'; // hide by default
+  notifBadge.style.display = 'none';
   rightIcon.appendChild(notifBadge);
 }
 
-// Append to header
+// Append children into header
 header.appendChild(leftIcon);
 header.appendChild(titleContainer);
 if (rightIcon) header.appendChild(rightIcon);
-app.prepend(header);
+
+// Inject header into container
+headerContainer.innerHTML = "";
+headerContainer.appendChild(header);
 
 // Player page dynamic channel name
 if (config.dynamicChannelName) {
@@ -109,15 +109,11 @@ document.head.appendChild(style);
 
 // --- Firebase: live notifications count for home page ---
 if (path === 'index.html' && notifBadge) {
-  const notifRef = ref(db, 'notifications'); // adjust path based on your DB structure
+  const notifRef = ref(db, 'notifications'); // adjust path if needed
   onValue(notifRef, (snapshot) => {
     const notifications = snapshot.val() || {};
     const count = Object.keys(notifications).length;
-    if (count > 0) {
-      notifBadge.style.display = 'flex';
-      notifBadge.textContent = count;
-    } else {
-      notifBadge.style.display = 'none';
-    }
+    notifBadge.style.display = count > 0 ? 'flex' : 'none';
+    if (count > 0) notifBadge.textContent = count;
   });
 }
