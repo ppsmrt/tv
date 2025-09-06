@@ -10,7 +10,7 @@ const footerHTML = `
   <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="signin">
     <span class="material-icons">person</span>Profile
   </button>
-  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="signin">
+  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="dashboard">
     <span class="material-icons">dashboard</span>Dashboard
   </button>
 </footer>
