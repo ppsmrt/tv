@@ -171,54 +171,67 @@ function loadUserChannels(uid){
 }
 
 // ================= Admin Functions =================
-function loadAdminRequests(){
-  db.ref('channelRequests').orderByChild('status').equalTo('pending').on('value', snap=>{
-    adminRequestsList.innerHTML='';
-    snap.forEach(child=>{
-      const r=child.val();
-      const li=document.createElement('div');
-      li.className='channel-card justify-between';
-      li.innerHTML=`<div class="flex items-center gap-2"><img src="${r.icon}" alt="${r.name}"/><div>${r.name} (${r.category}) by ${r.submittedBy}</div></div>`;
-      const btns=document.createElement('div');
+function loadAdminRequests() {
+  const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
 
-      const approve=document.createElement('button');
-      approve.textContent='Approve';
-      approve.onclick=()=>approveRequest(child.key,r);
+  requestsRef.on('value', snap => {
+    console.log('--- Admin Requests Debug ---');
 
-      const reject=document.createElement('button');
-      reject.textContent='Reject';
-      reject.onclick=()=>rejectRequest(child.key);
+    if (!snap.exists()) {
+      console.log('No pending requests found in the database.');
+      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
+      return;
+    }
 
-      btns.appendChild(approve); btns.appendChild(reject);
+    const requests = snap.val();
+    console.log('Snapshot exists! Raw data:', requests);
+
+    const keys = Object.keys(requests || {});
+    console.log('Number of pending requests:', keys.length);
+
+    adminRequestsList.innerHTML = '';
+
+    snap.forEach(child => {
+      const r = child.val();
+      console.log('Processing request:', child.key, r); // Debug each request
+
+      const li = document.createElement('div');
+      li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+
+      li.innerHTML = `
+        <div class="flex items-center gap-4">
+          <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+          <div class="flex flex-col">
+            <h4 class="font-semibold text-white">${r.name || 'No Name'}</h4>
+            <p class="text-gray-300">${r.category || 'No category'}</p>
+            <span class="text-sm text-gray-400">Submitted by: ${r.submittedBy}</span>
+          </div>
+        </div>
+      `;
+
+      const btns = document.createElement('div');
+      btns.className = 'flex gap-2';
+      
+      const approve = document.createElement('button');
+      approve.textContent = 'Approve';
+      approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
+      approve.onclick = () => approveRequest(child.key, r);
+
+      const reject = document.createElement('button');
+      reject.textContent = 'Reject';
+      reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
+      reject.onclick = () => rejectRequest(child.key);
+
+      btns.appendChild(approve);
+      btns.appendChild(reject);
       li.appendChild(btns);
+
       adminRequestsList.appendChild(li);
     });
+
+    console.log('Finished rendering admin pending requests.');
   });
 }
-
-function approveRequest(id,r){
-  const adminId=auth.currentUser.uid;
-  db.ref(`channelRequests/${id}`).update({status:'approved'});
-  // Optionally, move to `channels` if needed globally
-}
-
-function rejectRequest(id){
-  db.ref(`channelRequests/${id}`).update({status:'rejected'});
-}
-
-// Logout Button
-const logoutBtn = document.getElementById('logout-btn');
-logoutBtn.addEventListener('click', () => {
-  auth.signOut()
-    .then(() => {
-      // Redirect to home page
-      window.location.href = '/';
-    })
-    .catch(error => {
-      console.error("Logout Error:", error);
-      alert("Error logging out. Please try again.");
-    });
-});
 </script>
 </body>
 </html>
