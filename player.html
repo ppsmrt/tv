@@ -19,17 +19,25 @@
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #0f111a;
+  background: radial-gradient(circle at top left, #0f111a, #05060c 70%);
+  color: #fff;
+  overflow-x: hidden;
 }
 
 /* Video Card Glassmorphism */
 .player-card {
-  background: rgba(30, 30, 40, 0.7);
-  backdrop-filter: blur(15px);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  background: rgba(30, 30, 40, 0.65);
+  backdrop-filter: blur(18px) saturate(160%);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
   overflow: hidden;
   position: relative;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease-in-out;
+}
+.player-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 }
 
 /* Video Styling */
@@ -37,20 +45,26 @@
   width: 100%;
   max-height: 70vh;
   object-fit: cover;
-  border-radius: 16px;
-  transition: transform 0.3s ease;
+  border-radius: 20px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+#video:hover {
+  transform: scale(1.01);
+  filter: brightness(1.05);
 }
 
-/* Video title gradient animation */
+/* Video Title Gradient */
 #videoTitle {
   font-weight: 700;
-  font-size: 1.5rem;
-  background: linear-gradient(90deg, #f87171, #f472b6, #fbbf24, #34d399);
+  font-size: 1.6rem;
+  background: linear-gradient(90deg, #ff7676, #f472b6, #fbbf24, #34d399, #60a5fa, #a78bfa);
+  background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient 4s ease infinite;
+  animation: gradientMove 6s linear infinite;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
-@keyframes gradient {
+@keyframes gradientMove {
   0% { background-position: 0% }
   50% { background-position: 100% }
   100% { background-position: 0% }
@@ -59,87 +73,115 @@
 /* Controls Glass Overlay */
 .controls {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(20,20,30,0.6);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 8px 12px;
-  transition: all 0.2s ease;
-}
-.controls button {
-  font-size: 1.6rem;
-  color: white;
-  background: rgba(255,255,255,0.05);
-  border-radius: 9999px;
-  padding: 4px;
+  background: rgba(20,20,30,0.55);
+  backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 10px 14px;
   transition: all 0.3s ease;
 }
+.controls button {
+  font-size: 1.7rem;
+  color: white;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  padding: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
 .controls button:hover {
-  background: linear-gradient(90deg, #f87171, #f472b6);
-  transform: scale(1.2);
+  background: linear-gradient(135deg, #f87171, #f472b6);
+  transform: scale(1.25) rotate(6deg);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
 /* Volume Slider */
 #volumeSlider {
-  width: 100px;
+  width: 110px;
   accent-color: #f87171;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#volumeSlider:hover {
+  filter: drop-shadow(0 0 6px #f87171);
 }
 
-/* Marquee scrolling */
-@keyframes scroll {
-  0% { transform: translateX(100%) }
-  100% { transform: translateX(-100%) }
-}
+/* Scrolling Marquee Ad */
 .animate-scroll {
   display: inline-block;
   white-space: nowrap;
   padding-left: 100%;
-  animation: scroll 20s linear infinite;
+  animation: scroll 18s linear infinite;
   font-weight: 600;
   color: #fbbf24;
-  text-shadow: 0 0 4px #f87171, 0 0 8px #f472b6;
+  text-shadow: 0 0 6px #f87171, 0 0 10px #f472b6;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+@keyframes scroll {
+  0% { transform: translateX(100%) }
+  100% { transform: translateX(-100%) }
 }
 
 /* Info Section Glass Card */
-.info-section {
+.info-section, .mx-4.mt-4.p-4.bg-gray-800 {
   background: rgba(25,25,35,0.7);
-  backdrop-filter: blur(15px);
-  padding: 16px;
-  margin-top: 20px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  max-height: 45vh;
+  backdrop-filter: blur(20px) saturate(160%);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.08);
   overflow-y: auto;
+  transition: all 0.3s ease;
+}
+.info-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.75);
 }
 .info-section h3 {
   font-weight: 700;
   color: #fff;
-  margin-top: 12px;
+  margin-top: 14px;
+  font-size: 1.2rem;
+  border-left: 4px solid #f472b6;
+  padding-left: 8px;
 }
 .info-section p, .info-section li {
   color: #d1d5db;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 .info-section ul li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 16px;
+}
+.info-section ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #34d399;
+  font-size: 0.9rem;
 }
 
 /* Bottom Banner Ad */
-.bottom-ad img {
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-  transition: all 0.2s ease;
+.bottom-ad img, .w-full.text-center img {
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.65);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.1);
 }
-.bottom-ad img:hover {
-  transform: scale(1.03);
+.bottom-ad img:hover, .w-full.text-center img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.75);
+  filter: brightness(1.08);
 }
-
 </style>  
 
 </head>  
