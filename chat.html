@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Premium Chat - Live TV</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
+<style>
+  body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #fff;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .chat-wrapper {
+    width: 100%;
+    max-width: 420px;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #1f2937;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px #00000099;
+  }
+
+  /* Header */
+  .chat-header {
+    flex-shrink: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background-color: #1f2937;
+    box-shadow: 0 2px 8px #00000066;
+    z-index: 10;
+  }
+  .chat-header .material-icons {
+    color: #f87171;
+    font-size: 28px;
+  }
+  .chat-header h1 {
+    margin-left: 12px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .chat-header .header-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 12px;
+  }
+  .chat-header .header-actions .material-icons {
+    font-size: 22px;
+    cursor: pointer;
+    color: #d1d5db;
+    transition: 0.2s;
+  }
+  .chat-header .header-actions .material-icons:hover {
+    color: #fff;
+  }
+
+  .messages-container {
+    flex-grow: 1;
+    padding: 16px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message-wrapper {
+    display: flex;
+    margin-bottom: 14px;
+    align-items: flex-end;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 0.3s forwards;
+    position: relative;
+  }
+
+  .message-wrapper.received {
+    justify-content: flex-start;
+  }
+  .message-wrapper.sent {
+    justify-content: flex-end;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 0 5px #f87171aa;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .message {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 20px;
+    word-wrap: break-word;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 4px 10px #00000066;
+  }
+
+  .message.received {
+    background-color: #374151;
+    color: #f9fafb;
+    border-bottom-left-radius: 4px;
+  }
+
+  .message.sent {
+    background: linear-gradient(135deg, #f87171, #f43f5e);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  .sender-name {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: #f87171;
+  }
+
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .message .time {
+    font-size: 10px;
+    opacity: 0.6;
+    position: absolute;
+    bottom: 4px;
+    right: 10px;
+  }
+
+  .message:hover .time {
+    opacity: 1;
+  }
+
+  .message-options {
+    display: none;
+    position: absolute;
+    top: -5px;
+    right: -30px;
+    background: #374151;
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .message:hover .message-options {
+    display: block;
+  }
+
+  .chat-input {
+    flex-shrink: 0;
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #374151;
+    gap: 10px;
+    background-color: #111827;
+  }
+
+  .chat-input input {
+    flex-grow: 1;
+    padding: 10px 14px;
+    border-radius: 30px;
+    border: 1px solid #374151;
+    outline: none;
+    background: #1f2937;
+    color: #f9fafb;
+    font-size: 15px;
+  }
+
+  .chat-input input::placeholder {
+    color: #9ca3af;
+  }
+
+  .chat-input button {
+    background-color: #f87171;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    transition: 0.2s;
+  }
+
+  .chat-input button:hover {
+    background-color: #f43f5e;
+  }
+</style>
+</head>
+<body>
+
+<div class="chat-wrapper">
+  <!-- Header -->
+  <div class="chat-header">
+    <span class="material-icons">chat</span>
+    <h1>Messages</h1>
+    <div class="header-actions">
+      <span class="material-icons" title="Search">search</span>
+      <span class="material-icons" title="More options">more_vert</span>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages-container" id="messages">
+    <!-- Demo messages -->
+    <div class="message-wrapper received">
+      <div class="avatar">
+        <img src="https://i.pravatar.cc/36?img=12" alt="Anna Bella">
+      </div>
+      <div class="message received">
+        <div class="sender-name">Anna Bella</div>
+        Hey! Welcome to our premium chat 😎
+        <span class="time">10:15 AM</span>
+        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
+      </div>
+    </div>
+
+    <div class="message-wrapper sent">
+      <div class="message sent">
+        Hi Anna! Looks amazing 🚀
+        <span class="time">10:16 AM</span>
+        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
+      </div>
+    </div>
+
+    <div class="message-wrapper received">
+      <div class="avatar">
+        <img src="https://i.pravatar.cc/36?img=13" alt="Marc Stegen">
+      </div>
+      <div class="message received">
+        <div class="sender-name">Marc Stegen</div>
+        You can use emojis 👍🔥 and see timestamps.
+        <span class="time">10:17 AM</span>
+        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
+      </div>
+    </div>
+
+    <div class="message-wrapper sent">
+      <div class="message sent">
+        Perfect! Let's try a longer message to see the bubble effect. This should wrap nicely on small screens.
+        <span class="time">10:18 AM</span>
+        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="chat-input">
+    <input type="text" id="messageInput" placeholder="Type a message... 👍"/>
+    <button id="sendBtn"><span class="material-icons">send</span></button>
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById('messageInput');
+  const messages = document.getElementById('messages');
+  const sendBtn = document.getElementById('sendBtn');
+
+  sendBtn.addEventListener('click', () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Create sent message
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message-wrapper sent';
+    const message = document.createElement('div');
+    message.className = 'message sent';
+    message.innerHTML = `${text} <span class="time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+                         <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>`;
+    wrapper.appendChild(message);
+    messages.appendChild(wrapper);
+
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+  });
+
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendBtn.click();
+  });
+</script>
+
+</body>
+</html>
