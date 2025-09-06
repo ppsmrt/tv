@@ -22,7 +22,6 @@
 </head>
 <body>
 
-<!-- Header -->
 <header class="flex justify-between items-center px-6 h-20 bg-gray-800 shadow-md">
   <div class="flex items-center gap-2">
     <span class="material-icons text-white text-3xl">live_tv</span>
@@ -196,7 +195,7 @@ function loadAdminRequests() {
     let hasPending = false;
     snap.forEach(childSnap => {
       const r = childSnap.val();
-      if (r.status !== 'pending') return; // only pending
+      if (r.status !== 'pending') return;
       hasPending = true;
 
       const li = document.createElement('div');
@@ -252,10 +251,10 @@ async function approveRequest(requestId, requestData) {
   });
 
   await remove(ref(db, `channelRequests/${requestId}`));
-  console.log('Request moved & removed:', requestId);
+  console.log('Request approved & moved:', requestId);
 }
 
-// Reject request (auto-delete)
+// Reject request: auto-delete
 async function rejectRequest(requestId){
   await remove(ref(db, `channelRequests/${requestId}`));
   console.log('Request rejected & deleted:', requestId);
