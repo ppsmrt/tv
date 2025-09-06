@@ -10,36 +10,180 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body { font-family: 'Baloo 2', cursive; background-color: #111827; color: #fff; margin: 0; min-height: 100vh; }
-  header { height: 64px; display: flex; align-items: center; padding: 0 1.5rem; background: rgba(31,41,55,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.5); justify-content: center; }
-  main { padding: 20px 1rem; max-width: 600px; margin: 0 auto; }
-  input, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; background: #1f2937; color: white; }
-  button:hover { background: #f87171; }
-  img { max-width: 100%; border-radius: 12px; margin-top: 12px; }
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #1f2937, #111827);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  }
+
+  main {
+    padding: 40px 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: linear-gradient(145deg, #1f2937, #111827);
+    padding: 35px 25px;
+    border-radius: 24px;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.6);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 35px rgba(0,0,0,0.7);
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #f87171;
+  }
+
+  p.instruction {
+    font-size: 0.95rem;
+    color: #d1d5db;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .warning {
+    font-size: 0.9rem;
+    color: #f87171;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  input[type="file"] { display: none; }
+
+  .file-label {
+    display: inline-block;
+    padding: 12px 22px;
+    margin-bottom: 15px;
+    background: #374151;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .file-label:hover { background: #f87171; }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border-radius: 14px;
+    border: none;
+    background: #ef4444;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  button:hover {
+    background: #f87171;
+    transform: translateY(-2px);
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 16px;
+    margin-top: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  img.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+
   #toast { position: fixed; bottom: 20px; right: 20px; z-index: 50; }
-  .toast-msg { margin-top: 8px; padding: 10px 16px; border-radius: 8px; font-weight: 600; animation: fadein 0.3s, fadeout 0.3s 3s; }
+  .toast-msg {
+    margin-top: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    animation: fadein 0.3s, fadeout 0.3s 3s;
+  }
+
   @keyframes fadein { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
   @keyframes fadeout { from { opacity:1;} to { opacity:0; transform: translateY(10px);} }
-  .copy-box { display: flex; gap: 8px; margin-top: 12px; }
-  .copy-box input { flex: 1; }
+
+  .copy-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    background: #374151;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .copy-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    background: #1f2937;
+    color: #fff;
+  }
+
+  .copy-box button {
+    width: auto;
+    padding: 10px 16px;
+  }
+
 </style>
 </head>
 <body>
 
 <header>
-  <h1 class="text-2xl font-bold text-red-500">Image Uploader</h1>
+  <h1 class="text-2xl md:text-3xl font-extrabold text-red-500 tracking-wide">Premium Image Uploader</h1>
 </header>
 
 <main>
-  <input type="file" id="image-file" accept="image/*"/>
-  <button id="upload-btn">Upload Image</button>
-  
-  <p id="status" class="text-gray-400 mt-2">No file selected</p>
-  <img id="preview" class="hidden" src="" alt="Preview"/>
-  
-  <div class="copy-box hidden" id="copy-container">
-    <input type="text" id="image-url" readonly/>
-    <button id="copy-btn">Copy URL</button>
+  <div class="card">
+    <h2>Upload Your Images</h2>
+    <p class="instruction">
+      Select any image from your device and click upload. Once uploaded, you'll get a direct link to share anywhere.
+    </p>
+    <p class="warning">
+      ⚠️ Please do not upload any illegal, offensive, or inappropriate content. All uploads are public!
+    </p>
+
+    <label class="file-label" for="image-file">
+      <span class="material-icons align-middle mr-2">image</span>Select Image
+    </label>
+    <input type="file" id="image-file" accept="image/*"/>
+    
+    <button id="upload-btn">Upload Image</button>
+    <p id="status" class="text-gray-400 mt-2">No file selected</p>
+    
+    <img id="preview" src="" alt="Preview"/>
+    
+    <div class="copy-box hidden" id="copy-container">
+      <input type="text" id="image-url" readonly/>
+      <button id="copy-btn">Copy URL</button>
+    </div>
   </div>
 </main>
 
@@ -71,7 +215,7 @@ uploadBtn.addEventListener('click', async () => {
   }
 
   status.textContent = 'Uploading...';
-  preview.classList.add('hidden');
+  preview.classList.remove('show');
   copyContainer.classList.add('hidden');
 
   const formData = new FormData();
@@ -86,7 +230,7 @@ uploadBtn.addEventListener('click', async () => {
     if (data.success) {
       const url = data.data.url;
       preview.src = url;
-      preview.classList.remove('hidden');
+      preview.classList.add('show');
       imageUrlInput.value = url;
       copyContainer.classList.remove('hidden');
       status.textContent = 'Upload successful!';
