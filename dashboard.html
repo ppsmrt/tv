@@ -169,9 +169,16 @@ function loadUserChannels(uid){
   onValue(q, async (snap) => {
     userPending.innerHTML = '';
     userApproved.innerHTML = '';
-    for (const child of snap._node.children.values()) {
-      const c = child.value_;
+
+    if (!snap.exists()) {
+      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+      return;
+    }
+
+    snap.forEach(async (childSnap) => {
+      const c = childSnap.val();
       const userName = await getUserName(c.submittedBy);
+
       const card = document.createElement('div');
       card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
       card.innerHTML = `
@@ -185,9 +192,13 @@ function loadUserChannels(uid){
           ${c.status ? c.status.charAt(0).toUpperCase() + c.status.slice(1) : 'Unknown'}
         </span>
       `;
-      if(c.status === 'pending') userPending.appendChild(card);
-      else if(c.status === 'approved') userApproved.appendChild(card);
-    }
+
+      if (c.status === 'pending') {
+        userPending.appendChild(card);
+      } else if (c.status === 'approved') {
+        userApproved.appendChild(card);
+      }
+    });
   });
 }
 
