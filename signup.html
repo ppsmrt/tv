@@ -144,7 +144,7 @@
   setPersistence(auth, browserLocalPersistence);
 
   onAuthStateChanged(auth, (user) => {
-    if (user) window.location.href = "index.html";
+    if (user) window.location.href = "/";
   });
 
   const signupForm = document.getElementById("signupForm");
@@ -162,7 +162,7 @@
       await set(ref(db, 'users/' + user.uid), { name, email });
 
       alert("Account created successfully!");
-      window.location.href = "signin.html";
+      window.location.href = "signin";
     } catch (error) {
       alert(error.message);
     }
