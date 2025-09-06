@@ -183,3 +183,48 @@ function applyFullscreenStyles() {
 document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
+
+// Get current video info from localStorage
+const videoSrc = localStorage.getItem('selectedVideo');
+const videoTitle = localStorage.getItem('selectedVideoTitle');
+
+// Favorite buttons
+const addFavBtn = document.getElementById('addFav');
+const removeFavBtn = document.getElementById('removeFav');
+
+// Load favorites from localStorage
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+// Update button visibility
+function updateFavButtons() {
+  const isFav = favorites.some(fav => fav.src === videoSrc);
+  if(isFav){
+    addFavBtn.classList.add('hidden');
+    removeFavBtn.classList.remove('hidden');
+  } else {
+    addFavBtn.classList.remove('hidden');
+    removeFavBtn.classList.add('hidden');
+  }
+}
+
+updateFavButtons();
+
+// Add to favorites
+addFavBtn.addEventListener('click', () => {
+  const newFav = {
+    title: videoTitle,
+    src: videoSrc,
+    thumb: '', // optional thumbnail
+    category: 'Unknown'
+  };
+  favorites.push(newFav);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavButtons();
+});
+
+// Remove from favorites
+removeFavBtn.addEventListener('click', () => {
+  favorites = favorites.filter(fav => fav.src !== videoSrc);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavButtons();
+});
