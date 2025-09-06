@@ -17,7 +17,7 @@
 <style>
   body {
     font-family: 'Baloo 2', cursive;
-    background-color: #111827;
+    background: linear-gradient(135deg, #111827, #1f2937);
     color: #fff;
     margin: 0;
     height: 100vh;
@@ -35,7 +35,7 @@
     background-color: #1f2937;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px #00000099;
+    box-shadow: 0 15px 40px #000000aa;
   }
 
   /* Header */
@@ -46,12 +46,17 @@
     align-items: center;
     padding: 0 16px;
     background-color: #1f2937;
-    box-shadow: 0 2px 8px #00000066;
+    box-shadow: 0 2px 12px #00000055;
+    position: relative;
     z-index: 10;
   }
   .chat-header .material-icons {
     color: #f87171;
     font-size: 28px;
+    transition: transform 0.2s;
+  }
+  .chat-header .material-icons:hover {
+    transform: scale(1.2);
   }
   .chat-header h1 {
     margin-left: 12px;
@@ -74,6 +79,7 @@
     color: #fff;
   }
 
+  /* Messages */
   .messages-container {
     flex-grow: 1;
     padding: 16px;
@@ -81,6 +87,14 @@
     scroll-behavior: smooth;
     display: flex;
     flex-direction: column;
+  }
+  /* Scrollbar styling */
+  .messages-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  .messages-container::-webkit-scrollbar-thumb {
+    background: #f87171;
+    border-radius: 3px;
   }
 
   .message-wrapper {
@@ -91,6 +105,10 @@
     transform: translateY(20px);
     animation: slideIn 0.3s forwards;
     position: relative;
+    transition: transform 0.2s;
+  }
+  .message-wrapper:hover {
+    transform: translateY(-2px);
   }
 
   .message-wrapper.received {
@@ -107,36 +125,47 @@
     overflow: hidden;
     margin-right: 10px;
     flex-shrink: 0;
-    box-shadow: 0 0 5px #f87171aa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    background-color: #6b7280;
+    color: white;
+    box-shadow: 0 0 8px #f87171aa;
+    transition: box-shadow 0.3s, transform 0.3s;
   }
-
+  .avatar:hover {
+    box-shadow: 0 0 12px #f87171ff;
+    transform: scale(1.1);
+  }
   .avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
   }
 
   .message {
     max-width: 75%;
     padding: 12px 16px;
-    border-radius: 20px;
+    border-radius: 22px;
     word-wrap: break-word;
     position: relative;
     font-size: 14px;
-    line-height: 1.4;
-    box-shadow: 0 4px 10px #00000066;
+    line-height: 1.5;
+    box-shadow: 0 6px 16px #00000088;
+    transition: all 0.3s ease;
   }
-
   .message.received {
     background-color: #374151;
     color: #f9fafb;
-    border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 6px;
   }
-
   .message.sent {
     background: linear-gradient(135deg, #f87171, #f43f5e);
     color: white;
-    border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 6px;
   }
 
   .sender-name {
@@ -157,7 +186,6 @@
     bottom: 4px;
     right: 10px;
   }
-
   .message:hover .time {
     opacity: 1;
   }
@@ -173,15 +201,67 @@
     font-size: 12px;
     cursor: pointer;
   }
-
   .message:hover .message-options {
     display: block;
   }
 
+  /* Reactions */
+  .reactions {
+    display: none;
+    gap: 6px;
+    position: absolute;
+    bottom: -28px;
+    left: 0;
+    background: #374151cc;
+    padding: 4px 8px;
+    border-radius: 16px;
+  }
+  .message:hover .reactions {
+    display: flex;
+  }
+  .reaction {
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+  .reaction:hover {
+    transform: scale(1.3);
+  }
+
+  /* Typing indicator */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #9ca3af;
+    background: #1f2937aa;
+    border-radius: 16px;
+    margin: 0 16px 8px 16px;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.5s;
+  }
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    background: #f87171;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+  }
+  @keyframes fadeIn { from {opacity:0;} to{opacity:1;} }
+
+  /* Input */
   .chat-input {
     flex-shrink: 0;
     display: flex;
-    padding: 12px;
+    padding: 12px 16px;
     border-top: 1px solid #374151;
     gap: 10px;
     background-color: #111827;
@@ -189,13 +269,17 @@
 
   .chat-input input {
     flex-grow: 1;
-    padding: 10px 14px;
+    padding: 10px 16px;
     border-radius: 30px;
     border: 1px solid #374151;
     outline: none;
     background: #1f2937;
     color: #f9fafb;
     font-size: 15px;
+    transition: border 0.2s;
+  }
+  .chat-input input:focus {
+    border-color: #f87171;
   }
 
   .chat-input input::placeholder {
@@ -206,19 +290,22 @@
     background-color: #f87171;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     color: white;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
-    transition: 0.2s;
+    font-size: 20px;
+    transition: all 0.2s ease;
   }
-
   .chat-input button:hover {
     background-color: #f43f5e;
+    transform: scale(1.05);
+  }
+  .chat-input button:active {
+    transform: scale(0.95);
   }
 </style>
 </head>
@@ -236,47 +323,15 @@
   </div>
 
   <!-- Messages -->
-  <div class="messages-container" id="messages">
-    <!-- Demo messages -->
-    <div class="message-wrapper received">
-      <div class="avatar">
-        <img src="https://i.pravatar.cc/36?img=12" alt="Anna Bella">
-      </div>
-      <div class="message received">
-        <div class="sender-name">Anna Bella</div>
-        Hey! Welcome to our premium chat 😎
-        <span class="time">10:15 AM</span>
-        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
-      </div>
-    </div>
+  <div class="messages-container" id="messages"></div>
 
-    <div class="message-wrapper sent">
-      <div class="message sent">
-        Hi Anna! Looks amazing 🚀
-        <span class="time">10:16 AM</span>
-        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
-      </div>
-    </div>
-
-    <div class="message-wrapper received">
-      <div class="avatar">
-        <img src="https://i.pravatar.cc/36?img=13" alt="Marc Stegen">
-      </div>
-      <div class="message received">
-        <div class="sender-name">Marc Stegen</div>
-        You can use emojis 👍🔥 and see timestamps.
-        <span class="time">10:17 AM</span>
-        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
-      </div>
-    </div>
-
-    <div class="message-wrapper sent">
-      <div class="message sent">
-        Perfect! Let's try a longer message to see the bubble effect. This should wrap nicely on small screens.
-        <span class="time">10:18 AM</span>
-        <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
-      </div>
-    </div>
+  <!-- Typing indicator -->
+  <div class="typing-indicator" id="typingIndicator" style="display:none;">
+    <div class="avatar">MS</div>
+    <span>Marc is typing</span>
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
   </div>
 
   <!-- Input -->
@@ -287,31 +342,82 @@
 </div>
 
 <script>
-  const input = document.getElementById('messageInput');
-  const messages = document.getElementById('messages');
-  const sendBtn = document.getElementById('sendBtn');
+const messages = document.getElementById('messages');
+const input = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
+const typingIndicator = document.getElementById('typingIndicator');
 
-  sendBtn.addEventListener('click', () => {
-    const text = input.value.trim();
-    if (!text) return;
+// Demo users
+const users = [
+  {name: 'Anna Bella', img: 'https://i.pravatar.cc/36?img=12', type:'received'},
+  {name: 'Marc Stegen', img: '', type:'received'},
+  {name: 'You', img: '', type:'sent'}
+];
 
-    // Create sent message
-    const wrapper = document.createElement('div');
-    wrapper.className = 'message-wrapper sent';
-    const message = document.createElement('div');
-    message.className = 'message sent';
-    message.innerHTML = `${text} <span class="time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
-                         <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>`;
-    wrapper.appendChild(message);
-    messages.appendChild(wrapper);
+// Add demo messages
+const demoMessages = [
+  {user: users[0], text: "Hey! Welcome to our premium chat 😎"},
+  {user: users[2], text: "Hi Anna! Looks amazing 🚀"},
+  {user: users[1], text: "You can use emojis 👍🔥 and see timestamps."},
+  {user: users[2], text: "Perfect! Let's try a longer message to see the bubble effect. This should wrap nicely on small screens."}
+];
 
-    input.value = '';
-    messages.scrollTop = messages.scrollHeight;
-  });
+demoMessages.forEach(msg => addMessage(msg.user, msg.text));
 
-  input.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendBtn.click();
-  });
+function addMessage(user, text){
+  const wrapper = document.createElement('div');
+  wrapper.className = `message-wrapper ${user.type}`;
+
+  const avatarDiv = document.createElement('div');
+  avatarDiv.className = 'avatar';
+  if(user.img){
+    const img = document.createElement('img');
+    img.src = user.img;
+    img.alt = user.name;
+    avatarDiv.appendChild(img);
+  } else {
+    avatarDiv.textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+  }
+
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${user.type}`;
+  messageDiv.innerHTML = `<div class="sender-name">${user.name}</div>${text}
+    <span class="time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+    <span class="message-options" onclick="alert('Options: Reply, Copy, Delete')">⋮</span>
+    <div class="reactions">
+      <span class="reaction" onclick="alert('Reacted ❤️')">❤️</span>
+      <span class="reaction" onclick="alert('Reacted 👍')">👍</span>
+      <span class="reaction" onclick="alert('Reacted 😮')">😮</span>
+    </div>`;
+
+  if(user.type === 'received') wrapper.appendChild(avatarDiv);
+  wrapper.appendChild(messageDiv);
+  if(user.type === 'sent') wrapper.appendChild(avatarDiv);
+
+  messages.appendChild(wrapper);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// Typing simulation
+function showTyping(user, duration=2000){
+  typingIndicator.style.display = 'flex';
+  setTimeout(()=> {
+    typingIndicator.style.display = 'none';
+  }, duration);
+}
+
+sendBtn.addEventListener('click', () => {
+  const text = input.value.trim();
+  if(!text) return;
+  addMessage(users[2], text);
+  input.value = '';
+  showTyping(users[1]);
+  setTimeout(()=> addMessage(users[1], "Thanks for your message! 😊"), 2200);
+});
+
+input.addEventListener('keypress', e => {
+  if(e.key === 'Enter') sendBtn.click();
+});
 </script>
 
 </body>
