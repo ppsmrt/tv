@@ -255,10 +255,10 @@ async function approveRequest(requestId, requestData) {
   console.log('Request moved & removed:', requestId);
 }
 
-// Reject request
+// Reject request (auto-delete)
 async function rejectRequest(requestId){
-  await update(ref(db, `channelRequests/${requestId}`), { status: 'rejected' });
-  console.log('Request rejected:', requestId);
+  await remove(ref(db, `channelRequests/${requestId}`));
+  console.log('Request rejected & deleted:', requestId);
 }
 </script>
 
