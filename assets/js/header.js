@@ -15,10 +15,10 @@ const formatTitle = (name) => {
   if (name === "player") return "Live Player";
 
   return name
-    .replace(/[-_]/g, " ")              // turn - and _ into spaces
+    .replace(/[-_]/g, " ")
     .split(" ")
     .map(word => {
-      if (word.toLowerCase() === "iptv") return "IPTV"; // special case
+      if (word.toLowerCase() === "iptv") return "IPTV";
       return word.charAt(0).toUpperCase() + word.slice(1);
     })
     .join(" ");
@@ -96,6 +96,14 @@ if (rightIcon) header.appendChild(rightIcon);
 headerContainer.innerHTML = "";
 headerContainer.appendChild(header);
 
+// --- Dynamic channel name for player page ---
+if (pageName === "player") {
+  const channelName = document.getElementById("channelName")?.textContent?.trim();
+  if (channelName) {
+    title.textContent = channelName;
+  }
+}
+
 // --- Firebase notifications badge for home ---
 if (path === "index.html" && notifBadge) {
   const notifRef = ref(db, 'notifications');
@@ -106,3 +114,43 @@ if (path === "index.html" && notifBadge) {
     if (count > 0) notifBadge.textContent = count;
   });
 }
+
+// --- Pull-to-refresh spinner ---
+let startY = 0;
+let isRefreshing = false;
+
+// Spinner element
+const refreshCircle = document.createElement('div');
+refreshCircle.className = 'w-6 h-6 border-2 border-gray-300 border-t-red-500 rounded-full absolute top-3 left-1/2 -translate-x-1/2 -translate-y-10 opacity-0 transition-all';
+header.appendChild(refreshCircle);
+
+document.addEventListener('touchstart', (e) => {
+  if (window.scrollY === 0) startY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchmove', (e) => {
+  const diff = e.touches[0].clientY - startY;
+  if (diff > 50 && !isRefreshing && window.scrollY === 0) {
+    isRefreshing = true;
+    refreshCircle.style.opacity = '1';
+    refreshCircle.style.animation = 'spin 1s linear infinite';
+
+    // let it spin for 1s, fade out, then reload
+    setTimeout(() => {
+      refreshCircle.style.transition = "opacity 0.5s ease";
+      refreshCircle.style.opacity = "0";
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    }, 1000);
+  }
+});
+
+// Spinner animation
+const style = document.createElement('style');
+style.textContent = `
+@keyframes spin {
+  0% { transform: translateX(-50%) translateY(-10px) rotate(0deg);}
+  100% { transform: translateX(-50%) translateY(-10px) rotate(360deg);}
+}`;
+document.head.appendChild(style);
