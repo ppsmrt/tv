@@ -11,7 +11,7 @@
 
 <style>
   html, body { font-family: 'Baloo 2', cursive; background-color: #111827; color: #fff; margin: 0; min-height: 100vh; }
-  header { height: 64px; display: flex; align-items: center; padding: 0 1.5rem; background: rgba(31,41,55,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.5); z-index: 20; }
+  header { height: 64px; display: flex; align-items: center; padding: 0 1.5rem; background: rgba(31,41,55,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.5); z-index: 20; justify-content: space-between; }
   main { padding: 20px 1rem 100px; max-width: 1200px; margin: 0 auto; }
   .hidden { display: none; }
   .channel-card { background: #1f2937; border-radius: 16px; padding:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; }
@@ -23,45 +23,42 @@
 <body>
 
 <header>
-  <span class="material-icons">live_tv</span>
-  <h1 class="ml-2 text-lg font-bold">Live TV Dashboard</h1> <div class="flex justify-between items-center mb-4 max-w-3xl mx-auto">
-  <p id="welcome-msg" class="text-lg font-semibold"></p>
-  <button id="logout-btn" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition-colors">Logout</button>
-</div>
+  <div class="flex items-center gap-2">
+    <span class="material-icons">live_tv</span>
+    <h1 class="ml-2 text-lg font-bold">Live TV Dashboard</h1>
+  </div>
+  <div class="flex items-center gap-4">
+    <p id="welcome-msg" class="text-lg font-semibold"></p>
+    <button id="logout-btn" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition-colors">Logout</button>
+  </div>
 </header>
 
 <main>
-  <p id="welcome-msg" class="mb-4 text-lg"></p>
-
   <!-- User Section -->
-<div id="user-section" class="hidden space-y-8">
+  <div id="user-section" class="hidden space-y-8">
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg max-w-lg mx-auto space-y-4">
+      <h2 class="text-2xl font-bold text-red-500">Submit a Channel</h2>
+      <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
+      <input type="text" id="channel-icon" placeholder="Channel Icon URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
+      <input type="text" id="channel-url" placeholder="Stream URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
+      <select id="channel-category" class="w-full p-3 rounded-lg bg-gray-700 text-white">
+        <option value="News">News</option>
+        <option value="Music">Music</option>
+        <option value="Entertainment">Entertainment</option>
+      </select>
+      <button onclick="submitChannel()" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg">Submit Channel</button>
+    </div>
 
-  <!-- Submission Card -->
-  <div class="bg-gray-800 p-6 rounded-xl shadow-lg max-w-lg mx-auto space-y-4">
-    <h2 class="text-2xl font-bold text-red-500">Submit a Channel</h2>
-    <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500"/>
-    <input type="text" id="channel-icon" placeholder="Channel Icon URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500"/>
-    <input type="text" id="channel-url" placeholder="Stream URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500"/>
-    <select id="channel-category" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500">
-      <option value="News">News</option>
-      <option value="Music">Music</option>
-      <option value="Entertainment">Entertainment</option>
-    </select>
-    <button onclick="submitChannel()" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition-colors duration-300 shadow-md">Submit Channel</button>
-  </div>
+    <div class="space-y-2 max-w-3xl mx-auto">
+      <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
+      <div id="user-pending" class="space-y-3"></div>
+    </div>
 
-  <!-- Pending Requests -->
-  <div class="space-y-2 max-w-3xl mx-auto">
-    <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
-    <div id="user-pending" class="space-y-3"></div>
+    <div class="space-y-2 max-w-3xl mx-auto">
+      <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
+      <div id="user-approved" class="space-y-3"></div>
+    </div>
   </div>
-
-  <!-- Approved Channels -->
-  <div class="space-y-2 max-w-3xl mx-auto">
-    <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
-    <div id="user-approved" class="space-y-3"></div>
-  </div>
-</div>
 
   <!-- Admin Section -->
   <div id="admin-section" class="hidden space-y-6">
@@ -97,6 +94,7 @@ const userPending = document.getElementById('user-pending');
 const userApproved = document.getElementById('user-approved');
 const adminRequestsList = document.getElementById('admin-requests');
 
+// Auth listener
 auth.onAuthStateChanged(async user => {
   if(!user){ alert('Please log in'); window.location.href='login.html'; return; }
   welcomeMsg.textContent = `Welcome, ${user.email}`;
@@ -147,12 +145,10 @@ function loadUserChannels(uid){
   db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid).on('value', snap => {
     userPending.innerHTML = '';
     userApproved.innerHTML = '';
-
     snap.forEach(child => {
       const c = child.val();
       const card = document.createElement('div');
       card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-
       card.innerHTML = `
         <img src="${c.icon}" alt="${c.name}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
         <div class="flex-1">
@@ -163,25 +159,17 @@ function loadUserChannels(uid){
           ${c.status.charAt(0).toUpperCase() + c.status.slice(1)}
         </span>
       `;
-
       if(c.status === 'pending') userPending.appendChild(card);
       else if(c.status === 'approved') userApproved.appendChild(card);
     });
   });
 }
 
-// Logout Button
-const logoutBtn = document.getElementById('logout-btn');
-logoutBtn.addEventListener('click', () => {
+// ================= Logout =================
+document.getElementById('logout-btn').addEventListener('click', () => {
   auth.signOut()
-    .then(() => {
-      // Redirect to home page
-      window.location.href = '/';
-    })
-    .catch(error => {
-      console.error("Logout Error:", error);
-      alert("Error logging out. Please try again.");
-    });
+    .then(() => { window.location.href = '/'; })
+    .catch(error => { console.error("Logout Error:", error); alert("Error logging out."); });
 });
 
 // ================= Admin Functions =================
@@ -189,29 +177,20 @@ function loadAdminRequests() {
   const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
 
   requestsRef.on('value', snap => {
-    console.log('--- Admin Requests Debug ---');
-
+    console.log('--- Admin Requests Debug ---', snap.val());
     if (!snap.exists()) {
-      console.log('No pending requests found in the database.');
       adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
       return;
     }
-
-    const requests = snap.val();
-    console.log('Snapshot exists! Raw data:', requests);
-
-    const keys = Object.keys(requests || {});
-    console.log('Number of pending requests:', keys.length);
 
     adminRequestsList.innerHTML = '';
 
     snap.forEach(child => {
       const r = child.val();
-      console.log('Processing request:', child.key, r); // Debug each request
+      console.log('Processing request:', child.key, r);
 
       const li = document.createElement('div');
       li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-
       li.innerHTML = `
         <div class="flex items-center gap-4">
           <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
@@ -223,9 +202,7 @@ function loadAdminRequests() {
         </div>
       `;
 
-      const btns = document.createElement('div');
-      btns.className = 'flex gap-2';
-      
+      const btns = document.createElement('div'); btns.className = 'flex gap-2';
       const approve = document.createElement('button');
       approve.textContent = 'Approve';
       approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
@@ -236,16 +213,45 @@ function loadAdminRequests() {
       reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
       reject.onclick = () => rejectRequest(child.key);
 
-      btns.appendChild(approve);
-      btns.appendChild(reject);
+      btns.appendChild(approve); btns.appendChild(reject);
       li.appendChild(btns);
 
       adminRequestsList.appendChild(li);
     });
-
-    console.log('Finished rendering admin pending requests.');
   });
 }
+
+// Approve request and move to channels
+function approveRequest(requestId, requestData) {
+  const adminId = auth.currentUser.uid;
+  console.log('Approving request:', requestId, requestData);
+
+  if (!requestData) return console.error('No request data!');
+
+  db.ref(`channelRequests/${requestId}`).update({ status: 'approved' })
+    .then(() => {
+      const newChannelRef = db.ref('channels').push();
+      newChannelRef.set({
+        name: requestData.name || 'Unnamed Channel',
+        icon: requestData.icon || '',
+        category: requestData.category || 'Uncategorized',
+        stream: requestData.url || '',
+        createdBy: requestData.submittedBy || 'unknown',
+        approvedBy: adminId,
+        approvedAt: Date.now()
+      }).then(() => {
+        console.log('Channel added to global channels:', newChannelRef.key);
+      }).catch(err => console.error('Error adding to channels:', err));
+    }).catch(err => console.error('Error updating request status:', err));
+}
+
+// Reject request
+function rejectRequest(requestId){
+  db.ref(`channelRequests/${requestId}`).update({ status: 'rejected' })
+    .then(()=>console.log('Request rejected:', requestId))
+    .catch(err => console.error('Error rejecting request:', err));
+}
 </script>
+
 </body>
 </html>
