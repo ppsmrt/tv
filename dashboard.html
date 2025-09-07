@@ -141,31 +141,15 @@
 <body>
 
 <!-- Header -->
-<header class="flex items-center justify-between px-6 py-4 bg-gray-900 shadow-md">
-  
-  <!-- Left Section -->
-  <div class="flex items-center space-x-2 text-white">
-    <span class="material-icons text-2xl">play_circle_filled</span>
-    <h1 class="text-xl font-bold">Dashboard</h1>
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
+  <div class="flex items-center">
+    <span class="material-icons">account_circle</span>
+    <h1 class="ml-2 text-lg font-bold text-white">Dashboard</h1>
   </div>
-  
-  <!-- Right Section -->
-  <div class="flex items-center space-x-5">
-    
-    <!-- Back Button -->
-    <button onclick="window.history.back()" 
-      class="flex items-center gap-1 text-gray-300 hover:text-white transition">
-      <span class="material-icons text-lg">arrow_back</span>
-      <span class="text-sm font-medium">Back</span>
-    </button>
-    
-    <!-- Logout -->
-    <span id="logout-btn" 
-      class="material-icons text-white text-2xl cursor-pointer hover:text-red-500 transition" 
-      title="Logout">
-      logout
-    </span>
-  </div>
+  <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+    <span class="material-icons">arrow_back</span>
+    <span class="font-semibold">Back</span>
+  </button>
 </header>
 
 <!-- Premium Glass Notification -->
