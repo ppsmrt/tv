@@ -143,13 +143,6 @@
     <div id="admin-requests" class="space-y-4 max-w-4xl mx-auto"></div>
   </div>
 
-  <!-- Public Channels -->
-  <div class="space-y-4 max-w-4xl mx-auto mt-10">
-    <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">All Channels</h3>
-    <div id="public-channels" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-  </div>
-</main>
-
 <!-- Toast -->
 <div id="toast-container" class="fixed bottom-6 right-6 flex flex-col gap-3 z-50"></div>
 
@@ -311,30 +304,6 @@
         `;
         if (status === 'pending') userPending.appendChild(card);
         else if (status === 'approved') userApproved.appendChild(card);
-      });
-    });
-  }
-
-  // Load public channels
-  function loadPublicChannels() {
-    const publicChannels = document.getElementById('public-channels');
-    db.ref('channels').on('value', snap => {
-      publicChannels.innerHTML = '';
-      if (!snap.exists()) {
-        publicChannels.innerHTML = '<p class="text-gray-400 text-center py-4">No channels available</p>';
-        return;
-      }
-      snap.forEach(child => {
-        const c = child.val();
-        const card = document.createElement('div');
-        card.className = 'bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all';
-        card.innerHTML = `
-          <img src="${c.icon}" class="w-full h-40 object-cover rounded-lg mb-3"/>
-          <h4 class="font-semibold text-white text-lg">${c.name}</h4>
-          <p class="text-gray-400">${c.category}</p>
-          <a href="${c.url}" target="_blank" class="text-red-400 font-bold hover:underline block mt-2">Watch Now</a>
-        `;
-        publicChannels.appendChild(card);
       });
     });
   }
