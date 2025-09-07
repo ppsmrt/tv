@@ -22,7 +22,7 @@
     margin: 0;
     min-height: 100vh;
   }
-  header {
+   header {
     height: 64px;
     display: flex;
     align-items: center;
@@ -30,7 +30,7 @@
     background: rgba(31,41,55,0.9);
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 20;
-    justify-content: space-between;
+    width: 100%;
   }
   main {
     padding: 20px 1rem 100px;
@@ -141,15 +141,21 @@
 <body>
 
 <!-- Header -->
-<header>
-  <div class="flex items-center gap-2">
-    <span class="material-icons text-white text-3xl">live_tv</span>
-    <h1 class="text-xl font-bold text-white">Live TV Dashboard</h1>
+<header class="flex items-center justify-between">
+  <div class="flex items-center">
+    <span class="material-icons">playlve_tv</span>
+    <h1 class="ml-2 text-lg font-bold">Dashboard</h1>
   </div>
-  <span id="logout-btn" class="material-icons text-white text-2xl cursor-pointer hover:text-red-500" title="Logout">
+  <button onclick="window.history.back()" 
+    class="flex items-center gap-1 text-gray-300 hover:text-white transition">
+    <span class="material-icons">arrow_back</span>
+    <span class="text-sm font-medium">Back</span>
+  </button>
+<span id="logout-btn" class="material-icons text-white text-2xl cursor-pointer hover:text-red-500" title="Logout">
     logout
   </span>
 </header>
+
 
 <!-- Premium Glass Notification -->
 <div class="flex items-center space-x-3 px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl shadow-lg text-yellow-50 animate-fade-in">
