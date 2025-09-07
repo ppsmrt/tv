@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV - Stream Live</title>
+<title>Live TV - Channels & Requests</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -36,63 +36,6 @@
     max-width: 1200px;
     margin: 0 auto;
   }
-  .search-container {
-    display: flex;
-    align-items: center;
-    background: rgba(31, 41, 55, 0.85);
-    border-radius: 9999px;
-    padding: 10px 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.3s ease, background 0.3s ease;
-  }
-  .search-container:focus-within {
-    background: rgba(55, 65, 81, 0.9);
-    box-shadow: 0 0 12px rgba(248, 113, 113, 0.6);
-  }
-  .search-container .material-icons {
-    color: #f87171;
-    font-size: 22px;
-    margin-right: 8px;
-  }
-  .search-container input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #f9fafb;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-  .search-container input::placeholder { color: #9ca3af; }
-  .category-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .category-bar::-webkit-scrollbar { display: none; }
-  .category-btn {
-    flex-shrink: 0;
-    padding: 8px 20px;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #d1d5db;
-    background: #1f2937;
-    cursor: pointer;
-    transition: 0.3s;
-    white-space: nowrap;
-    border: none;
-  }
-  .category-btn:hover { background: #f87171; color: white; }
-  .category-btn.active {
-    background: #f87171;
-    color: white;
-    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
-  }
   .channels-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -106,39 +49,21 @@
     flex-direction: column;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
-    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .channel-card.show { transform: translateY(0); opacity: 1; }
-  .channel-card:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4); }
-  .channel-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid #374151; transition: filter 0.3s ease; }
-  .channel-card:hover .channel-image { filter: brightness(1.1); }
-  .channel-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .channel-card:hover .channel-overlay { opacity: 1; }
+  .channel-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4); }
+  .channel-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid #374151; }
   .channel-name {
     padding: 12px 8px;
     font-weight: 700;
     font-size: 1rem;
     text-align: center;
+    color: #f9fafb;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #f9fafb;
   }
+  .section-title { font-size: 1.5rem; font-weight: 700; margin: 20px 0 12px; }
   @media(max-width:640px){
     .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
     .channel-name { font-size: 0.95rem; }
@@ -153,17 +78,12 @@
 </header>
 
 <main>
-  <div class="search-container">
-    <span class="material-icons">search</span>
-    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
-  </div>
+  <h2 class="section-title">Approved Channels</h2>
+  <section class="channels-grid" id="channelsGrid"></section>
 
-  <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
-
-  <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
+  <h2 class="section-title">Approved Channel Requests</h2>
+  <section class="channels-grid" id="requestsGrid"></section>
 </main>
-
-<div id="footer"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -183,95 +103,45 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const grid = document.getElementById('channelsGrid');
-const categoryBar = document.getElementById('categoryBar');
-const searchInput = document.getElementById('searchInput');
+const channelsGrid = document.getElementById('channelsGrid');
+const requestsGrid = document.getElementById('requestsGrid');
 
-let selectedCategory = 'All';
-let channels = [];
-
-function createChannelCard(c) {
+function createCard(item, isRequest=false){
   const a = document.createElement('a');
-  const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'));
-  a.href = `player?stream=${safeName}`;
+  const safeName = encodeURIComponent(item.name.toLowerCase().replace(/\s+/g,'-'));
+  a.href = item.stream || item.url || '#';
   a.className = 'channel-card';
-  a.setAttribute('aria-label', `Watch ${c.name}`);
+  a.setAttribute('target','_blank');
+  a.setAttribute('aria-label', `Watch ${item.name}`);
 
   const img = document.createElement('img');
-  img.src = c.icon || 'https://via.placeholder.com/320x180?text=No+Image';
-  img.alt = c.name + ' logo';
+  img.src = item.icon || 'https://via.placeholder.com/320x180?text=No+Image';
+  img.alt = item.name + ' logo';
   img.className = 'channel-image';
-
-  const overlay = document.createElement('div');
-  overlay.className = 'channel-overlay';
-  overlay.textContent = '▶ Watch';
 
   const nameDiv = document.createElement('div');
   nameDiv.className = 'channel-name';
-  nameDiv.textContent = c.name;
+  nameDiv.textContent = item.name + (isRequest ? ' (Request)' : '');
 
   a.appendChild(img);
-  a.appendChild(overlay);
   a.appendChild(nameDiv);
   return a;
 }
 
-function renderCategories() {
-  const categories = ['All', ...new Set(channels.map(c => c.category))];
-  categories.sort();
-  categoryBar.innerHTML = '';
-  categories.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = `category-btn ${cat === selectedCategory ? 'active' : ''}`;
-    btn.dataset.category = cat;
-    btn.textContent = cat;
-    btn.setAttribute('aria-pressed', cat === selectedCategory ? 'true' : 'false');
-    btn.addEventListener('click', () => {
-      selectedCategory = cat;
-      renderCategories();
-      renderChannels(searchInput.value);
-    });
-    categoryBar.appendChild(btn);
-  });
-}
-
-function renderChannels(filter = '') {
-  grid.innerHTML = '';
-  const filtered = channels.filter(c => {
-    const matchCat = selectedCategory === 'All' || c.category === selectedCategory;
-    const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
-    return matchCat && matchSearch;
-  });
-
-  filtered.sort((a,b) => a.name.localeCompare(b.name));
-
-  if(filtered.length === 0){
-    grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
-    return;
-  }
-
-  filtered.forEach((c,i)=>{
-    const card = createChannelCard(c);
-    grid.appendChild(card);
-    setTimeout(()=>card.classList.add('show'), i*100);
-  });
-}
-
-searchInput.addEventListener('input', e => renderChannels(e.target.value));
-
-// Fetch channels from Firebase
+// Fetch channels
 const channelsRef = ref(db,'channels');
 onValue(channelsRef, snapshot => {
   const data = snapshot.exists() ? Object.values(snapshot.val()) : [];
-  console.log('Fetched channels:', data); // Debug log
-  channels = data.map(c => ({
-    name: c.name || 'No Name',
-    category: c.category || 'Uncategorized',
-    icon: c.icon || '',
-    stream: c.stream || ''
-  }));
-  renderCategories();
-  renderChannels(searchInput.value);
+  channelsGrid.innerHTML = '';
+  data.forEach(c => channelsGrid.appendChild(createCard(c)));
+});
+
+// Fetch approved channelRequests
+const requestsRef = ref(db,'channelRequests');
+onValue(requestsRef, snapshot => {
+  const data = snapshot.exists() ? Object.values(snapshot.val()) : [];
+  requestsGrid.innerHTML = '';
+  data.filter(r => r.status === 'approved').forEach(r => requestsGrid.appendChild(createCard(r,true)));
 });
 </script>
 
