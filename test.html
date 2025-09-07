@@ -94,6 +94,47 @@
   .file-input::file-selector-button:hover {
     background: #ef4444;
   }
+/* Admin card hover effect */
+  #admin-requests .channel-card {
+    background: rgba(31, 41, 55, 0.85);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+
+  #admin-requests .channel-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  }
+
+  /* Buttons inside admin cards */
+  #admin-requests button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  #admin-requests .approve-btn {
+    background-color: #22c55e;
+  }
+  #admin-requests .approve-btn:hover {
+    background-color: #16a34a;
+    transform: translateY(-2px);
+  }
+  #admin-requests .reject-btn {
+    background-color: #ef4444;
+  }
+  #admin-requests .reject-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+  }
+
 
 </style>
 </head>
@@ -161,11 +202,21 @@
 </div>
 
   <!-- Admin Section -->
-  <div id="admin-section" class="hidden space-y-6">
-    <h2 class="text-xl font-semibold">Pending Channel Requests</h2>
-    <div id="admin-requests" class="space-y-3"></div>
+  <!-- Admin Section -->
+<div id="admin-section" class="hidden space-y-8">
+
+  <!-- Section Header -->
+  <div class="max-w-4xl mx-auto flex items-center justify-between bg-gray-800/90 backdrop-blur-sm p-5 rounded-2xl shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-extrabold text-red-500 tracking-wide">Pending Channel Requests</h2>
+    <span class="material-icons text-white text-3xl cursor-pointer hover:text-red-400" title="Refresh" onclick="loadAdminRequests()">refresh</span>
   </div>
-</main>
+
+  <!-- Requests List -->
+  <div id="admin-requests" class="space-y-4 max-w-4xl mx-auto">
+    <!-- Cards will be dynamically injected here via JS -->
+  </div>
+</div>
+
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
