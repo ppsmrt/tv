@@ -366,9 +366,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load user channels
   function loadUserChannels(uid) {
-    // Ensure these exist in your HTML
-    const userPending = document.getElementById('userPending');
-    const userApproved = document.getElementById('userApproved');
+    const userPending = document.getElementById('user-pending');
+    const userApproved = document.getElementById('user-approved');
 
     if (!userPending || !userApproved) {
         console.error("DOM elements for user channels not found!");
@@ -391,14 +390,12 @@ document.addEventListener('DOMContentLoaded', () => {
             items.push({ id: childSnap.key, ...childSnap.val() });
         });
 
-        // Sort by timestamp (missing timestamp treated as 0)
+        // Sort by timestamp
         items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
 
         items.forEach(c => {
             const status = (c.status || 'pending').toLowerCase().trim();
-
-            // Only handle pending and approved
-            if (status !== 'pending' && status !== 'approved') return;
+            if (status !== 'pending' && status !== 'approved') return; // ignore others
 
             const card = document.createElement('div');
             card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
@@ -411,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <span class="px-2 py-1 rounded-xl text-sm ${
                     status === 'approved' ? 'bg-green-500' : 'bg-yellow-500'
-                }">${c.status || 'pending'}</span>
+                }">${status}</span>
             `;
 
             if (status === 'pending') userPending.appendChild(card);
