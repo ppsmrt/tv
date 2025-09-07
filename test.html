@@ -311,7 +311,62 @@ async function submitChannel(){
   }
 }
 
-// Load User Channels function loadUserChannels(uid){ db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid).on('value', snap => { userPending.innerHTML = ''; userApproved.innerHTML = ''; snap.forEach(child => { const c = child.val(); const card = document.createElement('div'); card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg'; card.innerHTML = `  <img src="${c.icon}" alt="${c.name}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>   <div class="flex-1">   <h4 class="font-semibold text-white">${c.name}</h4>   <p class="text-gray-300">${c.category}</p>   </div>   <span class="px-3 py-1 rounded-full text-sm font-semibold ${c.status === 'pending' ? 'bg-yellow-500 text-gray-900' : 'bg-green-500 text-white'}">   ${c.status.charAt(0).toUpperCase() + c.status.slice(1)}   </span>  `; if(c.status === 'pending') userPending.appendChild(card); else if(c.status === 'approved') userApproved.appendChild(card); }); }); }
+const lastStatuses = new Map(); // requestId -> lastStatus
+
+function loadUserChannels(uid){
+  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
+  onValue(
+    q,
+    async (snap) => {
+      userPending.innerHTML = '';
+      userApproved.innerHTML = '';
+
+      if (!snap.exists()) {
+        userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+        return;
+      }
+
+      // Build arrays to maintain deterministic order (by timestamp ascending)
+      const items = [];
+      snap.forEach(childSnap => {
+        const c = childSnap.val();
+        items.push({ id: childSnap.key, ...c });
+      });
+      items.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
+
+      for (const c of items) {
+        const userName = await getUserName(c.submittedBy);
+        // Realtime status toast
+        const prev = lastStatuses.get(c.id);
+        if (prev && prev !== c.status) {
+          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
+          if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
+        }
+        lastStatuses.set(c.id, c.status);
+
+        const card = document.createElement('div');
+        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+        card.innerHTML = `
+          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+          <div class="flex-1">
+            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
+          </div>
+          ${statusPill(c.status)}
+        `;
+        if (c.status === 'pending') userPending.appendChild(card);
+        if (c.status === 'approved') userApproved.appendChild(card);
+        // (Optional) if you want to show rejected items in user view, add another section.
+      }
+    },
+    (error) => {
+      console.error("loadUserChannels onValue error:", error);
+      showToast(error?.code || "Read failed (user). Check rules.", "error");
+    }
+  );
+}
+
 
 // Logout
 document.getElementById('logout-btn').addEventListener('click', () => {
