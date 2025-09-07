@@ -156,25 +156,27 @@
   </span>
 </header>
 
-
 <!-- Premium Glass Notification -->
-<div class="flex items-center space-x-3 px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl shadow-lg text-yellow-50 animate-fade-in">
-  <!-- Notification Icon -->
-  <span class="material-icons text-yellow-400 text-2xl">notifications</span>
+<div class="fixed top-4 right-4 flex items-center space-x-3 px-5 py-3 bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl text-yellow-50 animate-slide-in z-50">
+  <!-- Icon with Glow -->
+  <span class="material-icons text-yellow-400 text-3xl drop-shadow-lg">notifications</span>
   
-  <!-- Notification Message -->
-  <p class="font-semibold text-yellow-50">Image Upload has been enabled</p>
+  <!-- Message -->
+  <div>
+    <p class="font-bold text-yellow-50 text-lg">Image Upload Enabled</p>
+    <p class="text-sm text-yellow-100 opacity-90">You can now upload images</p>
+  </div>
 </div>
 
-<!-- Optional Tailwind Animation -->
+<!-- Animation -->
 <style>
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
+  @keyframes slideIn {
+    0% { opacity: 0; transform: translateY(-20px) translateX(20px); }
+    100% { opacity: 1; transform: translateY(0) translateX(0); }
   }
 
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+  .animate-slide-in {
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
 
