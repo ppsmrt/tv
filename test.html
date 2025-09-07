@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV - Channels & Requests</title>
+<title>Live TV - Stream Live</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -22,6 +22,7 @@
     margin: 0;
     min-height: 100vh;
   }
+
   header {
     height: 64px;
     display: flex;
@@ -31,119 +32,136 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 20;
   }
+
   main {
-    padding: 20px 1rem 100px;
+    padding: 20px 1rem 100px; /* changed bottom padding from 0 to 100px */
     max-width: 1200px;
     margin: 0 auto;
-  }
-  .channels-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-  }
-  .channel-card {
-    background: #1f2937;
-    border-radius: 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .channel-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4); }
-  .channel-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid #374151; }
-  .channel-name {
-    padding: 12px 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    text-align: center;
-    color: #f9fafb;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .section-title { font-size: 1.5rem; font-weight: 700; margin: 20px 0 12px; }
-  @media(max-width:640px){
-    .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
-    .channel-name { font-size: 0.95rem; }
-  }
+  }  
 </style>
 </head>
-<body>
 
+<body class="bg-gray-900 text-white">
+
+<!-- Header -->
 <header>
   <span class="material-icons">live_tv</span>
-  <h1 class="ml-2 text-lg font-bold">Live TV</h1>
+  <h1 class="ml-2 text-lg font-bold">Live Tv</h1>
 </header>
 
-<main>
-  <h2 class="section-title">Approved Channels</h2>
-  <section class="channels-grid" id="channelsGrid"></section>
+<main> 
+  <!-- User Section -->
+  <div id="user-section" class="hidden space-y-8">
+    
+    <!-- Submit Channel Card -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto space-y-6">
+      <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
+      
+      <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
+      <input type="text" id="channel-icon" placeholder="Channel Logo URL" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
+      <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
+      
+      <select id="channel-category" class="w-full p-4 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
+        <option value="Tamil">Tamil</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Malayalam">Malayalam</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Kids">Kids</option>
+        <option value="Sports">Sports</option>
+      </select>
+      
+      <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg shadow-md transition transform hover:scale-105">Submit Channel</button>
+      
+      <p class="text-xs text-gray-400 text-center">
+        Tip: use imgbb.com for uploading images.
+      </p>
+    </div>
 
-  <h2 class="section-title">Approved Channel Requests</h2>
-  <section class="channels-grid" id="requestsGrid"></section>
-</main>
+   <!-- Pending Requests -->
+  <div class="space-y-4 max-w-3xl mx-auto">
+  <h3 class="text-2xl font-bold border-b border-gray-700 pb-3 text-red-500">Pending Requests</h3>
+  <div id="user-pending" class="space-y-3 bg-gray-800 p-5 rounded-xl shadow-lg"></div>
+  </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    <!-- Approved Channels -->
+  <div class="space-y-4 max-w-3xl mx-auto">
+  <h3 class="text-2xl font-bold border-b border-gray-700 pb-3 text-green-500">Approved Channels</h3>
+  <div id="user-approved" class="space-y-3 bg-gray-800 p-5 rounded-xl shadow-lg"></div>
+  </div>
+  </div>
+  </main>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
+  <!-- Toast container -->
+<div id="toast" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 max-w-sm"></div>
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+<script>
+  // Function to show a toast
+  function showToast(message, type = 'info', duration = 3000) {
+    const toastContainer = document.getElementById('toast');
 
-const channelsGrid = document.getElementById('channelsGrid');
-const requestsGrid = document.getElementById('requestsGrid');
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `
+      flex items-center space-x-3 p-4 rounded-lg shadow-lg
+      text-white font-medium transform transition-all duration-300
+      ${type === 'success' ? 'bg-green-500' : ''}
+      ${type === 'error' ? 'bg-red-500' : ''}
+      ${type === 'info' ? 'bg-blue-500' : ''}
+      opacity-0 translate-x-10
+    `;
 
-function createCard(item, isRequest=false){
-  const a = document.createElement('a');
-  const safeName = encodeURIComponent(item.name.toLowerCase().replace(/\s+/g,'-'));
-  a.href = item.stream || item.url || '#';
-  a.className = 'channel-card';
-  a.setAttribute('target','_blank');
-  a.setAttribute('aria-label', `Watch ${item.name}`);
+    // Message text
+    const msg = document.createElement('span');
+    msg.innerText = message;
+    toast.appendChild(msg);
 
-  const img = document.createElement('img');
-  img.src = item.icon || 'https://via.placeholder.com/320x180?text=No+Image';
-  img.alt = item.name + ' logo';
-  img.className = 'channel-image';
+    // Append to container
+    toastContainer.appendChild(toast);
 
-  const nameDiv = document.createElement('div');
-  nameDiv.className = 'channel-name';
-  nameDiv.textContent = item.name + (isRequest ? ' (Request)' : '');
+    // Trigger animation in
+    requestAnimationFrame(() => {
+      toast.classList.remove('opacity-0', 'translate-x-10');
+      toast.classList.add('opacity-100', 'translate-x-0');
+    });
 
-  a.appendChild(img);
-  a.appendChild(nameDiv);
-  return a;
-}
+    // Auto remove after duration
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-x-10');
+      toast.addEventListener('transitionend', () => toast.remove());
+    }, duration);
+  }
 
-// Fetch channels
-const channelsRef = ref(db,'channels');
-onValue(channelsRef, snapshot => {
-  const data = snapshot.exists() ? Object.values(snapshot.val()) : [];
-  channelsGrid.innerHTML = '';
-  data.forEach(c => channelsGrid.appendChild(createCard(c)));
-});
-
-// Fetch approved channelRequests
-const requestsRef = ref(db,'channelRequests');
-onValue(requestsRef, snapshot => {
-  const data = snapshot.exists() ? Object.values(snapshot.val()) : [];
-  requestsGrid.innerHTML = '';
-  data.filter(r => r.status === 'approved').forEach(r => requestsGrid.appendChild(createCard(r,true)));
-});
+  // Example usage:
+  // showToast('Channel added successfully!', 'success');
+  // showToast('Error adding channel.', 'error');
 </script>
+
+
+ <!-- Admin Section -->
+<div id="admin-section" class="hidden space-y-6 max-w-4xl mx-auto">
+  
+  <!-- Header -->
+  <div class="flex items-center justify-between bg-gray-800 p-4 rounded-xl shadow-md">
+    <h2 class="text-2xl font-bold text-red-500">Pending Channel Requests</h2>
+    <span id="admin-hint" class="text-sm text-gray-400 italic">Manage all incoming requests</span>
+  </div>
+  
+  <!-- Requests Container -->
+  <div id="admin-requests" class="space-y-3 bg-gray-900 p-5 rounded-xl shadow-inner">
+    <!-- Individual request cards will be appended here dynamically -->
+  </div>
+</div>
+
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<!-- JS Files -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+
+
 
 </body>
 </html>
