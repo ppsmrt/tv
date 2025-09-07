@@ -308,76 +308,93 @@
     });
   }
 
-  // Admin functions
-  window.loadAdminRequests = function () {
-    const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
-    requestsRef.on('value', snap => {
-      adminRequestsList.innerHTML = '';
-      if (!snap.exists()) {
-        adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-        return;
-      }
-      snap.forEach(child => {
-        const r = child.val();
-        const li = document.createElement('div');
-        li.className = 'channel-card';
-        li.innerHTML = `
-          <div class="flex items-center gap-4">
-            <img src="${r.icon}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-            <div>
-              <h4 class="font-semibold text-white">${r.name}</h4>
-              <p class="text-gray-300">${r.category}</p>
-            </div>
+ // Admin functions
+window.loadAdminRequests = function () {
+  const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
+  requestsRef.on('value', snap => {
+    adminRequestsList.innerHTML = '';
+    if (!snap.exists()) {
+      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
+      return;
+    }
+    snap.forEach(child => {
+      const r = child.val();
+      const li = document.createElement('div');
+      li.className = 'channel-card flex flex-col md:flex-row items-start md:items-center justify-between gap-4';
+      
+      // Editable card
+      li.innerHTML = `
+        <div class="flex items-center gap-4 flex-1">
+          <img src="${r.icon}" class="w-16 h-16 rounded-lg object-cover border border-gray-600" id="icon-preview-${child.key}"/>
+          <div class="flex-1 flex flex-col gap-2">
+            <input type="text" class="input-field" value="${r.name}" id="name-${child.key}" placeholder="Channel Name" />
+            <input type="text" class="input-field" value="${r.url}" id="url-${child.key}" placeholder="Stream URL" />
+            <select id="category-${child.key}" class="input-field">
+              <option ${r.category === 'News' ? 'selected' : ''}>News</option>
+              <option ${r.category === 'Music' ? 'selected' : ''}>Music</option>
+              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Entertainment</option>
+            </select>
+            <input type="file" class="file-input mt-2" id="icon-file-${child.key}" accept="image/*" />
           </div>
-        `;
-        const btns = document.createElement('div');
-        btns.className = 'flex gap-2';
-        const approve = document.createElement('button');
-        approve.textContent = 'Approve';
-        approve.className = 'bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600';
-        approve.onclick = () => approveRequest(child.key, r);
-        const reject = document.createElement('button');
-        reject.textContent = 'Reject';
-        reject.className = 'bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600';
-        reject.onclick = () => rejectRequest(child.key);
-        btns.appendChild(approve);
-        btns.appendChild(reject);
-        li.appendChild(btns);
-        adminRequestsList.appendChild(li);
-      });
+        </div>
+      `;
+
+      const btns = document.createElement('div');
+      btns.className = 'flex gap-2 mt-4 md:mt-0';
+      const approve = document.createElement('button');
+      approve.textContent = 'Approve';
+      approve.className = 'bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600';
+      approve.onclick = () => approveRequest(child.key, r);
+      const reject = document.createElement('button');
+      reject.textContent = 'Reject';
+      reject.className = 'bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600';
+      reject.onclick = () => rejectRequest(child.key);
+      btns.appendChild(approve);
+      btns.appendChild(reject);
+      li.appendChild(btns);
+      adminRequestsList.appendChild(li);
     });
-  };
+  });
+};
 
-  // Approve: move to channels then delete request
-  async function approveRequest(id, channelData) {
-    try {
-      const newChannelRef = db.ref('channels').push();
-      await newChannelRef.set({
-        name: channelData.name,
-        icon: channelData.icon,
-        url: channelData.url,
-        category: channelData.category,
-        createdBy: channelData.submittedBy,
-        createdAt: Date.now()
-      });
-      await db.ref(`channelRequests/${id}`).remove();
-      showToast(`${channelData.name} approved and added!`, 'success');
-    } catch (err) {
-      console.error(err);
-      showToast("Error approving: " + err, 'error');
-    }
-  }
+// Approve: move to channels then delete request
+async function approveRequest(id, channelData) {
+  try {
+    // Get edited values
+    const editedName = document.getElementById(`name-${id}`).value.trim() || channelData.name;
+    const editedUrl = document.getElementById(`url-${id}`).value.trim() || channelData.url;
+    const editedCategory = document.getElementById(`category-${id}`).value || channelData.category;
+    const iconFileInput = document.getElementById(`icon-file-${id}`);
 
-  // Reject: delete request
-  async function rejectRequest(requestId) {
-    try {
-      await db.ref(`channelRequests/${requestId}`).remove();
-      showToast("Request deleted successfully.", "success");
-    } catch (err) {
-      console.error(err);
-      showToast("Error deleting: " + err, "error");
+    let iconUrl = channelData.icon;
+
+    // If new icon uploaded, upload it
+    if (iconFileInput.files.length > 0) {
+      const file = iconFileInput.files[0];
+      iconUrl = await uploadToImgBB(file); // use existing ImgBB upload function
+      document.getElementById(`icon-preview-${id}`).src = iconUrl;
     }
+
+    // Push to channels
+    const newChannelRef = db.ref('channels').push();
+    await newChannelRef.set({
+      name: editedName,
+      icon: iconUrl,
+      url: editedUrl,
+      category: editedCategory,
+      createdBy: channelData.submittedBy,
+      createdAt: Date.now()
+    });
+
+    // Remove request
+    await db.ref(`channelRequests/${id}`).remove();
+    showToast(`${editedName} approved and added!`, 'success');
+
+  } catch (err) {
+    console.error(err);
+    showToast("Error approving: " + err, 'error');
   }
+}
 
   // Logout
   document.getElementById('logout-btn').addEventListener('click', async () => {
