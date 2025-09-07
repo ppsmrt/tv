@@ -81,11 +81,11 @@ http://rasinetworks.in:1935/rasihollywood/rasihollywood.stream_aac/index.m3u8
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-malayalam-24x7/index.m3u8
 #EXTINF:-1 tvg-name="News 24x7" group-title="Tamil" tvg-logo="https://i.ibb.co/jPCxck1J/news24x7tamil.jpg",News 24x7
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/index.m3u8
-#EXTINF:-1 tvg-name="News Bird" group-title="Telugu" tvg-logo="https://i.ibb.co/jZ8gXp5s/20250907-175126.jpg",News Bird
+#EXTINF:-1 tvg-name="News Bird" group-title="Hindi" tvg-logo="https://i.ibb.co/jZ8gXp5s/20250907-175126.jpg",News Bird
 https://amigofx.com:1936/newsbird/newsbird/playlist.m3u8
-#EXTINF:-1 tvg-name="S News" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/snews.png",S News
+#EXTINF:-1 tvg-name="S News" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/snews.png",S News
 https://amigofx.com:1936/SChannel/SChannel/playlist.m3u8
-#EXTINF:-1 tvg-name="Rangmanch" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
+#EXTINF:-1 tvg-name="Rangmanch" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
 https://amigofx.com:1936/rangmanch/rangmanch/playlist.m3u8
 #EXTINF:-1 tvg-name="PCN HD" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/pcnhd.png",PCN HD
 https://amigofx.com:1936/pcnhd/pcnhd/playlist.m3u8
@@ -97,25 +97,23 @@ http://198.144.149.206:8080/NOTV/KANCHIMEDIA/tracks-v1a1/mono.ts.m3u8?token=GTR
 https://galaxyott.live/hls/sanaplus.m3u8
 #EXTINF:-1 tvg-name="Sana Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/353wVfZ6/sanatv.png",Sana Tv
 https://galaxyott.live/hls/sanatv.m3u8
-#EXTINF:-1 tvg-name="Vidarbha Tv" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/vidarbhatv.png",Vidarbha Tv
+#EXTINF:-1 tvg-name="Vidarbha Tv" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/vidarbhatv.png",Vidarbha Tv
 https://amigofx.com:1936/vidarbhatv/vidarbhatv/playlist.m3u8
 #EXTINF:-1 tvg-name="Keerthana TV" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/keerthanatv.png",Keerthana TV
 https://amigofx.com:1936/KeerthanaTv/KeerthanaTv/playlist.m3u8
-#EXTINF:-1 tvg-name="Lodr Budhha Tv" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/lordbuddhatv.png",Lodr Budhha Tv
+#EXTINF:-1 tvg-name="Lodr Budhha Tv" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/lordbuddhatv.png",Lodr Budhha Tv
 https://amigofx.com:1936/lordbuddhatv/lordbuddhatv/playlist.m3u8
-#EXTINF:-1 tvg-name="Nimbark Tv" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/nimbark.png",Nimbark Tv
+#EXTINF:-1 tvg-name="Nimbark Tv" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/nimbark.png",Nimbark Tv
 https://legitpro.co.in/nimbarktv/nimbarktvbox/index.m3u8
-#EXTINF:-1 tvg-name="Rophe Tv Goa" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/rophetvgoa.png",Rophe Tv Goa
+#EXTINF:-1 tvg-name="Rophe Tv Goa" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/rophetvgoa.png",Rophe Tv Goa
 https://amigofx.com:1936/rophetvgoa/rophetvgoa/playlist.m3u8
-#EXTINF:-1 tvg-name="Rophe Tv" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/rophetvms.png",Rophe Tv
+#EXTINF:-1 tvg-name="Rophe Tv" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/rophetvms.png",Rophe Tv
 https://amigofx.com:1936/ROPHETV/ROPHETV/playlist.m3u8
-#EXTINF:-1 tvg-name="S Bhakthi" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/sbhakti.png",S Bhakthi
+#EXTINF:-1 tvg-name="S Bhakthi" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/sbhakti.png",S Bhakthi
 https://amigofx.com:1936/SBhakti/SBhakti/playlist.m3u8
-#EXTINF:-1 tvg-name="Hitz Entertainment" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/hitzentertainment.png",Hitz Entertainment
+#EXTINF:-1 tvg-name="Hitz Entertainment" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/hitzentertainment.png",Hitz Entertainment
 https://amigofx.com:1936/hitzentertainment/hitzentertainment/playlist.m3u8
-#EXTINF:-1 tvg-name="PCN HD" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/pcnhd.png",PCN HD
-https://amigofx.com:1936/pcnhd/pcnhd/playlist.m3u8
-#EXTINF:-1 tvg-name="Rangmanch" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
+#EXTINF:-1 tvg-name="Rangmanch" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
 https://amigofx.com:1936/rangmanch/rangmanch/playlist.m3u8
 #EXTINF:-1 tvg-name="S Marathi" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/smarathi.png",S Marathi
 https://amigofx.com:1936/SMarathi/SMarathi/playlist.m3u8
@@ -123,7 +121,7 @@ https://amigofx.com:1936/SMarathi/SMarathi/playlist.m3u8
 https://amigofx.com:1936/bstvorissa/bstvorissa/playlist.m3u8
 #EXTINF:-1 tvg-name="Focus Tripura" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/focustripuratv.png",Focus Tripura
 https://amigofx.com:1936/focustripura/focustripura/playlist.m3u8
-#EXTINF:-1 tvg-name="BigStar Movie" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/bigstar.png",BigStar Movie
+#EXTINF:-1 tvg-name="BigStar Movie" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/bigstar.png",BigStar Movie
 https://amigofx.com:1936/bigstarmovie/bigstarmovie/playlist.m3u8
 #EXTINF:-1 tvg-name="CCC HD" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/ccchd.png",CCC HD
 https://amigofx.com:1936/ccchd/ccchd/playlist.m3u8
