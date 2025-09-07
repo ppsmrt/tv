@@ -249,46 +249,45 @@
   }
 
   // Submit channel
-  window.submitChannel = async function () {
-    const name = document.getElementById('channel-name').value.trim();
-    const url = document.getElementById('channel-url').value.trim();
-    const category = document.getElementById('channel-category').value;
-    const fileInput = document.getElementById('channel-icon-file');
-    const statusText = document.getElementById('upload-status');
-    const user = auth.currentUser;
+window.submitChannel = async function () {
+  const name = document.getElementById('channel-name').value.trim();
+  const url = document.getElementById('channel-url').value.trim();
+  const category = document.getElementById('channel-category').value;
+  const fileInput = document.getElementById('channel-icon-file');
+  const statusText = document.getElementById('upload-status');
+  const user = auth.currentUser;
 
-    if (!user) return showToast("User not signed in", "error");
-    if (!name || !url || fileInput.files.length === 0) return showToast("Fill all fields and upload image", "error");
+  if (!user) return showToast("User not signed in", "error");
+  if (!name || !url || fileInput.files.length === 0) return showToast("Fill all fields and upload image", "error");
 
-    try {
-      statusText.textContent = "Uploading image...";
-      const iconUrl = await uploadToImgBB(fileInput.files[0]);
-      statusText.textContent = "Image uploaded ✔";
+  try {
+    statusText.textContent = "Uploading image...";
+    const iconUrl = await uploadToImgBB(fileInput.files[0]);
+    statusText.textContent = "Image uploaded ✔";
 
-      const requestId = db.ref('channelRequests').push().key;
-      await db.ref(`channelRequests/${requestId}`).set({
-        name,
-        icon: iconUrl,
-        url,
-        category,
-        submittedBy: user.uid,
-        submittedByName: user.displayName || user.email,
-        status: 'pending',
-        timestamp: Date.now()
-      });
+    const requestId = db.ref('channelRequests').push().key;
+    await db.ref(`channelRequests/${requestId}`).set({
+      name,
+      icon: iconUrl,
+      stream: url,                     // <-- changed from url to stream
+      category,
+      submittedByName: user.displayName || user.email, // store only name/email
+      status: 'pending',
+      timestamp: Date.now()
+    });
 
-      showToast('Channel request submitted', 'success');
-      document.getElementById('channel-name').value = '';
-      document.getElementById('channel-url').value = '';
-      fileInput.value = '';
-      statusText.textContent = '';
-      loadUserChannels(user.uid);
-    } catch (err) {
-      console.error(err);
-      statusText.textContent = "Upload failed ❌";
-      showToast("Failed to upload image", "error");
-    }
-  };
+    showToast('Channel request submitted', 'success');
+    document.getElementById('channel-name').value = '';
+    document.getElementById('channel-url').value = '';
+    fileInput.value = '';
+    statusText.textContent = '';
+    loadUserChannels(user.uid);
+  } catch (err) {
+    console.error(err);
+    statusText.textContent = "Upload failed ❌";
+    showToast("Failed to upload image", "error");
+  }
+};
 
   // Load user channels
   function loadUserChannels(uid) {
