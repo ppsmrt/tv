@@ -228,259 +228,244 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
+document.addEventListener('DOMContentLoaded', () => {
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
 
-const userSection = document.getElementById('user-section');
-const adminSection = document.getElementById('admin-section');
-const welcomeMsg = document.getElementById('welcome-msg');
-const userPending = document.getElementById('user-pending');
-const userApproved = document.getElementById('user-approved');
-const adminRequestsList = document.getElementById('admin-requests');
+  // Elements
+  const userSection = document.getElementById('user-section');
+  const adminSection = document.getElementById('admin-section');
+  const welcomeMsg = document.getElementById('welcome-msg');
+  const userPending = document.getElementById('user-pending');
+  const userApproved = document.getElementById('user-approved');
+  const adminRequestsList = document.getElementById('admin-requests');
 
-// Auth Listener
-auth.onAuthStateChanged(async user => {
-  if (!user) {
-    alert('Please log in'); 
-    window.location.href = 'login.html'; 
-    return; 
+  // Toast container
+  let toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.className = 'fixed bottom-6 right-6 flex flex-col gap-3 z-50';
+    document.body.appendChild(toastContainer);
   }
 
-  welcomeMsg.textContent = `Welcome, ${user.displayName || user.email}`;
-
-  const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap => snap.exists());
-  if (isAdmin) {
-    adminSection.classList.remove('hidden');
-    loadAdminRequests();
-  } else {
-    userSection.classList.remove('hidden');
-    loadUserChannels(user.uid);
-  }
-});
-
-// Upload to ImgBB
-async function uploadToImgBB(file) {
-  const formData = new FormData();
-  formData.append("image", file);
-  const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", { method: "POST", body: formData });
-  const data = await res.json();
-  if (data.success) return data.data.url;
-  throw new Error("Image upload failed");
-}
-
-// Submit Channel
-async function submitChannel() {
-  const name = document.getElementById('channel-name').value.trim();
-  const url = document.getElementById('channel-url').value.trim();
-  const category = document.getElementById('channel-category').value;
-  const fileInput = document.getElementById('channel-icon-file');
-  const statusText = document.getElementById('upload-status');
-  const user = auth.currentUser;
-
-  if (!name || !url || fileInput.files.length === 0) {
-    alert('Please fill all fields and upload an image'); 
-    return;
-  }
-
-  try {
-    statusText.textContent = "Uploading image...";
-    const iconUrl = await uploadToImgBB(fileInput.files[0]);
-    statusText.textContent = "Image uploaded ✔";
-
-    const requestId = db.ref('channelRequests').push().key;
-    await db.ref(`channelRequests/${requestId}`).set({
-      name,
-      icon: iconUrl,
-      url,
-      category,
-      submittedBy: user.uid,
-      submittedByName: user.displayName || user.email,
-      status: 'pending',
-      timestamp: Date.now()
+  function showToast(message, type = "info") {
+    const toast = document.createElement('div');
+    toast.className = `
+      flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-white transition-all duration-300 transform
+      opacity-0 translate-x-10
+      ${type === "success" ? "bg-green-500" :
+        type === "error" ? "bg-red-500" :
+        "bg-gray-700"}
+    `;
+    const icon = document.createElement('span');
+    icon.className = 'material-icons';
+    icon.textContent = type === "success" ? 'check_circle' : type === "error" ? 'error' : 'info';
+    toast.appendChild(icon);
+    const msg = document.createElement('span');
+    msg.textContent = message;
+    toast.appendChild(msg);
+    toastContainer.appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(0)';
     });
-
-    alert('Channel request submitted');
-    document.getElementById('channel-name').value = '';
-    document.getElementById('channel-url').value = '';
-    fileInput.value = '';
-    statusText.textContent = '';
-    loadUserChannels(user.uid);
-  } catch (err) {
-    console.error(err); 
-    statusText.textContent = "Upload failed ❌"; 
-    alert("Failed to upload image.");
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(50px)';
+      toast.addEventListener('transitionend', () => toast.remove());
+    }, 3000);
   }
-}
 
-// Load User Channels
-function loadUserChannels(uid) {
-  const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
-  q.on('value', snap => {
-    userPending.innerHTML = '';
-    userApproved.innerHTML = '';
-    if (!snap.exists()) {
-      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+  // Auth listener
+  auth.onAuthStateChanged(async user => {
+    if (!user) {
+      showToast('Please log in', 'error');
+      setTimeout(() => window.location.href = 'login.html', 1000);
       return;
     }
 
-    const items = [];
-    snap.forEach(childSnap => items.push({ id: childSnap.key, ...childSnap.val() }));
-    items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+    welcomeMsg.textContent = `Welcome, ${user.displayName || user.email}`;
 
-    items.forEach(c => {
-      const card = document.createElement('div');
-      card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-      card.innerHTML = `
-        <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-        <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-          <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-          <span class="text-sm text-gray-400">Submitted by: ${c.submittedByName || c.submittedBy}</span>
-        </div>
-        <span class="px-2 py-1 rounded-xl text-sm ${c.status === 'approved' ? 'bg-green-500' : c.status === 'rejected' ? 'bg-red-500' : 'bg-yellow-500'}">${c.status}</span>
-      `;
-
-      if (c.status === 'pending') userPending.appendChild(card);
-      if (c.status === 'approved') userApproved.appendChild(card);
-    });
+    const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap => snap.exists());
+    if (isAdmin) {
+      adminSection.classList.remove('hidden');
+      loadAdminRequests();
+    } else {
+      userSection.classList.remove('hidden');
+      loadUserChannels(user.uid);
+    }
   });
-}
 
-// Logout
-document.getElementById('logout-btn').addEventListener('click', () => {
-  auth.signOut().then(() => window.location.href = '/').catch(e => alert("Error logging out."));
-});
-
-// Admin Functions
-function loadAdminRequests() {
-  const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
-  requestsRef.on('value', snap => {
-    adminRequestsList.innerHTML = '';
-    if (!snap.exists()) {
-      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-      return;
+  // Upload to ImgBB
+  async function uploadToImgBB(file) {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success) return data.data.url;
+      throw new Error("Image upload failed");
+    } catch (err) {
+      console.error(err);
+      throw new Error("ImgBB upload failed");
     }
+  }
 
-    snap.forEach(child => {
-      const r = child.val();
-      const li = document.createElement('div');
-      li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg';
-      li.innerHTML = `
-        <div class="flex items-center gap-4">
-          <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-          <div>
-            <h4 class="font-semibold text-white">${r.name}</h4>
-            <p class="text-gray-300">${r.category}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${r.submittedByName || r.submittedBy}</span>
+  // Submit channel
+  window.submitChannel = async function () {
+    const name = document.getElementById('channel-name').value.trim();
+    const url = document.getElementById('channel-url').value.trim();
+    const category = document.getElementById('channel-category').value;
+    const fileInput = document.getElementById('channel-icon-file');
+    const statusText = document.getElementById('upload-status');
+    const user = auth.currentUser;
+
+    if (!user) return showToast("User not signed in", "error");
+    if (!name || !url || fileInput.files.length === 0) return showToast("Fill all fields and upload image", "error");
+
+    try {
+      statusText.textContent = "Uploading image...";
+      const iconUrl = await uploadToImgBB(fileInput.files[0]);
+      statusText.textContent = "Image uploaded ✔";
+
+      const requestId = db.ref('channelRequests').push().key;
+      await db.ref(`channelRequests/${requestId}`).set({
+        name,
+        icon: iconUrl,
+        url,
+        category,
+        submittedBy: user.uid,
+        submittedByName: user.displayName || user.email,
+        status: 'pending',
+        timestamp: Date.now()
+      });
+
+      showToast('Channel request submitted', 'success');
+      document.getElementById('channel-name').value = '';
+      document.getElementById('channel-url').value = '';
+      fileInput.value = '';
+      statusText.textContent = '';
+      loadUserChannels(user.uid);
+    } catch (err) {
+      console.error(err);
+      statusText.textContent = "Upload failed ❌";
+      showToast("Failed to upload image", "error");
+    }
+  };
+
+  // Load user channels
+  function loadUserChannels(uid) {
+    const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
+    q.on('value', snap => {
+      userPending.innerHTML = '';
+      userApproved.innerHTML = '';
+      if (!snap.exists()) return userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+
+      const items = [];
+      snap.forEach(childSnap => items.push({ id: childSnap.key, ...childSnap.val() }));
+      items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+      items.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+        card.innerHTML = `
+          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+          <div class="flex-1">
+            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+            <span class="text-sm text-gray-400">Submitted by: ${c.submittedByName || c.submittedBy}</span>
           </div>
-        </div>
-      `;
-      const btns = document.createElement('div');
-      btns.className = 'flex gap-2';
-      const approve = document.createElement('button');
-      approve.textContent = 'Approve';
-      approve.className = 'approve-btn';
-      approve.onclick = () => approveRequest(child.key, r);
-      const reject = document.createElement('button');
-      reject.textContent = 'Reject';
-      reject.className = 'reject-btn';
-      reject.onclick = () => rejectRequest(child.key);
-      btns.appendChild(approve);
-      btns.appendChild(reject);
-      li.appendChild(btns);
-      adminRequestsList.appendChild(li);
+          <span class="px-2 py-1 rounded-xl text-sm ${c.status === 'approved' ? 'bg-green-500' : c.status === 'rejected' ? 'bg-red-500' : 'bg-yellow-500'}">${c.status}</span>
+        `;
+        if (c.status === 'pending') userPending.appendChild(card);
+        if (c.status === 'approved') userApproved.appendChild(card);
+      });
     });
+  }
+
+  // Logout
+  document.getElementById('logout-btn')?.addEventListener('click', () => {
+    auth.signOut().then(() => window.location.href = '/').catch(e => showToast("Error logging out", "error"));
   });
-}
 
-// Approve Request
-function approveRequest(id, channelData) {
-  db.ref(`channelRequests/${id}`).update({ status: 'approved' })
-    .then(() => alert(`${channelData.name} approved!`))
-    .catch(err => alert("Error approving: " + err));
-}
+  // Admin functions
+  function loadAdminRequests() {
+    const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
+    requestsRef.on('value', snap => {
+      adminRequestsList.innerHTML = '';
+      if (!snap.exists()) return adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
 
-// Reject Request
-function rejectRequest(requestId) {
-  // 1. Update request status
-  db.ref(`channelRequests/${requestId}`).update({ status: 'rejected' })
-    .then(async () => {
-      // 2. Remove the channel from "channels" if it exists
+      snap.forEach(child => {
+        const r = child.val();
+        const li = document.createElement('div');
+        li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg';
+        li.innerHTML = `
+          <div class="flex items-center gap-4">
+            <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+            <div>
+              <h4 class="font-semibold text-white">${r.name}</h4>
+              <p class="text-gray-300">${r.category}</p>
+              <span class="text-sm text-gray-400">Submitted by: ${r.submittedByName || r.submittedBy}</span>
+            </div>
+          </div>
+        `;
+        const btns = document.createElement('div');
+        btns.className = 'flex gap-2';
+        const approve = document.createElement('button');
+        approve.textContent = 'Approve';
+        approve.className = 'approve-btn';
+        approve.onclick = () => approveRequest(child.key, r);
+        const reject = document.createElement('button');
+        reject.textContent = 'Reject';
+        reject.className = 'reject-btn';
+        reject.onclick = () => rejectRequest(child.key);
+        btns.appendChild(approve);
+        btns.appendChild(reject);
+        li.appendChild(btns);
+        adminRequestsList.appendChild(li);
+      });
+    });
+  }
+
+  // Approve
+  function approveRequest(id, channelData) {
+    db.ref(`channelRequests/${id}`).update({ status: 'approved' })
+      .then(() => showToast(`${channelData.name} approved!`, 'success'))
+      .catch(err => showToast("Error approving: " + err, 'error'));
+  }
+
+  // Reject
+  async function rejectRequest(requestId) {
+    try {
+      await db.ref(`channelRequests/${requestId}`).update({ status: 'rejected' });
       const requestSnap = await db.ref(`channelRequests/${requestId}`).get();
       const requestData = requestSnap.val();
       if (requestData) {
-        // Search channels with matching name & submittedBy
         const channelsSnap = await db.ref('channels').orderByChild('createdBy').equalTo(requestData.submittedBy).get();
         channelsSnap.forEach(channelSnap => {
           const channel = channelSnap.val();
-          if (channel.name === requestData.name) {
-            db.ref(`channels/${channelSnap.key}`).remove();
-          }
+          if (channel.name === requestData.name) db.ref(`channels/${channelSnap.key}`).remove();
         });
       }
-
-      alert("Request rejected and related channel deleted (if existed).");
-    })
-    .catch(err => alert("Error rejecting: " + err));
-}
-
-// Toast container (create once)
-let toastContainer = document.getElementById('toast-container');
-if (!toastContainer) {
-  toastContainer = document.createElement('div');
-  toastContainer.id = 'toast-container';
-  toastContainer.className = 'fixed bottom-6 right-6 flex flex-col gap-3 z-50';
-  document.body.appendChild(toastContainer);
-}
-
-// Toast function with icon and fade
-function showToast(message, type = "info") {
-  const toast = document.createElement('div');
-  toast.className = `
-    flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-white transition-all duration-300 transform
-    opacity-0 translate-x-10
-    ${type === "success" ? "bg-green-500" :
-      type === "error" ? "bg-red-500" :
-      "bg-gray-700"}
-  `;
-
-  // Icon
-  const icon = document.createElement('span');
-  icon.className = 'material-icons';
-  icon.textContent = type === "success" ? 'check_circle' : type === "error" ? 'error' : 'info';
-  toast.appendChild(icon);
-
-  // Message
-  const msg = document.createElement('span');
-  msg.textContent = message;
-  toast.appendChild(msg);
-
-  toastContainer.appendChild(toast);
-
-  // Animate in
-  requestAnimationFrame(() => {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(0)';
-  });
-
-  // Remove after 3s
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(50px)';
-    toast.addEventListener('transitionend', () => toast.remove());
-  }, 3000);
-}
+      showToast("Request rejected and related channel deleted (if existed).", "success");
+    } catch (err) {
+      showToast("Error rejecting: " + err, "error");
+    }
+  }
+});
 </script>
 </body>
 </html>
