@@ -39,7 +39,6 @@
     margin: 0 auto;
   }
 
-  /* Notification card */
   .notification-card {
     display: flex;
     align-items: center;
@@ -79,12 +78,30 @@
     color: #9ca3af;
   }
 
-  .no-notifications {
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
     text-align: center;
-    color: #9ca3af;
-    margin-top: 2rem;
+    animation: fadeIn 0.5s ease-in-out;
   }
-
+  .empty-state .title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f87171;
+    margin-bottom: 1rem;
+  }
+  .empty-state img {
+    max-width: 260px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 </style>
 </head>
 <body>
@@ -101,6 +118,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
@@ -115,20 +133,28 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-
-// Replace with current logged-in user's UID
-const currentUserId = "USER_UID"; 
+const auth = getAuth(app);
 
 const container = document.getElementById('notificationsContainer');
+
+function timeAgo(timestamp) {
+  if (!timestamp) return "";
+  const diff = Math.floor((Date.now() - timestamp) / 1000);
+  if (diff < 60) return `${diff}s ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
+}
 
 function createNotificationCard(notification) {
   const card = document.createElement('div');
   card.className = 'notification-card';
+  card.onclick = () => { if(notification.url) window.open(notification.url, "_blank"); }
 
   const img = document.createElement('img');
   img.className = 'notification-icon';
   img.src = notification.logo || 'https://via.placeholder.com/50';
-  img.alt = notification.name + ' logo';
+  img.alt = (notification.name || "Notification") + ' logo';
 
   const content = document.createElement('div');
   content.className = 'notification-content';
@@ -137,51 +163,78 @@ function createNotificationCard(notification) {
   title.className = 'notification-title';
   title.textContent = notification.message;
 
-  const category = document.createElement('div');
-  category.className = 'notification-category';
-  if(notification.category) category.textContent = 'Category: ' + notification.category;
+  const meta = document.createElement('div');
+  meta.className = 'notification-category';
+  meta.textContent = `${notification.category || ''} ${timeAgo(notification.timestamp)}`;
 
   content.appendChild(title);
-  if(notification.category) content.appendChild(category);
-
+  content.appendChild(meta);
   card.appendChild(img);
   card.appendChild(content);
 
   return card;
 }
 
+function renderEmptyState() {
+  container.innerHTML = `
+    <div class="empty-state">
+      <div class="title" lang="ta">ஒன்னும் இல்லை!</div>
+      <img src="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0032382345023889667523819.jpg" 
+           alt="Cartoon of a man with a mustache wearing a yellow shirt and striped lungi, pulling out his empty pockets to show no money">
+    </div>
+  `;
+}
+
 function renderNotifications(notifications) {
   container.innerHTML = '';
-  if(notifications.length === 0) {
-    container.innerHTML = '<p class="no-notifications">No notifications yet.</p>';
+  if (notifications.length === 0) {
+    renderEmptyState();
     return;
   }
   notifications.forEach(n => container.appendChild(createNotificationCard(n)));
 }
 
-// Listen for notifications
-const notificationsRef = ref(db, 'notifications');
-onValue(notificationsRef, snapshot => {
-  const data = snapshot.val();
-  const notifications = [];
-
-  if(data){
-    Object.values(data).forEach(n => {
-      // Show only approval notifications for this user if user submitted channel
-      if(n.type === 'user_approved' && n.userId !== currentUserId) return;
-
-      // For new channel, show for all
-      notifications.push({
-        name: n.name,
-        logo: n.logo,
-        category: n.category,
-        message: n.type === 'new_channel' ? `New channel added: ${n.name}` :
-                 n.type === 'user_approved' ? `Your channel "${n.name}" is approved` : ''
-      });
-    });
+onAuthStateChanged(auth, user => {
+  if (!user) {
+    container.innerHTML = `<p class="text-center mt-4">Please log in to see notifications</p>`;
+    return;
   }
 
-  renderNotifications(notifications.reverse()); // newest first
+  const notificationsRef = ref(db, 'notifications');
+  const channelsRef = ref(db, 'channels');
+
+  // Listen for channels (latest 5 global notifications)
+  onValue(channelsRef, snapshot => {
+    const channelsData = snapshot.val();
+    let latestChannels = [];
+    if (channelsData) {
+      latestChannels = Object.values(channelsData)
+        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+        .slice(0, 5)
+        .map(c => ({
+          message: `New channel added: ${c.name}`,
+          logo: c.logo,
+          url: c.url || '',
+          timestamp: c.timestamp,
+          category: 'Channel'
+        }));
+    }
+
+    // Listen for other notifications
+    onValue(notificationsRef, snapshot2 => {
+      const notifData = snapshot2.val();
+      let notifications = [];
+      if (notifData) {
+        notifications = Object.values(notifData)
+          .filter(n => !n.userId || n.userId === user.uid)
+          .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+      }
+
+      // Merge latest channels at the top
+      const merged = [...latestChannels, ...notifications];
+      renderNotifications(merged);
+    });
+  });
 });
 </script>
 
