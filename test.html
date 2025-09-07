@@ -311,29 +311,7 @@ async function submitChannel(){
   }
 }
 
-// Load User Channels
-function loadUserChannels(uid){
-  db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid).on('value', snap => {
-    userPending.innerHTML = ''; userApproved.innerHTML = '';
-    snap.forEach(child => {
-      const c = child.val();
-      const card = document.createElement('div');
-      card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg';
-      card.innerHTML = `
-        <img src="${c.icon}" alt="${c.name}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-        <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name}</h4>
-          <p class="text-gray-300">${c.category}</p>
-        </div>
-        <span class="px-3 py-1 rounded-full text-sm font-semibold ${c.status === 'pending' ? 'bg-yellow-500 text-gray-900' : 'bg-green-500 text-white'}">
-          ${c.status.charAt(0).toUpperCase() + c.status.slice(1)}
-        </span>
-      `;
-      if(c.status === 'pending') userPending.appendChild(card);
-      else if(c.status === 'approved') userApproved.appendChild(card);
-    });
-  });
-}
+// Load User Channels function loadUserChannels(uid){ db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid).on('value', snap => { userPending.innerHTML = ''; userApproved.innerHTML = ''; snap.forEach(child => { const c = child.val(); const card = document.createElement('div'); card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg'; card.innerHTML = `  <img src="${c.icon}" alt="${c.name}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>   <div class="flex-1">   <h4 class="font-semibold text-white">${c.name}</h4>   <p class="text-gray-300">${c.category}</p>   </div>   <span class="px-3 py-1 rounded-full text-sm font-semibold ${c.status === 'pending' ? 'bg-yellow-500 text-gray-900' : 'bg-green-500 text-white'}">   ${c.status.charAt(0).toUpperCase() + c.status.slice(1)}   </span>  `; if(c.status === 'pending') userPending.appendChild(card); else if(c.status === 'approved') userApproved.appendChild(card); }); }); }
 
 // Logout
 document.getElementById('logout-btn').addEventListener('click', () => {
@@ -351,6 +329,8 @@ function loadAdminRequests() {
     adminRequestsList.innerHTML = '';
     snap.forEach(child => {
       const r = child.val();
+      const submittedName = r.submittedByName || r.submittedBy; // Use name if available
+
       const li = document.createElement('div');
       li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg';
       li.innerHTML = `
@@ -359,11 +339,12 @@ function loadAdminRequests() {
           <div>
             <h4 class="font-semibold text-white">${r.name}</h4>
             <p class="text-gray-300">${r.category}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${r.submittedBy}</span>
+            <span class="text-sm text-gray-400">Submitted by: ${submittedName}</span>
           </div>
         </div>
       `;
-      const btns = document.createElement('div'); btns.className = 'flex gap-2';
+      const btns = document.createElement('div'); 
+      btns.className = 'flex gap-2';
       const approve = document.createElement('button');
       approve.textContent = 'Approve';
       approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600';
@@ -372,25 +353,12 @@ function loadAdminRequests() {
       reject.textContent = 'Reject';
       reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600';
       reject.onclick = () => rejectRequest(child.key);
-      btns.appendChild(approve); btns.appendChild(reject);
+      btns.appendChild(approve); 
+      btns.appendChild(reject);
       li.appendChild(btns);
       adminRequestsList.appendChild(li);
     });
   });
-}
-function approveRequest(requestId, requestData) {
-  db.ref(`channelRequests/${requestId}`).update({ status: 'approved' })
-    .then(() => {
-      db.ref('channels').push({
-        name: requestData.name, icon: requestData.icon,
-        category: requestData.category, stream: requestData.url,
-        createdBy: requestData.submittedBy, approvedBy: auth.currentUser.uid,
-        approvedAt: Date.now()
-      });
-    });
-}
-function rejectRequest(requestId){
-  db.ref(`channelRequests/${requestId}`).update({ status: 'rejected' });
 }
 </script>
 </body>
