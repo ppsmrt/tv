@@ -293,11 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
   auth.onAuthStateChanged(async user => {
     if (!user) {
       showToast('Please log in', 'error');
-      setTimeout(() => window.location.href = 'login.html', 1000);
+      setTimeout(() => window.location.href = 'signin', 1000);
       return;
     }
-
-    welcomeMsg.textContent = `Welcome, ${user.displayName || user.email}`;
 
     const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap => snap.exists());
     if (isAdmin) {
