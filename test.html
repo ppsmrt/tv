@@ -107,6 +107,7 @@
 <!-- Toast container -->
 <div id="toast" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 max-w-sm"></div>
 
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import { getDatabase, ref, set, get, onValue, push, remove, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
@@ -319,7 +320,7 @@ async function rejectRequest(id){
   try{ await remove(ref(db,`channelRequests/${id}`)); showToast("Channel rejected","error"); }
   catch(e){ console.error(e); showToast("Reject failed","error"); }
 }
+</script>
 </body>
 </html>
 
-<script type="module">
