@@ -162,15 +162,11 @@
   <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
 
-<div id="footer"></div>
-
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -188,10 +184,11 @@ const db = getDatabase(app);
 const grid = document.getElementById('channelsGrid');
 const categoryBar = document.getElementById('categoryBar');
 const searchInput = document.getElementById('searchInput');
-let selectedCategory = 'All';
-let channels = [];
 
-function createChannelCard(c) {
+let channels = [];
+let selectedCategory = 'All';
+
+function createChannelCard(c){
   const a = document.createElement('a');
   const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'));
   a.href = `player?stream=${safeName}`;
@@ -211,21 +208,23 @@ function createChannelCard(c) {
   nameDiv.className = 'channel-name';
   nameDiv.textContent = c.name;
 
-  a.appendChild(img); a.appendChild(overlay); a.appendChild(nameDiv);
+  a.appendChild(img);
+  a.appendChild(overlay);
+  a.appendChild(nameDiv);
+
   return a;
 }
 
-function renderCategories() {
-  const categories = ['All', ...new Set(channels.map(c => c.category))];
-  categories.sort();
+function renderCategories(){
+  const categories = ['All', ...new Set(channels.map(c=>c.category))].sort();
   categoryBar.innerHTML = '';
-  categories.forEach(cat => {
+  categories.forEach(cat=>{
     const btn = document.createElement('button');
-    btn.className = `category-btn ${cat === selectedCategory ? 'active' : ''}`;
-    btn.dataset.category = cat;
+    btn.className = `category-btn ${cat===selectedCategory?'active':''}`;
     btn.textContent = cat;
-    btn.setAttribute('aria-pressed', cat === selectedCategory ? 'true' : 'false');
-    btn.addEventListener('click', () => {
+    btn.dataset.category = cat;
+    btn.setAttribute('aria-pressed', cat===selectedCategory?'true':'false');
+    btn.addEventListener('click', ()=>{
       selectedCategory = cat;
       renderCategories();
       renderChannels(searchInput.value);
@@ -234,21 +233,18 @@ function renderCategories() {
   });
 }
 
-function renderChannels(filter = '') {
+function renderChannels(filter=''){
   grid.innerHTML = '';
-  const filtered = channels.filter(c => {
-    const matchCat = selectedCategory === 'All' || c.category === selectedCategory;
+  const filtered = channels.filter(c=>{
+    const matchCat = selectedCategory==='All' || c.category===selectedCategory;
     const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
     return matchCat && matchSearch;
   });
-
-  filtered.sort((a,b) => a.name.localeCompare(b.name));
-
-  if(filtered.length === 0){
+  filtered.sort((a,b)=>a.name.localeCompare(b.name));
+  if(filtered.length===0){
     grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
     return;
   }
-
   filtered.forEach((c,i)=>{
     const card = createChannelCard(c);
     grid.appendChild(card);
@@ -256,28 +252,40 @@ function renderChannels(filter = '') {
   });
 }
 
-searchInput.addEventListener('input', e => renderChannels(e.target.value));
+searchInput.addEventListener('input', e=>renderChannels(e.target.value));
 
+// Fetch main channels
 const mainRef = ref(db,'channels');
+// Fetch approved requests
 const requestsRef = ref(db,'channelRequests');
 
-onValue(mainRef, snapshot => {
-  const mainChannels = snapshot.exists() ? Object.values(snapshot.val()).map(c=>({
-    name:c.name,
-    category:c.category,
-    logo:c.icon,
-    stream:c.stream
-  })) : [];
+onValue(mainRef, snapshot=>{
+  const data = snapshot.val() || {};
+  const mainChannels = [];
+  for(let key in data){
+    const c = data[key];
+    mainChannels.push({
+      name: c.name || 'No Name',
+      category: c.category || 'General',
+      logo: c.icon || '',
+      stream: c.stream || ''
+    });
+  }
 
-  onValue(requestsRef, reqSnap => {
-    const approvedRequests = reqSnap.exists() ? Object.values(reqSnap.val())
-      .filter(c => c.approvedAt)
-      .map(c=>({
-        name: c.name,
-        category: c.category,
-        logo: c.icon,
-        stream: c.stream
-      })) : [];
+  onValue(requestsRef, reqSnap=>{
+    const reqData = reqSnap.val() || {};
+    const approvedRequests = [];
+    for(let key in reqData){
+      const c = reqData[key];
+      if(c.approvedAt){
+        approvedRequests.push({
+          name: c.name || 'No Name',
+          category: c.category || 'General',
+          logo: c.icon || '',
+          stream: c.stream || ''
+        });
+      }
+    }
 
     channels = [...mainChannels, ...approvedRequests];
     renderCategories();
