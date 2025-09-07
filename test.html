@@ -8,11 +8,6 @@
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-<!-- Baloo 2 Font -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
@@ -23,7 +18,6 @@
     margin: 0;
     min-height: 100vh;
   }
-
   header {
     height: 64px;
     display: flex;
@@ -33,7 +27,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 20;
   }
-
   main {
     padding: 20px 1rem 100px;
     max-width: 1200px;
@@ -120,17 +113,13 @@
     <!-- Pending Requests -->
     <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
       <h3 class="text-lg font-bold text-white mb-3">Pending Requests</h3>
-      <div id="pending-requests" class="space-y-3 max-h-72 overflow-y-auto pr-2">
-        <!-- Pending items will appear here -->
-      </div>
+      <div id="pending-requests" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
     </div>
 
     <!-- Approved Channels -->
     <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
       <h3 class="text-lg font-bold text-white mb-3">Approved Channels</h3>
-      <div id="approved-channels" class="space-y-3 max-h-72 overflow-y-auto pr-2">
-        <!-- Approved channels will appear here -->
-      </div>
+      <div id="approved-channels" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
     </div>
   </div>
 </div>
@@ -142,9 +131,7 @@
 
   <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4">
     <h3 class="text-lg font-bold text-white mb-3">Pending Channel Approvals</h3>
-    <div id="admin-requests" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2">
-      <!-- Admin requests will appear here -->
-    </div>
+    <div id="admin-requests" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2"></div>
   </div>
 </div>
 
@@ -153,6 +140,7 @@
 <!-- Toast container -->
 <div id="toast" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 max-w-sm"></div>
 
+<!-- External JS -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
@@ -174,51 +162,59 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// DOM
+// DOM Elements
 const userSection = document.getElementById('user-section');
 const adminSection = document.getElementById('admin-section');
-const welcomeMsg  = document.getElementById('welcome-msg');
-const userPending = document.getElementById('user-pending');
-const userApproved= document.getElementById('user-approved');
+const welcomeMsg = document.getElementById('welcome-msg');
+const userPending = document.getElementById('pending-requests');
+const userApproved = document.getElementById('approved-channels');
 const adminRequestsList = document.getElementById('admin-requests');
-const adminHint   = document.getElementById('admin-hint');
+const adminHint = document.getElementById('admin-hint');
 const toastContainer = document.getElementById('toast');
-const submitBtn   = document.getElementById('submit-btn');
+const submitBtn = document.getElementById('submit-btn');
 
-// Toast
-function showToast(message, type='info', duration=3000){
+// Toast Notification
+function showToast(message, type = 'info', duration = 3000) {
   const toast = document.createElement('div');
   toast.className = `flex items-center space-x-3 p-4 rounded-lg shadow-lg font-medium
-    ${type==='success'?'bg-green-500': type==='error'?'bg-red-500':'bg-blue-500'} text-white
+    ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white
     opacity-0 translate-x-10 transition-all duration-300`;
   toast.textContent = message;
   toastContainer.appendChild(toast);
-  requestAnimationFrame(() => { toast.classList.remove('opacity-0','translate-x-10'); });
-  setTimeout(() => { toast.classList.add('opacity-0','translate-x-10'); toast.addEventListener('transitionend',()=>toast.remove()); }, duration);
+  requestAnimationFrame(() => {
+    toast.classList.remove('opacity-0', 'translate-x-10');
+  });
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-x-10');
+    toast.addEventListener('transitionend', () => toast.remove());
+  }, duration);
 }
 
 // Helpers
-async function getUserName(uid){
-  if(!uid) return 'Unknown';
-  try{
+async function getUserName(uid) {
+  if (!uid) return 'Unknown';
+  try {
     const snap = await get(ref(db, `users/${uid}/name`));
-    return snap.exists()? snap.val() : uid;
-  } catch(e){ console.error(e); return uid; }
+    return snap.exists() ? snap.val() : uid;
+  } catch (e) {
+    console.error(e);
+    return uid;
+  }
 }
 
-function statusPill(status){
-  if(status==='approved') return '<span class="pill bg-green-500 text-white">Approved</span>';
-  if(status==='pending') return '<span class="pill bg-yellow-500 text-gray-900">Pending</span>';
-  if(status==='rejected') return '<span class="pill bg-red-500 text-white">Rejected</span>';
-  return '<span class="pill bg-gray-500 text-white">Unknown</span>';
+function statusPill(status) {
+  if (status === 'approved') return '<span class="pill bg-green-500 text-white px-2 py-1 rounded">Approved</span>';
+  if (status === 'pending') return '<span class="pill bg-yellow-500 text-gray-900 px-2 py-1 rounded">Pending</span>';
+  if (status === 'rejected') return '<span class="pill bg-red-500 text-white px-2 py-1 rounded">Rejected</span>';
+  return '<span class="pill bg-gray-500 text-white px-2 py-1 rounded">Unknown</span>';
 }
 
 // Auth + Section visibility
 document.addEventListener('DOMContentLoaded', () => {
-  onAuthStateChanged(auth, async (user)=>{
-    if(!user){
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
       showToast("Please log in", "error");
-      window.location.href='signin';
+      window.location.href = 'signin';
       return;
     }
     welcomeMsg.textContent = `Welcome, ${user.email}`;
@@ -227,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const adminSnap = await get(ref(db, `admins/${user.uid}`));
       const isAdmin = adminSnap.exists();
 
-      if(isAdmin){
+      if (isAdmin) {
         adminSection.classList.remove('hidden');
         adminHint.textContent = 'Showing all PENDING requests';
         loadAdminRequests();
@@ -235,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userSection.classList.remove('hidden');
         loadUserChannels(user.uid);
       }
-    } catch(e){
+    } catch (e) {
       console.error(e);
       showToast("Unable to verify admin status", "error");
     }
@@ -243,129 +239,135 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Logout
-document.getElementById('logout-btn').addEventListener('click', ()=>{
-  signOut(auth).then(()=>{ showToast("Logged out","success"); window.location.href='/'; })
-  .catch(e=>{ console.error(e); showToast("Error logging out","error"); });
+document.getElementById('logout-btn').addEventListener('click', () => {
+  signOut(auth).then(() => {
+    showToast("Logged out", "success");
+    window.location.href = '/';
+  })
+  .catch(e => {
+    console.error(e);
+    showToast("Error logging out", "error");
+  });
 });
 
 // Submit Channel
-submitBtn.addEventListener('click', async ()=>{
-  try{
+submitBtn.addEventListener('click', async () => {
+  try {
     const name = document.getElementById('channel-name').value.trim();
     const icon = document.getElementById('channel-icon').value.trim();
-    const url  = document.getElementById('channel-url').value.trim();
+    const url = document.getElementById('channel-url').value.trim();
     const category = document.getElementById('channel-category').value;
     const user = auth.currentUser;
 
-    if(!name || !icon || !url){ showToast("Please fill all fields","error"); return; }
+    if (!name || !icon || !url) {
+      showToast("Please fill all fields", "error");
+      return;
+    }
 
     const reqRef = push(ref(db, 'channelRequests'));
-    await set(reqRef, { name, icon, url, category, submittedBy:user.uid, status:'pending', timestamp:Date.now() });
-    document.getElementById('channel-name').value='';
-    document.getElementById('channel-icon').value='';
-    document.getElementById('channel-url').value='';
-    showToast("Channel request submitted!","success");
-  } catch(e){
-    console.error(e); showToast("Submit failed","error");
+    await set(reqRef, {
+      name,
+      icon,
+      url,
+      category,
+      submittedBy: user.uid,
+      status: 'pending',
+      timestamp: Date.now()
+    });
+
+    document.getElementById('channel-name').value = '';
+    document.getElementById('channel-icon').value = '';
+    document.getElementById('channel-url').value = '';
+    showToast("Channel request submitted!", "success");
+  } catch (e) {
+    console.error(e);
+    showToast("Submit failed", "error");
   }
 });
 
-// User channels
+// Load User Channels
 const lastStatuses = new Map();
-function loadUserChannels(uid){
-  const q = query(ref(db,'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(q, async snap=>{
-    userPending.innerHTML=''; userApproved.innerHTML='';
-    if(!snap.exists()){ userPending.innerHTML='<p class="text-gray-400 text-center py-4">No requests yet</p>'; return; }
+function loadUserChannels(uid) {
+  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
+  onValue(q, async snap => {
+    userPending.innerHTML = '';
+    userApproved.innerHTML = '';
+    if (!snap.exists()) {
+      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No requests yet</p>';
+      return;
+    }
 
-    const items = []; snap.forEach(cs=>items.push({id:cs.key,...cs.val()}));
-    items.sort((a,b)=> (a.timestamp||0)-(b.timestamp||0));
+    const items = [];
+    snap.forEach(cs => items.push({ id: cs.key, ...cs.val() }));
+    items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
 
-    for(const c of items){
+    for (const c of items) {
       const userName = await getUserName(c.submittedBy);
       const prev = lastStatuses.get(c.id);
-      if(prev && prev!==c.status){
-        if(prev==='pending' && c.status==='approved') showToast(`"${c.name}" approved 🎉`,"success");
-        if(prev==='pending' && c.status==='rejected') showToast(`"${c.name}" rejected`,"error");
+      if (prev && prev !== c.status) {
+        if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" approved 🎉`, "success");
+        if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" rejected`, "error");
       }
       lastStatuses.set(c.id, c.status);
 
       const card = document.createElement('div');
-      card.className='flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-      card.innerHTML=`
-        <img src="${c.icon||'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+      card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+      card.innerHTML = `
+        <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
         <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name||'Untitled'}</h4>
-          <p class="text-gray-300">${c.category||'Uncategorized'}</p>
+          <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+          <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
           <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
         </div>
         ${statusPill(c.status)}
       `;
-      if(c.status==='pending') userPending.appendChild(card);
-      if(c.status==='approved') userApproved.appendChild(card);
+      if (c.status === 'pending') userPending.appendChild(card);
+      if (c.status === 'approved') userApproved.appendChild(card);
     }
   });
 }
 
 // Admin requests
-function loadAdminRequests(){
-  const requestsRef = ref(db,'channelRequests');
-  onValue(requestsRef, async snap=>{
-    adminRequestsList.innerHTML='';
-    if(!snap.exists()){ adminRequestsList.innerHTML='<p class="text-gray-400 text-center py-4">No pending requests</p>'; return; }
+function loadAdminRequests() {
+  const requestsRef = ref(db, 'channelRequests');
+  onValue(requestsRef, async snap => {
+    adminRequestsList.innerHTML = '';
+    if (!snap.exists()) {
+      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
+      return;
+    }
 
-    const rows=[]; snap.forEach(cs=>{ const r=cs.val(); if(r.status==='pending') rows.push({id:cs.key,...r}); });
-    rows.sort((a,b)=>(a.timestamp||0)-(b.timestamp||0));
-    if(!rows.length){ adminRequestsList.innerHTML='<p class="text-gray-400 text-center py-4">No pending requests</p>'; return; }
+    const rows = [];
+    snap.forEach(cs => {
+      const r = cs.val();
+      if (r.status === 'pending') rows.push({ id: cs.key, ...r });
+    });
+    rows.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+    if (!rows.length) {
+      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
+      return;
+    }
 
-    for(const r of rows){
+    for (const r of rows) {
       const userName = await getUserName(r.submittedBy);
-      const li=document.createElement('div'); li.className='channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-      li.innerHTML=`
+      const li = document.createElement('div');
+      li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+      li.innerHTML = `
         <div class="flex items-center gap-4">
-          <img src="${r.icon||'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
+          <img src="${r.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
           <div>
-            <h4 class="font-semibold text-white">${r.name||'Untitled Channel'}</h4>
-            <p class="text-gray-300">${r.category||'Uncategorized'}</p>
+            <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
+            <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
             <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
           </div>
         </div>
       `;
-      const btns=document.createElement('div'); btns.className='flex gap-2';
-      const approve=document.createElement('button');
-      approve.textContent='Approve'; approve.className='px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
-      approve.onclick=()=>approveRequest(r.id,r);
-      const reject=document.createElement('button');
-      reject.textContent='Reject'; reject.className='px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
-      reject.onclick=()=>rejectRequest(r.id);
-      btns.appendChild(approve); btns.appendChild(reject);
-      li.appendChild(btns); adminRequestsList.appendChild(li);
-    }
-  });
-}
-
-async function approveRequest(id,data){
-  try{
-    const adminId = auth.currentUser.uid;
-    const newChannelRef = push(ref(db,'channels'));
-    await set(newChannelRef,{
-      name:data.name||'Unnamed',
-      icon:data.icon||'',
-      category:data.category||'Uncategorized',
-      stream:data.url||'',
-      createdBy:data.submittedBy,
-      approvedBy:adminId,
-      approvedAt:Date.now()
-    });
-    await remove(ref(db,`channelRequests/${id}`));
-    showToast("Channel approved","success");
-  }catch(e){ console.error(e); showToast("Approve failed","error"); }
-}
-
-async function rejectRequest(id){
-  try{ await remove(ref(db,`channelRequests/${id}`)); showToast("Channel rejected","error"); }
-  catch(e){ console.error(e); showToast("Reject failed","error"); }
-}
+      const btns = document.createElement('div');
+      btns.className = 'flex gap-2';
+      const approve = document.createElement('button');
+      approve.textContent = 'Approve';
+      approve.className = 'px-3 py-1
 </script>
+
 </body>
 </html>
