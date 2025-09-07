@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Live TV - Stream Live</title>
+<title>Live TV - Dashboard</title>
 
-<!-- Tailwind CSS -->
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<!-- Baloo 2 -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
 
 <style>
@@ -23,366 +27,396 @@
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
-    background: rgba(31, 41, 55, 0.9);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    z-index: 20;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 50;
   }
   main {
     padding: 20px 1rem 100px;
     max-width: 1200px;
     margin: 0 auto;
   }
+  .input-field {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: #1f2937;
+    color: #fff;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .input-field:focus {
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.5);
+    background: #111827;
+  }
+  .file-input::file-selector-button {
+    background: #f87171;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .file-input::file-selector-button:hover {
+    background: #ef4444;
+  }
+  #admin-requests .channel-card {
+    background: rgba(31, 41, 55, 0.85);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+  #admin-requests .channel-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  }
 </style>
 </head>
-
-<body class="bg-gray-900 text-white">
+<body>
 
 <!-- Header -->
-<header>
-  <span class="material-icons">live_tv</span>
-  <h1 class="ml-2 text-lg font-bold">Live Tv</h1>
-  <span id="logout-btn" class="material-icons ml-auto cursor-pointer hover:text-red-500 transition" title="Logout">logout</span>
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 bg-gray-800 bg-opacity-90 backdrop-blur-md shadow-lg">
+  <div class="flex items-center space-x-3">
+    <span class="material-icons text-white text-3xl">account_circle</span>
+    <h1 class="text-xl font-bold text-white">Dashboard</h1>
+  </div>
+  <div>
+    <button id="logout-btn" class="flex items-center space-x-2 text-gray-200 hover:text-red-400 transition">
+      <span class="material-icons text-lg">logout</span>
+      <span class="font-semibold text-sm">Logout</span>
+    </button>
+  </div>
 </header>
 
-<main>
-  <!-- Welcome -->
-  <p id="welcome-msg" class="text-white text-lg mt-4"></p>
-
+<!-- Main Content -->
+<main class="pt-20 px-6">
+  
   <!-- User Section -->
-  <div id="user-section" class="hidden max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
-    <!-- Submit Channel Card -->
-    <div class="relative bg-gray-900/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl max-w-xl mx-auto border border-gray-700 space-y-6">
-      <h2 class="text-4xl font-extrabold text-center text-red-500 tracking-wide">Submit a Channel</h2>
-      <p class="text-gray-400 text-center text-sm">Fill in the details below to add a channel</p>
-
-      <!-- Channel Name -->
-      <div class="relative">
-        <span class="material-icons absolute left-3 top-4 text-gray-400">tv</span>
-        <input type="text" id="channel-name" placeholder=" " 
-          class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
-        <label for="channel-name" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Name</label>
-      </div>
-
-      <!-- Channel Logo URL -->
-      <div class="relative">
-        <span class="material-icons absolute left-3 top-4 text-gray-400">image</span>
-        <input type="text" id="channel-icon" placeholder=" " 
-          class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
-        <label for="channel-icon" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Logo URL</label>
-      </div>
-
-      <!-- Stream URL -->
-      <div class="relative">
-        <span class="material-icons absolute left-3 top-4 text-gray-400">link</span>
-        <input type="text" id="channel-url" placeholder=" " 
-          class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
-        <label for="channel-url" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Stream URL (m3u8)</label>
-      </div>
-
-      <!-- Category Dropdown -->
-      <div class="relative">
-        <span class="material-icons absolute left-3 top-4 text-gray-400">category</span>
-        <select id="channel-category" 
-          class="w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
-          <option value="">Select Category</option>
-          <option value="Tamil">Tamil</option>
-          <option value="Telugu">Telugu</option>
-          <option value="Kannada">Kannada</option>
-          <option value="Malayalam">Malayalam</option>
-          <option value="Hindi">Hindi</option>
-          <option value="Kids">Kids</option>
-          <option value="Sports">Sports</option>
+  <div id="user-section" class="hidden space-y-10">
+    <!-- Submit Channel -->
+    <div class="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 p-8 rounded-3xl shadow-2xl max-w-lg mx-auto space-y-6 transform transition-all duration-300 hover:scale-105">
+      <h2 class="text-3xl font-extrabold text-red-500 text-center tracking-wide">Submit a Channel</h2>
+      <div class="space-y-4">
+        <input type="text" id="channel-name" placeholder="Channel Name" class="input-field" />
+        <div class="flex flex-col">
+          <input type="file" id="channel-icon-file" accept="image/*" class="file-input" />
+          <small id="upload-status" class="text-gray-400 block text-sm mt-1"></small>
+        </div>
+        <input type="text" id="channel-url" placeholder="Stream URL" class="input-field" />
+        <select id="channel-category" class="input-field">
+          <option value="News">News</option>
+          <option value="Music">Music</option>
+          <option value="Entertainment">Entertainment</option>
         </select>
+        <button onclick="submitChannel()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1">Submit Channel</button>
       </div>
-
-      <!-- Submit Button -->
-      <button id="submitBtn" 
-        class="w-full bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-105 hover:shadow-red-500/50 flex items-center justify-center gap-2">
-        <span class="material-icons">send</span> Submit Channel
-      </button>
-
-      <p class="text-xs text-gray-400 text-center">💡 Use <a href="https://imgbb.com" target="_blank" class="text-red-400 hover:underline">imgbb.com</a> to upload images.</p>
     </div>
 
-    <!-- Requests -->
-    <h2 class="text-xl font-semibold text-white mb-4">Your Channel Requests</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
-        <h3 class="text-lg font-bold text-white mb-3">Pending Requests</h3>
-        <div id="pending-requests" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
-      </div>
-      <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
-        <h3 class="text-lg font-bold text-white mb-3">Approved Channels</h3>
-        <div id="approved-channels" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
-      </div>
+    <!-- User Pending -->
+    <div class="space-y-4 max-w-3xl mx-auto">
+      <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
+      <div id="user-pending" class="space-y-3"></div>
+    </div>
+
+    <!-- User Approved -->
+    <div class="space-y-4 max-w-3xl mx-auto">
+      <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
+      <div id="user-approved" class="space-y-3"></div>
     </div>
   </div>
 
   <!-- Admin Section -->
-  <div id="admin-section" class="hidden max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
-    <h2 class="text-xl font-semibold text-white mb-4">Admin Panel</h2>
-    <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4">
-      <h3 class="text-lg font-bold text-white mb-3">Pending Channel Approvals</h3>
-      <div id="admin-requests" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2"></div>
+  <div id="admin-section" class="hidden space-y-8">
+    <div class="max-w-4xl mx-auto flex items-center justify-between bg-gray-800/90 backdrop-blur-sm p-5 rounded-2xl shadow-xl">
+      <h2 class="text-2xl md:text-3xl font-extrabold text-red-500 tracking-wide">Pending Channel Requests</h2>
+      <span class="material-icons text-white text-3xl cursor-pointer hover:text-red-400" title="Refresh" onclick="loadAdminRequests()">refresh</span>
     </div>
+    <div id="admin-requests" class="space-y-4 max-w-4xl mx-auto"></div>
+  </div>
+
+  <!-- Public Channels -->
+  <div class="space-y-4 max-w-4xl mx-auto mt-10">
+    <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">All Channels</h3>
+    <div id="public-channels" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
   </div>
 </main>
 
-<!-- Toast Container -->
-<div id="toast" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 max-w-sm"></div>
+<!-- Toast -->
+<div id="toast-container" class="fixed bottom-6 right-6 flex flex-col gap-3 z-50"></div>
 
-<!-- External JS -->
+<!-- Firebase Scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<!-- Dashboard JS -->
 <script type="module">
-  // Firebase SDK Imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, get, onValue, push, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
-
-// ✅ Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
-
-// ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-// ✅ DOM Elements
-const userSection = document.getElementById('user-section');
-const adminSection = document.getElementById('admin-section');
-const welcomeMsg = document.getElementById('welcome-msg');
-const userPending = document.getElementById('pending-requests');
-const userApproved = document.getElementById('approved-channels');
-const adminRequestsList = document.getElementById('admin-requests');
-const adminHint = document.getElementById('admin-hint');
-const toastContainer = document.getElementById('toast');
-const submitBtn = document.getElementById('submit-btn');
-
-// ✅ Toast Notification
-function showToast(message, type = 'info', duration = 3000) {
-  const toast = document.createElement('div');
-  toast.className = `flex items-center space-x-3 p-4 rounded-lg shadow-lg font-medium
-    ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white
-    opacity-0 translate-x-10 transition-all duration-300`;
-  toast.textContent = message;
-  toastContainer.appendChild(toast);
-  requestAnimationFrame(() => {
-    toast.classList.remove('opacity-0', 'translate-x-10');
-  });
-  setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-x-10');
-    toast.addEventListener('transitionend', () => toast.remove());
-  }, duration);
-}
-
-// ✅ Helpers
-async function getUserName(uid) {
-  if (!uid) return 'Unknown';
-  try {
-    const snap = await get(ref(db, `users/${uid}/name`));
-    return snap.exists() ? snap.val() : uid;
-  } catch (e) {
-    console.error(e);
-    return uid;
-  }
-}
-
-function statusPill(status) {
-  if (status === 'approved') return '<span class="pill bg-green-500 text-white px-2 py-1 rounded">Approved</span>';
-  if (status === 'pending') return '<span class="pill bg-yellow-500 text-gray-900 px-2 py-1 rounded">Pending</span>';
-  if (status === 'rejected') return '<span class="pill bg-red-500 text-white px-2 py-1 rounded">Rejected</span>';
-  return '<span class="pill bg-gray-500 text-white px-2 py-1 rounded">Unknown</span>';
-}
-
-// ✅ Auth + Section visibility
 document.addEventListener('DOMContentLoaded', () => {
-  onAuthStateChanged(auth, async (user) => {
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  const userSection = document.getElementById('user-section');
+  const adminSection = document.getElementById('admin-section');
+  const userPending = document.getElementById('user-pending');
+  const userApproved = document.getElementById('user-approved');
+  const adminRequestsList = document.getElementById('admin-requests');
+
+  function showToast(message, type = "info") {
+    const toast = document.createElement('div');
+    toast.className = `
+      flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-white transition-all duration-300 transform
+      opacity-0 translate-x-10
+      ${type === "success" ? "bg-green-500" :
+        type === "error" ? "bg-red-500" :
+        "bg-gray-700"}
+    `;
+    const icon = document.createElement('span');
+    icon.className = 'material-icons';
+    icon.textContent = type === "success" ? 'check_circle' : type === "error" ? 'error' : 'info';
+    toast.appendChild(icon);
+    const msg = document.createElement('span');
+    msg.textContent = message;
+    toast.appendChild(msg);
+    document.getElementById('toast-container').appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(0)';
+    });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(50px)';
+      toast.addEventListener('transitionend', () => toast.remove());
+    }, 3000);
+  }
+
+  // Auth listener
+  auth.onAuthStateChanged(async user => {
     if (!user) {
-      showToast("Please log in", "error");
-      window.location.href = 'signin';
+      showToast('Please log in', 'error');
+      setTimeout(() => window.location.href = 'signin', 1000);
       return;
     }
-    welcomeMsg.textContent = `Welcome, ${user.email}`;
 
-    try {
-      const adminSnap = await get(ref(db, `admins/${user.uid}`));
-      const isAdmin = adminSnap.exists();
-
-      if (isAdmin) {
-        adminSection.classList.remove('hidden');
-        adminHint.textContent = 'Showing all PENDING requests';
-        loadAdminRequests();
-      } else {
-        userSection.classList.remove('hidden');
-        loadUserChannels(user.uid);
-      }
-    } catch (e) {
-      console.error(e);
-      showToast("Unable to verify admin status", "error");
+    const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap => snap.exists());
+    if (isAdmin) {
+      adminSection.classList.remove('hidden');
+      loadAdminRequests();
+    } else {
+      userSection.classList.remove('hidden');
+      loadUserChannels(user.uid);
     }
+    loadPublicChannels();
   });
-});
 
-// ✅ Logout
-document.getElementById('logout-btn').addEventListener('click', () => {
-  signOut(auth).then(() => {
-    showToast("Logged out", "success");
-    window.location.href = '/';
-  })
-  .catch(e => {
-    console.error(e);
-    showToast("Error logging out", "error");
-  });
-});
+  // Upload image to ImgBB
+  async function uploadToImgBB(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", {
+      method: "POST", body: formData
+    });
+    const data = await res.json();
+    if (data.success) return data.data.url;
+    throw new Error("Image upload failed");
+  }
 
-// ✅ Submit Channel
-submitBtn.addEventListener('click', async () => {
-  try {
+  // Submit channel
+  window.submitChannel = async function () {
     const name = document.getElementById('channel-name').value.trim();
-    const icon = document.getElementById('channel-icon').value.trim();
     const url = document.getElementById('channel-url').value.trim();
     const category = document.getElementById('channel-category').value;
+    const fileInput = document.getElementById('channel-icon-file');
+    const statusText = document.getElementById('upload-status');
     const user = auth.currentUser;
 
-    if (!name || !icon || !url || !category) {
-      showToast("Please fill all fields", "error");
-      return;
+    if (!user) return showToast("User not signed in", "error");
+    if (!name || !url || fileInput.files.length === 0) return showToast("Fill all fields and upload image", "error");
+
+    try {
+      statusText.textContent = "Uploading image...";
+      const iconUrl = await uploadToImgBB(fileInput.files[0]);
+      statusText.textContent = "Image uploaded ✔";
+
+      const requestId = db.ref('channelRequests').push().key;
+      await db.ref(`channelRequests/${requestId}`).set({
+        name,
+        icon: iconUrl,
+        url,
+        category,
+        submittedBy: user.uid,
+        submittedByName: user.displayName || user.email,
+        status: 'pending',
+        timestamp: Date.now()
+      });
+
+      showToast('Channel request submitted', 'success');
+      document.getElementById('channel-name').value = '';
+      document.getElementById('channel-url').value = '';
+      fileInput.value = '';
+      statusText.textContent = '';
+      loadUserChannels(user.uid);
+    } catch (err) {
+      console.error(err);
+      statusText.textContent = "Upload failed ❌";
+      showToast("Failed to upload image", "error");
     }
+  };
 
-    const reqRef = push(ref(db, 'channelRequests'));
-    await set(reqRef, {
-      name,
-      icon,
-      url,
-      category,
-      submittedBy: user.uid,
-      status: 'pending',
-      timestamp: Date.now()
-    });
+  // Load user channels
+  function loadUserChannels(uid) {
+    const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
+    q.on('value', snap => {
+      userPending.innerHTML = '';
+      userApproved.innerHTML = '';
+      if (!snap.exists()) return;
 
-    document.getElementById('channel-name').value = '';
-    document.getElementById('channel-icon').value = '';
-    document.getElementById('channel-url').value = '';
-    document.getElementById('channel-category').value = '';
-    showToast("Channel request submitted!", "success");
-  } catch (e) {
-    console.error(e);
-    showToast("Submit failed", "error");
-  }
-});
+      const items = [];
+      snap.forEach(childSnap => {
+        items.push({ id: childSnap.key, ...childSnap.val() });
+      });
 
-// ✅ Load User Channels
-const lastStatuses = new Map();
-function loadUserChannels(uid) {
-  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(q, async snap => {
-    userPending.innerHTML = '';
-    userApproved.innerHTML = '';
-    if (!snap.exists()) {
-      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No requests yet</p>';
-      return;
-    }
+      items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
 
-    const items = [];
-    snap.forEach(cs => items.push({ id: cs.key, ...cs.val() }));
-    items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
-
-    for (const c of items) {
-      const userName = await getUserName(c.submittedBy);
-      const prev = lastStatuses.get(c.id);
-      if (prev && prev !== c.status) {
-        if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" approved 🎉`, "success");
-        if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" rejected`, "error");
-      }
-      lastStatuses.set(c.id, c.status);
-
-      const card = document.createElement('div');
-      card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-      card.innerHTML = `
-        <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-        <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-          <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-          <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-        </div>
-        ${statusPill(c.status)}
-      `;
-      if (c.status === 'pending') userPending.appendChild(card);
-      if (c.status === 'approved') userApproved.appendChild(card);
-    }
-  });
-}
-
-// ✅ Admin requests
-function loadAdminRequests() {
-  const requestsRef = ref(db, 'channelRequests');
-  onValue(requestsRef, async snap => {
-    adminRequestsList.innerHTML = '';
-    if (!snap.exists()) {
-      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-      return;
-    }
-
-    const rows = [];
-    snap.forEach(cs => {
-      const r = cs.val();
-      if (r.status === 'pending') rows.push({ id: cs.key, ...r });
-    });
-    rows.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
-    if (!rows.length) {
-      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-      return;
-    }
-
-    for (const r of rows) {
-      const userName = await getUserName(r.submittedBy);
-      const li = document.createElement('div');
-      li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-      li.innerHTML = `
-        <div class="flex items-center gap-4">
-          <img src="${r.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
-          <div>
-            <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
-            <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
+      items.forEach(c => {
+        const status = (c.status || 'pending').toLowerCase();
+        const card = document.createElement('div');
+        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+        card.innerHTML = `
+          <img src="${c.icon}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+          <div class="flex-1">
+            <h4 class="font-semibold text-white">${c.name}</h4>
+            <p class="text-gray-300">${c.category}</p>
           </div>
-        </div>
-      `;
-
-      const btns = document.createElement('div');
-      btns.className = 'flex gap-2';
-
-      const approve = document.createElement('button');
-      approve.textContent = 'Approve';
-      approve.className = 'px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm';
-      approve.addEventListener('click', async () => {
-        await set(ref(db, `channelRequests/${r.id}/status`), 'approved');
-        showToast(`Approved "${r.name}"`, 'success');
+          <span class="px-2 py-1 rounded-xl text-sm ${status === 'approved' ? 'bg-green-500' : 'bg-yellow-500'}">${status}</span>
+        `;
+        if (status === 'pending') userPending.appendChild(card);
+        else if (status === 'approved') userApproved.appendChild(card);
       });
+    });
+  }
 
-      const reject = document.createElement('button');
-      reject.textContent = 'Reject';
-      reject.className = 'px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm';
-      reject.addEventListener('click', async () => {
-        await set(ref(db, `channelRequests/${r.id}/status`), 'rejected');
-        showToast(`Rejected "${r.name}"`, 'error');
+  // Load public channels
+  function loadPublicChannels() {
+    const publicChannels = document.getElementById('public-channels');
+    db.ref('channels').on('value', snap => {
+      publicChannels.innerHTML = '';
+      if (!snap.exists()) {
+        publicChannels.innerHTML = '<p class="text-gray-400 text-center py-4">No channels available</p>';
+        return;
+      }
+      snap.forEach(child => {
+        const c = child.val();
+        const card = document.createElement('div');
+        card.className = 'bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all';
+        card.innerHTML = `
+          <img src="${c.icon}" class="w-full h-40 object-cover rounded-lg mb-3"/>
+          <h4 class="font-semibold text-white text-lg">${c.name}</h4>
+          <p class="text-gray-400">${c.category}</p>
+          <a href="${c.url}" target="_blank" class="text-red-400 font-bold hover:underline block mt-2">Watch Now</a>
+        `;
+        publicChannels.appendChild(card);
       });
+    });
+  }
 
-      btns.appendChild(approve);
-      btns.appendChild(reject);
-      li.appendChild(btns);
-      adminRequestsList.appendChild(li);
+  // Admin functions
+  window.loadAdminRequests = function () {
+    const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
+    requestsRef.on('value', snap => {
+      adminRequestsList.innerHTML = '';
+      if (!snap.exists()) {
+        adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
+        return;
+      }
+      snap.forEach(child => {
+        const r = child.val();
+        const li = document.createElement('div');
+        li.className = 'channel-card';
+        li.innerHTML = `
+          <div class="flex items-center gap-4">
+            <img src="${r.icon}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+            <div>
+              <h4 class="font-semibold text-white">${r.name}</h4>
+              <p class="text-gray-300">${r.category}</p>
+            </div>
+          </div>
+        `;
+        const btns = document.createElement('div');
+        btns.className = 'flex gap-2';
+        const approve = document.createElement('button');
+        approve.textContent = 'Approve';
+        approve.className = 'bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600';
+        approve.onclick = () => approveRequest(child.key, r);
+        const reject = document.createElement('button');
+        reject.textContent = 'Reject';
+        reject.className = 'bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600';
+        reject.onclick = () => rejectRequest(child.key);
+        btns.appendChild(approve);
+        btns.appendChild(reject);
+        li.appendChild(btns);
+        adminRequestsList.appendChild(li);
+      });
+    });
+  };
+
+  // Approve: move to channels then delete request
+  async function approveRequest(id, channelData) {
+    try {
+      const newChannelRef = db.ref('channels').push();
+      await newChannelRef.set({
+        name: channelData.name,
+        icon: channelData.icon,
+        url: channelData.url,
+        category: channelData.category,
+        createdBy: channelData.submittedBy,
+        createdAt: Date.now()
+      });
+      await db.ref(`channelRequests/${id}`).remove();
+      showToast(`${channelData.name} approved and added!`, 'success');
+    } catch (err) {
+      console.error(err);
+      showToast("Error approving: " + err, 'error');
     }
+  }
+
+  // Reject: delete request
+  async function rejectRequest(requestId) {
+    try {
+      await db.ref(`channelRequests/${requestId}`).remove();
+      showToast("Request deleted successfully.", "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Error deleting: " + err, "error");
+    }
+  }
+
+  // Logout
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await auth.signOut();
+    showToast('Logged out', 'info');
+    setTimeout(() => window.location.href = 'signin', 1000);
   });
-}
-  </script>
+});
+</script>
 </body>
 </html>
