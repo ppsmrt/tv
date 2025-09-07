@@ -83,3 +83,7 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/index.m3u8
 #EXTINF:-1 tvg-name="Focus Tripura" group-title="Telugu" tvg-logo="https://i.ibb.co/7JvRGxS9/focus-tripura.jpg",Focus Tripura
 https://amigofx.com:1936/focustripura/focustripura/playlist.m3u8
+#EXTINF:-1 tvg-name="News Bird" group-title="Telugu" tvg-logo="https://i.ibb.co/jZ8gXp5s/20250907-175126.jpg",News Bird
+https://amigofx.com:1936/newsbird/newsbird/playlist.m3u8
+#EXTINF:-1 tvg-name="S News" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/snews.png",S News
+https://amigofx.com:1936/SChannel/SChannel/playlist.m3u8
