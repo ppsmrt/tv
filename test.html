@@ -162,7 +162,7 @@
 
 <main>
   <!-- User Section -->
-  <!-- User Section -->
+
 <div id="user-section" class="hidden space-y-10">
 
   <!-- Submit Channel Card -->
@@ -206,7 +206,7 @@
 </div>
 
   <!-- Admin Section -->
-  <!-- Admin Section -->
+ 
 <div id="admin-section" class="hidden space-y-8">
 
   <!-- Section Header -->
@@ -366,34 +366,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load user channels
   function loadUserChannels(uid) {
+    // Ensure these exist in your HTML
+    const userPending = document.getElementById('userPending');
+    const userApproved = document.getElementById('userApproved');
+
+    if (!userPending || !userApproved) {
+        console.error("DOM elements for user channels not found!");
+        return;
+    }
+
     const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
     q.on('value', snap => {
-      userPending.innerHTML = '';
-      userApproved.innerHTML = '';
-      if (!snap.exists()) return userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+        userPending.innerHTML = '';
+        userApproved.innerHTML = '';
 
-      const items = [];
-      snap.forEach(childSnap => items.push({ id: childSnap.key, ...childSnap.val() }));
-      items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+        if (!snap.exists()) {
+            userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No pending channels</p>';
+            userApproved.innerHTML = '<p class="text-gray-400 text-center py-4">No approved channels</p>';
+            return;
+        }
 
-      items.forEach(c => {
-        const card = document.createElement('div');
-        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-        card.innerHTML = `
-          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-          <div class="flex-1">
-            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${c.submittedByName || c.submittedBy}</span>
-          </div>
-          <span class="px-2 py-1 rounded-xl text-sm ${c.status === 'approved' ? 'bg-green-500' : c.status === 'rejected' ? 'bg-red-500' : 'bg-yellow-500'}">${c.status}</span>
-        `;
-        if (c.status === 'pending') userPending.appendChild(card);
-        if (c.status === 'approved') userApproved.appendChild(card);
-      });
+        const items = [];
+        snap.forEach(childSnap => {
+            items.push({ id: childSnap.key, ...childSnap.val() });
+        });
+
+        // Sort by timestamp (missing timestamp treated as 0)
+        items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+        items.forEach(c => {
+            const status = (c.status || 'pending').toLowerCase().trim();
+
+            // Only handle pending and approved
+            if (status !== 'pending' && status !== 'approved') return;
+
+            const card = document.createElement('div');
+            card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+            card.innerHTML = `
+                <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+                <div class="flex-1">
+                    <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+                    <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+                    <span class="text-sm text-gray-400">Submitted by: ${c.submittedByName || c.submittedBy || 'Unknown'}</span>
+                </div>
+                <span class="px-2 py-1 rounded-xl text-sm ${
+                    status === 'approved' ? 'bg-green-500' : 'bg-yellow-500'
+                }">${c.status || 'pending'}</span>
+            `;
+
+            if (status === 'pending') userPending.appendChild(card);
+            else if (status === 'approved') userApproved.appendChild(card);
+        });
+
+        // Fallback messages if empty
+        if (!userPending.hasChildNodes()) userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No pending channels</p>';
+        if (!userApproved.hasChildNodes()) userApproved.innerHTML = '<p class="text-gray-400 text-center py-4">No approved channels</p>';
     });
-  }
-
+}
   // Logout
   document.getElementById('logout-btn')?.addEventListener('click', () => {
     auth.signOut().then(() => window.location.href = '/').catch(e => showToast("Error logging out", "error"));
