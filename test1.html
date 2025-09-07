@@ -177,6 +177,40 @@
   <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
 
   <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
+
+<!-- Trigger link -->
+<a href="#" id="open-popup" class="px-4 py-2 bg-blue-600 rounded-lg text-white">Open Upload Page</a>
+
+<!-- Popup Modal -->
+<div id="popup" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+  <div class="absolute inset-0 bg-black/70"></div>
+  
+  <div class="relative bg-gray-800 rounded-2xl shadow-2xl w-[90%] max-w-3xl h-[80%] flex flex-col overflow-hidden">
+    <!-- Header with Close Button -->
+    <div class="flex items-center justify-between p-3 bg-gray-900">
+      <h2 class="text-white font-bold flex items-center gap-2">
+        <span class="material-icons">cloud_upload</span> Upload Page
+      </h2>
+      <button id="close-popup" class="text-white hover:text-red-400">
+        <span class="material-icons text-2xl">close</span>
+      </button>
+    </div>
+
+    <!-- Iframe -->
+    <iframe src="https://tnm3u.live/upload" class="flex-1 w-full border-0"></iframe>
+  </div>
+</div>
+
+<script>
+const popup = document.getElementById('popup');
+document.getElementById('open-popup').addEventListener('click', e => {
+  e.preventDefault();
+  popup.classList.remove('hidden');
+});
+document.getElementById('close-popup').addEventListener('click', () => {
+  popup.classList.add('hidden');
+});
+</script>
 </main>
 
 <div id="footer"></div>
