@@ -37,7 +37,7 @@ http://applelive.in/smaxtv/smaxtv.m3u8
 http://brightmeltech.in/rajatv/rajatv.m3u8
 #EXTINF:-1 tvg-name="Yarl Entertainment" group-title="Tamil" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0124023711442757188983337.jpg",Yarl Entertainment
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
-#EXTINF:-1 tvg-name="News7" group-title="News" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1119328195574168590766761.jpg",News7
+#EXTINF:-1 tvg-name="News7" group-title="Tamil" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1119328195574168590766761.jpg",News7
 https://segment.yuppcdn.net/240122/news7/playlist.m3u8
 #EXTINF:-1 tvg-name="Puthia Thalaimurai" group-title="Tamil" tvg-logo="https://i.ibb.co/fG1PDnNX/20250906-013827.jpg",Puthia Thalaimurai
 https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
@@ -77,3 +77,9 @@ http://rasinetworks.in:1935/rasicomedy/rasicomedy.stream_aac/index.m3u8
 http://rasinetworks.in:1935/rasimusic/rasimusic.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="Rasi Hollywood" group-title="Tamil" tvg-logo="https://i.ibb.co/mF9XV2nG/rasihollywood.jpg",Rasi Hollywood
 http://rasinetworks.in:1935/rasihollywood/rasihollywood.stream_aac/index.m3u8
+#EXTINF:-1 tvg-name="News 24x7" group-title="Malayalam" tvg-logo="https://i.ibb.co/ccnq4t9W/news24x7malayalam.jpg",News 24x7
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-malayalam-24x7/index.m3u8
+#EXTINF:-1 tvg-name="News 24x7" group-title="Tamil" tvg-logo="https://i.ibb.co/jPCxck1J/news24x7tamil.jpg",News 24x7
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/index.m3u8
+#EXTINF:-1 tvg-name="Focus Tripura" group-title="Telugu" tvg-logo="https://i.ibb.co/7JvRGxS9/focus-tripura.jpg",Focus Tripura
+https://amigofx.com:1936/focustripura/focustripura/playlist.m3u8
