@@ -73,3 +73,5 @@ http://rasinetworks.in:1935/rasitamil/rasitamil.stream_aac/index.m3u8
 http://rasinetworks.in:1935/rasimovies/rasimovies.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="Rasi Comedy" group-title="Tamil" tvg-logo="https://i.ibb.co/Z633zv8m/rasicomedy.jpg",Rasi Comedy
 http://rasinetworks.in:1935/rasicomedy/rasicomedy.stream_aac/index.m3u8
+#EXTINF:-1 tvg-name="Rasi Music" group-title="Tamil" tvg-logo="https://i.ibb.co/FkPwykW7/1000118463.jpg",Rasi Music
+http://rasinetworks.in:1935/rasimusic/rasimusic.stream_aac/index.m3u8
