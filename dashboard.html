@@ -183,7 +183,6 @@ function statusPill(status) {
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     showToast("Please log in", "error");
-    // If you don't have signin, remove next line
     window.location.href='signin';
     return;
   }
@@ -216,18 +215,21 @@ async function submitChannel(){
   try {
     const name = document.getElementById('channel-name').value.trim();
     const icon = document.getElementById('channel-icon').value.trim();
-    const url  = document.getElementById('channel-url').value.trim();
+    const stream = document.getElementById('channel-url').value.trim(); // ✅ changed var name
     const category = document.getElementById('channel-category').value;
     const user = auth.currentUser;
 
-    if(!name || !url || !icon){
+    if(!name || !stream || !icon){
       showToast("Please fill all fields", "error");
       return;
     }
 
     const requestRef = push(ref(db, 'channelRequests'));
     await set(requestRef, {
-      name, icon, url, category,
+      name,
+      icon,
+      stream,  // ✅ renamed field
+      category,
       submittedBy: user.uid,
       status: 'pending',
       timestamp: Date.now()
@@ -261,7 +263,6 @@ function loadUserChannels(uid){
         return;
       }
 
-      // Build arrays to maintain deterministic order (by timestamp ascending)
       const items = [];
       snap.forEach(childSnap => {
         const c = childSnap.val();
@@ -271,10 +272,9 @@ function loadUserChannels(uid){
 
       for (const c of items) {
         const userName = await getUserName(c.submittedBy);
-        // Realtime status toast
         const prev = lastStatuses.get(c.id);
         if (prev && prev !== c.status) {
-          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved ðŸŽ‰`, "success");
+          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
           if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
         }
         lastStatuses.set(c.id, c.status);
@@ -292,7 +292,6 @@ function loadUserChannels(uid){
         `;
         if (c.status === 'pending') userPending.appendChild(card);
         if (c.status === 'approved') userApproved.appendChild(card);
-        // (Optional) if you want to show rejected items in user view, add another section.
       }
     },
     (error) => {
@@ -325,7 +324,6 @@ function loadAdminRequests() {
         return;
       }
 
-      // Collect & sort by timestamp; filter pending
       const rows = [];
       snap.forEach(childSnap => {
         const r = childSnap.val();
@@ -382,7 +380,7 @@ async function approveRequest(requestId, requestData) {
       name: requestData.name || 'Unnamed Channel',
       icon: requestData.icon || '',
       category: requestData.category || 'Uncategorized',
-      stream: requestData.url || '',
+      stream: requestData.stream || '', // ✅ updated field
       createdBy: requestData.submittedBy || 'unknown',
       approvedBy: adminId,
       approvedAt: Date.now()
