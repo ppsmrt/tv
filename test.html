@@ -338,9 +338,13 @@ window.loadAdminRequests = function () {
             <input type="text" class="input-field" value="${r.name}" id="name-${child.key}" placeholder="Channel Name" />
             <input type="text" class="input-field" value="${r.url}" id="url-${child.key}" placeholder="Stream URL" />
             <select id="category-${child.key}" class="input-field">
-              <option ${r.category === 'News' ? 'selected' : ''}>News</option>
-              <option ${r.category === 'Music' ? 'selected' : ''}>Music</option>
-              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Entertainment</option>
+              <option ${r.category === 'News' ? 'selected' : ''}>Tamil</option>
+              <option ${r.category === 'Music' ? 'selected' : ''}>Telugu</option>
+              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Kannada</option>
+              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Malayalam</option>
+              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Hindi</option>
+              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Kids</option>
+              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Sports</option>
             </select>
             <input type="file" class="file-input mt-2" id="icon-file-${child.key}" accept="image/*" />
           </div>
