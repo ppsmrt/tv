@@ -412,10 +412,74 @@ function approveRequest(id, channelData) {
 }
 
 // Reject Request
-function rejectRequest(id) {
-  db.ref(`channelRequests/${id}`).update({ status: 'rejected' })
-    .then(() => alert("Request rejected"))
+function rejectRequest(requestId) {
+  // 1. Update request status
+  db.ref(`channelRequests/${requestId}`).update({ status: 'rejected' })
+    .then(async () => {
+      // 2. Remove the channel from "channels" if it exists
+      const requestSnap = await db.ref(`channelRequests/${requestId}`).get();
+      const requestData = requestSnap.val();
+      if (requestData) {
+        // Search channels with matching name & submittedBy
+        const channelsSnap = await db.ref('channels').orderByChild('createdBy').equalTo(requestData.submittedBy).get();
+        channelsSnap.forEach(channelSnap => {
+          const channel = channelSnap.val();
+          if (channel.name === requestData.name) {
+            db.ref(`channels/${channelSnap.key}`).remove();
+          }
+        });
+      }
+
+      alert("Request rejected and related channel deleted (if existed).");
+    })
     .catch(err => alert("Error rejecting: " + err));
+}
+
+// Toast container (create once)
+let toastContainer = document.getElementById('toast-container');
+if (!toastContainer) {
+  toastContainer = document.createElement('div');
+  toastContainer.id = 'toast-container';
+  toastContainer.className = 'fixed bottom-6 right-6 flex flex-col gap-3 z-50';
+  document.body.appendChild(toastContainer);
+}
+
+// Toast function with icon and fade
+function showToast(message, type = "info") {
+  const toast = document.createElement('div');
+  toast.className = `
+    flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-white transition-all duration-300 transform
+    opacity-0 translate-x-10
+    ${type === "success" ? "bg-green-500" :
+      type === "error" ? "bg-red-500" :
+      "bg-gray-700"}
+  `;
+
+  // Icon
+  const icon = document.createElement('span');
+  icon.className = 'material-icons';
+  icon.textContent = type === "success" ? 'check_circle' : type === "error" ? 'error' : 'info';
+  toast.appendChild(icon);
+
+  // Message
+  const msg = document.createElement('span');
+  msg.textContent = message;
+  toast.appendChild(msg);
+
+  toastContainer.appendChild(toast);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(0)';
+  });
+
+  // Remove after 3s
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(50px)';
+    toast.addEventListener('transitionend', () => toast.remove());
+  }, 3000);
 }
 </script>
 </body>
