@@ -151,56 +151,6 @@
   </button>
 </header>
 
-<!-- Premium Glass Notification -->
-<div id="premium-notification" class="fixed top-4 right-4 flex items-center space-x-3 px-5 py-3 bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl text-yellow-50 animate-slide-in z-50 transition-all">
-  
-  <!-- Icon with Glow -->
-  <span class="material-icons text-yellow-400 text-3xl drop-shadow-lg">notifications</span>
-  
-  <!-- Message -->
-  <div class="flex flex-col">
-    <p class="font-bold text-yellow-50 text-lg">Image Upload Enabled</p>
-    <p class="text-sm text-yellow-100 opacity-90">You can now upload images</p>
-  </div>
-  
-  <!-- Close Button -->
-  <button onclick="dismissNotification()" class="ml-4 text-yellow-200 hover:text-white transition">
-    <span class="material-icons text-xl">close</span>
-  </button>
-</div>
-
-<!-- Styles & Animations -->
-<style>
-  @keyframes slideIn {
-    0% { opacity: 0; transform: translateY(-20px) translateX(20px); }
-    100% { opacity: 1; transform: translateY(0) translateX(0); }
-  }
-  @keyframes fadeOut {
-    0% { opacity: 1; transform: translateY(0) translateX(0); }
-    100% { opacity: 0; transform: translateY(-20px) translateX(20px); }
-  }
-
-  .animate-slide-in {
-    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .animate-fade-out {
-    animation: fadeOut 0.5s ease forwards;
-  }
-</style>
-
-<!-- JS for Dismiss -->
-<script>
-  function dismissNotification() {
-    const notification = document.getElementById('premium-notification');
-    notification.classList.remove('animate-slide-in');
-    notification.classList.add('animate-fade-out');
-    setTimeout(() => notification.remove(), 500);
-  }
-
-  // Auto-hide after 5 seconds
-  setTimeout(dismissNotification, 5000);
-</script>
-
 <main>
   <!-- User Section -->
 
