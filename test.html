@@ -151,14 +151,26 @@
   </span>
 </header>
 
-<!-- Notification -->
-<div class="bg-yellow-100/90 text-yellow-900 px-6 py-3 border-b border-yellow-300 flex items-center space-x-3">
+<!-- Premium Glass Notification -->
+<div class="flex items-center space-x-3 px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl shadow-lg text-yellow-50 animate-fade-in">
   <!-- Notification Icon -->
-  <span class="material-icons text-yellow-700">notifications</span>
+  <span class="material-icons text-yellow-400 text-2xl">notifications</span>
   
   <!-- Notification Message -->
-  <p class="font-medium">Image Upload has been enabled</p>
+  <p class="font-semibold text-yellow-50">Image Upload has been enabled</p>
 </div>
+
+<!-- Optional Tailwind Animation -->
+<style>
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+</style>
 
 <main>
   <!-- User Section -->
