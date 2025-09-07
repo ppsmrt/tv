@@ -177,8 +177,8 @@ function statusPill(status) {
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     showToast("Please log in", "error");
-    // If you don't have login.html, remove next line
-    window.location.href='login.html';
+    // If you don't have signin, remove next line
+    window.location.href='signin';
     return;
   }
   welcomeMsg.textContent = `Welcome, ${user.email}`;
