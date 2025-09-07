@@ -55,52 +55,40 @@
   <p id="welcome-msg" class="text-white text-lg mt-4"></p>
 
   <!-- User Section -->
-  <div id="user-section" class="hidden space-y-8">
+<div id="user-section" class="hidden max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+  <h2 class="text-xl font-semibold text-white mb-4">Your Channel Requests</h2>
 
-    <!-- Submit Channel Card -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto space-y-6">
-      <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
-      
-      <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
-      <input type="text" id="channel-icon" placeholder="Channel Logo URL" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
-      <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
-      
-      <select id="channel-category" class="w-full p-4 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
-        <option value="Tamil">Tamil</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Kannada">Kannada</option>
-        <option value="Malayalam">Malayalam</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Kids">Kids</option>
-        <option value="Sports">Sports</option>
-      </select>
-      
-      <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg shadow-md transition transform hover:scale-105">Submit Channel</button>
-      <p class="text-xs text-gray-400 text-center">Tip: use imgbb.com for uploading images.</p>
-    </div>
-
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- Pending Requests -->
-    <div class="space-y-4 max-w-3xl mx-auto">
-      <h3 class="text-2xl font-bold border-b border-gray-700 pb-3 text-red-500">Pending Requests</h3>
-      <div id="user-pending" class="space-y-3 bg-gray-800 p-5 rounded-xl shadow-lg"></div>
+    <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
+      <h3 class="text-lg font-bold text-white mb-3">Pending Requests</h3>
+      <div id="pending-requests" class="space-y-3 max-h-72 overflow-y-auto pr-2">
+        <!-- Pending items will appear here -->
+      </div>
     </div>
 
     <!-- Approved Channels -->
-    <div class="space-y-4 max-w-3xl mx-auto">
-      <h3 class="text-2xl font-bold border-b border-gray-700 pb-3 text-green-500">Approved Channels</h3>
-      <div id="user-approved" class="space-y-3 bg-gray-800 p-5 rounded-xl shadow-lg"></div>
+    <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
+      <h3 class="text-lg font-bold text-white mb-3">Approved Channels</h3>
+      <div id="approved-channels" class="space-y-3 max-h-72 overflow-y-auto pr-2">
+        <!-- Approved channels will appear here -->
+      </div>
     </div>
-
   </div>
+</div>
 
-  <!-- Admin Section -->
-  <div id="admin-section" class="hidden space-y-6 max-w-4xl mx-auto">
-    <div class="flex items-center justify-between bg-gray-800 p-4 rounded-xl shadow-md">
-      <h2 class="text-2xl font-bold text-red-500">Pending Channel Requests</h2>
-      <span id="admin-hint" class="text-sm text-gray-400 italic">Manage all incoming requests</span>
+<!-- Admin Section -->
+<div id="admin-section" class="hidden max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+  <h2 class="text-xl font-semibold text-white mb-4">Admin Panel</h2>
+  <p id="admin-hint" class="text-gray-300 mb-6">Loading admin data...</p>
+
+  <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4">
+    <h3 class="text-lg font-bold text-white mb-3">Pending Channel Approvals</h3>
+    <div id="admin-requests" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2">
+      <!-- Admin requests will appear here -->
     </div>
-    <div id="admin-requests" class="space-y-3 bg-gray-900 p-5 rounded-xl shadow-inner"></div>
   </div>
+</div>
 
 </main>
 
@@ -323,4 +311,3 @@ async function rejectRequest(id){
 </script>
 </body>
 </html>
-
