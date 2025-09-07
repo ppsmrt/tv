@@ -87,3 +87,17 @@ https://amigofx.com:1936/focustripura/focustripura/playlist.m3u8
 https://amigofx.com:1936/newsbird/newsbird/playlist.m3u8
 #EXTINF:-1 tvg-name="S News" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/snews.png",S News
 https://amigofx.com:1936/SChannel/SChannel/playlist.m3u8
+#EXTINF:-1 tvg-name="Rangmanch" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
+https://amigofx.com:1936/rangmanch/rangmanch/playlist.m3u8
+#EXTINF:-1 tvg-name="PCN HD" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/pcnhd.png",PCN HD
+https://amigofx.com:1936/pcnhd/pcnhd/playlist.m3u8
+#EXTINF:-1 tvg-name="Hitz Entertainment" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/hitzentertainment.png",Hitz Entertainment
+https://amigofx.com:1936/hitzentertainment/hitzentertainment/playlist.m3u8
+#EXTINF:-1 tvg-name="Harika Star" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/harikastar.png",Harika Star
+https://amigofx.com:1936/harikastar/harikastar/playlist.m3u8
+#EXTINF:-1 tvg-name="Kanchi" group-title="Tamil" tvg-logo="https://i.ibb.co/JWnfts7j/1000118501.jpg",Kanchi
+http://198.144.149.206:8080/NOTV/KANCHIMEDIA/tracks-v1a1/mono.ts.m3u8?token=GTR
+#EXTINF:-1 tvg-name="Sana Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/208YbPWn/sanaplus.png",Sana Plus
+https://galaxyott.live/hls/sanaplus.m3u8
+#EXTINF:-1 tvg-name="Sana Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/353wVfZ6/sanatv.png",Sana Tv
+https://galaxyott.live/hls/sanatv.m3u8
