@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Live TV - Stream Live</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
 
 <style>
   html, body {
@@ -23,8 +23,8 @@
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
-    background: rgba(31,41,55,0.9);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    background: rgba(31, 41, 55, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     z-index: 20;
   }
   main {
@@ -44,109 +44,101 @@
   <span id="logout-btn" class="material-icons ml-auto cursor-pointer hover:text-red-500 transition" title="Logout">logout</span>
 </header>
 
-<main> 
+<main>
   <!-- Welcome -->
   <p id="welcome-msg" class="text-white text-lg mt-4"></p>
 
   <!-- User Section -->
-<div id="user-section" class="hidden max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
-   <!-- Submit Channel Card -->
-<div class="relative bg-gray-900/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl max-w-xl mx-auto border border-gray-700 space-y-6">
-  
-  <!-- Heading -->
-  <h2 class="text-4xl font-extrabold text-center text-red-500 tracking-wide">Submit a Channel</h2>
-  <p class="text-gray-400 text-center text-sm">Fill in the details below to add a channel</p>
+  <div id="user-section" class="hidden max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Submit Channel Card -->
+    <div class="relative bg-gray-900/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl max-w-xl mx-auto border border-gray-700 space-y-6">
+      <h2 class="text-4xl font-extrabold text-center text-red-500 tracking-wide">Submit a Channel</h2>
+      <p class="text-gray-400 text-center text-sm">Fill in the details below to add a channel</p>
 
-  <!-- Channel Name -->
-  <div class="relative">
-    <span class="material-icons absolute left-3 top-4 text-gray-400">tv</span>
-    <input type="text" id="channel-name" placeholder=" " 
-      class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
-    <label for="channel-name" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Name</label>
-  </div>
+      <!-- Channel Name -->
+      <div class="relative">
+        <span class="material-icons absolute left-3 top-4 text-gray-400">tv</span>
+        <input type="text" id="channel-name" placeholder=" " 
+          class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
+        <label for="channel-name" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Name</label>
+      </div>
 
-  <!-- Channel Logo URL -->
-  <div class="relative">
-    <span class="material-icons absolute left-3 top-4 text-gray-400">image</span>
-    <input type="text" id="channel-icon" placeholder=" " 
-      class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
-    <label for="channel-icon" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Logo URL</label>
-  </div>
+      <!-- Channel Logo URL -->
+      <div class="relative">
+        <span class="material-icons absolute left-3 top-4 text-gray-400">image</span>
+        <input type="text" id="channel-icon" placeholder=" " 
+          class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
+        <label for="channel-icon" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Logo URL</label>
+      </div>
 
-  <!-- Stream URL -->
-  <div class="relative">
-    <span class="material-icons absolute left-3 top-4 text-gray-400">link</span>
-    <input type="text" id="channel-url" placeholder=" " 
-      class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
-    <label for="channel-url" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Stream URL (m3u8)</label>
-  </div>
+      <!-- Stream URL -->
+      <div class="relative">
+        <span class="material-icons absolute left-3 top-4 text-gray-400">link</span>
+        <input type="text" id="channel-url" placeholder=" " 
+          class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
+        <label for="channel-url" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Stream URL (m3u8)</label>
+      </div>
 
-  <!-- Category Dropdown -->
-  <div class="relative">
-    <span class="material-icons absolute left-3 top-4 text-gray-400">category</span>
-    <select id="channel-category" 
-      class="w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
-      <option value="">Select Category</option>
-      <option value="Tamil">Tamil</option>
-      <option value="Telugu">Telugu</option>
-      <option value="Kannada">Kannada</option>
-      <option value="Malayalam">Malayalam</option>
-      <option value="Hindi">Hindi</option>
-      <option value="Kids">Kids</option>
-      <option value="Sports">Sports</option>
-    </select>
-  </div>
+      <!-- Category Dropdown -->
+      <div class="relative">
+        <span class="material-icons absolute left-3 top-4 text-gray-400">category</span>
+        <select id="channel-category" 
+          class="w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
+          <option value="">Select Category</option>
+          <option value="Tamil">Tamil</option>
+          <option value="Telugu">Telugu</option>
+          <option value="Kannada">Kannada</option>
+          <option value="Malayalam">Malayalam</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Kids">Kids</option>
+          <option value="Sports">Sports</option>
+        </select>
+      </div>
 
-  <!-- Submit Button -->
-  <button id="submit-btn" 
-    class="w-full bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-105 hover:shadow-red-500/50 flex items-center justify-center gap-2">
-    <span class="material-icons">send</span> Submit Channel
-  </button>
+      <!-- Submit Button -->
+      <button id="submitBtn" 
+        class="w-full bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-105 hover:shadow-red-500/50 flex items-center justify-center gap-2">
+        <span class="material-icons">send</span> Submit Channel
+      </button>
 
-  <!-- Tip -->
-  <p class="text-xs text-gray-400 text-center">💡 Use <a href="https://imgbb.com" target="_blank" class="text-red-400 hover:underline">imgbb.com</a> to upload images.</p>
-</div>
-  
-  <h2 class="text-xl font-semibold text-white mb-4">Your Channel Requests</h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Pending Requests -->
-    <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
-      <h3 class="text-lg font-bold text-white mb-3">Pending Requests</h3>
-      <div id="pending-requests" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+      <p class="text-xs text-gray-400 text-center">💡 Use <a href="https://imgbb.com" target="_blank" class="text-red-400 hover:underline">imgbb.com</a> to upload images.</p>
     </div>
 
-    <!-- Approved Channels -->
-    <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
-      <h3 class="text-lg font-bold text-white mb-3">Approved Channels</h3>
-      <div id="approved-channels" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+    <!-- Requests -->
+    <h2 class="text-xl font-semibold text-white mb-4">Your Channel Requests</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
+        <h3 class="text-lg font-bold text-white mb-3">Pending Requests</h3>
+        <div id="pending-requests" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+      </div>
+      <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4 flex flex-col">
+        <h3 class="text-lg font-bold text-white mb-3">Approved Channels</h3>
+        <div id="approved-channels" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Admin Section -->
-<div id="admin-section" class="hidden max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
-  <h2 class="text-xl font-semibold text-white mb-4">Admin Panel</h2>
-  <p id="admin-hint" class="text-gray-300 mb-6">Loading admin data...</p>
-
-  <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4">
-    <h3 class="text-lg font-bold text-white mb-3">Pending Channel Approvals</h3>
-    <div id="admin-requests" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2"></div>
+  <!-- Admin Section -->
+  <div id="admin-section" class="hidden max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+    <h2 class="text-xl font-semibold text-white mb-4">Admin Panel</h2>
+    <div class="bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 p-4">
+      <h3 class="text-lg font-bold text-white mb-3">Pending Channel Approvals</h3>
+      <div id="admin-requests" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2"></div>
+    </div>
   </div>
-</div>
-
 </main>
 
-<!-- Toast container -->
+<!-- Toast Container -->
 <div id="toast" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 max-w-sm"></div>
 
 <!-- External JS -->
 <script type="module">
+  // Firebase SDK Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, get, onValue, push, remove, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { getDatabase, ref, set, get, onValue, push, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-// Firebase Config
+// ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -158,11 +150,12 @@ const firebaseConfig = {
   measurementId: "G-FNS9JWZ9LS"
 };
 
+// ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// DOM Elements
+// ✅ DOM Elements
 const userSection = document.getElementById('user-section');
 const adminSection = document.getElementById('admin-section');
 const welcomeMsg = document.getElementById('welcome-msg');
@@ -173,7 +166,7 @@ const adminHint = document.getElementById('admin-hint');
 const toastContainer = document.getElementById('toast');
 const submitBtn = document.getElementById('submit-btn');
 
-// Toast Notification
+// ✅ Toast Notification
 function showToast(message, type = 'info', duration = 3000) {
   const toast = document.createElement('div');
   toast.className = `flex items-center space-x-3 p-4 rounded-lg shadow-lg font-medium
@@ -190,7 +183,7 @@ function showToast(message, type = 'info', duration = 3000) {
   }, duration);
 }
 
-// Helpers
+// ✅ Helpers
 async function getUserName(uid) {
   if (!uid) return 'Unknown';
   try {
@@ -209,7 +202,7 @@ function statusPill(status) {
   return '<span class="pill bg-gray-500 text-white px-2 py-1 rounded">Unknown</span>';
 }
 
-// Auth + Section visibility
+// ✅ Auth + Section visibility
 document.addEventListener('DOMContentLoaded', () => {
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -238,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Logout
+// ✅ Logout
 document.getElementById('logout-btn').addEventListener('click', () => {
   signOut(auth).then(() => {
     showToast("Logged out", "success");
@@ -250,7 +243,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   });
 });
 
-// Submit Channel
+// ✅ Submit Channel
 submitBtn.addEventListener('click', async () => {
   try {
     const name = document.getElementById('channel-name').value.trim();
@@ -259,7 +252,7 @@ submitBtn.addEventListener('click', async () => {
     const category = document.getElementById('channel-category').value;
     const user = auth.currentUser;
 
-    if (!name || !icon || !url) {
+    if (!name || !icon || !url || !category) {
       showToast("Please fill all fields", "error");
       return;
     }
@@ -278,6 +271,7 @@ submitBtn.addEventListener('click', async () => {
     document.getElementById('channel-name').value = '';
     document.getElementById('channel-icon').value = '';
     document.getElementById('channel-url').value = '';
+    document.getElementById('channel-category').value = '';
     showToast("Channel request submitted!", "success");
   } catch (e) {
     console.error(e);
@@ -285,7 +279,7 @@ submitBtn.addEventListener('click', async () => {
   }
 });
 
-// Load User Channels
+// ✅ Load User Channels
 const lastStatuses = new Map();
 function loadUserChannels(uid) {
   const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
@@ -327,7 +321,7 @@ function loadUserChannels(uid) {
   });
 }
 
-// Admin requests
+// ✅ Admin requests
 function loadAdminRequests() {
   const requestsRef = ref(db, 'channelRequests');
   onValue(requestsRef, async snap => {
@@ -362,12 +356,33 @@ function loadAdminRequests() {
           </div>
         </div>
       `;
+
       const btns = document.createElement('div');
       btns.className = 'flex gap-2';
+
       const approve = document.createElement('button');
       approve.textContent = 'Approve';
-      approve.className = 'px-3 py-1
-</script>
+      approve.className = 'px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm';
+      approve.addEventListener('click', async () => {
+        await set(ref(db, `channelRequests/${r.id}/status`), 'approved');
+        showToast(`Approved "${r.name}"`, 'success');
+      });
 
+      const reject = document.createElement('button');
+      reject.textContent = 'Reject';
+      reject.className = 'px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm';
+      reject.addEventListener('click', async () => {
+        await set(ref(db, `channelRequests/${r.id}/status`), 'rejected');
+        showToast(`Rejected "${r.name}"`, 'error');
+      });
+
+      btns.appendChild(approve);
+      btns.appendChild(reject);
+      li.appendChild(btns);
+      adminRequestsList.appendChild(li);
+    }
+  });
+}
+  </script>
 </body>
 </html>
