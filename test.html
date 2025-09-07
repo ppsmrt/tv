@@ -1,408 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Channel Manager</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    body { font-family: 'Baloo 2', cursive; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Live TV - Dashboard</title>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<!-- Baloo 2 -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+
+<style>
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+  }
+  header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 50;
+  }
+  main {
+    padding: 20px 1rem 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .input-field {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: #1f2937;
+    color: #fff;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .input-field:focus {
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.5);
+    background: #111827;
+  }
+  .file-input::file-selector-button {
+    background: #f87171;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .file-input::file-selector-button:hover {
+    background: #ef4444;
+  }
+  #admin-requests .channel-card {
+    background: rgba(31, 41, 55, 0.85);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+  #admin-requests .channel-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  }
+</style>
 </head>
-<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden">
+<body>
 
-  <!-- Header -->
-  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
-    <div class="flex items-center gap-3">
-      <button onclick="window.location.href='index.html'" class="text-white text-xl hover:text-gray-200 transition">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
-      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
-        Channel Manager
-      </h1>
-    </div>
-    <div>
-      <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </button>
-    </div>
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 bg-gray-800 bg-opacity-90 backdrop-blur-md shadow-lg">
+  <div class="flex items-center space-x-3">
+    <span class="material-icons text-white text-3xl">account_circle</span>
+    <h1 class="text-xl font-bold text-white">Dashboard</h1>
   </div>
+  <div>
+    <button id="logout-btn" class="flex items-center space-x-2 text-gray-200 hover:text-red-400 transition">
+      <span class="material-icons text-lg">logout</span>
+      <span class="font-semibold text-sm">Logout</span>
+    </button>
+  </div>
+</header>
 
-  <!-- Form -->
-  <div class="p-5 bg-white shadow-lg">
-    <form id="channelForm" class="grid gap-4 md:grid-cols-2">
-      <input type="hidden" id="channelId"/>
-      <input type="hidden" id="icon"/> <!-- hidden field for ImgBB URL -->
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
-        <input type="text" id="name" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Channel Icon</label>
-        <input type="file" id="iconFile" accept="image/*"
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-        <p class="text-gray-500 text-sm mt-1">Upload an image (auto upload to ImgBB)</p>
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
-        <input type="url" id="stream" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Category</label>
-        <select id="category" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-          <option value="Tamil">Tamil</option>
-          <option value="Telugu">Telugu</option>
-          <option value="Kannada">Kannada</option>
-          <option value="Malayalam">Malayalam</option>
-          <option value="Hindi">Hindi</option>
-          <option value="Kids">Kids</option>
-          <option value="Sports">Sports</option>
+<!-- Main Content -->
+<main class="pt-20 px-6">
+  
+  <!-- User Section -->
+  <div id="user-section" class="hidden space-y-10">
+    <!-- Submit Channel -->
+    <div class="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 p-8 rounded-3xl shadow-2xl max-w-lg mx-auto space-y-6 transform transition-all duration-300 hover:scale-105">
+      <h2 class="text-3xl font-extrabold text-red-500 text-center tracking-wide">Submit a Channel</h2>
+      <div class="space-y-4">
+        <input type="text" id="channel-name" placeholder="Channel Name" class="input-field" />
+        <div class="flex flex-col">
+          <input type="file" id="channel-icon-file" accept="image/*" class="file-input" />
+          <small id="upload-status" class="text-gray-400 block text-sm mt-1"></small>
+        </div>
+        <input type="text" id="channel-url" placeholder="Stream URL" class="input-field" />
+        <select id="channel-category" class="input-field">
+          <option value="News">News</option>
+          <option value="Music">Music</option>
+          <option value="Entertainment">Entertainment</option>
         </select>
+        <button onclick="submitChannel()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1">Submit Channel</button>
       </div>
-
-      <button type="submit" id="submitBtn"
-        class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
-        <i class="fa-solid fa-save mr-2"></i> Save Channel / Submit Request
-      </button>
-    </form>
-
-    <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
-    <p id="infoMsg" class="text-center mt-2 text-sm text-gray-600"></p>
-  </div>
-
-  <!-- Admin Controls: Pending Requests -->
-  <div id="adminPendingWrapper" class="p-5 bg-white shadow-lg mt-4 hidden">
-    <h2 class="text-lg font-bold mb-3">Pending Channel Requests</h2>
-    <div id="pendingList" class="space-y-3"></div>
-  </div>
-
-  <!-- Filter, Sort & Search -->
-  <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
-    <div class="flex gap-3">
-      <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-        <option value="All">All Categories</option>
-        <option value="Tamil">Tamil</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Kannada">Kannada</option>
-        <option value="Malayalam">Malayalam</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Kids">Kids</option>
-        <option value="Sports">Sports</option>
-      </select>
-
-      <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-        <option value="az">Sort By A-Z</option>
-        <option value="latest">Sort By Latest</option>
-        <option value="oldest">Sort By Oldest</option>
-      </select>
     </div>
 
-    <div class="flex items-center gap-2 w-full md:w-auto">
-      <i class="fa-solid fa-magnifying-glass text-gray-600"></i>
-      <input type="text" id="searchInput" placeholder="Search channel..."
-        class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full md:w-64"/>
+    <!-- User Pending -->
+    <div class="space-y-4 max-w-3xl mx-auto">
+      <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
+      <div id="user-pending" class="space-y-3"></div>
+    </div>
+
+    <!-- User Approved -->
+    <div class="space-y-4 max-w-3xl mx-auto">
+      <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
+      <div id="user-approved" class="space-y-3"></div>
     </div>
   </div>
 
-  <!-- Channel List -->
-  <div class="flex-1 overflow-y-auto p-5">
-    <h2 class="text-xl font-bold mb-4">Channels</h2>
-    <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+  <!-- Admin Section -->
+  <div id="admin-section" class="hidden space-y-8">
+    <div class="max-w-4xl mx-auto flex items-center justify-between bg-gray-800/90 backdrop-blur-sm p-5 rounded-2xl shadow-xl">
+      <h2 class="text-2xl md:text-3xl font-extrabold text-red-500 tracking-wide">Pending Channel Requests</h2>
+      <span class="material-icons text-white text-3xl cursor-pointer hover:text-red-400" title="Refresh" onclick="loadAdminRequests()">refresh</span>
+    </div>
+    <div id="admin-requests" class="space-y-4 max-w-4xl mx-auto"></div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-gray-200 text-center py-3 text-gray-700 font-semibold">
-    Live Tv @ 2025
-  </footer>
+  <!-- Public Channels -->
+  <div class="space-y-4 max-w-4xl mx-auto mt-10">
+    <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">All Channels</h3>
+    <div id="public-channels" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </div>
+</main>
 
-  <!-- Firebase SDK + App Logic -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getDatabase, ref, push, set, update, remove, onValue, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+<!-- Toast -->
+<div id="toast-container" class="fixed bottom-6 right-6 flex flex-col gap-3 z-50"></div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.appspot.com",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
+<!-- Firebase Scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const auth = getAuth(app);
+<!-- Dashboard JS -->
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
 
-    // DOM
-    const form = document.getElementById("channelForm");
-    const statusMsg = document.getElementById("statusMsg");
-    const infoMsg = document.getElementById("infoMsg");
-    const channelList = document.getElementById("channelList");
-    const submitBtn = document.getElementById("submitBtn");
-    const filterCategory = document.getElementById("filterCategory");
-    const searchInput = document.getElementById("searchInput");
-    const sortOption = document.getElementById("sortOption");
-    const channelIdInput = document.getElementById("channelId");
-    const adminPendingWrapper = document.getElementById("adminPendingWrapper");
-    const pendingList = document.getElementById("pendingList");
+  const userSection = document.getElementById('user-section');
+  const adminSection = document.getElementById('admin-section');
+  const userPending = document.getElementById('user-pending');
+  const userApproved = document.getElementById('user-approved');
+  const adminRequestsList = document.getElementById('admin-requests');
 
-    let channelsData = {};
-    let isAdmin = false;
-    let currentUser = null;
-
-    function showStatus(message, isError = false) {
-      statusMsg.textContent = message;
-      statusMsg.className = isError ? "text-red-600 font-semibold text-center" : "text-green-600 font-semibold text-center";
-      setTimeout(() => { statusMsg.textContent = ""; }, 3000);
-    }
-    function showInfo(message) {
-      infoMsg.textContent = message;
-      setTimeout(() => { infoMsg.textContent = ""; }, 4000);
-    }
-
-    async function uploadToImgBB(file) {
-      try {
-        const formData = new FormData();
-        formData.append("image", file);
-        const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", { method: "POST", body: formData });
-        const data = await res.json();
-        if (data.success) return data.data.url;
-        throw new Error("Image upload failed");
-      } catch (err) {
-        console.error(err);
-        throw new Error("ImgBB upload failed");
-      }
-    }
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) { alert("Please sign in first."); window.location.href = "index.html"; return; }
-      currentUser = user;
-      const adminSnap = await get(ref(db, `admins/${user.uid}`));
-      isAdmin = adminSnap.exists();
-      if (isAdmin) {
-        adminPendingWrapper.classList.remove("hidden");
-        showInfo("You are signed in as Admin. Form will update channels directly.");
-        loadPendingRequests();
-      } else {
-        adminPendingWrapper.classList.add("hidden");
-        showInfo("Submissions will be stored as pending requests for admin approval.");
-      }
-      setupChannelsListener();
+  function showToast(message, type = "info") {
+    const toast = document.createElement('div');
+    toast.className = `
+      flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-white transition-all duration-300 transform
+      opacity-0 translate-x-10
+      ${type === "success" ? "bg-green-500" :
+        type === "error" ? "bg-red-500" :
+        "bg-gray-700"}
+    `;
+    const icon = document.createElement('span');
+    icon.className = 'material-icons';
+    icon.textContent = type === "success" ? 'check_circle' : type === "error" ? 'error' : 'info';
+    toast.appendChild(icon);
+    const msg = document.createElement('span');
+    msg.textContent = message;
+    toast.appendChild(msg);
+    document.getElementById('toast-container').appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(0)';
     });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(50px)';
+      toast.addEventListener('transitionend', () => toast.remove());
+    }, 3000);
+  }
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      signOut(auth).then(() => { alert("✅ Logged out successfully!"); window.location.href = "index.html"; });
-    });
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const channelId = channelIdInput.value;
-      const name = document.getElementById("name").value.trim();
-      const stream = document.getElementById("stream").value.trim();
-      const category = document.getElementById("category").value;
-      const iconFile = document.getElementById("iconFile").files[0];
-      let icon = document.getElementById("icon").value;
-
-      if (!name || !stream || !category) { showStatus("⚠️ Please fill all fields.", true); return; }
-      submitBtn.disabled = true;
-
-      try {
-        if (iconFile) {
-          showStatus("Uploading image...");
-          icon = await uploadToImgBB(iconFile);
-          document.getElementById("icon").value = icon;
-        }
-        if (!icon) { showStatus("⚠️ Please upload an icon.", true); submitBtn.disabled = false; return; }
-
-        const now = new Date().toISOString();
-        if (isAdmin) {
-          if (channelId) {
-            await update(ref(db, "channels/" + channelId), { name, icon, stream, category, updatedAt: now });
-            showStatus("✅ Channel updated!");
-          } else {
-            const newRef = push(ref(db, "channels"));
-            await set(newRef, { name, icon, stream, category, createdAt: now });
-            showStatus("✅ Channel added!");
-          }
-        } else {
-          const newReqRef = push(ref(db, "channelRequests"));
-          await set(newReqRef, {
-            name, icon, stream, category,
-            submittedBy: currentUser.uid,
-            submittedByName: currentUser.displayName || currentUser.email || "",
-            status: "pending",
-            timestamp: Date.now()
-          });
-          showStatus("✅ Channel request submitted for approval!");
-          form.reset();
-          document.getElementById("icon").value = "";
-        }
-        channelIdInput.value = "";
-      } catch (error) {
-        showStatus("❌ Error: " + (error.message || error), true);
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-
-    function setupChannelsListener() {
-      const channelsRef = ref(db, "channels");
-      onValue(channelsRef, (snapshot) => {
-        channelsData = snapshot.val() || {};
-        renderChannels();
-      });
+  // Auth listener
+  auth.onAuthStateChanged(async user => {
+    if (!user) {
+      showToast('Please log in', 'error');
+      setTimeout(() => window.location.href = 'signin', 1000);
+      return;
     }
 
-    function renderChannels() {
-      channelList.innerHTML = "";
-      const searchTerm = (searchInput.value || "").toLowerCase();
-      const selectedCategory = filterCategory.value;
-      const sortBy = sortOption.value;
+    const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap => snap.exists());
+    if (isAdmin) {
+      adminSection.classList.remove('hidden');
+      loadAdminRequests();
+    } else {
+      userSection.classList.remove('hidden');
+      loadUserChannels(user.uid);
+    }
+    loadPublicChannels();
+  });
 
-      let filteredChannels = Object.entries(channelsData).filter(([id, ch]) => {
-        const matchesCategory = selectedCategory === "All" || ch.category === selectedCategory;
-        const matchesSearch = (ch.name || "").toLowerCase().includes(searchTerm);
-        return matchesCategory && matchesSearch;
+  // Upload image to ImgBB
+  async function uploadToImgBB(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", {
+      method: "POST", body: formData
+    });
+    const data = await res.json();
+    if (data.success) return data.data.url;
+    throw new Error("Image upload failed");
+  }
+
+  // Submit channel
+  window.submitChannel = async function () {
+    const name = document.getElementById('channel-name').value.trim();
+    const url = document.getElementById('channel-url').value.trim();
+    const category = document.getElementById('channel-category').value;
+    const fileInput = document.getElementById('channel-icon-file');
+    const statusText = document.getElementById('upload-status');
+    const user = auth.currentUser;
+
+    if (!user) return showToast("User not signed in", "error");
+    if (!name || !url || fileInput.files.length === 0) return showToast("Fill all fields and upload image", "error");
+
+    try {
+      statusText.textContent = "Uploading image...";
+      const iconUrl = await uploadToImgBB(fileInput.files[0]);
+      statusText.textContent = "Image uploaded ✔";
+
+      const requestId = db.ref('channelRequests').push().key;
+      await db.ref(`channelRequests/${requestId}`).set({
+        name,
+        icon: iconUrl,
+        url,
+        category,
+        submittedBy: user.uid,
+        submittedByName: user.displayName || user.email,
+        status: 'pending',
+        timestamp: Date.now()
       });
 
-      if (sortBy === "az") filteredChannels.sort((a, b) => (a[1].name || "").localeCompare(b[1].name || ""));
-      else if (sortBy === "latest") filteredChannels.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
-      else if (sortBy === "oldest") filteredChannels.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
+      showToast('Channel request submitted', 'success');
+      document.getElementById('channel-name').value = '';
+      document.getElementById('channel-url').value = '';
+      fileInput.value = '';
+      statusText.textContent = '';
+      loadUserChannels(user.uid);
+    } catch (err) {
+      console.error(err);
+      statusText.textContent = "Upload failed ❌";
+      showToast("Failed to upload image", "error");
+    }
+  };
 
-      if (filteredChannels.length === 0) { channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>"; return; }
+  // Load user channels
+  function loadUserChannels(uid) {
+    const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
+    q.on('value', snap => {
+      userPending.innerHTML = '';
+      userApproved.innerHTML = '';
+      if (!snap.exists()) return;
 
-      filteredChannels.forEach(([id, ch]) => {
-        const card = document.createElement("div");
-        card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
+      const items = [];
+      snap.forEach(childSnap => {
+        items.push({ id: childSnap.key, ...childSnap.val() });
+      });
+
+      items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+      items.forEach(c => {
+        const status = (c.status || 'pending').toLowerCase();
+        const card = document.createElement('div');
+        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
         card.innerHTML = `
-          <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+          <img src="${c.icon}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
           <div class="flex-1">
-            <h3 class="text-lg font-bold">${ch.name}</h3>
-            <p class="text-gray-600 text-sm">${ch.category}</p>
+            <h4 class="font-semibold text-white">${c.name}</h4>
+            <p class="text-gray-300">${c.category}</p>
           </div>
-          <div class="flex gap-2">
-            <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">
-              <i class="fa-solid fa-pen"></i>
-            </button>
-            <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>`;
-        channelList.appendChild(card);
+          <span class="px-2 py-1 rounded-xl text-sm ${status === 'approved' ? 'bg-green-500' : 'bg-yellow-500'}">${status}</span>
+        `;
+        if (status === 'pending') userPending.appendChild(card);
+        else if (status === 'approved') userApproved.appendChild(card);
       });
+    });
+  }
 
-      attachActionButtons();
-    }
-
-    function attachActionButtons() {
-      document.querySelectorAll(".editBtn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = e.currentTarget.dataset.id;
-          if (!isAdmin) { alert("Only admins can edit channels."); return; }
-          const ch = channelsData[id];
-          channelIdInput.value = id;
-          document.getElementById("name").value = ch.name || "";
-          document.getElementById("icon").value = ch.icon || "";
-          document.getElementById("stream").value = ch.stream || "";
-          document.getElementById("category").value = ch.category || "Tamil";
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+  // Load public channels
+  function loadPublicChannels() {
+    const publicChannels = document.getElementById('public-channels');
+    db.ref('channels').on('value', snap => {
+      publicChannels.innerHTML = '';
+      if (!snap.exists()) {
+        publicChannels.innerHTML = '<p class="text-gray-400 text-center py-4">No channels available</p>';
+        return;
+      }
+      snap.forEach(child => {
+        const c = child.val();
+        const card = document.createElement('div');
+        card.className = 'bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all';
+        card.innerHTML = `
+          <img src="${c.icon}" class="w-full h-40 object-cover rounded-lg mb-3"/>
+          <h4 class="font-semibold text-white text-lg">${c.name}</h4>
+          <p class="text-gray-400">${c.category}</p>
+          <a href="${c.url}" target="_blank" class="text-red-400 font-bold hover:underline block mt-2">Watch Now</a>
+        `;
+        publicChannels.appendChild(card);
       });
+    });
+  }
 
-      document.querySelectorAll(".deleteBtn").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          const id = e.currentTarget.dataset.id;
-          if (!isAdmin) { alert("Only admins can delete channels."); return; }
-          if (confirm("Are you sure you want to delete this channel?")) {
-            try { await remove(ref(db, "channels/" + id)); showStatus("✅ Channel deleted!"); }
-            catch (err) { showStatus("❌ Error deleting channel: " + err.message, true); }
-          }
-        });
-      });
-    }
-
-    function loadPendingRequests() {
-      const q = query(ref(db, "channelRequests"), orderByChild("status"), equalTo("pending"));
-      onValue(q, (snap) => {
-        pendingList.innerHTML = "";
-        if (!snap.exists()) { pendingList.innerHTML = "<p class='text-gray-600'>No pending requests.</p>"; return; }
-        snap.forEach(child => {
-          const r = child.val();
-          const id = child.key;
-          const div = document.createElement("div");
-          div.className = "flex items-center justify-between bg-white p-3 rounded-lg shadow-sm";
-          div.innerHTML = `
-            <div class="flex items-center gap-3">
-              <img src="${r.icon}" class="w-12 h-12 rounded-md border object-contain"/>
-              <div>
-                <div class="font-semibold">${r.name}</div>
-                <div class="text-xs text-gray-500">${r.category} • submitted by ${r.submittedByName || r.submittedBy}</div>
-              </div>
+  // Admin functions
+  window.loadAdminRequests = function () {
+    const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
+    requestsRef.on('value', snap => {
+      adminRequestsList.innerHTML = '';
+      if (!snap.exists()) {
+        adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
+        return;
+      }
+      snap.forEach(child => {
+        const r = child.val();
+        const li = document.createElement('div');
+        li.className = 'channel-card';
+        li.innerHTML = `
+          <div class="flex items-center gap-4">
+            <img src="${r.icon}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+            <div>
+              <h4 class="font-semibold text-white">${r.name}</h4>
+              <p class="text-gray-300">${r.category}</p>
             </div>
-            <div class="flex gap-2">
-              <button class="approveBtn bg-green-500 text-white px-3 py-1 rounded-lg" data-id="${id}">
-                <i class="fa-solid fa-check"></i> Approve
-              </button>
-              <button class="rejectBtn bg-red-500 text-white px-3 py-1 rounded-lg" data-id="${id}">
-                <i class="fa-solid fa-trash"></i> Reject
-              </button>
-            </div>`;
-          pendingList.appendChild(div);
-        });
-        attachPendingButtons();
+          </div>
+        `;
+        const btns = document.createElement('div');
+        btns.className = 'flex gap-2';
+        const approve = document.createElement('button');
+        approve.textContent = 'Approve';
+        approve.className = 'bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600';
+        approve.onclick = () => approveRequest(child.key, r);
+        const reject = document.createElement('button');
+        reject.textContent = 'Reject';
+        reject.className = 'bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600';
+        reject.onclick = () => rejectRequest(child.key);
+        btns.appendChild(approve);
+        btns.appendChild(reject);
+        li.appendChild(btns);
+        adminRequestsList.appendChild(li);
       });
+    });
+  };
+
+  // Approve: move to channels then delete request
+  async function approveRequest(id, channelData) {
+    try {
+      const newChannelRef = db.ref('channels').push();
+      await newChannelRef.set({
+        name: channelData.name,
+        icon: channelData.icon,
+        url: channelData.url,
+        category: channelData.category,
+        createdBy: channelData.submittedBy,
+        createdAt: Date.now()
+      });
+      await db.ref(`channelRequests/${id}`).remove();
+      showToast(`${channelData.name} approved and added!`, 'success');
+    } catch (err) {
+      console.error(err);
+      showToast("Error approving: " + err, 'error');
     }
+  }
 
-    function attachPendingButtons() {
-      document.querySelectorAll(".approveBtn").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          if (!isAdmin) { alert("Only admins can approve requests."); return; }
-          const id = e.currentTarget.dataset.id;
-          const reqSnap = await get(ref(db, "channelRequests/" + id));
-          if (!reqSnap.exists()) { showStatus("Request not found", true); return; }
-          const r = reqSnap.val();
-          try {
-            const newChannelRef = push(ref(db, "channels"));
-            await set(newChannelRef, {
-              name: r.name,
-              icon: r.icon,
-              stream: r.stream,
-              category: r.category,
-              createdBy: r.submittedBy || "",
-              createdAt: new Date().toISOString()
-            });
-            await remove(ref(db, "channelRequests/" + id));
-            showStatus(`✅ "${r.name}" approved and published.`);
-          } catch (err) { showStatus("❌ Error approving: " + (err.message || err), true); }
-        });
-      });
-
-      document.querySelectorAll(".rejectBtn").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          if (!isAdmin) { alert("Only admins can reject requests."); return; }
-          const id = e.currentTarget.dataset.id;
-          if (!confirm("Delete this request? This cannot be undone.")) return;
-          try { await remove(ref(db, "channelRequests/" + id)); showStatus("✅ Request deleted."); }
-          catch (err) { showStatus("❌ Error deleting request: " + (err.message || err), true); }
-        });
-      });
+  // Reject: delete request
+  async function rejectRequest(requestId) {
+    try {
+      await db.ref(`channelRequests/${requestId}`).remove();
+      showToast("Request deleted successfully.", "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Error deleting: " + err, "error");
     }
+  }
 
-    filterCategory.addEventListener("change", renderChannels);
-    searchInput.addEventListener("input", renderChannels);
-    sortOption.addEventListener("change", renderChannels);
-    setupChannelsListener();
-  </script>
+  // Logout
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await auth.signOut();
+    showToast('Logged out', 'info');
+    setTimeout(() => window.location.href = 'signin', 1000);
+  });
+});
+
 </body>
 </html>
