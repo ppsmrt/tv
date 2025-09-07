@@ -5,32 +5,143 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Live TV - Dashboard</title>
 
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+<!-- Baloo 2 -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body { font-family: 'Baloo 2', cursive; background-color: #111827; color: #fff; margin: 0; min-height: 100vh; }
-  header { height: 64px; display: flex; align-items: center; padding: 0 1.5rem; background: rgba(31,41,55,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.5); z-index: 20; justify-content: space-between; }
-  main { padding: 20px 1rem 100px; max-width: 1200px; margin: 0 auto; }
-  .hidden { display: none; }
-  .channel-card { background: #1f2937; border-radius: 16px; padding:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; }
-  .channel-card img { width:50px; height:50px; border-radius:8px; object-fit:cover; }
-  select, input, button { width:100%; padding:8px; margin:4px 0; border-radius:6px; border:none; background:#1f2937; color:white; }
-  button:hover{ background:#f87171; }
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+  }
+  header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 20;
+    justify-content: space-between;
+  }
+  main {
+    padding: 20px 1rem 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0;
+    border-radius: 12px;
+    border: none;
+    background: #1f2937;
+    color: white;
+    font-weight: 500;
+    outline: none;
+  }
+  input::file-selector-button {
+    background: #f87171;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  button {
+    background: #f87171;
+    font-weight: 700;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #ef4444;
+  }
+.input-field {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: #1f2937;
+    color: #fff;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .input-field:focus {
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.5);
+    background: #111827;
+  }
+  .file-input::file-selector-button {
+    background: #f87171;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .file-input::file-selector-button:hover {
+    background: #ef4444;
+  }
+/* Admin card hover effect */
+  #admin-requests .channel-card {
+    background: rgba(31, 41, 55, 0.85);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
 
-  /* Toast */
-  #toast { position: fixed; bottom: 20px; right: 20px; z-index: 50; }
-  .toast-msg { margin-top: 8px; padding: 10px 16px; border-radius: 8px; font-weight: 600; animation: fadein 0.2s ease, fadeout 0.2s ease 3.2s forwards; }
-  @keyframes fadein { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
-  @keyframes fadeout { from { opacity:1;} to { opacity:0; transform: translateY(10px);} }
+  #admin-requests .channel-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  }
 
-  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-weight:700; font-size:12px; }
+  /* Buttons inside admin cards */
+  #admin-requests button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  #admin-requests .approve-btn {
+    background-color: #22c55e;
+  }
+  #admin-requests .approve-btn:hover {
+    background-color: #16a34a;
+    transform: translateY(-2px);
+  }
+  #admin-requests .reject-btn {
+    background-color: #ef4444;
+  }
+  #admin-requests .reject-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+  }
+
+
 </style>
 </head>
 <body>
 
-<header class="flex justify-between items-center px-6 h-20 bg-gray-800 shadow-md">
+<!-- Header -->
+<header>
   <div class="flex items-center gap-2">
     <span class="material-icons text-white text-3xl">live_tv</span>
     <h1 class="text-xl font-bold text-white">Live TV Dashboard</h1>
@@ -40,53 +151,88 @@
   </span>
 </header>
 
-<div class="bg-gray-700 text-white px-6 py-3">
-  <p id="welcome-msg" class="text-lg font-semibold">Welcome, User</p>
+<!-- Premium Glass Notification -->
+<div class="flex items-center space-x-3 px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl shadow-lg text-yellow-50 animate-fade-in">
+  <!-- Notification Icon -->
+  <span class="material-icons text-yellow-400 text-2xl">notifications</span>
+  
+  <!-- Notification Message -->
+  <p class="font-semibold text-yellow-50">Image Upload has been enabled</p>
 </div>
+
+<!-- Optional Tailwind Animation -->
+<style>
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+</style>
 
 <main>
   <!-- User Section -->
-  <div id="user-section" class="hidden space-y-8">
-    <div class="bg-gray-800 p-6 rounded-xl shadow-lg max-w-lg mx-auto space-y-4">
-      <h2 class="text-2xl font-bold text-red-500">Submit a Channel</h2>
-      <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
-      <input type="text" id="channel-icon" placeholder="Channel Logo URL" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
-      <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full p-3 rounded-lg bg-gray-700 placeholder-gray-400 text-white"/>
-      <select id="channel-category" class="w-full p-3 rounded-lg bg-gray-700 text-white">
-        <<option value="Tamil">Tamil</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Kannada">Kannada</option>
-        <option value="Malayalam">Malayalam</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Kids">Kids</option>
-        <option value="Sports">Sports</option>
+
+<div id="user-section" class="hidden space-y-10">
+
+  <!-- Submit Channel Card -->
+  <div class="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 p-8 rounded-3xl shadow-2xl max-w-lg mx-auto space-y-6 transform transition-all duration-300 hover:scale-105">
+    <h2 class="text-3xl font-extrabold text-red-500 text-center tracking-wide">Submit a Channel</h2>
+
+    <div class="space-y-4">
+      <input type="text" id="channel-name" placeholder="Channel Name" class="input-field"/>
+      
+      <!-- File Upload for Icon -->
+      <div class="flex flex-col">
+        <input type="file" id="channel-icon-file" accept="image/*" class="file-input"/>
+        <small id="upload-status" class="text-gray-400 block text-sm mt-1"></small>
+      </div>
+
+      <input type="text" id="channel-url" placeholder="Stream URL" class="input-field"/>
+      
+      <select id="channel-category" class="input-field">
+        <option value="News">News</option>
+        <option value="Music">Music</option>
+        <option value="Entertainment">Entertainment</option>
       </select>
-      <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg">Submit Channel</button>
-      <p class="text-xs text-gray-400">
-        Tip: use imgbb.com for uploadig image.
-      </p>
-    </div>
 
-    <div class="space-y-2 max-w-3xl mx-auto">
-      <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
-      <div id="user-pending" class="space-y-3"></div>
-    </div>
-
-    <div class="space-y-2 max-w-3xl mx-auto">
-      <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
-      <div id="user-approved" class="space-y-3"></div>
+      <button onclick="submitChannel()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        Submit Channel
+      </button>
     </div>
   </div>
+
+  <!-- Pending Requests -->
+  <div class="space-y-4 max-w-3xl mx-auto">
+    <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
+    <div id="user-pending" class="space-y-3"></div>
+  </div>
+
+  <!-- Approved Channels -->
+  <div class="space-y-4 max-w-3xl mx-auto">
+    <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
+    <div id="user-approved" class="space-y-3"></div>
+  </div>
+</div>
 
   <!-- Admin Section -->
-  <div id="admin-section" class="hidden space-y-6">
-    <div class="flex items-center justify-between">
-      <h2 class="text-xl font-semibold">Pending Channel Requests</h2>
-      <span id="admin-hint" class="text-xs text-gray-400"></span>
-    </div>
-    <div id="admin-requests" class="space-y-2"></div>
+ 
+<div id="admin-section" class="hidden space-y-8">
+
+  <!-- Section Header -->
+  <div class="max-w-4xl mx-auto flex items-center justify-between bg-gray-800/90 backdrop-blur-sm p-5 rounded-2xl shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-extrabold text-red-500 tracking-wide">Pending Channel Requests</h2>
+    <span class="material-icons text-white text-3xl cursor-pointer hover:text-red-400" title="Refresh" onclick="loadAdminRequests()">refresh</span>
   </div>
-</main>
+
+  <!-- Requests List -->
+  <div id="admin-requests" class="space-y-4 max-w-4xl mx-auto">
+    <!-- Cards will be dynamically injected here via JS -->
+  </div>
+</div>
+
 <!-- Footer -->
 <div id="footer"></div>
 
@@ -94,317 +240,274 @@
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 
-<!-- Toast container -->
-<div id="toast"></div>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-<script type="module">
-/** =========================
- *  Firebase (Modular v9)
- *  ========================= */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, get, onValue, push, remove, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
 
-/** IMPORTANT:
- * Realtime Database Rules should include:
- * "channelRequests": {
- *   ".read": "auth != null",
- *   ".indexOn": ["submittedBy","status"],
- *   "$requestId": {
- *     ".read": "auth.uid === data.child('submittedBy').val() || root.child('admins').child(auth.uid).exists()",
- *     ".write": "auth.uid === newData.child('submittedBy').val() || root.child('admins').child(auth.uid).exists()"
- *   }
- * }
- */
+  // Elements
+  const userSection = document.getElementById('user-section');
+  const adminSection = document.getElementById('admin-section');
+  const welcomeMsg = document.getElementById('welcome-msg');
+  const userPending = document.getElementById('user-pending');
+  const userApproved = document.getElementById('user-approved');
+  const adminRequestsList = document.getElementById('admin-requests');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-/** =========================
- *  DOM
- *  ========================= */
-const userSection = document.getElementById('user-section');
-const adminSection = document.getElementById('admin-section');
-const welcomeMsg  = document.getElementById('welcome-msg');
-const userPending = document.getElementById('user-pending');
-const userApproved= document.getElementById('user-approved');
-const adminRequestsList = document.getElementById('admin-requests');
-const adminHint   = document.getElementById('admin-hint');
-const toastContainer = document.getElementById('toast');
-const submitBtn   = document.getElementById('submit-btn');
-
-/** =========================
- *  Toast
- *  ========================= */
-function showToast(msg, type="info") {
-  const div = document.createElement('div');
-  div.className = `toast-msg ${type==="success" ? "bg-green-500" : type==="error" ? "bg-red-500" : "bg-blue-500"} text-white shadow-lg`;
-  div.textContent = msg;
-  toastContainer.appendChild(div);
-  setTimeout(() => div.remove(), 3400);
-}
-
-/** =========================
- *  Helpers
- *  ========================= */
-async function getUserName(uid) {
-  if (!uid) return "Unknown";
-  try {
-    const snap = await get(ref(db, `users/${uid}/name`));
-    return snap.exists() ? snap.val() : uid;
-  } catch (e) {
-    console.error("getUserName error:", e);
-    return uid;
+  // Toast container
+  let toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.className = 'fixed bottom-6 right-6 flex flex-col gap-3 z-50';
+    document.body.appendChild(toastContainer);
   }
-}
 
-function statusPill(status) {
-  if (status === 'approved') return '<span class="pill bg-green-500 text-white">Approved</span>';
-  if (status === 'pending')  return '<span class="pill bg-yellow-500 text-gray-900">Pending</span>';
-  if (status === 'rejected') return '<span class="pill bg-red-500 text-white">Rejected</span>';
-  return '<span class="pill bg-gray-500 text-white">Unknown</span>';
-}
-
-/** =========================
- *  Auth
- *  ========================= */
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    showToast("Please log in", "error");
-    // If you don't have signin, remove next line
-    window.location.href='signin';
-    return;
+  function showToast(message, type = "info") {
+    const toast = document.createElement('div');
+    toast.className = `
+      flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-white transition-all duration-300 transform
+      opacity-0 translate-x-10
+      ${type === "success" ? "bg-green-500" :
+        type === "error" ? "bg-red-500" :
+        "bg-gray-700"}
+    `;
+    const icon = document.createElement('span');
+    icon.className = 'material-icons';
+    icon.textContent = type === "success" ? 'check_circle' : type === "error" ? 'error' : 'info';
+    toast.appendChild(icon);
+    const msg = document.createElement('span');
+    msg.textContent = message;
+    toast.appendChild(msg);
+    toastContainer.appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(0)';
+    });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(50px)';
+      toast.addEventListener('transitionend', () => toast.remove());
+    }, 3000);
   }
-  welcomeMsg.textContent = `Welcome, ${user.email}`;
 
-  try {
-    const adminSnap = await get(ref(db, `admins/${user.uid}`));
-    const isAdmin = adminSnap.exists();
+  // Auth listener
+  auth.onAuthStateChanged(async user => {
+    if (!user) {
+      showToast('Please log in', 'error');
+      setTimeout(() => window.location.href = 'signin', 1000);
+      return;
+    }
 
+    const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap => snap.exists());
     if (isAdmin) {
       adminSection.classList.remove('hidden');
-      adminHint.textContent = 'Showing all PENDING requests';
       loadAdminRequests();
     } else {
       userSection.classList.remove('hidden');
       loadUserChannels(user.uid);
     }
-  } catch (e) {
-    console.error("Admin check failed:", e);
-    showToast("Unable to verify admin status. Check rules.", "error");
+  });
+
+  // Upload to ImgBB
+  async function uploadToImgBB(file) {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success) return data.data.url;
+      throw new Error("Image upload failed");
+    } catch (err) {
+      console.error(err);
+      throw new Error("ImgBB upload failed");
+    }
   }
-});
 
-/** =========================
- *  User: Submit
- *  ========================= */
-submitBtn.addEventListener('click', submitChannel);
-
-async function submitChannel(){
-  try {
+  // Submit channel
+  window.submitChannel = async function () {
     const name = document.getElementById('channel-name').value.trim();
-    const icon = document.getElementById('channel-icon').value.trim();
-    const url  = document.getElementById('channel-url').value.trim();
+    const url = document.getElementById('channel-url').value.trim();
     const category = document.getElementById('channel-category').value;
+    const fileInput = document.getElementById('channel-icon-file');
+    const statusText = document.getElementById('upload-status');
     const user = auth.currentUser;
 
-    if(!name || !url || !icon){
-      showToast("Please fill all fields", "error");
-      return;
+    if (!user) return showToast("User not signed in", "error");
+    if (!name || !url || fileInput.files.length === 0) return showToast("Fill all fields and upload image", "error");
+
+    try {
+      statusText.textContent = "Uploading image...";
+      const iconUrl = await uploadToImgBB(fileInput.files[0]);
+      statusText.textContent = "Image uploaded ✔";
+
+      const requestId = db.ref('channelRequests').push().key;
+      await db.ref(`channelRequests/${requestId}`).set({
+        name,
+        icon: iconUrl,
+        url,
+        category,
+        submittedBy: user.uid,
+        submittedByName: user.displayName || user.email,
+        status: 'pending',
+        timestamp: Date.now()
+      });
+
+      showToast('Channel request submitted', 'success');
+      document.getElementById('channel-name').value = '';
+      document.getElementById('channel-url').value = '';
+      fileInput.value = '';
+      statusText.textContent = '';
+      loadUserChannels(user.uid);
+    } catch (err) {
+      console.error(err);
+      statusText.textContent = "Upload failed ❌";
+      showToast("Failed to upload image", "error");
+    }
+  };
+
+  // Load user channels
+  function loadUserChannels(uid) {
+    const userPending = document.getElementById('user-pending');
+    const userApproved = document.getElementById('user-approved');
+
+    if (!userPending || !userApproved) {
+        console.error("DOM elements for user channels not found!");
+        return;
     }
 
-    const requestRef = push(ref(db, 'channelRequests'));
-    await set(requestRef, {
-      name, icon, url, category,
-      submittedBy: user.uid,
-      status: 'pending',
-      timestamp: Date.now()
-    });
+    const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
+    q.on('value', snap => {
+        userPending.innerHTML = '';
+        userApproved.innerHTML = '';
 
-    document.getElementById('channel-name').value = '';
-    document.getElementById('channel-icon').value = '';
-    document.getElementById('channel-url').value = '';
-    showToast("Channel request submitted!", "success");
-  } catch (e) {
-    console.error("submitChannel error:", e);
-    showToast(e?.code || "Submit failed. Check rules & network.", "error");
-  }
-}
-
-/** =========================
- *  User: List + Realtime toasts
- *  ========================= */
-const lastStatuses = new Map(); // requestId -> lastStatus
-
-function loadUserChannels(uid){
-  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(
-    q,
-    async (snap) => {
-      userPending.innerHTML = '';
-      userApproved.innerHTML = '';
-
-      if (!snap.exists()) {
-        userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
-        return;
-      }
-
-      // Build arrays to maintain deterministic order (by timestamp ascending)
-      const items = [];
-      snap.forEach(childSnap => {
-        const c = childSnap.val();
-        items.push({ id: childSnap.key, ...c });
-      });
-      items.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
-
-      for (const c of items) {
-        const userName = await getUserName(c.submittedBy);
-        // Realtime status toast
-        const prev = lastStatuses.get(c.id);
-        if (prev && prev !== c.status) {
-          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
-          if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
+        if (!snap.exists()) {
+            userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No pending channels</p>';
+            userApproved.innerHTML = '<p class="text-gray-400 text-center py-4">No approved channels</p>';
+            return;
         }
-        lastStatuses.set(c.id, c.status);
 
-        const card = document.createElement('div');
-        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-        card.innerHTML = `
-          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-          <div class="flex-1">
-            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-          </div>
-          ${statusPill(c.status)}
-        `;
-        if (c.status === 'pending') userPending.appendChild(card);
-        if (c.status === 'approved') userApproved.appendChild(card);
-        // (Optional) if you want to show rejected items in user view, add another section.
-      }
-    },
-    (error) => {
-      console.error("loadUserChannels onValue error:", error);
-      showToast(error?.code || "Read failed (user). Check rules.", "error");
-    }
-  );
+        const items = [];
+        snap.forEach(childSnap => {
+            items.push({ id: childSnap.key, ...childSnap.val() });
+        });
+
+        // Sort by timestamp
+        items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+        items.forEach(c => {
+            const status = (c.status || 'pending').toLowerCase().trim();
+            if (status !== 'pending' && status !== 'approved') return; // ignore others
+
+            const card = document.createElement('div');
+            card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+            card.innerHTML = `
+                <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+                <div class="flex-1">
+                    <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+                    <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+                    <span class="text-sm text-gray-400">Submitted by: ${c.submittedByName || c.submittedBy || 'Unknown'}</span>
+                </div>
+                <span class="px-2 py-1 rounded-xl text-sm ${
+                    status === 'approved' ? 'bg-green-500' : 'bg-yellow-500'
+                }">${status}</span>
+            `;
+
+            if (status === 'pending') userPending.appendChild(card);
+            else if (status === 'approved') userApproved.appendChild(card);
+        });
+
+        // Fallback messages if empty
+        if (!userPending.hasChildNodes()) userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No pending channels</p>';
+        if (!userApproved.hasChildNodes()) userApproved.innerHTML = '<p class="text-gray-400 text-center py-4">No approved channels</p>';
+    });
 }
+  // Logout
+  document.getElementById('logout-btn')?.addEventListener('click', () => {
+    auth.signOut().then(() => window.location.href = '/').catch(e => showToast("Error logging out", "error"));
+  });
 
-/** =========================
- *  Logout
- *  ========================= */
-document.getElementById('logout-btn').addEventListener('click', () => {
-  signOut(auth)
-    .then(() => { showToast("Logged out", "success"); window.location.href = '/'; })
-    .catch((e) => { console.error(e); showToast("Error logging out", "error"); });
-});
-
-/** =========================
- *  Admin: Pending list
- *  ========================= */
-function loadAdminRequests() {
-  const requestsRef = ref(db, 'channelRequests');
-  onValue(
-    requestsRef,
-    async (snap) => {
+  // Admin functions
+  function loadAdminRequests() {
+    const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
+    requestsRef.on('value', snap => {
       adminRequestsList.innerHTML = '';
-      if (!snap.exists()) {
-        adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-        return;
-      }
+      if (!snap.exists()) return adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
 
-      // Collect & sort by timestamp; filter pending
-      const rows = [];
-      snap.forEach(childSnap => {
-        const r = childSnap.val();
-        if (r.status === 'pending') rows.push({ id: childSnap.key, ...r });
-      });
-      rows.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
-
-      if (!rows.length) {
-        adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-        return;
-      }
-
-      for (const r of rows) {
-        const userName = await getUserName(r.submittedBy);
+      snap.forEach(child => {
+        const r = child.val();
         const li = document.createElement('div');
-        li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+        li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg';
         li.innerHTML = `
           <div class="flex items-center gap-4">
-            <img src="${r.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
+            <img src="${r.icon || 'https://via.placeholder.com/50'}" alt="${r.name || 'Channel'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
             <div>
-              <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
-              <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
-              <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
+              <h4 class="font-semibold text-white">${r.name}</h4>
+              <p class="text-gray-300">${r.category}</p>
+              <span class="text-sm text-gray-400">Submitted by: ${r.submittedByName || r.submittedBy}</span>
             </div>
           </div>
         `;
-        const btns = document.createElement('div'); btns.className = 'flex gap-2';
+        const btns = document.createElement('div');
+        btns.className = 'flex gap-2';
         const approve = document.createElement('button');
         approve.textContent = 'Approve';
-        approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
-        approve.onclick = () => approveRequest(r.id, r);
+        approve.className = 'approve-btn';
+        approve.onclick = () => approveRequest(child.key, r);
         const reject = document.createElement('button');
         reject.textContent = 'Reject';
-        reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
-        reject.onclick = () => rejectRequest(r.id);
-        btns.appendChild(approve); btns.appendChild(reject);
+        reject.className = 'reject-btn';
+        reject.onclick = () => rejectRequest(child.key);
+        btns.appendChild(approve);
+        btns.appendChild(reject);
         li.appendChild(btns);
         adminRequestsList.appendChild(li);
-      }
-    },
-    (error) => {
-      console.error("loadAdminRequests onValue error:", error);
-      showToast(error?.code || "Read failed (admin). Check rules.", "error");
-    }
-  );
-}
-
-async function approveRequest(requestId, requestData) {
-  try {
-    const adminId = auth.currentUser.uid;
-    if (!requestData) throw new Error("Missing request data");
-    const newChannelRef = push(ref(db, 'channels'));
-    await set(newChannelRef, {
-      name: requestData.name || 'Unnamed Channel',
-      icon: requestData.icon || '',
-      category: requestData.category || 'Uncategorized',
-      stream: requestData.url || '',
-      createdBy: requestData.submittedBy || 'unknown',
-      approvedBy: adminId,
-      approvedAt: Date.now()
+      });
     });
-    await remove(ref(db, `channelRequests/${requestId}`));
-    showToast("Channel approved", "success");
-  } catch (e) {
-    console.error("approveRequest error:", e);
-    showToast(e?.code || "Approve failed. Check rules.", "error");
   }
-}
 
-async function rejectRequest(requestId){
-  try {
-    await remove(ref(db, `channelRequests/${requestId}`));
-    showToast("Channel rejected", "error");
-  } catch (e) {
-    console.error("rejectRequest error:", e);
-    showToast(e?.code || "Reject failed. Check rules.", "error");
+  // Approve
+  function approveRequest(id, channelData) {
+    db.ref(`channelRequests/${id}`).update({ status: 'approved' })
+      .then(() => showToast(`${channelData.name} approved!`, 'success'))
+      .catch(err => showToast("Error approving: " + err, 'error'));
   }
-}
+
+  // Reject
+  async function rejectRequest(requestId) {
+    try {
+      await db.ref(`channelRequests/${requestId}`).update({ status: 'rejected' });
+      const requestSnap = await db.ref(`channelRequests/${requestId}`).get();
+      const requestData = requestSnap.val();
+      if (requestData) {
+        const channelsSnap = await db.ref('channels').orderByChild('createdBy').equalTo(requestData.submittedBy).get();
+        channelsSnap.forEach(channelSnap => {
+          const channel = channelSnap.val();
+          if (channel.name === requestData.name) db.ref(`channels/${channelSnap.key}`).remove();
+        });
+      }
+      showToast("Request rejected and related channel deleted (if existed).", "success");
+    } catch (err) {
+      showToast("Error rejecting: " + err, "error");
+    }
+  }
+});
 </script>
-
 </body>
 </html>
