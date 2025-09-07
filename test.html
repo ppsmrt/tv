@@ -339,23 +339,51 @@ window.loadAdminRequests = function () {
       
       // Editable card
       li.innerHTML = `
-        <div class="flex items-center gap-4 flex-1">
-          <img src="${r.icon}" class="w-16 h-16 rounded-lg object-cover border border-gray-600" id="icon-preview-${child.key}"/>
-          <div class="flex-1 flex flex-col gap-2">
-            <input type="text" class="input-field" value="${r.name}" id="name-${child.key}" placeholder="Channel Name" />
-            <input type="text" class="input-field" value="${r.url}" id="url-${child.key}" placeholder="Stream URL" />
-            <select id="category-${child.key}" class="input-field">
-              <option ${r.category === 'News' ? 'selected' : ''}>Tamil</option>
-              <option ${r.category === 'Music' ? 'selected' : ''}>Telugu</option>
-              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Kannada</option>
-              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Malayalam</option>
-              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Hindi</option>
-              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Kids</option>
-              <option ${r.category === 'Entertainment' ? 'selected' : ''}>Sports</option>
-            </select>
-            <input type="file" class="file-input mt-2" id="icon-file-${child.key}" accept="image/*" />
-          </div>
-        </div>
+        <div class="flex flex-col md:flex-row items-center gap-4 p-4 bg-gray-900 rounded-xl shadow-lg w-full max-w-4xl mx-auto border border-gray-700">
+  <!-- Channel Icon Preview -->
+  <div class="relative">
+    <img src="${r.icon}" class="w-20 h-20 md:w-24 md:h-24 rounded-lg object-cover border border-gray-600" id="icon-preview-${child.key}" />
+  </div>
+  <!-- Input Fields -->
+  <div class="flex-1 flex flex-col gap-3 w-full">
+    <!-- Channel Name -->
+    <input 
+      type="text" 
+      class="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-100 placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+      value="${r.name}" 
+      id="name-${child.key}" 
+      placeholder="Channel Name" 
+    />
+    <!-- Stream URL -->
+    <input 
+      type="text" 
+      class="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-100 placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+      value="${r.url}" 
+      id="url-${child.key}" 
+      placeholder="Stream URL" 
+    />
+    <!-- Category Dropdown -->
+    <select 
+      id="category-${child.key}" 
+      class="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    >
+      <option ${r.category === 'Tamil' ? 'selected' : ''}>Tamil</option>
+      <option ${r.category === 'Telugu' ? 'selected' : ''}>Telugu</option>
+      <option ${r.category === 'Kannada' ? 'selected' : ''}>Kannada</option>
+      <option ${r.category === 'Malayalam' ? 'selected' : ''}>Malayalam</option>
+      <option ${r.category === 'Hindi' ? 'selected' : ''}>Hindi</option>
+      <option ${r.category === 'Kids' ? 'selected' : ''}>Kids</option>
+      <option ${r.category === 'Sports' ? 'selected' : ''}>Sports</option>
+    </select>
+    <!-- Upload File -->
+    <label for="icon-file-${child.key}" class="flex items-center justify-center gap-2 w-full px-4 py-2 mt-2 rounded-lg bg-gray-800 text-gray-200 border border-gray-700 cursor-pointer hover:bg-gray-700 transition">
+      <span class="material-icons">upload</span>
+      <span>Upload Channel Icon</span>
+    </label>
+    <input type="file" class="hidden" id="icon-file-${child.key}" accept="image/*" />
+    
+  </div>
+</div>
       `;
 
       const btns = document.createElement('div');
