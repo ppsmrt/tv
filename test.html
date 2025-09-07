@@ -247,10 +247,16 @@ const adminRequestsList = document.getElementById('admin-requests');
 
 // Auth Listener
 auth.onAuthStateChanged(async user => {
-  if(!user){ alert('Please log in'); window.location.href='login.html'; return; }
-  welcomeMsg.textContent = `Welcome, ${user.email}`;
-  const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap=>snap.exists());
-  if(isAdmin){
+  if (!user) {
+    alert('Please log in'); 
+    window.location.href = 'login.html'; 
+    return; 
+  }
+
+  welcomeMsg.textContent = `Welcome, ${user.displayName || user.email}`;
+
+  const isAdmin = await db.ref(`admins/${user.uid}`).get().then(snap => snap.exists());
+  if (isAdmin) {
     adminSection.classList.remove('hidden');
     loadAdminRequests();
   } else {
@@ -259,20 +265,18 @@ auth.onAuthStateChanged(async user => {
   }
 });
 
-// ImgBB Upload
+// Upload to ImgBB
 async function uploadToImgBB(file) {
   const formData = new FormData();
   formData.append("image", file);
-  const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", {
-    method: "POST", body: formData
-  });
+  const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", { method: "POST", body: formData });
   const data = await res.json();
   if (data.success) return data.data.url;
-  else throw new Error("Image upload failed");
+  throw new Error("Image upload failed");
 }
 
 // Submit Channel
-async function submitChannel(){
+async function submitChannel() {
   const name = document.getElementById('channel-name').value.trim();
   const url = document.getElementById('channel-url').value.trim();
   const category = document.getElementById('channel-category').value;
@@ -280,8 +284,8 @@ async function submitChannel(){
   const statusText = document.getElementById('upload-status');
   const user = auth.currentUser;
 
-  if(!name || !url || fileInput.files.length === 0){
-    alert('Please fill all fields and upload an image');
+  if (!name || !url || fileInput.files.length === 0) {
+    alert('Please fill all fields and upload an image'); 
     return;
   }
 
@@ -292,8 +296,12 @@ async function submitChannel(){
 
     const requestId = db.ref('channelRequests').push().key;
     await db.ref(`channelRequests/${requestId}`).set({
-      name, icon: iconUrl, url, category,
+      name,
+      icon: iconUrl,
+      url,
+      category,
       submittedBy: user.uid,
+      submittedByName: user.displayName || user.email,
       status: 'pending',
       timestamp: Date.now()
     });
@@ -305,87 +313,63 @@ async function submitChannel(){
     statusText.textContent = '';
     loadUserChannels(user.uid);
   } catch (err) {
-    console.error(err);
+    console.error(err); 
+    statusText.textContent = "Upload failed ❌"; 
     alert("Failed to upload image.");
-    statusText.textContent = "Upload failed ❌";
   }
 }
 
-const lastStatuses = new Map(); // requestId -> lastStatus
-
-function loadUserChannels(uid){
-  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(
-    q,
-    async (snap) => {
-      userPending.innerHTML = '';
-      userApproved.innerHTML = '';
-
-      if (!snap.exists()) {
-        userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
-        return;
-      }
-
-      // Build arrays to maintain deterministic order (by timestamp ascending)
-      const items = [];
-      snap.forEach(childSnap => {
-        const c = childSnap.val();
-        items.push({ id: childSnap.key, ...c });
-      });
-      items.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
-
-      for (const c of items) {
-        const userName = await getUserName(c.submittedBy);
-        // Realtime status toast
-        const prev = lastStatuses.get(c.id);
-        if (prev && prev !== c.status) {
-          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
-          if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
-        }
-        lastStatuses.set(c.id, c.status);
-
-        const card = document.createElement('div');
-        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-        card.innerHTML = `
-          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-          <div class="flex-1">
-            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-          </div>
-          ${statusPill(c.status)}
-        `;
-        if (c.status === 'pending') userPending.appendChild(card);
-        if (c.status === 'approved') userApproved.appendChild(card);
-        // (Optional) if you want to show rejected items in user view, add another section.
-      }
-    },
-    (error) => {
-      console.error("loadUserChannels onValue error:", error);
-      showToast(error?.code || "Read failed (user). Check rules.", "error");
+// Load User Channels
+function loadUserChannels(uid) {
+  const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
+  q.on('value', snap => {
+    userPending.innerHTML = '';
+    userApproved.innerHTML = '';
+    if (!snap.exists()) {
+      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+      return;
     }
-  );
-}
 
+    const items = [];
+    snap.forEach(childSnap => items.push({ id: childSnap.key, ...childSnap.val() }));
+    items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+    items.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+      card.innerHTML = `
+        <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+        <div class="flex-1">
+          <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+          <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+          <span class="text-sm text-gray-400">Submitted by: ${c.submittedByName || c.submittedBy}</span>
+        </div>
+        <span class="px-2 py-1 rounded-xl text-sm ${c.status === 'approved' ? 'bg-green-500' : c.status === 'rejected' ? 'bg-red-500' : 'bg-yellow-500'}">${c.status}</span>
+      `;
+
+      if (c.status === 'pending') userPending.appendChild(card);
+      if (c.status === 'approved') userApproved.appendChild(card);
+    });
+  });
+}
 
 // Logout
 document.getElementById('logout-btn').addEventListener('click', () => {
-  auth.signOut().then(() => window.location.href='/').catch(e=>alert("Error logging out."));
+  auth.signOut().then(() => window.location.href = '/').catch(e => alert("Error logging out."));
 });
 
 // Admin Functions
 function loadAdminRequests() {
   const requestsRef = db.ref('channelRequests').orderByChild('status').equalTo('pending');
   requestsRef.on('value', snap => {
+    adminRequestsList.innerHTML = '';
     if (!snap.exists()) {
       adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
       return;
     }
-    adminRequestsList.innerHTML = '';
+
     snap.forEach(child => {
       const r = child.val();
-      const submittedName = r.submittedByName || r.submittedBy; // Use name if available
-
       const li = document.createElement('div');
       li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg';
       li.innerHTML = `
@@ -394,26 +378,40 @@ function loadAdminRequests() {
           <div>
             <h4 class="font-semibold text-white">${r.name}</h4>
             <p class="text-gray-300">${r.category}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${submittedName}</span>
+            <span class="text-sm text-gray-400">Submitted by: ${r.submittedByName || r.submittedBy}</span>
           </div>
         </div>
       `;
-      const btns = document.createElement('div'); 
+      const btns = document.createElement('div');
       btns.className = 'flex gap-2';
       const approve = document.createElement('button');
       approve.textContent = 'Approve';
-      approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600';
+      approve.className = 'approve-btn';
       approve.onclick = () => approveRequest(child.key, r);
       const reject = document.createElement('button');
       reject.textContent = 'Reject';
-      reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600';
+      reject.className = 'reject-btn';
       reject.onclick = () => rejectRequest(child.key);
-      btns.appendChild(approve); 
+      btns.appendChild(approve);
       btns.appendChild(reject);
       li.appendChild(btns);
       adminRequestsList.appendChild(li);
     });
   });
+}
+
+// Approve Request
+function approveRequest(id, channelData) {
+  db.ref(`channelRequests/${id}`).update({ status: 'approved' })
+    .then(() => alert(`${channelData.name} approved!`))
+    .catch(err => alert("Error approving: " + err));
+}
+
+// Reject Request
+function rejectRequest(id) {
+  db.ref(`channelRequests/${id}`).update({ status: 'rejected' })
+    .then(() => alert("Request rejected"))
+    .catch(err => alert("Error rejecting: " + err));
 }
 </script>
 </body>
