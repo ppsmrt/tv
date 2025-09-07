@@ -144,6 +144,7 @@ const auth = getAuth(app);
 
 const container = document.getElementById('notificationsContainer');
 
+// ✅ Time Ago Function
 function timeAgo(timestamp) {
   if (!timestamp) return "";
   const diff = Math.floor((Date.now() - timestamp) / 1000);
@@ -153,10 +154,11 @@ function timeAgo(timestamp) {
   return `${Math.floor(diff / 86400)}d ago`;
 }
 
+// ✅ Create Notification Card
 function createNotificationCard(notification) {
   const card = document.createElement('div');
   card.className = 'notification-card';
-  card.onclick = () => { if(notification.url) window.open(notification.url, "_blank"); }
+  card.onclick = () => { if(notification.url) window.open(notification.url, "_blank"); };
 
   const img = document.createElement('img');
   img.className = 'notification-icon';
@@ -182,6 +184,7 @@ function createNotificationCard(notification) {
   return card;
 }
 
+// ✅ Empty State UI
 function renderEmptyState() {
   container.innerHTML = `
     <div class="empty-state">
@@ -192,6 +195,7 @@ function renderEmptyState() {
   `;
 }
 
+// ✅ Render Notifications
 function renderNotifications(notifications) {
   container.innerHTML = '';
   if (notifications.length === 0) {
@@ -201,6 +205,7 @@ function renderNotifications(notifications) {
   notifications.forEach(n => container.appendChild(createNotificationCard(n)));
 }
 
+// ✅ Main Logic
 onAuthStateChanged(auth, user => {
   if (!user) {
     container.innerHTML = `<p class="text-center mt-4">Please log in to see notifications</p>`;
@@ -210,34 +215,36 @@ onAuthStateChanged(auth, user => {
   const notificationsRef = ref(db, 'notifications');
   const channelsRef = ref(db, 'channels');
 
-  // Listen for channels (latest 5 global notifications)
+  // ✅ Listen for Channels (Top 5 New Channels)
   onValue(channelsRef, snapshot => {
     const channelsData = snapshot.val();
     let latestChannels = [];
+
     if (channelsData) {
       latestChannels = Object.values(channelsData)
-        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
-        .slice(0, 5)
         .map(c => ({
           message: `New channel added: ${c.name}`,
-          logo: c.logo,
-          url: c.url || '',
-          timestamp: c.timestamp,
+          logo: c.logo || c.icon || 'https://via.placeholder.com/50',
+          url: c.url || c.stream || '',
+          timestamp: c.timestamp || 0,
           category: 'Channel'
-        }));
+        }))
+        .sort((a, b) => b.timestamp - a.timestamp)
+        .slice(0, 5);
     }
 
-    // Listen for other notifications
+    // ✅ Listen for Other Notifications
     onValue(notificationsRef, snapshot2 => {
       const notifData = snapshot2.val();
       let notifications = [];
+
       if (notifData) {
         notifications = Object.values(notifData)
           .filter(n => !n.userId || n.userId === user.uid)
           .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       }
 
-      // Merge latest channels at the top
+      // ✅ Merge Latest Channels at the Top
       const merged = [...latestChannels, ...notifications];
       renderNotifications(merged);
     });
