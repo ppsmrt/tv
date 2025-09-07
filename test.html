@@ -66,6 +66,35 @@
   button:hover {
     background: #ef4444;
   }
+.input-field {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: #1f2937;
+    color: #fff;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .input-field:focus {
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.5);
+    background: #111827;
+  }
+  .file-input::file-selector-button {
+    background: #f87171;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .file-input::file-selector-button:hover {
+    background: #ef4444;
+  }
+
 </style>
 </head>
 <body>
@@ -88,37 +117,48 @@
 
 <main>
   <!-- User Section -->
-  <div id="user-section" class="hidden space-y-10">
-    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl max-w-lg mx-auto space-y-4">
-      <h2 class="text-2xl font-bold text-red-500">Submit a Channel</h2>
+  <!-- User Section -->
+<div id="user-section" class="hidden space-y-10">
 
-      <input type="text" id="channel-name" placeholder="Channel Name"/>
+  <!-- Submit Channel Card -->
+  <div class="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 p-8 rounded-3xl shadow-2xl max-w-lg mx-auto space-y-6 transform transition-all duration-300 hover:scale-105">
+    <h2 class="text-3xl font-extrabold text-red-500 text-center tracking-wide">Submit a Channel</h2>
+
+    <div class="space-y-4">
+      <input type="text" id="channel-name" placeholder="Channel Name" class="input-field"/>
       
       <!-- File Upload for Icon -->
-      <input type="file" id="channel-icon-file" accept="image/*"/>
-      <small id="upload-status" class="text-gray-400 block text-sm"></small>
+      <div class="flex flex-col">
+        <input type="file" id="channel-icon-file" accept="image/*" class="file-input"/>
+        <small id="upload-status" class="text-gray-400 block text-sm mt-1"></small>
+      </div>
 
-      <input type="text" id="channel-url" placeholder="Stream URL"/>
+      <input type="text" id="channel-url" placeholder="Stream URL" class="input-field"/>
       
-      <select id="channel-category">
+      <select id="channel-category" class="input-field">
         <option value="News">News</option>
         <option value="Music">Music</option>
         <option value="Entertainment">Entertainment</option>
       </select>
 
-      <button onclick="submitChannel()">Submit Channel</button>
-    </div>
-
-    <div class="space-y-4 max-w-3xl mx-auto">
-      <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
-      <div id="user-pending" class="space-y-3"></div>
-    </div>
-
-    <div class="space-y-4 max-w-3xl mx-auto">
-      <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
-      <div id="user-approved" class="space-y-3"></div>
+      <button onclick="submitChannel()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        Submit Channel
+      </button>
     </div>
   </div>
+
+  <!-- Pending Requests -->
+  <div class="space-y-4 max-w-3xl mx-auto">
+    <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Pending Requests</h3>
+    <div id="user-pending" class="space-y-3"></div>
+  </div>
+
+  <!-- Approved Channels -->
+  <div class="space-y-4 max-w-3xl mx-auto">
+    <h3 class="text-2xl font-semibold border-b border-gray-700 pb-2">Approved Channels</h3>
+    <div id="user-approved" class="space-y-3"></div>
+  </div>
+</div>
 
   <!-- Admin Section -->
   <div id="admin-section" class="hidden space-y-6">
