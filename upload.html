@@ -22,13 +22,19 @@
     height: 70px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 1rem;
     background: linear-gradient(to right, #1f2937, #111827);
     box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
   }
 
   main {
-    padding: 40px 1rem;
+    padding: 40px 1rem 60px;
     max-width: 600px;
     margin: 0 auto;
   }
@@ -85,54 +91,62 @@
   .file-label:hover { background: #f87171; }
 
   button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 12px;
-    border-radius: 14px;
     border: none;
-    background: #ef4444;
-    color: #fff;
-    font-weight: 700;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
   }
 
   button:hover {
-    background: #f87171;
     transform: translateY(-2px);
   }
 
-  img {
-    max-width: 100%;
-    border-radius: 16px;
+  #status { margin-top: 10px; color: #9ca3af; }
+
+  /* Preview Section */
+  #preview-container {
     margin-top: 20px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    background: linear-gradient(145deg, #1f2937, #111827);
+    border-radius: 24px;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     opacity: 0;
     transform: scale(0.95);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: all 0.5s ease;
   }
 
-  img.show {
+  #preview-container.show {
     opacity: 1;
     transform: scale(1);
   }
 
-  #toast { position: fixed; bottom: 20px; right: 20px; z-index: 50; }
-  .toast-msg {
-    margin-top: 8px;
-    padding: 10px 16px;
-    border-radius: 12px;
-    font-weight: 600;
-    animation: fadein 0.3s, fadeout 0.3s 3s;
+  #preview {
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, opacity 0.5s ease;
+    opacity: 0;
   }
 
-  @keyframes fadein { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
-  @keyframes fadeout { from { opacity:1;} to { opacity:0; transform: translateY(10px);} }
+  #preview.show {
+    opacity: 1;
+  }
+
+  #preview:hover {
+    transform: scale(1.05);
+  }
 
   .copy-box {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 15px;
+    width: 100%;
     background: #374151;
     padding: 10px;
     border-radius: 12px;
@@ -148,31 +162,49 @@
   }
 
   .copy-box button {
-    width: auto;
     padding: 10px 16px;
+    background: #10b981;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 12px;
   }
+
+  .copy-box button:hover {
+    background: #059669;
+  }
+
+  /* Toast notifications */
+  #toast { position: fixed; bottom: 20px; right: 20px; z-index: 50; }
+  .toast-msg {
+    margin-top: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    animation: fadein 0.3s, fadeout 0.3s 3s;
+  }
+
+  @keyframes fadein { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
+  @keyframes fadeout { from { opacity:1;} to { opacity:0; transform: translateY(10px);} }
 
 </style>
 </head>
 <body>
 
 <!-- Header -->
-<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
-  <!-- Left: Uploader title with icon -->
+<header>
   <div class="flex items-center space-x-2">
     <span class="material-icons text-white text-3xl">image</span>
     <h1 class="text-lg md:text-xl font-bold text-white tracking-wide">Uploader</h1>
   </div>
 
-  <!-- Right: Back button -->
   <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
     <span class="material-icons">arrow_back</span>
     <span class="font-semibold">Back</span>
   </button>
 </header>
 
-<!-- Spacer -->
 <div class="h-16"></div>
+
 <main>
   <div class="card">
     <h2>Upload Your Images</h2>
@@ -180,22 +212,29 @@
       Select any image from your device and click upload. Once uploaded, you'll get a direct link to share anywhere.
     </p>
     <p class="warning">
-      ⚠️ Please do not upload any illegal, offensive, or inappropriate content. All uploads are public!
+      ⚠️ Please do not upload illegal, offensive, or inappropriate content. All uploads are public!
     </p>
 
-    <label class="file-label" for="image-file">
-      <span class="material-icons align-middle mr-2">image</span>Select Image
+    <!-- File Input -->
+    <label for="image-file" class="file-label flex items-center justify-center gap-2">
+      <span class="material-icons">image</span> Select Image
     </label>
     <input type="file" id="image-file" accept="image/*"/>
-    
-    <button id="upload-btn">Upload Image</button>
-    <p id="status" class="text-gray-400 mt-2">No file selected</p>
-    
-    <img id="preview" src="" alt="Preview"/>
-    
-    <div class="copy-box hidden" id="copy-container">
-      <input type="text" id="image-url" readonly/>
-      <button id="copy-btn">Copy URL</button>
+
+    <!-- Upload Button -->
+    <button id="upload-btn" class="flex items-center justify-center gap-2 w-full px-4 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg mt-3 shadow-md">
+      <span class="material-icons">cloud_upload</span> Upload Image
+    </button>
+
+    <p id="status">No file selected</p>
+
+    <!-- Preview Section -->
+    <div id="preview-container">
+      <img id="preview" src="" alt="Preview"/>
+      <div class="copy-box">
+        <input type="text" id="image-url" readonly/>
+        <button id="copy-btn">Copy URL</button>
+      </div>
     </div>
   </div>
 </main>
@@ -207,8 +246,8 @@ const imgbbKey = '8604e4b4050c63c460d0bca39cf28708';
 const fileInput = document.getElementById('image-file');
 const uploadBtn = document.getElementById('upload-btn');
 const preview = document.getElementById('preview');
+const previewContainer = document.getElementById('preview-container');
 const status = document.getElementById('status');
-const copyContainer = document.getElementById('copy-container');
 const imageUrlInput = document.getElementById('image-url');
 const copyBtn = document.getElementById('copy-btn');
 
@@ -220,6 +259,14 @@ function showToast(msg, type="info") {
   setTimeout(() => div.remove(), 3500);
 }
 
+fileInput.addEventListener('change', () => {
+  if(fileInput.files[0]){
+    status.textContent = `Selected: ${fileInput.files[0].name}`;
+  } else {
+    status.textContent = 'No file selected';
+  }
+});
+
 uploadBtn.addEventListener('click', async () => {
   const file = fileInput.files[0];
   if (!file) {
@@ -229,7 +276,7 @@ uploadBtn.addEventListener('click', async () => {
 
   status.textContent = 'Uploading...';
   preview.classList.remove('show');
-  copyContainer.classList.add('hidden');
+  previewContainer.classList.remove('show');
 
   const formData = new FormData();
   formData.append('image', file);
@@ -243,9 +290,11 @@ uploadBtn.addEventListener('click', async () => {
     if (data.success) {
       const url = data.data.url;
       preview.src = url;
-      preview.classList.add('show');
+      preview.onload = () => {
+        preview.classList.add('show');
+        previewContainer.classList.add('show');
+      }
       imageUrlInput.value = url;
-      copyContainer.classList.remove('hidden');
       status.textContent = 'Upload successful!';
       showToast('Image uploaded!', 'success');
     } else {
