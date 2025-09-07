@@ -306,45 +306,44 @@
   const channelsRef = ref(db, 'channels');
   const requestsRef = ref(db, 'channelRequests');
 
-  function loadChannels() {
-    // Fetch channels
-    onValue(channelsRef, snapshot => {
-      let mainChannels = [];
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        mainChannels = Object.values(data).map(c => ({
-          name: c.name,
-          category: c.category,
-          logo: c.icon,
-          stream: c.stream
-        }));
-      }
+  let mainChannels = [];
+  let approvedRequests = [];
 
-      // Fetch approved channel requests
-      onValue(requestsRef, snap => {
-        let approvedChannels = [];
-        if (snap.exists()) {
-          const reqData = snap.val();
-          approvedChannels = Object.values(reqData)
-            .filter(c => c.status === 'approved')
-            .map(c => ({
-              name: c.name,
-              category: c.category,
-              logo: c.icon,
-              stream: c.stream
-            }));
-        }
-
-        // Merge channels
-        channels = [...mainChannels, ...approvedChannels];
-
-        renderCategories();
-        renderChannels(searchInput.value);
-      });
-    });
+  function updateChannelsGrid() {
+    channels = [...mainChannels, ...approvedRequests];
+    renderCategories();
+    renderChannels(searchInput.value);
   }
 
-  loadChannels();
+  // Fetch main channels
+  onValue(channelsRef, snapshot => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      mainChannels = Object.values(data).map(c => ({
+        name: c.name,
+        category: c.category,
+        logo: c.icon || c.logo,
+        stream: c.stream
+      }));
+    } else mainChannels = [];
+    updateChannelsGrid();
+  });
+
+  // Fetch approved channel requests
+  onValue(requestsRef, snapshot => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      approvedRequests = Object.values(data)
+        .filter(c => c.status === 'approved')
+        .map(c => ({
+          name: c.name,
+          category: c.category,
+          logo: c.icon || c.logo,
+          stream: c.stream
+        }));
+    } else approvedRequests = [];
+    updateChannelsGrid();
+  });
 </script>
 </body>
 </html>
