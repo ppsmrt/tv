@@ -7,7 +7,8 @@
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  
 <!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
@@ -57,26 +58,61 @@
   <!-- User Section -->
 <div id="user-section" class="hidden max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
    <!-- Submit Channel Card -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto space-y-6">
-      <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
-      
-      <input type="text" id="channel-name" placeholder="Channel Name" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
-      <input type="text" id="channel-icon" placeholder="Channel Logo URL" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
-      <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full p-4 rounded-lg bg-gray-700 placeholder-gray-400 text-white focus:ring-2 focus:ring-red-500 outline-none transition"/>
-      
-      <select id="channel-category" class="w-full p-4 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
-        <option value="Tamil">Tamil</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Kannada">Kannada</option>
-        <option value="Malayalam">Malayalam</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Kids">Kids</option>
-        <option value="Sports">Sports</option>
-      </select>
-      
-      <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg shadow-md transition transform hover:scale-105">Submit Channel</button>
-      <p class="text-xs text-gray-400 text-center">Tip: use imgbb.com for uploading images.</p>
-    </div>
+<div class="relative bg-gray-900/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl max-w-xl mx-auto border border-gray-700 space-y-6">
+  
+  <!-- Heading -->
+  <h2 class="text-4xl font-extrabold text-center text-red-500 tracking-wide">Submit a Channel</h2>
+  <p class="text-gray-400 text-center text-sm">Fill in the details below to add a channel</p>
+
+  <!-- Channel Name -->
+  <div class="relative">
+    <span class="material-icons absolute left-3 top-4 text-gray-400">tv</span>
+    <input type="text" id="channel-name" placeholder=" " 
+      class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
+    <label for="channel-name" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Name</label>
+  </div>
+
+  <!-- Channel Logo URL -->
+  <div class="relative">
+    <span class="material-icons absolute left-3 top-4 text-gray-400">image</span>
+    <input type="text" id="channel-icon" placeholder=" " 
+      class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
+    <label for="channel-icon" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Channel Logo URL</label>
+  </div>
+
+  <!-- Stream URL -->
+  <div class="relative">
+    <span class="material-icons absolute left-3 top-4 text-gray-400">link</span>
+    <input type="text" id="channel-url" placeholder=" " 
+      class="peer w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white placeholder-transparent focus:ring-2 focus:ring-red-500 outline-none transition"/>
+    <label for="channel-url" class="absolute left-12 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-500 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500">Stream URL (m3u8)</label>
+  </div>
+
+  <!-- Category Dropdown -->
+  <div class="relative">
+    <span class="material-icons absolute left-3 top-4 text-gray-400">category</span>
+    <select id="channel-category" 
+      class="w-full p-4 pl-12 rounded-lg bg-gray-800/60 border border-gray-700 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
+      <option value="">Select Category</option>
+      <option value="Tamil">Tamil</option>
+      <option value="Telugu">Telugu</option>
+      <option value="Kannada">Kannada</option>
+      <option value="Malayalam">Malayalam</option>
+      <option value="Hindi">Hindi</option>
+      <option value="Kids">Kids</option>
+      <option value="Sports">Sports</option>
+    </select>
+  </div>
+
+  <!-- Submit Button -->
+  <button id="submit-btn" 
+    class="w-full bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-105 hover:shadow-red-500/50 flex items-center justify-center gap-2">
+    <span class="material-icons">send</span> Submit Channel
+  </button>
+
+  <!-- Tip -->
+  <p class="text-xs text-gray-400 text-center">💡 Use <a href="https://imgbb.com" target="_blank" class="text-red-400 hover:underline">imgbb.com</a> to upload images.</p>
+</div>
   
   <h2 class="text-xl font-semibold text-white mb-4">Your Channel Requests</h2>
 
