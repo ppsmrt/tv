@@ -389,4 +389,65 @@ function loadAdminRequests() {
           <div class="flex items-center gap-4">
             <img src="${r.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
             <div>
-              <h4
+              <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
+              <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
+              <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
+            </div>
+          </div>
+        `;
+        const btns = document.createElement('div'); btns.className = 'flex gap-2';
+        const approve = document.createElement('button');
+        approve.textContent = 'Approve';
+        approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
+        approve.onclick = () => approveRequest(r.id, r);
+        const reject = document.createElement('button');
+        reject.textContent = 'Reject';
+        reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
+        reject.onclick = () => rejectRequest(r.id);
+        btns.appendChild(approve); btns.appendChild(reject);
+        li.appendChild(btns);
+        adminRequestsList.appendChild(li);
+      }
+    },
+    (error) => {
+      console.error("loadAdminRequests onValue error:", error);
+      showToast(error?.code || "Read failed (admin). Check rules.", "error");
+    }
+  );
+}
+
+async function approveRequest(requestId, requestData) {
+  try {
+    const adminId = auth.currentUser.uid;
+    if (!requestData) throw new Error("Missing request data");
+    const newChannelRef = push(ref(db, 'channels'));
+    await set(newChannelRef, {
+      name: requestData.name || 'Unnamed Channel',
+      icon: requestData.icon || '',
+      category: requestData.category || 'Uncategorized',
+      stream: requestData.stream || '', // ✅ updated field
+      createdBy: requestData.submittedBy || 'unknown',
+      approvedBy: adminId,
+      approvedAt: Date.now()
+    });
+    await remove(ref(db, `channelRequests/${requestId}`));
+    showToast("Channel approved", "success");
+  } catch (e) {
+    console.error("approveRequest error:", e);
+    showToast(e?.code || "Approve failed. Check rules.", "error");
+  }
+}
+
+async function rejectRequest(requestId){
+  try {
+    await remove(ref(db, `channelRequests/${requestId}`));
+    showToast("Channel rejected", "error");
+  } catch (e) {
+    console.error("rejectRequest error:", e);
+    showToast(e?.code || "Reject failed. Check rules.", "error");
+  }
+}
+</script>
+
+</body>
+</html>
