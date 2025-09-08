@@ -324,26 +324,17 @@ function loadUserChannels(uid){
         }
         lastStatuses.set(c.id, c.status);
 
-        // Enhanced card UI
         const card = document.createElement('div');
-        card.className = `
-          flex items-center gap-4 p-4
-          bg-gray-800 rounded-2xl
-          shadow-md hover:shadow-xl
-          border border-gray-700
-          transition-all duration-300
-        `;
+        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
         card.innerHTML = `
-          <img src="${c.icon || 'https://via.placeholder.com/64'}" 
-               class="w-16 h-16 rounded-lg object-cover border-2 border-gray-600"/>
+          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
           <div class="flex-1">
-            <h4 class="font-semibold text-white text-lg truncate">${c.name || 'Untitled'}</h4>
-            <p class="text-gray-300 truncate">${c.category || 'Uncategorized'}</p>
+            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
             <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
           </div>
-          <div>${statusPill(c.status)}</div>
+          ${statusPill(c.status)}
         `;
-
         if (c.status === 'pending') userPending.appendChild(card);
         if (c.status === 'approved') userApproved.appendChild(card);
       }
@@ -365,13 +356,10 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 });
 
 /** =========================
- *  Admin: Pending list (Enhanced)
+ *  Admin: Pending list
  *  ========================= */
 function loadAdminRequests() {
   const requestsRef = ref(db, 'channelRequests');
-
-  adminRequestsList.innerHTML = `<p class="text-gray-400 text-center py-4">Loading requests...</p>`;
-
   onValue(
     requestsRef,
     async (snap) => {
@@ -386,7 +374,7 @@ function loadAdminRequests() {
         const r = childSnap.val();
         if (r.status === 'pending') rows.push({ id: childSnap.key, ...r });
       });
-      rows.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+      rows.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
 
       if (!rows.length) {
         adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
@@ -395,44 +383,29 @@ function loadAdminRequests() {
 
       for (const r of rows) {
         const userName = await getUserName(r.submittedBy);
-
         const li = document.createElement('div');
-        li.className = `
-          channel-card flex flex-col md:flex-row items-center justify-between p-4 bg-gray-800 rounded-xl shadow-md 
-          hover:shadow-lg transition-shadow gap-4
-        `;
-
+        li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
         li.innerHTML = `
-          <div class="flex items-center gap-4 w-full md:w-3/4">
-            <img src="${r.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600 object-cover"/>
-            <div class="overflow-hidden">
-              <h4 class="font-semibold text-white truncate max-w-md">${r.name || 'Untitled Channel'}</h4>
-              <p class="text-gray-300 truncate max-w-md">${r.category || 'Uncategorized'}</p>
+          <div class="flex items-center gap-4">
+            <img src="${r.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
+            <div>
+              <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
+              <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
               <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-              <span class="inline-block mt-1 px-2 py-0.5 text-xs text-yellow-200 bg-yellow-700 rounded-full">Pending</span>
             </div>
           </div>
         `;
-
-        const btns = document.createElement('div');
-        btns.className = 'flex gap-2 mt-2 md:mt-0';
-
+        const btns = document.createElement('div'); btns.className = 'flex gap-2';
         const approve = document.createElement('button');
         approve.textContent = 'Approve';
-        approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold transition';
-        approve.title = "Approve this channel";
+        approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
         approve.onclick = () => approveRequest(r.id, r);
-
         const reject = document.createElement('button');
         reject.textContent = 'Reject';
-        reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold transition';
-        reject.title = "Reject this channel";
+        reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
         reject.onclick = () => rejectRequest(r.id);
-
-        btns.appendChild(approve);
-        btns.appendChild(reject);
+        btns.appendChild(approve); btns.appendChild(reject);
         li.appendChild(btns);
-
         adminRequestsList.appendChild(li);
       }
     },
@@ -443,6 +416,37 @@ function loadAdminRequests() {
   );
 }
 
+async function approveRequest(requestId, requestData) {
+  try {
+    const adminId = auth.currentUser.uid;
+    if (!requestData) throw new Error("Missing request data");
+    const newChannelRef = push(ref(db, 'channels'));
+    await set(newChannelRef, {
+      name: requestData.name || 'Unnamed Channel',
+      icon: requestData.icon || '',
+      category: requestData.category || 'Uncategorized',
+      stream: requestData.stream || '', // ✅ updated field
+      createdBy: requestData.submittedBy || 'unknown',
+      approvedBy: adminId,
+      approvedAt: Date.now()
+    });
+    await remove(ref(db, `channelRequests/${requestId}`));
+    showToast("Channel approved", "success");
+  } catch (e) {
+    console.error("approveRequest error:", e);
+    showToast(e?.code || "Approve failed. Check rules.", "error");
+  }
+}
+
+async function rejectRequest(requestId){
+  try {
+    await remove(ref(db, `channelRequests/${requestId}`));
+    showToast("Channel rejected", "error");
+  } catch (e) {
+    console.error("rejectRequest error:", e);
+    showToast(e?.code || "Reject failed. Check rules.", "error");
+  }
+}
 </script>
 
 </body>
