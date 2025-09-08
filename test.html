@@ -231,7 +231,7 @@
       loadAdminRequests();
     } else {
       userSection.classList.remove('hidden');
-      loadUserChannels(user.uid);
+      loadUser Channels(user.uid);
     }
     loadPublicChannels();
   });
@@ -266,9 +266,9 @@ window.submitChannel = async function () {
   const category = document.getElementById('channel-category').value;
   const fileInput = document.getElementById('channel-icon-file');
   const statusText = document.getElementById('upload-status');
-  const user = auth.currentUser;
+  const user = auth.currentUser ;
 
-  if (!user) return showToast("User not signed in", "error");
+  if (!user) return showToast("User  not signed in", "error");
   if (!name || !url || fileInput.files.length === 0) return showToast("Fill all fields and upload image", "error");
 
   try {
@@ -292,7 +292,7 @@ window.submitChannel = async function () {
     document.getElementById('channel-url').value = '';
     fileInput.value = '';
     statusText.textContent = '';
-    loadUserChannels(user.uid);
+    loadUser Channels(user.uid);
   } catch (err) {
     console.error(err);
     statusText.textContent = "Upload failed ❌";
@@ -301,7 +301,7 @@ window.submitChannel = async function () {
 };
 
   // Load user channels
-  function loadUserChannels(uid) {
+  function loadUser Channels(uid) {
     const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
     q.on('value', snap => {
       userPending.innerHTML = '';
@@ -397,70 +397,4 @@ window.loadAdminRequests = function () {
       `;
 
       const btns = document.createElement('div');
-      btns.className = 'flex gap-2 mt-4 md:mt-0';
-      const approve = document.createElement('button');
-      approve.textContent = 'Approve';
-      approve.className = 'bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600';
-      approve.onclick = () => approveRequest(child.key, r);
-      const reject = document.createElement('button');
-      reject.textContent = 'Reject';
-      reject.className = 'bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600';
-      reject.onclick = () => rejectRequest(child.key);
-      btns.appendChild(approve);
-      btns.appendChild(reject);
-      li.appendChild(btns);
-      adminRequestsList.appendChild(li);
-    });
-  });
-};
-
-// Approve: move to channels then delete request
-async function approveRequest(id, channelData) {
-  try {
-    // Get edited values
-    const editedName = document.getElementById(`name-${id}`).value.trim() || channelData.name;
-    const editedUrl = document.getElementById(`url-${id}`).value.trim() || channelData.url;
-    const editedCategory = document.getElementById(`category-${id}`).value || channelData.category;
-    const iconFileInput = document.getElementById(`icon-file-${id}`);
-
-    let iconUrl = channelData.icon;
-
-    // If new icon uploaded, upload it
-    if (iconFileInput.files.length > 0) {
-      const file = iconFileInput.files[0];
-      iconUrl = await uploadToImgBB(file); // use existing ImgBB upload function
-      document.getElementById(`icon-preview-${id}`).src = iconUrl;
-    }
-
-    // Push to channels
-    const newChannelRef = db.ref('channels').push();
-    await newChannelRef.set({
-      name: editedName,
-      icon: iconUrl,
-      url: editedUrl,
-      category: editedCategory,
-      createdBy: channelData.submittedBy,
-      createdAt: Date.now()
-    });
-
-    // Remove request
-    await db.ref(`channelRequests/${id}`).remove();
-    showToast(`${editedName} approved and added!`, 'success');
-
-  } catch (err) {
-    console.error(err);
-    showToast("Error approving: " + err, 'error');
-  }
-}
-
-  // Logout
-  document.getElementById('logout-btn').addEventListener('click', async () => {
-    await auth.signOut();
-    showToast('Logged out', 'info');
-    setTimeout(() => window.location.href = 'signin', 1000);
-  });
-});
-
-</script>
-</body>
-</html>
+      btns.className
