@@ -367,13 +367,10 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 /** =========================
  *  Admin: Pending list (Enhanced)
  *  ========================= */
-/** =========================
- *  Admin: Pending list (Enhanced + Preview)
- *  ========================= */
 function loadAdminRequests() {
   const requestsRef = ref(db, 'channelRequests');
 
-  adminRequestsList.innerHTML = `<p class="text-gray-400 text-center py-4 animate-pulse">Loading requests...</p>`;
+  adminRequestsList.innerHTML = `<p class="text-gray-400 text-center py-4">Loading requests...</p>`;
 
   onValue(
     requestsRef,
@@ -401,19 +398,18 @@ function loadAdminRequests() {
 
         const li = document.createElement('div');
         li.className = `
-          channel-card flex flex-col md:flex-row items-center justify-between p-4 bg-gray-900 rounded-xl shadow-lg 
-          hover:shadow-2xl transition-shadow gap-4 border border-gray-700
+          channel-card flex flex-col md:flex-row items-center justify-between p-4 bg-gray-800 rounded-xl shadow-md 
+          hover:shadow-lg transition-shadow gap-4
         `;
 
         li.innerHTML = `
-          <div class="flex items-center gap-4 w-full md:w-3/4 cursor-pointer" onclick="previewChannel('${r.id}')">
-            <img src="${r.icon || 'https://via.placeholder.com/64'}" 
-                 class="w-16 h-16 rounded-lg border border-gray-600 object-cover shadow-sm"/>
+          <div class="flex items-center gap-4 w-full md:w-3/4">
+            <img src="${r.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg border border-gray-600 object-cover"/>
             <div class="overflow-hidden">
-              <h4 class="font-bold text-white truncate max-w-md">${r.name || 'Untitled Channel'}</h4>
+              <h4 class="font-semibold text-white truncate max-w-md">${r.name || 'Untitled Channel'}</h4>
               <p class="text-gray-300 truncate max-w-md">${r.category || 'Uncategorized'}</p>
               <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-              <span class="inline-block mt-1 px-2 py-0.5 text-xs text-yellow-200 bg-yellow-800 rounded-full">Pending</span>
+              <span class="inline-block mt-1 px-2 py-0.5 text-xs text-yellow-200 bg-yellow-700 rounded-full">Pending</span>
             </div>
           </div>
         `;
@@ -425,13 +421,13 @@ function loadAdminRequests() {
         approve.textContent = 'Approve';
         approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold transition';
         approve.title = "Approve this channel";
-        approve.onclick = (e) => { e.stopPropagation(); approveRequest(r.id, r); };
+        approve.onclick = () => approveRequest(r.id, r);
 
         const reject = document.createElement('button');
         reject.textContent = 'Reject';
         reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold transition';
         reject.title = "Reject this channel";
-        reject.onclick = (e) => { e.stopPropagation(); rejectRequest(r.id); };
+        reject.onclick = () => rejectRequest(r.id);
 
         btns.appendChild(approve);
         btns.appendChild(reject);
@@ -447,45 +443,7 @@ function loadAdminRequests() {
   );
 }
 
-/** =========================
- *  Channel Preview Modal
- *  ========================= */
-function previewChannel(channelId) {
-  const modal = document.createElement('div');
-  modal.className = `
-    fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm
-  `;
-  modal.innerHTML = `
-    <div class="bg-gray-900 text-white rounded-xl p-6 max-w-lg w-full shadow-xl">
-      <button onclick="this.parentElement.parentElement.remove()" 
-              class="absolute top-3 right-3 text-gray-400 hover:text-white text-xl">&times;</button>
-      <h3 class="text-2xl font-bold mb-2" id="previewName"></h3>
-      <img id="previewIcon" class="w-32 h-32 rounded-lg border border-gray-600 object-cover mb-2 mx-auto"/>
-      <p class="text-gray-300 mb-1" id="previewCategory"></p>
-      <p class="text-gray-400 text-sm mb-2" id="previewSubmittedBy"></p>
-      <div class="flex justify-end gap-2">
-        <button id="previewApprove" class="px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold transition">Approve</button>
-        <button id="previewReject" class="px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold transition">Reject</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  // Populate data
-  const channelRef = ref(db, `channelRequests/${channelId}`);
-  onValue(channelRef, async (snap) => {
-    const r = snap.val();
-    if (!r) return;
-    const userName = await getUserName(r.submittedBy);
-    modal.querySelector('#previewName').textContent = r.name || 'Untitled Channel';
-    modal.querySelector('#previewIcon').src = r.icon || 'https://via.placeholder.com/64';
-    modal.querySelector('#previewCategory').textContent = r.category || 'Uncategorized';
-    modal.querySelector('#previewSubmittedBy').textContent = `Submitted by: ${userName}`;
-
-    modal.querySelector('#previewApprove').onclick = () => { approveRequest(channelId, r); modal.remove(); };
-    modal.querySelector('#previewReject').onclick = () => { rejectRequest(channelId); modal.remove(); };
-  });
-}</script>
+</script>
 
 </body>
 </html>
