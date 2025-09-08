@@ -57,7 +57,7 @@
 <!-- Firebase + Logic -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { getDatabase, ref, onValue, child, get } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
@@ -105,11 +105,15 @@ onValue(recentSubmissionsRef, snapshot => {
   const ul = document.getElementById("recent-submissions");
   ul.innerHTML = '';
   const items = [];
-  snapshot.forEach(child => items.push(child.val()));
+  snapshot.forEach(child => {
+    const data = child.val();
+    items.push(data);
+  });
   // Sort by timestamp descending and take latest 5
-  items.sort((a,b) => b.timestamp - a.timestamp).slice(0,5).forEach(item => {
+  items.sort((a,b) => (b.timestamp||0) - (a.timestamp||0)).slice(0,5).forEach(item => {
     const li = document.createElement("li");
-    li.textContent = `${item.name} (${item.category})`;
+    const dateStr = item.timestamp ? new Date(item.timestamp).toLocaleString() : "No date";
+    li.textContent = `${item.name} (${item.category}) — ${dateStr}`;
     ul.appendChild(li);
   });
 });
@@ -120,14 +124,24 @@ onValue(recentSubmissionsRef, snapshot => {
   ul.innerHTML = '';
   const userCounts = {};
   snapshot.forEach(child => {
-    const user = child.val().submittedBy;
+    const user = child.val().submittedBy || "Unknown";
     userCounts[user] = (userCounts[user] || 0) + 1;
   });
   const topUsers = Object.entries(userCounts).sort((a,b) => b[1]-a[1]).slice(0,5);
+
   topUsers.forEach(([uid,count]) => {
-    const li = document.createElement("li");
-    li.textContent = `${uid} — ${count} submissions`;
-    ul.appendChild(li);
+    // Optionally fetch user's name if stored under /users/{uid}/name
+    const userRef = ref(db, `users/${uid}/name`);
+    get(userRef).then(userSnap => {
+      const name = userSnap.exists() ? userSnap.val() : uid;
+      const li = document.createElement("li");
+      li.textContent = `${name} — ${count} submissions`;
+      ul.appendChild(li);
+    }).catch(() => {
+      const li = document.createElement("li");
+      li.textContent = `${uid} — ${count} submissions`;
+      ul.appendChild(li);
+    });
   });
 });
 </script>
