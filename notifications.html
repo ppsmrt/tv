@@ -278,18 +278,20 @@ function renderNotifications(list) {
 let channelsCache = [];
 let notificationsCache = [];
 
+// Channels listener (fixed sorting using createdAt)
 onValue(ref(db, 'channels'), (snapshot) => {
   const data = snapshot.val() || {};
   channelsCache = Object.entries(data).map(([id, c]) => ({
     message: `New channel added: ${c.name || 'Unknown'}`,
-    logo: c.logo || '',
-    url: c.url || '',
-    timestamp: c.timestamp || 0,
+    logo: c.icon || '',
+    url: c.stream || '',
+    timestamp: c.createdAt ? new Date(c.createdAt).getTime() : 0,
     category: 'Channel'
   }));
   updateUI();
 });
 
+// Notifications listener
 onValue(ref(db, 'notifications'), (snapshot) => {
   const data = snapshot.val() || {};
   notificationsCache = Object.entries(data).map(([id, n]) => ({
@@ -302,7 +304,7 @@ onValue(ref(db, 'notifications'), (snapshot) => {
   updateUI();
 });
 
-// Merge and Render (Newest First)
+// Merge and render sorted (newest first)
 function updateUI() {
   const merged = [...channelsCache, ...notificationsCache].sort((a, b) => b.timestamp - a.timestamp);
   renderNotifications(merged);
