@@ -261,29 +261,28 @@ async function submitChannel() {
     const category = document.getElementById('channel-category').value;
     const user = auth.currentUser;
 
+    if (!user) {
+      showToast("You must be logged in to submit a channel", "error");
+      return;
+    }
+
     if (!name || !stream || !icon) {
       showToast("Please fill all fields", "error");
       return;
     }
 
-    // ✅ Fetch user name from Realtime DB
-    const userSnapshot = await get(ref(db, `users/${user.uid}/name`));
-    const userName = userSnapshot.exists() ? userSnapshot.val() : "Unknown User";
-
-    // ✅ Push channel request
     const requestRef = push(ref(db, 'channelRequests'));
     await set(requestRef, {
       name,
       icon,
       stream,
       category,
-      createdAt: new Date().toISOString(), // ISO timestamp
-      createdBy: userName,                 // User's name instead of UID
+      submittedBy: user.uid,  // ✅ Keeping original structure
       status: 'pending',
-      country: 'India'
+      timestamp: Date.now()   // ✅ Keeping original timestamp style
     });
 
-    // ✅ Clear form fields
+    // ✅ Reset form fields
     document.getElementById('channel-name').value = '';
     iconFileInput.value = '';
     iconHiddenInput.value = '';
@@ -297,61 +296,7 @@ async function submitChannel() {
     showToast(e?.code || "Submit failed. Check rules & network.", "error");
   }
 }
-/** =========================
- *  User: List + Realtime toasts
- *  ========================= */
-const lastStatuses = new Map(); // requestId -> lastStatus
 
-function loadUserChannels(uid){
-  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(
-    q,
-    async (snap) => {
-      userPending.innerHTML = '';
-      userApproved.innerHTML = '';
-
-      if (!snap.exists()) {
-        userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
-        return;
-      }
-
-      const items = [];
-      snap.forEach(childSnap => {
-        const c = childSnap.val();
-        items.push({ id: childSnap.key, ...c });
-      });
-      items.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
-
-      for (const c of items) {
-        const userName = await getUserName(c.submittedBy);
-        const prev = lastStatuses.get(c.id);
-        if (prev && prev !== c.status) {
-          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
-          if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
-        }
-        lastStatuses.set(c.id, c.status);
-
-        const card = document.createElement('div');
-        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-        card.innerHTML = `
-          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-          <div class="flex-1">
-            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-          </div>
-          ${statusPill(c.status)}
-        `;
-        if (c.status === 'pending') userPending.appendChild(card);
-        if (c.status === 'approved') userApproved.appendChild(card);
-      }
-    },
-    (error) => {
-      console.error("loadUserChannels onValue error:", error);
-      showToast(error?.code || "Read failed (user). Check rules.", "error");
-    }
-  );
-}
 
 /** =========================
  *  Logout
