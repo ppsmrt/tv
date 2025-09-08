@@ -139,3 +139,5 @@ http://116.202.46.40:9023/SUN_LIFE_TAMIL/index.m3u8
 https://live.skystream.in/live/southvsnklm/index.m3u8
 #EXTINF:-1 tvg-name="N  Media" group-title="Malayalam" tvg-logo="https://i.ibb.co/5Wr3H5zX/bb574b993d1d.jpg",N  Media
 https://live.skystream.in/live/newmedia2924/index.m3u8?hls_ctx=4483yu96
+#EXTINF:-1 tvg-name="Polimer News" group-title="Tamil" tvg-logo="https://i.ibb.co/8LMktGQY/20250908-082833.jpg",Polimer News
+https://segment.yuppcdn.net/110322/polimernews/playlist.m3u8
