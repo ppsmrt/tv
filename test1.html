@@ -1,392 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Channel Manager</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    body { font-family: 'Baloo 2', cursive; }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <title>Live Tv</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    <!-- Google Font: Baloo 2 -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+
+    <!-- Font Awesome (latest) -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css"
+        integrity="sha512-ZhLZbR5Ns/77dZabXrDydIcXQsqZ9mHs9X2+M1DwSgX0c6VZGgk1Lv6mE3b5pTfVJ9vlk8xC5E2o9E+7I8rhNQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+
+    <!-- Fav Icon -->
+    <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
-<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden">
+<body class="bg-gray-900 text-white font-baloo">
 
-  <!-- Header -->
-  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
-    <div class="flex items-center gap-3">
-      <button onclick="window.location.href='index.html'" class="text-white text-xl hover:text-gray-200 transition">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
-      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
-        Channel Manager
-      </h1>
-    </div>
+    <!-- Header -->
+    <div id="header"></div>
 
-    <div>
-      <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </button>
-    </div>
-  </div>
+    <!-- Main Content -->
+    <main class="pt-16 px-4 max-w-7xl mx-auto">
+        <!-- Page-specific content -->
+        <section id="mainContent" class="grid gap-4">
+            <!-- Dynamic content goes here -->
+        </section>
+    </main>
 
-  <!-- Form -->
-  <div class="p-5 bg-white shadow-lg">
-    <form id="channelForm" class="grid gap-4 md:grid-cols-2">
-      <input type="hidden" id="channelId"/>
+    <!-- Footer -->
+    <div id="footer"></div>
 
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
-        <input type="text" id="name" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-      </div>
+    <!-- JS Files -->
+    <script type="module" src="assets/js/header.js"></script>
+    <script type="module" src="assets/js/footer.js"></script>
 
-      <!-- Replaced Icon URL input with File Upload -->
-      <div>
-  <label class="block text-gray-700 font-semibold mb-1">Upload Icon</label>
-  <div class="relative">
-    <input type="file" id="uploadIcon" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
-    <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#d92a1a] to-[#ff4a3f] text-white font-bold py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer select-none">
-      <i class="fa-solid fa-upload"></i> Choose Image
-    </div>
-  </div>
-  <input type="hidden" id="icon" name="icon"/>
-  <p id="uploadStatus" class="text-sm text-gray-500 mt-1"></p>
-</div>
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
-        <input type="url" id="stream" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Category</label>
-        <select id="category" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-          <option value="Tamil">Tamil</option>
-          <option value="Telugu">Telugu</option>
-          <option value="Kannada">Kannada</option>
-          <option value="Malayalam">Malayalam</option>
-          <option value="Hindi">Hindi</option>
-          <option value="Kids">Kids</option>
-          <option value="Sports">Sports</option>
-        </select>
-      </div>
-
-      <button type="submit" id="submitBtn"
-        class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
-        <i class="fa-solid fa-save mr-2"></i> Save Channel
-      </button>
-    </form>
-
-    <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
-  </div>
-
-  <!-- Filter, Sort & Search -->
-  <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
-    <div class="flex gap-3">
-      <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-        <option value="All">All Categories</option>
-        <option value="Tamil">Tamil</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Kannada">Kannada</option>
-        <option value="Malayalam">Malayalam</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Kids">Kids</option>
-        <option value="Sports">Sports</option>
-      </select>
-
-      <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-        <option value="az">Sort By A-Z</option>
-        <option value="latest">Sort By Latest</option>
-        <option value="oldest">Sort By Oldest</option>
-      </select>
-    </div>
-
-    <div class="flex items-center gap-2 w-full md:w-auto">
-      <i class="fa-solid fa-magnifying-glass text-gray-600"></i>
-      <input type="text" id="searchInput" placeholder="Search channel..."
-        class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full md:w-64"/>
-    </div>
-  </div>
-
-  <!-- Channel List -->
-  <div class="flex-1 overflow-y-auto p-5">
-    <h2 class="text-xl font-bold mb-4">Channels</h2>
-    <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="bg-gray-200 text-center py-3 text-gray-700 font-semibold">
-    Live Tv @ 2025
-  </footer>
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.appspot.com",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const form = document.getElementById("channelForm");
-    const channelList = document.getElementById("channelList");
-    const submitBtn = document.getElementById("submitBtn");
-    const filterCategory = document.getElementById("filterCategory");
-    const searchInput = document.getElementById("searchInput");
-    const sortOption = document.getElementById("sortOption");
-
-    // Toast Notification
-    function showToast(message, type = "success") {
-      const existing = document.querySelector(".toast");
-      if (existing) existing.remove();
-
-      const toast = document.createElement("div");
-      toast.className = `toast fixed bottom-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-semibold z-50 transition-transform transform ${
-        type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : "bg-gray-600"
-      }`;
-      toast.textContent = message;
-      document.body.appendChild(toast);
-
-      toast.style.opacity = "0";
-      toast.style.transform = "translateY(50px)";
-      setTimeout(() => {
-        toast.style.transition = "opacity 0.3s, transform 0.3s";
-        toast.style.opacity = "1";
-        toast.style.transform = "translateY(0)";
-      }, 50);
-
-      setTimeout(() => {
-        toast.style.opacity = "0";
-        toast.style.transform = "translateY(50px)";
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
-    }
-
-    function showStatus(message, isError = false) {
-      showToast(message, isError ? "error" : "success");
-    }
-
-    // imgbb Upload
-    const uploadIconInput = document.getElementById("uploadIcon");
-    const iconHidden = document.getElementById("icon");
-    const uploadStatus = document.getElementById("uploadStatus");
-
-    uploadIconInput.classList.add(
-      "cursor-pointer",
-      "bg-[#d92a1a]",
-      "text-white",
-      "font-bold",
-      "rounded-xl",
-      "shadow-md",
-      "hover:bg-red-700",
-      "transition",
-      "px-4",
-      "py-2"
-    );
-
-    uploadIconInput.addEventListener("change", async () => {
-      const file = uploadIconInput.files[0];
-      if (!file) return;
-
-      uploadStatus.textContent = "Uploading...";
-      const formData = new FormData();
-      formData.append("image", file);
-
-      try {
-        const response = await fetch(`https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708`, {
-          method: "POST",
-          body: formData
-        });
-        const data = await response.json();
-        if (data.success) {
-          iconHidden.value = data.data.url;
-          showToast("Image uploaded successfully!");
-          uploadStatus.textContent = "";
-          uploadIconInput.value = "";
-        } else {
-          showToast("Upload failed!", "error");
-          uploadStatus.textContent = "";
-        }
-      } catch (error) {
-        showToast("Error uploading image!", "error");
-        uploadStatus.textContent = "";
-        console.error(error);
-      }
-    });
-
-    let channelsData = {};
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const channelId = document.getElementById("channelId").value;
-      const name = document.getElementById("name").value.trim();
-      const icon = document.getElementById("icon").value.trim();
-      const stream = document.getElementById("stream").value.trim();
-      const category = document.getElementById("category").value;
-
-      if (!name || !icon || !stream || !category) {
-        showStatus("⚠️ Please fill all fields.", true);
-        return;
-      }
-
-      submitBtn.disabled = true;
-
-      try {
-        const now = new Date().toISOString();
-        const user = auth.currentUser ;
-        let adminName = "Unknown Admin";
-
-        if (user) {
-          // Fetch admin name from /admins/{uid}/name
-          const adminRef = ref(db, "admins/" + user.uid + "/name");
-          const snapshot = await new Promise((resolve) => onValue(adminRef, resolve, { onlyOnce: true }));
-          if (snapshot.exists()) adminName = snapshot.val();
-        }
-
-        if (channelId) {
-          // Update channel, add editedBy instead of changing createdBy
-          await update(ref(db, "channels/" + channelId), { 
-            name, 
-            icon, 
-            stream, 
-            category, 
-            editedAt: now,
-            editedBy: adminName
-          });
-          showStatus("✅ Channel updated!");
-        } else {
-          // Add new channel
-          const newRef = push(ref(db, "channels"));
-          await set(newRef, { 
-            name, 
-            icon, 
-            stream, 
-            category, 
-            createdAt: now, 
-            createdBy: adminName,
-            country: "India" // you can later make this dynamic
-          });
-          showStatus("✅ Channel added!");
-        }
-
-        form.reset();
-        document.getElementById("channelId").value = "";
-      } catch (error) {
-        showStatus("❌ Error saving channel: " + error.message, true);
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-
-    function renderChannels() {
-      channelList.innerHTML = "";
-      const searchTerm = searchInput.value.toLowerCase();
-      const selectedCategory = filterCategory.value;
-      const sortBy = sortOption.value;
-
-      let filteredChannels = Object.entries(channelsData).filter(([id, ch]) => {
-        const matchesCategory = selectedCategory === "All" || ch.category === selectedCategory;
-        const matchesSearch = ch.name.toLowerCase().includes(searchTerm);
-        return matchesCategory && matchesSearch;
-      });
-
-      if (sortBy === "az") filteredChannels.sort((a, b) => a[1].name.localeCompare(b[1].name));
-      else if (sortBy === "latest") filteredChannels.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
-      else if (sortBy === "oldest") filteredChannels.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
-
-      if (filteredChannels.length === 0) {
-        channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>";
-        return;
-      }
-
-      filteredChannels.forEach(([id, ch]) => {
-        const card = document.createElement("div");
-        card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
-        card.innerHTML = `
-          <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
-          <div class="flex-1">
-            <h3 class="text-lg font-bold">${ch.name}</h3>
-            <p class="text-gray-600 text-sm">${ch.category}</p>
-          </div>
-          <div class="flex gap-2">
-            <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">
-              <i class="fa-solid fa-pen"></i>
-            </button>
-            <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        `;
-        channelList.appendChild(card);
-      });
-
-      attachActionButtons();
-    }
-
-    function attachActionButtons() {
-      document.querySelectorAll(".editBtn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = e.currentTarget.dataset.id;
-          const ch = channelsData[id];
-          document.getElementById("channelId").value = id;
-          document.getElementById("name").value = ch.name;
-          document.getElementById("icon").value = ch.icon;
-          document.getElementById("stream").value = ch.stream;
-          document.getElementById("category").value = ch.category;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      });
-
-      document.querySelectorAll(".deleteBtn").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          const id = e.currentTarget.dataset.id;
-          if (confirm("Are you sure you want to delete this channel?")) {
-            try {
-              await remove(ref(db, "channels/" + id));
-              showStatus("✅ Channel deleted!");
-            } catch (err) {
-              showStatus("❌ Error deleting channel: " + err.message, true);
-            }
-          }
-        });
-      });
-    }
-
-    const channelsRef = ref(db, "channels");
-    onValue(channelsRef, (snapshot) => {
-      channelsData = snapshot.val() || {};
-      renderChannels();
-    });
-
-    filterCategory.addEventListener("change", renderChannels);
-    searchInput.addEventListener("input", renderChannels);
-    sortOption.addEventListener("change", renderChannels);
-
-    const auth = getAuth(app);
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      signOut(auth)
-        .then(() => {
-          showToast("Logged out successfully!");
-          setTimeout(() => window.location.href = "index.html", 1000);
-        })
-        .catch((error) => {
-          showToast("Logout failed: " + error.message, "error");
-        });
-    });
-  </script>
 </body>
 </html>
