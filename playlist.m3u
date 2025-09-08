@@ -141,3 +141,9 @@ https://live.skystream.in/live/southvsnklm/index.m3u8
 https://live.skystream.in/live/newmedia2924/index.m3u8?hls_ctx=4483yu96
 #EXTINF:-1 tvg-name="Polimer News" group-title="Tamil" tvg-logo="https://i.ibb.co/8LMktGQY/20250908-082833.jpg",Polimer News
 https://segment.yuppcdn.net/110322/polimernews/playlist.m3u8
+#EXTINF:-1 tvg-name="Emperor Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/YT1y4zQk/emperortv.jpg",Emperor Tv
+https://rtmp.bmlive.net/bms/emperortv/index.m3u8
+#EXTINF:-1 tvg-name="Siti Cable" group-title="Telugu" tvg-logo="https://i.ibb.co/3mmMXxqn/siticablenews.jpg",Siti Cable
+https://vvsolutions.in/cabletandur/cabletandur.m3u8
+#EXTINF:-1 tvg-name="KS Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/39r9vjrz/kstv.jpg",KS Tv
+https://vvsolutions.in/lmc/lmc.m3u8
