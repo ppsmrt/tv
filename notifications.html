@@ -31,10 +31,14 @@
     background: rgba(31,41,55,0.9);
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 
   main {
-    padding: 20px 1rem 100px;
+    padding: 84px 1rem 100px; /* ✅ Added top padding to fix overlap */
     max-width: 800px;
     margin: 0 auto;
   }
@@ -63,6 +67,7 @@
     object-fit: cover;
     margin-right: 16px;
     flex-shrink: 0;
+    background: #374151;
   }
 
   .notification-content {
@@ -115,6 +120,20 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  .clear-btn {
+    display: none;
+    margin: 10px auto;
+    background: #ef4444;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .clear-btn:hover {
+    background: #dc2626;
+  }
 </style>
 </head>
 <body>
@@ -122,10 +141,13 @@
 <!-- Header -->
 <div id="header"></div>
 
-<main id="notificationsContainer">
-  <div class="skeleton"></div>
-  <div class="skeleton"></div>
-  <div class="skeleton"></div>
+<main>
+  <button id="clearAllBtn" class="clear-btn">Clear All Notifications</button>
+  <div id="notificationsContainer">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </div>
 </main>
   
 <!-- Footer -->
@@ -137,7 +159,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
@@ -155,6 +177,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 const container = document.getElementById('notificationsContainer');
+const clearBtn = document.getElementById('clearAllBtn');
 
 // ✅ Convert timestamp to "time ago"
 function timeAgo(timestamp) {
@@ -177,6 +200,7 @@ function createNotificationCard(notification) {
   const img = document.createElement('img');
   img.className = 'notification-icon';
   img.src = notification.logo || 'https://via.placeholder.com/50?text=TV';
+  img.onerror = () => img.src = 'https://via.placeholder.com/50?text=TV'; // ✅ Fix broken image issue
   img.alt = (notification.name || "Notification") + ' logo';
 
   const content = document.createElement('div');
@@ -213,55 +237,48 @@ function renderNotifications(list) {
   container.innerHTML = '';
   if (list.length === 0) {
     renderEmptyState();
+    clearBtn.style.display = 'none';
     return;
   }
+  clearBtn.style.display = 'block';
   list.forEach(n => container.appendChild(createNotificationCard(n)));
 }
 
-let channelsCache = [];
 let notificationsCache = [];
 
 // ✅ Listen for Auth
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     container.innerHTML = `<p class="text-center mt-4">Please log in to see notifications</p>`;
+    clearBtn.style.display = 'none';
     return;
   }
-
-  // ✅ Listen for Channels
-  onValue(ref(db, 'channels'), (snapshot) => {
-    const data = snapshot.val() || {};
-    channelsCache = Object.values(data).map(c => ({
-      message: `New channel added: ${c.name || 'Unknown'}`,
-      logo: c.logo || '',
-      url: c.url || '',
-      timestamp: c.timestamp || 0,
-      category: 'Channel'
-    }));
-    updateUI();
-  });
 
   // ✅ Listen for Notifications
   onValue(ref(db, 'notifications'), (snapshot) => {
     const data = snapshot.val() || {};
-    notificationsCache = Object.values(data)
-      .filter(n => !n.userId || n.userId === user.uid)
-      .map(n => ({
+    notificationsCache = Object.entries(data)
+      .filter(([id, n]) => !n.userId || n.userId === user.uid)
+      .map(([id, n]) => ({
+        id,
         message: n.message,
         logo: n.logo || '',
         url: n.url || '',
         timestamp: n.timestamp || 0,
         category: n.type || 'Notification'
       }));
-    updateUI();
+    notificationsCache.sort((a, b) => b.timestamp - a.timestamp);
+    renderNotifications(notificationsCache);
   });
 });
 
-// ✅ Merge and Render
-function updateUI() {
-  const merged = [...channelsCache, ...notificationsCache].sort((a, b) => b.timestamp - a.timestamp);
-  renderNotifications(merged);
-}
+// ✅ Clear All Notifications (for logged-in user only)
+clearBtn.addEventListener('click', async () => {
+  if (!confirm("Are you sure you want to clear all notifications?")) return;
+  for (const n of notificationsCache) {
+    await remove(ref(db, `notifications/${n.id}`));
+  }
+});
 </script>
 
 </body>
