@@ -149,13 +149,13 @@ https://vvsolutions.in/lmc/lmc.m3u8
 https://yuppmedtaorire.akamaized.net/v1/manifest/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/sakshi_nim_https/c3c5eed7-9986-4e25-a1ef-df14bc67788f/0.m3u8
 #EXTINF:-1 tvg-name="Vinodam" group-title="Telugu" tvg-logo="https://i.ibb.co/ksKzqyRt/Vinodam.jpg",Vinodam
 https://allchannels.in/vinodam/video.m3u8
-#EXTINF:-1 tvg-name="Tirumal" group-title="Tamil" tvg-logo="https://i.ibb.co/k2nt0933/Tirumal.jpg",Tirumal
+#EXTINF:-1 tvg-name="Tirumal" group-title="Telugu" tvg-logo="https://i.ibb.co/k2nt0933/Tirumal.jpg",Tirumal
 https://allchannels.in/tmc/video.m3u8
-#EXTINF:-1 tvg-name="Zoy HD" group-title="Tamil" tvg-logo="https://i.ibb.co/yBRwPHG2/20250908-172328.jpg",Zoy HD
+#EXTINF:-1 tvg-name="Zoy HD" group-title="Telugu" tvg-logo="https://i.ibb.co/yBRwPHG2/20250908-172328.jpg",Zoy HD
 https://allchannels.in/zoyhd/video.m3u8
-#EXTINF:-1 tvg-name="RK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/8gySxQ9K/20250908-172518.jpg",RK Tv
+#EXTINF:-1 tvg-name="RK Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/8gySxQ9K/20250908-172518.jpg",RK Tv
 https://allchannels.in/rktv/video.m3u8
-#EXTINF:-1 tvg-name="JVR News" group-title="Tamil" tvg-logo="https://i.ibb.co/C4r49yF/20250908-172711.jpg",JVR News
+#EXTINF:-1 tvg-name="JVR News" group-title="Telugu" tvg-logo="https://i.ibb.co/C4r49yF/20250908-172711.jpg",JVR News
 https://vvsolution.in/hls/jvrnews_623.m3u8
 #EXTINF:-1 tvg-name="V Power" group-title="Telugu" tvg-logo="https://i.ibb.co/9HYr3vRD/1000120777.jpg",V Power
 https://vvsolutions.in/vpowernews_343/vpowernews_343.m3u8
