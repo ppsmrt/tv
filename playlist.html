@@ -23,22 +23,9 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
   }
 
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 2rem;
-    width: 100%;
-    padding-bottom: 80px; 
-  }
-
-  /* App-style Toast */
+  /* Toast Styles */
   .toast {
     position: fixed;
     bottom: 28px;
@@ -76,162 +63,97 @@
   }
 </style>
 </head>
-<body>
+<body class="relative">
 
-<!-- Header -->
-<div id="header"></div>
+  <!-- Header -->
+  <header id="header" class="w-full h-16 fixed top-0 left-0 bg-gray-800/90 backdrop-blur-md z-40 flex items-center justify-center shadow-md">
+    <h1 class="text-xl font-bold text-white">Live TV</h1>
+  </header>
 
-<!-- Main Content -->
-<main>
+  <!-- Main Content -->
+  <main class="flex-1 w-full flex flex-col justify-center items-center pt-20 pb-24 px-4">
+    <section class="w-full max-w-3xl bg-gray-800/90 rounded-3xl shadow-2xl p-8 flex flex-col items-center space-y-6">
 
-  <!-- Playlist Card -->
-  <section class="w-full max-w-3xl mx-auto p-8 bg-gradient-to-r from-gray-900/90 to-gray-800/90 rounded-3xl shadow-2xl">
-    
-    <!-- Intro -->
-    <h2 class="text-3xl font-extrabold mb-4 text-white text-center">Tnm3u Live TV Playlist</h2>
-    <p class="text-gray-200 leading-relaxed mb-4 text-lg text-center">
-      Unlock a world of entertainment with our <span class="font-semibold text-red-400">exclusive IPTV playlist</span>.  
-      Stream your favorite TV channels instantly — news, sports, movies, lifestyle, and music — all curated for a seamless viewing experience.
-    </p>
-    <p class="text-gray-400 text-sm leading-relaxed mb-6 text-center">
-      Designed for both newcomers and pros, our playlist integrates smoothly with the most popular <span class="underline text-red-400 cursor-pointer"><a href='guide'>IPTV apps</a></span>.  
-      Check our <span class="underline text-red-400 cursor-pointer"><a href='guide'>guide page</a></span> to set up your IPTV app and enjoy uninterrupted streaming.
-    </p>
+      <!-- Intro -->
+      <h2 class="text-3xl font-extrabold text-center">Tnm3u Live TV Playlist</h2>
+      <p class="text-gray-300 text-center text-lg">
+        Unlock a world of entertainment with our <span class="font-semibold text-red-400">exclusive IPTV playlist</span>.  
+        Stream your favorite TV channels instantly — news, sports, movies, lifestyle, and music.
+      </p>
+      <p class="text-gray-400 text-sm text-center">
+        Designed for both newcomers and pros, our playlist integrates smoothly with the most popular <span class="underline text-red-400"><a href='guide'>IPTV apps</a></span>.  
+        Check our <span class="underline text-red-400"><a href='guide'>guide page</a></span> to set up your IPTV app.
+      </p>
 
-    <!-- Feature Highlights -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
-      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
-        <span class="material-icons text-red-400 text-3xl mb-2">hd</span>
-        <span class="text-gray-200 font-medium text-sm text-center">HD & 4K Streams</span>
+      <!-- Feature Highlights -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
+        <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
+          <span class="material-icons text-red-400 text-3xl mb-2">hd</span>
+          <span class="text-gray-200 font-medium text-sm text-center">HD & 4K Streams</span>
+        </div>
+        <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
+          <span class="material-icons text-red-400 text-3xl mb-2">category</span>
+          <span class="text-gray-200 font-medium text-sm text-center">Multi-Category Channels</span>
+        </div>
+        <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
+          <span class="material-icons text-red-400 text-3xl mb-2">devices</span>
+          <span class="text-gray-200 font-medium text-sm text-center">Cross-Platform Access</span>
+        </div>
       </div>
-      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
-        <span class="material-icons text-red-400 text-3xl mb-2">category</span>
-        <span class="text-gray-200 font-medium text-sm text-center">Multi-Category Channels</span>
+
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row justify-center gap-4 w-full">
+        <button id="copyUrlBtn" class="flex-1 px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200">
+          Copy Playlist URL
+        </button>
+        <button id="generateBtn" class="flex-1 px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200">
+          Download Playlist
+        </button>
       </div>
-      <div class="flex flex-col items-center bg-gray-700/60 p-4 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200">
-        <span class="material-icons text-red-400 text-3xl mb-2">devices</span>
-        <span class="text-gray-200 font-medium text-sm text-center">Cross-Platform Access</span>
-      </div>
-    </div>
 
-    <!-- Buttons side by side -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-      <button 
-        id="copyUrlBtn"
-        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
-      >
-        Copy Playlist URL
-      </button>
-      <button 
-        id="generateBtn"
-        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-transform duration-200"
-      >
-        Download Playlist
-      </button>
-    </div>
+      <!-- URL Display -->
+      <span id="urlText" class="text-gray-300 text-sm text-center break-all select-all w-full">https://tnm3u.live/playlist.m3u</span>
+      <p class="text-xs text-gray-500 italic text-center">Use this link in your favorite IPTV player.</p>
+    </section>
+  </main>
 
-    <span id="urlText" class="text-gray-300 text-sm mt-3 block select-all break-all text-center">https://tnm3u.live/playlist.m3u</span>
-    <p class="text-xs text-gray-500 italic mt-1 text-center">Use this link in your favorite IPTV player to unlock streaming instantly.</p>
+  <!-- Footer -->
+  <footer id="footer" class="w-full h-16 fixed bottom-0 left-0 bg-gray-800/90 backdrop-blur-md z-40 flex items-center justify-center shadow-inner">
+    <p class="text-gray-300">© 2025 Tnm3u Live TV</p>
+  </footer>
 
-  </section>
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <span class="material-icons">check_circle</span>
+    <span>Playlist generated successfully!</span>
+  </div>
 
-</main>
-
-<!-- Footer -->
-<div id="footer"></div>
-
-<!-- JS Files -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-
-<!-- App-style Toast -->
-<div id="toast" class="toast">
-  <span class="material-icons">check_circle</span>
-  <span>Playlist (playlist.m3u) generated successfully!</span>
-</div>
-
-<!-- Firebase + Logic -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  function detectField(channel, keys) {
-    for (const key of keys) {
-      if (channel[key]) return channel[key];
-    }
-    return "";
-  }
-
-  function showToast(message, type="success") {
-    const toast = document.getElementById('toast');
-    toast.querySelector('span:last-child').textContent = message;
-    toast.style.background = type === "error" ? "#dc2626" : "#16a34a"; // red for error, green for success
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-  }
-
-  // Copy Playlist URL
-  const copyBtn = document.getElementById('copyUrlBtn');
-  const urlText = document.getElementById('urlText').textContent;
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(urlText)
-      .then(() => showToast("Playlist URL copied to clipboard!", "success"))
-      .catch(() => showToast("Failed to copy URL. Please copy manually.", "error"));
-  });
-
-  // Generate Playlist
-  async function generateM3U8() {
-    const channelsRef = ref(db, 'channels');
-    const snapshot = await get(channelsRef);
-    if (!snapshot.exists()) {
-      showToast("No channels found in the database!", "error");
-      return;
+  <!-- JS Placeholder -->
+  <script type="module">
+    // Toast function
+    function showToast(message, type="success") {
+      const toast = document.getElementById('toast');
+      toast.querySelector('span:last-child').textContent = message;
+      toast.style.background = type === "error" ? "#dc2626" : "#16a34a";
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    const channels = snapshot.val();
-    let m3uContent = "#EXTM3U\n";
+    // Copy URL button
+    const copyBtn = document.getElementById('copyUrlBtn');
+    const urlText = document.getElementById('urlText').textContent;
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(urlText)
+        .then(() => showToast("Playlist URL copied!", "success"))
+        .catch(() => showToast("Failed to copy URL.", "error"));
+    });
 
-    for (const channelId in channels) {
-      const channel = channels[channelId];
-      const name = detectField(channel, ['name', 'title']) || "Unknown";
-      const category = detectField(channel, ['category', 'group', 'group-title']) || "General";
-      const logo = detectField(channel, ['logo', 'image', 'icon']) || "";
-      const streamUrl = detectField(channel, ['url', 'stream', 'link']) || "";
+    // Dummy generate button
+    const generateBtn = document.getElementById('generateBtn');
+    generateBtn.addEventListener('click', () => {
+      showToast("Playlist (playlist.m3u) generated successfully!", "success");
+    });
+  </script>
 
-      if (!streamUrl) continue;
-
-      m3uContent += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
-      m3uContent += `${streamUrl}\n`;
-    }
-
-    const blob = new Blob([m3uContent], { type: 'application/octet-stream' }); // prevent auto .m3u8
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'playlist.m3u';   // forced filename
-    link.click();
-    URL.revokeObjectURL(url);
-
-    showToast("Playlist (playlist.m3u) generated successfully!", "success");
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('generateBtn').addEventListener('click', generateM3U8);
-  });
-</script>
 </body>
 </html>
