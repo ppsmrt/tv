@@ -131,7 +131,7 @@ https://vvsolutions.in/yjtv/yjtv.m3u8
 https://amg17931-zee-amg17931c8-samsung-th-6526.playouts.now.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Aarthi" group-title="Tamil" tvg-logo="https://i.ibb.co/zhKMVsPC/aarthi-tv.jpg",Aarthi
 http://198.144.149.206:8080/NOTV/AARTHITV/index.m3u8?token=GTR
-#EXTINF:-1 tvg-name="Iratai Pathai" group-title="Tamil" tvg-logo="https://i.ibb.co/Y7m4HYyf/1000120339.png",Iratai Pathai
+#EXTINF:-1 tvg-name="Iratai Pathai" group-title="Tamil" tvg-logo="https://i.ibb.co/zVcRph7f/1000120836.jpg",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 #EXTINF:-1 tvg-name="South Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/ZRj1vTrF/1000120396.jpg",South Vision
 https://live.skystream.in/live/southvsnklm/index.m3u8
@@ -165,3 +165,9 @@ https://vvsolutions.in/dbr12/dbr12.m3u8
 http://applelive.in:80/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="Selfie tv puthukadai kaniyakumari district" group-title="Tamil" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie tv puthukadai kaniyakumari district
 http://applelive.in/selfeetv/selfeetv.m3u8
+#EXTINF:-1 tvg-name="Akshara News" group-title="Telugu" tvg-logo="https://i.ibb.co/wF1MGwQv/20250908-201408.jpg",Akshara News
+https://vvsolutions.in/aksharanews/aksharanews.m3u8
+#EXTINF:-1 tvg-name="Sree News" group-title="Telugu" tvg-logo="https://i.ibb.co/spzNFVX5/1000120817.jpg",Sree News
+https://vvsolutions.in/sreenews/sreenews.m3u8
+#EXTINF:-1 tvg-name="Tv8 News" group-title="Telugu" tvg-logo="https://i.ibb.co/FbRccWcT/1000120820.jpg",Tv8 News
+https://vvsolutions.in/tv8news/tv8news.m3u8
