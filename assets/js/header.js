@@ -2,13 +2,23 @@ function loadHeader() {
   const headerContainer = document.getElementById("header");
   if (!headerContainer) return;
 
-  // Get current page name
   const path = window.location.pathname;
-  const page = path.substring(path.lastIndexOf('/') + 1);
+  let page = path.substring(path.lastIndexOf('/') + 1);
+  if (!page) page = 'index.html'; // handle root URL
+
+  // Convert filename to readable title
+  function formatTitle(filename) {
+    if (filename === 'index.html') return 'Home';
+    let name = filename.replace('.html','');      // remove extension
+    name = name.replace(/[-_]/g,' ');            // replace dashes/underscores
+    return name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  }
+
+  const title = formatTitle(page);
 
   let rightIconHTML = '';
 
-  if (page === '' || page === 'index.html') {
+  if (page === 'index.html') {
     // Home page → Notifications icon
     rightIconHTML = `
       <button id="notificationBtn" style="
@@ -55,7 +65,7 @@ function loadHeader() {
     ">
       <div style="display:flex; align-items:center;">
         <span class="material-icons" style="color:white;">live_tv</span>
-        <h1 style="margin-left:8px; font-size:1.125rem; font-weight:bold; color:white;">Live TV</h1>
+        <h1 style="margin-left:8px; font-size:1.125rem; font-weight:bold; color:white;">${title}</h1>
       </div>
       <div>
         ${rightIconHTML}
@@ -63,8 +73,8 @@ function loadHeader() {
     </header>
   `;
 
-  // Add event listeners
-  if (page === '' || page === 'index.html') {
+  // Event listeners
+  if (page === 'index.html') {
     const notifBtn = document.getElementById('notificationBtn');
     if (notifBtn) {
       notifBtn.addEventListener('click', () => {
