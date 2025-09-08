@@ -324,17 +324,26 @@ function loadUserChannels(uid){
         }
         lastStatuses.set(c.id, c.status);
 
+        // Enhanced card UI
         const card = document.createElement('div');
-        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+        card.className = `
+          flex items-center gap-4 p-4
+          bg-gray-800 rounded-2xl
+          shadow-md hover:shadow-xl
+          border border-gray-700
+          transition-all duration-300
+        `;
         card.innerHTML = `
-          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+          <img src="${c.icon || 'https://via.placeholder.com/64'}" 
+               class="w-16 h-16 rounded-lg object-cover border-2 border-gray-600"/>
           <div class="flex-1">
-            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+            <h4 class="font-semibold text-white text-lg truncate">${c.name || 'Untitled'}</h4>
+            <p class="text-gray-300 truncate">${c.category || 'Uncategorized'}</p>
             <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
           </div>
-          ${statusPill(c.status)}
+          <div>${statusPill(c.status)}</div>
         `;
+
         if (c.status === 'pending') userPending.appendChild(card);
         if (c.status === 'approved') userApproved.appendChild(card);
       }
