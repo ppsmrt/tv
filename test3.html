@@ -262,7 +262,7 @@ async function submitChannel() {
     const user = auth.currentUser;
 
     if (!user) {
-      showToast("You must be logged in to submit a channel", "error");
+      showToast("Please log in to submit a channel", "error");
       return;
     }
 
@@ -271,18 +271,24 @@ async function submitChannel() {
       return;
     }
 
+    // ✅ Get user's name from database
+    const userSnap = await get(ref(db, `users/${user.uid}/name`));
+    const userName = userSnap.exists() ? userSnap.val() : user.email || "Unknown";
+
+    // ✅ Push new channel request
     const requestRef = push(ref(db, 'channelRequests'));
     await set(requestRef, {
       name,
       icon,
       stream,
       category,
-      submittedBy: user.uid,  // ✅ Keeping original structure
+      createdAt: new Date().toISOString(), // ISO timestamp
+      createdBy: userName, // ✅ Store user's name instead of UID
       status: 'pending',
-      timestamp: Date.now()   // ✅ Keeping original timestamp style
+      country: 'India' // ✅ Fixed country for now
     });
 
-    // ✅ Reset form fields
+    // ✅ Reset fields
     document.getElementById('channel-name').value = '';
     iconFileInput.value = '';
     iconHiddenInput.value = '';
@@ -296,7 +302,6 @@ async function submitChannel() {
     showToast(e?.code || "Submit failed. Check rules & network.", "error");
   }
 }
-
 
 /** =========================
  *  Logout
