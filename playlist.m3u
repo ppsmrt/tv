@@ -77,7 +77,7 @@ http://rasinetworks.in:1935/rasicomedy/rasicomedy.stream_aac/index.m3u8
 http://rasinetworks.in:1935/rasimusic/rasimusic.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="Rasi Hollywood" group-title="Tamil" tvg-logo="https://i.ibb.co/mF9XV2nG/rasihollywood.jpg",Rasi Hollywood
 http://rasinetworks.in:1935/rasihollywood/rasihollywood.stream_aac/index.m3u8
-#EXTINF:-1 tvg-name="News 24x7" group-title="Malayalam" tvg-logo="https://i.ibb.co/ccnq4t9W/news24x7malayalam.jpg",News 24x7
+#EXTINF:-1 tvg-name="News 24x7 Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/ccnq4t9W/news24x7malayalam.jpg",News 24x7 Malayalam
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-malayalam-24x7/index.m3u8
 #EXTINF:-1 tvg-name="News 24x7" group-title="Tamil" tvg-logo="https://i.ibb.co/jPCxck1J/news24x7tamil.jpg",News 24x7
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/index.m3u8
@@ -161,3 +161,7 @@ https://vvsolution.in/hls/jvrnews_623.m3u8
 https://vvsolutions.in/vpowernews_343/vpowernews_343.m3u8
 #EXTINF:-1 tvg-name="DBR News" group-title="Telugu" tvg-logo="https://i.ibb.co/CKSCHP0k/1000120783.jpg",DBR News
 https://vvsolutions.in/dbr12/dbr12.m3u8
+#EXTINF:-1 tvg-name="Apple tv marthandam" group-title="Tamil" tvg-logo="https://play-lh.googleusercontent.com/6J8XBOYCu_cgqemEMGOg-AiPctEzjilNKzJ__ckcV67P-FiyVak8VaFSXRdjVgStguF8=w832-h470-rw",Apple tv marthandam
+http://applelive.in:80/appletv/appletv.m3u8
+#EXTINF:-1 tvg-name="Selfie tv puthukadai kaniyakumari district" group-title="Tamil" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie tv puthukadai kaniyakumari district
+http://applelive.in/selfeetv/selfeetv.m3u8
