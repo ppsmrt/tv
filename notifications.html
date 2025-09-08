@@ -31,10 +31,25 @@
     background: rgba(31,41,55,0.9);
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  #footer {
+    height: 64px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(31,41,55,0.9);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
+    z-index: 20;
   }
 
   main {
-    padding: 20px 1rem 100px;
+    padding: 84px 1rem 84px; /* space for header & footer */
     max-width: 800px;
     margin: 0 auto;
   }
@@ -63,6 +78,7 @@
     object-fit: cover;
     margin-right: 16px;
     flex-shrink: 0;
+    background: #111;
   }
 
   .notification-content {
@@ -175,7 +191,7 @@ function createNotificationCard(notification) {
 
   const img = document.createElement('img');
   img.className = 'notification-icon';
-  img.src = notification.logo || 'https://via.placeholder.com/50?text=TV';
+  img.src = notification.logo && notification.logo.trim() !== '' ? notification.logo : 'https://via.placeholder.com/50?text=TV';
   img.alt = (notification.name || "Notification") + ' logo';
 
   const content = document.createElement('div');
@@ -246,7 +262,7 @@ onValue(ref(db, 'notifications'), (snapshot) => {
   updateUI();
 });
 
-// ✅ Merge and Render
+// ✅ Merge and Render (Newest First)
 function updateUI() {
   const merged = [...channelsCache, ...notificationsCache].sort((a, b) => b.timestamp - a.timestamp);
   renderNotifications(merged);
