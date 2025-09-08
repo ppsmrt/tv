@@ -14,24 +14,22 @@
 <body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden">
 
   <!-- Header -->
-<div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
-  <!-- Left Section -->
-  <div class="flex items-center gap-3">
-    <button onclick="window.location.href='index.html'" class="text-white text-xl hover:text-gray-200 transition">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
-      Channel Manager
-    </h1>
-  </div>
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <button onclick="window.location.href='/'" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
+        Channel Manager
+      </h1>
+    </div>
 
-  <!-- Right Section -->
-  <div>
-    <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
-      <i class="fa-solid fa-right-from-bracket"></i>
-    </button>
+    <div>
+      <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
   </div>
-</div>
 
   <!-- Form -->
   <div class="p-5 bg-white shadow-lg">
@@ -44,11 +42,18 @@
           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
 
+      <!-- Replaced Icon URL input with File Upload -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">Icon URL</label>
-        <input type="url" id="icon" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-      </div>
+  <label class="block text-gray-700 font-semibold mb-1">Upload Icon</label>
+  <div class="relative">
+    <input type="file" id="uploadIcon" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
+    <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#d92a1a] to-[#ff4a3f] text-white font-bold py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer select-none">
+      <i class="fa-solid fa-upload"></i> Choose Image
+    </div>
+  </div>
+  <input type="hidden" id="icon" name="icon"/>
+  <p id="uploadStatus" class="text-sm text-gray-500 mt-1"></p>
+</div>
 
       <div>
         <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
@@ -59,15 +64,14 @@
       <div>
         <label class="block text-gray-700 font-semibold mb-1">Category</label>
         <select id="category" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-        <option value="Tamil">Tamil</option>
-        <option value="Telugu">Telugu</option>
-        <option value="Kannada">Kannada</option>
-        <option value="Malayalam">Malayalam</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Kids">Kids</option>
-        <option value="Sports">Sports</option>
+          <option value="Tamil">Tamil</option>
+          <option value="Telugu">Telugu</option>
+          <option value="Kannada">Kannada</option>
+          <option value="Malayalam">Malayalam</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Kids">Kids</option>
+          <option value="Sports">Sports</option>
         </select>
-
       </div>
 
       <button type="submit" id="submitBtn"
@@ -83,15 +87,15 @@
   <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
     <div class="flex gap-3">
       <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-      <option value="All">All Categories</option>
-      <option value="Tamil">Tamil</option>
-      <option value="Telugu">Telugu</option>
-      <option value="Kannada">Kannada</option>
-      <option value="Malayalam">Malayalam</option>
-      <option value="Hindi">Hindi</option>
-      <option value="Kids">Kids</option>
-      <option value="Sports">Sports</option>
-    </select>
+        <option value="All">All Categories</option>
+        <option value="Tamil">Tamil</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Malayalam">Malayalam</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Kids">Kids</option>
+        <option value="Sports">Sports</option>
+      </select>
 
       <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
         <option value="az">Sort By A-Z</option>
@@ -122,9 +126,8 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
     import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
       authDomain: "tnm3ulive.firebaseapp.com",
@@ -140,22 +143,92 @@ import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/fi
     const db = getDatabase(app);
 
     const form = document.getElementById("channelForm");
-    const statusMsg = document.getElementById("statusMsg");
     const channelList = document.getElementById("channelList");
     const submitBtn = document.getElementById("submitBtn");
     const filterCategory = document.getElementById("filterCategory");
     const searchInput = document.getElementById("searchInput");
     const sortOption = document.getElementById("sortOption");
 
-    let channelsData = {};
+    // Toast Notification
+    function showToast(message, type = "success") {
+      const existing = document.querySelector(".toast");
+      if (existing) existing.remove();
 
-    function showStatus(message, isError = false) {
-      statusMsg.textContent = message;
-      statusMsg.className = isError ? "text-red-600 font-semibold text-center" : "text-green-600 font-semibold text-center";
+      const toast = document.createElement("div");
+      toast.className = `toast fixed bottom-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-semibold z-50 transition-transform transform ${
+        type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : "bg-gray-600"
+      }`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(50px)";
       setTimeout(() => {
-        statusMsg.textContent = "";
+        toast.style.transition = "opacity 0.3s, transform 0.3s";
+        toast.style.opacity = "1";
+        toast.style.transform = "translateY(0)";
+      }, 50);
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(50px)";
+        setTimeout(() => toast.remove(), 300);
       }, 3000);
     }
+
+    function showStatus(message, isError = false) {
+      showToast(message, isError ? "error" : "success");
+    }
+
+    // imgbb Upload
+    const uploadIconInput = document.getElementById("uploadIcon");
+    const iconHidden = document.getElementById("icon");
+    const uploadStatus = document.getElementById("uploadStatus");
+
+    uploadIconInput.classList.add(
+      "cursor-pointer",
+      "bg-[#d92a1a]",
+      "text-white",
+      "font-bold",
+      "rounded-xl",
+      "shadow-md",
+      "hover:bg-red-700",
+      "transition",
+      "px-4",
+      "py-2"
+    );
+
+    uploadIconInput.addEventListener("change", async () => {
+      const file = uploadIconInput.files[0];
+      if (!file) return;
+
+      uploadStatus.textContent = "Uploading...";
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const response = await fetch(`https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708`, {
+          method: "POST",
+          body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+          iconHidden.value = data.data.url;
+          showToast("Image uploaded successfully!");
+          uploadStatus.textContent = "";
+          uploadIconInput.value = "";
+        } else {
+          showToast("Upload failed!", "error");
+          uploadStatus.textContent = "";
+        }
+      } catch (error) {
+        showToast("Error uploading image!", "error");
+        uploadStatus.textContent = "";
+        console.error(error);
+      }
+    });
+
+    let channelsData = {};
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -171,16 +244,45 @@ import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/fi
       }
 
       submitBtn.disabled = true;
+
       try {
         const now = new Date().toISOString();
+        const user = auth.currentUser ;
+        let adminName = "Unknown Admin";
+
+        if (user) {
+          // Fetch admin name from /admins/{uid}/name
+          const adminRef = ref(db, "admins/" + user.uid + "/name");
+          const snapshot = await new Promise((resolve) => onValue(adminRef, resolve, { onlyOnce: true }));
+          if (snapshot.exists()) adminName = snapshot.val();
+        }
+
         if (channelId) {
-          await update(ref(db, "channels/" + channelId), { name, icon, stream, category });
+          // Update channel, add editedBy instead of changing createdBy
+          await update(ref(db, "channels/" + channelId), { 
+            name, 
+            icon, 
+            stream, 
+            category, 
+            editedAt: now,
+            editedBy: adminName
+          });
           showStatus("✅ Channel updated!");
         } else {
+          // Add new channel
           const newRef = push(ref(db, "channels"));
-          await set(newRef, { name, icon, stream, category, createdAt: now });
+          await set(newRef, { 
+            name, 
+            icon, 
+            stream, 
+            category, 
+            createdAt: now, 
+            createdBy: adminName,
+            country: "India" // you can later make this dynamic
+          });
           showStatus("✅ Channel added!");
         }
+
         form.reset();
         document.getElementById("channelId").value = "";
       } catch (error) {
@@ -202,14 +304,9 @@ import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/fi
         return matchesCategory && matchesSearch;
       });
 
-      // Sort logic
-      if (sortBy === "az") {
-        filteredChannels.sort((a, b) => a[1].name.localeCompare(b[1].name));
-      } else if (sortBy === "latest") {
-        filteredChannels.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
-      } else if (sortBy === "oldest") {
-        filteredChannels.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
-      }
+      if (sortBy === "az") filteredChannels.sort((a, b) => a[1].name.localeCompare(b[1].name));
+      else if (sortBy === "latest") filteredChannels.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
+      else if (sortBy === "oldest") filteredChannels.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
 
       if (filteredChannels.length === 0) {
         channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>";
@@ -279,20 +376,17 @@ import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/fi
     searchInput.addEventListener("input", renderChannels);
     sortOption.addEventListener("change", renderChannels);
 
-//Logout//
-
-const auth = getAuth(app);
-
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  signOut(auth)
-    .then(() => {
-      alert("✅ Logged out successfully!");
-      window.location.href = "index.html"; // redirect to login page
-    })
-    .catch((error) => {
-      alert("❌ Logout failed: " + error.message);
+    const auth = getAuth(app);
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          showToast("Logged out successfully!");
+          setTimeout(() => window.location.href = "/", 1000);
+        })
+        .catch((error) => {
+          showToast("Logout failed: " + error.message, "error");
+        });
     });
-});
   </script>
 </body>
 </html>
