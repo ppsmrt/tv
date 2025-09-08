@@ -175,3 +175,5 @@ https://vvsolutions.in/tv8news/tv8news.m3u8
 https://vvsolutions.in/rk9news/rk9news.m3u8
 #EXTINF:-1 tvg-name="YSR Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/XkpMfT3T/1000120842.jpg",YSR Tv
 https://vvsolutions.in/ysrtv/ysrtv.m3u8
+#EXTINF:-1 tvg-name="SS News" group-title="Telugu" tvg-logo="https://i.ibb.co/Q3WwtVz8/1000120854.jpg",SS News
+http://streamcp.logosys.cloud:1935/snewsnpt/snewsnpt/playlist.m3u8
