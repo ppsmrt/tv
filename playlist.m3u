@@ -133,8 +133,6 @@ https://amg17931-zee-amg17931c8-samsung-th-6526.playouts.now.amagi.tv/playlist.m
 http://198.144.149.206:8080/NOTV/AARTHITV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Iratai Pathai" group-title="Tamil" tvg-logo="https://i.ibb.co/Y7m4HYyf/1000120339.png",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
-#EXTINF:-1 tvg-name="Sun TV" group-title="Tamil" tvg-logo="https://i.ibb.co/PsfD1PHp/suntv.jpg",Sun TV
-http://116.202.46.40:9023/SUN_LIFE_TAMIL/index.m3u8
 #EXTINF:-1 tvg-name="South Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/ZRj1vTrF/1000120396.jpg",South Vision
 https://live.skystream.in/live/southvsnklm/index.m3u8
 #EXTINF:-1 tvg-name="N  Media" group-title="Malayalam" tvg-logo="https://i.ibb.co/5Wr3H5zX/bb574b993d1d.jpg",N  Media
@@ -147,3 +145,19 @@ https://rtmp.bmlive.net/bms/emperortv/index.m3u8
 https://vvsolutions.in/cabletandur/cabletandur.m3u8
 #EXTINF:-1 tvg-name="KS Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/39r9vjrz/kstv.jpg",KS Tv
 https://vvsolutions.in/lmc/lmc.m3u8
+#EXTINF:-1 tvg-name="Sakshi Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/zv2HvZL/sakshitv.jpg",Sakshi Tv
+https://yuppmedtaorire.akamaized.net/v1/manifest/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/sakshi_nim_https/c3c5eed7-9986-4e25-a1ef-df14bc67788f/0.m3u8
+#EXTINF:-1 tvg-name="Vinodam" group-title="Telugu" tvg-logo="https://i.ibb.co/ksKzqyRt/Vinodam.jpg",Vinodam
+https://allchannels.in/vinodam/video.m3u8
+#EXTINF:-1 tvg-name="Tirumal" group-title="Tamil" tvg-logo="https://i.ibb.co/k2nt0933/Tirumal.jpg",Tirumal
+https://allchannels.in/tmc/video.m3u8
+#EXTINF:-1 tvg-name="Zoy HD" group-title="Tamil" tvg-logo="https://i.ibb.co/yBRwPHG2/20250908-172328.jpg",Zoy HD
+https://allchannels.in/zoyhd/video.m3u8
+#EXTINF:-1 tvg-name="RK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/8gySxQ9K/20250908-172518.jpg",RK Tv
+https://allchannels.in/rktv/video.m3u8
+#EXTINF:-1 tvg-name="JVR News" group-title="Tamil" tvg-logo="https://i.ibb.co/C4r49yF/20250908-172711.jpg",JVR News
+https://vvsolution.in/hls/jvrnews_623.m3u8
+#EXTINF:-1 tvg-name="V Power" group-title="Telugu" tvg-logo="https://i.ibb.co/9HYr3vRD/1000120777.jpg",V Power
+https://vvsolutions.in/vpowernews_343/vpowernews_343.m3u8
+#EXTINF:-1 tvg-name="DBR News" group-title="Telugu" tvg-logo="https://i.ibb.co/CKSCHP0k/1000120783.jpg",DBR News
+https://vvsolutions.in/dbr12/dbr12.m3u8
