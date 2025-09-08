@@ -290,49 +290,62 @@ async function submitChannel(){
   }
 }
 
-// =========================
-// Load user channels (Improved UI)
-// =========================
-function loadUserChannels(uid) {
-  const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
-  q.on('value', snap => {
-    userPending.innerHTML = '';
-    userApproved.innerHTML = '';
-    if (!snap.exists()) return;
+/** =========================
+ *  User: List + Realtime toasts
+ *  ========================= */
+const lastStatuses = new Map(); // requestId -> lastStatus
 
-    const items = [];
-    snap.forEach(childSnap => {
-      items.push({ id: childSnap.key, ...childSnap.val() });
-    });
+function loadUserChannels(uid){
+  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
+  onValue(
+    q,
+    async (snap) => {
+      userPending.innerHTML = '';
+      userApproved.innerHTML = '';
 
-    items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+      if (!snap.exists()) {
+        userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+        return;
+      }
 
-    items.forEach(c => {
-      const status = (c.status || 'pending').toLowerCase();
+      const items = [];
+      snap.forEach(childSnap => {
+        const c = childSnap.val();
+        items.push({ id: childSnap.key, ...c });
+      });
+      items.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
 
-      const card = document.createElement('div');
-      card.className = `
-        flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-4 bg-gray-900 rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105
-      `;
+      for (const c of items) {
+        const userName = await getUserName(c.submittedBy);
+        const prev = lastStatuses.get(c.id);
+        if (prev && prev !== c.status) {
+          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
+          if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
+        }
+        lastStatuses.set(c.id, c.status);
 
-      card.innerHTML = `
-        <div class="flex items-center gap-4 w-full md:w-auto">
-          <img src="${c.icon}" class="w-20 h-20 md:w-24 md:h-24 rounded-lg border border-gray-600 object-cover"/>
-          <div class="flex-1 flex flex-col gap-1">
-            <h4 class="text-white font-semibold text-lg md:text-xl">${c.name}</h4>
-            <p class="text-gray-300 text-sm md:text-base">${c.category}</p>
+        const card = document.createElement('div');
+        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
+        card.innerHTML = `
+          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
+          <div class="flex-1">
+            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
           </div>
-        </div>
-        <span class="px-3 py-1 rounded-xl text-sm ${status === 'approved' ? 'bg-green-500' : 'bg-yellow-500'}">
-          ${status.charAt(0).toUpperCase() + status.slice(1)}
-        </span>
-      `;
-
-      if (status === 'pending') userPending.appendChild(card);
-      else if (status === 'approved') userApproved.appendChild(card);
-    });
-  });
+          ${statusPill(c.status)}
+        `;
+        if (c.status === 'pending') userPending.appendChild(card);
+        if (c.status === 'approved') userApproved.appendChild(card);
+      }
+    },
+    (error) => {
+      console.error("loadUserChannels onValue error:", error);
+      showToast(error?.code || "Read failed (user). Check rules.", "error");
+    }
+  );
 }
+
 /** =========================
  *  Logout
  *  ========================= */
