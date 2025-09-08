@@ -44,12 +44,16 @@
 
       <!-- Replaced Icon URL input with File Upload -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">Upload Icon</label>
-        <input type="file" id="uploadIcon" accept="image/*"
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
-        <input type="hidden" id="icon" name="icon"/>
-        <p id="uploadStatus" class="text-sm text-gray-500 mt-1"></p>
-      </div>
+  <label class="block text-gray-700 font-semibold mb-1">Upload Icon</label>
+  <div class="relative">
+    <input type="file" id="uploadIcon" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
+    <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#d92a1a] to-[#ff4a3f] text-white font-bold py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer select-none">
+      <i class="fa-solid fa-upload"></i> Choose Image
+    </div>
+  </div>
+  <input type="hidden" id="icon" name="icon"/>
+  <p id="uploadStatus" class="text-sm text-gray-500 mt-1"></p>
+</div>
 
       <div>
         <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
