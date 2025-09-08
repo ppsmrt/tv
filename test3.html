@@ -290,60 +290,62 @@ async function submitChannel(){
   }
 }
 
-/** =========================
- *  User: List + Realtime toasts
- *  ========================= */
-const lastStatuses = new Map(); // requestId -> lastStatus
+// =========================
+// Load user channels (Improved UI)
+// =========================
+const lastStatuses = new Map(); // Track status changes for toast
 
-function loadUserChannels(uid){
-  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(
-    q,
-    async (snap) => {
-      userPending.innerHTML = '';
-      userApproved.innerHTML = '';
+async function loadUserChannels(uid) {
+  const q = db.ref('channelRequests').orderByChild('submittedBy').equalTo(uid);
+  q.on('value', async (snap) => {
+    userPending.innerHTML = '';
+    userApproved.innerHTML = '';
 
-      if (!snap.exists()) {
-        userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
-        return;
-      }
-
-      const items = [];
-      snap.forEach(childSnap => {
-        const c = childSnap.val();
-        items.push({ id: childSnap.key, ...c });
-      });
-      items.sort((a,b) => (a.timestamp||0) - (b.timestamp||0));
-
-      for (const c of items) {
-        const userName = await getUserName(c.submittedBy);
-        const prev = lastStatuses.get(c.id);
-        if (prev && prev !== c.status) {
-          if (prev === 'pending' && c.status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
-          if (prev === 'pending' && c.status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
-        }
-        lastStatuses.set(c.id, c.status);
-
-        const card = document.createElement('div');
-        card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-        card.innerHTML = `
-          <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-          <div class="flex-1">
-            <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-            <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-          </div>
-          ${statusPill(c.status)}
-        `;
-        if (c.status === 'pending') userPending.appendChild(card);
-        if (c.status === 'approved') userApproved.appendChild(card);
-      }
-    },
-    (error) => {
-      console.error("loadUserChannels onValue error:", error);
-      showToast(error?.code || "Read failed (user). Check rules.", "error");
+    if (!snap.exists()) {
+      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
+      return;
     }
-  );
+
+    const items = [];
+    snap.forEach(childSnap => {
+      items.push({ id: childSnap.key, ...childSnap.val() });
+    });
+
+    // Sort by timestamp
+    items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+    for (const c of items) {
+      const status = (c.status || 'pending').toLowerCase();
+      const userName = await getUserName(c.submittedBy); // Fetch user name
+
+      // Show toast if status changed
+      const prev = lastStatuses.get(c.id);
+      if (prev && prev !== status) {
+        if (prev === 'pending' && status === 'approved') showToast(`"${c.name}" was approved 🎉`, "success");
+        if (prev === 'pending' && status === 'rejected') showToast(`"${c.name}" was rejected`, "error");
+      }
+      lastStatuses.set(c.id, status);
+
+      // Create card
+      const card = document.createElement('div');
+      card.className = 'flex items-center gap-4 p-3 bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all';
+
+      card.innerHTML = `
+        <img src="${c.icon || 'https://via.placeholder.com/64'}" class="w-16 h-16 rounded-lg object-cover border border-gray-700"/>
+        <div class="flex-1">
+          <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
+          <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
+          <span class="text-xs text-gray-400">Submitted by: ${userName}</span>
+        </div>
+        <span class="px-3 py-1 rounded-full text-sm font-medium ${status === 'approved' ? 'bg-green-500 text-white' : status === 'rejected' ? 'bg-red-500 text-white' : 'bg-yellow-500 text-gray-900'}">
+          ${status.charAt(0).toUpperCase() + status.slice(1)}
+        </span>
+      `;
+
+      if (status === 'pending') userPending.appendChild(card);
+      else if (status === 'approved') userApproved.appendChild(card);
+    }
+  });
 }
 
 /** =========================
