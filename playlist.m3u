@@ -177,3 +177,9 @@ https://vvsolutions.in/rk9news/rk9news.m3u8
 https://vvsolutions.in/ysrtv/ysrtv.m3u8
 #EXTINF:-1 tvg-name="SS News" group-title="Telugu" tvg-logo="https://i.ibb.co/Q3WwtVz8/1000120854.jpg",SS News
 http://streamcp.logosys.cloud:1935/snewsnpt/snewsnpt/playlist.m3u8
+#EXTINF:-1 tvg-name="Brathakamma TV" group-title="Telugu" tvg-logo="https://i.ibb.co/YFQm84yC/1000120909.jpg",Brathakamma TV
+http://live.streamplay.in:1935/bkamma/bkamma/playlist.m3u8
+#EXTINF:-1 tvg-name="The Way Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/HJky8wB/1000120914.jpg",The Way Tv
+http://198.144.149.206:8080/NOTV/THEWAYTV/index.m3u8?token=GTR
+#EXTINF:-1 tvg-name="Sri Saila Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/Gfkkpt78/1000120916.jpg",Sri Saila Tv
+http://202.83.27.171:1935/sslm/live/playlist.m3u8
