@@ -46,13 +46,13 @@
     background: rgba(31,41,55,0.9);
     box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
     z-index: 20;
-    user-select: text;      /* allow text selection */
+    user-select: text;      
     -webkit-user-select: text;
     pointer-events: auto;
   }
 
   main {
-    padding: 84px 1rem 84px; /* space for header & footer */
+    padding: 84px 1rem 84px;
     max-width: 800px;
     margin: 0 auto;
   }
@@ -138,6 +138,28 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  /* NEW badge + glow for recently added notifications */
+  .new-badge {
+    display: inline-block;
+    background: #f87171;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 8px;
+    margin-left: 8px;
+  }
+
+  .notification-card.new {
+    animation: glow 1.5s ease-in-out 2;
+    border: 1px solid #f87171;
+  }
+
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 10px #f87171; }
+    50% { box-shadow: 0 0 20px #f87171; }
+  }
 </style>
 </head>
 <body>
@@ -162,7 +184,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// ✅ Firebase Config
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -178,7 +200,6 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const container = document.getElementById('notificationsContainer');
 
-// ✅ Convert timestamp to "time ago"
 function timeAgo(timestamp) {
   if (!timestamp) return "";
   const diff = Math.floor((Date.now() - timestamp) / 1000);
@@ -188,20 +209,21 @@ function timeAgo(timestamp) {
   return `${Math.floor(diff / 86400)}d ago`;
 }
 
-// ✅ Create Notification Card
+// Create Notification Card
 function createNotificationCard(notification) {
   const card = document.createElement('div');
   card.className = 'notification-card';
-  if (notification.url) {
-    card.onclick = () => window.open(notification.url, "_blank");
-  }
+  if (notification.url) card.onclick = () => window.open(notification.url, "_blank");
+
+  // Highlight new notifications added in last 24 hours
+  const ONE_DAY = 24 * 60 * 60 * 1000;
+  const isNew = Date.now() - (notification.timestamp || 0) < ONE_DAY;
+  if (isNew) card.classList.add('new');
 
   const img = document.createElement('img');
   img.className = 'notification-icon';
   img.src = notification.logo && notification.logo.trim() !== '' ? notification.logo : '';
   img.alt = (notification.name || "Notification") + ' logo';
-  
-  // Fallback to bell icon if image fails
   img.onerror = () => {
     const icon = document.createElement('span');
     icon.className = 'material-icons notification-icon';
@@ -216,6 +238,13 @@ function createNotificationCard(notification) {
   title.className = 'notification-title';
   title.textContent = notification.message || "New Update";
 
+  if (isNew) {
+    const badge = document.createElement('span');
+    badge.className = 'new-badge';
+    badge.textContent = 'NEW';
+    title.appendChild(badge);
+  }
+
   const meta = document.createElement('div');
   meta.className = 'notification-category';
   meta.textContent = `${notification.category || 'Update'} • ${timeAgo(notification.timestamp)}`;
@@ -228,7 +257,6 @@ function createNotificationCard(notification) {
   return card;
 }
 
-// ✅ Empty State
 function renderEmptyState() {
   container.innerHTML = `
     <div class="empty-state">
@@ -238,7 +266,6 @@ function renderEmptyState() {
   `;
 }
 
-// ✅ Render Notifications
 function renderNotifications(list) {
   container.innerHTML = '';
   if (list.length === 0) {
@@ -251,7 +278,6 @@ function renderNotifications(list) {
 let channelsCache = [];
 let notificationsCache = [];
 
-// ✅ Listen for Channels
 onValue(ref(db, 'channels'), (snapshot) => {
   const data = snapshot.val() || {};
   channelsCache = Object.entries(data).map(([id, c]) => ({
@@ -264,7 +290,6 @@ onValue(ref(db, 'channels'), (snapshot) => {
   updateUI();
 });
 
-// ✅ Listen for Notifications (global only)
 onValue(ref(db, 'notifications'), (snapshot) => {
   const data = snapshot.val() || {};
   notificationsCache = Object.entries(data).map(([id, n]) => ({
@@ -277,7 +302,7 @@ onValue(ref(db, 'notifications'), (snapshot) => {
   updateUI();
 });
 
-// ✅ Merge and Render (Newest First)
+// Merge and Render (Newest First)
 function updateUI() {
   const merged = [...channelsCache, ...notificationsCache].sort((a, b) => b.timestamp - a.timestamp);
   renderNotifications(merged);
