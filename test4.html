@@ -33,24 +33,51 @@
 
 <main>
   <!-- Submit Channel Form -->
-  <div class="bg-gray-800 p-6 rounded-xl shadow-lg space-y-4">
-    <h2 class="text-2xl font-bold text-red-500">Submit a Channel</h2>
-    
-    <input type="text" id="channel-name" placeholder="Channel Name" class="bg-gray-700 placeholder-gray-400 text-white"/>
-    
+<div class="bg-gray-800 p-8 rounded-xl shadow-xl space-y-6 max-w-lg mx-auto mt-24">
+  <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
+
+  <div class="space-y-4">
+    <input 
+      type="text" 
+      id="channel-name" 
+      placeholder="Channel Name" 
+      class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+    />
+
     <div>
-      <label class="block text-gray-300 mb-2">Upload Channel Logo</label>
-      <input type="file" id="channel-icon-file" accept="image/*" class="block w-full text-gray-300 bg-gray-700 p-2 rounded-lg"/>
+      <label class="block text-gray-300 mb-2 font-medium">Upload Channel Logo</label>
+      <input 
+        type="file" 
+        id="channel-icon-file" 
+        accept="image/*" 
+        class="block w-full text-gray-300 bg-gray-700 p-3 rounded-lg cursor-pointer"
+      />
       <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
+
       <div id="preview-container" class="hidden mt-3">
-        <p class="text-green-400 font-semibold">Preview:</p>
-        <img id="icon-preview" src="" alt="Preview" class="w-20 h-20 mt-2 rounded-lg shadow"/>
+        <p class="text-green-400 font-semibold mb-1">Preview:</p>
+        <img 
+          id="icon-preview" 
+          src="" 
+          alt="Preview" 
+          class="w-24 h-24 rounded-lg shadow-lg object-cover"
+        />
       </div>
     </div>
+
     <input type="hidden" id="channel-icon" />
-    
-    <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="bg-gray-700 placeholder-gray-400 text-white"/>
-    <select id="channel-category" class="bg-gray-700 text-white">
+
+    <input 
+      type="text" 
+      id="channel-url" 
+      placeholder="Stream URL (m3u8)" 
+      class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+    />
+
+    <select 
+      id="channel-category" 
+      class="w-full bg-gray-700 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+    >
       <option value="Tamil">Tamil</option>
       <option value="Telugu">Telugu</option>
       <option value="Kannada">Kannada</option>
@@ -59,11 +86,22 @@
       <option value="Kids">Kids</option>
       <option value="Sports">Sports</option>
     </select>
-    <button id="submit-btn" class="bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg">Submit Channel</button>
-    <p class="text-xs text-gray-400">Tip: Image will be auto-uploaded to ImgBB.</p>
   </div>
 
-  <!-- Pending Channels -->
+  <button 
+    id="submit-btn" 
+    class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition"
+  >
+    Submit Channel
+  </button>
+
+  <p class="text-xs text-gray-400 text-center">
+    Tip: Image will be auto-uploaded to ImgBB.
+  </p>
+</div>
+
+
+  <!-- ✅ Pending Channels -->
   <div class="mt-8">
     <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
     <div id="user-pending" class="space-y-3 mt-2"></div>
