@@ -138,27 +138,41 @@ main button:hover {
     />
 
     <div>
-      <label class="block text-gray-300 mb-2 font-medium">Upload Channel Logo</label>
-      <input 
-        type="file" 
-        id="channel-icon-file" 
-        accept="image/*" 
-        class="block w-full text-gray-300 bg-gray-700 p-3 rounded-lg cursor-pointer"
-      />
-      <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
+  <label class="block text-gray-300 mb-2 font-medium">Upload Channel Logo</label>
 
-      <div id="preview-container" class="hidden mt-3">
-        <p class="text-green-400 font-semibold mb-1">Preview:</p>
-        <img 
-          id="icon-preview" 
-          src="" 
-          alt="Preview" 
-          class="w-24 h-24 rounded-lg shadow-lg object-cover"
-        />
-      </div>
-    </div>
+  <!-- Styled Upload Button -->
+  <label 
+    for="channel-icon-file" 
+    class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition"
+  >
+    <span class="material-icons text-red-400">upload</span>
+    Upload Channel Logo
+  </label>
 
-    <input type="hidden" id="channel-icon" />
+  <!-- Hidden file input -->
+  <input 
+    type="file" 
+    id="channel-icon-file" 
+    accept="image/*" 
+    class="hidden"
+  />
+
+  <!-- Upload status -->
+  <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
+
+  <!-- Preview -->
+  <div id="preview-container" class="hidden mt-3">
+    <p class="text-green-400 font-semibold mb-1">Preview:</p>
+    <img 
+      id="icon-preview" 
+      src="" 
+      alt="Preview" 
+      class="w-24 h-24 rounded-lg shadow-lg object-cover"
+    />
+  </div>
+</div>
+
+<input type="hidden" id="channel-icon" />
 
     <input 
       type="text" 
