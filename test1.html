@@ -246,14 +246,39 @@
       submitBtn.disabled = true;
       try {
         const now = new Date().toISOString();
+        const currentUser  = auth.currentUser ;
+        const userName = currentUser  ? (currentUser .displayName || currentUser .email) : "Unknown Admin";
+        const country = currentUser ?.country || "India"; // dynamic country fallback
+
         if (channelId) {
-          await update(ref(db, "channels/" + channelId), { name, icon, stream, category });
+          // Editing existing channel
+          await update(ref(db, "channels/" + channelId), {
+            name,
+            icon,
+            stream,
+            category,
+            language: category,
+            editedAt: now,
+            editedBy: userName,
+            country
+          });
           showStatus("✅ Channel updated!");
         } else {
+          // Adding new channel
           const newRef = push(ref(db, "channels"));
-          await set(newRef, { name, icon, stream, category, createdAt: now });
+          await set(newRef, {
+            name,
+            icon,
+            stream,
+            category,
+            language: category,
+            createdAt: now,
+            createdBy: userName,
+            country
+          });
           showStatus("✅ Channel added!");
         }
+
         form.reset();
         document.getElementById("channelId").value = "";
       } catch (error) {
