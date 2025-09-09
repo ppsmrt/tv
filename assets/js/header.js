@@ -1,130 +1,108 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-// Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
-
-// Sign in anonymously
-signInAnonymously(auth).catch(console.error);
-
 function loadHeader() {
   const headerContainer = document.getElementById("header");
   if (!headerContainer) return;
 
   const path = window.location.pathname;
-  let page = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+  let page = path.substring(path.lastIndexOf('/') + 1);
+  if (!page) page = 'index.html'; // handle root URL
 
   function formatTitle(filename) {
     if (filename === 'index.html') return 'Home';
-    return filename.replace('.html','').replace(/[-_]/g,' ')
-      .split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    let name = filename.replace('.html','');
+    name = name.replace(/[-_]/g,' ');
+    return name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   }
 
   const title = formatTitle(page);
 
-  // Enhanced button styles
   let rightIconHTML = '';
+
   if (page === 'index.html') {
+    // Home page → Animated notification bell
     rightIconHTML = `
       <button id="notificationBtn" style="
         position: relative;
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        background: rgba(255,255,255,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        transition: background 0.2s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        background:none;
+        border:none;
+        cursor:pointer;
+        outline:none;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:40px;
+        height:40px;
+        border-radius:50%;
+        transition: transform 0.2s;
       ">
-        <span class="material-icons" style="font-size:24px;">notifications</span>
-        <span id="notifBadge" style="
-          position: absolute;
-          top: -6px;
-          right: -6px;
-          background: #ef4444;
-          color: white;
-          font-size: 0.7rem;
-          font-weight: bold;
-          padding: 2px 6px;
-          border-radius: 50%;
-          display: none;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.6);
-        ">0</span>
+        <span class="material-icons bell-icon" style="
+          font-size:28px;
+          color:white;
+          animation: ring 1.5s infinite;
+        ">notifications</span>
       </button>
+
+      <style>
+        @keyframes ring {
+          0% { transform: rotate(0deg); }
+          15% { transform: rotate(15deg); }
+          30% { transform: rotate(-10deg); }
+          45% { transform: rotate(15deg); }
+          60% { transform: rotate(-10deg); }
+          75% { transform: rotate(15deg); }
+          100% { transform: rotate(0deg); }
+        }
+        #notificationBtn:hover {
+          transform: scale(1.2);
+        }
+      </style>
     `;
   } else {
+    // Other pages → Back button with icon
     rightIconHTML = `
       <button id="backBtn" style="
         display:flex;
         align-items:center;
-        gap:4px;
-        padding: 8px 12px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.1);
         color:white;
-        font-weight:500;
+        background:none;
         border:none;
+        font-size:16px;
         cursor:pointer;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        transition: background 0.2s;
+        font-weight:500;
+        transition: transform 0.2s;
       ">
-        <span class="material-icons">arrow_back</span> Back
+        <span class="material-icons" style="margin-right:4px;">arrow_back</span> Back
       </button>
     `;
   }
 
   headerContainer.innerHTML = `
     <header style="
-      height: 70px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 1.5rem;
-      background: linear-gradient(90deg, #1f2937, #111827);
+      background: rgba(31,41,55,0.85);
       backdrop-filter: blur(10px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 20;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 20;
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
     ">
-      <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; align-items:center;">
         <span class="material-icons" style="
+          color:white;
           font-size:28px;
-          color: #f87171;
-          background: rgba(255,255,255,0.1);
-          padding:6px;
-          border-radius: 8px;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+          margin-right:8px;
         ">live_tv</span>
         <h1 style="
-          margin:0;
           font-size:1.25rem;
-          font-weight:700;
-          color:#fff;
-          text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+          font-weight:600;
+          color:white;
         ">${title}</h1>
       </div>
       <div>
@@ -133,53 +111,21 @@ function loadHeader() {
     </header>
   `;
 
+  // Event listeners
   if (page === 'index.html') {
     const notifBtn = document.getElementById('notificationBtn');
-    const notifBadge = document.getElementById('notifBadge');
-
-    if (notifBtn) notifBtn.addEventListener('click', () => window.location.href = 'notifications.html');
-
-    const ONE_DAY = 24 * 60 * 60 * 1000;
-    let channelCount = 0;
-    let notifCount = 0;
-
-    function updateBadgeDisplay() {
-      const total = channelCount + notifCount;
-      if (notifBadge) {
-        if (total > 0) {
-          notifBadge.textContent = total;
-          notifBadge.style.display = 'inline';
-          notifBadge.animate([
-            { transform: 'scale(1.2)', opacity: 0.8 },
-            { transform: 'scale(1)', opacity: 1 }
-          ], { duration: 300, easing: 'ease-out' });
-        } else {
-          notifBadge.style.display = 'none';
-        }
-      }
+    if (notifBtn) {
+      notifBtn.addEventListener('click', () => {
+        window.location.href = 'notifications.html';
+      });
     }
-
-    onValue(ref(db, 'channels'), snapshot => {
-      const data = snapshot.val() || {};
-      channelCount = Object.values(data).filter(c => {
-        const ts = typeof c.createdAt === 'number' ? c.createdAt : new Date(c.createdAt).getTime();
-        return Date.now() - ts < ONE_DAY;
-      }).length;
-      updateBadgeDisplay();
-    });
-
-    onValue(ref(db, 'notifications'), snapshot => {
-      const data = snapshot.val() || {};
-      notifCount = Object.values(data).filter(n => {
-        const ts = n.timestamp || 0;
-        return Date.now() - ts < ONE_DAY;
-      }).length;
-      updateBadgeDisplay();
-    });
-
   } else {
     const backBtn = document.getElementById('backBtn');
-    if (backBtn) backBtn.addEventListener('click', () => window.history.back());
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        window.history.back();
+      });
+    }
   }
 }
 
