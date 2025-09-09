@@ -3,21 +3,26 @@ function loadHeader() {
   if (!headerContainer) return;
 
   const path = window.location.pathname;
-  let page = path.substring(path.lastIndexOf('/') + 1);
-  if (!page) page = 'index.html'; // handle root URL
+  let page = path.substring(path.lastIndexOf("/") + 1);
 
+  // Handle root
+  if (!page) page = "index";
+
+  // Convert page name into title
   function formatTitle(filename) {
-    if (filename === 'index.html') return 'Home';
-    let name = filename.replace('.html','');
-    name = name.replace(/[-_]/g,' ');
-    return name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    if (filename === "index") return "Home";
+    let name = filename.replace(/[-_]/g, " ");
+    return name
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   }
 
   const title = formatTitle(page);
 
-  let rightIconHTML = '';
+  let rightIconHTML = "";
 
-  if (page === 'index.html') {
+  if (page === "index") {
     // Home page → Animated notification bell
     rightIconHTML = `
       <button id="notificationBtn" style="
@@ -57,7 +62,7 @@ function loadHeader() {
       </style>
     `;
   } else {
-    // Other pages → Back button with icon
+    // Other pages → Back button
     rightIconHTML = `
       <button id="backBtn" style="
         display:flex;
@@ -112,17 +117,17 @@ function loadHeader() {
   `;
 
   // Event listeners
-  if (page === 'index.html') {
-    const notifBtn = document.getElementById('notificationBtn');
+  if (page === "index") {
+    const notifBtn = document.getElementById("notificationBtn");
     if (notifBtn) {
-      notifBtn.addEventListener('click', () => {
-        window.location.href = 'notifications.html';
+      notifBtn.addEventListener("click", () => {
+        window.location.href = "/notifications";
       });
     }
   } else {
-    const backBtn = document.getElementById('backBtn');
+    const backBtn = document.getElementById("backBtn");
     if (backBtn) {
-      backBtn.addEventListener('click', () => {
+      backBtn.addEventListener("click", () => {
         window.history.back();
       });
     }
