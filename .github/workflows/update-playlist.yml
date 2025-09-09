@@ -2,7 +2,7 @@ name: Auto-update playlist.m3u
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Every hour
+    - cron: '*/5 * * * *'  # Every 5 minutes
   workflow_dispatch:
 
 jobs:
@@ -18,7 +18,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate playlist.m3u
+      - name: Generate playlist.m3u only if changed
+        id: generate
         run: |
           npm install node-fetch@2
           node <<'EOF'
@@ -26,6 +27,8 @@ jobs:
           const fetch = require('node-fetch');
 
           const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const filePath = 'playlist.m3u';
+          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
 
           (async () => {
             try {
@@ -36,39 +39,64 @@ jobs:
                 return;
               }
 
-              console.log("Fetched channels:", Object.keys(data));
-
               let m3u = "#EXTM3U\n";
+              let changesSummary = [];
 
-              for (const id in data) {
+              for (const id of Object.keys(data)) {
                 const ch = data[id];
-
-                // Map exactly according to your DB
                 const name = ch.name || "Unknown";
                 const category = ch.category || "General";
                 const logo = ch.icon || "";
                 const stream = ch.stream || "";
-                if (!stream) {
-                  console.log(`Skipping channel ${name}: no stream URL`);
-                  continue;
-                }
+                if (!stream) continue;
 
-                m3u += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n`;
-                m3u += `${stream}\n`;
+                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
+                m3u += `${extinf}\n${stream}\n`;
+
+                // Check if channel exists in previous file
+                const prevLineIndex = prevData.indexOf(name);
+                if (prevLineIndex === -1) {
+                  changesSummary.push(`Added: ${name}`);
+                } else {
+                  // Check if any detail changed
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
+                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
+                }
               }
 
-              fs.writeFileSync('playlist.m3u', m3u);
+              // Check for removed channels
+              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+              oldNames.forEach(name => {
+                if (!Object.values(data).some(ch => ch.name === name)) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in playlist, skipping file generation.");
+                console.log('::set-output name=changed::false');
+                return;
+              }
+
+              fs.writeFileSync(filePath, m3u);
               console.log('playlist.m3u updated successfully.');
+              console.log(`::set-output name=changed::true`);
+              console.log(`::set-output name=summary::${changesSummary.join('; ')}`);
+
             } catch (err) {
               console.error('Error fetching channels:', err);
             }
           })();
           EOF
 
-      - name: Commit and push
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add playlist.m3u
-          git commit -m "Auto-update playlist.m3u [skip ci]" || echo "No changes to commit"
+          git commit -m "Auto-update playlist.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
           git push
