@@ -10,8 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
- 
- /* =========================
+/* =========================
    Global Styles
 ========================= */
 html, body {
@@ -187,66 +186,30 @@ main button:hover {
   </div>
 </div>
 
-
-
-  <!-- Submit Channel Form -->
+<!-- Submit Channel Form -->
 <div class="bg-gray-800 p-6 rounded-xl shadow-xl space-y-4 max-w-lg mx-auto mt-10">
   <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
 
   <div class="space-y-4">
-    <input 
-      type="text" 
-      id="channel-name" 
-      placeholder="Channel Name" 
-      class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-    />
+    <input type="text" id="channel-name" placeholder="Channel Name" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
 
+    <!-- Styled Upload Button -->
     <div>
-  <!-- Styled Upload Button -->
-  <label 
-    for="channel-icon-file" 
-    class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition"
-  >
-    <span class="material-icons text-red-400">upload</span>
-    Upload Channel Logo
-  </label>
+      <label for="channel-icon-file" class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition">
+        <span class="material-icons text-red-400">upload</span> Upload Channel Logo
+      </label>
+      <input type="file" id="channel-icon-file" accept="image/*" class="hidden"/>
+      <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
+      <div id="preview-container" class="hidden mt-3">
+        <p class="text-green-400 font-semibold mb-1">Preview:</p>
+        <img id="icon-preview" src="" alt="Preview" class="w-24 h-24 rounded-lg shadow-lg object-cover"/>
+      </div>
+    </div>
+    <input type="hidden" id="channel-icon"/>
 
-  <!-- Hidden file input -->
-  <input 
-    type="file" 
-    id="channel-icon-file" 
-    accept="image/*" 
-    class="hidden"
-  />
+    <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
 
-  <!-- Upload status -->
-  <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
-
-  <!-- Preview -->
-  <div id="preview-container" class="hidden mt-3">
-    <p class="text-green-400 font-semibold mb-1">Preview:</p>
-    <img 
-      id="icon-preview" 
-      src="" 
-      alt="Preview" 
-      class="w-24 h-24 rounded-lg shadow-lg object-cover"
-    />
-  </div>
-</div>
-
-<input type="hidden" id="channel-icon" />
-
-    <input 
-      type="text" 
-      id="channel-url" 
-      placeholder="Stream URL (m3u8)" 
-      class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-    />
-
-    <select 
-      id="channel-category" 
-      class="w-full bg-gray-700 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-    >
+    <select id="channel-category" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
       <option value="Tamil">Tamil</option>
       <option value="Telugu">Telugu</option>
       <option value="Kannada">Kannada</option>
@@ -257,32 +220,21 @@ main button:hover {
     </select>
   </div>
 
-  <button 
-    id="submit-btn" 
-    class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition"
-  >
+  <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">
     Submit Channel
   </button>
-
-  <p class="text-xs text-gray-400 text-center">
-💡 Use PNG/JPG for better results, 2MB Max.
-  </p>
+  <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
 </div>
 
-
-  <!-- ✅ Pending Channels -->
-  <div class="mt-8">
-    <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
-    <div id="user-pending" class="space-y-3 mt-2"></div>
-  </div>
+<!-- ✅ Pending Channels -->
+<div class="mt-8">
+  <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
+  <div id="user-pending" class="space-y-3 mt-2"></div>
+</div>
 </main>
 
 <!-- Footer -->
 <div id="footer"></div>
-
-<!-- JS Files -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
 
 <!-- Toast container -->
 <div id="toast"></div>
@@ -337,9 +289,7 @@ iconFileInput.addEventListener("change", async () => {
   formData.append("image", file);
 
   try {
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-      method: "POST", body: formData
-    });
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: "POST", body: formData });
     const data = await res.json();
     if(data.success){
       iconHiddenInput.value = data.data.url;
@@ -363,9 +313,28 @@ submitBtn.addEventListener('click', async ()=>{
 
   if(!name || !icon || !stream){ showToast("Please fill all fields","error"); return; }
 
+  const displayName = user.displayName || user.email || "Unknown";
+
+  // Fetch Country from IP
+  let country = "Unknown";
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    const data = await res.json();
+    if(data && data.country_name) country = data.country_name;
+  } catch (e) { console.warn("Country fetch failed", e); }
+
+  const submittedAt = new Date().toLocaleString();
+
   try{
     const requestRef = push(ref(db, 'channelRequests'));
-    await set(requestRef, { name, icon, stream, category, submittedBy:user.uid, status:'pending', timestamp:Date.now() });
+    await set(requestRef, { 
+      name, icon, stream, category, 
+      language: category, 
+      submittedBy: displayName, 
+      submittedAt, 
+      status:'pending', 
+      country 
+    });
 
     document.getElementById('channel-name').value='';
     iconFileInput.value='';
@@ -383,7 +352,7 @@ submitBtn.addEventListener('click', async ()=>{
 /** Pending Channels Realtime */
 onAuthStateChanged(auth, user=>{
   if(!user){ window.location.href='signin'; return; }
-  const q = query(ref(db,'channelRequests'), orderByChild('submittedBy'), equalTo(user.uid));
+  const q = query(ref(db,'channelRequests'), orderByChild('submittedBy'), equalTo(user.displayName || user.email));
   onValue(q, snap=>{
     userPending.innerHTML='';
     if(!snap.exists()){ userPending.innerHTML='<p class="text-gray-400 text-center py-4">No pending requests</p>'; return; }
@@ -397,7 +366,9 @@ onAuthStateChanged(auth, user=>{
         <img src="${c.icon}" alt="${c.name}"/>
         <div class="flex-1">
           <h4 class="font-semibold text-white">${c.name}</h4>
-          <p class="text-gray-300">${c.category}</p>
+          <p class="text-gray-300">Category: ${c.category} | Language: ${c.language}</p>
+          <p class="text-gray-400 text-sm">Submitted by: ${c.submittedBy}</p>
+          <p class="text-gray-400 text-xs">Country: ${c.country} | At: ${c.submittedAt}</p>
         </div>
         <span class="pill bg-yellow-500 text-gray-900">Pending</span>
       `;
@@ -406,6 +377,5 @@ onAuthStateChanged(auth, user=>{
   });
 });
 </script>
-
 </body>
 </html>
