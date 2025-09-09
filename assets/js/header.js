@@ -6,13 +6,7 @@ function loadHeader() {
   let page = path.substring(path.lastIndexOf("/") + 1);
 
   // Handle root
-  if (!page) page = "/";
-
-  // 🚫 Skip header for signin/signup
-  if (page === "signin" || page === "signup") {
-    headerContainer.innerHTML = ""; 
-    return;
-  }
+  if (!page) page = "index";
 
   // Convert page name into title
   function formatTitle(filename) {
