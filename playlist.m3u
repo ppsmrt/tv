@@ -235,3 +235,17 @@ http://viharitv.phoenixcreations.online:1935/viharitv/viharitv/chunklist_w714070
 http://telanganatv.phoenixcreations.online:1935/telanganatv/telanganatv/chunklist_w1691683123.m3u8
 #EXTINF:-1 tvg-name="Zee tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/tnhgnDx/1000121265.jpg",Zee tamil
 https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
+#EXTINF:-1 tvg-name="Swantham" group-title="Malayalam" tvg-logo="https://i.ibb.co/9HnKDrtf/1000121277.jpg",Swantham
+http://cloud.logichost.in:1935/SWANTHAM/live/chunklist_w1753452838.m3u8
+#EXTINF:-1 tvg-name="Anand Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/XrHMxg82/1000121279.jpg",Anand Tv
+http://45.249.171.155:8090/anandmedia/kairalitv_576/index.m3u8
+#EXTINF:-1 tvg-name="Safari Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/mCXLsjHM/1000121289.jpg",Safari Tv
+https://j78dp346yq5r-hls-live.5centscdn.com/safari/live.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Vision Kerala" group-title="Malayalam" tvg-logo="https://i.ibb.co/xSxVC7fz/1000121291.jpg",Vision Kerala
+http://103.85.204.205:1935/VISIONMEDIA/live/playlist.m3u8
+#EXTINF:-1 tvg-name="One Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/qLHQzdzC/1000121293.jpg",One Tv
+http://137.59.86.218:1935/live/onetv/playlist.m3u8
+#EXTINF:-1 tvg-name="Mazhavil Manorama" group-title="Malayalam" tvg-logo="https://i.ibb.co/6cmTMgMV/1000121295.jpg",Mazhavil Manorama
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mazhavilmanorama_nim_https/050522/mazhavilmanorama/playlist.m3u8
+#EXTINF:-1 tvg-name="MCV Channel" group-title="Malayalam" tvg-logo="https://i.ibb.co/1YnYjrm4/1000121297.jpg",MCV Channel
+http://cloud.logichost.in:1935/live/mcvlive/chunklist_w141497558.m3u8
