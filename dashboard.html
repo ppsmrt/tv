@@ -89,9 +89,6 @@
   .page-card:hover {
     background: #374151;
   }
-  .page-card i, .page-card span {
-    vertical-align: middle;
-  }
 
   .welcome-card {
     background: #1f2937;
@@ -128,13 +125,34 @@
     padding: 0.5rem 1rem;
     border-radius: 12px 12px 0 0;
     margin-bottom: 8px;
-    background: linear-gradient(90deg, #22c55e, #16a34a);
     color: #fff;
   }
 
-  @media(max-width:640px){
-    .stat-grid { grid-template-columns: repeat(auto-fill,minmax(140px,1fr)); gap: 16px; }
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    min-width: 200px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #f9fafb;
+    font-weight: 500;
+    background-color: #1f2937;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 9999;
   }
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .toast.success { border-left: 4px solid #22c55e; }
+  .toast.error { border-left: 4px solid #ef4444; }
 </style>
 </head>
 <body>
@@ -184,7 +202,7 @@
 
   <!-- Pages -->
   <div>
-    <div class="section-heading">Site Pages</div>
+    <div class="section-heading" style="background: linear-gradient(90deg, #22c55e, #16a34a)">Site Pages</div>
     <div class="page-card"><span>About Us</span><i class="material-icons">chevron_right</i></div>
     <div class="page-card"><span>Contact Us</span><i class="material-icons">chevron_right</i></div>
     <div class="page-card"><span>Donate Us</span><i class="material-icons">chevron_right</i></div>
@@ -201,8 +219,8 @@
   </div>
 </main>
 
-<!-- Footer -->
-<div id="footer"></div>
+<!-- Toast Container -->
+<div id="toastContainer"></div>
 
 <!-- Firebase & Dashboard Logic -->
 <script type="module">
@@ -228,6 +246,19 @@ const reportsEl = document.getElementById('reportsCount');
 const pendingEl = document.getElementById('pendingCount');
 const approvedEl = document.getElementById('approvedCount');
 const fullnameEl = document.getElementById('fullname');
+const toastContainer = document.getElementById('toastContainer');
+
+function showToast(message,type='success'){
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+  setTimeout(()=>toast.classList.add('show'),50);
+  setTimeout(()=>{
+    toast.classList.remove('show');
+    setTimeout(()=>toast.remove(),300);
+  },3000);
+}
 
 // Load fullname dynamically
 onValue(ref(db,'users/admin'), snapshot=>{
@@ -237,27 +268,36 @@ onValue(ref(db,'users/admin'), snapshot=>{
 
 // Stats
 onValue(ref(db,'channels'), snapshot=>{
-  const channels = snapshot.val() || {};
-  let likes=0, pending=0, approved=0;
-  Object.values(channels).forEach(c=>{
-    likes += c.likes || 0;
-    if(c.status==='pending') pending++;
-    if(c.status==='approved') approved++;
-  });
-  likesEl.textContent = likes;
-  pendingEl.textContent = pending;
-  approvedEl.textContent = approved||'None';
+  try{
+    const channels = snapshot.val() || {};
+    let likes=0, pending=0, approved=0;
+    Object.values(channels).forEach(c=>{
+      likes += c.likes || 0;
+      if(c.status==='pending') pending++;
+      if(c.status==='approved') approved++;
+    });
+    likesEl.textContent = likes;
+    pendingEl.textContent = pending;
+    approvedEl.textContent = approved||'None';
+  }catch(e){
+    showToast('Error loading stats','error');
+  }
 });
 
 onValue(ref(db,'reports'), snapshot=>{
-  const reports = snapshot.val() || {};
-  reportsEl.textContent = Object.keys(reports).length;
+  try{
+    const reports = snapshot.val() || {};
+    reportsEl.textContent = Object.keys(reports).length;
+  }catch(e){
+    showToast('Error loading reports','error');
+  }
 });
 
 // Logout
 document.getElementById('logoutLink').addEventListener('click', e=>{
   e.preventDefault();
-  alert('Logged out!');
+  showToast('Logging out...');
+  setTimeout(()=>window.location.href='/',1000);
 });
 </script>
 </body>
