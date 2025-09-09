@@ -249,3 +249,7 @@ http://137.59.86.218:1935/live/onetv/playlist.m3u8
 https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mazhavilmanorama_nim_https/050522/mazhavilmanorama/playlist.m3u8
 #EXTINF:-1 tvg-name="MCV Channel" group-title="Malayalam" tvg-logo="https://i.ibb.co/1YnYjrm4/1000121297.jpg",MCV Channel
 http://cloud.logichost.in:1935/live/mcvlive/chunklist_w141497558.m3u8
+#EXTINF:-1 tvg-name="Malabar Plus" group-title="Malayalam" tvg-logo="https://i.ibb.co/RTC4yJn9/1000121317.jpg",Malabar Plus
+http://cloud.logichost.in:1935/live/mplus/chunklist_w380881802.m3u8
+#EXTINF:-1 tvg-name="Malabar News" group-title="Malayalam" tvg-logo="https://i.ibb.co/d0mb2sgY/1000121310.jpg",Malabar News
+http://cloud.logichost.in:1935/live/malabarnews/chunklist_w1073688293.m3u8
