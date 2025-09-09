@@ -17,8 +17,9 @@ body { font-family: 'Baloo 2', cursive; background-color: #111827; color: white;
 .btn-reject:hover { background: #dc2626; }
 .btn-edit { background: #3b82f6; color: white; }
 .btn-edit:hover { background: #2563eb; }
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 50; }
 .modal-content { background: #1f2937; padding: 20px; border-radius: 10px; width: 90%; max-width: 400px; }
+.toast { position: fixed; bottom: 20px; right: 20px; background: #1f2937; color: white; padding: 12px 20px; border-radius: 8px; font-weight: bold; z-index: 100; }
 </style>
 </head>
 <body>
@@ -51,6 +52,9 @@ body { font-family: 'Baloo 2', cursive; background-color: #111827; color: white;
   </div>
 </div>
 
+<!-- Toast -->
+<div id="toast-container"></div>
+
 <!-- Firebase Admin Logic -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
@@ -79,15 +83,30 @@ const editStream = document.getElementById("editStream");
 const editCategory = document.getElementById("editCategory");
 const saveEdit = document.getElementById("saveEdit");
 const cancelEdit = document.getElementById("cancelEdit");
+const toastContainer = document.getElementById("toast-container");
 
 let currentEditId = null;
 let adminName = "";
 
-onAuthStateChanged(auth, async user=>{
-  if(!user){ window.location.href="signin"; return; }
-  const adminSnap = await (await fetch(`https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/admins/${user.uid}.json`)).json();
-  adminName = adminSnap?.name || "Admin";
+/** Toast Function */
+function showToast(msg, type="info") {
+  const div = document.createElement("div");
+  div.className = `toast ${type==="success"?"bg-green-600":type==="error"?"bg-red-600":"bg-blue-600"}`;
+  div.textContent = msg;
+  toastContainer.appendChild(div);
+  setTimeout(()=>div.remove(), 3000);
+}
 
+onAuthStateChanged(auth, async user=>{
+  if(!user){ alert("Please login as admin"); window.location.href="signin"; return; }
+
+  // Fetch admin name
+  const adminSnap = await fetch(`https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/admins/${user.uid}.json`);
+  const data = await adminSnap.json();
+  adminName = data?.name || "Admin";
+  console.log("Logged in as:", adminName);
+
+  // Load pending requests
   const reqRef = ref(db, "channelRequests");
   onValue(reqRef, snap=>{
     container.innerHTML="";
@@ -105,6 +124,7 @@ onAuthStateChanged(auth, async user=>{
           <h4 class="text-xl font-bold">${c.name}</h4>
           <p class="text-gray-400">${c.category}</p>
           <p class="text-sm text-gray-500">By: ${c.submittedBy}</p>
+          ${c.lastEditedBy ? `<p class="text-xs text-yellow-400">Edited by: ${c.lastEditedBy}</p>` : ""}
         </div>
         <div class="flex flex-col gap-2">
           <button class="btn btn-approve">Approve</button>
@@ -129,31 +149,51 @@ onAuthStateChanged(auth, async user=>{
 });
 
 async function approveChannel(id,data){
-  const channelRef = push(ref(db,"channels"));
-  await set(channelRef,{
-    name: data.name,
-    icon: data.icon,
-    stream: data.stream,
-    category: data.category,
-    approvedBy: adminName,
-    approvedAt: Date.now()
-  });
-  await remove(ref(db,`channelRequests/${id}`));
+  try {
+    const channelRef = push(ref(db,"channels"));
+    await set(channelRef,{
+      name: data.name,
+      icon: data.icon,
+      stream: data.stream,
+      category: data.category,
+      approvedBy: adminName,
+      approvedAt: Date.now()
+    });
+    await remove(ref(db,`channelRequests/${id}`));
+    showToast("Channel Approved!", "success");
+    console.log(`Approved: ${data.name}`);
+  } catch (err) {
+    console.error("Approve Error:", err);
+    showToast("Approve Failed!", "error");
+  }
 }
 
 async function rejectChannel(id){
-  await remove(ref(db,`channelRequests/${id}`));
+  try {
+    await remove(ref(db,`channelRequests/${id}`));
+    showToast("Channel Rejected!", "error");
+    console.log(`Rejected request ID: ${id}`);
+  } catch (err) {
+    console.error("Reject Error:", err);
+    showToast("Reject Failed!", "error");
+  }
 }
 
 saveEdit.addEventListener("click", async()=>{
   if(!currentEditId) return;
-  await update(ref(db,`channelRequests/${currentEditId}`),{
-    name: editName.value,
-    stream: editStream.value,
-    category: editCategory.value,
-    lastEditedBy: adminName
-  });
-  editModal.style.display="none";
+  try {
+    await update(ref(db,`channelRequests/${currentEditId}`),{
+      name: editName.value,
+      stream: editStream.value,
+      category: editCategory.value,
+      lastEditedBy: adminName
+    });
+    editModal.style.display="none";
+    showToast("Channel Updated!", "success");
+  } catch (err) {
+    console.error("Edit Error:", err);
+    showToast("Update Failed!", "error");
+  }
 });
 
 cancelEdit.addEventListener("click",()=>editModal.style.display="none");
