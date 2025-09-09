@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  body { font-family: 'Baloo 2', cursive; }
+  iframe { width: 100%; height: calc(100vh - 60px); border: none; }
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+
+<!-- Header -->
+<header class="flex items-center justify-between px-6 py-4 bg-gray-800 shadow-md">
+  <h1 class="text-xl font-bold">Admin Dashboard</h1>
+  <button onclick="logout()" class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+    Logout
+  </button>
+</header>
+
+<div class="flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 h-screen shadow-lg hidden md:block">
+    <nav class="mt-6">
+      <ul>
+        <li>
+          <a href="approve.html" target="contentFrame" class="block px-6 py-3 hover:bg-gray-700">
+            <span class="material-icons align-middle">check_circle</span>
+            Approve Requests
+          </a>
+        </li>
+        <li>
+          <a href="admin.html" target="contentFrame" class="block px-6 py-3 hover:bg-gray-700">
+            <span class="material-icons align-middle">edit</span>
+            Manage Channels
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 bg-gray-900">
+    <iframe name="contentFrame" src="approve.html"></iframe>
+  </main>
+</div>
+
+<script>
+function logout() {
+  // Firebase logout
+  firebase.auth().signOut().then(() => {
+    alert("Logged out");
+    window.location.href = "login.html";
+  });
+}
+</script>
+</body>
+</html>
