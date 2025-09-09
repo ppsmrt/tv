@@ -14,16 +14,11 @@ const footerHTML = `
     </button>
   </div>
 
-  <!-- Floating Add Button with Curved Cut -->
+  <!-- Floating Add Button (Clean, No Bar) -->
   <div class="absolute left-1/2 -translate-x-1/2 -top-10">
-    <div class="relative">
-      <!-- FAB -->
-      <button class="bg-gradient-to-br from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white p-5 rounded-full shadow-xl shadow-red-600/50 transition transform hover:scale-110 hover:rotate-6 border border-red-500" data-href="add-channel">
-        <span class="material-icons text-3xl">add</span>
-      </button>
-      <!-- Curved Background -->
-      <div class="absolute top-6 -left-20 w-40 h-10 bg-gradient-to-r from-gray-900 via-black to-gray-900 rounded-t-full shadow-md z-[-1]"></div>
-    </div>
+    <button class="bg-gradient-to-br from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white p-5 rounded-full shadow-xl shadow-red-600/50 transition transform hover:scale-110 hover:rotate-6 border border-red-500" data-href="add-channel">
+      <span class="material-icons text-3xl">add</span>
+    </button>
   </div>
 
   <!-- Right Buttons -->
