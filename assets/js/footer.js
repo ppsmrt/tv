@@ -1,17 +1,35 @@
 // footer.js
 const footerHTML = `
-<footer class="fixed bottom-0 w-full flex justify-around bg-black bg-opacity-60 p-2">
-  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="/">
-    <span class="material-icons">home</span>Home
+<footer class="fixed bottom-0 w-full bg-black bg-opacity-70 backdrop-blur-md flex justify-around items-center py-2 shadow-lg">
+  <!-- Home -->
+  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="/">
+    <span class="material-icons text-lg">home</span>
+    Home
   </button>
-  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="playlist">
-    <span class="material-icons">subscriptions</span>Playlist
+
+  <!-- Playlist -->
+  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="playlist">
+    <span class="material-icons text-lg">subscriptions</span>
+    Playlist
   </button>
-  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="signin">
-    <span class="material-icons">person</span>Profile
+
+  <!-- Floating Add Button -->
+  <div class="relative -mt-8">
+    <button class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-xl transition transform hover:scale-105" data-href="add-channel">
+      <span class="material-icons text-2xl">add</span>
+    </button>
+  </div>
+
+  <!-- Profile -->
+  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="signin">
+    <span class="material-icons text-lg">person</span>
+    Profile
   </button>
-  <button class="flex flex-col items-center text-sm text-gray-300 hover:text-red-500" data-href="dashboard">
-    <span class="material-icons">dashboard</span>Dashboard
+
+  <!-- Dashboard -->
+  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="dashboard">
+    <span class="material-icons text-lg">dashboard</span>
+    Dashboard
   </button>
 </footer>
 `;
