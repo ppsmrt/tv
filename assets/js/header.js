@@ -6,7 +6,7 @@ function loadHeader() {
   let page = path.substring(path.lastIndexOf("/") + 1);
 
   // Handle root
-  if (!page) page = "index";
+  if (!page) page = "/";
 
   // 🚫 Skip header for signin/signup
   if (page === "signin" || page === "signup") {
