@@ -183,17 +183,13 @@ http://live.streamplay.in:1935/bkamma/bkamma/playlist.m3u8
 http://198.144.149.206:8080/NOTV/THEWAYTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Sri Saila Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/Gfkkpt78/1000120916.jpg",Sri Saila Tv
 http://202.83.27.171:1935/sslm/live/playlist.m3u8
-#EXTINF:-1 tvg-name="Sana TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/353wVfZ6/sanatv.png",Sana TV
-https://galaxyott.live/hls/sanatv.m3u8
-#EXTINF:-1 tvg-name="Sana plus" group-title="Music" tvg-logo="https://i.ibb.co/208YbPWn/sanaplus.png",Sana plus
-https://galaxyott.live/hls/sanaplus.m3u8
 #EXTINF:-1 tvg-name="Bhakthi Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/5WrjyVmr/1000121214.jpg",Bhakthi Tv
 https://segment.yuppcdn.net/240122/bhakti/240122/bhakti_1800/chunks.m3u8
 #EXTINF:-1 tvg-name="Subhavaartha Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/wZ4wCpgD/1000121217.jpg",Subhavaartha Tv
 https://2mk9qae4rwyb-hls-live.wmncdn.net/shubhavartha/live.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="SVBC 1" group-title="Telugu" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg",SVBC 1
 https://player.mslivestream.net/telugu/5d076e5c3d34cb8bb08e54a4bb7e223e.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="SVBC 2" group-title="Tamil" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg",SVBC 2
+#EXTINF:-1 tvg-name="SVBC 2" group-title="Telugu" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg",SVBC 2
 http://player.mslivestream.net/tamil/ac206e74d75b285755ee4924df87d951.sdp/index.m3u8
 #EXTINF:-1 tvg-name="SVBC 3" group-title="Telugu" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg",SVBC 3
 https://player.mslivestream.net/svbc/2e628d7e1b65d31254fd7705ff7ee64d.sdp/playlist.m3u8
@@ -225,3 +221,17 @@ http://live.streamplay.in:1935/news9/news9/playlist.m3u8
 https://medtaor.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/plives/140622/v6news/playlist.m3u8
 #EXTINF:-1 tvg-name="Sri Sakra" group-title="Telugu" tvg-logo="https://i.ibb.co/2YMRF62t/1000121247.jpg",Sri Sakra
 http://srichakra.mythrimediaindia.com:1935/srichakra/srichakra/chunklist_w922956034.m3u8
+#EXTINF:-1 tvg-name="Channel 9" group-title="Telugu" tvg-logo="https://i.ibb.co/gFVbMSjy/1000121249.jpg",Channel 9
+http://channel9hd.in:1935/hd/hd/chunklist_w1051485029.m3u8
+#EXTINF:-1 tvg-name="Sathya News Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/vx8m11bt/1000121255.jpg",Sathya News Tv
+http://103.146.170.102:1935/satya/satya/chunklist_w1792896619.m3u8
+#EXTINF:-1 tvg-name="Tv9" group-title="Telugu" tvg-logo="https://i.ibb.co/tPw4MD3T/1000121257.jpg",Tv9
+https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9telcmjhcs/liveabr/playlist.m3u8
+#EXTINF:-1 tvg-name="Ayush Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/JRRDMwTV/1000121259.jpg",Ayush Tv
+https://95eryw39dwn4-hls-live.wmncdn.net/Ayushu/271ddf829afeece44d8732757fba1a66.sdp/index.m3u8
+#EXTINF:-1 tvg-name="Vihari Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/YFmTpH8H/1000121261.jpg",Vihari Tv
+http://viharitv.phoenixcreations.online:1935/viharitv/viharitv/chunklist_w714070156.m3u8
+#EXTINF:-1 tvg-name="MA Telangana" group-title="Telugu" tvg-logo="https://i.ibb.co/v4dRCTvx/1000121263.jpg",MA Telangana
+http://telanganatv.phoenixcreations.online:1935/telanganatv/telanganatv/chunklist_w1691683123.m3u8
+#EXTINF:-1 tvg-name="Zee tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/tnhgnDx/1000121265.jpg",Zee tamil
+https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
