@@ -1,34 +1,34 @@
 // footer.js
 const footerHTML = `
-<footer class="fixed bottom-0 w-full bg-black bg-opacity-70 backdrop-blur-md flex justify-around items-center py-2 shadow-lg">
+<footer class="fixed bottom-0 w-full bg-gradient-to-r from-gray-900 via-black to-gray-900 bg-opacity-80 backdrop-blur-xl flex justify-around items-center py-3 shadow-2xl rounded-t-3xl border-t border-gray-700">
   <!-- Home -->
-  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="/">
-    <span class="material-icons text-lg">home</span>
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white transition transform hover:scale-110" data-href="/">
+    <span class="material-icons text-xl mb-1">home</span>
     Home
   </button>
 
   <!-- Playlist -->
-  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="playlist">
-    <span class="material-icons text-lg">subscriptions</span>
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white transition transform hover:scale-110" data-href="playlist">
+    <span class="material-icons text-xl mb-1">subscriptions</span>
     Playlist
   </button>
 
   <!-- Floating Add Button -->
-  <div class="relative -mt-8">
-    <button class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-xl transition transform hover:scale-105" data-href="add-channel">
-      <span class="material-icons text-2xl">add</span>
+  <div class="relative -mt-10">
+    <button class="bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white p-5 rounded-full shadow-xl shadow-blue-500/40 transition transform hover:scale-110 hover:rotate-6 border border-blue-300 backdrop-blur-md">
+      <span class="material-icons text-3xl">add</span>
     </button>
   </div>
 
   <!-- Profile -->
-  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="signin">
-    <span class="material-icons text-lg">person</span>
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white transition transform hover:scale-110" data-href="signin">
+    <span class="material-icons text-xl mb-1">person</span>
     Profile
   </button>
 
   <!-- Dashboard -->
-  <button class="flex flex-col items-center text-xs text-gray-300 hover:text-red-500 transition" data-href="dashboard">
-    <span class="material-icons text-lg">dashboard</span>
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white transition transform hover:scale-110" data-href="dashboard">
+    <span class="material-icons text-xl mb-1">dashboard</span>
     Dashboard
   </button>
 </footer>
@@ -36,19 +36,21 @@ const footerHTML = `
 
 document.body.insertAdjacentHTML('beforeend', footerHTML);
 
-// Get current page
+// Highlight the active button
 const currentPage = window.location.pathname.split("/").pop();
 
-// Highlight the active button
 document.querySelectorAll('footer button').forEach(btn => {
   const btnHref = btn.getAttribute('data-href');
   if (btnHref === currentPage) {
-    btn.classList.remove('text-gray-300');
-    btn.classList.add('text-red-500');
+    btn.classList.remove('text-gray-400');
+    btn.classList.add('text-blue-400');
   }
 
   // Make buttons clickable
   btn.addEventListener('click', () => {
-    window.location.href = btnHref;
+    const target = btn.getAttribute('data-href');
+    if (target) {
+      window.location.href = target;
+    }
   });
 });
