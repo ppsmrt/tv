@@ -8,6 +8,12 @@ function loadHeader() {
   // Handle root
   if (!page) page = "index";
 
+  // 🚫 Skip header for signin/signup
+  if (page === "signin" || page === "signup") {
+    headerContainer.innerHTML = ""; 
+    return;
+  }
+
   // Convert page name into title
   function formatTitle(filename) {
     if (filename === "index") return "Home";
