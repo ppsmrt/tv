@@ -1,7 +1,19 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, get, onValue, push, remove, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+const video = document.getElementById('video');
+const playBtn = document.getElementById('playBtn');
+const fsBtn = document.getElementById('fsBtn');
+const muteBtn = document.getElementById('muteBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const controls = document.getElementById('controls');
+const videoTitle = document.getElementById('videoTitle');
+
+let controlsTimeout;
+let scale = 1;
+let initialDistance = null;
+
+// ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -9,253 +21,242 @@ const firebaseConfig = {
   projectId: "tnm3ulive",
   storageBucket: "tnm3ulive.firebasestorage.app",
   messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getDatabase(app);
 
-// DOM Elements
-const userSection = document.getElementById('user-section');
-const adminSection = document.getElementById('admin-section');
-const welcomeMsg = document.getElementById('welcome-msg');
-const userPending = document.getElementById('user-pending');
-const userApproved = document.getElementById('user-approved');
-const adminRequestsList = document.getElementById('admin-requests');
-const toastContainer = document.getElementById('toast');
-
-const iconInput = document.getElementById('channel-icon-upload');
-const iconPreview = document.getElementById('channel-icon-preview');
-const iconStatus = document.getElementById('channel-icon-status');
-const submitSpinner = document.getElementById('submit-spinner');
-let uploadedIconURL = '';
-const imgbbKey = '8604e4b4050c63c460d0bca39cf28708';
-
-// ===== Toast =====
-function showToast(msg, type="info") {
-  const div = document.createElement('div');
-  div.className = `toast-msg ${type==="success" ? "bg-green-500" : type==="error" ? "bg-red-500" : "bg-blue-500"} text-white shadow-lg`;
-  div.textContent = msg;
-  toastContainer.appendChild(div);
-  setTimeout(() => div.remove(), 3500);
+// ✅ Query helper
+function qs(name) {
+  const u = new URL(location.href);
+  return u.searchParams.get(name);
 }
 
-// ===== Upload Image to ImgBB =====
-iconInput.addEventListener('change', async () => {
-  const file = iconInput.files[0];
-  if (!file) return;
+let streamSlug = qs('stream');
+if (streamSlug) {
+  streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
+}
 
-  iconStatus.textContent = 'Uploading...';
-  iconPreview.classList.add('hidden');
+// ✅ Initialize Shaka Player
+async function initPlayer(url, title) {
+  if (!shaka.Player.isBrowserSupported()) {
+    console.error("Shaka Player is not supported on this browser.");
+    video.src = url; // fallback
+    return;
+  }
 
-  const formData = new FormData();
-  formData.append('image', file);
+  const player = new shaka.Player(video);
+
+  // Error handling
+  player.addEventListener('error', (event) => {
+    console.error('Shaka Error', event.detail);
+  });
 
   try {
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, {
-      method: 'POST',
-      body: formData
-    });
-    const data = await res.json();
-    if (data.success) {
-      uploadedIconURL = data.data.url;
-      iconPreview.src = uploadedIconURL;
-      iconPreview.classList.remove('hidden');
-      iconStatus.textContent = 'Upload successful!';
+    await player.load(url);
+    console.log("Stream loaded:", url);
+  } catch (error) {
+    console.error("Error loading stream:", error);
+  }
+
+  videoTitle.textContent = title || 'Live Stream';
+}
+
+// ✅ Load stream from Firebase
+if (!streamSlug) {
+  alert('No stream specified');
+} else {
+  const channelsRef = ref(db, 'channels');
+  get(channelsRef).then(snapshot => {
+    if (snapshot.exists()) {
+      let found = false;
+      snapshot.forEach(childSnap => {
+        const data = childSnap.val();
+        if (data.name && data.name.toLowerCase() === streamSlug) {
+          found = true;
+          const streamURL = data.stream;
+          const streamTitle = data.name || 'Live Stream';
+
+          localStorage.setItem('selectedVideo', streamURL);
+          localStorage.setItem('selectedVideoTitle', streamTitle);
+
+          // ✅ Use Shaka for playback
+          initPlayer(streamURL, streamTitle);
+
+          video.play().catch(() => {});
+        }
+      });
+      if (!found) {
+        alert('Channel not found: ' + streamSlug);
+      }
     } else {
-      iconStatus.textContent = 'Upload failed, try again.';
-      uploadedIconURL = '';
+      alert('No channels available in database');
     }
-  } catch (err) {
-    console.error(err);
-    iconStatus.textContent = 'Error uploading image.';
-    uploadedIconURL = '';
-  }
-});
-
-// ===== Get user name from UID =====
-async function getUserName(uid) {
-  if (!uid) return "Unknown";
-  try {
-    const snap = await get(ref(db, `users/${uid}/name`));
-    return snap.exists() ? snap.val() : uid;
-  } catch { return uid; }
+  }).catch(err => {
+    console.error('Firebase read failed:', err);
+    alert('Failed to load stream data');
+  });
 }
 
-// ===== Auth listener =====
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    showToast("Please log in", "error");
-    window.location.href='signin';
-    return;
-  }
-  welcomeMsg.textContent = `Welcome, ${user.email}`;
-
-  const adminSnap = await get(ref(db, `admins/${user.uid}`));
-  const isAdmin = adminSnap.exists();
-
-  if (isAdmin) {
-    adminSection.classList.remove('hidden');
-    loadAdminRequests();
+// ✅ Play/Pause toggle
+playBtn.addEventListener('click', () => {
+  if (video.paused) {
+    video.play();
+    playBtn.textContent = 'pause';
   } else {
-    userSection.classList.remove('hidden');
-    loadUserChannels(user.uid);
+    video.pause();
+    playBtn.textContent = 'play_arrow';
   }
 });
 
-// ===== Logout =====
-document.getElementById('logout-btn').addEventListener('click', () => {
-  signOut(auth)
-    .then(() => { showToast("Logged out", "success"); window.location.href = '/'; })
-    .catch(() => showToast("Error logging out", "error"));
+// ✅ Fullscreen toggle
+fsBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    if (video.parentElement.requestFullscreen) {
+      video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+    }
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('landscape').catch(() => {});
+    }
+  } else {
+    document.exitFullscreen();
+    if (screen.orientation && screen.orientation.unlock) {
+      screen.orientation.unlock();
+    }
+  }
 });
 
-// ===== User Functions =====
-async function submitChannel() {
-  const name = document.getElementById('channel-name').value.trim();
-  const icon = uploadedIconURL;
-  const url = document.getElementById('channel-url').value.trim();
-  const category = document.getElementById('channel-category').value;
-  const user = auth.currentUser;
+// ✅ Mute toggle and volume slider
+muteBtn.addEventListener('click', () => {
+  video.muted = !video.muted;
+  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
+});
+volumeSlider.addEventListener('input', () => {
+  video.volume = volumeSlider.value;
+  video.muted = video.volume === 0;
+  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
+});
 
-  if(!name || !url || !icon){
-    showToast("Please fill all fields and upload icon", "error");
-    return;
+// ✅ Show/hide controls
+const showControls = () => {
+  controls.classList.remove('hidden');
+  clearTimeout(controlsTimeout);
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
   }
+};
+video.addEventListener('mousemove', showControls);
+video.addEventListener('touchstart', showControls);
 
-  submitSpinner.classList.remove('hidden');
-
-  const requestRef = push(ref(db, 'channelRequests'));
-  await set(requestRef, {
-    name, icon, url, category,
-    submittedBy: user.uid,
-    status: 'pending',
-    timestamp: Date.now()
-  });
-
-  // Reset form
-  document.getElementById('channel-name').value = '';
-  iconInput.value = '';
-  uploadedIconURL = '';
-  iconPreview.classList.add('hidden');
-  iconStatus.textContent = 'No file selected';
-  document.getElementById('channel-url').value = '';
-  submitSpinner.classList.add('hidden');
-
-  showToast("Channel request submitted!", "success");
+// ✅ Orientation handling
+function updateControlsVisibility() {
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    controls.classList.add('hidden');
+  } else {
+    controls.classList.remove('hidden');
+  }
 }
-window.submitChannel = submitChannel;
+window.addEventListener('orientationchange', updateControlsVisibility);
+document.addEventListener('DOMContentLoaded', updateControlsVisibility);
 
-// ===== Load user channels =====
-function loadUserChannels(uid) {
-  const q = query(ref(db, 'channelRequests'), orderByChild('submittedBy'), equalTo(uid));
-  onValue(q, async (snap) => {
-    userPending.innerHTML = '';
-    userApproved.innerHTML = '';
-
-    if (!snap.exists()) {
-      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No channel requests yet</p>';
-      return;
+// ✅ Tap to toggle in landscape
+video.addEventListener('click', () => {
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    if (controls.classList.contains('hidden')) {
+      controls.classList.remove('hidden');
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+    } else {
+      controls.classList.add('hidden');
     }
+  }
+});
 
-    snap.forEach(async (childSnap) => {
-      const c = childSnap.val();
-      const userName = await getUserName(c.submittedBy);
+// ✅ Pinch and wheel zoom
+video.addEventListener('wheel', e => {
+  scale += e.deltaY * -0.001;
+  scale = Math.min(Math.max(1, scale), 3);
+  video.style.transform = `scale(${scale})`;
+});
+video.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    initialDistance = Math.hypot(
+      e.touches[0].pageX - e.touches[1].pageX,
+      e.touches[0].pageY - e.touches[1].pageY
+    );
+  }
+});
+video.addEventListener('touchmove', e => {
+  if (e.touches.length === 2 && initialDistance) {
+    const currentDistance = Math.hypot(
+      e.touches[0].pageX - e.touches[1].pageX,
+      e.touches[0].pageY - e.touches[1].pageY
+    );
+    scale = Math.min(Math.max(1, scale * (currentDistance / initialDistance)), 3);
+    video.style.transform = `scale(${scale})`;
+    initialDistance = currentDistance;
+  }
+});
+video.addEventListener('touchend', e => {
+  if (e.touches.length < 2) initialDistance = null;
+});
 
-      const card = document.createElement('div');
-      card.className = 'flex items-center gap-4 p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-      card.innerHTML = `
-        <img src="${c.icon || 'https://via.placeholder.com/50'}" class="w-16 h-16 rounded-lg object-cover border border-gray-600"/>
-        <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name || 'Untitled'}</h4>
-          <p class="text-gray-300">${c.category || 'Uncategorized'}</p>
-          <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-        </div>
-        <span class="px-3 py-1 rounded-full text-sm font-semibold ${c.status === 'pending' ? 'bg-yellow-500 text-gray-900' : 'bg-green-500 text-white'}">
-          ${c.status ? c.status.charAt(0).toUpperCase() + c.status.slice(1) : 'Unknown'}
-        </span>
-      `;
-      if (c.status === 'pending') userPending.appendChild(card);
-      else if (c.status === 'approved') userApproved.appendChild(card);
-    });
+// ✅ Maintain fullscreen styles
+function applyFullscreenStyles() {
+  if (document.fullscreenElement) {
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
+    video.style.transform = `scale(${scale})`;
+  } else {
+    video.style.width = '';
+    video.style.height = '';
+    video.style.objectFit = '';
+    video.style.transform = '';
+  }
+}
+document.addEventListener('fullscreenchange', applyFullscreenStyles);
+window.addEventListener('resize', applyFullscreenStyles);
+window.addEventListener('orientationchange', applyFullscreenStyles);
+
+// ✅ Favorites buttons
+const addFavBtn = document.getElementById('addFav');
+const removeFavBtn = document.getElementById('removeFav');
+
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+function updateFavButtons() {
+  const videoSrc = localStorage.getItem('selectedVideo');
+  const isFav = favorites.some(fav => fav.src === videoSrc);
+  if (isFav) {
+    addFavBtn.classList.add('hidden');
+    removeFavBtn.classList.remove('hidden');
+  } else {
+    addFavBtn.classList.remove('hidden');
+    removeFavBtn.classList.add('hidden');
+  }
+}
+
+updateFavButtons();
+
+addFavBtn.addEventListener('click', () => {
+  const videoSrc = localStorage.getItem('selectedVideo');
+  const videoTitleStored = localStorage.getItem('selectedVideoTitle') || 'Unknown';
+  if (!videoSrc) return;
+  favorites.push({
+    title: videoTitleStored,
+    src: videoSrc,
+    thumb: '',
+    category: 'Unknown'
   });
-}
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavButtons();
+});
 
-// ===== Admin Functions =====
-function loadAdminRequests() {
-  const requestsRef = ref(db, 'channelRequests');
-  onValue(requestsRef, async (snap) => {
-    adminRequestsList.innerHTML = '';
-    if (!snap.exists()) {
-      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-      return;
-    }
-    let hasPending = false;
-    snap.forEach(async (childSnap) => {
-      const r = childSnap.val();
-      if (r.status !== 'pending') return;
-      hasPending = true;
-      const userName = await getUserName(r.submittedBy);
-
-      const li = document.createElement('div');
-      li.className = 'channel-card justify-between flex items-center p-3 bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow';
-      li.innerHTML = `
-        <div class="flex items-center gap-4">
-          <img src="${r.icon || 'https://via.placeholder.com/50'}" class="w-16 h-16 rounded-lg border border-gray-600"/>
-          <div>
-            <h4 class="font-semibold text-white">${r.name || 'Untitled Channel'}</h4>
-            <p class="text-gray-300">${r.category || 'Uncategorized'}</p>
-            <span class="text-sm text-gray-400">Submitted by: ${userName}</span>
-          </div>
-        </div>
-      `;
-
-      const btns = document.createElement('div'); 
-      btns.className = 'flex gap-2';
-
-      const approve = document.createElement('button');
-      approve.textContent = 'Approve';
-      approve.className = 'px-3 py-1 bg-green-500 rounded hover:bg-green-600 text-white font-semibold';
-      approve.onclick = () => approveRequest(childSnap.key, r);
-
-      const reject = document.createElement('button');
-      reject.textContent = 'Reject';
-      reject.className = 'px-3 py-1 bg-red-500 rounded hover:bg-red-600 text-white font-semibold';
-      reject.onclick = () => rejectRequest(childSnap.key);
-
-      btns.appendChild(approve); 
-      btns.appendChild(reject);
-      li.appendChild(btns);
-      adminRequestsList.appendChild(li);
-    });
-    if (!hasPending) {
-      adminRequestsList.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>';
-    }
-  });
-}
-
-async function approveRequest(requestId, requestData) {
-  const adminId = auth.currentUser.uid;
-  if (!requestData) return;
-
-  const newChannelRef = push(ref(db, 'channels'));
-  await set(newChannelRef, {
-    name: requestData.name || 'Unnamed Channel',
-    icon: requestData.icon || '',
-    category: requestData.category || 'Uncategorized',
-    stream: requestData.url || '',
-    createdBy: requestData.submittedBy || 'unknown',
-    approvedBy: adminId,
-    approvedAt: Date.now()
-  });
-
-  await remove(ref(db, `channelRequests/${requestId}`));
-  showToast("Channel approved", "success");
-}
-
-async function rejectRequest(requestId){
-  await remove(ref(db, `channelRequests/${requestId}`));
-  showToast("Channel rejected", "error");
-}
+removeFavBtn.addEventListener('click', () => {
+  const videoSrc = localStorage.getItem('selectedVideo');
+  favorites = favorites.filter(fav => fav.src !== videoSrc);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavButtons();
+});
