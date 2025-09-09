@@ -226,37 +226,41 @@ submitBtn.addEventListener('click', async ()=>{
   const name = document.getElementById('channel-name').value.trim();
   const icon = document.getElementById('channel-icon').value.trim();
   const stream = document.getElementById('channel-url').value.trim();
-  const category = document.getElementById('channel-category').value;
+  const category = document.getElementById('channel-category').value || "General";
 
   if(!name || !icon || !stream){ showToast("Please fill all fields","error"); return; }
 
   try {
+    // Default values
+    let username = user.displayName || user.email || "Anonymous";
+    let country = "India"; // Default to India
+
+    // If user profile exists in DB, overwrite values
     const userRef = ref(db, `users/${user.uid}`);
     const userSnap = await get(userRef);
-    let username = "Unknown";
-    let country = "Unknown";
     if (userSnap.exists()) {
-      username = userSnap.val().name || "Unknown";
-      country = userSnap.val().country || "Unknown";
+      username = userSnap.val().name || username;
+      country = userSnap.val().country || country;
     }
 
     const createdAt = new Date().toISOString();
     const requestRef = push(ref(db, 'channelRequests'));
 
     await set(requestRef, {
-      name,
-      icon,
-      stream,
-      category,
-      language: category,
+      name: name,
+      icon: icon,
+      stream: stream,
+      category: category,
+      language: category || "Unknown",
       submittedBy: user.uid,
-      createdBy: username,
-      country: country,
+      createdBy: username || "Anonymous",
+      country: country || "India",
       createdAt: createdAt,
       timestamp: Date.now(),
       status: 'pending'
     });
 
+    // Reset form
     document.getElementById('channel-name').value='';
     iconFileInput.value='';
     iconHiddenInput.value='';
@@ -287,11 +291,11 @@ onAuthStateChanged(auth, user=>{
         <img src="${c.icon}" alt="${c.name}"/>
         <div class="flex-1">
           <h4 class="font-semibold text-white">${c.name}</h4>
-          <p class="text-gray-300">Category: ${c.category}</p>
-          <p class="text-gray-400 text-sm">Language: ${c.language}</p>
-          <p class="text-gray-400 text-sm">Created By: ${c.createdBy}</p>
-          <p class="text-gray-400 text-sm">Country: ${c.country}</p>
-          <p class="text-gray-500 text-xs">Created At: ${new Date(c.timestamp).toLocaleString()}</p>
+          <p class="text-gray-300">Category: ${c.category || "Unknown"}</p>
+          <p class="text-gray-400 text-sm">Language: ${c.language || "Unknown"}</p>
+          <p class="text-gray-400 text-sm">Created By: ${c.createdBy || "Anonymous"}</p>
+          <p class="text-gray-400 text-sm">Country: ${c.country || "India"}</p>
+          <p class="text-gray-500 text-xs">Created At: ${c.createdAt ? new Date(c.timestamp).toLocaleString() : "N/A"}</p>
         </div>
         <span class="pill bg-yellow-500 text-gray-900">Pending</span>
       `;
