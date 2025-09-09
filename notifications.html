@@ -200,7 +200,15 @@ function timeAgo(timestamp) {
 function createNotificationCard(notification) {
   const card = document.createElement('div');
   card.className = 'notification-card';
-  if (notification.url) card.onclick = () => window.open(notification.url, "_blank");
+
+  // ✅ Modified click handler to open player page with stream param
+  if (notification.url) {
+    card.onclick = () => {
+      const channelName = (notification.name || notification.message || "channel")
+        .replace(/\s+/g, "-"); // replace spaces with dash
+      window.location.href = `player.html?stream=${channelName}`;
+    };
+  }
 
   // Highlight new notifications added in last 24 hours
   const ONE_DAY = 24 * 60 * 60 * 1000;
@@ -272,6 +280,7 @@ onValue(ref(db, 'channels'), (snapshot) => {
     message: `New channel added: ${c.name || 'Unknown'}`,
     logo: c.icon || '',
     url: c.stream || '',
+    name: c.name || 'Unknown', // ✅ Added so player param works
     timestamp: c.createdAt ? new Date(c.createdAt).getTime() : 0,
     category: 'Channel'
   }));
@@ -285,6 +294,7 @@ onValue(ref(db, 'notifications'), (snapshot) => {
     message: n.message,
     logo: n.logo || '',
     url: n.url || '',
+    name: n.message || 'Notification', // ✅ Added name support
     timestamp: n.timestamp || 0,
     category: n.type || 'Notification'
   }));
