@@ -22,8 +22,11 @@
     referrerpolicy="no-referrer"
   />
 
-  <!-- ✅ Shaka Player -->
+  <!-- Shaka Player -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.4/shaka-player.compiled.js"></script>
+
+  <!-- HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.1/dist/hls.min.js"></script>
 
   <style>
     html, body {
@@ -47,10 +50,6 @@
       height: 100% !important;
       object-fit: cover;
     }
-    :fullscreen {
-      padding: 0;
-      margin: 0;
-    }
     .controls {
       transition: opacity 0.3s;
     }
@@ -69,9 +68,8 @@
       width: 0%;
       transition: width 0.3s;
     }
-    body:fullscreen {
-      background: black;
-    }
+    body:fullscreen { background: black; }
+
     @keyframes scroll {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
@@ -82,7 +80,6 @@
       animation: scroll 20s linear infinite;
     }
 
-    /* ✅ Premium-style enhancements */
     .player-card {
       border: 2px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
@@ -98,9 +95,7 @@
       background: rgba(255,255,255,0.2);
       transform: scale(1.2);
     }
-    #volumeSlider {
-      accent-color: #f87171;
-    }
+    #volumeSlider { accent-color: #f87171; }
   </style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
@@ -177,7 +172,5 @@
 
   <!-- JS -->
   <script type="module" src="assets/js/test.js"></script>
-  <script type="module" src="assets/js/header.js"></script>
-  <script type="module" src="assets/js/footer.js"></script>
 </body>
 </html>
