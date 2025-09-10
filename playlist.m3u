@@ -253,3 +253,7 @@ http://cloud.logichost.in:1935/live/mcvlive/chunklist_w141497558.m3u8
 http://cloud.logichost.in:1935/live/mplus/chunklist_w380881802.m3u8
 #EXTINF:-1 tvg-name="Malabar News" group-title="Malayalam" tvg-logo="https://i.ibb.co/d0mb2sgY/1000121310.jpg",Malabar News
 http://cloud.logichost.in:1935/live/malabarnews/chunklist_w1073688293.m3u8
+#EXTINF:-1 tvg-name="One Tv Local" group-title="Malayalam" tvg-logo="https://i.ibb.co/qYw9v6fx/1000121414.jpg",One Tv Local
+http://rtmp.logichost.in:1935/live/onetv/chunklist_w1554463648.m3u8
+#EXTINF:-1 tvg-name="TCN Entertainments" group-title="Malayalam" tvg-logo="https://i.ibb.co/7tS0wpSq/1000121418.jpg",TCN Entertainments
+http://cloud.logichost.in:1935/TCN/live/playlist.m3u8
