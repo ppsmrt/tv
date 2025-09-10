@@ -275,3 +275,5 @@ http://kcltv.livebox.co.in/kclhls/live.m3u8
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-name="Sun Music" group-title="Tamil" tvg-logo="https://i.ibb.co/6cNQ4GD1/1000121935.jpg",Sun Music
 http://goldenpro.xyz:80/live/miyem2026/RV1G544/72123.ts
+#EXTINF:-1 tvg-name="Koickal News" group-title="Malayalam" tvg-logo="https://i.ibb.co/XTyjZ17/1000121945.jpg",Koickal News
+https://play.applelive.in/koickalnews/koickalnews.m3u8
