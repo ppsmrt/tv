@@ -12,161 +12,248 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body {
-    font-family: 'Baloo 2', cursive;
-    margin: 0;
-    background-color: #111827;
-    color: #fff;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+html, body {
+  font-family: 'Baloo 2', cursive;
+  margin: 0;
+  background-color: #111827;
+  color: #fff;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .player-container {
-    position: relative;
-    width: 90%;
-    max-width: 1200px;
-    aspect-ratio: 16/9;
-    border-radius: 16px;
-    overflow: hidden;
-    background: #000;
-    box-shadow: 0 10px 30px rgba(248, 113, 113, 0.6);
-  }
+.player-container {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  aspect-ratio: 16/9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 10px 30px rgba(248, 113, 113, 0.6);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.player-container:hover {
+  transform: scale(1.02);
+}
 
-  video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-  .player-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 16px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-    z-index: 2;
-    pointer-events: none;
-  }
+/* Overlay info */
+.player-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  z-index: 2;
+  pointer-events: none;
+}
 
-  .player-overlay h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #f87171;
-    margin: 0;
-  }
+.player-overlay h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #f87171;
+  margin: 0;
+}
 
-  .player-overlay p {
-    font-size: 0.875rem;
-    color: #d1d5db;
-    margin: 2px 0;
-  }
+.player-overlay p {
+  font-size: 0.875rem;
+  color: #d1d5db;
+  margin: 2px 0;
+}
 
-  /* Custom controls */
-  .custom-controls {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(31, 41, 55, 0.7);
-    padding: 8px 16px;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+/* Floating Play/Pause */
+.floating-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(248,113,113,0.8);
+  border: none;
+  padding: 20px;
+  border-radius: 9999px;
+  font-size: 2rem;
+  color: white;
+  z-index: 3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.floating-btn:hover {
+  background: rgba(248,113,113,1);
+  transform: translate(-50%, -50%) scale(1.1);
+}
 
-  .player-container:hover .custom-controls {
-    opacity: 1;
-  }
+/* Live Indicator */
+.live-indicator {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 3;
+}
+.live-dot {
+  width: 12px;
+  height: 12px;
+  background: #f87171;
+  border-radius: 50%;
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.live-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #f87171;
+}
 
-  .control-btn {
-    background: #f87171;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 9999px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
+/* Progress Bar */
+.progress-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.2);
+  z-index: 3;
+}
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: #f87171;
+  transition: width 0.1s linear;
+}
 
-  .control-btn:hover {
-    background: #fb7185;
-  }
+/* Hover Controls */
+.hover-controls {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.player-container:hover .hover-controls {
+  opacity: 1;
+}
+.control-btn {
+  background: rgba(248,113,113,0.8);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s ease;
+}
+.control-btn:hover {
+  background: rgba(248,113,113,1);
+}
 </style>
 </head>
 <body>
 
 <div class="player-container">
-  <video id="cricketPlayer" autoplay playsinline></video>
+  <video id="cricketPlayer" playsinline></video>
 
-  <!-- Overlay info -->
+  <!-- Live Indicator -->
+  <div class="live-indicator">
+    <div class="live-dot"></div>
+    <span class="live-text">LIVE</span>
+  </div>
+
+  <!-- Floating Play/Pause -->
+  <button class="floating-btn" id="floatingBtn">❚❚</button>
+
+  <!-- Overlay Info -->
   <div class="player-overlay">
     <h2>Live Cricket Match</h2>
     <p>Added By: Admin</p>
     <p>Stream started: 2025-09-10 15:00 IST</p>
   </div>
 
-  <!-- Custom Controls -->
-  <div class="custom-controls">
-    <button class="control-btn" id="playPause">Pause</button>
-    <button class="control-btn" id="fullscreen">Fullscreen</button>
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Hover Controls -->
+  <div class="hover-controls">
+    <button class="control-btn" id="fullscreenBtn">Fullscreen</button>
   </div>
 </div>
 
-<!-- HLS.js for M3U8 support -->
+<!-- HLS.js -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-  const video = document.getElementById('cricketPlayer');
-  const streamURL = "http://89.187.189.98/ANIMALPLANETHD/index.m3u8"; // Replace with your stream URL
+const video = document.getElementById('cricketPlayer');
+const streamURL = "https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8"; // replace with your M3U8 URL
 
-  // HLS setup
-  if(Hls.isSupported()){
-    const hls = new Hls({
-      maxBufferLength: 30, // buffer in seconds
-      maxMaxBufferLength: 60,
-      lowLatencyMode: true, // improved live streaming
-      backBufferLength: 20
-    });
-    hls.loadSource(streamURL);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, ()=> {
-      video.play();
-    });
-  } else if(video.canPlayType('application/vnd.apple.mpegurl')){
-    video.src = streamURL;
-    video.addEventListener('loadedmetadata', ()=> video.play());
+// HLS setup for smooth streaming
+if(Hls.isSupported()){
+  const hls = new Hls({ 
+    maxBufferLength: 30, 
+    maxMaxBufferLength: 60, 
+    lowLatencyMode: true,
+    backBufferLength: 20
+  });
+  hls.loadSource(streamURL);
+  hls.attachMedia(video);
+  hls.on(Hls.Events.MANIFEST_PARSED, ()=> video.play());
+} else if(video.canPlayType('application/vnd.apple.mpegurl')){
+  video.src = streamURL;
+  video.addEventListener('loadedmetadata', ()=> video.play());
+}
+
+// Floating Play/Pause
+const floatingBtn = document.getElementById('floatingBtn');
+floatingBtn.addEventListener('click', () => {
+  if(video.paused){
+    video.play();
+    floatingBtn.textContent = '❚❚';
+  } else {
+    video.pause();
+    floatingBtn.textContent = '►';
   }
+});
 
-  // Custom controls
-  const playPauseBtn = document.getElementById('playPause');
-  playPauseBtn.addEventListener('click', () => {
-    if(video.paused){
-      video.play();
-      playPauseBtn.textContent = 'Pause';
-    } else {
-      video.pause();
-      playPauseBtn.textContent = 'Play';
-    }
-  });
+// Fullscreen
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+fullscreenBtn.addEventListener('click', () => {
+  if(video.requestFullscreen){
+    video.requestFullscreen();
+  } else if(video.webkitRequestFullscreen){
+    video.webkitRequestFullscreen();
+  } else if(video.msRequestFullscreen){
+    video.msRequestFullscreen();
+  }
+});
 
-  const fullscreenBtn = document.getElementById('fullscreen');
-  fullscreenBtn.addEventListener('click', () => {
-    if(video.requestFullscreen){
-      video.requestFullscreen();
-    } else if(video.webkitRequestFullscreen){
-      video.webkitRequestFullscreen();
-    } else if(video.msRequestFullscreen){
-      video.msRequestFullscreen();
-    }
-  });
+// Progress Bar
+const progressBar = document.getElementById('progressBar');
+video.addEventListener('timeupdate', () => {
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = percent + '%';
+});
 </script>
 </body>
 </html>
