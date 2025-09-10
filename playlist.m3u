@@ -46,7 +46,7 @@ https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital" group-title="Tamil" tvg-logo="https://i.ibb.co/dsZQWxBR/20250903-1233513890272704535640985.jpg",Raj Digital
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/bjqKRT24/20250904-171740.jpg",K Tv
-http://89.187.189.98/KTVHD/index.m3u8
+http://ee0c5e74.akadatel.com/iptv/QRDWGTBMDHSDGK/6693/index.m3u8
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/G4D6WKM4/eyetvca.jpg",Eye Tv
 https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
 #EXTINF:-1 tvg-name="PR Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/sp8K36WT/20250902-234822.jpg",PR Tv
@@ -271,3 +271,7 @@ http://stream.logichost.in:1935/AJNET/live/chunklist_w1099842082.m3u8
 http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
 #EXTINF:-1 tvg-name="KCL" group-title="Malayalam" tvg-logo="https://i.ibb.co/230fBYpC/1000121868.jpg",KCL
 http://kcltv.livebox.co.in/kclhls/live.m3u8
+#EXTINF:-1 tvg-name="Sun Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Fk8fYrqc/1000121921.jpg",Sun Tv
+https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
+#EXTINF:-1 tvg-name="Sun Music" group-title="Tamil" tvg-logo="https://i.ibb.co/6cNQ4GD1/1000121935.jpg",Sun Music
+http://goldenpro.xyz:80/live/miyem2026/RV1G544/72123.ts
