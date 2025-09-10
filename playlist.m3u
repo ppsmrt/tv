@@ -259,3 +259,9 @@ http://rtmp.logichost.in:1935/live/onetv/chunklist_w1554463648.m3u8
 http://cloud.logichost.in:1935/TCN/live/playlist.m3u8
 #EXTINF:-1 tvg-name="Vision Media" group-title="Malayalam" tvg-logo="https://i.ibb.co/60J5nv9N/1000121431.jpg",Vision Media
 http://103.85.204.205:1935/VISIONMEDIA/live/chunklist_w1236262378.m3u8
+#EXTINF:-1 tvg-name="KCN HD" group-title="Malayalam" tvg-logo="https://i.ibb.co/mr4CtGK3/1000121466.jpg",KCN HD
+http://kcnsdhlsapp.ylivestream.com/kcnsdapphls/index.m3u8
+#EXTINF:-1 tvg-name="PTA News" group-title="Malayalam" tvg-logo="https://i.ibb.co/60tqyTR2/1000121468.jpg",PTA News
+http://cloud.logichost.in:1935/PTA/live/chunklist_w508578235.m3u8
+#EXTINF:-1 tvg-name="Jiotv" group-title="Telugu" tvg-logo="https://i.ibb.co/qF36QsXx/1000121659.png",Jiotv
+https://streamhubtv.netlify.app/jiotv.m3u
