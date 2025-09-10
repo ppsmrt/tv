@@ -267,3 +267,7 @@ http://cloud.logichost.in:1935/PTA/live/chunklist_w508578235.m3u8
 https://streamhubtv.netlify.app/jiotv.m3u
 #EXTINF:-1 tvg-name="AJ Net" group-title="Malayalam" tvg-logo="https://i.ibb.co/1G3Jmrty/1000121852.jpg",AJ Net
 http://stream.logichost.in:1935/AJNET/live/chunklist_w1099842082.m3u8
+#EXTINF:-1 tvg-name="Balatara Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/Lzd8qD8J/1000121865.jpg",Balatara Vision
+http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
+#EXTINF:-1 tvg-name="KCL" group-title="Malayalam" tvg-logo="https://i.ibb.co/230fBYpC/1000121868.jpg",KCL
+http://kcltv.livebox.co.in/kclhls/live.m3u8
