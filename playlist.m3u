@@ -257,3 +257,5 @@ http://cloud.logichost.in:1935/live/malabarnews/chunklist_w1073688293.m3u8
 http://rtmp.logichost.in:1935/live/onetv/chunklist_w1554463648.m3u8
 #EXTINF:-1 tvg-name="TCN Entertainments" group-title="Malayalam" tvg-logo="https://i.ibb.co/7tS0wpSq/1000121418.jpg",TCN Entertainments
 http://cloud.logichost.in:1935/TCN/live/playlist.m3u8
+#EXTINF:-1 tvg-name="Vision Media" group-title="Malayalam" tvg-logo="https://i.ibb.co/60J5nv9N/1000121431.jpg",Vision Media
+http://103.85.204.205:1935/VISIONMEDIA/live/chunklist_w1236262378.m3u8
