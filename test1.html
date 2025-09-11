@@ -1,53 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <title>Live Tv</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Player - Live TV (Shaka Only)</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-    <!-- Google Font: Baloo 2 -->
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesome (latest) -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css"
-        integrity="sha512-ZhLZbR5Ns/77dZabXrDydIcXQsqZ9mHs9X2+M1DwSgX0c6VZGgk1Lv6mE3b5pTfVJ9vlk8xC5E2o9E+7I8rhNQ=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
+<!-- Shaka Player -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.4/shaka-player.compiled.js"></script>
 
-    <!-- Fav Icon -->
-    <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css"/>
+<style>
+html, body { font-family: 'Baloo 2', cursive; margin:0; padding:0; height:100%; background:#080808; color:#fff; }
+.player-card { border: 1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.6); }
+#video { width:100%; max-height:80vh; background:#000; object-fit:contain; }
+.controls { transition: opacity .25s; }
+.controls.hidden { opacity:0; pointer-events:none; }
+.spinner { border:4px solid rgba(255,255,255,0.06); border-top:4px solid #f87171; border-radius:50%; width:36px; height:36px; animation:spin 1s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.control-btn { background: rgba(0,0,0,0.45); border-radius:50%; padding:8px; }
+.control-btn:hover { background: rgba(255,255,255,0.08); transform:scale(1.1); }
+.quality-menu { min-width:120px; }
+.error-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85)); }
+</style>
 </head>
-<body class="bg-gray-900 text-white font-baloo">
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
 
-    <!-- Header -->
-    <div id="header"></div>
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
+<div class="flex items-center">
+  <span class="material-icons text-white">live_tv</span>
+  <h1 class="ml-2 text-lg font-bold text-white"><span id="videoTitle" class="font-semibold text-lg">Video Title</span></h1>
+</div>
+<button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+  <span class="material-icons">arrow_back</span>
+  <span class="font-semibold">Back</span>
+</button>
+</header>
 
-    <!-- Main Content -->
-    <main class="pt-16 px-4 max-w-7xl mx-auto">
-        <!-- Page-specific content -->
-        <section id="mainContent" class="grid gap-4">
-            <!-- Dynamic content goes here -->
-        </section>
-    </main>
+<main class="flex-grow pt-20 pb-24 px-4">
+<div class="player-card bg-gray-800 mx-auto relative" style="max-width:1100px;">
+  <div class="relative">
+    <video id="video" playsinline webkit-playsinline></video>
+    <div id="overlay" class="absolute inset-0 flex items-center justify-center pointer-events-none"></div>
 
-    <!-- Footer -->
-    <div id="footer"></div>
+    <div id="controls" class="controls absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 bg-black bg-opacity-40 rounded-xl">
+      <div class="flex items-center gap-3">
+        <button id="playBtn" class="material-icons control-btn">play_arrow</button>
+        <button id="muteBtn" class="material-icons control-btn">volume_up</button>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" style="width:120px" />
+        <div class="text-sm opacity-80" id="statusText">Ready</div>
+      </div>
 
-    <!-- JS Files -->
-    <script type="module" src="assets/js/header.js"></script>
-    <script type="module" src="assets/js/footer.js"></script>
+      <div class="flex items-center gap-2">
+        <select id="qualitySelect" class="quality-menu bg-black bg-opacity-50 p-2 rounded text-sm">
+          <option value="auto">Auto</option>
+        </select>
+        <button id="fsBtn" class="material-icons control-btn">fullscreen</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="mx-auto mt-6 max-w-4xl text-center text-gray-300">
+  <p>Add to favorites, connect on socials and more.</p>
+</div>
+</main>
+
+<!-- Load player JS -->
+<script type="module" src="aseets/js/test1.js"></script>
 </body>
 </html>
