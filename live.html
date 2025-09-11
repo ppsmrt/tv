@@ -1,255 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live Cricket Streaming</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Live Cricket Streaming</title>
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <!-- HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-<!-- HLS.js -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      transition: background 0.4s, color 0.4s;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      border-radius: 14px;
+      background: black;
+      transition: box-shadow 0.4s, border 0.4s;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-weight: 600;
+      transition: color 0.4s;
+    }
 
-<style>
-body {
-  margin: 0;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  font-family: 'Segoe UI', sans-serif;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+    /* Dark Theme */
+    .dark {
+      background-color: #111827;
+      color: #fff;
+    }
+    .dark footer {
+      color: #f87171;
+    }
+    .dark video {
+      box-shadow: 0 10px 30px rgba(248, 113, 113, 0.6);
+      border: 2px solid rgba(248, 113, 113, 0.6);
+    }
 
-/* Header */
-header {
-  text-align: center;
-  padding: 20px;
-  font-size: 2rem;
-  font-weight: 700;
-  background: linear-gradient(to right, #ef4444, #f97316, #facc15);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
-}
-
-/* Player */
-.player-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-}
-.player-box {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  aspect-ratio: 16/9;
-  border-radius: 20px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 40px rgba(239, 68, 68, 0.5);
-}
-video {
-  width: 100%;
-  height: 100%;
-  object-fit: fill; /* stretch */
-  border-radius: 20px;
-}
-
-/* Live Tag */
-.live-indicator {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(239,68,68,0.9);
-  padding: 6px 12px;
-  border-radius: 9999px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
-  animation: pulse-bg 2s infinite;
-}
-@keyframes pulse-bg {
-  0%, 100% { box-shadow: 0 0 15px rgba(239,68,68,0.8); }
-  50% { box-shadow: 0 0 25px rgba(239,68,68,1); }
-}
-
-/* Admin Controls */
-#adminControls {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  gap: 8px;
-  background: rgba(0,0,0,0.6);
-  padding: 8px 12px;
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-#adminControls input {
-  background: rgba(255,255,255,0.15);
-  border: none;
-  outline: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  color: #fff;
-  width: 250px;
-}
-#adminControls button {
-  background: linear-gradient(to right, #f43f5e, #f97316);
-  border: none;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s;
-}
-#adminControls button:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  padding: 14px;
-  font-size: 0.9rem;
-  color: #9ca3af;
-  background: rgba(0,0,0,0.5);
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Login Button */
-#loginBtn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: linear-gradient(to right, #06b6d4, #3b82f6);
-  border: none;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  color: #fff;
-  transition: transform 0.2s ease;
-}
-#loginBtn:hover { transform: scale(1.05); }
-</style>
+    /* Light Theme */
+    .light {
+      background: linear-gradient(135deg, #d1fae5, #f0fdf4);
+      color: #065f46;
+    }
+    .light header {
+      background: linear-gradient(90deg, #34d399, #10b981);
+    }
+    .light h1 {
+      color: white;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .light footer {
+      color: #065f46;
+    }
+    .light video {
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.6);
+      border: 2px solid rgba(16, 185, 129, 0.6);
+    }
+  </style>
 </head>
-<body>
+<body class="dark flex flex-col min-h-screen">
 
-<header>Live Cricket Streaming</header>
+  <!-- Header with Theme Toggle -->
+  <header class="flex justify-between items-center py-4 px-6 shadow-md bg-gray-900">
+    <h1 class="text-2xl font-bold">Live Cricket Streaming</h1>
+    <button id="themeToggle" class="px-4 py-2 rounded-lg bg-gray-700 text-white text-sm font-semibold hover:bg-gray-600 transition">
+      Switch to Light
+    </button>
+  </header>
 
-<div class="player-container">
-  <div class="player-box">
-    <video id="cricketPlayer" autoplay muted playsinline></video>
-
-    <!-- Live Indicator -->
-    <div class="live-indicator">🔴 LIVE</div>
-
-    <!-- Admin Controls -->
-    <div id="adminControls" style="display:none;">
-      <input type="text" id="streamUrlInput" placeholder="Enter Stream URL"/>
-      <button id="updateStreamBtn">Update</button>
+  <!-- Player -->
+  <main class="flex-1 flex justify-center items-center p-4">
+    <div class="w-full max-w-5xl">
+      <video id="cricketPlayer" controls autoplay playsinline></video>
     </div>
+  </main>
 
-    <!-- Login Button -->
-    <button id="loginBtn">Login</button>
-  </div>
-</div>
+  <!-- Footer -->
+  <footer>
+    Tamil M3u 2025
+  </footer>
 
-<footer>Tamil M3u 2025</footer>
+  <script>
+    const video = document.getElementById("cricketPlayer");
+    const streamUrl = "https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8";
 
-<script>
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
-
-// Init Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-
-// Player setup
-const video = document.getElementById('cricketPlayer');
-let hls;
-function loadStream(url) {
-  if(hls) hls.destroy();
-  if(Hls.isSupported()){
-    hls = new Hls({ lowLatencyMode: true });
-    hls.loadSource(url);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, ()=> video.play());
-  } else if(video.canPlayType('application/vnd.apple.mpegurl')){
-    video.src = url;
-    video.addEventListener('loadedmetadata', ()=> video.play());
-  }
-}
-
-// Auto-load stream from Firebase
-const streamRef = db.ref("liveStream/url");
-streamRef.on("value", (snapshot) => {
-  const url = snapshot.val();
-  if(url) {
-    loadStream(url);
-    document.getElementById('streamUrlInput').value = url;
-  }
-});
-
-// Auth + Admin Controls
-const loginBtn = document.getElementById('loginBtn');
-const adminControls = document.getElementById('adminControls');
-
-loginBtn.addEventListener('click', () => {
-  auth.signInWithPopup(provider)
-    .then((result) => {
-      const user = result.user;
-      if(user) {
-        // ✅ check admin email
-        if(user.email === "admin@example.com"){ // change to your admin email
-          adminControls.style.display = 'flex';
-          loginBtn.style.display = 'none';
-        } else {
-          alert("🚫 You are not an admin");
-          auth.signOut();
-        }
+    // Load HLS stream
+    function loadStream(url) {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = url;
       }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-});
+    }
+    loadStream(streamUrl);
 
-document.getElementById('updateStreamBtn').addEventListener('click', () => {
-  const newUrl = document.getElementById('streamUrlInput').value.trim();
-  if(newUrl) {
-    db.ref("liveStream").set({ url: newUrl });
-    alert("✅ Stream URL updated!");
-  }
-});
-</script>
+    // Theme toggle logic
+    const body = document.body;
+    const header = document.querySelector("header");
+    const toggleBtn = document.getElementById("themeToggle");
+
+    toggleBtn.addEventListener("click", () => {
+      if (body.classList.contains("dark")) {
+        body.classList.remove("dark");
+        body.classList.add("light");
+        header.classList.remove("bg-gray-900");
+        toggleBtn.textContent = "Switch to Dark";
+        toggleBtn.classList.replace("bg-gray-700", "bg-green-600");
+        toggleBtn.classList.replace("hover:bg-gray-600", "hover:bg-green-500");
+      } else {
+        body.classList.remove("light");
+        body.classList.add("dark");
+        header.classList.add("bg-gray-900");
+        toggleBtn.textContent = "Switch to Light";
+        toggleBtn.classList.replace("bg-green-600", "bg-gray-700");
+        toggleBtn.classList.replace("hover:bg-green-500", "hover:bg-gray-600");
+      }
+    });
+  </script>
 </body>
 </html>
