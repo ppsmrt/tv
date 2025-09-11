@@ -1,79 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Player - Live TV (Shaka Only)</title>
-
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
-<!-- Baloo 2 Font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
-
-<!-- Shaka Player -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.4/shaka-player.compiled.js"></script>
-
-<style>
-html, body { font-family: 'Baloo 2', cursive; margin:0; padding:0; height:100%; background:#080808; color:#fff; }
-.player-card { border: 1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.6); }
-#video { width:100%; max-height:80vh; background:#000; object-fit:contain; }
-.controls { transition: opacity .25s; }
-.controls.hidden { opacity:0; pointer-events:none; }
-.spinner { border:4px solid rgba(255,255,255,0.06); border-top:4px solid #f87171; border-radius:50%; width:36px; height:36px; animation:spin 1s linear infinite; }
-@keyframes spin { to { transform:rotate(360deg); } }
-.control-btn { background: rgba(0,0,0,0.45); border-radius:50%; padding:8px; }
-.control-btn:hover { background: rgba(255,255,255,0.08); transform:scale(1.1); }
-.quality-menu { min-width:120px; }
-.error-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85)); }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Player - Live TV</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <!-- Baloo 2 Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+  <!-- FontAwesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <!-- Shaka Player UI CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/controls.css" />
+  <style>
+    html, body {
+      font-family: 'Baloo 2', cursive;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #111;
+      overscroll-behavior: none;
+    }
+    /* Container for Shaka Player */
+    #video-container {
+      width: 100%;
+      max-height: 100vh;
+      background: black;
+      position: relative;
+    }
+    /* Shaka Player video element fills container */
+    video#video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: black;
+    }
+    /* Header fixed */
+    header {
+      z-index: 50;
+    }
+    main {
+      padding-top: 4rem;
+      padding-bottom: 6rem;
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
+    <div class="flex items-center">
+      <span class="material-icons text-white">live_tv</span>
+      <h1 class="ml-2 text-lg font-bold text-white"><span id="videoTitle" class="font-semibold text-lg">Video Title</span></h1>
+    </div>
+    <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
+      <span class="material-icons">arrow_back</span>
+      <span class="font-semibold">Back</span>
+    </button>
+  </header>
 
-<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
-<div class="flex items-center">
-  <span class="material-icons text-white">live_tv</span>
-  <h1 class="ml-2 text-lg font-bold text-white"><span id="videoTitle" class="font-semibold text-lg">Video Title</span></h1>
-</div>
-<button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
-  <span class="material-icons">arrow_back</span>
-  <span class="font-semibold">Back</span>
-</button>
-</header>
+  <main class="flex-grow mx-4">
+    <!-- Video Player Container -->
+    <div id="video-container" class="rounded-lg overflow-hidden bg-gray-800">
+      <video id="video" playsinline webkit-playsinline></video>
+    </div>
 
-<main class="flex-grow pt-20 pb-24 px-4">
-<div class="player-card bg-gray-800 mx-auto relative" style="max-width:1100px;">
-  <div class="relative">
-    <video id="video" playsinline webkit-playsinline></video>
-    <div id="overlay" class="absolute inset-0 flex items-center justify-center pointer-events-none"></div>
-
-    <div id="controls" class="controls absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 bg-black bg-opacity-40 rounded-xl">
-      <div class="flex items-center gap-3">
-        <button id="playBtn" class="material-icons control-btn">play_arrow</button>
-        <button id="muteBtn" class="material-icons control-btn">volume_up</button>
-        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" style="width:120px" />
-        <div class="text-sm opacity-80" id="statusText">Ready</div>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <select id="qualitySelect" class="quality-menu bg-black bg-opacity-50 p-2 rounded text-sm">
-          <option value="auto">Auto</option>
-        </select>
-        <button id="fsBtn" class="material-icons control-btn">fullscreen</button>
+    <!-- Favorites Section -->
+    <div class="mt-4 p-4 info-section flex flex-col items-center gap-4">
+      <p class="text-gray-300 text-sm text-center">Add this channel to your favorites and watch anytime you like it</p>
+      <div class="flex gap-8">
+        <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
+        <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="mx-auto mt-6 max-w-4xl text-center text-gray-300">
-  <p>Add to favorites, connect on socials and more.</p>
-</div>
-</main>
+    <!-- Social Icons Section -->
+    <div class="mt-6 p-6 player-card text-center">
+      <h3 class="font-semibold text-lg mb-5">🌐 Connect With Us</h3>
+      <div class="flex justify-center space-x-8 text-3xl social-icons">
+        <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
+        <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125 transition"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125 transition"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
 
-<!-- Load player JS -->
-<script type="module" src="aseets/js/test1.js"></script>
+    <!-- Video Info Section -->
+    <div class="mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh] text-gray-300 text-sm leading-relaxed">
+      <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>
+      <p>
+        All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.
+        All rights remain with their original providers. This platform only provides an interface to access them for convenience.
+      </p>
+      <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>
+      <ul class="list-disc list-inside">
+        <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>
+        <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>
+        <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>
+      </ul>
+      <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>
+      <ul class="list-disc list-inside">
+        <li>No personal data is collected, stored, or shared.</li>
+        <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>
+        <li>No server-side caching, recording, or proxying is done on our platform.</li>
+        <li>Playback happens on your device using standard open-source player libraries.</li>
+      </ul>
+      <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>
+      <p>
+        This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.
+        For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.
+      </p>
+      <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>
+      <p>
+        Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.
+        However, you must comply with your local laws and the content owner's terms.
+        We do not guarantee the legality of accessing any specific content in your jurisdiction.
+      </p>
+      <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>
+      <p>
+        If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.
+        We review and process valid requests within <strong>48 hours</strong>.
+      </p>
+    </div>
+
+    <!-- Ad1 Removed as per request -->
+
+  </main>
+
+  <!-- Shaka Player JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/controls.js"></script>
+
+  <!-- Firebase SDKs -->
+  <script type="module" src="assets/js/test1.js"></script>
 </body>
 </html>
