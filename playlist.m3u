@@ -375,3 +375,5 @@ https://cdn-3.pishow.tv/live/220/master.m3u8
 http://ibc.massstream.net/IBC2/index.m3u8
 #EXTINF:-1 tvg-name="IBC Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/K1vWbkZ/1000122569.jpg",IBC Tamil
 http://ibc.massstream.net/IBC/index.m3u8
+#EXTINF:-1 tvg-name="UTV Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/twnrWP6R/1000122573.jpg",UTV Malayalam
+https://em4qj6nedyvg-hls-live.wmncdn.net/utv/ab2de115318ae40bdd434e193a2f2e7f.sdp/playlist.m3u8
