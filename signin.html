@@ -16,7 +16,7 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  
+
 <style>
   body {
     background: #111827;
@@ -64,6 +64,17 @@
   #toast.show {
     transform: translateY(0);
     opacity: 1;
+  }
+
+  /* Already logged in overlay */
+  #alreadyLoggedInOverlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  #alreadyLoggedInOverlay.show {
+    opacity: 1;
+    pointer-events: all;
   }
 </style>
 </head>
@@ -140,105 +151,115 @@
   <span id="toastMsg"></span>
 </div>
 
+<!-- Already Logged In Overlay -->
+<div id="alreadyLoggedInOverlay" class="fixed inset-0 bg-gray-900/90 flex flex-col items-center justify-center z-50 hidden">
+  <svg class="animate-spin h-16 w-16 text-red-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+  </svg>
+  <p class="text-white text-xl font-semibold">You're already logged in</p>
+</div>
+
 <div id="footer"></div>
 <script type="module" src="assets/js/header.js"></script>  
 <script type="module" src="assets/js/footer.js"></script>
 
 <!-- Firebase & JS -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.appspot.com",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.appspot.com",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
-  setPersistence(auth, browserLocalPersistence);
+setPersistence(auth, browserLocalPersistence);
 
-  const signinForm = document.getElementById("signinForm");
-  const signinBtn = document.getElementById("signinBtn");
-  const spinner = document.getElementById("spinner");
-  const btnText = document.getElementById("btnText");
-  const toast = document.getElementById("toast");
-  const toastMsg = document.getElementById("toastMsg");
+const signinForm = document.getElementById("signinForm");
+const signinBtn = document.getElementById("signinBtn");
+const spinner = document.getElementById("spinner");
+const btnText = document.getElementById("btnText");
+const toast = document.getElementById("toast");
+const toastMsg = document.getElementById("toastMsg");
+const overlay = document.getElementById("alreadyLoggedInOverlay");
 
-  // Redirect if already signed in
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
+// Check if user is already logged in
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    overlay.classList.add("show"); // show overlay
+    // Wait 1.5 seconds, then smoothly redirect
+    setTimeout(async () => {
       const adminRef = ref(db, "admins/" + user.uid);
       const adminSnapshot = await get(adminRef);
       window.location.href = adminSnapshot.exists() ? "admin" : "/";
-    }
-  });
+    }, 1500);
+  }
+});
 
-  // Utility to show toast
-  function showToast(message, type = "error") {
-    toastMsg.textContent = message;
-    toast.style.backgroundColor = type === "success" ? "#16a34a" : "#111827"; // green for success, dark for error
-    toast.classList.add("show");
-    toast.classList.remove("opacity-0", "pointer-events-none");
+// Toast utility
+function showToast(message, type = "error") {
+  toastMsg.textContent = message;
+  toast.style.backgroundColor = type === "success" ? "#16a34a" : "#111827";
+  toast.classList.add("show");
+  toast.classList.remove("opacity-0", "pointer-events-none");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.add("opacity-0", "pointer-events-none");
+  }, 3000);
+}
+
+// Firebase error mapping
+function parseFirebaseError(error) {
+  switch (error.code) {
+    case "auth/user-not-found": return "Account not found. Please check your email or sign up.";
+    case "auth/wrong-password": return "Incorrect password. Please try again.";
+    case "auth/invalid-email": return "Invalid email format.";
+    case "auth/too-many-requests": return "Too many attempts. Please try again later.";
+    default: return "Login failed. Please try again.";
+  }
+}
+
+// Sign-in form submit
+signinForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  spinner.classList.remove("hidden");
+  btnText.textContent = "Logging in...";
+  signinBtn.disabled = true;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    const adminRef = ref(db, "admins/" + user.uid);
+    const adminSnapshot = await get(adminRef);
+
+    showToast("Login successful! Redirecting...", "success");
 
     setTimeout(() => {
-      toast.classList.remove("show");
-      toast.classList.add("opacity-0", "pointer-events-none");
-    }, 3000);
+      window.location.href = adminSnapshot.exists() ? "admin" : "/";
+    }, 1000);
+  } catch (error) {
+    showToast(parseFirebaseError(error));
+  } finally {
+    spinner.classList.add("hidden");
+    btnText.textContent = "Sign In";
+    signinBtn.disabled = false;
   }
-
-  // Map Firebase errors to human readable messages
-  function parseFirebaseError(error) {
-    switch (error.code) {
-      case "auth/user-not-found":
-        return "Account not found. Please check your email or sign up.";
-      case "auth/wrong-password":
-        return "Incorrect password. Please try again.";
-      case "auth/invalid-email":
-        return "Invalid email format.";
-      case "auth/too-many-requests":
-        return "Too many attempts. Please try again later.";
-      default:
-        return "Login failed. Please try again.";
-    }
-  }
-
-  signinForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    spinner.classList.remove("hidden");
-    btnText.textContent = "Logging in...";
-    signinBtn.disabled = true;
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      const adminRef = ref(db, "admins/" + user.uid);
-      const adminSnapshot = await get(adminRef);
-
-      showToast("Login successful! Redirecting...", "success");
-
-      setTimeout(() => {
-        window.location.href = adminSnapshot.exists() ? "admin" : "/";
-      }, 1000);
-    } catch (error) {
-      showToast(parseFirebaseError(error));
-    } finally {
-      spinner.classList.add("hidden");
-      btnText.textContent = "Sign In";
-      signinBtn.disabled = false;
-    }
-  });
+});
 </script>
 </body>
 </html>
