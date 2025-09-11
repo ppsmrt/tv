@@ -367,3 +367,5 @@ http://103.118.151.130:11037/hls/we.m3u8
 http://stream.logichost.in:1935/kannurvision/live/chunklist_w577117846.m3u8
 #EXTINF:-1 tvg-name="Zee News Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/8gBVbk3V/1000122553.jpg",Zee News Malayalam
 https://d1ty2af03alkwd.cloudfront.net/index_4.m3u8
+#EXTINF:-1 tvg-name="Janam Tv Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/LD5BxJR7/1000122557.jpg",Janam Tv Malayalam
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/janamtv_nim_https/140622/janamtv/playlist.m3u8
