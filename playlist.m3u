@@ -85,8 +85,6 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://amigofx.com:1936/newsbird/newsbird/playlist.m3u8
 #EXTINF:-1 tvg-name="S News" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/snews.png",S News
 https://amigofx.com:1936/SChannel/SChannel/playlist.m3u8
-#EXTINF:-1 tvg-name="Rangmanch" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
-https://amigofx.com:1936/rangmanch/rangmanch/playlist.m3u8
 #EXTINF:-1 tvg-name="PCN HD" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/pcnhd.png",PCN HD
 https://amigofx.com:1936/pcnhd/pcnhd/playlist.m3u8
 #EXTINF:-1 tvg-name="Harika Star" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/harikastar.png",Harika Star
@@ -101,7 +99,7 @@ https://galaxyott.live/hls/sanatv.m3u8
 https://amigofx.com:1936/vidarbhatv/vidarbhatv/playlist.m3u8
 #EXTINF:-1 tvg-name="Keerthana TV" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/keerthanatv.png",Keerthana TV
 https://amigofx.com:1936/KeerthanaTv/KeerthanaTv/playlist.m3u8
-#EXTINF:-1 tvg-name="Lodr Budhha Tv" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/lordbuddhatv.png",Lodr Budhha Tv
+#EXTINF:-1 tvg-name="Lord Budhha Tv" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/lordbuddhatv.png",Lord Budhha Tv
 https://amigofx.com:1936/lordbuddhatv/lordbuddhatv/playlist.m3u8
 #EXTINF:-1 tvg-name="Nimbark Tv" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/nimbark.png",Nimbark Tv
 https://legitpro.co.in/nimbarktv/nimbarktvbox/index.m3u8
