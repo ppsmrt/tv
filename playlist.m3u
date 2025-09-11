@@ -287,3 +287,19 @@ https://ipcloud.live/app/minnaltv/minnalhd/index.m3u8
 https://stream.onecloudlive.in/maruthitv/maruthitvhd/index.m3u8
 #EXTINF:-1 tvg-name="Nila Oli Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/d8HRXH3/1000122167.jpg",Nila Oli Tv
 https://live.olidigital.in/nilatv/nilatv/index.m3u8
+#EXTINF:-1 tvg-name="Yet Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zTXCrZV5/1000122169.png",Yet Tv
+https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
+#EXTINF:-1 tvg-name="Aadhavan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/GQn3zdXz/1000122170.jpg",Aadhavan Tv
+https://ipcloud.live/aadhavantv/aadhavanhd/index.m3u8
+#EXTINF:-1 tvg-name="Apple" group-title="Tamil" tvg-logo="https://i.ibb.co/tMf6VD68/1000122172.jpg",Apple
+https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
+#EXTINF:-1 tvg-name="Agilam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zHsXQ0Vk/1000122174.jpg",Agilam Tv
+https://stream.onecloudlive.in/akilamtv/akilamtvhd/index.m3u8
+#EXTINF:-1 tvg-name="3 Star Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/5WCcZ58x/1000122176.jpg",3 Star Tv
+https://stream.onecloudlive.in/threestartv/threestarhd/index.m3u8
+#EXTINF:-1 tvg-name="V Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/d4b2HNpz/1000122177.jpg",V Tv
+https://live.applelive.in/vtv/vtv/index.m3u8
+#EXTINF:-1 tvg-name="Durai 4K" group-title="Tamil" tvg-logo="https://i.ibb.co/YF5wCgpq/1000122180.jpg",Durai 4K
+https://ipcloud.live/duraitv/live/index.m3u8
+#EXTINF:-1 tvg-name="Rio Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/XMjxMTQ/1000122182.jpg",Rio Tv
+https://app.ashokadigital.net/hls/riotv/index.m3u8?token=hYUbjDHukIyAv3
