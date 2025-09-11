@@ -313,3 +313,5 @@ https://ipcloud.live/pothigai/thendral/index.m3u8
 https://stream.advikadigital.in/advika/advika/index.m3u8
 #EXTINF:-1 tvg-name="Vasantham" group-title="Tamil" tvg-logo="https://i.ibb.co/84s7F61c/1000122456.jpg",Vasantham
 https://stream.onecloudlive.in/dhandapani/vasanthamtv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="JK Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/qY0RzYmx/1000122459.jpg",JK Tv
+http://account18.livebox.co.in/jktvkannadahls/live.m3u8
