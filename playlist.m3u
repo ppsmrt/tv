@@ -319,3 +319,21 @@ http://account18.livebox.co.in/jktvkannadahls/live.m3u8
 http://account31.livebox.co.in/satyamtvhls/live.m3u8
 #EXTINF:-1 tvg-name="Basava Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/PZLkmDGK/1000122466.jpg",Basava Tv
 http://basavatvbox.sritv.co.in:1935/Basavatvbox/live/basavatv_cloud_code.m3u8
+#EXTINF:-1 tvg-name="E News" group-title="Kannada" tvg-logo="https://i.ibb.co/XkpHwGXK/1000122468.jpg",E News
+http://account10.livebox.co.in/enewstvnoonechannelomsairamhls/live.m3u8
+#EXTINF:-1 tvg-name="Tv9 Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/XrmCxgFM/1000122470.jpg",Tv9 Kannada
+https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9kanmo6oiq/liveabr/playlist.m3u8
+#EXTINF:-1 tvg-name="DD Chandana" group-title="Kannada" tvg-logo="https://i.ibb.co/NgT7MgcZ/1000122472.jpg",DD Chandana
+https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/3829f99b-4951-4a9d-98c1-dbc3acfe5193/2.m3u8
+#EXTINF:-1 tvg-name="SVBC Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/wh0GPcz8/1000121221.jpg",SVBC Kannada
+https://player.mslivestream.net/tamil/ac206e74d75b285755ee4924df87d951.sdp/index.m3u8
+#EXTINF:-1 tvg-name="Real News" group-title="Malayalam" tvg-logo="https://i.ibb.co/xtGgPTKw/1000122474.jpg",Real News
+https://bk7l298nyx53-hls-live.5centscdn.com/realnews/e7dee419f91aa9e65939d3677fb9c4f5.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Flowers Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/SD69P5MP/1000122475.jpg",Flowers Tv
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/flowers_nim_https/050522/flowers/playlist.m3u8
+#EXTINF:-1 tvg-name="Magna Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/xtmVfHdW/1000122479.jpg",Magna Vision
+https://j78dpa3edq5r-hls-live.5centscdn.com/abr/0864028584026e6ad9cdf922473177a4/playlist.m3u8
+#EXTINF:-1 tvg-name="Pulari Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/DHmsyrBq/1000122481.jpg",Pulari Tv
+https://royalstarindia.co.in/pularitv_hls/pularitv.m3u8
+#EXTINF:-1 tvg-name="Garshom Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/q3dgj8K0/1000122483.jpg",Garshom Tv
+https://og2qd3aal7an-hls-live.5centscdn.com/garshomtv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
