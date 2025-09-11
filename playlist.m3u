@@ -359,3 +359,5 @@ https://mmtvnews1.akamaized.net/v1/master/673630b269b766886555eebfddd4f27f3de3ab
 https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8
 #EXTINF:-1 tvg-name="VCV Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/23JRgJRR/1000122511.jpg",VCV Tv
 https://5a1178b42cc03.streamlock.net/8210/8210/playlist.m3u8
+#EXTINF:-1 tvg-name="KC Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/fdYmsD8V/1000122526.jpg",KC Vision
+http://111.92.41.129:11037/hls/kv.m3u8
