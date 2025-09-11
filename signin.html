@@ -166,6 +166,13 @@
 
   setPersistence(auth, browserLocalPersistence);
 
+  const signinForm = document.getElementById("signinForm");
+  const signinBtn = document.getElementById("signinBtn");
+  const spinner = document.getElementById("spinner");
+  const btnText = document.getElementById("btnText");
+  const toast = document.getElementById("toast");
+  const toastMsg = document.getElementById("toastMsg");
+
   // Redirect if already signed in
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -175,19 +182,40 @@
     }
   });
 
-  const signinForm = document.getElementById("signinForm");
-  const signinBtn = document.getElementById("signinBtn");
-  const spinner = document.getElementById("spinner");
-  const btnText = document.getElementById("btnText");
-  const toast = document.getElementById("toast");
-  const toastMsg = document.getElementById("toastMsg");
+  // Utility to show toast
+  function showToast(message, type = "error") {
+    toastMsg.textContent = message;
+    toast.style.backgroundColor = type === "success" ? "#16a34a" : "#111827"; // green for success, dark for error
+    toast.classList.add("show");
+    toast.classList.remove("opacity-0", "pointer-events-none");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+      toast.classList.add("opacity-0", "pointer-events-none");
+    }, 3000);
+  }
+
+  // Map Firebase errors to human readable messages
+  function parseFirebaseError(error) {
+    switch (error.code) {
+      case "auth/user-not-found":
+        return "Account not found. Please check your email or sign up.";
+      case "auth/wrong-password":
+        return "Incorrect password. Please try again.";
+      case "auth/invalid-email":
+        return "Invalid email format.";
+      case "auth/too-many-requests":
+        return "Too many attempts. Please try again later.";
+      default:
+        return "Login failed. Please try again.";
+    }
+  }
 
   signinForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    // Show spinner
     spinner.classList.remove("hidden");
     btnText.textContent = "Logging in...";
     signinBtn.disabled = true;
@@ -197,19 +225,15 @@
       const user = userCredential.user;
       const adminRef = ref(db, "admins/" + user.uid);
       const adminSnapshot = await get(adminRef);
-      window.location.href = adminSnapshot.exists() ? "admin" : "/";
-    } catch (error) {
-      // Show toast only
-      toastMsg.textContent = error.message;
-      toast.classList.add("show");
-      toast.classList.remove("opacity-0", "pointer-events-none");
+
+      showToast("Login successful! Redirecting...", "success");
 
       setTimeout(() => {
-        toast.classList.remove("show");
-        toast.classList.add("opacity-0", "pointer-events-none");
-      }, 3000);
+        window.location.href = adminSnapshot.exists() ? "admin" : "/";
+      }, 1000);
+    } catch (error) {
+      showToast(parseFirebaseError(error));
     } finally {
-      // Hide spinner
       spinner.classList.add("hidden");
       btnText.textContent = "Sign In";
       signinBtn.disabled = false;
