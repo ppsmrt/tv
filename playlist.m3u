@@ -315,3 +315,7 @@ https://stream.advikadigital.in/advika/advika/index.m3u8
 https://stream.onecloudlive.in/dhandapani/vasanthamtv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="JK Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/qY0RzYmx/1000122459.jpg",JK Tv
 http://account18.livebox.co.in/jktvkannadahls/live.m3u8
+#EXTINF:-1 tvg-name="Sathyam Tv Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/H3zyNY3/1000122464.jpg",Sathyam Tv Kannada
+http://account31.livebox.co.in/satyamtvhls/live.m3u8
+#EXTINF:-1 tvg-name="Basava Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/PZLkmDGK/1000122466.jpg",Basava Tv
+http://basavatvbox.sritv.co.in:1935/Basavatvbox/live/basavatv_cloud_code.m3u8
