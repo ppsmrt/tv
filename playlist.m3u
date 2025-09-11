@@ -303,3 +303,13 @@ https://live.applelive.in/vtv/vtv/index.m3u8
 https://ipcloud.live/duraitv/live/index.m3u8
 #EXTINF:-1 tvg-name="Rio Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/XMjxMTQ/1000122182.jpg",Rio Tv
 https://app.ashokadigital.net/hls/riotv/index.m3u8?token=hYUbjDHukIyAv3
+#EXTINF:-1 tvg-name="AM Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/XxYsY7kr/1000122449.jpg",AM Tv
+https://stream.iplive.xyz/amtv/amtv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="Paavai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/f7MNggG/1000122451.jpg",Paavai Tv
+https://ipcloud.live/paavai/live/index.m3u8
+#EXTINF:-1 tvg-name="Pothigai Thendral" group-title="Tamil" tvg-logo="https://i.ibb.co/gZ9qSFDz/1000122453.jpg",Pothigai Thendral
+https://ipcloud.live/pothigai/thendral/index.m3u8
+#EXTINF:-1 tvg-name="Adhvika" group-title="Tamil" tvg-logo="https://i.ibb.co/35820nx8/1000122454.webp",Adhvika
+https://stream.advikadigital.in/advika/advika/index.m3u8
+#EXTINF:-1 tvg-name="Vasantham" group-title="Tamil" tvg-logo="https://i.ibb.co/84s7F61c/1000122456.jpg",Vasantham
+https://stream.onecloudlive.in/dhandapani/vasanthamtv/tracks-v1a1/mono.m3u8
