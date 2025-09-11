@@ -10,6 +10,7 @@
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
 <!-- HLS.js -->
@@ -131,6 +132,22 @@ footer {
   background: rgba(0,0,0,0.5);
   border-top: 1px solid rgba(255,255,255,0.1);
 }
+
+/* Login Button */
+#loginBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(to right, #06b6d4, #3b82f6);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.2s ease;
+}
+#loginBtn:hover { transform: scale(1.05); }
 </style>
 </head>
 <body>
@@ -149,6 +166,9 @@ footer {
       <input type="text" id="streamUrlInput" placeholder="Enter Stream URL"/>
       <button id="updateStreamBtn">Update</button>
     </div>
+
+    <!-- Login Button -->
+    <button id="loginBtn">Login</button>
   </div>
 </div>
 
@@ -167,9 +187,11 @@ const firebaseConfig = {
   measurementId: "G-FNS9JWZ9LS"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+// Init Firebase
+firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
 // Player setup
 const video = document.getElementById('cricketPlayer');
@@ -197,9 +219,29 @@ streamRef.on("value", (snapshot) => {
   }
 });
 
-// Admin control (currently hardcoded)
-const isAdmin = true; // 🔑 Replace with Firebase Auth check
-if(isAdmin) document.getElementById('adminControls').style.display = 'flex';
+// Auth + Admin Controls
+const loginBtn = document.getElementById('loginBtn');
+const adminControls = document.getElementById('adminControls');
+
+loginBtn.addEventListener('click', () => {
+  auth.signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user;
+      if(user) {
+        // ✅ check admin email
+        if(user.email === "admin@example.com"){ // change to your admin email
+          adminControls.style.display = 'flex';
+          loginBtn.style.display = 'none';
+        } else {
+          alert("🚫 You are not an admin");
+          auth.signOut();
+        }
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
 
 document.getElementById('updateStreamBtn').addEventListener('click', () => {
   const newUrl = document.getElementById('streamUrlInput').value.trim();
