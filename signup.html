@@ -172,19 +172,56 @@
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
+    const blockedNames = ["admin", "owner", "anonymous", "anon", "no name", "noname"];
+    const allowedDomains = ["gmail.com", "outlook.com", "yahoo.com", "outlook.in"];
+
+    const lowerName = name.toLowerCase();
+    const emailDomain = email.split("@")[1]?.toLowerCase();
+
+    // Check blocked names
+    if (blockedNames.includes(lowerName)) {
+      showToast("This username is not allowed.");
+      return;
+    }
+
+    // Check allowed email domains
+    if (!allowedDomains.includes(emailDomain)) {
+      showToast("Only Gmail, Yahoo, or Outlook emails are allowed.");
+      return;
+    }
+
     try {
+      // Show spinner
+      document.getElementById("signupSpinner").classList.remove("hidden");
+      document.getElementById("signupBtnText").textContent = "Creating...";
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       await updateProfile(user, { displayName: name });
       await set(ref(db, 'users/' + user.uid), { name, email });
 
-      alert("Account created successfully!");
-      window.location.href = "signin";
+      showToast("Account created successfully!", true);
+      setTimeout(() => window.location.href = "signin.html", 1500);
     } catch (error) {
-      alert(error.message);
+      showToast(error.message);
+    } finally {
+      document.getElementById("signupSpinner").classList.add("hidden");
+      document.getElementById("signupBtnText").textContent = "Sign Up";
     }
   });
+
+  // Toast helper
+  function showToast(msg, success = false) {
+    const toast = document.getElementById("signupToast");
+    const toastMsg = document.getElementById("signupToastMsg");
+    toastMsg.textContent = msg;
+    toast.classList.remove("opacity-0", "pointer-events-none", "bg-red-500", "bg-green-500");
+    toast.classList.add(success ? "bg-green-500" : "bg-red-500");
+    setTimeout(() => {
+      toast.classList.add("opacity-0", "pointer-events-none");
+    }, 4000);
+  }
 </script>
 
 </body>
