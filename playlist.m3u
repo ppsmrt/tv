@@ -355,3 +355,7 @@ https://5a1178b42cc03.streamlock.net/8220/8220/playlist.m3u8
 https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mathrubhuminews_nim_https/110322/mathrubhuminews/playlist.m3u8
 #EXTINF:-1 tvg-name="Manorama News" group-title="Malayalam" tvg-logo="https://i.ibb.co/rRxVLNC7/1000122507.jpg",Manorama News
 https://mmtvnews1.akamaized.net/v1/master/673630b269b766886555eebfddd4f27f3de3ab50/mmtvNewsCampaign1/index.m3u8
+#EXTINF:-1 tvg-name="Stingray Pop" group-title="Tamil" tvg-logo="https://i.ibb.co/Tx92GcZx/1000122509.jpg",Stingray Pop
+https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-name="VCV Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/23JRgJRR/1000122511.jpg",VCV Tv
+https://5a1178b42cc03.streamlock.net/8210/8210/playlist.m3u8
