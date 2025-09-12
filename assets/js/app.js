@@ -1,7 +1,7 @@
 // app.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, onValue, runTransaction, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 // Firebase Config
 const firebaseConfig = {
@@ -30,8 +30,36 @@ let channels = [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 let users = {}; // store admins & users info
 
+// Anonymous user ID for analytics if no login
+let anonUserId = localStorage.getItem("anonUserId") || crypto.randomUUID();
+localStorage.setItem("anonUserId", anonUserId);
+
 // Skeleton loader
 grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
+
+// Analytics helpers
+function trackChannelView(channelId) {
+  const viewsRef = ref(db, `analytics/channels/${channelId}/views`);
+  runTransaction(viewsRef, (current) => (current || 0) + 1);
+
+  const lastRef = ref(db, `analytics/channels/${channelId}/lastWatched`);
+  set(lastRef, new Date().toISOString());
+}
+
+function trackInteraction(userId, type) {
+  const interactionRef = ref(db, `analytics/interactions/${userId}/${type}`);
+  runTransaction(interactionRef, (current) => (current || 0) + 1);
+}
+
+function trackSearch(userId, query) {
+  if (!query.trim()) return;
+  const searchRef = ref(db, `analytics/interactions/${userId}/searchQueries`);
+  runTransaction(searchRef, (current) => {
+    const arr = current || [];
+    arr.push(query.toLowerCase());
+    return arr;
+  });
+}
 
 // Favorite toggle
 function toggleFavorite(channel, favBtn) {
@@ -43,10 +71,14 @@ function toggleFavorite(channel, favBtn) {
   }
   localStorage.setItem("favorites", JSON.stringify(favorites));
   favBtn.innerHTML = `<i class="material-icons">${exists ? "favorite_border" : "favorite"}</i>`;
+
+  trackInteraction(anonUserId, "favoritesClicked");
 }
 
 // Show Info Modal
 function showInfoModal(channel) {
+  trackInteraction(anonUserId, "infoClicked");
+
   let modal = document.getElementById("infoModal");
   if (!modal) {
     modal = document.createElement("div");
@@ -76,7 +108,6 @@ function showInfoModal(channel) {
     };
   }
 
-  // fill fields
   modal.querySelector("#infoTitle").textContent = channel.name;
   modal.querySelector("#infoThumb").src = channel.logo;
   modal.querySelector("#infoName").textContent = channel.name;
@@ -84,7 +115,6 @@ function showInfoModal(channel) {
   modal.querySelector("#infoLanguage").textContent = channel.category;
   modal.querySelector("#infoTags").textContent = channel.tags || "—";
 
-  // fetch added by from users node
   let addedBy = "Unknown";
   if (channel.addedBy && users[channel.addedBy]) {
     addedBy = users[channel.addedBy].name || channel.addedBy;
@@ -124,25 +154,20 @@ function createChannelCard(c) {
   // Favorite button (comes first)
   const favBtn = document.createElement("div");
   favBtn.className = "favorite-btn";
-  favBtn.style.right = "44px"; // right-most
+  favBtn.style.right = "44px"; 
   const isFav = favorites.some((fav) => fav.src === c.src);
   favBtn.innerHTML = `<i class="material-icons">${isFav ? "favorite" : "favorite_border"}</i>`;
   favBtn.onclick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const favObj = {
-      title: c.name,
-      src: c.src,
-      thumb: c.logo,
-      category: c.category,
-    };
+    const favObj = { title: c.name, src: c.src, thumb: c.logo, category: c.category };
     toggleFavorite(favObj, favBtn);
   };
 
   // Info button (comes next)
   const infoBtn = document.createElement("div");
   infoBtn.className = "favorite-btn";
-  infoBtn.style.right = "4px"; // next to favorite
+  infoBtn.style.right = "4px";
   infoBtn.innerHTML = `<i class="material-icons">info</i>`;
   infoBtn.onclick = (e) => {
     e.preventDefault();
@@ -150,13 +175,17 @@ function createChannelCard(c) {
     showInfoModal(c);
   };
 
-  // Append elements in correct order
+  // Track view on click
+  a.addEventListener("click", () => {
+    trackChannelView(c.src);
+  });
+
   a.appendChild(img);
   a.appendChild(overlay);
   a.appendChild(nameDiv);
   a.appendChild(liveBadge);
-  a.appendChild(favBtn);  // favorite first
-  a.appendChild(infoBtn); // info next
+  a.appendChild(favBtn);
+  a.appendChild(infoBtn);
 
   return a;
 }
@@ -165,11 +194,7 @@ function createChannelCard(c) {
 function renderCategories() {
   const fixedCats = ["Tamil", "Telugu", "Malayalam", "Kannada", "Hindi"];
   const allCats = [...new Set(channels.map((c) => c.category))];
-
-  // ensure custom order, new cats after Hindi
   const cats = fixedCats.concat(allCats.filter((c) => !fixedCats.includes(c)));
-
-  // prepend "All" category
   const finalCats = ["All", ...cats];
 
   categoryBar.innerHTML = "";
@@ -229,7 +254,10 @@ function renderFeatured() {
 }
 
 // Search
-searchInput.addEventListener("input", (e) => renderChannels(e.target.value));
+searchInput.addEventListener("input", (e) => {
+  renderChannels(e.target.value);
+  trackSearch(anonUserId, e.target.value);
+});
 
 // Firebase Fetch Channels
 onValue(ref(db, "channels"), (snapshot) => {
