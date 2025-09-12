@@ -37,10 +37,10 @@
   }
 
   main {
-    padding: 20px 1rem 100px; /* changed bottom padding from 0 to 100px */
+    padding: 84px 1rem 100px; /* default padding: header height (64px) + 20px gap */
     max-width: 1200px;
     margin: 0 auto;
-}
+  }
 
   /* Search Bar */
   .search-container {
@@ -89,7 +89,7 @@
   }
   .category-btn {
     flex-shrink: 0;
-    padding: 8px 20px;
+    padding: 8px 16px;
     border-radius: 9999px;
     font-weight: 600;
     font-size: 0.875rem;
@@ -99,6 +99,9 @@
     transition: 0.3s;
     white-space: nowrap;
     border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   .category-btn:hover {
     background: #f87171;
@@ -108,6 +111,18 @@
     background: #f87171;
     color: white;
     box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
+  }
+  .category-count {
+    background: #374151;
+    color: #f9fafb;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 9999px;
+  }
+  .category-btn:hover .category-count,
+  .category-btn.active .category-count {
+    background: rgba(255,255,255,0.2);
   }
 
   /* Channels Grid */
@@ -212,7 +227,7 @@
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 
-<!-- Firebase and App Logic (Working Player Logic) -->
+<!-- Firebase and App Logic -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -245,7 +260,9 @@
     a.setAttribute('aria-label', `Watch ${c.name}`);
 
     const img = document.createElement('img');
-    img.src = c.logo; img.alt = c.name + ' logo'; img.className = 'channel-image';
+    img.src = c.logo;
+    img.alt = c.name + ' logo';
+    img.className = 'channel-image';
 
     const overlay = document.createElement('div');
     overlay.className = 'channel-overlay';
@@ -255,7 +272,9 @@
     nameDiv.className = 'channel-name';
     nameDiv.textContent = c.name;
 
-    a.appendChild(img); a.appendChild(overlay); a.appendChild(nameDiv);
+    a.appendChild(img);
+    a.appendChild(overlay);
+    a.appendChild(nameDiv);
     return a;
   }
 
@@ -263,17 +282,34 @@
     const categories = ['All', ...new Set(channels.map(c => c.category))];
     categories.sort();
     categoryBar.innerHTML = '';
+
     categories.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = `category-btn ${cat === selectedCategory ? 'active' : ''}`;
       btn.dataset.category = cat;
-      btn.textContent = cat;
       btn.setAttribute('aria-pressed', cat === selectedCategory ? 'true' : 'false');
+
+      // Count channels for this category
+      const count = cat === 'All'
+        ? channels.length
+        : channels.filter(c => c.category === cat).length;
+
+      const label = document.createElement('span');
+      label.textContent = cat;
+
+      const badge = document.createElement('span');
+      badge.className = 'category-count';
+      badge.textContent = count;
+
+      btn.appendChild(label);
+      btn.appendChild(badge);
+
       btn.addEventListener('click', () => {
         selectedCategory = cat;
         renderCategories();
         renderChannels(searchInput.value);
       });
+
       categoryBar.appendChild(btn);
     });
   }
@@ -300,7 +336,7 @@
     });
   }
 
-  searchInput.addEventListener('input', e=>renderChannels(e.target.value));
+  searchInput.addEventListener('input', e => renderChannels(e.target.value));
 
   const channelsRef = ref(db,'channels');
   onValue(channelsRef, snapshot=>{
@@ -316,6 +352,15 @@
       renderChannels(searchInput.value);
     } else {
       grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels available.</p>';
+    }
+  });
+
+  // Adjust main padding dynamically based on actual header height
+  window.addEventListener("load", () => {
+    const header = document.querySelector("header");
+    const main = document.querySelector("main");
+    if (header && main) {
+      main.style.paddingTop = (header.offsetHeight + 20) + "px";
     }
   });
 </script>
