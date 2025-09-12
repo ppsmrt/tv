@@ -121,26 +121,28 @@
       </div>
     </div>
 
-    <!-- Favorites Section -->
-    <div class="mx-4 mt-4 p-4 info-section flex flex-col items-center gap-4">
-      <p class="text-gray-300 text-sm text-center">Add this channel to your favorites and watch anytime you like it</p>
-      <div class="flex gap-8">
-        <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
-        <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
-      </div>
+    <!-- Favorites + Social Section -->
+<div class="mx-4 mt-6 p-6 rounded-2xl bg-gradient-to-r from-gray-900/80 via-gray-800/80 to-gray-900/80 border border-gray-700 shadow-lg flex items-center justify-between backdrop-blur-md">
+  
+  <!-- Favorites -->
+  <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3 group">
+      <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-all duration-300 group-hover:scale-125 group-hover:text-green-300"></i>
+      <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-all duration-300 group-hover:scale-125 group-hover:text-red-400 hidden"></i>
+      <span id="favText" class="text-gray-300 text-sm font-medium group-hover:text-white transition-colors duration-300">Add to Favorites</span>
     </div>
+  </div>
 
-    <!-- Social -->
-    <div class="mx-4 mt-6 p-6 player-card text-center">
-      <h3 class="font-semibold text-lg mb-5">🌐 Connect With Us</h3>
-      <div class="flex justify-center space-x-8 text-3xl">
-        <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
-        <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
-        <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125 transition"><i class="fab fa-youtube"></i></a>
-        <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125 transition"><i class="fab fa-discord"></i></a>
-      </div>
-    </div>
+  <!-- Social Icons -->
+  <div class="flex space-x-6 text-2xl">
+    <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:text-blue-400 hover:scale-125 transition-all duration-300"><i class="fab fa-facebook"></i></a>
+    <a href="https://wa.me/" target="_blank" class="text-green-400 hover:text-green-300 hover:scale-125 transition-all duration-300"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://t.me/" target="_blank" class="text-sky-400 hover:text-sky-300 hover:scale-125 transition-all duration-300"><i class="fab fa-telegram"></i></a>
+    <a href="https://youtube.com" target="_blank" class="text-red-500 hover:text-red-400 hover:scale-125 transition-all duration-300"><i class="fab fa-youtube"></i></a>
+    <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:text-indigo-300 hover:scale-125 transition-all duration-300"><i class="fab fa-discord"></i></a>
+  </div>
+
+</div>
 
     <!-- Info -->
     <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
