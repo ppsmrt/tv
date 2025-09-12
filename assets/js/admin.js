@@ -216,5 +216,46 @@ function attachActions() {
       document.getElementById("tags").value = ch.tags || "";
       document.getElementById("description").value = ch.description || "";
 
-      // Replace "Added By" with dropdown
-      adminContainer.innerHTML = `<select id="addedBySelect" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring
+      // Replace "Added By" with dropdown of all admins
+      const options = Object.values(adminsList).map(a => `<option value="${a.name}" ${ch.createdBy === a.name ? 'selected' : ''}>${a.name}</option>`).join('');
+      adminContainer.innerHTML = `<select id="addedBySelect" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">${options}</select>`;
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  document.querySelectorAll(".deleteBtn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      if (confirm("Are you sure you want to delete this channel?")) {
+        try {
+          await remove(ref(db, "channels/" + id));
+          showStatus("✅ Channel deleted!");
+        } catch (err) {
+          showStatus("❌ Error deleting channel: " + err.message, true);
+        }
+      }
+    });
+  });
+}
+
+// Fetch channels
+const channelsRef = ref(db, "channels");
+onValue(channelsRef, snapshot => {
+  channelsData = snapshot.val() || {};
+  renderChannels();
+});
+
+filterCategory.addEventListener("change", renderChannels);
+searchInput.addEventListener("input", renderChannels);
+sortOption.addEventListener("change", renderChannels);
+
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  signOut(auth)
+    .then(() => {
+      showToast("Logged out successfully!");
+      setTimeout(() => window.location.href = "/", 1000);
+    })
+    .catch(err => showToast("Logout failed: " + err.message, "error"));
+});
