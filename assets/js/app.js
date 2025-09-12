@@ -25,7 +25,7 @@ const featuredCarousel = document.getElementById("featuredCarousel");
 const searchInput = document.getElementById("searchInput");
 
 // State
-let selectedCategory = "Tamil"; // default
+let selectedCategory = "All"; // default is All
 let channels = [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 let users = {}; // store admins & users info
@@ -167,12 +167,15 @@ function renderCategories() {
   // ensure custom order, new cats after Hindi
   const cats = fixedCats.concat(allCats.filter((c) => !fixedCats.includes(c)));
 
+  // prepend "All" category
+  const finalCats = ["All", ...cats];
+
   categoryBar.innerHTML = "";
-  cats.forEach((cat) => {
+  finalCats.forEach((cat) => {
     const btn = document.createElement("button");
     btn.className = "category-btn" + (cat === selectedCategory ? " active" : "");
     btn.textContent = `${cat} (${
-      channels.filter((c) => c.category === cat).length
+      cat === "All" ? channels.length : channels.filter((c) => c.category === cat).length
     })`;
     btn.onclick = () => {
       selectedCategory = cat;
