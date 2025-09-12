@@ -1,0 +1,57 @@
+/* DARK/LIGHT THEMES */
+body.theme-dark { background:#111827; color:#fff; }
+body.theme-dark .search-container { background: rgba(31,41,55,0.85); color:#fff;}
+body.theme-dark .search-container .material-icons { color:#f87171; }
+body.theme-dark .category-bar { background: rgba(17,24,39,0.95); border-bottom:1px solid rgba(255,255,255,0.05);}
+body.theme-dark .category-btn { background:linear-gradient(135deg,#1f2937,#111827); color:#d1d5db; border:1px solid rgba(255,255,255,0.05);}
+body.theme-dark .category-btn.active, body.theme-dark .category-btn:hover { background:linear-gradient(135deg,#f87171,#ef4444); color:#fff; box-shadow:0 0 12px rgba(248,113,113,0.5);}
+body.theme-dark .channel-card { background:#1f2937; color:#fff;}
+body.theme-dark .channel-name { color:#f9fafb; }
+body.theme-dark .channel-overlay { color:#fff; background: rgba(0,0,0,0.4);}
+body.theme-dark .live-badge { background:#ef4444; color:#fff; }
+body.theme-dark .skeleton { background: linear-gradient(90deg,#1f2937 25%,#374151 50%,#1f2937 75%); }
+
+body.theme-light { background:#fff; color:#111827;}
+body.theme-light .search-container { background: rgba(255,255,255,0.9); color:#111;}
+body.theme-light .search-container .material-icons { color:#ef4444;}
+body.theme-light .category-bar { background: rgba(255,255,255,0.95); border-bottom:1px solid #f87171;}
+body.theme-light .category-btn { background:linear-gradient(135deg,#fff,#fee2e2); color:#111; border:1px solid #f87171;}
+body.theme-light .category-btn.active, body.theme-light .category-btn:hover { background:linear-gradient(135deg,#f87171,#ef4444); color:#fff; box-shadow:0 0 14px rgba(248,113,113,0.6);}
+body.theme-light .channel-card { background:#fee2e2; color:#111;}
+body.theme-light .channel-name { color:#111;}
+body.theme-light .channel-overlay { color:#111; background: rgba(255,255,255,0.7);}
+body.theme-light .live-badge { background:#ef4444; color:#fff;}
+body.theme-light .skeleton { background: linear-gradient(90deg,#f87171 25%,#fee2e2 50%,#f87171 75%);}
+
+/* TOGGLE SWITCH */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+.theme-switch input { opacity:0; width:0; height:0; }
+.slider {
+  position:absolute;
+  cursor:pointer;
+  top:0; left:0;
+  right:0; bottom:0;
+  background:#ccc;
+  transition:0.4s;
+  border-radius:34px;
+}
+.slider:before {
+  position:absolute;
+  content:"";
+  height:22px;
+  width:22px;
+  left:3px;
+  bottom:3px;
+  background:white;
+  transition:0.4s;
+  border-radius:50%;
+}
+input:checked + .slider {
+  background: linear-gradient(135deg,#f87171,#ef4444);
+}
+input:checked + .slider:before { transform: translateX(22px); }
