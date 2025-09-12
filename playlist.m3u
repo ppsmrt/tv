@@ -377,3 +377,9 @@ http://ibc.massstream.net/IBC2/index.m3u8
 http://ibc.massstream.net/IBC/index.m3u8
 #EXTINF:-1 tvg-name="UTV Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/twnrWP6R/1000122573.jpg",UTV Malayalam
 https://em4qj6nedyvg-hls-live.wmncdn.net/utv/ab2de115318ae40bdd434e193a2f2e7f.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="6 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/0jZdKNwL/1000122708.jpg",6 Tv
+https://cdn-1.pishow.tv/live/232/master.m3u8
+#EXTINF:-1 tvg-name="10 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/0pC3jMwL/1000122716.jpg",10 Tv
+https://cdn-1.pishow.tv/live/391/master.m3u8
+#EXTINF:-1 tvg-name="Aasatha Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/rRqdxBFn/1000122718.jpg",Aasatha Telugu
+https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
