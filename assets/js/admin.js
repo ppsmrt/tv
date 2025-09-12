@@ -24,6 +24,16 @@ const submitBtn = document.getElementById("submitBtn");
 const filterCategory = document.getElementById("filterCategory");
 const searchInput = document.getElementById("searchInput");
 const sortOption = document.getElementById("sortOption");
+const adminContainer = document.getElementById("adminContainer");
+
+let channelsData = {};
+let adminsList = {};
+
+// Fetch admins
+const adminsRef = ref(db, "admins");
+onValue(adminsRef, snapshot => {
+  adminsList = snapshot.val() || {};
+});
 
 // Upload icon
 const uploadIconInput = document.getElementById("uploadIcon");
@@ -58,7 +68,7 @@ uploadIconInput.addEventListener("change", async () => {
   }
 });
 
-// Toast notifications
+// Toast
 function showToast(message, type = "success") {
   const existing = document.querySelector(".toast");
   if (existing) existing.remove();
@@ -82,23 +92,20 @@ function showToast(message, type = "success") {
   }, 3000);
 }
 
-// Status helper
+// Status
 function showStatus(msg, isError = false) {
   showToast(msg, isError ? "error" : "success");
 }
 
-// Channels data
-let channelsData = {};
-
-// Submit form
-form.addEventListener("submit", async (e) => {
+// Form submit
+form.addEventListener("submit", async e => {
   e.preventDefault();
   const channelId = document.getElementById("channelId").value;
   const name = document.getElementById("name").value.trim();
   const icon = document.getElementById("icon").value.trim();
   const stream = document.getElementById("stream").value.trim();
   const category = document.getElementById("category").value;
-  const language = document.getElementById("language").value;
+  const language = document.getElementById("language").value.trim();
   const country = document.getElementById("country").value.trim();
   const tags = document.getElementById("tags").value.trim();
   const description = document.getElementById("description").value.trim();
@@ -111,38 +118,33 @@ form.addEventListener("submit", async (e) => {
   submitBtn.disabled = true;
   try {
     const now = new Date().toISOString();
-    const user = auth.currentUser;
     let adminName = "Unknown Admin";
 
-    if (user) {
-      const adminRef = ref(db, "admins/" + user.uid + "/name");
-      const snapshot = await new Promise(resolve => onValue(adminRef, resolve, { onlyOnce: true }));
-      if (snapshot.exists()) adminName = snapshot.val();
+    if (channelId) {
+      const select = document.getElementById("addedBySelect");
+      if (select) adminName = select.value;
+    } else {
+      const user = auth.currentUser;
+      if (user) {
+        const snapshot = await new Promise(resolve => onValue(ref(db, "admins/" + user.uid + "/name"), resolve, { onlyOnce: true }));
+        if (snapshot.exists()) adminName = snapshot.val();
+      }
     }
 
-    const channelData = {
-      name, icon, stream, category, language, country, tags, description
-    };
+    const channelData = { name, icon, stream, category, language, country, tags, description };
 
     if (channelId) {
-      await update(ref(db, "channels/" + channelId), {
-        ...channelData,
-        editedAt: now,
-        editedBy: adminName
-      });
+      await update(ref(db, "channels/" + channelId), { ...channelData, editedAt: now, editedBy: adminName });
       showStatus("✅ Channel updated!");
     } else {
       const newRef = push(ref(db, "channels"));
-      await set(newRef, {
-        ...channelData,
-        createdAt: now,
-        createdBy: adminName
-      });
+      await set(newRef, { ...channelData, createdAt: now, createdBy: adminName });
       showStatus("✅ Channel added!");
     }
 
     form.reset();
     document.getElementById("channelId").value = "";
+    adminContainer.innerHTML = `<input type="text" id="addedBy" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none" readonly />`;
   } catch (err) {
     showStatus("❌ Error: " + err.message, true);
   } finally {
@@ -163,16 +165,16 @@ function renderChannels() {
     return matchesCategory && matchesSearch;
   });
 
-  if (sortBy === "az") filtered.sort((a, b) => a[1].name.localeCompare(b[1].name));
-  else if (sortBy === "latest") filtered.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
-  else if (sortBy === "oldest") filtered.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
+  if (sortBy === "az") filtered.sort((a,b) => a[1].name.localeCompare(b[1].name));
+  else if (sortBy === "latest") filtered.sort((a,b) => new Date(b[1].createdAt||0) - new Date(a[1].createdAt||0));
+  else if (sortBy === "oldest") filtered.sort((a,b) => new Date(a[1].createdAt||0) - new Date(b[1].createdAt||0));
 
   if (!filtered.length) {
     channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>";
     return;
   }
 
-  filtered.forEach(([id, ch]) => {
+  filtered.forEach(([id,ch]) => {
     const card = document.createElement("div");
     card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
     card.innerHTML = `
@@ -213,42 +215,6 @@ function attachActions() {
       document.getElementById("country").value = ch.country;
       document.getElementById("tags").value = ch.tags || "";
       document.getElementById("description").value = ch.description || "";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  });
 
-  document.querySelectorAll(".deleteBtn").forEach(btn => {
-    btn.addEventListener("click", async () => {
-      const id = btn.dataset.id;
-      if (confirm("Are you sure you want to delete this channel?")) {
-        try {
-          await remove(ref(db, "channels/" + id));
-          showStatus("✅ Channel deleted!");
-        } catch (err) {
-          showStatus("❌ Error deleting channel: " + err.message, true);
-        }
-      }
-    });
-  });
-}
-
-// Fetch channels
-const channelsRef = ref(db, "channels");
-onValue(channelsRef, snapshot => {
-  channelsData = snapshot.val() || {};
-  renderChannels();
-});
-
-filterCategory.addEventListener("change", renderChannels);
-searchInput.addEventListener("input", renderChannels);
-sortOption.addEventListener("change", renderChannels);
-
-// Logout
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  signOut(auth)
-    .then(() => {
-      showToast("Logged out successfully!");
-      setTimeout(() => window.location.href = "/", 1000);
-    })
-    .catch(err => showToast("Logout failed: " + err.message, "error"));
-});
+      // Replace "Added By" with dropdown
+      adminContainer.innerHTML = `<select id="addedBySelect" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring
