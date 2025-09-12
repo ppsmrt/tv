@@ -1,349 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV - Stream Live</title>
-
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-<!-- Fav Icon -->
-<link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
-
-<!-- Baloo 2 Font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-
-<style>
-html, body {
-  font-family: 'Baloo 2', cursive;
-  background-color: #111827;
-  color: #fff;
-  margin: 0;
-  min-height: 100vh;
-}
-
-main {
-  padding: 84px 1rem 100px;
-  max-width: 1200px;
-  margin: 0 auto;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-body.loaded main {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Search Bar */
-.search-container {
-  display: flex;
-  align-items: center;
-  background: rgba(31, 41, 55, 0.85);
-  border-radius: 9999px;
-  padding: 10px 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
-  transition: box-shadow 0.3s ease, background 0.3s ease;
-}
-.search-container:focus-within {
-  background: rgba(55, 65, 81, 0.9);
-  box-shadow: 0 0 14px rgba(248, 113, 113, 0.6);
-}
-.search-container .material-icons {
-  color: #f87171;
-  font-size: 22px;
-  margin-right: 8px;
-}
-.search-container input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #f9fafb;
-  font-size: 1rem;
-  font-weight: 500;
-}
-.search-container input::placeholder {
-  color: #9ca3af;
-}
-
-/* Category Bar */
-.category-bar {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  position: sticky;
-  top: 72px;
-  z-index: 15;
-  background: rgba(17, 24, 39, 0.95);
-  backdrop-filter: blur(8px);
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  transition: all 0.3s ease;
-}
-.category-bar::-webkit-scrollbar { display: none; }
-.category-btn {
-  flex-shrink: 0;
-  padding: 8px 16px;
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: #d1d5db;
-  background: linear-gradient(135deg, #1f2937, #111827);
-  border: 1px solid rgba(255,255,255,0.05);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.category-btn:hover, .category-btn.active {
-  background: linear-gradient(135deg, #f87171, #ef4444);
-  color: white;
-  box-shadow: 0 0 14px rgba(248,113,113,0.6);
-  transform: translateY(-2px);
-}
-.category-count {
-  background: #374151;
-  color: #f9fafb;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 9999px;
-}
-
-/* Channels Grid */
-.channels-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-}
-
-/* Channel Cards */
-.channel-card {
-  background: #1f2937;
-  border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  transform: translateY(20px);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
-  position: relative;
-}
-.channel-card.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-.channel-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 16px 35px rgba(248,113,113,0.35);
-}
-
-.channel-image {
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  border-bottom: 1px solid #374151;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-.channel-card:hover .channel-image {
-  filter: brightness(1.15);
-  transform: scale(1.05);
-}
-
-.channel-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  text-align: center;
-}
-.channel-card:hover .channel-overlay {
-  opacity: 1;
-}
-.channel-overlay small {
-  font-weight: 400;
-  opacity: 0.8;
-}
-
-.channel-name {
-  padding: 12px 8px;
-  font-weight: 700;
-  font-size: 1rem;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #f9fafb;
-}
-
-/* Live Badge */
-.live-badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: #ef4444;
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 6px;
-  box-shadow: 0 0 10px rgba(239,68,68,0.6);
-}
-
-/* Skeleton Loader */
-.skeleton {
-  background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 12px;
-  aspect-ratio: 16/9;
-}
-@keyframes shimmer { 100% { background-position: -200% 0; } }
-
-@media(max-width:640px){
-  .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
-  .channel-name { font-size: 0.95rem; }
-}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Channel Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body { font-family: 'Baloo 2', cursive; }
+  </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden">
 
-<div id="header"></div>
-
-<main>
-  <div class="search-container">
-    <span class="material-icons">search</span>
-    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <button onclick="window.location.href='/'" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
+        Channel Manager
+      </h1>
+    </div>
+    <div>
+      <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
   </div>
 
-  <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
+  <!-- Form -->
+  <div class="p-5 bg-white shadow-lg">
+    <form id="channelForm" class="grid gap-4 md:grid-cols-2">
+      <input type="hidden" id="channelId"/>
 
-  <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
-</main>
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
+        <input type="text" id="name" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+      </div>
 
-<div id="footer"></div>
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Upload Icon</label>
+        <div class="relative">
+          <input type="file" id="uploadIcon" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
+          <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#d92a1a] to-[#ff4a3f] text-white font-bold py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer select-none">
+            <i class="fa-solid fa-upload"></i> Choose Image
+          </div>
+        </div>
+        <input type="hidden" id="icon" name="icon"/>
+        <p id="uploadStatus" class="text-sm text-gray-500 mt-1"></p>
+      </div>
 
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
+        <input type="url" id="stream" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+      </div>
 
-<script type="module">
-window.addEventListener("load", () => document.body.classList.add("loaded"));
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Category</label>
+        <select id="category" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+          <option value="Tamil">Tamil</option>
+          <option value="Telugu">Telugu</option>
+          <option value="Kannada">Kannada</option>
+          <option value="Malayalam">Malayalam</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Kids">Kids</option>
+          <option value="Sports">Sports</option>
+        </select>
+      </div>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Language</label>
+        <select id="language" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+          <option value="Tamil">Tamil</option>
+          <option value="Telugu">Telugu</option>
+          <option value="Kannada">Kannada</option>
+          <option value="Malayalam">Malayalam</option>
+          <option value="Hindi">Hindi</option>
+          <option value="English">English</option>
+        </select>
+      </div>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Country</label>
+        <input type="text" id="country" placeholder="India" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+      </div>
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Tags (comma separated)</label>
+        <input type="text" id="tags" placeholder="News,Sports,etc."
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+      </div>
 
-const grid = document.getElementById('channelsGrid');
-const categoryBar = document.getElementById('categoryBar');
-const searchInput = document.getElementById('searchInput');
-let selectedCategory = 'All';
-let channels = [];
+      <div class="md:col-span-2">
+        <label class="block text-gray-700 font-semibold mb-1">Description</label>
+        <textarea id="description" rows="3" placeholder="Channel description..."
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"></textarea>
+      </div>
 
-grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
+      <button type="submit" id="submitBtn"
+        class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
+        <i class="fa-solid fa-save mr-2"></i> Save Channel
+      </button>
+    </form>
+    <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
+  </div>
 
-function createChannelCard(c){
-  const a = document.createElement('a');
-  a.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'))}`;
-  a.className = 'channel-card';
-  a.setAttribute('aria-label', `Watch ${c.name}`);
-  a.tabIndex = 0;
+  <!-- Filter, Sort & Search -->
+  <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
+    <div class="flex gap-3">
+      <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+        <option value="All">All Categories</option>
+        <option value="Tamil">Tamil</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Malayalam">Malayalam</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Kids">Kids</option>
+        <option value="Sports">Sports</option>
+      </select>
 
-  const img = document.createElement('img');
-  img.src = c.logo;
-  img.alt = c.name + ' logo';
-  img.className = 'channel-image';
+      <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+        <option value="az">Sort By A-Z</option>
+        <option value="latest">Sort By Latest</option>
+        <option value="oldest">Sort By Oldest</option>
+      </select>
+    </div>
 
-  const overlay = document.createElement('div');
-  overlay.className = 'channel-overlay';
-  overlay.innerHTML = `▶ Watch<br><small>${c.category}</small>`;
+    <div class="flex items-center gap-2 w-full md:w-auto">
+      <i class="fa-solid fa-magnifying-glass text-gray-600"></i>
+      <input type="text" id="searchInput" placeholder="Search channel..."
+        class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full md:w-64"/>
+    </div>
+  </div>
 
-  const nameDiv = document.createElement('div');
-  nameDiv.className = 'channel-name';
-  nameDiv.textContent = c.name;
+  <!-- Channel List -->
+  <div class="flex-1 overflow-y-auto p-5">
+    <h2 class="text-xl font-bold mb-4">Channels</h2>
+    <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+  </div>
 
-  const liveBadge = document.createElement('div');
-  liveBadge.className = 'live-badge';
-  liveBadge.textContent = 'LIVE';
+  <footer class="bg-gray-200 text-center py-3 text-gray-700 font-semibold">
+    Live Tv @ 2025
+  </footer>
 
-  a.appendChild(img);
-  a.appendChild(overlay);
-  a.appendChild(nameDiv);
-  a.appendChild(liveBadge);
-
-  return a;
-}
-
-function renderCategories(){
-  const cats = ['All', ...new Set(channels.map(c=>c.category))];
-  categoryBar.innerHTML = '';
-  cats.forEach(cat=>{
-    const btn = document.createElement('button');
-    btn.className = 'category-btn'+(cat===selectedCategory?' active':'');
-    btn.textContent = `${cat} (${cat==='All'?channels.length:channels.filter(c=>c.category===cat).length})`;
-    btn.onclick = () => { selectedCategory=cat; renderCategories(); renderChannels(searchInput.value); btn.scrollIntoView({behavior:'smooth', inline:'center'}); };
-    categoryBar.appendChild(btn);
-  });
-}
-
-function renderChannels(filter=''){
-  grid.innerHTML='';
-  const filtered = channels.filter(c => (selectedCategory==='All'||c.category===selectedCategory)&&c.name.toLowerCase().includes(filter.toLowerCase()));
-  if(!filtered.length){
-    grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>';
-    return;
-  }
-  filtered.forEach((c,i)=>{
-    const card = createChannelCard(c);
-    grid.appendChild(card);
-    setTimeout(()=>card.classList.add('show'), i*80);
-  });
-}
-
-searchInput.addEventListener('input', e=>renderChannels(e.target.value));
-
-onValue(ref(db,'channels'), snapshot=>{
-  if(snapshot.exists()){
-    channels = Object.values(snapshot.val()).map(c=>({name:c.name,category:c.category,logo:c.icon,stream:c.stream}));
-    renderCategories();
-    renderChannels(searchInput.value);
-  } else {
-    grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>';
-  }
-});
-</script>
+  <script type="module" src="assets/js/admin.js"></script>
 </body>
 </html>
