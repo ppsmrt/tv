@@ -3,46 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Player - Live TV (Advanced)</title>
-
+  <title>Player - Live TV</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
   <!-- Baloo 2 Font -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
-
-  <!-- FontAwesome for icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-
-  <!-- Shaka Player -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.4/shaka-player.compiled.js"></script>
-
-  <!-- HLS.js -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.1/dist/hls.min.js"></script>
-
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <style>
-    html, body { font-family: 'Baloo 2', cursive; margin:0; padding:0; height:100%; background:#080808; color:#fff; }
-    .player-card { border: 1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.6); }
-    #video { width:100%; max-height:80vh; background:#000; object-fit:contain; }
-    .controls { transition: opacity .25s; }
-    .controls.hidden { opacity:0; pointer-events:none; }
-    .spinner { border:4px solid rgba(255,255,255,0.06); border-top:4px solid #f87171; border-radius:50%; width:36px; height:36px; animation:spin 1s linear infinite; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-    .control-btn { background: rgba(0,0,0,0.45); border-radius:50%; padding:8px; }
-    .control-btn:hover { background: rgba(255,255,255,0.08); transform:scale(1.1); }
-    .quality-menu { min-width:120px; }
-    .error-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85)); }
+    html, body {
+      font-family: 'Baloo 2', cursive;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #111;
+      overscroll-behavior: none;
+    }
+    #video {
+      width: 100%;
+      height: auto;
+      max-height: 100vh;
+      background: black;
+      object-fit: cover;
+      transition: transform 0.2s ease;
+    }
+    video:fullscreen {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+    }
+    :fullscreen { margin: 0; padding: 0; }
+    .controls { transition: opacity 0.3s; }
+    .controls.hidden { opacity: 0; pointer-events: none; }
+    .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
+    .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
+    @keyframes scroll { 0% { transform: translateX(100%);} 100% { transform: translateX(-100%);} }
+    .animate-scroll { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
   </style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
+  <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
     <div class="flex items-center">
       <span class="material-icons text-white">live_tv</span>
@@ -54,321 +56,93 @@
     </button>
   </header>
 
-  <main class="flex-grow pt-20 pb-24 px-4">
-    <div class="player-card bg-gray-800 mx-auto relative" style="max-width:1100px;">
+  <main class="flex-grow pt-20 pb-24">
+    <!-- Video Player -->
+    <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
       <div class="relative">
         <video id="video" playsinline webkit-playsinline></video>
 
-        <!-- Overlay: spinner / errors -->
-        <div id="overlay" class="absolute inset-0 flex items-center justify-center pointer-events-none"></div>
-
-        <!-- Custom Controls -->
-        <div id="controls" class="controls absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 bg-black bg-opacity-40 rounded-xl">
-          <div class="flex items-center gap-3">
-            <button id="playBtn" class="material-icons control-btn">play_arrow</button>
-            <button id="muteBtn" class="material-icons control-btn">volume_up</button>
-            <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" style="width:120px" />
-            <div class="text-sm opacity-80" id="statusText">Ready</div>
+        <!-- Scrolling Text Ad -->
+        <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1">
+          <div class="animate-scroll whitespace-nowrap">
+            🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
           </div>
+        </div>
 
-          <div class="flex items-center gap-2">
-            <select id="qualitySelect" class="quality-menu bg-black bg-opacity-50 p-2 rounded text-sm">
-              <option value="auto">Auto</option>
-            </select>
-            <button id="fsBtn" class="material-icons control-btn">fullscreen</button>
+        <!-- Ad Strip -->
+        <div class="ad-strip absolute bottom-0 left-0 w-full">
+          <div id="adProgress" class="ad-progress"></div>
+        </div>
+
+        <!-- Controls -->
+        <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg">
+          <div class="flex items-center space-x-2">
+            <button id="playBtn" class="material-icons text-white">play_arrow</button>
+            <button id="muteBtn" class="material-icons text-white">volume_up</button>
+            <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
+          </div>
+          <div class="flex items-center space-x-2">
+            <button id="channelListBtn" class="material-icons text-white">list</button>
+            <button id="pipBtn" class="material-icons text-white">picture_in_picture_alt</button>
+            <button id="themeBtn" class="material-icons text-white">palette</button>
+            <button id="premiumBtn" class="material-icons text-yellow-400">star</button>
+            <button id="fsBtn" class="material-icons text-white">fullscreen</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Favorites / Social / Ad (kept simple) -->
-    <div class="mx-auto mt-6 max-w-4xl text-center text-gray-300">
-      <p>Add to favorites, connect on socials and more.</p>
+    <!-- Favorites Section -->
+    <div class="mx-4 mt-4 p-4 info-section flex flex-col items-center gap-4">
+      <p class="text-gray-300 text-sm text-center">Add this channel to your favorites and watch anytime you like it</p>
+      <div class="flex gap-8">
+        <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
+        <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
+      </div>
     </div>
+
+    <!-- Social -->
+    <div class="mx-4 mt-6 p-6 player-card text-center">
+      <h3 class="font-semibold text-lg mb-5">🌐 Connect With Us</h3>
+      <div class="flex justify-center space-x-8 text-3xl">
+        <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
+        <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125 transition"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125 transition"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
+      <h3 class="font-semibold text-lg">Stream Information</h3>
+      <p class="text-gray-300 text-sm">All streams displayed here are publicly available online. We do not host or store them.</p>
+      <h3 class="font-semibold text-lg">Usage Rules</h3>
+      <ul class="list-disc list-inside text-gray-300 text-sm">
+        <li>Personal / Educational use only</li>
+        <li>No redistribution without permission</li>
+        <li>Respect copyrights & licenses</li>
+      </ul>
+    </div>
+
+    <!-- Ad -->
+    <div class="w-full text-center my-4">  
+      <a href="https://telegram.me/tamilm3u" target="_blank" rel="noopener noreferrer">  
+        <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
+      </a>  
+    </div>  
   </main>
 
-  <!-- JS: advanced player logic -- single-file module -->
-  <script type="module">
-    // Keep firebase imports & config (unchanged semantics)
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  <!-- Channel List Modal -->
+  <div id="channelListModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-80 flex flex-col">
+    <div class="flex justify-between items-center p-4 bg-gray-900">
+      <h2 class="text-lg font-bold">📺 Channels</h2>
+      <button id="closeChannelList" class="material-icons">close</button>
+    </div>
+    <div id="channelList" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+  </div>
 
-    // DOM
-    const video = document.getElementById('video');
-    const playBtn = document.getElementById('playBtn');
-    const fsBtn = document.getElementById('fsBtn');
-    const muteBtn = document.getElementById('muteBtn');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const controls = document.getElementById('controls');
-    const videoTitle = document.getElementById('videoTitle');
-    const overlay = document.getElementById('overlay');
-    const statusText = document.getElementById('statusText');
-    const qualitySelect = document.getElementById('qualitySelect');
-
-    // Firebase Config (unchanged by request)
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.firebasestorage.app",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // Helper: read stream slug from ?stream=query
-    function qs(name) { const u = new URL(location.href); return u.searchParams.get(name); }
-    let streamSlug = qs('stream');
-    if (streamSlug) streamSlug = streamSlug.replace(/-/g,' ').toLowerCase();
-
-    // Player backends state
-    let hlsInstance = null;
-    let shakaPlayer = null;
-    let activeUrl = null;
-    let retryCount = 0;
-
-    // UI helpers
-    function showSpinner() { overlay.innerHTML = '<div class="spinner"></div>'; }
-    function hideOverlay() { overlay.innerHTML = ''; }
-    function showError(message) {
-      overlay.innerHTML = `<div class="error-overlay"><div class="text-center p-4"><h3 class="text-lg font-semibold mb-2">Stream Error</h3><div class="mb-2">${message}</div><button id="retryBtn" class="px-4 py-2 rounded bg-red-600">Retry</button></div></div>`;
-      const retryBtn = document.getElementById('retryBtn');
-      if (retryBtn) retryBtn.addEventListener('click', ()=>{ overlay.innerHTML=''; initPlayer(activeUrl, videoTitle.textContent); });
-    }
-
-    function setStatus(text){ statusText.textContent = text; }
-
-    // ----------------
-    // HLS Loader (hls.js)
-    // ----------------
-    async function loadHls(url){
-      cleanupBackends();
-      activeUrl = url;
-      setStatus('Initializing HLS');
-
-      // If native support (Safari), prefer native playback
-      if (video.canPlayType('application/vnd.apple.mpegurl')){
-        video.src = url;
-        try { await video.play(); setStatus('Playing (native HLS)'); return; } catch(e){ console.warn('Native play failed', e); }
-      }
-
-      if (Hls.isSupported()){
-        hlsInstance = new Hls({
-          maxBufferLength: 60,
-          fragLoadingTimeOut: 20000,
-          fragLoadingMaxRetry: 6,
-          levelLoadingTimeOut: 20000,
-          xhrSetup: function (xhr, url) {
-            // custom headers or withCredentials if needed
-            // xhr.withCredentials = true;
-          }
-        });
-
-        hlsInstance.on(Hls.Events.ERROR, function(event, data){
-          console.error('HLS error', data);
-          if (data.fatal){
-            // try recover
-            if (data.type === Hls.ErrorTypes.NETWORK_ERROR){
-              setStatus('Network error — retrying');
-              retryOrFail(()=>{ hlsInstance.startLoad(); });
-            } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR){
-              setStatus('Media error — trying to recover');
-              hlsInstance.recoverMediaError();
-            } else {
-              setStatus('Fatal HLS error');
-              showError('Unable to play HLS stream.');
-            }
-          }
-        });
-
-        hlsInstance.attachMedia(video);
-        hlsInstance.loadSource(url);
-
-        hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
-          setStatus('Manifest parsed — playing');
-          populateHlsQualities();
-          video.play().catch(()=>{});
-        });
-
-        hlsInstance.on(Hls.Events.LEVEL_SWITCHED, function(){ setStatus('Quality switched'); });
-      } else {
-        // fallback
-        video.src = url;
-        try { await video.play(); setStatus('Playing (fallback)'); } catch(e){ console.warn(e); showError('HLS not supported on this browser'); }
-      }
-    }
-
-    function populateHlsQualities(){
-      if (!hlsInstance) return;
-      const levels = hlsInstance.levels || [];
-      qualitySelect.innerHTML = '<option value="auto">Auto</option>' + levels.map((lvl, idx)=>`<option value="${idx}">${lvl.height?lvl.height+'p':''} ${lvl.name?lvl.name:''} ${lvl.bitrate?Math.round(lvl.bitrate/1000)+'kbps':''}</option>`).join('');
-      qualitySelect.onchange = ()=>{
-        const v = qualitySelect.value;
-        if (v === 'auto') hlsInstance.currentLevel = -1; else hlsInstance.currentLevel = parseInt(v);
-      };
-    }
-
-    // ----------------
-    // DASH / MPD Loader (Shaka)
-    // ----------------
-    async function loadShaka(url){
-      cleanupBackends();
-      activeUrl = url;
-      setStatus('Initializing Shaka (DASH/HLS)');
-
-      if (!shaka.Player.isBrowserSupported()){
-        console.warn('Shaka not supported');
-        // fallback to native
-        video.src = url; try{ await video.play(); setStatus('Playing (native)'); }catch(e){ showError('Shaka / DASH not supported on this browser'); }
-        return;
-      }
-
-      shaka.polyfill.installAll();
-      shakaPlayer = new shaka.Player(video);
-
-      // configure for resilient playback
-      shakaPlayer.configure({
-        streaming: {
-          retryParameters: { maxAttempts: 8, baseDelay: 1000, backoffFactor: 1.5, fuzzFactor: 0.5 },
-          bufferingGoal: 30,
-          rebufferingGoal: 6,
-          stallThreshold: 2
-        },
-        manifest: { retryParameters: { maxAttempts: 6 } },
-        abr: { enabled: true, defaultBandwidthEstimate: 5e6 }
-      });
-
-      shakaPlayer.addEventListener('error', (e) => {
-        console.error('Shaka error', e.detail);
-        showError('Playback error: ' + (e.detail && e.detail.code ? e.detail.code : 'unknown'));
-      });
-
-      try {
-        await shakaPlayer.load(url);
-        setStatus('Playing (Shaka)');
-        populateShakaTracks();
-      } catch (e) {
-        console.error('Shaka load failed', e);
-        showError('Failed to load DASH/MPD');
-      }
-    }
-
-    function populateShakaTracks(){
-      if (!shakaPlayer) return;
-      const tracks = shakaPlayer.getVariantTracks().filter(t=>t.type==='variant');
-      // get unique heights
-      const unique = [];
-      tracks.forEach(t=>{ if (!unique.some(u=>u.height===t.height && u.bandwidth===t.bandwidth)) unique.push(t); });
-      qualitySelect.innerHTML = '<option value="auto">Auto</option>' + unique.map((t,idx)=>`<option value="${t.id}">${t.height?t.height+'p':''} ${Math.round(t.bandwidth/1000)}kbps</option>`).join('');
-      qualitySelect.onchange = ()=>{
-        const val = qualitySelect.value;
-        if (val === 'auto') shakaPlayer.configure({ abr: { enabled: true } });
-        else {
-          shakaPlayer.configure({ abr: { enabled: false } });
-          const track = shakaPlayer.getVariantTracks().find(t=>String(t.id)===String(val));
-          if (track) shakaPlayer.selectVariantTrack(track, /*clearBuffer*/ true);
-        }
-      };
-    }
-
-    // ----------------
-    // Common init entry
-    // ----------------
-    async function initPlayer(url, title){
-      videoTitle.textContent = title || 'Live Stream';
-      setStatus('Resolving stream');
-      showSpinner();
-      retryCount = 0;
-
-      try {
-        // basic normalization: remove whitespace
-        url = String(url).trim();
-        activeUrl = url;
-
-        if (/\.m3u8(\?|$)/i.test(url)){
-          await loadHls(url);
-        } else if (/\.mpd(\?|$)/i.test(url)){
-          await loadShaka(url);
-        } else {
-          // unknown: try shaka first (it can handle some HLS as well), then HLS, then native fallback
-          try { await loadShaka(url); }
-          catch(e){ console.warn('shaka failed, trying HLS/native fallback', e); try{ await loadHls(url); }catch(e2){ video.src = url; try{ await video.play(); }catch(e3){ showError('Unable to play this stream'); } } }
-        }
-      } finally {
-        hideOverlay();
-      }
-    }
-
-    function cleanupBackends(){
-      // destroy hls
-      if (hlsInstance){ try{ hlsInstance.destroy(); }catch(e){} hlsInstance = null; }
-      if (shakaPlayer){ try{ shakaPlayer.unload(); shakaPlayer.destroy(); }catch(e){} shakaPlayer = null; }
-      video.removeAttribute('src'); video.load();
-    }
-
-    function retryOrFail(action){
-      retryCount++;
-      if (retryCount <= 6){
-        const delay = Math.min(1000 * Math.pow(1.5, retryCount), 20000);
-        setTimeout(()=>{ action(); }, delay);
-      } else {
-        showError('Multiple retries failed. Please try again later.');
-      }
-    }
-
-    // ----------------
-    // Controls wiring
-    // ----------------
-    playBtn.addEventListener('click', ()=>{ if (video.paused) { video.play(); playBtn.textContent='pause'; } else { video.pause(); playBtn.textContent='play_arrow'; } });
-    fsBtn.addEventListener('click', ()=>{ if (!document.fullscreenElement) video.parentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{}); else document.exitFullscreen(); });
-    muteBtn.addEventListener('click', ()=>{ video.muted = !video.muted; muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up'; });
-    volumeSlider.addEventListener('input', ()=>{ video.volume = parseFloat(volumeSlider.value); video.muted = video.volume === 0; muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up'; });
-
-    // show/hide controls on activity
-    let controlsTimeout = null;
-    function showControls(){ controls.classList.remove('hidden'); clearTimeout(controlsTimeout); controlsTimeout = setTimeout(()=>controls.classList.add('hidden'), 4000); }
-    document.addEventListener('mousemove', showControls); document.addEventListener('touchstart', showControls);
-
-    // video events
-    video.addEventListener('waiting', ()=>{ showSpinner(); setStatus('Buffering...'); });
-    video.addEventListener('playing', ()=>{ hideOverlay(); setStatus('Playing'); playBtn.textContent='pause'; });
-    video.addEventListener('pause', ()=>{ playBtn.textContent='play_arrow'; setStatus('Paused'); });
-    video.addEventListener('error', (e)=>{ console.error('Video element error', e); showError('Media element error'); });
-
-    // ----------------
-    // Load stream from Firebase
-    // ----------------
-    if (!streamSlug){ alert('No stream specified'); }
-    else {
-      const channelsRef = ref(db,'channels');
-      get(channelsRef).then(snapshot=>{
-        if(snapshot.exists()){
-          let found=false;
-          snapshot.forEach(childSnap=>{
-            const data = childSnap.val();
-            if (data.name && data.name.toLowerCase() === streamSlug){
-              found = true;
-              const streamURL = data.stream;
-              const streamTitle = data.name || 'Live Stream';
-              localStorage.setItem('selectedVideo', streamURL);
-              localStorage.setItem('selectedVideoTitle', streamTitle);
-              initPlayer(streamURL, streamTitle);
-            }
-          });
-          if(!found) alert('Channel not found: '+streamSlug);
-        } else alert('No channels available');
-      }).catch(err=>{ console.error('Firebase error',err); alert('Failed to load channels'); });
-    }
-
-    // Keep favorites simple (localStorage)
-    const favKey = 'favorites_v2';
-    let favorites = JSON.parse(localStorage.getItem(favKey) || '[]');
-    function toggleFavorite(){ const s = localStorage.getItem('selectedVideo'); if(!s) return; const idx = favorites.findIndex(f=>f.src===s); if(idx>=0) favorites.splice(idx,1); else favorites.push({title:localStorage.getItem('selectedVideoTitle')||'Unknown', src:s}); localStorage.setItem(favKey, JSON.stringify(favorites)); updateFavUI(); }
-    function updateFavUI(){ /* left intentionally sparse; wire to your buttons if needed */ }
-
-  </script>
+  <!-- JS -->
+  <script type="module" src="assets/js/player.js"></script>
 </body>
 </html>
