@@ -19,7 +19,7 @@
 
 <style>
   body { font-family: 'Baloo 2', cursive; background-color: #111827; color: #f9fafb; margin: 0; min-height: 100vh; }
-  main { padding: 20px 1rem 100px; max-width: 800px; margin: 0 auto; }
+  main { padding: 20px 1rem 100px; max-width: 900px; margin: 0 auto; }
   .profile-card { background: #1f2937; border-radius: 16px; padding: 1.5rem; margin-top: 32px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
   .rounded-avatar { width: 72px; height: 72px; border-radius: 9999px; overflow: hidden; border: 2px solid #3b82f6; }
   .section-heading { font-weight: 700; font-size: 1rem; padding: 0.5rem 1rem; border-radius: 12px 12px 0 0; margin-top: 32px; margin-bottom: 8px; color: #fff; }
@@ -35,7 +35,6 @@
 <!-- Header -->
 <div id="header"></div>
 
-
 <main>
   <!-- Profile -->
   <div class="profile-card" id="profileCard">
@@ -46,6 +45,12 @@
       <h2 id="fullname">Loading...</h2>
       <p id="email" class="text-gray-400 text-sm">...</p>
     </div>
+  </div>
+
+  <!-- Dashboard Categories -->
+  <div id="categorySection">
+    <div class="section-heading" style="background: linear-gradient(90deg,#ef4444,#b91c1c)">Categories</div>
+    <section id="dashboardCards" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6"></section>
   </div>
 
   <!-- Site Pages (Users only) -->
@@ -93,7 +98,6 @@
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 
-
 <!-- Firebase & Dashboard Logic -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -122,6 +126,7 @@ const adminSection = document.getElementById('adminSection');
 const sitePages = document.getElementById('sitePages');
 const accountSettings = document.getElementById('accountSettings');
 const toastContainer = document.getElementById('toastContainer');
+const dashboard = document.getElementById('dashboardCards');
 
 function showToast(message, type='success'){
   const toast = document.createElement('div');
@@ -135,10 +140,37 @@ function showToast(message, type='success'){
   },3000);
 }
 
+// Render Dashboard Category Cards
+function renderDashboardCards(channels) {
+  const categories = ['All', ...new Set(channels.map(c => c.category))].sort();
+  dashboard.innerHTML = '';
+
+  categories.forEach(cat => {
+    const count = cat === 'All'
+      ? channels.length
+      : channels.filter(c => c.category === cat).length;
+
+    const card = document.createElement('div');
+    card.className = `
+      flex flex-col justify-center items-center rounded-2xl p-5 cursor-pointer
+      bg-gradient-to-br from-gray-800 to-gray-900
+      shadow-lg hover:shadow-red-500/40
+      hover:from-red-600 hover:to-red-700
+      transition-all duration-300
+    `;
+
+    card.innerHTML = `
+      <span class="text-lg font-bold mb-2">${cat}</span>
+      <span class="text-2xl font-extrabold text-red-400">${count}</span>
+    `;
+
+    dashboard.appendChild(card);
+  });
+}
+
 // Auth check
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    // 🔹 Not logged in → redirect to signin
     window.location.href = "/signin";
     return;
   }
@@ -162,6 +194,13 @@ onAuthStateChanged(auth, (user) => {
       sitePages.style.display = 'block';
       accountSettings.style.display = 'block';
     }
+  });
+
+  // Load categories from channels
+  onValue(ref(db, 'channels'), snapshot => {
+    const data = snapshot.val() || {};
+    const channels = Object.values(data);
+    renderDashboardCards(channels);
   });
 });
 
