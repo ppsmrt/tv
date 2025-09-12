@@ -25,9 +25,10 @@ const featuredCarousel = document.getElementById("featuredCarousel");
 const searchInput = document.getElementById("searchInput");
 
 // State
-let selectedCategory = "All";
+let selectedCategory = "Tamil"; // default
 let channels = [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+let users = {}; // store admins & users info
 
 // Skeleton loader
 grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
@@ -53,12 +54,17 @@ function showInfoModal(channel) {
     modal.className =
       "fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-md z-50 hidden";
     modal.innerHTML = `
-      <div class="bg-gray-800/40 backdrop-blur-lg p-6 rounded-2xl max-w-md w-full text-white shadow-xl border border-white/10">
-        <h2 class="text-xl font-bold mb-3" id="infoTitle"></h2>
-        <img id="infoThumb" class="w-full rounded-lg mb-3" alt="Channel thumbnail"/>
-        <p><strong>Category:</strong> <span id="infoCategory"></span></p>
-        <p><strong>Stream:</strong> <span id="infoSrc"></span></p>
-        <div class="text-right mt-4">
+      <div class="bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl max-w-md w-full text-white shadow-xl border border-white/10 glass">
+        <h2 class="text-2xl font-bold mb-4" id="infoTitle"></h2>
+        <img id="infoThumb" class="w-full rounded-lg mb-4 shadow" alt="Channel thumbnail"/>
+        <div class="space-y-2 text-sm">
+          <p><strong>Name:</strong> <span id="infoName"></span></p>
+          <p><strong>Category:</strong> <span id="infoCategory"></span></p>
+          <p><strong>Language:</strong> <span id="infoLanguage"></span></p>
+          <p><strong>Tags:</strong> <span id="infoTags"></span></p>
+          <p><strong>Added By:</strong> <span id="infoAddedBy"></span></p>
+        </div>
+        <div class="text-right mt-5">
           <button id="closeInfo" class="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition">Close</button>
         </div>
       </div>
@@ -70,10 +76,20 @@ function showInfoModal(channel) {
     };
   }
 
+  // fill fields
   modal.querySelector("#infoTitle").textContent = channel.name;
   modal.querySelector("#infoThumb").src = channel.logo;
+  modal.querySelector("#infoName").textContent = channel.name;
   modal.querySelector("#infoCategory").textContent = channel.category;
-  modal.querySelector("#infoSrc").textContent = channel.src;
+  modal.querySelector("#infoLanguage").textContent = channel.category;
+  modal.querySelector("#infoTags").textContent = channel.tags || "—";
+
+  // fetch added by from users node
+  let addedBy = "Unknown";
+  if (channel.addedBy && users[channel.addedBy]) {
+    addedBy = users[channel.addedBy].name || channel.addedBy;
+  }
+  modal.querySelector("#infoAddedBy").textContent = addedBy;
 
   modal.classList.remove("hidden");
 }
@@ -125,7 +141,7 @@ function createChannelCard(c) {
   // Info button
   const infoBtn = document.createElement("div");
   infoBtn.className = "favorite-btn";
-  infoBtn.style.right = "44px"; // place next to favorite
+  infoBtn.style.right = "44px";
   infoBtn.innerHTML = `<i class="material-icons">info</i>`;
   infoBtn.onclick = (e) => {
     e.preventDefault();
@@ -145,18 +161,18 @@ function createChannelCard(c) {
 
 // Render Categories
 function renderCategories() {
-  const cats = ["All", ...new Set(channels.map((c) => c.category))];
-  cats.sort((a, b) => a.localeCompare(b));
-  if (cats.includes("All")) {
-    cats.splice(cats.indexOf("All"), 1);
-    cats.unshift("All");
-  }
+  const fixedCats = ["Tamil", "Telugu", "Malayalam", "Kannada", "Hindi"];
+  const allCats = [...new Set(channels.map((c) => c.category))];
+
+  // ensure custom order, new cats after Hindi
+  const cats = fixedCats.concat(allCats.filter((c) => !fixedCats.includes(c)));
+
   categoryBar.innerHTML = "";
   cats.forEach((cat) => {
     const btn = document.createElement("button");
     btn.className = "category-btn" + (cat === selectedCategory ? " active" : "");
     btn.textContent = `${cat} (${
-      cat === "All" ? channels.length : channels.filter((c) => c.category === cat).length
+      channels.filter((c) => c.category === cat).length
     })`;
     btn.onclick = () => {
       selectedCategory = cat;
@@ -171,13 +187,11 @@ function renderCategories() {
 // Render Channels
 function renderChannels(filter = "") {
   grid.innerHTML = "";
-  const filtered = channels
-    .filter(
-      (c) =>
-        (selectedCategory === "All" || c.category === selectedCategory) &&
-        c.name.toLowerCase().includes(filter.toLowerCase())
-    )
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const filtered = channels.filter(
+    (c) =>
+      (selectedCategory === "All" || c.category === selectedCategory) &&
+      c.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   if (!filtered.length) {
     grid.innerHTML =
@@ -212,7 +226,7 @@ function renderFeatured() {
 // Search
 searchInput.addEventListener("input", (e) => renderChannels(e.target.value));
 
-// Firebase Fetch
+// Firebase Fetch Channels
 onValue(ref(db, "channels"), (snapshot) => {
   if (snapshot.exists()) {
     channels = Object.values(snapshot.val()).map((c) => ({
@@ -220,6 +234,8 @@ onValue(ref(db, "channels"), (snapshot) => {
       category: c.category,
       logo: c.icon,
       src: c.stream,
+      tags: c.tags || "",
+      addedBy: c.addedBy || null,
     }));
     renderFeatured();
     renderCategories();
@@ -227,6 +243,13 @@ onValue(ref(db, "channels"), (snapshot) => {
   } else {
     grid.innerHTML =
       '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>';
+  }
+});
+
+// Firebase Fetch Users/Admins
+onValue(ref(db, "admins&users"), (snapshot) => {
+  if (snapshot.exists()) {
+    users = snapshot.val();
   }
 });
 
