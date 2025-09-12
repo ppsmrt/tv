@@ -12,11 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-  <!-- Shaka Player (compiled) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.js"></script>
-  <!-- Hls.js fallback -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
   <style>
     html, body {
       font-family: 'Baloo 2', cursive;
@@ -26,7 +21,6 @@
       background: #111;
       overscroll-behavior: none;
     }
-    /* note: keep the #video id to match JS */
     #video {
       width: 100%;
       height: auto;
@@ -47,22 +41,6 @@
     .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
     @keyframes scroll { 0% { transform: translateX(100%);} 100% { transform: translateX(-100%);} }
     .animate-scroll { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
-    /* subtle loader */
-    .player-loader {
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 40;
-      display: none;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      font-weight: 600;
-    }
-    .player-loader.show { display: flex; }
   </style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
@@ -80,16 +58,9 @@
 
   <main class="flex-grow pt-20 pb-24">
     <!-- Video Player -->
-    <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800 relative">
+    <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
       <div class="relative">
-        <!-- Keep a plain <video> element. Shaka / Hls attach to it. -->
         <video id="video" playsinline webkit-playsinline></video>
-
-        <!-- loader -->
-        <div id="playerLoader" class="player-loader">
-          <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none"><path d="M12 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <span id="playerLoaderText">Loading...</span>
-        </div>
 
         <!-- Scrolling Text Ad -->
         <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1">
@@ -121,54 +92,26 @@
       </div>
     </div>
 
-<!-- Channel Info Card -->
-<div id="channelInfo" class="mx-4 mt-6 p-6 rounded-2xl bg-gradient-to-r from-gray-900/80 via-gray-800/80 to-gray-900/80 border border-gray-700 shadow-lg backdrop-blur-md hidden">
-  <div class="grid grid-cols-3 gap-6 items-center text-gray-300 text-sm">
-    
-    <!-- Left Info -->
-    <div class="space-y-3">
-      <p><span class="font-semibold text-white">Name:</span> <span id="chName">-</span></p>
-      <p><span class="font-semibold text-white">Added On:</span> <span id="chAddedOn">-</span></p>
-      <p><span class="font-semibold text-white">Added By:</span> <span id="chAddedBy">-</span></p>
+    <!-- Favorites Section -->
+    <div class="mx-4 mt-4 p-4 info-section flex flex-col items-center gap-4">
+      <p class="text-gray-300 text-sm text-center">Add this channel to your favorites and watch anytime you like it</p>
+      <div class="flex gap-8">
+        <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
+        <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
+      </div>
     </div>
 
-    <!-- Logo Middle -->
-    <div class="flex justify-center">
-      <img id="chLogo" src="" alt="Channel Logo" class="w-20 h-20 object-contain rounded-xl border border-gray-600 shadow-md"/>
+    <!-- Social -->
+    <div class="mx-4 mt-6 p-6 player-card text-center">
+      <h3 class="font-semibold text-lg mb-5">🌐 Connect With Us</h3>
+      <div class="flex justify-center space-x-8 text-3xl">
+        <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
+        <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125 transition"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125 transition"><i class="fab fa-discord"></i></a>
+      </div>
     </div>
-
-    <!-- Right Info -->
-    <div class="space-y-3 text-right">
-      <p><span class="font-semibold text-white">Language:</span> <span id="chLanguage">-</span></p>
-      <p><span class="font-semibold text-white">Tags:</span> <span id="chTags">-</span></p>
-      <p><span class="font-semibold text-white">Status:</span> <span id="chStatus" class="text-green-400 font-semibold">Live</span></p>
-    </div>
-
-  </div>
-</div>
-
-    <!-- Favorites + Social Section -->
-<div class="mx-4 mt-6 p-6 rounded-2xl bg-gradient-to-r from-gray-900/80 via-gray-800/80 to-gray-900/80 border border-gray-700 shadow-lg flex items-center justify-between backdrop-blur-md">
-  
-  <!-- Favorites -->
-  <div class="flex items-center gap-4">
-    <div class="flex items-center gap-3 group">
-      <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-all duration-300 group-hover:scale-125 group-hover:text-green-300"></i>
-      <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-all duration-300 group-hover:scale-125 group-hover:text-red-400 hidden"></i>
-      <span id="favText" class="text-gray-300 text-sm font-medium group-hover:text-white transition-colors duration-300">Add to Favorites</span>
-    </div>
-  </div>
-
-  <!-- Social Icons -->
-  <div class="flex space-x-6 text-2xl">
-    <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:text-blue-400 hover:scale-125 transition-all duration-300"><i class="fab fa-facebook"></i></a>
-    <a href="https://wa.me/" target="_blank" class="text-green-400 hover:text-green-300 hover:scale-125 transition-all duration-300"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://t.me/" target="_blank" class="text-sky-400 hover:text-sky-300 hover:scale-125 transition-all duration-300"><i class="fab fa-telegram"></i></a>
-    <a href="https://youtube.com" target="_blank" class="text-red-500 hover:text-red-400 hover:scale-125 transition-all duration-300"><i class="fab fa-youtube"></i></a>
-    <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:text-indigo-300 hover:scale-125 transition-all duration-300"><i class="fab fa-discord"></i></a>
-  </div>
-
-</div>
 
     <!-- Info -->
     <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
