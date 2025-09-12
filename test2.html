@@ -19,9 +19,7 @@
       <button onclick="window.location.href='/'" class="text-white text-xl hover:text-gray-200 transition">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
-      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
-        Channel Manager
-      </h1>
+      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">Channel Manager</h1>
     </div>
     <div>
       <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
@@ -74,32 +72,33 @@
 
       <div>
         <label class="block text-gray-700 font-semibold mb-1">Language</label>
-        <select id="language" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-          <option value="Tamil">Tamil</option>
-          <option value="Telugu">Telugu</option>
-          <option value="Kannada">Kannada</option>
-          <option value="Malayalam">Malayalam</option>
-          <option value="Hindi">Hindi</option>
-          <option value="English">English</option>
-        </select>
+        <input type="text" id="language" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
 
       <div>
         <label class="block text-gray-700 font-semibold mb-1">Country</label>
-        <input type="text" id="country" placeholder="India" required
+        <input type="text" id="country" required
           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
 
       <div>
-        <label class="block text-gray-700 font-semibold mb-1">Tags (comma separated)</label>
-        <input type="text" id="tags" placeholder="News,Sports,etc."
+        <label class="block text-gray-700 font-semibold mb-1">Tags</label>
+        <input type="text" id="tags"
           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
 
-      <div class="md:col-span-2">
+      <div>
         <label class="block text-gray-700 font-semibold mb-1">Description</label>
-        <textarea id="description" rows="3" placeholder="Channel description..."
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"></textarea>
+        <input type="text" id="description"
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Added By</label>
+        <div id="adminContainer">
+          <input type="text" id="addedBy" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none" readonly />
+        </div>
       </div>
 
       <button type="submit" id="submitBtn"
@@ -144,10 +143,11 @@
     <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
   </div>
 
+  <!-- Footer -->
   <footer class="bg-gray-200 text-center py-3 text-gray-700 font-semibold">
     Live Tv @ 2025
   </footer>
 
-  <script type="module" src="assets/js/admin.js"></script>
+  <script type="module" src="/assets/js/admin.js"></script>
 </body>
 </html>
