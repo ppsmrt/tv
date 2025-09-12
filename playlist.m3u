@@ -383,3 +383,5 @@ https://cdn-1.pishow.tv/live/232/master.m3u8
 https://cdn-1.pishow.tv/live/391/master.m3u8
 #EXTINF:-1 tvg-name="Aasatha Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/rRqdxBFn/1000122718.jpg",Aasatha Telugu
 https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="Tv5 Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/s92n7QX0/1000123018.jpg",Tv5 Kannada
+https://segment.yuppcdn.net/050522/tv5kannada/playlist.m3u8
