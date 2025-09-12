@@ -329,4 +329,67 @@ document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
 
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const db = getDatabase();
+
+// Elements
+const channelInfo = document.getElementById("channelInfo");
+const chName = document.getElementById("chName");
+const chAddedOn = document.getElementById("chAddedOn");
+const chAddedBy = document.getElementById("chAddedBy");
+const chLogo = document.getElementById("chLogo");
+const chLanguage = document.getElementById("chLanguage");
+const chTags = document.getElementById("chTags");
+const chStatus = document.getElementById("chStatus");
+
+/**
+ * Load channel info from Firebase
+ * @param {string} channelId
+ */
+async function loadChannelInfo(channelId) {
+  try {
+    const snapshot = await get(child(ref(db), `channels/${channelId}`));
+    if (!snapshot.exists()) return;
+
+    const channel = snapshot.val();
+
+    // Fill base info
+    chName.textContent = channel.name || "-";
+    chLogo.src = channel.logo || "";
+    chLanguage.textContent = channel.category || "-";
+    chTags.textContent = channel.tags ? channel.tags.join(", ") : "-";
+    chStatus.textContent = channel.status || "Live";
+
+    // Added By (check if admin or user)
+    let addedByName = "-";
+    if (channel.addedByType === "admin") {
+      const adminSnap = await get(child(ref(db), `admins/${channel.addedBy}`));
+      if (adminSnap.exists()) {
+        const admin = adminSnap.val();
+        addedByName = admin.name || "Admin";
+      }
+      chAddedOn.textContent = channel.createdAt ? new Date(channel.createdAt).toLocaleString() : "-";
+    } else {
+      const userSnap = await get(child(ref(db), `users/${channel.addedBy}`));
+      if (userSnap.exists()) {
+        const user = userSnap.val();
+        addedByName = user.name || "User";
+      }
+      chAddedOn.textContent = channel.timestamp ? new Date(channel.timestamp).toLocaleString() : "-";
+    }
+
+    chAddedBy.textContent = addedByName;
+
+    // Show card
+    channelInfo.classList.remove("hidden");
+
+  } catch (err) {
+    console.error("Error loading channel info:", err);
+  }
+}
+
+// Example usage: pass current channel ID
+// loadChannelInfo("channel123");
+
 /* End of file */
