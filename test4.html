@@ -1,172 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Player - Live TV</title>
-
-  <!-- Tailwind CSS -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TNM3U Player</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
-  <!-- Baloo 2 Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
-
-  <!-- FontAwesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- HLS.js -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
   <style>
-    html, body {
-      font-family: 'Baloo 2', cursive;
-      margin: 0; padding: 0; height: 100%;
-      background: #111; overscroll-behavior: none;
+    .animate-scroll {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 15s linear infinite;
     }
-    #video {
-      width: 100%; height: auto; max-height: 100vh;
-      background: black; object-fit: cover;
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
-    video:fullscreen { width: 100%!important; height: 100%!important; object-fit: cover; }
-    .controls { transition: opacity 0.3s; }
-    .controls.hidden { opacity: 0; pointer-events: none; }
-    .ad-strip { height: 4px; background: rgba(255,255,255,0.2); margin-top: 8px; }
-    .ad-progress { height: 100%; background: #f87171; width: 0%; transition: width 0.3s; }
-    @keyframes scroll { 0%{transform:translateX(100%);} 100%{transform:translateX(-100%);} }
-    .animate-scroll { display:inline-block; padding-left:100%; animation: scroll 20s linear infinite; }
   </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
-  <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
-    <div class="flex items-center">
-      <span class="material-icons text-white">live_tv</span>
-      <h1 class="ml-2 text-lg font-bold text-white"><span id="videoTitle">Video Title</span></h1>
-    </div>
-    <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
-      <span class="material-icons">arrow_back</span>
-      <span class="font-semibold">Back</span>
-    </button>
-  </header>
+<body class="bg-black flex items-center justify-center h-screen">
 
-  <main class="flex-grow pt-20 pb-24">
+  <div class="relative w-full h-full">
     <!-- Video Player -->
-    <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
-      <div class="relative">
-        <video id="video" playsinline webkit-playsinline></video>
+    <video id="video" class="w-full h-full bg-black" playsinline webkit-playsinline controls></video>
 
-        <!-- Transparent Overlay -->
-        <div id="videoOverlay" class="absolute top-0 left-0 w-full h-full bg-transparent z-20"></div>
+    <!-- Transparent Overlay -->
+    <div id="videoOverlay"
+         class="absolute top-0 left-0 w-full h-full bg-transparent z-20"></div>
 
-        <!-- Scrolling Text Ad -->
-        <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1 z-30">
-          <div class="animate-scroll whitespace-nowrap">
-            🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg z-30">
-          <div class="flex items-center space-x-2">
-            <button id="playBtn" class="material-icons text-white">play_arrow</button>
-            <button id="muteBtn" class="material-icons text-white">volume_up</button>
-            <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
-          </div>
-          <button id="fsBtn" class="material-icons text-white">fullscreen</button>
-        </div>
+    <!-- Scrolling Ad -->
+    <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-40 text-white text-sm py-1 z-30">
+      <div class="animate-scroll whitespace-nowrap">
+        🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
       </div>
     </div>
 
-    <!-- Favorites -->
-    <div class="mx-4 mt-4 p-4 flex flex-col items-center gap-4">
-      <p class="text-gray-300 text-sm text-center">Add this channel to your favorites</p>
-      <div class="flex gap-8">
-        <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer hover:scale-125"></i>
-        <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer hover:scale-125 hidden"></i>
+    <!-- Controls -->
+    <div id="controls"
+         class="absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg z-30">
+      <div class="flex items-center space-x-2">
+        <button id="playBtn" class="material-icons text-white">play_arrow</button>
+        <button id="muteBtn" class="material-icons text-white">volume_up</button>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
       </div>
+      <button id="fsBtn" class="material-icons text-white">fullscreen</button>
     </div>
+  </div>
 
-    <!-- Social -->
-    <div class="mx-4 mt-6 p-6 text-center">
-      <h3 class="font-semibold text-lg mb-5">🌐 Connect With Us</h3>
-      <div class="flex justify-center space-x-8 text-3xl">
-        <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125"><i class="fab fa-facebook"></i></a>
-        <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125"><i class="fab fa-telegram"></i></a>
-        <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125"><i class="fab fa-youtube"></i></a>
-        <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125"><i class="fab fa-discord"></i></a>
-      </div>
-    </div>
-  </main>
-
-  <!-- JS -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-    // 🔹 Replace with your Firebase config
-    const firebaseConfig = {
-      apiKey: "YOUR_KEY",
-      authDomain: "YOUR_DOMAIN",
-      projectId: "YOUR_PROJECT",
-      storageBucket: "YOUR_BUCKET",
-      messagingSenderId: "YOUR_SENDER",
-      appId: "YOUR_APP_ID",
-      databaseURL: "YOUR_DB_URL"
-    };
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // Stream name from URL
+  <script>
+    // Get stream name from URL
     const params = new URLSearchParams(window.location.search);
-    const streamName = params.get("stream") || "default";
-    document.getElementById("videoTitle").innerText = streamName;
+    const streamName = params.get("stream");
 
-    const maskedUrl = `https://tnm3u.live/play?stream=${encodeURIComponent(streamName)}`;
+    // Masked stream URL
+    const maskedUrl = `https://www.tnm3u.live/player?stream=${encodeURIComponent(streamName)}`;
+
     const video = document.getElementById("video");
+    const playBtn = document.getElementById("playBtn");
+    const muteBtn = document.getElementById("muteBtn");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const fsBtn = document.getElementById("fsBtn");
 
-    // Load video using HLS.js
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(maskedUrl);
-      hls.attachMedia(video);
-    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    // Load video
+    if (streamName) {
       video.src = maskedUrl;
+      video.play().catch(err => console.log("Autoplay blocked:", err));
     }
 
-    // Overlay click
+    // Overlay click → toggle play/pause
     document.getElementById("videoOverlay").addEventListener("click", () => {
       if (video.paused) {
         video.play();
+        playBtn.textContent = "pause";
       } else {
         video.pause();
+        playBtn.textContent = "play_arrow";
       }
     });
 
-    // Controls
-    const playBtn = document.getElementById("playBtn");
-    const muteBtn = document.getElementById("muteBtn");
-    const fsBtn = document.getElementById("fsBtn");
-    const volumeSlider = document.getElementById("volumeSlider");
-
-    playBtn.onclick = () => {
+    // Play/Pause button
+    playBtn.addEventListener("click", () => {
       if (video.paused) {
-        video.play(); playBtn.innerText = "pause";
+        video.play();
+        playBtn.textContent = "pause";
       } else {
-        video.pause(); playBtn.innerText = "play_arrow";
+        video.pause();
+        playBtn.textContent = "play_arrow";
       }
-    };
-    muteBtn.onclick = () => {
+    });
+
+    // Mute/Unmute
+    muteBtn.addEventListener("click", () => {
       video.muted = !video.muted;
-      muteBtn.innerText = video.muted ? "volume_off" : "volume_up";
-    };
-    volumeSlider.oninput = (e) => video.volume = e.target.value;
-    fsBtn.onclick = () => { if (video.requestFullscreen) video.requestFullscreen(); };
+      muteBtn.textContent = video.muted ? "volume_off" : "volume_up";
+    });
+
+    // Volume control
+    volumeSlider.addEventListener("input", () => {
+      video.volume = volumeSlider.value;
+    });
+
+    // Fullscreen
+    fsBtn.addEventListener("click", () => {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      }
+    });
   </script>
+
 </body>
 </html>
