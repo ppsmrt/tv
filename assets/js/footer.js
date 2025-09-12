@@ -8,9 +8,9 @@ const footerHTML = `
       <span class="material-icons text-2xl mb-1">home</span>
       Home
     </button>
-    <button class="flex flex-col items-center text-xs text-gray-400 hover:text-red-500 transition transform hover:scale-110" data-href="playlist">
-      <span class="material-icons text-2xl mb-1">subscriptions</span>
-      Playlist
+    <button class="flex flex-col items-center text-xs text-gray-400 hover:text-red-500 transition transform hover:scale-110" data-href="favourites">
+      <span class="material-icons text-2xl mb-1">favorite</span>
+      Favourites
     </button>
   </div>
 
