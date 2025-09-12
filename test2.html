@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>TamilGeo - Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Live TV - Stream Live</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -18,78 +18,230 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  body { font-family: 'Baloo 2', cursive; background-color: #111827; color: #f9fafb; margin: 0; min-height: 100vh; }
-  main { padding: 20px 1rem 100px; max-width: 900px; margin: 0 auto; }
-  .profile-card { background: #1f2937; border-radius: 16px; padding: 1.5rem; margin-top: 32px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-  .rounded-avatar { width: 72px; height: 72px; border-radius: 9999px; overflow: hidden; border: 2px solid #3b82f6; }
-  .section-heading { font-weight: 700; font-size: 1rem; padding: 0.5rem 1rem; border-radius: 12px 12px 0 0; margin-top: 32px; margin-bottom: 8px; color: #fff; }
-  .page-card { background: #1f2937; border-radius: 16px; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; margin-bottom: 8px; cursor: pointer; transition: background 0.3s ease; }
-  .page-card:hover { background: #374151; }
-  .toast { position: fixed; bottom: 20px; right: 20px; min-width: 200px; padding: 12px 16px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); color: #f9fafb; font-weight: 500; background-color: #1f2937; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; z-index: 9999; }
-  .toast.show { opacity: 1; transform: translateY(0); }
-  .toast.success { border-left: 4px solid #22c55e; }
-  .toast.error { border-left: 4px solid #ef4444; }
+  html, body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #111827;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  main {
+    padding: 84px 1rem 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  body.loaded main {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Search Bar */
+  .search-container {
+    display: flex;
+    align-items: center;
+    background: rgba(31, 41, 55, 0.85);
+    border-radius: 9999px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .search-container:focus-within {
+    background: rgba(55, 65, 81, 0.9);
+    box-shadow: 0 0 12px rgba(248, 113, 113, 0.6);
+  }
+  .search-container .material-icons {
+    color: #f87171;
+    font-size: 22px;
+    margin-right: 8px;
+  }
+  .search-container input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #f9fafb;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .search-container input::placeholder {
+    color: #9ca3af;
+  }
+
+  /* Category Bar */
+  .category-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: sticky;
+    top: 72px;
+    z-index: 15;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .category-bar::-webkit-scrollbar { display: none; }
+
+  .category-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #d1d5db;
+    background: linear-gradient(135deg, #1f2937, #111827);
+    border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .category-btn:hover {
+    background: linear-gradient(135deg, #f87171, #ef4444);
+    color: white;
+    box-shadow: 0 0 12px rgba(248,113,113,0.5);
+  }
+  .category-btn.active {
+    background: linear-gradient(135deg, #f87171, #ef4444);
+    color: white;
+    box-shadow: 0 0 12px rgba(248,113,113,0.5);
+  }
+  .category-count {
+    background: #374151;
+    color: #f9fafb;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 9999px;
+  }
+
+  /* Channels Grid */
+  .channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  /* Channel Cards */
+  .channel-card {
+    background: #1f2937;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  .channel-card.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .channel-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(248,113,113,0.3);
+  }
+
+  .channel-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-bottom: 1px solid #374151;
+    transition: filter 0.3s ease;
+  }
+  .channel-card:hover .channel-image { filter: brightness(1.1); }
+
+  .channel-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+  }
+  .channel-card:hover .channel-overlay { opacity: 1; }
+  .channel-overlay small {
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  .channel-name {
+    padding: 12px 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #f9fafb;
+  }
+
+  .live-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+
+  /* Skeleton Loader */
+  .skeleton {
+    background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 12px;
+    aspect-ratio: 16/9;
+  }
+  @keyframes shimmer { 100% { background-position: -200% 0; } }
+
+  @media(max-width:640px){
+    .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .channel-name { font-size: 0.95rem; }
+  }
 </style>
 </head>
-<body>
+<body class="bg-gray-900 text-white">
+
 <!-- Header -->
 <div id="header"></div>
 
 <main>
-  <!-- Profile -->
-  <div class="profile-card" id="profileCard">
-    <div class="rounded-avatar">
-      <img id="profileImg" src="https://via.placeholder.com/150" alt="Profile" class="w-full h-full object-cover">
-    </div>
-    <div>
-      <h2 id="fullname">Loading...</h2>
-      <p id="email" class="text-gray-400 text-sm">...</p>
-    </div>
+  <!-- Search Bar -->
+  <div class="search-container">
+    <span class="material-icons">search</span>
+    <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
   </div>
 
-  <!-- Dashboard Categories -->
-  <div id="categorySection">
-    <div class="section-heading" style="background: linear-gradient(90deg,#ef4444,#b91c1c)">Categories</div>
-    <section id="dashboardCards" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6"></section>
-  </div>
+  <!-- Categories -->
+  <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
 
-  <!-- Site Pages (Users only) -->
-  <div id="sitePages">
-    <div class="section-heading" style="background: linear-gradient(90deg,#22c55e,#16a34a)">Site Pages</div>
-    <div class="page-card"><span>About Us</span><i class="material-icons">chevron_right</i></div>
-    <div class="page-card"><span>Contact Us</span><i class="material-icons">chevron_right</i></div>
-    <div class="page-card"><span>Donate Us</span><i class="material-icons">chevron_right</i></div>
-    <div class="page-card"><span>Disclaimer</span><i class="material-icons">chevron_right</i></div>
-    <div class="page-card"><span>Privacy Policy</span><i class="material-icons">chevron_right</i></div>
-    <div class="page-card"><span>Terms & Conditions</span><i class="material-icons">chevron_right</i></div>
-  </div>
-
-  <!-- Account Settings (Users only) -->
-  <div id="accountSettings" style="margin-top:32px;">
-    <div class="section-heading" style="background: linear-gradient(90deg,#3b82f6,#2563eb)">Account & Settings</div>
-    <div class="page-card"><span>Edit Profile</span><i class="material-icons">chevron_right</i></div>
-    <div class="page-card"><span>Change Password</span><i class="material-icons">chevron_right</i></div>
-  </div>
-
-  <!-- Admin Section (Admins only) -->
-  <div id="adminSection" style="margin-top:32px; display:none;">
-    <div class="section-heading" style="background: linear-gradient(90deg,#3b82f6,#2563eb)">Channel Management</div>
-    <div class="page-card" onclick="window.location.href='admin'">
-      <span>Channel Manager</span><i class="material-icons">chevron_right</i>
-    </div>
-    <div class="page-card" onclick="window.location.href='approve'">
-      <span>Approve Channel</span><i class="material-icons">chevron_right</i>
-    </div>
-  </div>
-
-  <!-- Logout -->
-  <div class="page-card" id="logoutLink" style="margin-top:12px; cursor:pointer;">
-    <span>Log Out</span><i class="material-icons">chevron_right</i>
-  </div>
+  <!-- Channels -->
+  <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
-
-<!-- Toast Container -->
-<div id="toastContainer"></div>
 
 <!-- Footer -->
 <div id="footer"></div>
@@ -98,122 +250,146 @@
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 
-<!-- Firebase & Dashboard Logic -->
+<!-- Firebase & App Logic -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  window.addEventListener("load", () => document.body.classList.add("loaded"));
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
 
-const fullnameEl = document.getElementById('fullname');
-const emailEl = document.getElementById('email');
-const profileImgEl = document.getElementById('profileImg');
-const adminSection = document.getElementById('adminSection');
-const sitePages = document.getElementById('sitePages');
-const accountSettings = document.getElementById('accountSettings');
-const toastContainer = document.getElementById('toastContainer');
-const dashboard = document.getElementById('dashboardCards');
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-function showToast(message, type='success'){
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.textContent = message;
-  toastContainer.appendChild(toast);
-  setTimeout(()=>toast.classList.add('show'),50);
-  setTimeout(()=>{
-    toast.classList.remove('show');
-    setTimeout(()=>toast.remove(),300);
-  },3000);
-}
+  const grid = document.getElementById('channelsGrid');
+  const categoryBar = document.getElementById('categoryBar');
+  const searchInput = document.getElementById('searchInput');
+  let selectedCategory = 'All';
+  let channels = [];
 
-// Render Dashboard Category Cards
-function renderDashboardCards(channels) {
-  const categories = ['All', ...new Set(channels.map(c => c.category))].sort();
-  dashboard.innerHTML = '';
+  // Skeleton loader while data loads
+  grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
 
-  categories.forEach(cat => {
-    const count = cat === 'All'
-      ? channels.length
-      : channels.filter(c => c.category === cat).length;
+  function createChannelCard(c) {
+    const a = document.createElement('a');
+    const safeName = encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'));
+    a.href = `player?stream=${safeName}`;
+    a.className = 'channel-card';
+    a.setAttribute('aria-label', `Watch ${c.name}`);
+    a.tabIndex = 0;
 
-    const card = document.createElement('div');
-    card.className = `
-      flex flex-col justify-center items-center rounded-2xl p-5 cursor-pointer
-      bg-gradient-to-br from-gray-800 to-gray-900
-      shadow-lg hover:shadow-red-500/40
-      hover:from-red-600 hover:to-red-700
-      transition-all duration-300
-    `;
+    const img = document.createElement('img');
+    img.src = c.logo;
+    img.alt = c.name + ' logo';
+    img.className = 'channel-image';
 
-    card.innerHTML = `
-      <span class="text-lg font-bold mb-2">${cat}</span>
-      <span class="text-2xl font-extrabold text-red-400">${count}</span>
-    `;
+    const overlay = document.createElement('div');
+    overlay.className = 'channel-overlay';
+    overlay.innerHTML = `▶ Watch<br><small>${c.category}</small>`;
 
-    dashboard.appendChild(card);
-  });
-}
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'channel-name';
+    nameDiv.textContent = c.name;
 
-// Auth check
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "/signin";
-    return;
+    // Live badge
+    const liveBadge = document.createElement('div');
+    liveBadge.className = 'live-badge';
+    liveBadge.textContent = 'LIVE';
+
+    a.appendChild(img);
+    a.appendChild(overlay);
+    a.appendChild(nameDiv);
+    a.appendChild(liveBadge);
+
+    return a;
   }
 
-  // Load profile data
-  onValue(ref(db, 'users/' + user.uid), snapshot => {
-    const data = snapshot.val();
-    fullnameEl.textContent = data?.fullname || 'User';
-    emailEl.textContent = user.email || '';
-    if (data?.profileImg) profileImgEl.src = data.profileImg;
-  });
+  function renderCategories() {
+    const categories = ['All', ...new Set(channels.map(c => c.category))];
+    categories.sort();
+    categoryBar.innerHTML = '';
 
-  // Check admin
-  onValue(ref(db, 'admins/' + user.uid), snapshot => {
-    if (snapshot.exists()) {
-      adminSection.style.display = 'block';
-      sitePages.style.display = 'none';
-      accountSettings.style.display = 'none';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `category-btn ${cat === selectedCategory ? 'active' : ''}`;
+      btn.dataset.category = cat;
+      btn.setAttribute('aria-pressed', cat === selectedCategory ? 'true' : 'false');
+
+      const count = cat === 'All'
+        ? channels.length
+        : channels.filter(c => c.category === cat).length;
+
+      const label = document.createElement('span');
+      label.textContent = cat;
+
+      const badge = document.createElement('span');
+      badge.className = 'category-count';
+      badge.textContent = count;
+
+      btn.appendChild(label);
+      btn.appendChild(badge);
+
+      btn.addEventListener('click', () => {
+        selectedCategory = cat;
+        renderCategories();
+        renderChannels(searchInput.value);
+        btn.scrollIntoView({ behavior: "smooth", inline: "center" });
+      });
+
+      categoryBar.appendChild(btn);
+    });
+  }
+
+  function renderChannels(filter = '') {
+    grid.innerHTML = '';
+    const filtered = channels.filter(c => {
+      const matchCat = selectedCategory === 'All' || c.category === selectedCategory;
+      const matchSearch = c.name.toLowerCase().includes(filter.toLowerCase());
+      return matchCat && matchSearch;
+    });
+
+    filtered.sort((a,b) => a.name.localeCompare(b.name));
+
+    if(filtered.length === 0){
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels found.</p>';
+      return;
+    }
+
+    filtered.forEach((c,i)=>{
+      const card = createChannelCard(c);
+      grid.appendChild(card);
+      setTimeout(()=>card.classList.add('show'), i*80);
+    });
+  }
+
+  searchInput.addEventListener('input', e => renderChannels(e.target.value));
+
+  const channelsRef = ref(db,'channels');
+  onValue(channelsRef, snapshot=>{
+    if(snapshot.exists()){
+      const data = snapshot.val();
+      channels = Object.values(data).map(c=>({
+        name:c.name,
+        category:c.category,
+        logo:c.icon,
+        stream:c.stream
+      }));
+      renderCategories();
+      renderChannels(searchInput.value);
     } else {
-      adminSection.style.display = 'none';
-      sitePages.style.display = 'block';
-      accountSettings.style.display = 'block';
+      grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels available.</p>';
     }
   });
-
-  // Load categories from channels
-  onValue(ref(db, 'channels'), snapshot => {
-    const data = snapshot.val() || {};
-    const channels = Object.values(data);
-    renderDashboardCards(channels);
-  });
-});
-
-// Logout
-document.getElementById('logoutLink').addEventListener('click', e => {
-  e.preventDefault();
-  signOut(auth).then(() => {
-    showToast('Logged out');
-    setTimeout(() => window.location.href = "/", 1000);
-  }).catch(err => {
-    showToast('Logout failed: ' + err.message, 'error');
-  });
-});
 </script>
 </body>
 </html>
