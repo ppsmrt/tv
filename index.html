@@ -72,6 +72,45 @@ body.loaded main {
   color: #9ca3af;
 }
 
+/* Featured Carousel */
+.featured-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  margin-bottom: 20px;
+  scrollbar-width: none;
+}
+.featured-carousel::-webkit-scrollbar { display: none; }
+.featured-card {
+  min-width: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.featured-card img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+.featured-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 16px 35px rgba(248, 113, 113, 0.35);
+}
+.featured-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  padding: 6px;
+  font-size: 0.875rem;
+}
+
 /* Category Bar */
 .category-bar {
   display: flex;
@@ -237,6 +276,9 @@ body.loaded main {
     <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
   </div>
 
+  <!-- Featured Carousel -->
+  <div class="featured-carousel" id="featuredCarousel"></div>
+
   <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
 
   <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
@@ -269,7 +311,9 @@ const db = getDatabase(app);
 
 const grid = document.getElementById('channelsGrid');
 const categoryBar = document.getElementById('categoryBar');
+const featuredCarousel = document.getElementById('featuredCarousel');
 const searchInput = document.getElementById('searchInput');
+
 let selectedCategory = 'All';
 let channels = [];
 
@@ -345,11 +389,27 @@ function renderChannels(filter=''){
   });
 }
 
+// Featured carousel
+function renderFeatured(){
+  featuredCarousel.innerHTML='';
+  const featured = channels.slice(0,10); // Top 10 featured
+  featured.forEach(c=>{
+    const card = document.createElement('div');
+    card.className='featured-card';
+    card.innerHTML = `
+      <img src="${c.logo}" alt="${c.name}">
+      <div class="featured-overlay">${c.name}</div>`;
+    card.onclick = ()=>window.location.href=`player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'))}`;
+    featuredCarousel.appendChild(card);
+  });
+}
+
 searchInput.addEventListener('input', e=>renderChannels(e.target.value));
 
 onValue(ref(db,'channels'), snapshot=>{
   if(snapshot.exists()){
     channels = Object.values(snapshot.val()).map(c=>({name:c.name,category:c.category,logo:c.icon,stream:c.stream}));
+    renderFeatured();
     renderCategories();
     renderChannels(searchInput.value);
   } else {
