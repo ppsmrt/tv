@@ -37,7 +37,7 @@
   }
 
   main {
-    padding: 20px 1rem 100px;
+    padding: 84px 1rem 100px; /* default padding: header height (64px) + 20px gap */
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -352,6 +352,15 @@
       renderChannels(searchInput.value);
     } else {
       grid.innerHTML = '<p style="color:#9ca3af; padding:1rem; text-align:center;">No channels available.</p>';
+    }
+  });
+
+  // Adjust main padding dynamically based on actual header height
+  window.addEventListener("load", () => {
+    const header = document.querySelector("header");
+    const main = document.querySelector("main");
+    if (header && main) {
+      main.style.paddingTop = (header.offsetHeight + 20) + "px";
     }
   });
 </script>
