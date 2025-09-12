@@ -121,9 +121,10 @@ function createChannelCard(c) {
   liveBadge.className = "live-badge";
   liveBadge.textContent = "LIVE";
 
-  // Favorite button
+  // Favorite button (comes first)
   const favBtn = document.createElement("div");
   favBtn.className = "favorite-btn";
+  favBtn.style.right = "44px"; // right-most
   const isFav = favorites.some((fav) => fav.src === c.src);
   favBtn.innerHTML = `<i class="material-icons">${isFav ? "favorite" : "favorite_border"}</i>`;
   favBtn.onclick = (e) => {
@@ -138,10 +139,10 @@ function createChannelCard(c) {
     toggleFavorite(favObj, favBtn);
   };
 
-  // Info button
+  // Info button (comes next)
   const infoBtn = document.createElement("div");
   infoBtn.className = "favorite-btn";
-  infoBtn.style.right = "44px";
+  infoBtn.style.right = "4px"; // next to favorite
   infoBtn.innerHTML = `<i class="material-icons">info</i>`;
   infoBtn.onclick = (e) => {
     e.preventDefault();
@@ -149,12 +150,13 @@ function createChannelCard(c) {
     showInfoModal(c);
   };
 
+  // Append elements in correct order
   a.appendChild(img);
   a.appendChild(overlay);
   a.appendChild(nameDiv);
   a.appendChild(liveBadge);
-  a.appendChild(favBtn);
-  a.appendChild(infoBtn);
+  a.appendChild(favBtn);  // favorite first
+  a.appendChild(infoBtn); // info next
 
   return a;
 }
