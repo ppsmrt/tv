@@ -17,36 +17,333 @@
 <!-- Baloo 2 Font -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
-<!-- Custom CSS -->
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/theme-toggle.css">
-</head>
-<body class="theme-dark bg-gray-900 text-white">
+<style>
+html, body {
+  font-family: 'Baloo 2', cursive;
+  background-color: #111827;
+  color: #fff;
+  margin: 0;
+  min-height: 100vh;
+}
 
-<!-- Header -->
+main {
+  padding: 84px 1rem 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+body.loaded main {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: rgba(31, 41, 55, 0.85);
+  border-radius: 9999px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+.search-container:focus-within {
+  background: rgba(55, 65, 81, 0.9);
+  box-shadow: 0 0 14px rgba(248, 113, 113, 0.6);
+}
+.search-container .material-icons {
+  color: #f87171;
+  font-size: 22px;
+  margin-right: 8px;
+}
+.search-container input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f9fafb;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.search-container input::placeholder {
+  color: #9ca3af;
+}
+
+/* Category Bar */
+.category-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: sticky;
+  top: 72px;
+  z-index: 15;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.3s ease;
+}
+.category-bar::-webkit-scrollbar { display: none; }
+.category-btn {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #d1d5db;
+  background: linear-gradient(135deg, #1f2937, #111827);
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.category-btn:hover, .category-btn.active {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  color: white;
+  box-shadow: 0 0 14px rgba(248,113,113,0.6);
+  transform: translateY(-2px);
+}
+.category-count {
+  background: #374151;
+  color: #f9fafb;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+/* Channels Grid */
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* Channel Cards */
+.channel-card {
+  background: #1f2937;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+.channel-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.channel-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 35px rgba(248,113,113,0.35);
+}
+
+.channel-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-bottom: 1px solid #374151;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.channel-card:hover .channel-image {
+  filter: brightness(1.15);
+  transform: scale(1.05);
+}
+
+.channel-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+.channel-card:hover .channel-overlay {
+  opacity: 1;
+}
+.channel-overlay small {
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.channel-name {
+  padding: 12px 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f9fafb;
+}
+
+/* Live Badge */
+.live-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(239,68,68,0.6);
+}
+
+/* Skeleton Loader */
+.skeleton {
+  background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+  aspect-ratio: 16/9;
+}
+@keyframes shimmer { 100% { background-position: -200% 0; } }
+
+@media(max-width:640px){
+  .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+  .channel-name { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+
 <div id="header"></div>
 
 <main>
-  <!-- Search Bar -->
   <div class="search-container">
     <span class="material-icons">search</span>
     <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
   </div>
 
-  <!-- Categories -->
   <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
 
-  <!-- Channels Grid -->
   <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
 </main>
 
-<!-- Footer -->
 <div id="footer"></div>
 
-<!-- JS Files -->
-<script type="module" src="assets/js/head.js"></script>
+<script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/app.js"></script>
-<script type="module" src="assets/js/theme.js"></script>
+
+<script type="module">
+window.addEventListener("load", () => document.body.classList.add("loaded"));
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const grid = document.getElementById('channelsGrid');
+const categoryBar = document.getElementById('categoryBar');
+const searchInput = document.getElementById('searchInput');
+let selectedCategory = 'All';
+let channels = [];
+
+grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
+
+function createChannelCard(c){
+  const a = document.createElement('a');
+  a.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g,'-'))}`;
+  a.className = 'channel-card';
+  a.setAttribute('aria-label', `Watch ${c.name}`);
+  a.tabIndex = 0;
+
+  const img = document.createElement('img');
+  img.src = c.logo;
+  img.alt = c.name + ' logo';
+  img.className = 'channel-image';
+
+  const overlay = document.createElement('div');
+  overlay.className = 'channel-overlay';
+  overlay.innerHTML = `▶ Watch<br><small>${c.category}</small>`;
+
+  const nameDiv = document.createElement('div');
+  nameDiv.className = 'channel-name';
+  nameDiv.textContent = c.name;
+
+  const liveBadge = document.createElement('div');
+  liveBadge.className = 'live-badge';
+  liveBadge.textContent = 'LIVE';
+
+  a.appendChild(img);
+  a.appendChild(overlay);
+  a.appendChild(nameDiv);
+  a.appendChild(liveBadge);
+
+  return a;
+}
+
+function renderCategories(){
+  const cats = ['All', ...new Set(channels.map(c=>c.category))];
+  categoryBar.innerHTML = '';
+  cats.forEach(cat=>{
+    const btn = document.createElement('button');
+    btn.className = 'category-btn'+(cat===selectedCategory?' active':'');
+    btn.textContent = `${cat} (${cat==='All'?channels.length:channels.filter(c=>c.category===cat).length})`;
+    btn.onclick = () => { selectedCategory=cat; renderCategories(); renderChannels(searchInput.value); btn.scrollIntoView({behavior:'smooth', inline:'center'}); };
+    categoryBar.appendChild(btn);
+  });
+}
+
+function renderChannels(filter=''){
+  grid.innerHTML='';
+  const filtered = channels.filter(c => (selectedCategory==='All'||c.category===selectedCategory)&&c.name.toLowerCase().includes(filter.toLowerCase()));
+  if(!filtered.length){
+    grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>';
+    return;
+  }
+  filtered.forEach((c,i)=>{
+    const card = createChannelCard(c);
+    grid.appendChild(card);
+    setTimeout(()=>card.classList.add('show'), i*80);
+  });
+}
+
+searchInput.addEventListener('input', e=>renderChannels(e.target.value));
+
+onValue(ref(db,'channels'), snapshot=>{
+  if(snapshot.exists()){
+    channels = Object.values(snapshot.val()).map(c=>({name:c.name,category:c.category,logo:c.icon,stream:c.stream}));
+    renderCategories();
+    renderChannels(searchInput.value);
+  } else {
+    grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>';
+  }
+});
+</script>
 </body>
 </html>
