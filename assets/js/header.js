@@ -15,10 +15,20 @@ function loadHeader() {
 
   const title = formatTitle(page);
 
+  let leftIconHTML = '';
   let rightIconHTML = '';
 
   if (page === 'index.html') {
-    // Home page → Animated notification bell
+    // Home page → TV icon stays
+    leftIconHTML = `
+      <span class="material-icons" style="
+        color:white;
+        font-size:28px;
+        margin-right:8px;
+      ">live_tv</span>
+    `;
+
+    // Right: Notification bell
     rightIconHTML = `
       <button id="notificationBtn" style="
         position: relative;
@@ -57,20 +67,38 @@ function loadHeader() {
       </style>
     `;
   } else {
-    // Other pages → Back button with icon
-    rightIconHTML = `
-      <button id="backBtn" style="
+    // Non-home pages → Chevron-right as left icon (back)
+    leftIconHTML = `
+      <button id="chevronBack" style="
         display:flex;
         align-items:center;
         color:white;
         background:none;
         border:none;
-        font-size:16px;
+        font-size:28px;
         cursor:pointer;
-        font-weight:500;
-        transition: transform 0.2s;
+        margin-right:8px;
+        padding:0;
       ">
-        <span class="material-icons" style="margin-right:4px;">arrow_back</span> Back
+        <span class="material-icons">chevron_right</span>
+      </button>
+    `;
+
+    // Right: Sign in / Sign out button
+    const signedIn = localStorage.getItem('signedIn') === 'true'; // example check
+    rightIconHTML = `
+      <button id="authBtn" style="
+        padding:0.5rem 1rem;
+        font-size:14px;
+        font-weight:500;
+        border-radius:6px;
+        border:none;
+        cursor:pointer;
+        background:${signedIn ? 'red' : 'white'};
+        color:${signedIn ? 'white' : '#111'};
+        transition: background 0.2s;
+      ">
+        ${signedIn ? 'Sign Out' : 'Sign In'}
       </button>
     `;
   }
@@ -94,11 +122,7 @@ function loadHeader() {
       border-bottom-right-radius: 12px;
     ">
       <div style="display:flex; align-items:center;">
-        <span class="material-icons" style="
-          color:white;
-          font-size:28px;
-          margin-right:8px;
-        ">live_tv</span>
+        ${leftIconHTML}
         <h1 style="
           font-size:1.25rem;
           font-weight:600;
@@ -120,10 +144,27 @@ function loadHeader() {
       });
     }
   } else {
-    const backBtn = document.getElementById('backBtn');
-    if (backBtn) {
-      backBtn.addEventListener('click', () => {
+    const chevronBack = document.getElementById('chevronBack');
+    if (chevronBack) {
+      chevronBack.addEventListener('click', () => {
         window.history.back();
+      });
+    }
+
+    const authBtn = document.getElementById('authBtn');
+    if (authBtn) {
+      authBtn.addEventListener('click', () => {
+        const signedIn = localStorage.getItem('signedIn') === 'true';
+        if (signedIn) {
+          // Sign out
+          localStorage.setItem('signedIn', 'false');
+          authBtn.textContent = 'Sign In';
+          authBtn.style.background = 'white';
+          authBtn.style.color = '#111';
+        } else {
+          // Go to signin page
+          window.location.href = 'signin.html';
+        }
       });
     }
   }
