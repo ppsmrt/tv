@@ -7,7 +7,7 @@ let page = path.substring(path.lastIndexOf('/') + 1);
 if (!page) page = 'index.html'; // handle root URL
 
 function formatTitle(filename) {
-if (filename === 'index.html') return 'Live Tv';
+if (filename === 'index.html') return 'Home';
 let name = filename.replace('.html','');
 name = name.replace(/[-_]/g,' ');
 return name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -83,12 +83,3 @@ window.history.back();
 }
 
 document.addEventListener("DOMContentLoaded", loadHeader);
-
-Current header.js
-
-In other pages except homepage mmake the below changes
-
-Remove back button from left and include signin button taking to 'signin' page once signed in sign button becomes red signout button.
-
-Tv icon before page title replace with chevron right when cliceked working as back button
-
