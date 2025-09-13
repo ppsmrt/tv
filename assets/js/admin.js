@@ -150,7 +150,7 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-// Render channels
+// Render channels (only icon, name, category, edit/delete)
 function renderChannels() {
   channelList.innerHTML = "";
   const searchTerm = searchInput.value.toLowerCase();
@@ -179,9 +179,7 @@ function renderChannels() {
       <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
       <div class="flex-1">
         <h3 class="text-lg font-bold">${ch.name}</h3>
-        <p class="text-gray-600 text-sm">${ch.category} | ${ch.language} | ${ch.country}</p>
-        <p class="text-gray-500 text-sm">${ch.description}</p>
-        <p class="text-gray-400 text-xs">Tags: ${ch.tags || '-'}</p>
+        <p class="text-gray-600 text-sm">${ch.category}</p>
       </div>
       <div class="flex gap-2">
         <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">
