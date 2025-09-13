@@ -385,3 +385,7 @@ https://cdn-1.pishow.tv/live/391/master.m3u8
 https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Tv5 Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/s92n7QX0/1000123018.jpg",Tv5 Kannada
 https://segment.yuppcdn.net/050522/tv5kannada/playlist.m3u8
+#EXTINF:-1 tvg-name="Fox Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/7JZmwkc1/1000123272.jpg",Fox Tv
+http://103.118.151.130:11037/hls/fox.m3u8
+#EXTINF:-1 tvg-name="DD Sapthagiri" group-title="Telugu" tvg-logo="https://i.ibb.co/1YTm3GHk/1000123276.jpg",DD Sapthagiri
+https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8
