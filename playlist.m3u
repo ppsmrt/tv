@@ -389,3 +389,7 @@ https://segment.yuppcdn.net/050522/tv5kannada/playlist.m3u8
 http://103.118.151.130:11037/hls/fox.m3u8
 #EXTINF:-1 tvg-name="DD Sapthagiri" group-title="Telugu" tvg-logo="https://i.ibb.co/1YTm3GHk/1000123276.jpg",DD Sapthagiri
 https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8
+#EXTINF:-1 tvg-name="Anbu Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/jPLQCgPx/1000123459.jpg",Anbu Tv
+https://ipcloud.live/anbutv/anbutvhd/index.m3u8
+#EXTINF:-1 tvg-name="AK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/W4gRDmMy/1000123484.jpg",AK Tv
+http://aktvhd.stream.onecloudlive.in:8080/aktvhd/aktv/index.m3u8
