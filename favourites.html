@@ -23,7 +23,7 @@
 </head>
 <body class="text-white min-h-screen flex flex-col">
   <!-- Header -->
-  <div id="header">
+  <div id="header"></div>
 
   <!-- Content -->
   <main class="flex-grow pt-20 pb-10 px-4">
@@ -37,16 +37,18 @@
   </main>
 
   <!-- Footer -->
-  <div id="footer">
+  <div id="footer"></div>
 
-<!-- Header/Footer scripts -->
+  <!-- Header/Footer scripts -->
   <script type="module" src="assets/js/header.js"></script>
   <script type="module" src="assets/js/footer.js"></script>
 
+  <!-- Favorites Logic -->
   <script>
     const favoritesContainer = document.getElementById("favoritesContainer");
     const emptyState = document.getElementById("emptyState");
 
+    // Load favorites from localStorage
     function loadFavorites() {
       const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
       favoritesContainer.innerHTML = "";
@@ -65,7 +67,7 @@
         card.innerHTML = `
           <h2 class="text-lg font-semibold mb-3 truncate">${fav.title}</h2>
           <div class="flex justify-between items-center mt-auto">
-            <a href="player.html?stream=${encodeURIComponent(fav.title)}" 
+            <a href="player.html?stream=${encodeURIComponent(fav.src)}" 
                class="px-4 py-2 bg-red-500 rounded-lg text-white font-semibold hover:bg-red-600 transition">
               ▶ Play
             </a>
@@ -77,6 +79,7 @@
       });
     }
 
+    // Remove a favorite
     function removeFavorite(src) {
       let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
       favorites = favorites.filter(f => f.src !== src);
@@ -84,6 +87,17 @@
       loadFavorites();
     }
 
+    // Listen for changes to favorites in other tabs/pages
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'favorites') {
+        loadFavorites();
+      }
+    });
+
+    // Optional: Detect favorites added from the same page (player)
+    window.addEventListener('favoritesUpdated', loadFavorites);
+
+    // Initial load
     loadFavorites();
   </script>
 </body>
