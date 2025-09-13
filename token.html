@@ -3,40 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Token Generator</title>
+  <title>Admin Daily Token Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
     import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-    import { 
-      getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged 
-    } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-    // 🔑 Replace with your Firebase config
+    // 🔑 Firebase config
     const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.appspot.com",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-};
+      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+      authDomain: "tnm3ulive.firebaseapp.com",
+      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tnm3ulive",
+      storageBucket: "tnm3ulive.appspot.com",
+      messagingSenderId: "80664356882",
+      appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+    };
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const auth = getAuth(app);
 
-    // ✅ Define allowed admins (email list)
+    // ✅ Allowed admin emails
     const ADMINS = ["ppsmart7@gmail.com", "you@domain.com"];
 
-    const ADMIN_SECRET = "your-secret-key"; // must match GitHub Actions
-
-    function generateToken(date) {
-      const str = date + ADMIN_SECRET;
-      const hash = CryptoJS.SHA256(str).toString();
-      return hash.slice(0, 12);
+    // Generate secure 6-character alphanumeric token
+    function generateToken() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      const array = new Uint32Array(6);
+      window.crypto.getRandomValues(array);
+      let token = "";
+      for (let i = 0; i < array.length; i++) {
+        token += chars[array[i] % chars.length];
+      }
+      return token;
     }
 
     async function generateTodayToken() {
@@ -45,13 +46,13 @@
 
       const snapshot = await get(tokenRef);
       if (snapshot.exists()) {
-        alert("Today's token already exists: " + snapshot.val().token);
+        document.getElementById("todayToken").textContent = snapshot.val().token;
         return;
       }
 
-      const token = generateToken(today);
+      const token = generateToken();
       await set(tokenRef, { token, createdAt: new Date().toISOString() });
-      alert("Token generated: " + token);
+      document.getElementById("todayToken").textContent = token;
     }
 
     function loadTokens() {
@@ -66,15 +67,11 @@
           const li = document.createElement("li");
           li.textContent = `${date}: ${data[date].token}`;
           list.appendChild(li);
-
-          if (date === new Date().toISOString().split("T")[0]) {
-            document.getElementById("todayToken").textContent = data[date].token;
-          }
         });
       });
     }
 
-    // ✅ Handle login/logout
+    // ✅ Login
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value;
@@ -96,38 +93,53 @@
         document.getElementById("loginSection").classList.add("hidden");
         document.getElementById("appSection").classList.remove("hidden");
 
-        document.getElementById("generateBtn").addEventListener("click", generateTodayToken);
+        generateTodayToken();
         loadTokens();
+        scheduleMidnightToken();
       } else {
         document.getElementById("loginSection").classList.remove("hidden");
         document.getElementById("appSection").classList.add("hidden");
       }
     });
+
+    // Auto-generate token at midnight
+    function scheduleMidnightToken() {
+      const now = new Date();
+      const nextMidnight = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1,
+        0, 0, 0, 500
+      );
+      const timeout = nextMidnight.getTime() - now.getTime();
+      setTimeout(() => {
+        generateTodayToken();
+        scheduleMidnightToken();
+      }, timeout);
+    }
+
   </script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
   <div class="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
     <h1 class="text-2xl font-bold mb-4 text-center">Admin Token Generator</h1>
 
-    <!-- 🔹 Login Section -->
+    <!-- Login Section -->
     <div id="loginSection">
       <form id="loginForm" class="space-y-3">
-        <input id="email" type="email" placeholder="Email" class="w-full border p-2 rounded" required>
+        <input id="email" type="email" placeholder="Admin Email" class="w-full border p-2 rounded" required>
         <input id="password" type="password" placeholder="Password" class="w-full border p-2 rounded" required>
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Login</button>
       </form>
     </div>
 
-    <!-- 🔹 App Section (hidden until login) -->
+    <!-- App Section (visible only to admins) -->
     <div id="appSection" class="hidden">
       <button id="logoutBtn" class="mb-4 text-sm text-red-600">Logout</button>
 
       <div class="mb-4">
-        <button id="generateBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          Generate Today's Token
-        </button>
         <p class="mt-2 text-lg"><strong>Today's Token:</strong> 
-          <span id="todayToken" class="text-blue-600"></span>
+          <span id="todayToken" class="text-blue-600 text-xl font-bold"></span>
         </p>
       </div>
 
