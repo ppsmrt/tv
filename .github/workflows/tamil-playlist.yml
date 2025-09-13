@@ -2,7 +2,7 @@
   id: generate
   run: |
     npm install node-fetch@2
-    node <<'EOF'
+    node -e "
     const fs = require('fs');
     const fetch = require('node-fetch');
 
@@ -11,64 +11,27 @@
 
     (async () => {
       try {
-        // ✅ Get today's token
-        const today = new Date().toISOString().split("T")[0];
-        const tokenRes = await fetch(tokensURL);
-        const tokenData = await tokenRes.json();
-        const todayToken = tokenData && tokenData[today] ? tokenData[today].token : null;
+        const today = new Date().toISOString().split('T')[0];
+        const tokenData = await fetch(tokensURL).then(r=>r.json());
+        const todayToken = tokenData?.[today]?.token;
 
         if (!todayToken) {
-          console.log("No valid token for today. Skipping.");
-          console.log("::set-output name=changed::false");
+          console.log('No valid token for today. Skipping.');
           return;
         }
 
-        const filePath = `tamil.m3u`;
-        const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
-
-        // ✅ Get channels
-        const res = await fetch(channelsURL);
-        const data = await res.json();
-        if (!data) {
-          console.log("No channels found.");
-          console.log("::set-output name=changed::false");
-          return;
+        const channels = await fetch(channelsURL).then(r=>r.json());
+        let m3u = '#EXTM3U\n';
+        for (const id in channels) {
+          const ch = channels[id];
+          if (ch.category !== 'Tamil' || !ch.stream) continue;
+          m3u += `#EXTINF:-1 tvg-name=\\"${ch.name}\\" group-title=\\"Tamil\\" tvg-logo=\\"${ch.icon}\\",${ch.name}\n${ch.stream}\n`;
         }
 
-        let m3u = "#EXTM3U\n";
-        let changesSummary = [];
-
-        for (const id of Object.keys(data)) {
-          const ch = data[id];
-          if (ch.category !== "Tamil") continue; // Tamil only
-
-          const name = ch.name || "Unknown";
-          const logo = ch.icon || "";
-          const stream = ch.stream || "";
-          if (!stream) continue;
-
-          const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="Tamil" tvg-logo="${logo}",${name}`;
-          m3u += `${extinf}\n${stream}\n`;
-
-          if (!prevData.includes(name)) {
-            changesSummary.push(`Added: ${name}`);
-          }
-        }
-
-        if (changesSummary.length === 0) {
-          console.log("No changes, skipping tamil.m3u update.");
-          console.log("::set-output name=changed::false");
-          return;
-        }
-
-        fs.writeFileSync(filePath, m3u);
-        console.log("tamil.m3u updated successfully.");
-        console.log("::set-output name=changed::true");
-        console.log(`::set-output name=summary::${changesSummary.join('; ')}`);
-
+        fs.writeFileSync('tamil.m3u', m3u);
+        console.log('tamil.m3u updated successfully.');
       } catch (err) {
-        console.error('Error:', err);
-        console.log("::set-output name=changed::false");
+        console.error(err);
       }
     })();
-    EOF
+    "
