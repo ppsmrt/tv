@@ -1,65 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Live TV - Stream Live</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Live TV - Submit Channel</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style>
+/* =========================
+   Global Styles
+========================= */
+html, body {
+  font-family: 'Baloo 2', cursive;
+  background-color: #111827;
+  color: #fff;
+  margin: 0;
+  min-height: 100vh;
+}
 
-  <!-- Fav Icon -->
-  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico">
+main {
+  padding: 20px 1rem 100px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  <!-- Baloo 2 Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+/* =========================
+   Channel Card
+========================= */
+.channel-card {
+  background: #1f2937;
+  border-radius: 16px;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+.channel-card img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* =========================
+   Form Inputs & Buttons
+========================= */
+input, select, textarea, button {
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 6px;
+  border: none;
+  background: #1f2937;
+  color: white;
+  font-family: inherit;
+}
+
+textarea {
+  resize: none;
+}
+
+main button:hover {
+  background: #f87171; /* only buttons inside main change color on hover */
+}
+
+/* =========================
+   Toast Notifications
+========================= */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+}
+
+.toast-msg {
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  animation: fadein 0.2s ease, fadeout 0.2s ease 3.2s forwards;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+/* =========================
+   Pills
+========================= */
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* =========================
+   Text Selection
+========================= */
+::selection {
+  background: #2563eb; /* blue selection */
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #2563eb;
+  color: #fff;
+}
+</style>
 </head>
-<body class="bg-gray-900 text-white">
+<body>
 
-  <div id="header"></div>
+<!-- Header -->
+<div id="header" class="mb-6"></div>
 
-  <main>
-    <!-- Search Bar -->
-    <div class="search-container">
-      <span class="material-icons">search</span>
-      <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
+<main>
+
+<!-- General Rules -->
+<div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 space-y-4">
+  <h2 class="text-2xl font-extrabold text-red-500 text-center">General Rules</h2>
+  <ol class="list-none space-y-3 mt-4">
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">1</span><span class="text-gray-300">Ensure the channel is legal and properly licensed.</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">2</span><span class="text-gray-300">Use a clear and relevant channel name.</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">3</span><span class="text-gray-300">Upload a high-quality logo (min 100x100 px, PNG/JPG).</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">4</span><span class="text-gray-300">Provide a working stream URL (m3u8 format recommended).</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">5</span><span class="text-gray-300">Select the correct category for your channel.</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">6</span><span class="text-gray-300">Do not submit adult or inappropriate content.</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">7</span><span class="text-gray-300">Each user may submit only one request per channel.</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">8</span><span class="text-gray-300">Do not submit channels with false or misleading information.</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">9</span><span class="text-gray-300">Ensure the channel is active and streams properly.</span></li>
+    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">10</span><span class="text-gray-300">Respect copyright and intellectual property laws.</span></li>
+  </ol>
+</div>
+
+<!-- Appreciation Section -->
+<div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 text-center space-y-4 border-l-4 border-red-500">
+  <h2 class="text-2xl font-extrabold text-red-500">Thank You for Your Support!</h2>
+  <p class="text-gray-300 text-sm">Your channel submission helps TNM3U grow and provide better streaming content for everyone.</p>
+  <div class="flex justify-center items-center gap-2">
+    <span class="material-icons text-green-400 animate-bounce">thumb_up</span>
+    <span class="text-gray-300 font-medium">We truly appreciate your effort!</span>
+  </div>
+</div>
+
+<!-- Submit Channel Form -->
+<div class="bg-gray-800 p-6 rounded-xl shadow-xl space-y-4 max-w-lg mx-auto mt-6">
+  <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
+
+  <div class="space-y-4">
+    <input type="text" id="channel-name" placeholder="Channel Name" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
+
+    <!-- Upload Logo -->
+    <div>
+      <label for="channel-icon-file" class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2">
+        <span class="material-icons text-red-400">upload</span> Upload Channel Logo
+      </label>
+      <input type="file" id="channel-icon-file" accept="image/*" class="hidden"/>
+      <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
+      <div id="preview-container" class="hidden mt-3">
+        <p class="text-green-400 font-semibold mb-1">Preview:</p>
+        <img id="icon-preview" src="" alt="Preview" class="w-24 h-24 rounded-lg shadow-lg object-cover"/>
+      </div>
     </div>
 
-    <!-- Featured Carousel -->
-    <div class="featured-carousel" id="featuredCarousel"></div>
+    <input type="hidden" id="channel-icon"/>
+    <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
 
-    <!-- Categories -->
-    <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
+    <!-- Category (also = language) -->
+    <select id="channel-category" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500">
+      <option value="Tamil">Tamil</option>
+      <option value="Telugu">Telugu</option>
+      <option value="Kannada">Kannada</option>
+      <option value="Malayalam">Malayalam</option>
+      <option value="Hindi">Hindi</option>
+      <option value="Kids">Kids</option>
+      <option value="Sports">Sports</option>
+    </select>
 
-    <!-- Channels -->
-    <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
-  </main>
+    <!-- Channel Type -->
+    <select id="channel-type" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500">
+      <option value="Entertainment">Entertainment</option>
+      <option value="News">News</option>
+      <option value="Sports">Sports</option>
+      <option value="Movies">Movies</option>
+      <option value="Music">Music</option>
+      <option value="Kids">Kids</option>
+      <option value="Religious">Religious</option>
+      <option value="Lifestyle">Lifestyle</option>
+      <option value="Documentary">Documentary</option>
+      <option value="Education">Education</option>
+      <option value="Regional">Regional</option>
+    </select>
 
-  <!-- Channel Info Modal -->
-  <div class="modal-bg" id="channelModal">
-    <div class="modal-content glassmorphic animate-modal">
-      <span class="modal-close" id="modalClose">&times;</span>
-      <h2 class="text-xl font-bold mb-2" id="modalName"></h2>
-      <p id="modalCategory"></p>
-      <p id="modalLanguage"></p>
-      <p id="modalTags"></p>
-      <p id="modalAddedBy" class="text-sm mt-2"></p>
-    </div>
+    <!-- Country -->
+    <input type="text" id="channel-country" value="India" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
+
+    <!-- Description -->
+    <textarea id="channel-description" placeholder="Channel Description..." rows="3" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
   </div>
 
-  <div id="footer"></div>
+  <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">Submit Channel</button>
+  <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
+</div>
 
-  <!-- Header/Footer scripts -->
-  <script type="module" src="assets/js/header.js"></script>
-  <script type="module" src="assets/js/footer.js"></script>
+<!-- Pending Channels -->
+<div class="mt-8">
+  <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
+  <div id="user-pending" class="space-y-3 mt-2"></div>
+</div>
+</main>
 
-  <!-- Main JS -->
-  <script type="module" src="assets/js/test.js"></script>
+<!-- Footer -->
+<div id="footer"></div>
+
+<!-- Toast container -->
+<div id="toast"></div>
+
+<!-- External JS -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+<script type="module" src="assets/js/submit-channel.js"></script>
 </body>
 </html>
