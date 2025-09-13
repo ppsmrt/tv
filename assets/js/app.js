@@ -214,14 +214,16 @@ function renderCategories() {
   });
 }
 
-// Render Channels
+// Render Channels (with A–Z sorting)
 function renderChannels(filter = "") {
   grid.innerHTML = "";
-  const filtered = channels.filter(
-    (c) =>
-      (selectedCategory === "All" || c.category === selectedCategory) &&
-      c.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filtered = channels
+    .filter(
+      (c) =>
+        (selectedCategory === "All" || c.category === selectedCategory) &&
+        c.name.toLowerCase().includes(filter.toLowerCase())
+    )
+    .sort((a, b) => a.name.localeCompare(b.name)); // <-- A–Z sort
 
   if (!filtered.length) {
     grid.innerHTML =
