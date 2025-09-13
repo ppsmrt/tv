@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebas
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import { getDatabase, ref, set, push, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -13,10 +14,12 @@ const firebaseConfig = {
   measurementId: "G-FNS9JWZ9LS"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+// DOM Elements
 const toastContainer = document.getElementById('toast');
 const submitBtn = document.getElementById('submit-btn');
 const iconFileInput = document.getElementById('channel-icon-file');
@@ -24,9 +27,13 @@ const iconHiddenInput = document.getElementById('channel-icon');
 const iconPreview = document.getElementById('icon-preview');
 const previewContainer = document.getElementById('preview-container');
 const uploadStatus = document.getElementById('upload-status');
-const imgbbApiKey = "8604e4b4050c63c460d0bca39cf28708";
 const userPending = document.getElementById('user-pending');
 
+const imgbbApiKey = "8604e4b4050c63c460d0bca39cf28708";
+
+// ---------------------
+// Toast Notification
+// ---------------------
 function showToast(msg, type="info") {
   const div = document.createElement('div');
   div.className = `toast-msg ${type==="success"?"bg-green-500":type==="error"?"bg-red-500":"bg-blue-500"} text-white shadow-lg`;
@@ -35,7 +42,9 @@ function showToast(msg, type="info") {
   setTimeout(()=>div.remove(), 3400);
 }
 
-// ImgBB Upload
+// ---------------------
+// ImgBB Image Upload
+// ---------------------
 iconFileInput.addEventListener("change", async () => {
   const file = iconFileInput.files[0];
   if (!file) return;
@@ -62,21 +71,26 @@ iconFileInput.addEventListener("change", async () => {
   }
 });
 
+// ---------------------
 // Submit Channel
-submitBtn.addEventListener('click', async ()=>{
+// ---------------------
+submitBtn.addEventListener('click', async () => {
   const user = auth.currentUser;
   const name = document.getElementById('channel-name').value.trim();
-  const icon = document.getElementById('channel-icon').value.trim();
+  const icon = iconHiddenInput.value.trim();
   const stream = document.getElementById('channel-url').value.trim();
   const category = document.getElementById('channel-category').value;
 
-  if(!name || !icon || !stream){ showToast("Please fill all fields","error"); return; }
+  if(!name || !icon || !stream){ 
+    showToast("Please fill all fields","error"); 
+    return; 
+  }
 
   try{
     const fullName = user.displayName || "Unknown User";
     const language = category;
     const country = "India";
-    const createdAt = Date.now();
+    const createdAt = new Date().toISOString(); // ISO date format
 
     const requestRef = push(ref(db, 'channelRequests'));
     await set(requestRef, { 
@@ -87,49 +101,57 @@ submitBtn.addEventListener('click', async ()=>{
       language,
       country,
       createdBy: fullName,
-      status:'pending', 
+      status: 'pending', 
       createdAt
     });
 
     // Reset form
-    document.getElementById('channel-name').value='';
-    iconFileInput.value='';
-    iconHiddenInput.value='';
-    document.getElementById('channel-url').value='';
+    document.getElementById('channel-name').value = '';
+    iconFileInput.value = '';
+    iconHiddenInput.value = '';
+    document.getElementById('channel-url').value = '';
     previewContainer.classList.add("hidden");
-    uploadStatus.textContent='';
+    uploadStatus.textContent = '';
     showToast("Channel request submitted!","success");
+
   } catch(e){
     console.error(e);
     showToast("Submit failed","error");
   }
 });
 
-// Pending Channels
-onAuthStateChanged(auth, user=>{
-  if(!user){ window.location.href='signin'; return; }
-  const q = query(ref(db,'channelRequests'), orderByChild('createdBy'), equalTo(user.displayName));
-  onValue(q, snap=>{
-    userPending.innerHTML='';
+// ---------------------
+// Show Pending Channels
+// ---------------------
+onAuthStateChanged(auth, user => {
+  if(!user){ 
+    window.location.href = 'signin'; 
+    return; 
+  }
+
+  const q = query(ref(db,'channelRequests'), orderByChild('createdBy'), equalTo(user.displayName || "Unknown User"));
+  onValue(q, snap => {
+    userPending.innerHTML = '';
     if(!snap.exists()){ 
-      userPending.innerHTML='<p class="text-gray-400 text-center py-4">No pending requests</p>'; 
+      userPending.innerHTML = '<p class="text-gray-400 text-center py-4">No pending requests</p>'; 
       return; 
     }
 
-    snap.forEach(cs=>{
+    snap.forEach(cs => {
       const c = cs.val();
-      if(c.status!=='pending') return;
+      if(c.status !== 'pending') return;
 
-      const isoDate = new Date(c.createdAt).toISOString();
+      const date = new Date(c.createdAt);
+      const formattedDate = date.toISOString(); // ISO format: 2025-09-13T07:07:30.949Z
 
       const div = document.createElement('div');
-      div.className='channel-card';
+      div.className = 'channel-card';
       div.innerHTML = `
         <img src="${c.icon}" alt="${c.name}"/>
         <div class="flex-1">
           <h4 class="font-semibold text-white">${c.name}</h4>
           <p class="text-gray-300">Category: ${c.category}</p>
-          <p class="text-gray-400 text-xs">Created At: ${isoDate}</p>
+          <p class="text-gray-400 text-xs">Created At: ${formattedDate}</p>
         </div>
         <span class="pill bg-yellow-500 text-gray-900">Pending</span>
       `;
