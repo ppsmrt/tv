@@ -48,7 +48,6 @@
     const favoritesContainer = document.getElementById("favoritesContainer");
     const emptyState = document.getElementById("emptyState");
 
-    // Load favorites from localStorage
     function loadFavorites() {
       const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
       favoritesContainer.innerHTML = "";
@@ -79,7 +78,6 @@
       });
     }
 
-    // Remove a favorite
     function removeFavorite(src) {
       let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
       favorites = favorites.filter(f => f.src !== src);
@@ -87,14 +85,14 @@
       loadFavorites();
     }
 
-    // Listen for changes to favorites in other tabs/pages
+    // Listen for changes in other tabs/pages
     window.addEventListener('storage', (event) => {
       if (event.key === 'favorites') {
         loadFavorites();
       }
     });
 
-    // Optional: Detect favorites added from the same page (player)
+    // Custom event for same-page updates
     window.addEventListener('favoritesUpdated', loadFavorites);
 
     // Initial load
