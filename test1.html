@@ -8,8 +8,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/style.css"/>
 
 <style>
 /* =========================
@@ -64,7 +63,7 @@ input, select, button {
 }
 
 main button:hover {
-  background: #f87171; /* only buttons inside main change color on hover */
+  background: #f87171; 
 }
 
 /* =========================
@@ -110,7 +109,7 @@ main button:hover {
    Text Selection
 ========================= */
 ::selection {
-  background: #2563eb; /* blue selection */
+  background: #2563eb; 
   color: #fff;
 }
 
@@ -119,6 +118,7 @@ main button:hover {
   color: #fff;
 }
 </style>
+
 </head>
 <body>
 
@@ -130,6 +130,7 @@ main button:hover {
 <!-- General Rules -->
 <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 space-y-4">
   <h2 class="text-2xl font-extrabold text-red-500 text-center">General Rules</h2>
+
   <ol class="list-none space-y-3 mt-4">
     <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">1</span><span class="text-gray-300">Ensure the channel is legal and properly licensed.</span></li>
     <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">2</span><span class="text-gray-300">Use a clear and relevant channel name.</span></li>
@@ -147,7 +148,10 @@ main button:hover {
 <!-- Appreciation Section -->
 <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 text-center space-y-4 border-l-4 border-red-500">
   <h2 class="text-2xl font-extrabold text-red-500">Thank You for Your Support!</h2>
-  <p class="text-gray-300 text-sm">Your channel submission helps TNM3U grow and provide better streaming content for everyone. Every contribution makes a difference!</p>
+  <p class="text-gray-300 text-sm">
+    Your channel submission helps TNM3U grow and provide better streaming content for everyone.  
+    Every contribution makes a difference!
+  </p>
   <div class="flex justify-center items-center gap-2">
     <span class="material-icons text-green-400 animate-bounce">thumb_up</span>
     <span class="text-gray-300 font-medium">We truly appreciate your effort!</span>
@@ -157,11 +161,14 @@ main button:hover {
 <!-- Submit Channel Form -->
 <div class="bg-gray-800 p-6 rounded-xl shadow-xl space-y-4 max-w-lg mx-auto mt-6">
   <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
+
   <div class="space-y-4">
     <input type="text" id="channel-name" placeholder="Channel Name" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
+
     <div>
       <label for="channel-icon-file" class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition">
-        <span class="material-icons text-red-400">upload</span> Upload Channel Logo
+        <span class="material-icons text-red-400">upload</span>
+        Upload Channel Logo
       </label>
       <input type="file" id="channel-icon-file" accept="image/*" class="hidden"/>
       <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
@@ -170,20 +177,25 @@ main button:hover {
         <img id="icon-preview" src="" alt="Preview" class="w-24 h-24 rounded-lg shadow-lg object-cover"/>
       </div>
     </div>
+
     <input type="hidden" id="channel-icon"/>
     <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
+
     <select id="channel-category" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
       <option value="Tamil">Tamil</option>
       <option value="Telugu">Telugu</option>
       <option value="Kannada">Kannada</option>
       <option value="Malayalam">Malayalam</option>
       <option value="Hindi">Hindi</option>
-      <option value="English">English</option> <!-- New category -->
       <option value="Kids">Kids</option>
       <option value="Sports">Sports</option>
     </select>
   </div>
-  <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">Submit Channel</button>
+
+  <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">
+    Submit Channel
+  </button>
+
   <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
 </div>
 
@@ -192,16 +204,18 @@ main button:hover {
   <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
   <div id="user-pending" class="space-y-3 mt-2"></div>
 </div>
-
 </main>
 
+<!-- Footer -->
 <div id="footer"></div>
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
+
+<!-- Toast container -->
 <div id="toast"></div>
 
-<!-- Firebase Logic -->
-<script type="module" src="assets/js/test1"></script>
+<!-- JS Files -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+<script type="module" src="assets/js/test1.js"></script>
 
 </body>
 </html>
