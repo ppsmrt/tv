@@ -1,137 +1,262 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
   databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
+  storageBucket: "tnm3ulive.appspot.com",
   messagingSenderId: "80664356882",
   appId: "1:80664356882:web:c8464819b0515ec9b210cb",
   measurementId: "G-FNS9JWZ9LS"
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getDatabase(app);
+const auth = getAuth(app);
 
-const toastContainer = document.getElementById('toast');
-const submitBtn = document.getElementById('submit-btn');
-const iconFileInput = document.getElementById('channel-icon-file');
-const iconHiddenInput = document.getElementById('channel-icon');
-const iconPreview = document.getElementById('icon-preview');
-const previewContainer = document.getElementById('preview-container');
-const uploadStatus = document.getElementById('upload-status');
-const imgbbApiKey = "8604e4b4050c63c460d0bca39cf28708";
-const userPending = document.getElementById('user-pending');
+const form = document.getElementById("channelForm");
+const channelList = document.getElementById("channelList");
+const submitBtn = document.getElementById("submitBtn");
+const filterCategory = document.getElementById("filterCategory");
+const searchInput = document.getElementById("searchInput");
+const sortOption = document.getElementById("sortOption");
 
-function showToast(msg, type="info") {
-  const div = document.createElement('div');
-  div.className = `toast-msg ${type==="success"?"bg-green-500":type==="error"?"bg-red-500":"bg-blue-500"} text-white shadow-lg`;
-  div.textContent = msg;
-  toastContainer.appendChild(div);
-  setTimeout(()=>div.remove(), 3400);
-}
+// Upload icon
+const uploadIconInput = document.getElementById("uploadIcon");
+const iconHidden = document.getElementById("icon");
+const uploadStatus = document.getElementById("uploadStatus");
 
-/** ImgBB Upload */
-iconFileInput.addEventListener("change", async () => {
-  const file = iconFileInput.files[0];
+uploadIconInput.addEventListener("change", async () => {
+  const file = uploadIconInput.files[0];
   if (!file) return;
   uploadStatus.textContent = "Uploading...";
-  previewContainer.classList.add("hidden");
-
   const formData = new FormData();
   formData.append("image", file);
-
   try {
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-      method: "POST", body: formData
+    const response = await fetch(`https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708`, {
+      method: "POST",
+      body: formData
     });
-    const data = await res.json();
-    if(data.success){
-      iconHiddenInput.value = data.data.url;
-      iconPreview.src = data.data.url;
-      previewContainer.classList.remove("hidden");
-      uploadStatus.textContent = "Upload successful!";
-    } else uploadStatus.textContent = "Upload failed.";
-  } catch(err){
-    console.error(err);
-    uploadStatus.textContent = "Error uploading image.";
+    const data = await response.json();
+    if (data.success) {
+      iconHidden.value = data.data.url;
+      showToast("Image uploaded successfully!");
+      uploadStatus.textContent = "";
+      uploadIconInput.value = "";
+    } else {
+      showToast("Upload failed!", "error");
+      uploadStatus.textContent = "";
+    }
+  } catch (error) {
+    showToast("Error uploading image!", "error");
+    uploadStatus.textContent = "";
+    console.error(error);
   }
 });
 
-/** Submit Channel */
-submitBtn.addEventListener('click', async ()=>{
-  const user = auth.currentUser;
-  const name = document.getElementById('channel-name').value.trim();
-  const icon = document.getElementById('channel-icon').value.trim();
-  const stream = document.getElementById('channel-url').value.trim();
-  const category = document.getElementById('channel-category').value;
+// Toast notifications
+function showToast(message, type = "success") {
+  const existing = document.querySelector(".toast");
+  if (existing) existing.remove();
+  const toast = document.createElement("div");
+  toast.className = `toast fixed bottom-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-semibold z-50 transition-transform transform ${
+    type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : "bg-gray-600"
+  }`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  toast.style.opacity = "0";
+  toast.style.transform = "translateY(50px)";
+  setTimeout(() => {
+    toast.style.transition = "opacity 0.3s, transform 0.3s";
+    toast.style.opacity = "1";
+    toast.style.transform = "translateY(0)";
+  }, 50);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(50px)";
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
 
-  if(!name || !icon || !stream){ showToast("Please fill all fields","error"); return; }
+// Status helper
+function showStatus(msg, isError = false) {
+  showToast(msg, isError ? "error" : "success");
+}
 
-  try{
-    const fullName = user.displayName || "Unknown User";
-    const createdAt = new Date().toISOString(); // ISO 8601 timestamp
-    const language = category;
-    const country = "India";
+// Channels data
+let channelsData = {};
 
-    const requestRef = push(ref(db, 'channelRequests'));
-    await set(requestRef, { 
-      name, 
-      icon, 
-      stream, 
-      category, 
+// Submit form
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const channelId = document.getElementById("channelId").value;
+  const name = document.getElementById("name").value.trim();
+  const icon = document.getElementById("icon").value.trim();
+  const stream = document.getElementById("stream").value.trim();
+  const category = document.getElementById("category").value;
+  const channelType = document.getElementById("channelType").value; // NEW
+  const language = document.getElementById("language").value;
+  const country = document.getElementById("country").value.trim();
+  const tags = document.getElementById("tags").value.trim();
+  const description = document.getElementById("description").value.trim();
+
+  if (!name || !icon || !stream || !category || !channelType || !language || !country) {
+    showStatus("⚠️ Please fill all required fields.", true);
+    return;
+  }
+
+  submitBtn.disabled = true;
+  try {
+    const now = new Date().toISOString();
+    const user = auth.currentUser;
+    let adminName = "Unknown Admin";
+
+    if (user) {
+      const adminRef = ref(db, "admins/" + user.uid + "/name");
+      const snapshot = await new Promise(resolve => onValue(adminRef, resolve, { onlyOnce: true }));
+      if (snapshot.exists()) adminName = snapshot.val();
+    }
+
+    const channelData = {
+      name,
+      icon,
+      stream,
+      category,
+      channelType, // SAVE TO FIREBASE
       language,
       country,
-      submittedBy: user.uid,
-      submittedName: fullName,
-      status:'pending', 
-      createdAt
-    });
+      tags,
+      description
+    };
 
-    document.getElementById('channel-name').value='';
-    iconFileInput.value='';
-    iconHiddenInput.value='';
-    document.getElementById('channel-url').value='';
-    previewContainer.classList.add("hidden");
-    uploadStatus.textContent='';
-    showToast("Channel request submitted!","success");
-  } catch(e){
-    console.error(e);
-    showToast("Submit failed","error");
+    if (channelId) {
+      await update(ref(db, "channels/" + channelId), {
+        ...channelData,
+        editedAt: now,
+        editedBy: adminName
+      });
+      showStatus("✅ Channel updated!");
+    } else {
+      const newRef = push(ref(db, "channels"));
+      await set(newRef, {
+        ...channelData,
+        createdAt: now,
+        createdBy: adminName
+      });
+      showStatus("✅ Channel added!");
+    }
+
+    form.reset();
+    document.getElementById("channelId").value = "";
+  } catch (err) {
+    showStatus("❌ Error: " + err.message, true);
+  } finally {
+    submitBtn.disabled = false;
   }
 });
 
-/** Pending Channels Realtime */
-onAuthStateChanged(auth, user=>{
-  if(!user){ window.location.href='signin'; return; }
-  const q = query(ref(db,'channelRequests'), orderByChild('submittedBy'), equalTo(user.uid));
-  onValue(q, snap=>{
-    userPending.innerHTML='';
-    if(!snap.exists()){ userPending.innerHTML='<p class="text-gray-400 text-center py-4">No pending requests</p>'; return; }
+// Render channels (only icon, name, category, type, edit/delete)
+function renderChannels() {
+  channelList.innerHTML = "";
+  const searchTerm = searchInput.value.toLowerCase();
+  const selectedCategory = filterCategory.value;
+  const sortBy = sortOption.value;
 
-    snap.forEach(cs=>{
-      const c = cs.val();
-      if(c.status!=='pending') return;
+  let filtered = Object.entries(channelsData).filter(([id, ch]) => {
+    const matchesCategory = selectedCategory === "All" || ch.category === selectedCategory;
+    const matchesSearch = ch.name.toLowerCase().includes(searchTerm);
+    return matchesCategory && matchesSearch;
+  });
 
-      const date = new Date(c.createdAt); // <-- use createdAt
-      const formattedDate = date.toLocaleString();
+  if (sortBy === "az") filtered.sort((a, b) => a[1].name.localeCompare(b[1].name));
+  else if (sortBy === "latest") filtered.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
+  else if (sortBy === "oldest") filtered.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
 
-      const div = document.createElement('div');
-      div.className='channel-card';
-      div.innerHTML = `
-        <img src="${c.icon}" alt="${c.name}"/>
-        <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name}</h4>
-          <p class="text-gray-300">Category: ${c.category}</p>
-          <p class="text-gray-400 text-xs">Submitted At: ${formattedDate}</p>
-        </div>
-        <span class="pill bg-yellow-500 text-gray-900">Pending</span>
-      `;
-      userPending.appendChild(div);
+  if (!filtered.length) {
+    channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>";
+    return;
+  }
+
+  filtered.forEach(([id, ch]) => {
+    const card = document.createElement("div");
+    card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
+    card.innerHTML = `
+      <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
+      <div class="flex-1">
+        <h3 class="text-lg font-bold">${ch.name}</h3>
+        <p class="text-gray-600 text-sm">${ch.category} | ${ch.channelType || "N/A"}</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    `;
+    channelList.appendChild(card);
+  });
+
+  attachActions();
+}
+
+// Edit/Delete actions
+function attachActions() {
+  document.querySelectorAll(".editBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      const ch = channelsData[id];
+      document.getElementById("channelId").value = id;
+      document.getElementById("name").value = ch.name;
+      document.getElementById("icon").value = ch.icon;
+      document.getElementById("stream").value = ch.stream;
+      document.getElementById("category").value = ch.category;
+      document.getElementById("channelType").value = ch.channelType || "Entertainment"; // NEW
+      document.getElementById("language").value = ch.language;
+      document.getElementById("country").value = ch.country;
+      document.getElementById("tags").value = ch.tags || "";
+      document.getElementById("description").value = ch.description || "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
+
+  document.querySelectorAll(".deleteBtn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      if (confirm("Are you sure you want to delete this channel?")) {
+        try {
+          await remove(ref(db, "channels/" + id));
+          showStatus("✅ Channel deleted!");
+        } catch (err) {
+          showStatus("❌ Error deleting channel: " + err.message, true);
+        }
+      }
+    });
+  });
+}
+
+// Fetch channels
+const channelsRef = ref(db, "channels");
+onValue(channelsRef, snapshot => {
+  channelsData = snapshot.val() || {};
+  renderChannels();
+});
+
+filterCategory.addEventListener("change", renderChannels);
+searchInput.addEventListener("input", renderChannels);
+sortOption.addEventListener("change", renderChannels);
+
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  signOut(auth)
+    .then(() => {
+      showToast("Logged out successfully!");
+      setTimeout(() => window.location.href = "/", 1000);
+    })
+    .catch(err => showToast("Logout failed: " + err.message, "error"));
 });
