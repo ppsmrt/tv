@@ -1,221 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live TV - Submit Channel</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Channel Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body { font-family: 'Baloo 2', cursive; }
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/style.css"/>
-
-<style>
-/* =========================
-   Global Styles
-========================= */
-html, body {
-  font-family: 'Baloo 2', cursive;
-  background-color: #111827;
-  color: #fff;
-  margin: 0;
-  min-height: 100vh;
-}
-
-main {
-  padding: 20px 1rem 100px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* =========================
-   Channel Card
-========================= */
-.channel-card {
-  background: #1f2937;
-  border-radius: 16px;
-  padding: 10px;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.channel-card img {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-/* =========================
-   Form Inputs & Buttons
-========================= */
-input, select, button {
-  width: 100%;
-  padding: 8px;
-  margin: 4px 0;
-  border-radius: 6px;
-  border: none;
-  background: #1f2937;
-  color: white;
-  font-family: inherit;
-}
-
-main button:hover {
-  background: #f87171; 
-}
-
-/* =========================
-   Toast Notifications
-========================= */
-#toast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 50;
-}
-
-.toast-msg {
-  margin-top: 8px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  animation: fadein 0.2s ease, fadeout 0.2s ease 3.2s forwards;
-}
-
-@keyframes fadein {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeout {
-  from { opacity: 1; }
-  to { opacity: 0; transform: translateY(10px); }
-}
-
-/* =========================
-   Pills
-========================= */
-.pill {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 12px;
-}
-
-/* =========================
-   Text Selection
-========================= */
-::selection {
-  background: #2563eb; 
-  color: #fff;
-}
-
-::-moz-selection {
-  background: #2563eb;
-  color: #fff;
-}
-</style>
-
+    /* Collapsible animation */
+    .collapsible {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .collapsible.open {
+      max-height: 1000px; /* big enough to fit content */
+    }
+  </style>
 </head>
-<body>
+<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden">
 
-<!-- Header -->
-<div id="header" class="mb-6"></div>
-
-<main>
-
-<!-- General Rules -->
-<div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 space-y-4">
-  <h2 class="text-2xl font-extrabold text-red-500 text-center">General Rules</h2>
-
-  <ol class="list-none space-y-3 mt-4">
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">1</span><span class="text-gray-300">Ensure the channel is legal and properly licensed.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">2</span><span class="text-gray-300">Use a clear and relevant channel name.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">3</span><span class="text-gray-300">Upload a high-quality logo (min 100x100 px, PNG/JPG).</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">4</span><span class="text-gray-300">Provide a working stream URL (m3u8 format recommended).</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">5</span><span class="text-gray-300">Select the correct category for your channel.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">6</span><span class="text-gray-300">Do not submit adult or inappropriate content.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">7</span><span class="text-gray-300">Each user may submit only one request per channel.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">8</span><span class="text-gray-300">Do not submit channels with false or misleading information.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">9</span><span class="text-gray-300">Ensure the channel is active and streams properly.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">10</span><span class="text-gray-300">Respect copyright and intellectual property laws.</span></li>
-  </ol>
-</div>
-
-<!-- Appreciation Section -->
-<div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 text-center space-y-4 border-l-4 border-red-500">
-  <h2 class="text-2xl font-extrabold text-red-500">Thank You for Your Support!</h2>
-  <p class="text-gray-300 text-sm">
-    Your channel submission helps TNM3U grow and provide better streaming content for everyone.  
-    Every contribution makes a difference!
-  </p>
-  <div class="flex justify-center items-center gap-2">
-    <span class="material-icons text-green-400 animate-bounce">thumb_up</span>
-    <span class="text-gray-300 font-medium">We truly appreciate your effort!</span>
-  </div>
-</div>
-
-<!-- Submit Channel Form -->
-<div class="bg-gray-800 p-6 rounded-xl shadow-xl space-y-4 max-w-lg mx-auto mt-6">
-  <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
-
-  <div class="space-y-4">
-    <input type="text" id="channel-name" placeholder="Channel Name" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
-
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <button onclick="window.location.href='/'" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">
+        Channel Manager
+      </h1>
+    </div>
     <div>
-      <label for="channel-icon-file" class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition">
-        <span class="material-icons text-red-400">upload</span>
-        Upload Channel Logo
-      </label>
-      <input type="file" id="channel-icon-file" accept="image/*" class="hidden"/>
-      <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
-      <div id="preview-container" class="hidden mt-3">
-        <p class="text-green-400 font-semibold mb-1">Preview:</p>
-        <img id="icon-preview" src="" alt="Preview" class="w-24 h-24 rounded-lg shadow-lg object-cover"/>
+      <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="p-5 bg-white shadow-lg">
+    <form id="channelForm" class="grid gap-4 md:grid-cols-2">
+      <input type="hidden" id="channelId"/>
+
+      <!-- Essentials -->
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
+        <input type="text" id="name" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
       </div>
+
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Upload Icon</label>
+        <div class="relative">
+          <input type="file" id="uploadIcon" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
+          <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#d92a1a] to-[#ff4a3f] text-white font-bold py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer select-none">
+            <i class="fa-solid fa-upload"></i> Choose Image
+          </div>
+        </div>
+        <input type="hidden" id="icon" name="icon"/>
+        <p id="uploadStatus" class="text-sm text-gray-500 mt-1"></p>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
+        <input type="url" id="stream" required
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Category</label>
+        <select id="category" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+          <option value="Tamil">Tamil</option>
+          <option value="Telugu">Telugu</option>
+          <option value="Kannada">Kannada</option>
+          <option value="Malayalam">Malayalam</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Kids">Kids</option>
+          <option value="Sports">Sports</option>
+        </select>
+      </div>
+
+      <!-- Collapsible Info -->
+      <div class="md:col-span-2">
+        <button type="button" id="toggleInfo"
+          class="w-full flex items-center justify-between bg-gray-100 px-4 py-2 rounded-lg font-semibold text-gray-700 hover:bg-gray-200 transition">
+          Channel Info
+          <i id="infoIcon" class="fa-solid fa-chevron-down"></i>
+        </button>
+
+        <div id="extraInfo" class="collapsible mt-3 grid gap-4 md:grid-cols-2">
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Language</label>
+            <select id="language" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+              <option value="Tamil">Tamil</option>
+              <option value="Telugu">Telugu</option>
+              <option value="Kannada">Kannada</option>
+              <option value="Malayalam">Malayalam</option>
+              <option value="Hindi">Hindi</option>
+              <option value="English">English</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Country</label>
+            <input type="text" id="country" placeholder="India"
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Tags (comma separated)</label>
+            <input type="text" id="tags" placeholder="News,Sports,etc."
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-gray-700 font-semibold mb-1">Description</label>
+            <textarea id="description" rows="3" placeholder="Channel description..."
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" id="submitBtn"
+        class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
+        <i class="fa-solid fa-save mr-2"></i> Save Channel
+      </button>
+    </form>
+    <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
+  </div>
+
+  <!-- Filter, Sort & Search -->
+  <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
+    <div class="flex gap-3">
+      <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+        <option value="All">All Categories</option>
+        <option value="Tamil">Tamil</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Malayalam">Malayalam</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Kids">Kids</option>
+        <option value="Sports">Sports</option>
+      </select>
+
+      <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+        <option value="az">Sort By A-Z</option>
+        <option value="latest">Sort By Latest</option>
+        <option value="oldest">Sort By Oldest</option>
+      </select>
     </div>
 
-    <input type="hidden" id="channel-icon"/>
-    <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
-
-    <select id="channel-category" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-      <option value="Tamil">Tamil</option>
-      <option value="Telugu">Telugu</option>
-      <option value="Kannada">Kannada</option>
-      <option value="Malayalam">Malayalam</option>
-      <option value="Hindi">Hindi</option>
-      <option value="Kids">Kids</option>
-      <option value="Sports">Sports</option>
-    </select>
+    <div class="flex items-center gap-2 w-full md:w-auto">
+      <i class="fa-solid fa-magnifying-glass text-gray-600"></i>
+      <input type="text" id="searchInput" placeholder="Search channel..."
+        class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full md:w-64"/>
+    </div>
   </div>
 
-  <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">
-    Submit Channel
-  </button>
+  <!-- Channel List -->
+  <div class="flex-1 overflow-y-auto p-5">
+    <h2 class="text-xl font-bold mb-4">Channels</h2>
+    <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+  </div>
 
-  <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
-</div>
+  <footer class="bg-gray-200 text-center py-3 text-gray-700 font-semibold">
+    Live Tv @ 2025
+  </footer>
 
-<!-- Pending Channels -->
-<div class="mt-8">
-  <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
-  <div id="user-pending" class="space-y-3 mt-2"></div>
-</div>
-</main>
+  <script>
+    const toggleBtn = document.getElementById("toggleInfo");
+    const extraInfo = document.getElementById("extraInfo");
+    const infoIcon = document.getElementById("infoIcon");
 
-<!-- Footer -->
-<div id="footer"></div>
+    toggleBtn.addEventListener("click", () => {
+      extraInfo.classList.toggle("open");
+      infoIcon.classList.toggle("fa-chevron-down");
+      infoIcon.classList.toggle("fa-chevron-up");
+    });
+  </script>
 
-<!-- Toast container -->
-<div id="toast"></div>
-
-<!-- JS Files -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/test1.js"></script>
-
+  <script type="module" src="assets/js/admin.js"></script>
 </body>
 </html>
