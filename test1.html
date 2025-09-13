@@ -83,24 +83,6 @@
         </select>
       </div>
 
-      <!-- Channel Type -->
-      <div>
-        <label class="block text-gray-700 font-semibold mb-1">Channel Type</label>
-        <select id="channelType" required
-          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-          <option value="Entertainment">Entertainment</option>
-          <option value="News">News</option>
-          <option value="Sports">Sports</option>
-          <option value="Movies">Movies</option>
-          <option value="Music">Music</option>
-          <option value="Kids">Kids</option>
-          <option value="Religious">Religious</option>
-          <option value="Lifestyle">Lifestyle</option>
-          <option value="Documentary">Documentary</option>
-          <option value="Education">Education</option>
-        </select>
-      </div>
-
       <!-- Collapsible Info -->
       <div class="md:col-span-2">
         <button type="button" id="toggleInfo"
@@ -110,6 +92,23 @@
         </button>
 
         <div id="extraInfo" class="collapsible mt-3 grid gap-4 md:grid-cols-2">
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Channel Type</label>
+            <select id="channelType" required
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+              <option value="Entertainment">Entertainment</option>
+              <option value="News">News</option>
+              <option value="Sports">Sports</option>
+              <option value="Movies">Movies</option>
+              <option value="Music">Music</option>
+              <option value="Kids">Kids</option>
+              <option value="Religious">Religious</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Documentary">Documentary</option>
+              <option value="Education">Education</option>
+            </select>
+          </div>
+
           <div>
             <label class="block text-gray-700 font-semibold mb-1">Language</label>
             <select id="language" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
@@ -201,6 +200,6 @@
     });
   </script>
 
-  <script type="module" src="assets/js/test1.js"></script>
+  <script type="module" src="assets/js/admin.js"></script>
 </body>
 </html>
