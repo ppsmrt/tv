@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Favorites - Live TV</title>
+  <title>Live TV Player</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
@@ -11,28 +11,21 @@
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   <style>
-    body { font-family: 'Baloo 2', cursive; background: #0f0f0f; }
-    .card {
-      background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-      border-radius: 1rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(0,0,0,0.8); }
+    body { font-family: 'Baloo 2', cursive; background: #0f0f0f; color: white; }
+    .video-container { max-width: 900px; margin: auto; padding-top: 5rem; }
+    video { width: 100%; border-radius: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.7); }
   </style>
 </head>
-<body class="text-white min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
+
   <!-- Header -->
   <div id="header"></div>
 
-  <!-- Content -->
-  <main class="flex-grow pt-20 pb-10 px-4">
-    <div id="favoritesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-
-    <!-- Empty State -->
-    <div id="emptyState" class="hidden text-center mt-16">
-      <span class="material-icons text-6xl text-gray-500 mb-4">sentiment_dissatisfied</span>
-      <p class="text-gray-400">No favorites added yet. Start adding from the player ❤️</p>
+  <!-- Video Player -->
+  <main class="flex-grow flex justify-center items-start video-container">
+    <div id="playerWrapper" class="w-full">
+      <h1 id="channelTitle" class="text-2xl font-semibold mb-4 text-center"></h1>
+      <video id="videoPlayer" controls autoplay></video>
     </div>
   </main>
 
@@ -43,60 +36,36 @@
   <script type="module" src="assets/js/header.js"></script>
   <script type="module" src="assets/js/footer.js"></script>
 
-  <!-- Favorites Logic -->
   <script>
-    const favoritesContainer = document.getElementById("favoritesContainer");
-    const emptyState = document.getElementById("emptyState");
+    const videoPlayer = document.getElementById('videoPlayer');
+    const channelTitle = document.getElementById('channelTitle');
 
-    function loadFavorites() {
+    // Helper: Get URL parameter
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const streamName = getQueryParam('stream');
+
+    if (!streamName) {
+      channelTitle.textContent = "No channel selected";
+      videoPlayer.style.display = 'none';
+    } else {
+      // Load favorites to find the channel details
       const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-      favoritesContainer.innerHTML = "";
+      const channel = favorites.find(c => c.src === streamName);
 
-      if (favorites.length === 0) {
-        emptyState.classList.remove("hidden");
-        return;
+      if (channel) {
+        channelTitle.textContent = channel.title;
+        // Assuming src is the streaming URL or relative identifier
+        videoPlayer.src = channel.src;
+        videoPlayer.play().catch(e => console.log("Autoplay blocked:", e));
       } else {
-        emptyState.classList.add("hidden");
+        channelTitle.textContent = "Channel not found";
+        videoPlayer.style.display = 'none';
       }
-
-      favorites.forEach(fav => {
-        const card = document.createElement("div");
-        card.className = "card p-4 flex flex-col justify-between";
-
-        card.innerHTML = `
-          <h2 class="text-lg font-semibold mb-3 truncate">${fav.title}</h2>
-          <div class="flex justify-between items-center mt-auto">
-            <a href="player.html?stream=${encodeURIComponent(fav.src)}" 
-               class="px-4 py-2 bg-red-500 rounded-lg text-white font-semibold hover:bg-red-600 transition">
-              ▶ Play
-            </a>
-            <button class="material-icons text-red-400 hover:text-red-600" onclick="removeFavorite('${fav.src}')">delete</button>
-          </div>
-        `;
-
-        favoritesContainer.appendChild(card);
-      });
     }
-
-    function removeFavorite(src) {
-      let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-      favorites = favorites.filter(f => f.src !== src);
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-      loadFavorites();
-    }
-
-    // Listen for changes in other tabs/pages
-    window.addEventListener('storage', (event) => {
-      if (event.key === 'favorites') {
-        loadFavorites();
-      }
-    });
-
-    // Custom event for same-page updates
-    window.addEventListener('favoritesUpdated', loadFavorites);
-
-    // Initial load
-    loadFavorites();
   </script>
 </body>
 </html>
