@@ -115,9 +115,10 @@ function showInfoModal(channel) {
   modal.querySelector("#infoLanguage").textContent = channel.category;
   modal.querySelector("#infoTags").textContent = channel.tags || "—";
 
-  let addedBy = "Unknown";
-  if (channel.addedBy && users[channel.addedBy]) {
-    addedBy = users[channel.addedBy].name || channel.addedBy;
+  // Corrected Added By logic
+  let addedBy = "Admin"; // default if unknown
+  if (channel.createdBy) {
+    addedBy = users[channel.createdBy]?.name || channel.createdBy || "Admin";
   }
   modal.querySelector("#infoAddedBy").textContent = addedBy;
 
@@ -270,7 +271,7 @@ onValue(ref(db, "channels"), (snapshot) => {
       logo: c.icon,
       src: c.stream,
       tags: c.tags || "",
-      addedBy: c.addedBy || null,
+      createdBy: c.createdBy || null // corrected field
     }));
     renderFeatured();
     renderCategories();
