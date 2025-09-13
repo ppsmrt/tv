@@ -19,7 +19,7 @@ function loadHeader() {
   if (page === 'index.html') {
     // Home page → TV icon + notification bell
     leftHTML = `<span class="material-icons" style="color:white;font-size:32px;margin-right:12px;">live_tv</span>
-                <h1 style="font-size:1.5rem;font-weight:700;color:white;text-shadow:0 1px 3px rgba(0,0,0,0.5);">TamilGeo</h1>`;
+                <h1 style="font-size:1.5rem;font-weight:700;color:white;text-shadow:0 1px 3px rgba(0,0,0,0.5);">Live Tv</h1>`;
     rightHTML = `
       <button id="notificationBtn" style="position:relative;background:none;border:none;cursor:pointer;outline:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:transform 0.2s;">
         <span class="material-icons" style="font-size:28px;color:white;animation:ring 1.5s infinite;">notifications</span>
