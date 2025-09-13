@@ -1,65 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Live TV - Stream Live</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Live TV - Home</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Fav Icon -->
-  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico">
+<!-- Baloo 2 Font -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
-  <!-- Baloo 2 Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/test.css"/>
 </head>
-<body class="bg-gray-900 text-white">
+<body>
 
-  <div id="header"></div>
+<div id="header"></div>
 
-  <main>
-    <!-- Search Bar -->
-    <div class="search-container">
-      <span class="material-icons">search</span>
-      <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
-    </div>
-
-    <!-- Featured Carousel -->
-    <div class="featured-carousel" id="featuredCarousel"></div>
-
-    <!-- Categories -->
-    <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
-
-    <!-- Channels -->
-    <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
-  </main>
-
-  <!-- Channel Info Modal -->
-  <div class="modal-bg" id="channelModal">
-    <div class="modal-content glassmorphic animate-modal">
-      <span class="modal-close" id="modalClose">&times;</span>
-      <h2 class="text-xl font-bold mb-2" id="modalName"></h2>
-      <p id="modalCategory"></p>
-      <p id="modalLanguage"></p>
-      <p id="modalTags"></p>
-      <p id="modalAddedBy" class="text-sm mt-2"></p>
-    </div>
+<main>
+  <!-- Search Bar -->
+  <div class="search-container">
+    <i class="material-icons">search</i>
+    <input type="text" id="searchInput" placeholder="Search channels..."/>
   </div>
 
-  <div id="footer"></div>
+  <!-- Featured Carousel -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-white">Featured</h2>
+    <div id="featuredCarousel" class="featured-carousel"></div>
+  </section>
 
-  <!-- Header/Footer scripts -->
-  <script type="module" src="assets/js/header.js"></script>
-  <script type="module" src="assets/js/footer.js"></script>
+  <!-- Category Bar -->
+  <div id="categoryBar" class="category-bar"></div>
 
-  <!-- Main JS -->
-  <script type="module" src="assets/js/app.js"></script>
+  <!-- Recently Added Carousel -->
+  <section class="recently-added my-6">
+    <h2 class="text-xl font-bold mb-4 text-white">Recently Added</h2>
+    <div id="recentlyAddedCarousel" class="featured-carousel"></div>
+  </section>
+
+  <!-- Channels Grid -->
+  <div id="channelsGrid" class="channels-grid"></div>
+
+</main>
+
+<div id="footer"></div>
+
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+<script type="module" src="assets/js/test.js"></script>
+
 </body>
 </html>
