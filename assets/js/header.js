@@ -33,10 +33,10 @@ function loadHeader() {
       </style>
     `;
   } else {
-    // Non-home pages → Chevron-right + title (left), Sign In / Sign Out (right)
+    // Non-home pages → Chevron-left + title (left), Sign In / Sign Out (right)
     leftHTML = `
       <button id="chevronBack" style="display:flex;align-items:center;color:white;background:none;border:none;font-size:28px;cursor:pointer;margin-right:12px;transition:transform 0.2s;">
-        <span class="material-icons">chevron_right</span>
+        <span class="material-icons">chevron_left</span>
       </button>
       <h1 style="font-size:1.5rem;font-weight:700;color:white;text-shadow:0 1px 3px rgba(0,0,0,0.5);">${title}</h1>
     `;
@@ -64,7 +64,7 @@ function loadHeader() {
   `;
 
   // Event listeners
-  if (page === 'index.html') {
+  if (page === '/') {
     document.getElementById('notificationBtn')?.addEventListener('click', () => window.location.href='notifications.html');
   } else {
     document.getElementById('chevronBack')?.addEventListener('click', () => window.history.back());
