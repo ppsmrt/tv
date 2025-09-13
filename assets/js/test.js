@@ -75,22 +75,25 @@ submitBtn.addEventListener('click', async ()=>{
   if(!name || !icon || !stream){ showToast("Please fill all fields","error"); return; }
 
   try {
-    // Get user name from Realtime Database
+    // Get user name from users node
     const userRef = ref(db, `users/${user.uid}`);
     const userSnap = await get(userRef);
     const createdBy = userSnap.exists() ? userSnap.val().name : "Unknown User";
 
     const timestamp = Date.now();
+    const createdAt = new Date().toISOString(); // ISO format
+
     const requestRef = push(ref(db, 'channelRequests'));
 
     await set(requestRef, { 
       name, icon, stream,
       category, type, language,
       country, description,
-      submittedBy: user.uid,   // ✅ for security rules
-      createdBy,               // ✅ name for UI
+      submittedBy: user.uid,   // UID for security
+      createdBy,               // Display name
       status:'pending', 
-      timestamp 
+      timestamp,               // milliseconds
+      createdAt                // ISO string
     });
 
     // Reset form
