@@ -1,4 +1,4 @@
-name: Auto-update tamil.m3u with 7-day token
+name: Auto-update tamil.m3u
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate tamil.m3u and 7-day 6-char token
+      - name: Generate tamil.m3u only if changed
         id: generate
         run: |
           npm install node-fetch@2
@@ -26,24 +26,25 @@ jobs:
           const fs = require('fs');
           const fetch = require('node-fetch');
 
+          const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
           const filePath = 'tamil.m3u';
-          const playlistUrl = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
-          const tokensUrl = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/tokens.json';
-
           const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
 
           (async () => {
             try {
-              const res = await fetch(playlistUrl);
+              const res = await fetch(url);
               const data = await res.json();
-              if (!data) { console.log("No channels found."); return; }
+              if (!data) {
+                console.log("No channels found.");
+                return;
+              }
 
               let m3u = "#EXTM3U\n";
               let changesSummary = [];
 
               for (const id of Object.keys(data)) {
                 const ch = data[id];
-                if (ch.category !== "Tamil") continue;
+                if (ch.category !== "Tamil") continue; // Only Tamil channels
                 const name = ch.name || "Unknown";
                 const logo = ch.icon || "";
                 const stream = ch.stream || "";
@@ -52,18 +53,25 @@ jobs:
                 const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="Tamil" tvg-logo="${logo}",${name}`;
                 m3u += `${extinf}\n${stream}\n`;
 
+                // Check if channel exists in previous file
                 const prevLineIndex = prevData.indexOf(name);
-                if (prevLineIndex === -1) changesSummary.push(`Added: ${name}`);
-                else {
+                if (prevLineIndex === -1) {
+                  changesSummary.push(`Added: ${name}`);
+                } else {
                   const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
                   const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
-                  if (prevExtinf !== extinf || prevStreamLine !== stream) changesSummary.push(`Updated: ${name}`);
+                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
                 }
               }
 
+              // Check for removed channels
               const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
               oldNames.forEach(name => {
-                if (!Object.values(data).some(ch => ch.name === name && ch.category === "Tamil")) changesSummary.push(`Removed: ${name}`);
+                if (!Object.values(data).some(ch => ch.name === name && ch.category === "Tamil")) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
               });
 
               if (changesSummary.length === 0) {
@@ -77,22 +85,9 @@ jobs:
               console.log(`::set-output name=changed::true`);
               console.log(`::set-output name=summary::${changesSummary.join('; ')}`);
 
-              // Generate 6-character alphanumeric token valid for 7 days
-              const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-              for (let i = 0; i < 6; i++) token += chars.charAt(Math.floor(Math.random() * chars.length));
-              const expiry = Date.now() + 7*24*60*60*1000; // 7 days in ms
-
-              await fetch(tokensUrl, {
-                method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ [token]: { expiry } })
-              });
-
-              console.log(`7-day token generated: ${token}`);
-              console.log(`::set-output name=token::${token}`);
-
-            } catch (err) { console.error('Error:', err); }
+            } catch (err) {
+              console.error('Error fetching channels:', err);
+            }
           })();
           EOF
 
@@ -102,8 +97,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add tamil.m3u
-          git commit -m "Auto-update tamil.m3u with 7-day token [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git commit -m "Auto-update tamil.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
           git push
-
-      - name: Show 7-day token
-        run: echo "Access token for tamil.m3u: ${{ steps.generate.outputs.token }}"
