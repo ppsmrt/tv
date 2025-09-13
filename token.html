@@ -40,12 +40,12 @@
       return token;
     }
 
-    async function generateTodayToken() {
+    async function generateTodayToken(overwrite = false) {
       const today = new Date().toISOString().split("T")[0];
       const tokenRef = ref(db, "tokens/" + today);
 
       const snapshot = await get(tokenRef);
-      if (snapshot.exists()) {
+      if (snapshot.exists() && !overwrite) {
         document.getElementById("todayToken").textContent = snapshot.val().token;
         return;
       }
@@ -53,6 +53,7 @@
       const token = generateToken();
       await set(tokenRef, { token, createdAt: new Date().toISOString() });
       document.getElementById("todayToken").textContent = token;
+      if (overwrite) alert("Today's token regenerated: " + token);
     }
 
     function loadTokens() {
@@ -135,7 +136,10 @@
 
     <!-- App Section (visible only to admins) -->
     <div id="appSection" class="hidden">
-      <button id="logoutBtn" class="mb-4 text-sm text-red-600">Logout</button>
+      <div class="flex justify-between items-center mb-4">
+        <button id="logoutBtn" class="text-sm text-red-600">Logout</button>
+        <button id="regenerateBtn" class="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Regenerate Today’s Token</button>
+      </div>
 
       <div class="mb-4">
         <p class="mt-2 text-lg"><strong>Today's Token:</strong> 
@@ -148,6 +152,12 @@
       <h2 class="text-xl font-semibold mb-2">Token History</h2>
       <ul id="tokenList" class="list-disc list-inside text-sm text-gray-700"></ul>
     </div>
+
+    <script>
+      document.getElementById("regenerateBtn").addEventListener("click", () => {
+        generateTodayToken(true); // overwrite token
+      });
+    </script>
   </div>
 </body>
 </html>
