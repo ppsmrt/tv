@@ -13,6 +13,7 @@
 </head>
 <body>
 
+<!-- Header -->
 <div id="header" class="mb-6"></div>
 
 <main>
@@ -68,9 +69,9 @@
       <option value="Kannada">Kannada</option>
       <option value="Malayalam">Malayalam</option>
       <option value="Hindi">Hindi</option>
+      <option value="English">English</option> <!-- New category -->
       <option value="Kids">Kids</option>
       <option value="Sports">Sports</option>
-<option value="English">English</option
     </select>
   </div>
   <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">Submit Channel</button>
@@ -82,11 +83,16 @@
   <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
   <div id="user-pending" class="space-y-3 mt-2"></div>
 </div>
+
 </main>
 
+<div id="footer"></div>
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+<div id="toast"></div>
 
 <!-- Firebase Logic -->
-<script type="module" src="assets/js/test1.js"></script>
+<script type="module" src="assets/js/submit-channel.js"></script>
 
 </body>
 </html>
