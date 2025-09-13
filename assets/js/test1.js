@@ -1,10 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getDatabase, ref, set, push, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-const video = document.getElementById('video');
-const videoTitle = document.getElementById('videoTitle');
-
-// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -12,95 +9,131 @@ const firebaseConfig = {
   projectId: "tnm3ulive",
   storageBucket: "tnm3ulive.firebasestorage.app",
   messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Helper
-function qs(name) {
-  const u = new URL(location.href);
-  return u.searchParams.get(name);
+const toastContainer = document.getElementById('toast');
+const submitBtn = document.getElementById('submit-btn');
+const iconFileInput = document.getElementById('channel-icon-file');
+const iconHiddenInput = document.getElementById('channel-icon');
+const iconPreview = document.getElementById('icon-preview');
+const previewContainer = document.getElementById('preview-container');
+const uploadStatus = document.getElementById('upload-status');
+const imgbbApiKey = "8604e4b4050c63c460d0bca39cf28708";
+const userPending = document.getElementById('user-pending');
+
+function showToast(msg, type="info") {
+  const div = document.createElement('div');
+  div.className = `toast-msg ${type==="success"?"bg-green-500":type==="error"?"bg-red-500":"bg-blue-500"} text-white shadow-lg`;
+  div.textContent = msg;
+  toastContainer.appendChild(div);
+  setTimeout(()=>div.remove(), 3400);
 }
 
-let streamSlug = qs('stream');
-if (streamSlug) {
-  streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
-}
+// ImgBB Upload
+iconFileInput.addEventListener("change", async () => {
+  const file = iconFileInput.files[0];
+  if (!file) return;
+  uploadStatus.textContent = "Uploading...";
+  previewContainer.classList.add("hidden");
 
-if (!streamSlug) {
-  alert('No stream specified');
-} else {
-  const channelsRef = ref(db, 'channels');
-  get(channelsRef).then(snapshot => {
-    if (snapshot.exists()) {
-      let found = false;
-      snapshot.forEach(childSnap => {
-        const data = childSnap.val();
-        if (data.name && data.name.toLowerCase() === streamSlug) {
-          found = true;
-          loadStream(data.stream, data.name);
-        }
-      });
-      if (!found) alert('Channel not found: ' + streamSlug);
-    } else {
-      alert('No channels available in database');
-    }
-  }).catch(err => {
-    console.error('Firebase read failed:', err);
-    alert('Failed to load stream data');
-  });
-}
+  const formData = new FormData();
+  formData.append("image", file);
 
-// Force through proxy to fix http + CORS issues
-function proxify(url) {
-  // Public proxy example (you should replace with your own server for production)
-  return "https://corsproxy.io/?" + encodeURIComponent(url);
-}
-
-// Load stream with Shaka Player
-async function loadStream(url, title) {
   try {
-    const player = new shaka.Player(video);
-    const ui = new shaka.ui.Overlay(player, document.getElementById('video-container'), video);
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
+      method: "POST", body: formData
+    });
+    const data = await res.json();
+    if(data.success){
+      iconHiddenInput.value = data.data.url;
+      iconPreview.src = data.data.url;
+      previewContainer.classList.remove("hidden");
+      uploadStatus.textContent = "Upload successful!";
+    } else uploadStatus.textContent = "Upload failed.";
+  } catch(err){
+    console.error(err);
+    uploadStatus.textContent = "Error uploading image.";
+  }
+});
 
-    ui.getControls();
+// Submit Channel
+submitBtn.addEventListener('click', async ()=>{
+  const user = auth.currentUser;
+  const name = document.getElementById('channel-name').value.trim();
+  const icon = document.getElementById('channel-icon').value.trim();
+  const stream = document.getElementById('channel-url').value.trim();
+  const category = document.getElementById('channel-category').value;
 
-    // Max robustness config
-    player.configure({
-      streaming: {
-        retryParameters: { maxAttempts: Infinity, baseDelay: 500, backoffFactor: 2 },
-        bufferingGoal: 30,
-        rebufferingGoal: 15,
-        lowLatencyMode: true
-      },
-      manifest: { retryParameters: { maxAttempts: Infinity } },
-      drm: { retryParameters: { maxAttempts: Infinity } }
+  if(!name || !icon || !stream){ showToast("Please fill all fields","error"); return; }
+
+  try{
+    const fullName = user.displayName || "Unknown User";
+    const language = category;
+    const country = "India";
+    const createdAt = Date.now();
+
+    const requestRef = push(ref(db, 'channelRequests'));
+    await set(requestRef, { 
+      name, 
+      icon, 
+      stream, 
+      category, 
+      language,
+      country,
+      createdBy: fullName,
+      status:'pending', 
+      createdAt
     });
 
-    // Proxy the URL
-    const finalUrl = proxify(url);
-
-    await player.load(finalUrl);
-    videoTitle.textContent = title || "Live Stream";
-    console.log("Stream loaded:", finalUrl);
-
-    // Save last working
-    localStorage.setItem("lastStream", url);
-    localStorage.setItem("lastTitle", title);
-  } catch (e) {
-    console.error("Error loading stream:", e);
-    alert("Playback failed. Please try again.");
+    // Reset form
+    document.getElementById('channel-name').value='';
+    iconFileInput.value='';
+    iconHiddenInput.value='';
+    document.getElementById('channel-url').value='';
+    previewContainer.classList.add("hidden");
+    uploadStatus.textContent='';
+    showToast("Channel request submitted!","success");
+  } catch(e){
+    console.error(e);
+    showToast("Submit failed","error");
   }
-}
+});
 
-// Auto fallback to last played
-window.addEventListener("DOMContentLoaded", () => {
-  if (!streamSlug) {
-    const last = localStorage.getItem("lastStream");
-    if (last) {
-      loadStream(last, localStorage.getItem("lastTitle") || "Last Played");
+// Pending Channels
+onAuthStateChanged(auth, user=>{
+  if(!user){ window.location.href='signin'; return; }
+  const q = query(ref(db,'channelRequests'), orderByChild('createdBy'), equalTo(user.displayName));
+  onValue(q, snap=>{
+    userPending.innerHTML='';
+    if(!snap.exists()){ 
+      userPending.innerHTML='<p class="text-gray-400 text-center py-4">No pending requests</p>'; 
+      return; 
     }
-  }
+
+    snap.forEach(cs=>{
+      const c = cs.val();
+      if(c.status!=='pending') return;
+
+      const isoDate = new Date(c.createdAt).toISOString();
+
+      const div = document.createElement('div');
+      div.className='channel-card';
+      div.innerHTML = `
+        <img src="${c.icon}" alt="${c.name}"/>
+        <div class="flex-1">
+          <h4 class="font-semibold text-white">${c.name}</h4>
+          <p class="text-gray-300">Category: ${c.category}</p>
+          <p class="text-gray-400 text-xs">Created At: ${isoDate}</p>
+        </div>
+        <span class="pill bg-yellow-500 text-gray-900">Pending</span>
+      `;
+      userPending.appendChild(div);
+    });
+  });
 });
