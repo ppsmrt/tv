@@ -67,7 +67,7 @@ submitBtn.addEventListener('click', async ()=>{
   const icon = document.getElementById('channel-icon').value.trim();
   const stream = document.getElementById('channel-url').value.trim();
   const category = document.getElementById('channel-category').value;
-  const type = document.getElementById('channel-type').value;
+  const channelType = document.getElementById('channel-type').value; // ✅ updated
   const country = document.getElementById('channel-country').value.trim() || "India";
   const description = document.getElementById('channel-description').value.trim();
   const language = category;
@@ -87,7 +87,7 @@ submitBtn.addEventListener('click', async ()=>{
 
     await set(requestRef, { 
       name, icon, stream,
-      category, type, language,
+      category, channelType, language,
       country, description,
       submittedBy: user.uid,   // UID for security
       createdBy,               // Display name
@@ -131,7 +131,7 @@ onAuthStateChanged(auth, user=>{
         <div class="flex-1">
           <h4 class="font-semibold text-white">${c.name}</h4>
           <p class="text-gray-300">Category: ${c.category}</p>
-          <p class="text-gray-300">Type: ${c.type}</p>
+          <p class="text-gray-300">Channel Type: ${c.channelType}</p>
           <p class="text-gray-300">Created By: ${c.createdBy}</p>
           <p class="text-gray-400 text-xs">Submitted At: ${date}</p>
         </div>
