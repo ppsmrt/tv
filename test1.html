@@ -16,9 +16,6 @@
       overflow: hidden;
       transition: max-height 0.4s ease;
     }
-    .collapsible.open {
-      max-height: 1000px; /* big enough to fit content */
-    }
   </style>
 </head>
 <body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col overflow-hidden">
@@ -106,6 +103,7 @@
               <option value="Lifestyle">Lifestyle</option>
               <option value="Documentary">Documentary</option>
               <option value="Education">Education</option>
+              <option value="Regional">Regional</option> <!-- ✅ Added -->
             </select>
           </div>
 
@@ -194,9 +192,17 @@
     const infoIcon = document.getElementById("infoIcon");
 
     toggleBtn.addEventListener("click", () => {
-      extraInfo.classList.toggle("open");
-      infoIcon.classList.toggle("fa-chevron-down");
-      infoIcon.classList.toggle("fa-chevron-up");
+      if (extraInfo.classList.contains("open")) {
+        extraInfo.style.maxHeight = null;
+        extraInfo.classList.remove("open");
+        infoIcon.classList.remove("fa-chevron-up");
+        infoIcon.classList.add("fa-chevron-down");
+      } else {
+        extraInfo.style.maxHeight = extraInfo.scrollHeight + "px";
+        extraInfo.classList.add("open");
+        infoIcon.classList.remove("fa-chevron-down");
+        infoIcon.classList.add("fa-chevron-up");
+      }
     });
   </script>
 
