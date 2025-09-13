@@ -1,45 +1,101 @@
-- name: Generate tamil.m3u
-  run: |
-    node -e "
-    const fs = require('fs');
-    const fetch = require('node-fetch');
+name: Auto-update tamil.m3u
 
-    const channelsURL = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
-    const tokensURL = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/tokens.json';
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
 
-    (async () => {
-      try {
-        const today = new Date().toISOString().split('T')[0];
-        const tokenData = await fetch(tokensURL).then(r=>r.json());
-        const todayToken = tokenData?.[today]?.token;
-        if (!todayToken) {
-          console.log('No valid token today. Skipping.');
-          return;
-        }
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
 
-        const channels = await fetch(channelsURL).then(r=>r.json());
-        let m3u = `#EXTM3U\n# Today's token: ${todayToken}\n`;
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-        for (const id in channels) {
-          const ch = channels[id];
-          if (ch.category !== 'Tamil' || !ch.stream) continue;
-          m3u += `#EXTINF:-1 tvg-name=\\"${ch.name}\\" group-title=\\"Tamil\\" tvg-logo=\\"${ch.icon}\\",${ch.name}\n${ch.stream}\n`;
-        }
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-        const filePath = 'tamil.m3u';
-        let prevData = '';
-        if (fs.existsSync(filePath)) prevData = fs.readFileSync(filePath, 'utf8');
+      - name: Generate tamil.m3u only if changed
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
 
-        if (prevData === m3u) {
-          console.log('No changes in tamil.m3u. Skipping commit.');
-        } else {
-          fs.writeFileSync(filePath, m3u);
-          console.log('tamil.m3u updated successfully with token: ' + todayToken);
-        }
+          const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const filePath = 'tamil.m3u';
+          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
 
-      } catch (err) {
-        console.error('Error generating tamil.m3u:', err);
-        process.exit(1);
-      }
-    })();
-    "
+          (async () => {
+            try {
+              const res = await fetch(url);
+              const data = await res.json();
+              if (!data) {
+                console.log("No channels found.");
+                return;
+              }
+
+              let m3u = "#EXTM3U\n";
+              let changesSummary = [];
+
+              for (const id of Object.keys(data)) {
+                const ch = data[id];
+                if (ch.category !== "Tamil") continue; // Only Tamil channels
+                const name = ch.name || "Unknown";
+                const logo = ch.icon || "";
+                const stream = ch.stream || "";
+                if (!stream) continue;
+
+                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="Tamil" tvg-logo="${logo}",${name}`;
+                m3u += `${extinf}\n${stream}\n`;
+
+                // Check if channel exists in previous file
+                const prevLineIndex = prevData.indexOf(name);
+                if (prevLineIndex === -1) {
+                  changesSummary.push(`Added: ${name}`);
+                } else {
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
+                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
+                }
+              }
+
+              // Check for removed channels
+              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+              oldNames.forEach(name => {
+                if (!Object.values(data).some(ch => ch.name === name && ch.category === "Tamil")) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in tamil.m3u, skipping file generation.");
+                console.log('::set-output name=changed::false');
+                return;
+              }
+
+              fs.writeFileSync(filePath, m3u);
+              console.log('tamil.m3u updated successfully.');
+              console.log(`::set-output name=changed::true`);
+              console.log(`::set-output name=summary::${changesSummary.join('; ')}`);
+
+            } catch (err) {
+              console.error('Error fetching channels:', err);
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tamil.m3u
+          git commit -m "Auto-update tamil.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
