@@ -1,30 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-const video = document.getElementById('video');
-const playBtn = document.getElementById('playBtn');
-const fsBtn = document.getElementById('fsBtn');
-const muteBtn = document.getElementById('muteBtn');
-const volumeSlider = document.getElementById('volumeSlider');
-const controls = document.getElementById('controls');
-const videoTitle = document.getElementById('videoTitle');
-
-const addFavBtn = document.getElementById('addFav');
-const removeFavBtn = document.getElementById('removeFav');
-
-const channelListBtn = document.getElementById("channelListBtn");
-const channelListModal = document.getElementById("channelListModal");
-const closeChannelList = document.getElementById("closeChannelList");
-const channelListDiv = document.getElementById("channelList");
-
-const pipBtn = document.getElementById("pipBtn");
-const themeBtn = document.getElementById("themeBtn");
-const premiumBtn = document.getElementById("premiumBtn");
-
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-let channelsList = [];
-let currentIndex = -1;
-let controlsTimeout, scale = 1, initialDistance = null;
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 // Firebase Config
 const firebaseConfig = {
@@ -34,145 +9,135 @@ const firebaseConfig = {
   projectId: "tnm3ulive",
   storageBucket: "tnm3ulive.firebasestorage.app",
   messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Query string
-function qs(name) {
-  return new URL(location.href).searchParams.get(name);
-}
-let streamSlug = qs('stream');
-if (streamSlug) streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
+// DOM Elements
+const grid = document.getElementById("channelsGrid");
+const categoryBar = document.getElementById("categoryBar");
+const featuredCarousel = document.getElementById("featuredCarousel");
+const recentlyAddedCarousel = document.getElementById("recentlyAddedCarousel");
+const searchInput = document.getElementById("searchInput");
 
-// Load channels
-const channelsRef = ref(db, 'channels');
-get(channelsRef).then(snapshot => {
-  if (snapshot.exists()) {
-    channelsList = [];
-    snapshot.forEach(childSnap => channelsList.push(childSnap.val()));
-    channelsList = channelsList.map(c => ({ ...c, slug: c.name.toLowerCase() }));
-    currentIndex = channelsList.findIndex(c => c.slug === streamSlug);
-    if (currentIndex !== -1) loadChannel(currentIndex);
+let selectedCategory = "All";
+let channels = [];
+
+// Create channel card
+function createChannelCard(c) {
+  const card = document.createElement("div");
+  card.className = "featured-card relative";
+
+  const img = document.createElement("img");
+  img.src = c.logo;
+  img.alt = c.name;
+
+  const overlay = document.createElement("div");
+  overlay.className = "featured-overlay";
+  overlay.textContent = c.name;
+
+  card.appendChild(img);
+  card.appendChild(overlay);
+
+  card.onclick = () => {
+    window.location.href = `player?stream=${encodeURIComponent(
+      c.name.toLowerCase().replace(/\s+/g, "-")
+    )}`;
+  };
+
+  return card;
+}
+
+// Render Featured
+function renderFeatured() {
+  featuredCarousel.innerHTML = "";
+  const featured = channels.slice(0, 10);
+  featured.forEach(c => featuredCarousel.appendChild(createChannelCard(c)));
+}
+
+// Render Recently Added (last 24h)
+function renderRecentlyAdded() {
+  recentlyAddedCarousel.innerHTML = "";
+  const ONE_DAY = 24 * 60 * 60 * 1000;
+  const recent = channels
+    .filter(c => c.addedAt && (Date.now() - new Date(c.addedAt).getTime() < ONE_DAY))
+    .filter(c => selectedCategory === "All" || c.category === selectedCategory)
+    .sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+
+  if (!recent.length) {
+    recentlyAddedCarousel.innerHTML =
+      '<p style="color:#9ca3af;padding:1rem;">No recently added channels.</p>';
+    return;
   }
-});
 
-// Load channel
-function loadChannel(index) {
-  if (index < 0 || index >= channelsList.length) return;
-  const channel = channelsList[index];
-  video.src = channel.stream;
-  videoTitle.textContent = channel.name || "Live Stream";
-  localStorage.setItem("selectedVideo", channel.stream);
-  localStorage.setItem("selectedVideoTitle", channel.name || "Live Stream");
-  video.load();
-  video.play().catch(() => {});
-  currentIndex = index;
-  updateFavButtons();
-}
-
-// Play/Pause
-playBtn.addEventListener('click', () => {
-  if (video.paused) { video.play(); playBtn.textContent = 'pause'; }
-  else { video.pause(); playBtn.textContent = 'play_arrow'; }
-});
-
-// Fullscreen
-fsBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) {
-    video.parentElement.requestFullscreen?.({ navigationUI: 'hide' });
-    screen.orientation?.lock('landscape').catch(() => {});
-  } else {
-    document.exitFullscreen(); screen.orientation?.unlock?.();
-  }
-});
-
-// Volume
-muteBtn.addEventListener('click', () => {
-  video.muted = !video.muted;
-  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
-});
-volumeSlider.addEventListener('input', () => {
-  video.volume = volumeSlider.value;
-  video.muted = video.volume === 0;
-  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
-});
-
-// Controls auto-hide
-function showControls() {
-  controls.classList.remove('hidden');
-  clearTimeout(controlsTimeout);
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
-  }
-}
-video.addEventListener('mousemove', showControls);
-video.addEventListener('touchstart', showControls);
-
-// Favorites
-function updateFavButtons() {
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const isFav = favorites.some(f => f.src === videoSrc);
-  if (isFav) { addFavBtn.classList.add('hidden'); removeFavBtn.classList.remove('hidden'); }
-  else { addFavBtn.classList.remove('hidden'); removeFavBtn.classList.add('hidden'); }
-}
-addFavBtn.addEventListener('click', () => {
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const title = localStorage.getItem('selectedVideoTitle') || 'Unknown';
-  favorites.push({ title, src: videoSrc });
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  updateFavButtons();
-});
-removeFavBtn.addEventListener('click', () => {
-  const videoSrc = localStorage.getItem('selectedVideo');
-  favorites = favorites.filter(f => f.src !== videoSrc);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  updateFavButtons();
-});
-
-// ===== PREMIUM FEATURES =====
-// Channel List
-function renderChannelList() {
-  channelListDiv.innerHTML = "";
-  channelsList.forEach((c, i) => {
-    const btn = document.createElement("button");
-    btn.className = "w-full text-left p-3 rounded-lg bg-gray-700 hover:bg-gray-600";
-    btn.textContent = c.name;
-    btn.onclick = () => { loadChannel(i); channelListModal.classList.add("hidden"); };
-    channelListDiv.appendChild(btn);
+  recent.forEach(c => {
+    const card = createChannelCard(c);
+    const badge = document.createElement("div");
+    badge.className = "recent-badge";
+    badge.textContent = "NEW";
+    card.appendChild(badge);
+    recentlyAddedCarousel.appendChild(card);
   });
 }
-channelListBtn.addEventListener("click", () => { renderChannelList(); channelListModal.classList.remove("hidden"); });
-closeChannelList.addEventListener("click", () => { channelListModal.classList.add("hidden"); });
 
-// PiP
-pipBtn.addEventListener("click", async () => {
-  if (document.pictureInPictureElement) document.exitPictureInPicture();
-  else { try { await video.requestPictureInPicture(); } catch (e) {} }
-});
+// Render Category Bar
+function renderCategories() {
+  const fixedCats = ["Tamil", "Telugu", "Malayalam", "Kannada", "Hindi"];
+  const allCats = [...new Set(channels.map(c => c.category))];
+  const cats = fixedCats.concat(allCats.filter(c => !fixedCats.includes(c)));
+  const finalCats = ["All", ...cats];
 
-// Themes
-let theme = localStorage.getItem("theme") || "dark";
-function applyTheme(mode) {
-  if (mode === "dark") document.body.className = "bg-gray-900 text-white";
-  else if (mode === "neon") document.body.className = "bg-black text-cyan-400";
-  else if (mode === "minimal") document.body.className = "bg-white text-black";
+  categoryBar.innerHTML = "";
+  finalCats.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "category-btn" + (cat === selectedCategory ? " active" : "");
+    btn.textContent = `${cat} (${cat === "All" ? channels.length : channels.filter(c => c.category === cat).length})`;
+    btn.onclick = () => {
+      selectedCategory = cat;
+      renderCategories();
+      renderRecentlyAdded();
+      renderChannels(searchInput.value);
+    };
+    categoryBar.appendChild(btn);
+  });
 }
-themeBtn.addEventListener("click", () => {
-  theme = theme === "dark" ? "neon" : theme === "neon" ? "minimal" : "dark";
-  localStorage.setItem("theme", theme); applyTheme(theme);
-});
-applyTheme(theme);
 
-// Premium toggle
-let premium = localStorage.getItem("premium") === "true";
-function applyPremium() {
-  document.querySelector(".ad-strip")?.style.setProperty("display", premium ? "none" : "");
-  document.querySelector(".animate-scroll")?.style.setProperty("display", premium ? "none" : "");
-  premiumBtn.classList.toggle("text-green-400", premium);
+// Render Channels Grid
+function renderChannels(filter = "") {
+  grid.innerHTML = "";
+  const filtered = channels
+    .filter(c => (selectedCategory === "All" || c.category === selectedCategory)
+      && c.name.toLowerCase().includes(filter.toLowerCase()))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  if (!filtered.length) {
+    grid.innerHTML =
+      '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>';
+    return;
+  }
+  filtered.forEach(c => grid.appendChild(createChannelCard(c)));
 }
-premiumBtn.addEventListener("click", () => {
-  premium = !premium; localStorage.setItem("premium", premium); applyPremium();
+
+// Search Input
+searchInput.addEventListener("input", e => renderChannels(e.target.value));
+
+// Firebase Fetch Channels
+onValue(ref(db, "channels"), snapshot => {
+  if (snapshot.exists()) {
+    channels = Object.values(snapshot.val()).map(c => ({
+      name: c.name,
+      category: c.category,
+      logo: c.icon,
+      src: c.stream,
+      addedAt: c.createdAt || new Date().toISOString()
+    }));
+
+    renderFeatured();
+    renderCategories();
+    renderRecentlyAdded();
+    renderChannels();
+  }
 });
-applyPremium();
