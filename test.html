@@ -10,9 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-/* =========================
-   Global Styles
-========================= */
 html, body {
   font-family: 'Baloo 2', cursive;
   background-color: #111827;
@@ -27,9 +24,6 @@ main {
   margin: 0 auto;
 }
 
-/* =========================
-   Channel Card
-========================= */
 .channel-card {
   background: #1f2937;
   border-radius: 16px;
@@ -47,9 +41,6 @@ main {
   object-fit: cover;
 }
 
-/* =========================
-   Form Inputs & Buttons
-========================= */
 input, select, textarea, button {
   width: 100%;
   padding: 8px;
@@ -66,12 +57,9 @@ textarea {
 }
 
 main button:hover {
-  background: #f87171; /* only buttons inside main change color on hover */
+  background: #f87171;
 }
 
-/* =========================
-   Toast Notifications
-========================= */
 #toast {
   position: fixed;
   bottom: 20px;
@@ -97,9 +85,6 @@ main button:hover {
   to { opacity: 0; transform: translateY(10px); }
 }
 
-/* =========================
-   Pills
-========================= */
 .pill {
   display: inline-block;
   padding: 4px 10px;
@@ -108,11 +93,8 @@ main button:hover {
   font-size: 12px;
 }
 
-/* =========================
-   Text Selection
-========================= */
 ::selection {
-  background: #2563eb; /* blue selection */
+  background: #2563eb;
   color: #fff;
 }
 
@@ -128,23 +110,6 @@ main button:hover {
 <div id="header" class="mb-6"></div>
 
 <main>
-
-<!-- General Rules -->
-<div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 space-y-4">
-  <h2 class="text-2xl font-extrabold text-red-500 text-center">General Rules</h2>
-  <ol class="list-none space-y-3 mt-4">
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">1</span><span class="text-gray-300">Ensure the channel is legal and properly licensed.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">2</span><span class="text-gray-300">Use a clear and relevant channel name.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">3</span><span class="text-gray-300">Upload a high-quality logo (min 100x100 px, PNG/JPG).</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">4</span><span class="text-gray-300">Provide a working stream URL (m3u8 format recommended).</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">5</span><span class="text-gray-300">Select the correct category for your channel.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">6</span><span class="text-gray-300">Do not submit adult or inappropriate content.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">7</span><span class="text-gray-300">Each user may submit only one request per channel.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">8</span><span class="text-gray-300">Do not submit channels with false or misleading information.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">9</span><span class="text-gray-300">Ensure the channel is active and streams properly.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white">10</span><span class="text-gray-300">Respect copyright and intellectual property laws.</span></li>
-  </ol>
-</div>
 
 <!-- Appreciation Section -->
 <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 text-center space-y-4 border-l-4 border-red-500">
@@ -210,10 +175,23 @@ main button:hover {
 
     <!-- Description -->
     <textarea id="channel-description" placeholder="Channel Description..." rows="3" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
-  </div>
 
-  <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">Submit Channel</button>
-  <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
+    <!-- Accept Community Rules -->
+    <div class="mt-2">
+      <label class="flex items-center gap-3 text-gray-300">
+        <input type="checkbox" id="accept-rules" class="w-5 h-5 rounded border-gray-400 focus:ring-2 focus:ring-red-500"/>
+        <span>
+          I accept the <span id="show-rules" class="text-red-500 underline cursor-pointer">community rules</span>
+        </span>
+      </label>
+    </div>
+
+    <!-- Submit Button -->
+    <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition mt-3">
+      Submit Channel
+    </button>
+    <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
+  </div>
 </div>
 
 <!-- Pending Channels -->
@@ -229,9 +207,59 @@ main button:hover {
 <!-- Toast container -->
 <div id="toast"></div>
 
+<!-- Rules Modal -->
+<div id="rules-modal" class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 hidden">
+  <div class="bg-gray-800 rounded-xl p-6 max-w-lg mx-auto relative">
+    <button id="close-rules" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 font-bold text-xl">&times;</button>
+    <h2 class="text-2xl font-extrabold text-red-500 text-center mb-4">Community Rules</h2>
+    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+      <li>Ensure the channel is legal and properly licensed.</li>
+      <li>Use a clear and relevant channel name.</li>
+      <li>Upload a high-quality logo (min 100x100 px, PNG/JPG).</li>
+      <li>Provide a working stream URL (m3u8 format recommended).</li>
+      <li>Select the correct category for your channel.</li>
+      <li>Do not submit adult or inappropriate content.</li>
+      <li>Each user may submit only one request per channel.</li>
+      <li>Do not submit channels with false or misleading information.</li>
+      <li>Ensure the channel is active and streams properly.</li>
+      <li>Respect copyright and intellectual property laws.</li>
+    </ol>
+  </div>
+</div>
+
 <!-- External JS -->
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
 <script type="module" src="assets/js/test.js"></script>
+
+<script>
+  // Show rules modal
+  document.getElementById('show-rules').addEventListener('click', () => {
+    document.getElementById('rules-modal').classList.remove('hidden');
+  });
+
+  // Close rules modal
+  document.getElementById('close-rules').addEventListener('click', () => {
+    document.getElementById('rules-modal').classList.add('hidden');
+  });
+
+  // Close modal if clicking outside
+  document.getElementById('rules-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'rules-modal') {
+      document.getElementById('rules-modal').classList.add('hidden');
+    }
+  });
+
+  // Prevent submission if rules not accepted
+  document.getElementById('submit-btn').addEventListener('click', () => {
+    const checkbox = document.getElementById('accept-rules');
+    if (!checkbox.checked) {
+      alert('You must accept the community rules before submitting!');
+      return;
+    }
+    // Your existing submit logic here...
+    alert('Channel submitted successfully!');
+  });
+</script>
 </body>
 </html>
