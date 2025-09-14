@@ -112,7 +112,7 @@
           class="w-full px-4 py-3 rounded-xl bg-gray-900 text-white border border-gray-700 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"></textarea>
       </div>
 
-      <!-- Location (editable now) -->
+      <!-- Location -->
       <div class="col-span-1">
         <label class="block text-sm font-medium text-gray-300 mb-1">Location</label>
         <input id="location" type="text"
@@ -122,11 +122,11 @@
       <!-- Role -->
       <div class="col-span-1">
         <label class="block text-sm font-medium text-gray-300 mb-1">Role</label>
-        <input id="role" type="text" readonly
+        <input id="role" type="text" readonly value="User"
           class="w-full px-4 py-3 rounded-xl bg-gray-700 text-gray-400 border border-gray-600 cursor-not-allowed" />
       </div>
 
-      <!-- Save Button (full width row) -->
+      <!-- Save Button -->
       <div class="col-span-1 md:col-span-2">
         <button type="submit"
           class="w-full py-3 rounded-xl bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold shadow hover:scale-105 transition">
@@ -191,7 +191,6 @@
             document.getElementById("email").value = user.email || "";
             document.getElementById("bio").value = data.bio || "";
             document.getElementById("location").value = data.location || "";
-            document.getElementById("role").value = data.role || "";
             if (data.profilePic) profilePic.src = data.profilePic;
 
             if (data.username) {
@@ -248,7 +247,7 @@
       const user = auth.currentUser;
       if (user) {
         try {
-          const updates = { name, bio, location };
+          const updates = { name, bio, location, role: "user" }; // role always "user"
           if (!usernameField.readOnly && username) updates.username = username;
 
           await update(ref(db, "users/" + user.uid), updates);
