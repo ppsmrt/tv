@@ -1,56 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Premium Live TV Player</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.0/shaka-player.compiled.js"></script>
-<style>
-body { margin:0; font-family:'Baloo 2', cursive; background:#111; color:#fff; }
-#videoContainer { position: relative; width:100%; max-height:50vh; overflow:hidden; border-radius:12px; background:#000; }
-video { width:100%; height:auto; object-fit:cover; border-radius:12px; }
-.overlay-back { position:absolute; top:12px; left:12px; z-index:50; background:rgba(0,0,0,0.5); padding:6px 10px; border-radius:50px; display:flex; align-items:center; cursor:pointer; }
-.overlay-back .material-icons { font-size:20px; margin-right:4px; }
-.scroll-ad { position:absolute; bottom:44px; left:0; width:100%; overflow:hidden; background:rgba(0,0,0,0.2); font-size:12px; white-space:nowrap; }
-.scroll-ad span { display:inline-block; padding-left:100%; animation:scroll 20s linear infinite; }
-@keyframes scroll { 0% { transform:translateX(100%); } 100% { transform:translateX(-100%); } }
-.card-list { display:flex; overflow-x:auto; gap:10px; padding:10px 0; }
-.card-list::-webkit-scrollbar { display:none; }
-.card { min-width:120px; background:#222; border-radius:8px; overflow:hidden; cursor:pointer; transition:scale 0.2s; }
-.card img { width:100%; height:80px; object-fit:cover; }
-.card:hover { transform:scale(1.05); }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Premium Player - Live TV</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- Baloo 2 Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome for social icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Shaka Player CSS (Premium UI) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/controls.css" />
+
+  <style>
+    /* Global font */
+    html, body {
+      font-family: 'Baloo 2', cursive;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #111;
+      overscroll-behavior: none;
+      color: white;
+    }
+
+    /* Container for the player */
+    #player-container {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: 5rem auto 2rem;
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Shaka player video fills container */
+    #video {
+      width: 100%;
+      height: 540px;
+      background: black;
+      object-fit: contain;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 4rem;
+      background: rgba(30, 30, 30, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    header h1 .material-icons {
+      font-size: 1.5rem;
+      color: #f87171; /* soft red accent */
+    }
+    header button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: color 0.3s ease;
+    }
+    header button:hover {
+      color: #f87171;
+    }
+    header button .material-icons {
+      font-size: 1.5rem;
+    }
+
+    /* Social Icons Section */
+    .social-icons {
+      max-width: 960px;
+      margin: 2rem auto 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      font-size: 2rem;
+    }
+    .social-icons a {
+      transition: transform 0.3s ease;
+      color: inherit;
+    }
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    /* Stream info section */
+    #stream-info {
+      max-width: 960px;
+      margin: 0 auto 3rem;
+      background: #222;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #ccc;
+      overflow-y: auto;
+      max-height: 40vh;
+    }
+    #stream-info h3 {
+      color: white;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    #stream-info ul {
+      list-style: disc inside;
+      margin-left: 1rem;
+    }
+
+    /* Ad banner */
+    .ad-banner {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      text-align: center;
+    }
+    .ad-banner img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .ad-banner img:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
-<div class="mx-4 mt-4" id="videoContainer">
-  <video id="video" playsinline webkit-playsinline></video>
-  <div class="overlay-back" onclick="history.back()">
-    <span class="material-icons">arrow_back</span> Back
+  <!-- Header -->
+  <header>
+    <h1>
+      <span class="material-icons">live_tv</span>
+      <span id="videoTitle">Loading...</span>
+    </h1>
+    <button onclick="history.back()">
+      <span class="material-icons">arrow_back</span>
+      Back
+    </button>
+  </header>
+
+  <!-- Player Container -->
+  <div id="player-container">
+    <video id="video" playsinline webkit-playsinline></video>
   </div>
-  <div class="scroll-ad"><span>🔥 Join Our Telegram Channel! Latest Live Streams & Updates 🔥</span></div>
-</div>
 
-<div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg">
-  <h1 id="videoTitle" class="text-lg font-bold mb-2">Video Title</h1>
-  <p id="videoDesc" class="text-sm text-gray-300">Video description will appear here.</p>
-</div>
+  <!-- Social Icons -->
+  <div class="social-icons">
+    <a href="https://facebook.com" target="_blank" rel="noopener" class="text-blue-600"><i class="fab fa-facebook"></i></a>
+    <a href="https://wa.me/" target="_blank" rel="noopener" class="text-green-500"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://t.me/" target="_blank" rel="noopener" class="text-sky-400"><i class="fab fa-telegram"></i></a>
+    <a href="https://youtube.com" target="_blank" rel="noopener" class="text-red-600"><i class="fab fa-youtube"></i></a>
+    <a href="https://discord.com" target="_blank" rel="noopener" class="text-indigo-500"><i class="fab fa-discord"></i></a>
+  </div>
 
-<div class="mx-4 mt-4 text-center">
-  <a href="https://telegram.me/tamilm3u" target="_blank">
-    <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" class="w-full max-w-[728px] h-auto rounded-lg shadow-lg" />
-  </a>
-</div>
+  <!-- Stream Information -->
+  <section id="stream-info" aria-label="Stream Information">
+    <h3>Stream Information</h3>
+    <p>
+      All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.
+      All rights remain with their original providers. This platform only provides an interface to access them for convenience.
+    </p>
+    <h3>Usage Rules</h3>
+    <ul>
+      <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>
+      <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>
+      <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>
+    </ul>
+    <h3>Privacy & Technical Details</h3>
+    <ul>
+      <li>No personal data is collected, stored, or shared.</li>
+      <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>
+      <li>No server-side caching, recording, or proxying is done on our platform.</li>
+      <li>Playback happens on your device using standard open-source player libraries.</li>
+    </ul>
+    <h3>Open Source Components</h3>
+    <p>
+      This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.
+      For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.
+    </p>
+    <h3>Legal Notice</h3>
+    <p>
+      Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.
+      However, you must comply with your local laws and the content owner's terms.
+      We do not guarantee the legality of accessing any specific content in your jurisdiction.
+    </p>
+    <h3>Takedown Requests</h3>
+    <p>
+      If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.
+      We review and process valid requests within <strong>48 hours</strong>.
+    </p>
+  </section>
 
-<div class="mx-4 mt-4">
-  <h2 class="text-white font-semibold mb-2">Other Channels</h2>
-  <div id="relatedChannels" class="card-list"></div>
-</div>
+  <!-- Ad Banner -->
+  <div class="ad-banner">
+    <a href="https://telegram.me/tamilm3u" target="_blank" rel="noopener noreferrer">
+      <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" alt="Join us on Telegram" />
+    </a>
+  </div>
 
-<script type="module" src="assets/js/test.js"></script>
+  <!-- Shaka Player JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/controls.js"></script>
+
+  <!-- Your Player JS -->
+  <script type="module" src="assets/js/test.js"></script>
+  <script type="module" src="assets/js/header.js"></script>
+  <script type="module" src="assets/js/footer.js"></script>
+
 </body>
 </html>
