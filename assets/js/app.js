@@ -25,7 +25,7 @@ const featuredCarousel = document.getElementById("featuredCarousel");
 const searchInput = document.getElementById("searchInput");
 
 // State
-let selectedCategory = "All"; // default is All
+let selectedCategory = "All"; // default
 let channels = [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 let users = {}; // store admins & users info
@@ -37,11 +37,10 @@ localStorage.setItem("anonUserId", anonUserId);
 // Skeleton loader
 grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
 
-// Analytics helpers
+// --- Analytics ---
 function trackChannelView(channelId) {
   const viewsRef = ref(db, `analytics/channels/${channelId}/views`);
   runTransaction(viewsRef, (current) => (current || 0) + 1);
-
   const lastRef = ref(db, `analytics/channels/${channelId}/lastWatched`);
   set(lastRef, new Date().toISOString());
 }
@@ -61,7 +60,7 @@ function trackSearch(userId, query) {
   });
 }
 
-// Favorite toggle
+// --- Favorites ---
 function toggleFavorite(channel, favBtn) {
   const exists = favorites.some((fav) => fav.src === channel.src);
   if (exists) {
@@ -71,11 +70,10 @@ function toggleFavorite(channel, favBtn) {
   }
   localStorage.setItem("favorites", JSON.stringify(favorites));
   favBtn.innerHTML = `<i class="material-icons">${exists ? "favorite_border" : "favorite"}</i>`;
-
   trackInteraction(anonUserId, "favoritesClicked");
 }
 
-// Show Info Modal
+// --- Info Modal ---
 function showInfoModal(channel) {
   trackInteraction(anonUserId, "infoClicked");
 
@@ -83,8 +81,7 @@ function showInfoModal(channel) {
   if (!modal) {
     modal = document.createElement("div");
     modal.id = "infoModal";
-    modal.className =
-      "fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-md z-50 hidden";
+    modal.className = "fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-md z-50 hidden";
     modal.innerHTML = `
       <div class="bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl max-w-md w-full text-white shadow-xl border border-white/10 glass">
         <h2 class="text-2xl font-bold mb-4" id="infoTitle"></h2>
@@ -102,10 +99,7 @@ function showInfoModal(channel) {
       </div>
     `;
     document.body.appendChild(modal);
-
-    modal.querySelector("#closeInfo").onclick = () => {
-      modal.classList.add("hidden");
-    };
+    modal.querySelector("#closeInfo").onclick = () => modal.classList.add("hidden");
   }
 
   modal.querySelector("#infoTitle").textContent = channel.name;
@@ -115,22 +109,17 @@ function showInfoModal(channel) {
   modal.querySelector("#infoLanguage").textContent = channel.category;
   modal.querySelector("#infoTags").textContent = channel.tags || "—";
 
-  // Corrected Added By logic
-  let addedBy = "Admin"; // default if unknown
-  if (channel.createdBy) {
-    addedBy = users[channel.createdBy]?.name || channel.createdBy || "Admin";
-  }
+  let addedBy = "Admin";
+  if (channel.createdBy) addedBy = users[channel.createdBy]?.name || channel.createdBy || "Admin";
   modal.querySelector("#infoAddedBy").textContent = addedBy;
 
   modal.classList.remove("hidden");
 }
 
-// Create Channel Card
+// --- Create Channel Card ---
 function createChannelCard(c) {
   const a = document.createElement("a");
-  a.href = `player?stream=${encodeURIComponent(
-    c.name.toLowerCase().replace(/\s+/g, "-")
-  )}`;
+  a.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
   a.className = "channel-card";
   a.setAttribute("aria-label", `Watch ${c.name}`);
   a.tabIndex = 0;
@@ -152,10 +141,9 @@ function createChannelCard(c) {
   liveBadge.className = "live-badge";
   liveBadge.textContent = "LIVE";
 
-  // Favorite button (comes first)
   const favBtn = document.createElement("div");
   favBtn.className = "favorite-btn";
-  favBtn.style.right = "44px"; 
+  favBtn.style.right = "44px";
   const isFav = favorites.some((fav) => fav.src === c.src);
   favBtn.innerHTML = `<i class="material-icons">${isFav ? "favorite" : "favorite_border"}</i>`;
   favBtn.onclick = (e) => {
@@ -165,7 +153,6 @@ function createChannelCard(c) {
     toggleFavorite(favObj, favBtn);
   };
 
-  // Info button (comes next)
   const infoBtn = document.createElement("div");
   infoBtn.className = "favorite-btn";
   infoBtn.style.right = "4px";
@@ -176,35 +163,24 @@ function createChannelCard(c) {
     showInfoModal(c);
   };
 
-  // Track view on click
-  a.addEventListener("click", () => {
-    trackChannelView(c.src);
-  });
+  a.addEventListener("click", () => trackChannelView(c.src));
 
-  a.appendChild(img);
-  a.appendChild(overlay);
-  a.appendChild(nameDiv);
-  a.appendChild(liveBadge);
-  a.appendChild(favBtn);
-  a.appendChild(infoBtn);
-
+  a.append(img, overlay, nameDiv, liveBadge, favBtn, infoBtn);
   return a;
 }
 
-// Render Categories
+// --- Render Categories ---
 function renderCategories() {
   const fixedCats = ["Tamil", "Telugu", "Malayalam", "Kannada", "Hindi"];
-  const allCats = [...new Set(channels.map((c) => c.category))];
-  const cats = fixedCats.concat(allCats.filter((c) => !fixedCats.includes(c)));
-  const finalCats = ["All", ...cats];
+  const allCats = [...new Set(channels.map(c => c.category))];
+  const newCats = allCats.filter(c => !fixedCats.includes(c));
+  const finalCats = ["All", ...fixedCats, ...newCats];
 
   categoryBar.innerHTML = "";
-  finalCats.forEach((cat) => {
+  finalCats.forEach(cat => {
     const btn = document.createElement("button");
     btn.className = "category-btn" + (cat === selectedCategory ? " active" : "");
-    btn.textContent = `${cat} (${
-      cat === "All" ? channels.length : channels.filter((c) => c.category === cat).length
-    })`;
+    btn.textContent = `${cat} (${cat === "All" ? channels.length : channels.filter(c => c.category === cat).length})`;
     btn.onclick = () => {
       selectedCategory = cat;
       renderCategories();
@@ -215,22 +191,19 @@ function renderCategories() {
   });
 }
 
-// Render Channels (with A–Z sorting)
+// --- Render Channels ---
 function renderChannels(filter = "") {
   grid.innerHTML = "";
   const filtered = channels
-    .filter(
-      (c) =>
-        (selectedCategory === "All" || c.category === selectedCategory) &&
-        c.name.toLowerCase().includes(filter.toLowerCase())
-    )
-    .sort((a, b) => a.name.localeCompare(b.name)); // <-- A–Z sort
+    .filter(c => (selectedCategory === "All" || c.category === selectedCategory) &&
+      c.name.toLowerCase().includes(filter.toLowerCase()))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   if (!filtered.length) {
-    grid.innerHTML =
-      '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>';
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>';
     return;
   }
+
   filtered.forEach((c, i) => {
     const card = createChannelCard(c);
     grid.appendChild(card);
@@ -238,56 +211,48 @@ function renderChannels(filter = "") {
   });
 }
 
-// Render Featured
+// --- Render Featured ---
 function renderFeatured() {
   featuredCarousel.innerHTML = "";
   const featured = channels.slice(0, 10);
-  featured.forEach((c) => {
+  featured.forEach(c => {
     const card = document.createElement("div");
     card.className = "featured-card";
-    card.innerHTML = `
-      <img src="${c.logo}" alt="${c.name}">
-      <div class="featured-overlay">${c.name}</div>`;
-    card.onclick = () =>
-      (window.location.href = `player?stream=${encodeURIComponent(
-        c.name.toLowerCase().replace(/\s+/g, "-")
-      )}`);
+    card.innerHTML = `<img src="${c.logo}" alt="${c.name}"><div class="featured-overlay">${c.name}</div>`;
+    card.onclick = () => window.location.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
     featuredCarousel.appendChild(card);
   });
 }
 
-// Search
+// --- Search ---
 searchInput.addEventListener("input", (e) => {
   renderChannels(e.target.value);
   trackSearch(anonUserId, e.target.value);
 });
 
-// Firebase Fetch Channels
+// --- Fetch Channels from Firebase ---
 onValue(ref(db, "channels"), (snapshot) => {
   if (snapshot.exists()) {
-    channels = Object.values(snapshot.val()).map((c) => ({
+    channels = Object.values(snapshot.val()).map(c => ({
       name: c.name,
       category: c.category,
       logo: c.icon,
       src: c.stream,
       tags: c.tags || "",
-      createdBy: c.createdBy || null // corrected field
+      createdBy: c.createdBy || null
     }));
     renderFeatured();
     renderCategories();
     renderChannels(searchInput.value);
   } else {
-    grid.innerHTML =
-      '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>';
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>';
   }
 });
 
-// Firebase Fetch Users/Admins
+// --- Fetch Users/Admins ---
 onValue(ref(db, "admins&users"), (snapshot) => {
-  if (snapshot.exists()) {
-    users = snapshot.val();
-  }
+  if (snapshot.exists()) users = snapshot.val();
 });
 
-// Fade-in body after load
+// --- Fade-in body ---
 window.addEventListener("load", () => document.body.classList.add("loaded"));
