@@ -21,24 +21,27 @@ const db = getDatabase(app);
 // DOM Elements
 const grid = document.getElementById("channelsGrid");
 const categoryBar = document.getElementById("categoryBar");
+const filterBar = document.getElementById("filterBar"); // add <div id="filterBar"></div> below category bar
 const featuredCarousel = document.getElementById("featuredCarousel");
-const recentlyAddedCarousel = document.getElementById("recentlyAddedCarousel"); // new
 const searchInput = document.getElementById("searchInput");
 
 // State
-let selectedCategory = "All"; // default is All
+let selectedCategory = "All";
+let selectedLanguage = "All";
+let selectedGenre = "All";
+let selectedSort = "A-Z";
 let channels = [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-let users = {}; // store admins & users info
+let users = {};
 
-// Anonymous user ID for analytics if no login
+// Anonymous user ID
 let anonUserId = localStorage.getItem("anonUserId") || crypto.randomUUID();
 localStorage.setItem("anonUserId", anonUserId);
 
 // Skeleton loader
 grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
 
-// Analytics helpers
+// --- Analytics helpers ---
 function trackChannelView(channelId) {
   const viewsRef = ref(db, `analytics/channels/${channelId}/views`);
   runTransaction(viewsRef, (current) => (current || 0) + 1);
@@ -62,7 +65,7 @@ function trackSearch(userId, query) {
   });
 }
 
-// Favorite toggle
+// --- Favorite toggle ---
 function toggleFavorite(channel, favBtn) {
   const exists = favorites.some((fav) => fav.src === channel.src);
   if (exists) {
@@ -72,11 +75,10 @@ function toggleFavorite(channel, favBtn) {
   }
   localStorage.setItem("favorites", JSON.stringify(favorites));
   favBtn.innerHTML = `<i class="material-icons">${exists ? "favorite_border" : "favorite"}</i>`;
-
   trackInteraction(anonUserId, "favoritesClicked");
 }
 
-// Show Info Modal
+// --- Info Modal ---
 function showInfoModal(channel) {
   trackInteraction(anonUserId, "infoClicked");
 
@@ -94,6 +96,7 @@ function showInfoModal(channel) {
           <p><strong>Name:</strong> <span id="infoName"></span></p>
           <p><strong>Category:</strong> <span id="infoCategory"></span></p>
           <p><strong>Language:</strong> <span id="infoLanguage"></span></p>
+          <p><strong>Genre:</strong> <span id="infoGenre"></span></p>
           <p><strong>Tags:</strong> <span id="infoTags"></span></p>
           <p><strong>Added By:</strong> <span id="infoAddedBy"></span></p>
         </div>
@@ -103,17 +106,15 @@ function showInfoModal(channel) {
       </div>
     `;
     document.body.appendChild(modal);
-
-    modal.querySelector("#closeInfo").onclick = () => {
-      modal.classList.add("hidden");
-    };
+    modal.querySelector("#closeInfo").onclick = () => modal.classList.add("hidden");
   }
 
   modal.querySelector("#infoTitle").textContent = channel.name;
   modal.querySelector("#infoThumb").src = channel.logo;
   modal.querySelector("#infoName").textContent = channel.name;
   modal.querySelector("#infoCategory").textContent = channel.category;
-  modal.querySelector("#infoLanguage").textContent = channel.category;
+  modal.querySelector("#infoLanguage").textContent = channel.language;
+  modal.querySelector("#infoGenre").textContent = channel.genre;
   modal.querySelector("#infoTags").textContent = channel.tags || "—";
 
   let addedBy = "Admin";
@@ -121,16 +122,13 @@ function showInfoModal(channel) {
     addedBy = users[channel.createdBy]?.name || channel.createdBy || "Admin";
   }
   modal.querySelector("#infoAddedBy").textContent = addedBy;
-
   modal.classList.remove("hidden");
 }
 
-// Create Channel Card
+// --- Create Channel Card ---
 function createChannelCard(c) {
   const a = document.createElement("a");
-  a.href = `player?stream=${encodeURIComponent(
-    c.name.toLowerCase().replace(/\s+/g, "-")
-  )}`;
+  a.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
   a.className = "channel-card";
   a.setAttribute("aria-label", `Watch ${c.name}`);
   a.tabIndex = 0;
@@ -154,7 +152,7 @@ function createChannelCard(c) {
 
   const favBtn = document.createElement("div");
   favBtn.className = "favorite-btn";
-  favBtn.style.right = "44px"; 
+  favBtn.style.right = "44px";
   const isFav = favorites.some((fav) => fav.src === c.src);
   favBtn.innerHTML = `<i class="material-icons">${isFav ? "favorite" : "favorite_border"}</i>`;
   favBtn.onclick = (e) => {
@@ -174,21 +172,13 @@ function createChannelCard(c) {
     showInfoModal(c);
   };
 
-  a.addEventListener("click", () => {
-    trackChannelView(c.src);
-  });
+  a.addEventListener("click", () => trackChannelView(c.src));
 
-  a.appendChild(img);
-  a.appendChild(overlay);
-  a.appendChild(nameDiv);
-  a.appendChild(liveBadge);
-  a.appendChild(favBtn);
-  a.appendChild(infoBtn);
-
+  a.append(img, overlay, nameDiv, liveBadge, favBtn, infoBtn);
   return a;
 }
 
-// Render Categories
+// --- Render Categories ---
 function renderCategories() {
   const fixedCats = ["Tamil", "Telugu", "Malayalam", "Kannada", "Hindi"];
   const allCats = [...new Set(channels.map((c) => c.category))];
@@ -212,22 +202,77 @@ function renderCategories() {
   });
 }
 
-// Render Channels (A–Z sorting)
+// --- Render Filters ---
+function renderFilters() {
+  filterBar.innerHTML = "";
+
+  // Languages
+  const langs = ["All", ...new Set(channels.map(c => c.language || "Unknown"))];
+  const langSelect = document.createElement("select");
+  langSelect.className = "filter-select";
+  langSelect.innerHTML = langs.map(l =>
+    `<option value="${l}" ${l === selectedLanguage ? "selected" : ""}>${l}</option>`
+  ).join("");
+  langSelect.onchange = (e) => {
+    selectedLanguage = e.target.value;
+    renderChannels(searchInput.value);
+  };
+
+  // Genres
+  const genres = ["All", ...new Set(channels.map(c => c.genre || c.channelType || "Unknown"))];
+  const genreSelect = document.createElement("select");
+  genreSelect.className = "filter-select";
+  genreSelect.innerHTML = genres.map(g =>
+    `<option value="${g}" ${g === selectedGenre ? "selected" : ""}>${g}</option>`
+  ).join("");
+  genreSelect.onchange = (e) => {
+    selectedGenre = e.target.value;
+    renderChannels(searchInput.value);
+  };
+
+  // Sort
+  const sortSelect = document.createElement("select");
+  sortSelect.className = "filter-select";
+  ["A-Z", "Newest", "Oldest"].forEach(opt => {
+    const o = document.createElement("option");
+    o.value = opt;
+    o.textContent = opt;
+    if (opt === selectedSort) o.selected = true;
+    sortSelect.appendChild(o);
+  });
+  sortSelect.onchange = (e) => {
+    selectedSort = e.target.value;
+    renderChannels(searchInput.value);
+  };
+
+  filterBar.append("Language: ", langSelect, "  Genre: ", genreSelect, "  Sort: ", sortSelect);
+}
+
+// --- Render Channels ---
 function renderChannels(filter = "") {
   grid.innerHTML = "";
-  const filtered = channels
-    .filter(
-      (c) =>
-        (selectedCategory === "All" || c.category === selectedCategory) &&
-        c.name.toLowerCase().includes(filter.toLowerCase())
-    )
-    .sort((a, b) => a.name.localeCompare(b.name));
+
+  let filtered = channels.filter(c => {
+    const matchesCategory = selectedCategory === "All" || c.category === selectedCategory;
+    const matchesLang = selectedLanguage === "All" || (c.language || "Unknown") === selectedLanguage;
+    const matchesGenre = selectedGenre === "All" || (c.genre || c.channelType || "Unknown") === selectedGenre;
+    const matchesSearch = c.name.toLowerCase().includes(filter.toLowerCase());
+    return matchesCategory && matchesLang && matchesGenre && matchesSearch;
+  });
+
+  if (selectedSort === "A-Z") {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (selectedSort === "Newest") {
+    filtered.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).reverse();
+  } else if (selectedSort === "Oldest") {
+    filtered.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+  }
 
   if (!filtered.length) {
-    grid.innerHTML =
-      '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>';
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>`;
     return;
   }
+
   filtered.forEach((c, i) => {
     const card = createChannelCard(c);
     grid.appendChild(card);
@@ -235,75 +280,55 @@ function renderChannels(filter = "") {
   });
 }
 
-// Render Featured
+// --- Render Featured ---
 function renderFeatured() {
   featuredCarousel.innerHTML = "";
   const featured = channels.slice(0, 10);
   featured.forEach((c) => {
     const card = document.createElement("div");
     card.className = "featured-card";
-    card.innerHTML = `
-      <img src="${c.logo}" alt="${c.name}">
-      <div class="featured-overlay">${c.name}</div>`;
+    card.innerHTML = `<img src="${c.logo}" alt="${c.name}"><div class="featured-overlay">${c.name}</div>`;
     card.onclick = () =>
-      (window.location.href = `player?stream=${encodeURIComponent(
-        c.name.toLowerCase().replace(/\s+/g, "-")
-      )}`);
+      (window.location.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`);
     featuredCarousel.appendChild(card);
   });
 }
 
-// Render Recently Added
-function renderRecentlyAdded() {
-  recentlyAddedCarousel.innerHTML = "";
-  const recent = [...channels].slice(-10).reverse();
-  recent.forEach((c) => {
-    const card = document.createElement("div");
-    card.className = "featured-card";
-    card.innerHTML = `
-      <img src="${c.logo}" alt="${c.name}">
-      <div class="featured-overlay">${c.name}</div>`;
-    card.onclick = () =>
-      (window.location.href = `player?stream=${encodeURIComponent(
-        c.name.toLowerCase().replace(/\s+/g, "-")
-      )}`);
-    recentlyAddedCarousel.appendChild(card);
-  });
-}
-
-// Search
+// --- Search ---
 searchInput.addEventListener("input", (e) => {
   renderChannels(e.target.value);
   trackSearch(anonUserId, e.target.value);
 });
 
-// Firebase Fetch Channels
+// --- Firebase Fetch Channels ---
 onValue(ref(db, "channels"), (snapshot) => {
   if (snapshot.exists()) {
     channels = Object.values(snapshot.val()).map((c) => ({
       name: c.name,
       category: c.category,
+      genre: c.channelType || "Unknown",
+      language: c.language || "Unknown",
       logo: c.icon,
       src: c.stream,
       tags: c.tags || "",
-      createdBy: c.createdBy || null
+      createdBy: c.createdBy || null,
+      createdAt: c.createdAt || Date.now()
     }));
     renderFeatured();
-    renderRecentlyAdded(); // new
     renderCategories();
+    renderFilters();
     renderChannels(searchInput.value);
   } else {
-    grid.innerHTML =
-      '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>';
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>`;
   }
 });
 
-// Firebase Fetch Users/Admins
+// --- Firebase Fetch Users/Admins ---
 onValue(ref(db, "admins&users"), (snapshot) => {
   if (snapshot.exists()) {
     users = snapshot.val();
   }
 });
 
-// Fade-in body after load
+// --- Fade-in ---
 window.addEventListener("load", () => document.body.classList.add("loaded"));
