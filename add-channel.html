@@ -10,9 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-/* =========================
-   Global Styles
-========================= */
 html, body {
   font-family: 'Baloo 2', cursive;
   background-color: #111827;
@@ -27,9 +24,6 @@ main {
   margin: 0 auto;
 }
 
-/* =========================
-   Channel Card
-========================= */
 .channel-card {
   background: #1f2937;
   border-radius: 16px;
@@ -47,10 +41,7 @@ main {
   object-fit: cover;
 }
 
-/* =========================
-   Form Inputs & Buttons
-========================= */
-input, select, button {
+input, select, textarea, button {
   width: 100%;
   padding: 8px;
   margin: 4px 0;
@@ -61,13 +52,14 @@ input, select, button {
   font-family: inherit;
 }
 
-main button:hover {
-  background: #f87171; /* only buttons inside main change color on hover */
+textarea {
+  resize: none;
 }
 
-/* =========================
-   Toast Notifications
-========================= */
+main button:hover {
+  background: #f87171;
+}
+
 #toast {
   position: fixed;
   bottom: 20px;
@@ -93,9 +85,6 @@ main button:hover {
   to { opacity: 0; transform: translateY(10px); }
 }
 
-/* =========================
-   Pills
-========================= */
 .pill {
   display: inline-block;
   padding: 4px 10px;
@@ -104,18 +93,8 @@ main button:hover {
   font-size: 12px;
 }
 
-/* =========================
-   Text Selection
-========================= */
-::selection {
-  background: #2563eb; /* blue selection */
-  color: #fff;
-}
-
-::-moz-selection {
-  background: #2563eb;
-  color: #fff;
-}
+::selection { background: #2563eb; color: #fff; }
+::-moz-selection { background: #2563eb; color: #fff; }
 </style>
 </head>
 <body>
@@ -125,31 +104,10 @@ main button:hover {
 
 <main>
 
-<!-- General Rules -->
-<div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 space-y-4">
-  <h2 class="text-2xl font-extrabold text-red-500 text-center">General Rules</h2>
-
-  <ol class="list-none space-y-3 mt-4">
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">1</span><span class="text-gray-300">Ensure the channel is legal and properly licensed.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">2</span><span class="text-gray-300">Use a clear and relevant channel name.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">3</span><span class="text-gray-300">Upload a high-quality logo (min 100x100 px, PNG/JPG).</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">4</span><span class="text-gray-300">Provide a working stream URL (m3u8 format recommended).</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">5</span><span class="text-gray-300">Select the correct category for your channel.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">6</span><span class="text-gray-300">Do not submit adult or inappropriate content.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">7</span><span class="text-gray-300">Each user may submit only one request per channel.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">8</span><span class="text-gray-300">Do not submit channels with false or misleading information.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">9</span><span class="text-gray-300">Ensure the channel is active and streams properly.</span></li>
-    <li class="flex items-start gap-3"><span class="pill bg-red-500 text-white flex-shrink-0">10</span><span class="text-gray-300">Respect copyright and intellectual property laws.</span></li>
-  </ol>
-</div>
-
 <!-- Appreciation Section -->
 <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg mx-auto mt-4 text-center space-y-4 border-l-4 border-red-500">
   <h2 class="text-2xl font-extrabold text-red-500">Thank You for Your Support!</h2>
-  <p class="text-gray-300 text-sm">
-    Your channel submission helps TNM3U grow and provide better streaming content for everyone.  
-    Every contribution makes a difference!
-  </p>
+  <p class="text-gray-300 text-sm">Your channel submission helps TNM3U grow and provide better streaming content for everyone.</p>
   <div class="flex justify-center items-center gap-2">
     <span class="material-icons text-green-400 animate-bounce">thumb_up</span>
     <span class="text-gray-300 font-medium">We truly appreciate your effort!</span>
@@ -161,19 +119,16 @@ main button:hover {
   <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
 
   <div class="space-y-4">
-    <input type="text" id="channel-name" placeholder="Channel Name" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
+    <!-- Channel Name -->
+    <input type="text" id="channel-name" placeholder="Channel Name" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
 
+    <!-- Upload Logo -->
     <div>
-      <!-- Styled Upload Button -->
-      <label for="channel-icon-file" class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition">
-        <span class="material-icons text-red-400">upload</span>
-        Upload Channel Logo
+      <label for="channel-icon-file" class="w-full bg-gray-700 hover:bg-red-500 text-white font-semibold py-3 px-4 rounded-lg cursor-pointer flex items-center justify-center gap-2">
+        <span class="material-icons text-red-400">upload</span> Upload Channel Logo
       </label>
-      <!-- Hidden file input -->
       <input type="file" id="channel-icon-file" accept="image/*" class="hidden"/>
-      <!-- Upload status -->
       <div id="upload-status" class="text-sm text-gray-400 mt-1"></div>
-      <!-- Preview -->
       <div id="preview-container" class="hidden mt-3">
         <p class="text-green-400 font-semibold mb-1">Preview:</p>
         <img id="icon-preview" src="" alt="Preview" class="w-24 h-24 rounded-lg shadow-lg object-cover"/>
@@ -181,10 +136,10 @@ main button:hover {
     </div>
 
     <input type="hidden" id="channel-icon"/>
+    <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
 
-    <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
-
-    <select id="channel-category" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+    <!-- Language -->
+    <select id="channel-category" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500">
       <option value="Tamil">Tamil</option>
       <option value="Telugu">Telugu</option>
       <option value="Kannada">Kannada</option>
@@ -193,16 +148,55 @@ main button:hover {
       <option value="Kids">Kids</option>
       <option value="Sports">Sports</option>
     </select>
+
+    <!-- Channel Type (Genre) -->
+    <select id="channel-type" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500">
+      <option value="Entertainment">Entertainment</option>
+      <option value="News">News</option>
+      <option value="Sports">Sports</option>
+      <option value="Movies">Movies</option>
+      <option value="Music">Music</option>
+      <option value="Kids">Kids</option>
+      <option value="Religious">Religious</option>
+      <option value="Lifestyle">Lifestyle</option>
+      <option value="Documentary">Documentary</option>
+      <option value="Education">Education</option>
+      <option value="Regional">Regional</option>
+    </select>
+
+    <!-- Country -->
+    <input type="text" id="channel-country" value="India" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
+
+    <!-- Description (auto-filled) -->
+<textarea 
+    id="channel-description" 
+    placeholder="Channel Description..." 
+    rows="3" 
+    class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"
+></textarea>
+
+    <!-- Tags -->
+    <input type="text" id="channel-tags" placeholder="Tags (e.g. tamil, news, hd)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
+
+    <!-- Accept Community Rules -->
+    <div class="mt-2">
+      <label class="flex items-center gap-3 text-gray-300">
+        <input type="checkbox" id="accept-rules" class="w-5 h-5 rounded border-gray-400 focus:ring-2 focus:ring-red-500"/>
+        <span>
+          I accept the <span id="show-rules" class="text-red-500 underline cursor-pointer">community rules</span>
+        </span>
+      </label>
+    </div>
+
+    <!-- Submit Button -->
+    <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition mt-3">
+      Submit Channel
+    </button>
+    <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
   </div>
-
-  <button id="submit-btn" class="w-full bg-red-500 hover:bg-red-600 font-bold py-3 rounded-lg transition">
-    Submit Channel
-  </button>
-
-  <p class="text-xs text-gray-400 text-center">💡 Use PNG/JPG for better results, 2MB Max.</p>
 </div>
 
-<!-- ✅ Pending Channels -->
+<!-- Pending Channels -->
 <div class="mt-8">
   <h3 class="text-xl font-semibold border-b border-gray-700 pb-2">Pending Channels</h3>
   <div id="user-pending" class="space-y-3 mt-2"></div>
@@ -212,153 +206,49 @@ main button:hover {
 <!-- Footer -->
 <div id="footer"></div>
 
-<!-- JS Files -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
-
 <!-- Toast container -->
 <div id="toast"></div>
 
-<!-- Firebase + Logic -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+<!-- Rules Modal -->
+<div id="rules-modal" class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 hidden">
+  <div class="bg-gray-800 rounded-xl p-6 max-w-lg mx-auto relative">
+    <button id="close-rules" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 font-bold text-xl">&times;</button>
+    <h2 class="text-2xl font-extrabold text-red-500 text-center mb-4">Community Rules</h2>
+    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+      <li>Ensure the channel is legal and properly licensed.</li>
+      <li>Use a clear and relevant channel name.</li>
+      <li>Upload a high-quality logo (min 100x100 px, PNG/JPG).</li>
+      <li>Provide a working stream URL (m3u8 format recommended).</li>
+      <li>Select the correct category for your channel.</li>
+      <li>Do not submit adult or inappropriate content.</li>
+      <li>Each user may submit only one request per channel.</li>
+      <li>Do not submit channels with false or misleading information.</li>
+      <li>Ensure the channel is active and streams properly.</li>
+      <li>Respect copyright and intellectual property laws.</li>
+    </ol>
+  </div>
+</div>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
-};
+<!-- External JS -->
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
+<script type="module" src="assets/js/test.js"></script>
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-const toastContainer = document.getElementById('toast');
-const submitBtn = document.getElementById('submit-btn');
-const iconFileInput = document.getElementById('channel-icon-file');
-const iconHiddenInput = document.getElementById('channel-icon');
-const iconPreview = document.getElementById('icon-preview');
-const previewContainer = document.getElementById('preview-container');
-const uploadStatus = document.getElementById('upload-status');
-const imgbbApiKey = "8604e4b4050c63c460d0bca39cf28708";
-const userPending = document.getElementById('user-pending');
-
-function showToast(msg, type="info") {
-  const div = document.createElement('div');
-  div.className = `toast-msg ${type==="success"?"bg-green-500":type==="error"?"bg-red-500":"bg-blue-500"} text-white shadow-lg`;
-  div.textContent = msg;
-  toastContainer.appendChild(div);
-  setTimeout(()=>div.remove(), 3400);
-}
-
-/** ImgBB Upload */
-iconFileInput.addEventListener("change", async () => {
-  const file = iconFileInput.files[0];
-  if (!file) return;
-  uploadStatus.textContent = "Uploading...";
-  previewContainer.classList.add("hidden");
-
-  const formData = new FormData();
-  formData.append("image", file);
-
-  try {
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-      method: "POST", body: formData
-    });
-    const data = await res.json();
-    if(data.success){
-      iconHiddenInput.value = data.data.url;
-      iconPreview.src = data.data.url;
-      previewContainer.classList.remove("hidden");
-      uploadStatus.textContent = "Upload successful!";
-    } else uploadStatus.textContent = "Upload failed.";
-  } catch(err){
-    console.error(err);
-    uploadStatus.textContent = "Error uploading image.";
-  }
-});
-
-/** Submit Channel */
-submitBtn.addEventListener('click', async ()=>{
-  const user = auth.currentUser;
-  const name = document.getElementById('channel-name').value.trim();
-  const icon = document.getElementById('channel-icon').value.trim();
-  const stream = document.getElementById('channel-url').value.trim();
-  const category = document.getElementById('channel-category').value;
-
-  if(!name || !icon || !stream){ showToast("Please fill all fields","error"); return; }
-
-  try{
-    const fullName = user.displayName || "Unknown User";
-    const timestamp = Date.now();
-    const language = category;
-    const country = "India";
-
-    const requestRef = push(ref(db, 'channelRequests'));
-    await set(requestRef, { 
-      name, 
-      icon, 
-      stream, 
-      category, 
-      language,
-      country,
-      submittedBy: user.uid,
-      submittedName: fullName,
-      status:'pending', 
-      timestamp 
-    });
-
-    document.getElementById('channel-name').value='';
-    iconFileInput.value='';
-    iconHiddenInput.value='';
-    document.getElementById('channel-url').value='';
-    previewContainer.classList.add("hidden");
-    uploadStatus.textContent='';
-    showToast("Channel request submitted!","success");
-  } catch(e){
-    console.error(e);
-    showToast("Submit failed","error");
-  }
-});
-
-/** Pending Channels Realtime */
-onAuthStateChanged(auth, user=>{
-  if(!user){ window.location.href='signin'; return; }
-  const q = query(ref(db,'channelRequests'), orderByChild('submittedBy'), equalTo(user.uid));
-  onValue(q, snap=>{
-    userPending.innerHTML='';
-    if(!snap.exists()){ userPending.innerHTML='<p class="text-gray-400 text-center py-4">No pending requests</p>'; return; }
-
-    snap.forEach(cs=>{
-      const c = cs.val();
-      if(c.status!=='pending') return;
-
-      const date = new Date(c.timestamp);
-      const formattedDate = date.toLocaleString();
-
-      const div = document.createElement('div');
-      div.className='channel-card';
-      div.innerHTML = `
-        <img src="${c.icon}" alt="${c.name}"/>
-        <div class="flex-1">
-          <h4 class="font-semibold text-white">${c.name}</h4>
-          <p class="text-gray-300">Category: ${c.category}</p>
-          <p class="text-gray-400 text-xs">Submitted At: ${formattedDate}</p>
-        </div>
-        <span class="pill bg-yellow-500 text-gray-900">Pending</span>
-      `;
-      userPending.appendChild(div);
-    });
+<script>
+  // Show rules modal
+  document.getElementById('show-rules').addEventListener('click', () => {
+    document.getElementById('rules-modal').classList.remove('hidden');
   });
-});
+  // Close rules modal
+  document.getElementById('close-rules').addEventListener('click', () => {
+    document.getElementById('rules-modal').classList.add('hidden');
+  });
+  // Close modal if clicking outside
+  document.getElementById('rules-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'rules-modal') {
+      document.getElementById('rules-modal').classList.add('hidden');
+    }
+  });
 </script>
-
 </body>
 </html>
