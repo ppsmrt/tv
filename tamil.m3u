@@ -166,6 +166,8 @@ http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Adhitya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/zVVFrJmb/1000123735.jpg",Adhitya Tv
 http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/0yKMJhGY/1000123917.jpg",Sakthi Tv
-https://edge4-moblive.yuppcdn.net/transsd/smil:saktv10.smil/playlist.m3u8
+https://edge4-moblive.yuppcdn.net/transsd/smil:saktv10.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/W4ZKRQYX/1000124145.png",Eye Tv
-https://edge4-moblive.yuppcdn.net/trans1sd/smil:nettv15.smil/playlist.m3u8
+https://edge4-moblive.yuppcdn.net/trans1sd/smil:nettv15.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Nethra Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/hR974JRm/1000124189.jpg",Nethra Tv
+https://edge3-moblive.yuppcdn.net/transsd/smil:chii02.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
