@@ -9,11 +9,11 @@ const volumeBar = document.getElementById('volumeBar');
 const currentTimeText = document.getElementById('currentTime');
 const totalTimeText = document.getElementById('totalTime');
 const fullscreenBtn = document.getElementById('fullscreenBtn');
-const goBackOverlay = document.getElementById('goBackOverlay'); // new back overlay
+const goBack = document.getElementById('goBack');
 const controlsOverlay = document.getElementById('controlsOverlay');
+const channelNameEl = document.getElementById('channelName');
 
 let controlsTimeout;
-let backTimeout;
 let scale = 1;
 let initialDistance = null;
 
@@ -47,9 +47,7 @@ function qs(name) {
 let streamSlug = qs('stream');
 if (streamSlug) streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
 
-if (!streamSlug) {
-  alert('No stream specified');
-} else {
+if (streamSlug) {
   get(ref(db, 'channels')).then(snapshot => {
     if (snapshot.exists()) {
       let found = false;
@@ -58,7 +56,9 @@ if (!streamSlug) {
         if (data.name?.toLowerCase() === streamSlug) {
           found = true;
           video.src = data.stream;
+          channelNameEl.textContent = data.name;
           localStorage.setItem('selectedVideo', data.stream);
+          localStorage.setItem('selectedVideoTitle', data.name);
           video.load();
           video.play().catch(() => {});
         }
@@ -68,20 +68,18 @@ if (!streamSlug) {
       alert('No channels available in database');
     }
   }).catch(() => alert('Failed to load stream data'));
+} else {
+  alert('No stream specified');
 }
 
-// --- Controls ---
-// Show/Hide logic
+// --- Controls Overlay Logic ---
 function showControls() {
   controlsOverlay.classList.add('active');
-  goBackOverlay.classList.add('active');
   clearTimeout(controlsTimeout);
-  clearTimeout(backTimeout);
 
   if (window.innerHeight > window.innerWidth) {
-    // Portrait -> hide after 3s
+    // Portrait → hide after 3s
     controlsTimeout = setTimeout(hideControls, 3000);
-    backTimeout = setTimeout(hideBackOverlay, 3000);
   }
 }
 function hideControls() {
@@ -89,41 +87,26 @@ function hideControls() {
     controlsOverlay.classList.remove('active');
   }
 }
-function hideBackOverlay() {
-  if (window.innerHeight > window.innerWidth) {
-    goBackOverlay.classList.remove('active');
-  }
-}
 
-// Toggle controls + back overlay on tap
 video.addEventListener('click', () => {
-  const visible = controlsOverlay.classList.contains('active') || goBackOverlay.classList.contains('active');
-  if (visible) {
-    hideControls();
-    hideBackOverlay();
-  } else {
-    showControls();
-  }
+  if (controlsOverlay.classList.contains('active')) hideControls();
+  else showControls();
 });
 
-// Always keep both visible in fullscreen (landscape)
 document.addEventListener('fullscreenchange', () => {
   if (document.fullscreenElement) {
-    controlsOverlay.classList.add('active');
-    goBackOverlay.classList.add('active');
+    controlsOverlay.classList.add('active'); // Always visible in fullscreen
     clearTimeout(controlsTimeout);
-    clearTimeout(backTimeout);
   } else {
     showControls();
   }
 });
 
-// Play/Pause
+// --- Player Controls ---
 playPauseBtn.addEventListener('click', () => video.paused ? video.play() : video.pause());
 video.addEventListener('play', () => playPauseBtn.innerHTML = '<span class="material-icons">pause</span>');
 video.addEventListener('pause', () => playPauseBtn.innerHTML = '<span class="material-icons">play_arrow</span>');
 
-// Seek
 video.addEventListener('timeupdate', () => {
   seekBar.value = (video.currentTime / video.duration) * 100 || 0;
   currentTimeText.textContent = formatTime(video.currentTime);
@@ -131,13 +114,11 @@ video.addEventListener('timeupdate', () => {
 });
 seekBar.addEventListener('input', () => video.currentTime = (seekBar.value / 100) * video.duration);
 
-// Volume
 volumeBar.addEventListener('input', () => {
   video.volume = volumeBar.value;
   video.muted = video.volume === 0;
 });
 
-// Fullscreen
 fullscreenBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
@@ -148,10 +129,10 @@ fullscreenBtn.addEventListener('click', () => {
   }
 });
 
-// Back overlay action
-goBackOverlay.addEventListener('click', () => window.history.back());
+// Back button
+goBack.addEventListener('click', () => window.history.back());
 
-// Pinch + Wheel Zoom
+// --- Zoom (pinch + wheel) ---
 video.addEventListener('wheel', e => {
   scale += e.deltaY * -0.001;
   scale = Math.min(Math.max(1, scale), 3);
@@ -196,7 +177,7 @@ document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
 
-// Auto fullscreen landscape
+// Auto fullscreen on landscape
 function handleOrientation() {
   if (window.innerWidth > window.innerHeight) {
     if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
@@ -212,5 +193,5 @@ video.autoplay = true;
 video.muted = false;
 video.playsInline = true;
 
-// Initial state
+// Init
 showControls();
