@@ -153,5 +153,7 @@ http://aktvhd.stream.onecloudlive.in:8080/aktvhd/aktv/index.m3u8
 https://ipcloud.live/skytv/skytv/index.m3u8
 #EXTINF:-1 tvg-name="Harin Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Myrh8GFJ/1000123559.jpg",Harin Tv
 https://ipcloud.live/harintv/harintvhd/index.m3u8
-#EXTINF:-1 tvg-name="Thirumalai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/whqxPZZ6/1000123629.jpg",Thirumalai Tv
-https://ipcloud.live/thirumalaitv/thirumalaitv/index.m3u8
+#EXTINF:-1 tvg-name="Colors Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/62W7JNj/1000123664.jpg",Colors Tamil
+http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Ashoka Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/LDSxyKn3/1000123661.jpg",Ashoka Tv
+https://ipcloud.live/asokatv/asokahd/index.m3u8
