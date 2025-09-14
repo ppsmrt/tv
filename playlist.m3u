@@ -409,3 +409,5 @@ http://bestp55.xyz/live/A7FC77529786/519C32219872/72120.ts
 http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Adhitya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zVVFrJmb/1000123735.jpg",Adhitya Tv
 http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
+#EXTINF:-1 tvg-name="Star Movies" group-title="Malayalam" tvg-logo="https://i.ibb.co/LznH7sxB/1000123905.jpg",Star Movies
+http://89.187.189.98/STARMOVIESHD/index.m3u8
