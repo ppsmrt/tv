@@ -9,14 +9,11 @@ const volumeBar = document.getElementById('volumeBar');
 const currentTimeText = document.getElementById('currentTime');
 const totalTimeText = document.getElementById('totalTime');
 const fullscreenBtn = document.getElementById('fullscreenBtn');
-const goBack = document.getElementById('goBack');
+const goBackOverlay = document.getElementById('goBackOverlay'); // new back overlay
 const controlsOverlay = document.getElementById('controlsOverlay');
-const channelNameEl = document.getElementById('channelName');
-const addFavBtn = document.getElementById('addFav');
-const removeFavBtn = document.getElementById('removeFav');
 
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 let controlsTimeout;
+let backTimeout;
 let scale = 1;
 let initialDistance = null;
 
@@ -61,9 +58,7 @@ if (!streamSlug) {
         if (data.name?.toLowerCase() === streamSlug) {
           found = true;
           video.src = data.stream;
-          channelNameEl.textContent = data.name;
           localStorage.setItem('selectedVideo', data.stream);
-          localStorage.setItem('selectedVideoTitle', data.name);
           video.load();
           video.play().catch(() => {});
         }
@@ -79,31 +74,45 @@ if (!streamSlug) {
 // Show/Hide logic
 function showControls() {
   controlsOverlay.classList.add('active');
+  goBackOverlay.classList.add('active');
   clearTimeout(controlsTimeout);
+  clearTimeout(backTimeout);
 
   if (window.innerHeight > window.innerWidth) {
     // Portrait -> hide after 3s
     controlsTimeout = setTimeout(hideControls, 3000);
+    backTimeout = setTimeout(hideBackOverlay, 3000);
   }
 }
 function hideControls() {
   if (window.innerHeight > window.innerWidth) {
-    // Only hide in portrait
     controlsOverlay.classList.remove('active');
   }
 }
+function hideBackOverlay() {
+  if (window.innerHeight > window.innerWidth) {
+    goBackOverlay.classList.remove('active');
+  }
+}
 
-// Toggle controls on tap
+// Toggle controls + back overlay on tap
 video.addEventListener('click', () => {
-  if (controlsOverlay.classList.contains('active')) hideControls();
-  else showControls();
+  const visible = controlsOverlay.classList.contains('active') || goBackOverlay.classList.contains('active');
+  if (visible) {
+    hideControls();
+    hideBackOverlay();
+  } else {
+    showControls();
+  }
 });
 
-// Always keep controls visible in fullscreen (landscape)
+// Always keep both visible in fullscreen (landscape)
 document.addEventListener('fullscreenchange', () => {
   if (document.fullscreenElement) {
     controlsOverlay.classList.add('active');
+    goBackOverlay.classList.add('active');
     clearTimeout(controlsTimeout);
+    clearTimeout(backTimeout);
   } else {
     showControls();
   }
@@ -139,8 +148,8 @@ fullscreenBtn.addEventListener('click', () => {
   }
 });
 
-// Back
-goBack.addEventListener('click', () => window.history.back());
+// Back overlay action
+goBackOverlay.addEventListener('click', () => window.history.back());
 
 // Pinch + Wheel Zoom
 video.addEventListener('wheel', e => {
@@ -186,30 +195,6 @@ function applyFullscreenStyles() {
 document.addEventListener('fullscreenchange', applyFullscreenStyles);
 window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
-
-// Favorites
-function updateFavButtons() {
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const isFav = favorites.some(fav => fav.src === videoSrc);
-  addFavBtn.classList.toggle('hidden', isFav);
-  removeFavBtn.classList.toggle('hidden', !isFav);
-}
-updateFavButtons();
-
-addFavBtn.addEventListener('click', () => {
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const videoTitleStored = localStorage.getItem('selectedVideoTitle') || 'Unknown';
-  if (!videoSrc) return;
-  favorites.push({ title: videoTitleStored, src: videoSrc, thumb: '', category: 'Unknown' });
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  updateFavButtons();
-});
-removeFavBtn.addEventListener('click', () => {
-  const videoSrc = localStorage.getItem('selectedVideo');
-  favorites = favorites.filter(fav => fav.src !== videoSrc);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  updateFavButtons();
-});
 
 // Auto fullscreen landscape
 function handleOrientation() {
