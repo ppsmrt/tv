@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Premium Player</title>
+<title>Premium Live TV Player</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.0/shaka-player.compiled.js"></script>
 <style>
 body { margin:0; font-family:'Baloo 2', cursive; background:#111; color:#fff; }
-#videoContainer { position: relative; width:100%; max-height:50vh; overflow:hidden; background:#000; border-radius:12px; }
-video { width:100%; height:auto; object-fit:cover; }
+#videoContainer { position: relative; width:100%; max-height:50vh; overflow:hidden; border-radius:12px; background:#000; }
+video { width:100%; height:auto; object-fit:cover; border-radius:12px; }
 .overlay-back { position:absolute; top:12px; left:12px; z-index:50; background:rgba(0,0,0,0.5); padding:6px 10px; border-radius:50px; display:flex; align-items:center; cursor:pointer; }
 .overlay-back .material-icons { font-size:20px; margin-right:4px; }
-.shaka-video-controls { border-radius:12px; background:rgba(0,0,0,0.4) !important; }
-.scroll-ad { position:absolute; bottom:44px; left:0; width:100%; overflow:hidden; background:rgba(0,0,0,0.2); font-size:12px; white-space:nowrap; animation:scroll 20s linear infinite; }
+.scroll-ad { position:absolute; bottom:44px; left:0; width:100%; overflow:hidden; background:rgba(0,0,0,0.2); font-size:12px; white-space:nowrap; }
+.scroll-ad span { display:inline-block; padding-left:100%; animation:scroll 20s linear infinite; }
 @keyframes scroll { 0% { transform:translateX(100%); } 100% { transform:translateX(-100%); } }
 .card-list { display:flex; overflow-x:auto; gap:10px; padding:10px 0; }
 .card-list::-webkit-scrollbar { display:none; }
@@ -27,37 +27,30 @@ video { width:100%; height:auto; object-fit:cover; }
 </head>
 <body class="flex flex-col min-h-screen">
 
-<!-- Video Container -->
 <div class="mx-4 mt-4" id="videoContainer">
   <video id="video" playsinline webkit-playsinline></video>
   <div class="overlay-back" onclick="history.back()">
     <span class="material-icons">arrow_back</span> Back
   </div>
-  <div class="scroll-ad">
-    🔥 Join Our Telegram Channel! Special thanks to Tamil Live Links & Arjunan20 🔥
-  </div>
+  <div class="scroll-ad"><span>🔥 Join Our Telegram Channel! Latest Live Streams & Updates 🔥</span></div>
 </div>
 
-<!-- Video Info -->
 <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg">
   <h1 id="videoTitle" class="text-lg font-bold mb-2">Video Title</h1>
-  <p id="videoDesc" class="text-sm text-gray-300">Video description will appear here. Legal notices, info, or announcements can be placed.</p>
+  <p id="videoDesc" class="text-sm text-gray-300">Video description will appear here.</p>
 </div>
 
-<!-- Ad Banner -->
 <div class="mx-4 mt-4 text-center">
   <a href="https://telegram.me/tamilm3u" target="_blank">
     <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" class="w-full max-w-[728px] h-auto rounded-lg shadow-lg" />
   </a>
 </div>
 
-<!-- Related Channels -->
 <div class="mx-4 mt-4">
   <h2 class="text-white font-semibold mb-2">Other Channels</h2>
   <div id="relatedChannels" class="card-list"></div>
 </div>
 
-<!-- JS -->
 <script type="module" src="assets/js/test.js"></script>
 </body>
 </html>
