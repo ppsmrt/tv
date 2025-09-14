@@ -32,7 +32,8 @@ const previewContainer = document.getElementById('preview-container');
 const uploadStatus = document.getElementById('upload-status');
 const userPending = document.getElementById('user-pending');
 const nameInput = document.getElementById('channel-name');
-const categoryInput = document.getElementById('channel-category');
+const categoryInput = document.getElementById('channel-category'); // Language/Category
+const channelTypeInput = document.getElementById('channel-type'); // Genre
 const descInput = document.getElementById('channel-description');
 const tagsInput = document.getElementById('channel-tags');
 const imgbbApiKey = "8604e4b4050c63c460d0bca39cf28708";
@@ -81,13 +82,14 @@ const descriptionTemplates = {
 // ==========================
 function updateDescription() {
   const name = nameInput.value.trim();
-  const genre = categoryInput.value;
+  const genre = channelTypeInput.value; // ✅ Use channel-type
   if (name && descriptionTemplates[genre]) {
     descInput.value = descriptionTemplates[genre](name);
   }
 }
+
 nameInput.addEventListener('input', updateDescription);
-categoryInput.addEventListener('change', updateDescription);
+channelTypeInput.addEventListener('change', updateDescription);
 
 // ==========================
 // ImgBB Upload
@@ -125,7 +127,7 @@ submitBtn.addEventListener('click', async () => {
   const icon = iconHiddenInput.value.trim();
   const stream = document.getElementById('channel-url').value.trim();
   const category = categoryInput.value;
-  const channelType = document.getElementById('channel-type').value;
+  const channelType = channelTypeInput.value;
   const country = document.getElementById('channel-country').value.trim() || "India";
   const description = descInput.value.trim();
   const tags = tagsInput.value.trim();
