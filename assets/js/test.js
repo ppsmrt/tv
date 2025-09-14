@@ -1,7 +1,27 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// Firebase Config
+// Elements
+const video = document.getElementById('videoPlayer');
+const miniPlayer = document.getElementById('miniPlayer');
+const miniVideo = document.getElementById('miniVideo');
+const playPauseBtn = document.getElementById('playPause');
+const miniPlayPause = document.getElementById('miniPlayPause');
+const seekBar = document.getElementById('seekBar');
+const volumeBar = document.getElementById('volumeBar');
+const currentTimeText = document.getElementById('currentTime');
+const totalTimeText = document.getElementById('totalTime');
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const goBack = document.getElementById('goBack');
+const controlsOverlay = document.getElementById('controlsOverlay');
+const channelInfo = document.getElementById('channelInfo');
+const channelNameEl = document.getElementById('channelName');
+
+const addFavBtn = document.getElementById('addFav');
+const removeFavBtn = document.getElementById('removeFav');
+let controlsTimeout, scale=1, initialDistance=null, favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -11,138 +31,119 @@ const firebaseConfig = {
   messagingSenderId: "80664356882",
   appId: "1:80664356882:web:c8464819b0515ec9b210cb"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Helper: Get URL query param
-function qs(name) {
-  const u = new URL(location.href);
-  return u.searchParams.get(name);
-}
-
-// Stream slug
-let streamSlug = qs('stream');
-if (streamSlug) streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
-
-if (!streamSlug) {
-  alert('No stream specified');
-} else {
-  const rootRef = ref(db);
-
-  // Recursive search function
-  async function findChannel(snapshot) {
-    if (!snapshot.exists()) return null;
-
-    let found = null;
-
-    function traverse(node) {
-      if (found) return; // stop if already found
-      node.forEach(child => {
+// Get stream from URL
+function qs(name){ return new URL(location.href).searchParams.get(name); }
+let streamSlug = qs('stream')?.replace(/-/g,' ').toLowerCase();
+if(!streamSlug) alert('No stream specified');
+else {
+  get(ref(db,'channels')).then(snapshot=>{
+    if(snapshot.exists()){
+      let found=false;
+      snapshot.forEach(child=>{
         const data = child.val();
-        if (data && data.name && data.stream) {
-          const slug = data.name.toLowerCase();
-          if (slug === streamSlug) {
-            found = data;
-          }
+        if(data.name?.toLowerCase() === streamSlug){
+          found=true;
+          video.src = data.stream;
+          channelNameEl.textContent = data.name;
+          localStorage.setItem('selectedVideo', data.stream);
+          localStorage.setItem('selectedVideoTitle', data.name);
+          video.load(); video.play().catch(()=>{});
         }
-        if (child.hasChildren()) traverse(child);
       });
-    }
-
-    traverse(snapshot);
-    return found;
-  }
-
-  get(rootRef).then(snapshot => {
-    findChannel(snapshot).then(channel => {
-      if (channel) {
-        document.getElementById('videoTitle').textContent = channel.name || 'Live Stream';
-        loadShakaOrNative(channel.stream);
-      } else {
-        alert('Channel not found: ' + streamSlug);
-      }
-    });
-  }).catch(err => console.error('Firebase read failed:', err));
+      if(!found) alert('Channel not found: '+streamSlug);
+    } else alert('No channels available in database');
+  }).catch(err=>alert('Failed to load stream data'));
 }
 
-// --- Shaka Player or fallback ---
-function loadShakaOrNative(url) {
-  const video = document.getElementById('video');
-
-  const isHLS = url.endsWith('.m3u8');
-  const isDASH = url.endsWith('.mpd');
-
-  if (isHLS || isDASH) {
-    shaka.polyfill.installAll();
-    if (!shaka.Player.isBrowserSupported()) {
-      video.src = url;
-      video.play().catch(()=>{});
-      return;
-    }
-
-    const player = new shaka.Player(video);
-
-    if (!video.parentElement._shakaUI) {
-      const ui = new shaka.ui.Overlay(player, document.getElementById('videoContainer'), video);
-      ui.getControls();
-      video.parentElement._shakaUI = ui;
-    }
-
-    player.load(url).then(()=> console.log('Stream loaded with Shaka Player!'))
-      .catch(err => {
-        console.error('Shaka Player error:', err);
-        video.src = url;
-        video.play().catch(()=>{});
-      });
-  } else {
-    video.src = url;
-    video.play().catch(()=>{});
-  }
-
-  // --- Orientation and aspect ratio ---
-  function updateVideoLayout() {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-
-    if (vw < vh) {
-      // Portrait: 16:9
-      video.style.width = '100%';
-      video.style.height = 'auto';
-      const h = vw * 9 / 16;
-      video.style.maxHeight = `${h}px`;
-    } else {
-      // Landscape: fullscreen
-      video.style.width = '100%';
-      video.style.height = '100%';
-      video.style.objectFit = 'cover';
-    }
-  }
-
-  window.addEventListener('resize', updateVideoLayout);
-  window.addEventListener('orientationchange', updateVideoLayout);
-  updateVideoLayout();
-
-  // Auto-hide Shaka controls after 3s
-  let controlsTimeout;
-  const container = video.parentElement;
-  function showControls() {
-    if (container._shakaUI) {
-      container._shakaUI.getControls().show();
-      clearTimeout(controlsTimeout);
-      controlsTimeout = setTimeout(() => {
-        container._shakaUI.getControls().hide();
-      }, 3000);
-    }
-  }
-
-  video.addEventListener('mousemove', showControls);
-  video.addEventListener('touchstart', showControls);
-  video.addEventListener('click', () => {
-    showControls();
-    if (!document.fullscreenElement) {
-      container.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
-      if (screen.orientation?.lock) screen.orientation.lock('landscape').catch(()=>{});
-    }
-  });
+// Controls
+function showControls(){
+  controlsOverlay.classList.add('active');
+  channelInfo.style.transform='translateY(0)';
+  clearTimeout(controlsTimeout);
+  controlsTimeout=setTimeout(hideControls,3000);
 }
+function hideControls(){
+  controlsOverlay.classList.remove('active');
+  channelInfo.style.transform='translateY(10px)';
+}
+video.addEventListener('click',()=>controlsOverlay.classList.contains('active')?hideControls():showControls());
+showControls();
+
+// Play/Pause
+playPauseBtn.addEventListener('click',()=>video.paused?video.play():video.pause());
+video.addEventListener('play',()=>playPauseBtn.innerHTML='<span class="material-icons">pause</span>');
+video.addEventListener('pause',()=>playPauseBtn.innerHTML='<span class="material-icons">play_arrow</span>');
+
+// Seek & Volume
+video.addEventListener('timeupdate',()=>{
+  seekBar.value=(video.currentTime/video.duration)*100 || 0;
+  currentTimeText.textContent=formatTime(video.currentTime);
+  totalTimeText.textContent=formatTime(video.duration);
+});
+seekBar.addEventListener('input',()=>video.currentTime=(seekBar.value/100)*video.duration);
+volumeBar.addEventListener('input',()=>{ video.volume=volumeBar.value; video.muted=video.volume===0; });
+
+// Fullscreen & Orientation
+fullscreenBtn.addEventListener('click',()=>{ 
+  if(!document.fullscreenElement) video.parentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+});
+window.addEventListener('resize',handleOrientation);
+window.addEventListener('orientationchange',handleOrientation);
+function handleOrientation(){
+  if(window.innerWidth>window.innerHeight && !document.fullscreenElement) video.requestFullscreen().catch(()=>{});
+}
+
+// Go back
+goBack.addEventListener('click',()=>window.history.back());
+
+// Mini-player
+function activateMiniPlayer(){
+  miniPlayer.style.opacity='1'; miniPlayer.style.pointerEvents='auto';
+  miniVideo.src=video.currentSrc;
+  miniVideo.currentTime=video.currentTime;
+  miniVideo.play(); video.parentElement.style.display='none';
+}
+miniPlayPause.addEventListener('click',()=>miniVideo.paused?miniVideo.play():miniVideo.pause());
+document.getElementById('closeMini').addEventListener('click',()=>{
+  miniVideo.pause();
+  miniPlayer.style.opacity='0';
+  miniPlayer.style.pointerEvents='none';
+  video.parentElement.style.display='flex';
+});
+setTimeout(activateMiniPlayer,5000);
+
+// Favorites
+function updateFavButtons(){
+  const videoSrc = localStorage.getItem('selectedVideo');
+  const isFav = favorites.some(f=>f.src===videoSrc);
+  addFavBtn.classList.toggle('hidden',isFav);
+  removeFavBtn.classList.toggle('hidden',!isFav);
+}
+addFavBtn.addEventListener('click',()=>{
+  const videoSrc = localStorage.getItem('selectedVideo');
+  const videoTitleStored = localStorage.getItem('selectedVideoTitle') || 'Unknown';
+  if(!videoSrc) return;
+  favorites.push({title:videoTitleStored,src:videoSrc,thumb:'',category:'Unknown'});
+  localStorage.setItem('favorites',JSON.stringify(favorites));
+  updateFavButtons();
+});
+removeFavBtn.addEventListener('click',()=>{
+  const videoSrc = localStorage.getItem('selectedVideo');
+  favorites = favorites.filter(f=>f.src!==videoSrc);
+  localStorage.setItem('favorites',JSON.stringify(favorites));
+  updateFavButtons();
+});
+updateFavButtons();
+
+// Time formatting
+function formatTime(s){ const m=Math.floor(s/60), sec=Math.floor(s%60); return `${m}:${sec<10?'0'+sec:sec}`; }
+
+// Pinch & wheel zoom
+video.addEventListener('wheel',e=>{ scale+=e.deltaY*-0.001; scale=Math.min(Math.max(1,scale),3); video.style.transform=`scale(${scale})`; });
+video.addEventListener('touchstart',e=>{ if(e.touches.length===2) initialDistance=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY); });
+video.addEventListener('touchmove',e=>{ if(e.touches.length===2 && initialDistance){ const cur=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY); scale=Math.min(Math.max(1,scale*(cur/initialDistance)),3); video.style.transform=`scale(${scale})`; initialDistance=cur; } });
+video.addEventListener('touchend',e=>{ if(e.touches.length<2) initialDistance=null; });
