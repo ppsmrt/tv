@@ -161,7 +161,7 @@ https://vvsolutions.in/vpowernews_343/vpowernews_343.m3u8
 https://vvsolutions.in/dbr12/dbr12.m3u8
 #EXTINF:-1 tvg-name="Apple tv marthandam" group-title="Tamil" tvg-logo="https://play-lh.googleusercontent.com/6J8XBOYCu_cgqemEMGOg-AiPctEzjilNKzJ__ckcV67P-FiyVak8VaFSXRdjVgStguF8=w832-h470-rw",Apple tv marthandam
 http://applelive.in:80/appletv/appletv.m3u8
-#EXTINF:-1 tvg-name="Selfie tv puthukadai kaniyakumari district" group-title="Tamil" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie tv puthukadai kaniyakumari district
+#EXTINF:-1 tvg-name="Selfie Tv" group-title="Tamil" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie Tv
 http://applelive.in/selfeetv/selfeetv.m3u8
 #EXTINF:-1 tvg-name="Akshara News" group-title="Telugu" tvg-logo="https://i.ibb.co/wF1MGwQv/20250908-201408.jpg",Akshara News
 https://vvsolutions.in/aksharanews/aksharanews.m3u8
