@@ -124,16 +124,22 @@ onAuthStateChanged(auth, async user=>{
 
   // Load pending requests
   const reqRef = ref(db, "channelRequests");
-  onValue(reqRef, snap=>{
+  onValue(reqRef, async snap=>{
     container.innerHTML="";
     if(!snap.exists()){ 
       container.innerHTML='<p class="text-center text-gray-400">No pending requests</p>'; 
       return; 
     }
 
-    snap.forEach(async cs=>{
+    const requests = [];
+    snap.forEach(cs=>{
       const c = cs.val();
       const id = cs.key;
+      requests.push({ id, ...c });
+    });
+
+    // Resolve all usernames first
+    const cards = await Promise.all(requests.map(async c=>{
       const submitterName = await getUserName(c.submittedBy);
 
       const card = document.createElement("div");
@@ -153,18 +159,21 @@ onAuthStateChanged(auth, async user=>{
         </div>
       `;
 
-      card.querySelector(".btn-approve").addEventListener("click",()=>approveChannel(id, c));
-      card.querySelector(".btn-reject").addEventListener("click",()=>rejectChannel(id));
+      card.querySelector(".btn-approve").addEventListener("click",()=>approveChannel(c.id, c));
+      card.querySelector(".btn-reject").addEventListener("click",()=>rejectChannel(c.id));
       card.querySelector(".btn-edit").addEventListener("click",()=>{
-        currentEditId=id;
+        currentEditId=c.id;
         editName.value=c.name;
         editStream.value=c.stream;
         editCategory.value=c.category;
         editModal.style.display="flex";
       });
 
-      container.appendChild(card);
-    });
+      return card;
+    }));
+
+    // Render all cards
+    cards.forEach(card=>container.appendChild(card));
   });
 });
 
@@ -172,7 +181,7 @@ async function approveChannel(id,data){
   try {
     const channelRef = push(ref(db,"channels"));
     await set(channelRef,{
-      ...data,   // keep everything submitted
+      ...data,
       approvedBy: adminName,
       approvedAt: Date.now()
     });
