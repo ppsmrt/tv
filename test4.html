@@ -17,7 +17,7 @@
   <!-- Baloo 2 Font -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body class="bg-gray-900 text-white font-sans h-screen flex flex-col">
 
   <!-- Header -->
   <header class="bg-gray-800 shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
@@ -27,7 +27,8 @@
     </button>
   </header>
 
-  <main class="p-4 space-y-6">
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto p-4 space-y-6">
 
     <!-- Search Bar -->
     <div class="relative">
@@ -40,40 +41,57 @@
     <div class="space-y-2">
       <h2 class="text-lg font-semibold">Featured</h2>
       <div id="featuredCarousel" class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-        <!-- Example card -->
-        <div class="min-w-[200px] bg-gray-800 rounded-xl shadow-lg p-3 flex-shrink-0 snap-start">
+        <!-- Example Card -->
+        <div class="min-w-[200px] bg-gray-800 rounded-2xl shadow-lg p-3 flex-shrink-0 snap-start transform hover:scale-105 transition-transform duration-300">
           <div class="bg-gray-700 h-32 rounded-lg mb-2"></div>
           <h3 class="text-white font-medium">Channel Name</h3>
           <p class="text-gray-400 text-sm">Category</p>
         </div>
-        <!-- Repeat for more cards dynamically -->
       </div>
     </div>
 
-    <!-- Categories -->
+    <!-- Categories Pills -->
     <div class="flex gap-2 overflow-x-auto scrollbar-hide py-2">
       <button class="px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium flex-shrink-0">Tamil</button>
       <button class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium flex-shrink-0">Entertainment</button>
       <button class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium flex-shrink-0">News</button>
-      <!-- Dynamically generate categories -->
     </div>
 
     <!-- Channels Grid -->
     <section id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
       <!-- Example channel card -->
-      <div class="bg-gray-800 rounded-xl shadow-md p-3 cursor-pointer hover:scale-105 transition transform" onclick="openModal('Channel 1','Tamil','English','Music, Drama','Admin')">
+      <div class="bg-gray-800 rounded-2xl shadow-md p-3 cursor-pointer hover:scale-105 transition-transform" onclick="openModal('Channel 1','Tamil','English','Music, Drama','Admin')">
         <div class="bg-gray-700 h-32 rounded-lg mb-2"></div>
         <h3 class="text-white font-semibold">Channel 1</h3>
         <p class="text-gray-400 text-sm">Tamil</p>
       </div>
-      <!-- Repeat dynamically -->
     </section>
 
   </main>
 
+  <!-- Bottom Tab Navigation -->
+  <nav class="bg-gray-800 border-t border-gray-700 flex justify-around items-center p-2 sticky bottom-0 z-50">
+    <button class="flex flex-col items-center text-white">
+      <span class="material-icons">home</span>
+      <span class="text-xs">Home</span>
+    </button>
+    <button class="flex flex-col items-center text-gray-400 hover:text-white">
+      <span class="material-icons">live_tv</span>
+      <span class="text-xs">Live</span>
+    </button>
+    <button class="flex flex-col items-center text-gray-400 hover:text-white">
+      <span class="material-icons">search</span>
+      <span class="text-xs">Search</span>
+    </button>
+    <button class="flex flex-col items-center text-gray-400 hover:text-white">
+      <span class="material-icons">settings</span>
+      <span class="text-xs">Settings</span>
+    </button>
+  </nav>
+
   <!-- Channel Info Modal -->
   <div id="channelModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-    <div class="bg-gray-900 rounded-2xl p-6 w-11/12 max-w-md relative glassmorphic backdrop-blur-md">
+    <div class="bg-gray-900 rounded-3xl p-6 w-11/12 max-w-md relative backdrop-blur-md glassmorphic transform scale-95 transition-all duration-300">
       <button id="modalClose" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
       <h2 id="modalName" class="text-xl font-bold mb-2">Channel Name</h2>
       <p id="modalCategory" class="text-gray-400 mb-1">Category: Tamil</p>
@@ -82,11 +100,6 @@
       <p id="modalAddedBy" class="text-sm text-gray-500 mt-2">Added by Admin</p>
     </div>
   </div>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 shadow-inner p-4 text-center text-gray-400">
-    © 2025 Live TV. All rights reserved.
-  </footer>
 
   <!-- Scripts -->
   <script type="module" src="assets/js/header.js"></script>
@@ -105,14 +118,19 @@
       document.getElementById('modalAddedBy').textContent = "Added by " + addedBy;
 
       modal.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => modal.querySelector('div').classList.remove('scale-95'), 10);
     }
 
     modalClose.addEventListener('click', () => {
-      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.querySelector('div').classList.add('scale-95');
+      setTimeout(() => modal.classList.add('opacity-0', 'pointer-events-none'), 200);
     });
 
     modal.addEventListener('click', (e) => {
-      if(e.target === modal) modal.classList.add('opacity-0', 'pointer-events-none');
+      if(e.target === modal) {
+        modal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => modal.classList.add('opacity-0', 'pointer-events-none'), 200);
+      }
     });
   </script>
 
