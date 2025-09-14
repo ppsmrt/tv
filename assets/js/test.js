@@ -1,7 +1,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// Firebase Setup
+const video = document.getElementById('video');
+const videoTitle = document.getElementById('videoTitle');
+
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -11,64 +14,98 @@ const firebaseConfig = {
   messagingSenderId: "80664356882",
   appId: "1:80664356882:web:c8464819b0515ec9b210cb"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Elements
-const video = document.getElementById('video');
-const videoTitle = document.getElementById('videoTitle');
-const videoDesc = document.getElementById('videoDesc');
-const relatedContainer = document.getElementById('relatedChannels');
+// Helper function to get URL param
+function qs(name) {
+  const u = new URL(location.href);
+  return u.searchParams.get(name);
+}
 
-// Shaka Player setup
-shaka.polyfill.installAll();
-const player = new shaka.Player(video);
-const ui = new shaka.ui.Overlay(player, document.getElementById('videoContainer'), video);
-ui.configure({ controlPanelElements: ['play_pause','mute','volume','fullscreen','time_and_duration','seek_bar'] });
-player.configure({ streaming:{ lowLatencyMode:true, rebufferingGoal:2, bufferingGoal:5 } });
+// Convert slug → normalized (lowercase, replace - with space)
+let streamSlug = qs('stream');
+if (streamSlug) {
+  streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
+}
 
-// Helpers
-const urlParams = new URLSearchParams(window.location.search);
-let streamSlug = urlParams.get('stream');
-if(streamSlug) streamSlug = streamSlug.replace(/-/g,' ').toLowerCase();
-
-let favorites = JSON.parse(localStorage.getItem('favorites'))||[];
-
-// Load channels
-get(ref(db,'channels')).then(snapshot=>{
-  if(!snapshot.exists()) return;
-  let selected = null;
-  snapshot.forEach(child=>{
-    const data = child.val();
-    const nameSlug = data.name?.toLowerCase();
-    if(nameSlug === streamSlug) selected = data;
-
-    // Related channel card
-    const card = document.createElement('div');
-    card.className='card';
-    card.innerHTML=`<img src="${data.icon||'https://via.placeholder.com/150'}"/><p class="p-1 text-sm text-white">${data.name}</p>`;
-    card.onclick=()=>loadStream(data);
-    relatedContainer.appendChild(card);
+if (!streamSlug) {
+  alert('No stream specified');
+} else {
+  const channelsRef = ref(db, 'channels');
+  get(channelsRef).then(snapshot => {
+    if (snapshot.exists()) {
+      let found = false;
+      snapshot.forEach(childSnap => {
+        const data = childSnap.val();
+        if (data.name && data.name.toLowerCase() === streamSlug) {
+          found = true;
+          initializeShakaPlayer(data.stream);
+          videoTitle.textContent = data.name || 'Live Stream';
+          localStorage.setItem('selectedVideo', data.stream);
+          localStorage.setItem('selectedVideoTitle', data.name || 'Live Stream');
+        }
+      });
+      if (!found) {
+        alert('Channel not found: ' + streamSlug);
+      }
+    } else {
+      alert('No channels available in database');
+    }
+  }).catch(err => {
+    console.error('Firebase read failed:', err);
+    alert('Failed to load stream data');
   });
-  if(selected) loadStream(selected);
-}).catch(console.error);
-
-function loadStream(data){
-  videoTitle.textContent = data.name || 'Live Stream';
-  videoDesc.textContent = data.description || '';
-  player.load(data.stream).then(()=>video.play().catch(()=>{}));
-  localStorage.setItem('selectedVideo', data.stream);
-  localStorage.setItem('selectedVideoTitle', data.name);
 }
 
-// Favorites
-function addToFav(data){
-  if(!favorites.some(f=>f.src===data.stream)){
-    favorites.push({title:data.name, src:data.stream, thumb:data.icon});
-    localStorage.setItem('favorites',JSON.stringify(favorites));
+// Initialize Shaka Player with Premium UI and Controls
+function initializeShakaPlayer(streamUrl) {
+  if (!shaka.Player.isBrowserSupported()) {
+    alert('Browser not supported by Shaka Player');
+    return;
   }
-}
-function removeFromFav(data){
-  favorites=favorites.filter(f=>f.src!==data.stream);
-  localStorage.setItem('favorites',JSON.stringify(favorites));
+
+  // Create the player instance
+  const player = new shaka.Player(video);
+
+  // Attach the UI controls
+  const ui = new shaka.ui.Overlay(player, document.getElementById('player-container'), video);
+  ui.getControls();
+
+  // Configure premium UI options (example)
+  ui.configure({
+    controlPanelElements: [
+      'play_pause',
+      'time_and_duration',
+      'spacer',
+      'mute',
+      'volume',
+      'fullscreen',
+      'overflow_menu'
+    ],
+    overflowMenuButtons: [
+      'captions',
+      'quality',
+      'picture_in_picture',
+      'cast',
+      'playback_rate'
+    ],
+    addSeekBar: true,
+    enableKeyboardPlaybackControls: true,
+  });
+
+  // Load the stream
+  player.load(streamUrl).then(() => {
+    // Autoplay after load
+    video.play().catch(() => {});
+  }).catch(error => {
+    console.error('Error loading video:', error);
+    alert('Failed to load video stream');
+  });
+
+  // Optional: Listen for errors
+  player.addEventListener('error', event => {
+    console.error('Shaka Player error:', event.detail);
+  });
 }
