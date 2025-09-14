@@ -159,3 +159,9 @@ http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 https://ipcloud.live/asokatv/asokahd/index.m3u8
 #EXTINF:-1 tvg-name="MSN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/b8YRQMd/1000123705.jpg",MSN Tv
 https://ipcloud.live/msntv/msntv/index.m3u8
+#EXTINF:-1 tvg-name="Vijay Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1Ywkv0Sd/1000123725.jpg",Vijay Tv
+http://bestp55.xyz/live/A7FC77529786/519C32219872/72120.ts
+#EXTINF:-1 tvg-name="Zee Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/p6x4tcQ4/1000123730.jpg",Zee Tamil
+http://filex.me:8080/live/000003/000003/499674.m3u8
+#EXTINF:-1 tvg-name="Adhitya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zVVFrJmb/1000123735.jpg",Adhitya Tv
+http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
