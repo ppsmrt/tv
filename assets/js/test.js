@@ -22,8 +22,8 @@ const db = getDatabase(app);
 const grid = document.getElementById("channelsGrid");
 const categoryBar = document.getElementById("categoryBar");
 const featuredCarousel = document.getElementById("featuredCarousel");
+const recentlyAddedCarousel = document.getElementById("recentlyAddedCarousel"); // new
 const searchInput = document.getElementById("searchInput");
-const recentlyGrid = document.getElementById("recentlyGrid"); // ✅ new section
 
 // State
 let selectedCategory = "All"; // default is All
@@ -116,8 +116,7 @@ function showInfoModal(channel) {
   modal.querySelector("#infoLanguage").textContent = channel.category;
   modal.querySelector("#infoTags").textContent = channel.tags || "—";
 
-  // Corrected Added By logic
-  let addedBy = "Admin"; // default if unknown
+  let addedBy = "Admin";
   if (channel.createdBy) {
     addedBy = users[channel.createdBy]?.name || channel.createdBy || "Admin";
   }
@@ -153,10 +152,9 @@ function createChannelCard(c) {
   liveBadge.className = "live-badge";
   liveBadge.textContent = "LIVE";
 
-  // Favorite button
   const favBtn = document.createElement("div");
   favBtn.className = "favorite-btn";
-  favBtn.style.right = "44px";
+  favBtn.style.right = "44px"; 
   const isFav = favorites.some((fav) => fav.src === c.src);
   favBtn.innerHTML = `<i class="material-icons">${isFav ? "favorite" : "favorite_border"}</i>`;
   favBtn.onclick = (e) => {
@@ -166,7 +164,6 @@ function createChannelCard(c) {
     toggleFavorite(favObj, favBtn);
   };
 
-  // Info button
   const infoBtn = document.createElement("div");
   infoBtn.className = "favorite-btn";
   infoBtn.style.right = "4px";
@@ -177,7 +174,6 @@ function createChannelCard(c) {
     showInfoModal(c);
   };
 
-  // Track view on click
   a.addEventListener("click", () => {
     trackChannelView(c.src);
   });
@@ -216,7 +212,7 @@ function renderCategories() {
   });
 }
 
-// Render Channels (with A–Z sorting)
+// Render Channels (A–Z sorting)
 function renderChannels(filter = "") {
   grid.innerHTML = "";
   const filtered = channels
@@ -225,7 +221,7 @@ function renderChannels(filter = "") {
         (selectedCategory === "All" || c.category === selectedCategory) &&
         c.name.toLowerCase().includes(filter.toLowerCase())
     )
-    .sort((a, b) => a.name.localeCompare(b.name)); // A–Z
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   if (!filtered.length) {
     grid.innerHTML =
@@ -257,26 +253,21 @@ function renderFeatured() {
   });
 }
 
-// ✅ Render Recently Added (based on createdAt)
+// Render Recently Added
 function renderRecentlyAdded() {
-  if (!recentlyGrid) return;
-  recentlyGrid.innerHTML = "";
-
-  const recent = channels
-    .filter((c) => c.createdAt) // only those with timestamps
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // newest first
-    .slice(0, 12);
-
-  if (!recent.length) {
-    recentlyGrid.innerHTML =
-      '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No recent channels.</p>';
-    return;
-  }
-
-  recent.forEach((c, i) => {
-    const card = createChannelCard(c);
-    recentlyGrid.appendChild(card);
-    setTimeout(() => card.classList.add("show"), i * 80);
+  recentlyAddedCarousel.innerHTML = "";
+  const recent = [...channels].slice(-10).reverse();
+  recent.forEach((c) => {
+    const card = document.createElement("div");
+    card.className = "featured-card";
+    card.innerHTML = `
+      <img src="${c.logo}" alt="${c.name}">
+      <div class="featured-overlay">${c.name}</div>`;
+    card.onclick = () =>
+      (window.location.href = `player?stream=${encodeURIComponent(
+        c.name.toLowerCase().replace(/\s+/g, "-")
+      )}`);
+    recentlyAddedCarousel.appendChild(card);
   });
 }
 
@@ -295,13 +286,12 @@ onValue(ref(db, "channels"), (snapshot) => {
       logo: c.icon,
       src: c.stream,
       tags: c.tags || "",
-      createdBy: c.createdBy || null,
-      createdAt: c.createdAt || null // ✅ include createdAt
+      createdBy: c.createdBy || null
     }));
     renderFeatured();
+    renderRecentlyAdded(); // new
     renderCategories();
     renderChannels(searchInput.value);
-    renderRecentlyAdded(); // ✅ update
   } else {
     grid.innerHTML =
       '<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>';
