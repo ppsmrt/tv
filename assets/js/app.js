@@ -120,7 +120,7 @@ function showInfoModal(channel) {
 // --- Create Channel Card ---
 function createChannelCard(c) {
   const a = document.createElement("a");
-  a.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
+  a.href = `test?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
   a.className = "channel-card";
   a.setAttribute("aria-label", `Watch ${c.name}`);
   a.tabIndex = 0;
