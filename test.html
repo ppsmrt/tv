@@ -12,62 +12,62 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <!-- Fav Icon -->
-  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico"/>
 
   <!-- Baloo 2 Font -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-900 text-white font-['Baloo_2']">
 
   <!-- Header -->
-  <div id="header"></div>
+  <header id="header" role="banner"></header>
 
-  <main>
+  <main role="main" class="p-2">
     <!-- Search Bar -->
-    <div class="search-container">
-      <span class="material-icons">search</span>
-      <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
+    <div class="search-container flex items-center gap-2 bg-gray-800 rounded-lg px-3 py-2 mb-4">
+      <span class="material-icons text-gray-400">search</span>
+      <input 
+        type="search" 
+        id="searchInput" 
+        class="w-full bg-transparent focus:outline-none placeholder-gray-400" 
+        placeholder="Search channels..." 
+        aria-label="Search channels"
+      />
     </div>
 
     <!-- Featured Carousel -->
-    <div class="featured-carousel" id="featuredCarousel"></div>
-
-    <!-- Recently Added Carousel -->
-    <section>
-      <h2 class="section-title">Recently Added</h2>
-      <div id="recentlyAddedCarousel" class="carousel"></div>
-    </section>
+    <section class="featured-carousel mb-6" id="featuredCarousel" aria-label="Featured Channels"></section>
 
     <!-- Categories -->
-    <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
-
+    <nav class="category-bar flex gap-2 overflow-x-auto pb-2 mb-6" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
+    
     <!-- Channels -->
-    <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
+    <section class="channels-grid grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
   </main>
 
   <!-- Channel Info Modal -->
-  <div class="modal-bg" id="channelModal">
-    <div class="modal-content glassmorphic animate-modal">
-      <span class="modal-close" id="modalClose">&times;</span>
+  <div class="modal-bg fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50" id="channelModal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <div class="modal-content glassmorphic animate-modal p-4 rounded-xl max-w-md w-full relative">
+      <button class="modal-close absolute top-2 right-2 text-2xl" id="modalClose" aria-label="Close modal">&times;</button>
       <h2 class="text-xl font-bold mb-2" id="modalName"></h2>
       <p id="modalCategory"></p>
       <p id="modalLanguage"></p>
       <p id="modalTags"></p>
-      <p id="modalAddedBy" class="text-sm mt-2"></p>
+      <p id="modalAddedBy" class="text-sm mt-2 text-gray-300"></p>
     </div>
   </div>
 
-   <!-- Footer -->
-  <div id="footer"></div>
+  <!-- Footer -->
+  <footer id="footer" role="contentinfo" class="mt-6"></footer>
 
   <!-- Header/Footer scripts -->
   <script type="module" src="assets/js/header.js"></script>
   <script type="module" src="assets/js/footer.js"></script>
 
   <!-- Main JS -->
-  <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/test.js"></script>
 </body>
 </html>
