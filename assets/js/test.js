@@ -1,210 +1,58 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.getElementById("video");
+  const controls = document.querySelector(".shaka-controls-container");
+  let controlsTimeout;
 
-// Elements
-const video = document.getElementById('videoPlayer');
-const playPauseBtn = document.getElementById('playPause');
-const seekBar = document.getElementById('seekBar');
-const volumeBar = document.getElementById('volumeBar');
-const currentTimeText = document.getElementById('currentTime');
-const totalTimeText = document.getElementById('totalTime');
-const fullscreenBtn = document.getElementById('fullscreenBtn');
-const goBack = document.getElementById('goBack');
-const controlsOverlay = document.getElementById('controlsOverlay');
-const channelNameEl = document.getElementById('channelName');
+  // Initialize Shaka player
+  shaka.polyfill.installAll();
+  if (shaka.Player.isBrowserSupported()) {
+    const player = new shaka.Player(video);
 
-const addFavBtn = document.getElementById('addFav');
-const removeFavBtn = document.getElementById('removeFav');
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-let controlsTimeout;
-let scale = 1;
-let initialDistance = null;
-
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-};
-
-initializeApp(firebaseConfig);
-const db = getDatabase();
-
-// Helper functions
-function formatTime(seconds) {
-  if (isNaN(seconds)) return "0:00";
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs < 10 ? '0'+secs : secs}`;
-}
-
-function qs(name) {
-  const u = new URL(location.href);
-  return u.searchParams.get(name);
-}
-
-// Load stream from Firebase
-let streamSlug = qs('stream');
-if(streamSlug) streamSlug = streamSlug.replace(/-/g,' ').toLowerCase();
-if(!streamSlug) alert('No stream specified');
-else get(ref(db,'channels')).then(snapshot=>{
-  if(snapshot.exists()){
-    let found=false;
-    snapshot.forEach(child=>{
-      const data = child.val();
-      if(data.name?.toLowerCase() === streamSlug){
-        found=true;
-        video.src = data.stream;
-        channelNameEl.textContent = data.name;
-        localStorage.setItem('selectedVideo', data.stream);
-        localStorage.setItem('selectedVideoTitle', data.name);
-        video.load();
-        video.play().catch(()=>{});
-      }
+    player.addEventListener("error", (e) => {
+      console.error("Shaka Player Error:", e.detail);
     });
-    if(!found) alert('Channel not found: '+streamSlug);
-  } else alert('No channels available in database');
-}).catch(()=>alert('Failed to load stream data'));
 
-// --- Controls ---
-// Show/Hide controls
-function showControls() {
-  controlsOverlay.classList.add('active');
-  clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(hideControls, 3000);
-}
-
-function hideControls() {
-  if(window.innerHeight < window.innerWidth) { // Only hide in landscape
-    controlsOverlay.classList.remove('active');
-  }
-}
-
-// Toggle controls on video click
-video.addEventListener('click',()=>controlsOverlay.classList.contains('active')?hideControls():showControls());
-
-// Play/Pause
-playPauseBtn.addEventListener('click',()=>video.paused?video.play():video.pause());
-video.addEventListener('play',()=>playPauseBtn.innerHTML='<span class="material-icons">pause</span>');
-video.addEventListener('pause',()=>playPauseBtn.innerHTML='<span class="material-icons">play_arrow</span>');
-
-// Seek
-video.addEventListener('timeupdate',()=>{
-  seekBar.value = (video.currentTime/video.duration)*100 || 0;
-  currentTimeText.textContent = formatTime(video.currentTime);
-  totalTimeText.textContent = formatTime(video.duration);
-});
-seekBar.addEventListener('input',()=>video.currentTime=(seekBar.value/100)*video.duration);
-
-// Volume
-volumeBar.addEventListener('input',()=>{
-  video.volume = volumeBar.value;
-  video.muted = video.volume===0;
-});
-
-// Fullscreen
-fullscreenBtn.addEventListener('click',()=>{
-  if(!document.fullscreenElement){
-    video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
-    if(screen.orientation?.lock) screen.orientation.lock('landscape').catch(()=>{});
+    // Load stream from Firebase later if needed
+    const urlParams = new URLSearchParams(window.location.search);
+    const streamUrl = urlParams.get("stream");
+    if (streamUrl) {
+      player.load(streamUrl).catch((e) => console.error("Load error", e));
+    }
   } else {
-    document.exitFullscreen();
-    if(screen.orientation?.unlock) screen.orientation.unlock();
+    console.error("Browser not supported!");
+  }
+
+  // ========== CONTROLS AUTO-HIDE IN PORTRAIT ==========
+  function showControls() {
+    controls.classList.remove("opacity-0");
+    controls.classList.add("opacity-100");
+
+    clearTimeout(controlsTimeout);
+    if (window.matchMedia("(orientation: portrait)").matches) {
+      controlsTimeout = setTimeout(() => {
+        controls.classList.remove("opacity-100");
+        controls.classList.add("opacity-0");
+      }, 3000); // hide after 3s in portrait
+    }
+  }
+
+  // Show controls on user interaction
+  video.addEventListener("touchstart", showControls);
+  video.addEventListener("click", showControls);
+
+  // Always show controls in fullscreen (landscape)
+  video.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement) {
+      controls.classList.remove("opacity-0");
+      controls.classList.add("opacity-100");
+      clearTimeout(controlsTimeout); // disable hiding in fullscreen
+    } else {
+      showControls(); // restart portrait behavior
+    }
+  });
+
+  // Start with hidden controls in portrait
+  if (window.matchMedia("(orientation: portrait)").matches) {
+    controls.classList.add("opacity-0");
   }
 });
-
-// Back
-goBack.addEventListener('click',()=>window.history.back());
-
-// Pinch and wheel zoom
-video.addEventListener('wheel', e=>{
-  scale += e.deltaY * -0.001;
-  scale = Math.min(Math.max(1, scale),3);
-  video.style.transform=`scale(${scale})`;
-});
-video.addEventListener('touchstart', e=>{
-  if(e.touches.length===2){
-    initialDistance = Math.hypot(
-      e.touches[0].pageX - e.touches[1].pageX,
-      e.touches[0].pageY - e.touches[1].pageY
-    );
-  }
-});
-video.addEventListener('touchmove', e=>{
-  if(e.touches.length===2 && initialDistance){
-    const currentDistance = Math.hypot(
-      e.touches[0].pageX - e.touches[1].pageX,
-      e.touches[0].pageY - e.touches[1].pageY
-    );
-    scale = Math.min(Math.max(1, scale*(currentDistance/initialDistance)),3);
-    video.style.transform=`scale(${scale})`;
-    initialDistance=currentDistance;
-  }
-});
-video.addEventListener('touchend', e=>{ if(e.touches.length<2) initialDistance=null; });
-
-// Fullscreen styles
-function applyFullscreenStyles(){
-  if(document.fullscreenElement){
-    video.style.width='100%';
-    video.style.height='100%';
-    video.style.objectFit='cover';
-    video.style.transform=`scale(${scale})`;
-  } else {
-    video.style.width='';
-    video.style.height='';
-    video.style.objectFit='';
-    video.style.transform='';
-  }
-}
-document.addEventListener('fullscreenchange', applyFullscreenStyles);
-window.addEventListener('resize', applyFullscreenStyles);
-window.addEventListener('orientationchange', applyFullscreenStyles);
-
-// Favorites
-function updateFavButtons(){
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const isFav = favorites.some(fav=>fav.src===videoSrc);
-  addFavBtn.classList.toggle('hidden', isFav);
-  removeFavBtn.classList.toggle('hidden', !isFav);
-}
-updateFavButtons();
-
-addFavBtn.addEventListener('click', ()=>{
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const videoTitleStored = localStorage.getItem('selectedVideoTitle') || 'Unknown';
-  if(!videoSrc) return;
-  favorites.push({ title:videoTitleStored, src:videoSrc, thumb:'', category:'Unknown' });
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  updateFavButtons();
-});
-removeFavBtn.addEventListener('click', ()=>{
-  const videoSrc = localStorage.getItem('selectedVideo');
-  favorites = favorites.filter(fav=>fav.src!==videoSrc);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  updateFavButtons();
-});
-
-// Auto fullscreen landscape on orientation change
-function handleOrientation(){
-  if(window.innerWidth>window.innerHeight){
-    if(video.requestFullscreen) video.requestFullscreen().catch(()=>{});
-  } else {
-    if(document.fullscreenElement) document.exitFullscreen();
-  }
-}
-window.addEventListener('resize', handleOrientation);
-window.addEventListener('orientationchange', handleOrientation);
-
-// Autoplay & settings
-video.autoplay=true;
-video.muted=false;
-video.playsInline=true;
-
-// Initial controls
-showControls();
