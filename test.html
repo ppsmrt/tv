@@ -1,132 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Player - Live TV</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Live TV - Stream Live</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-html, body {
-  font-family: 'Baloo 2', cursive;
-  margin: 0; padding: 0;
-  height: 100%;
-  background: #111;
-  overscroll-behavior: none;
-}
-body.portrait-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-#videoContainer {
-  position: relative;
-  width: 100%;
-  max-height: 60vh;
-  overflow: hidden;
-  background: black;
-  transition: all 0.3s ease;
-}
+  <!-- Fav Icon -->
+  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico">
 
-#video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s ease;
-}
+  <!-- Baloo 2 Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
-#videoContainer.fullscreen {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  background: black;
-}
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
-#videoContainer.fullscreen #video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: none !important;
-}
-
-.controls {
-  transition: opacity 0.3s;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background: rgba(0,0,0,0.3);
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0.5rem;
-  right: 0.5rem;
-}
-.controls.hidden { opacity: 0; pointer-events: none; }
-
-header, .favorites-social, .video-info { transition: opacity 0.3s; }
-
-.animate-scroll { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; white-space: nowrap; color: #fff; font-size: 0.85rem; }
-
-@media (orientation: portrait) {
-  #videoContainer { max-height: 80vh; }
-}
-</style>
+  <!-- Additional Styling -->
+  <style>
+    .recently-added {
+      @apply px-4 py-6;
+    }
+    .recently-grid {
+      @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4;
+    }
+    .recently-card {
+      @apply bg-gray-800 rounded-xl overflow-hidden shadow hover:scale-105 transition cursor-pointer;
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<body class="bg-gray-900 text-white">
 
-<header>
-  <div class="flex items-center">
-    <span class="material-icons">live_tv</span>
-    <h1 class="ml-2 font-semibold" id="videoTitle">Video Title</h1>
-  </div>
-  <button onclick="history.back()" class="flex items-center space-x-1 hover:text-red-400">
-    <span class="material-icons">arrow_back</span><span>Back</span>
-  </button>
-</header>
+  <!-- Header -->
+  <div id="header"></div>
 
-<div id="videoContainer" class="mx-4 mt-20 rounded-lg overflow-hidden">
-  <video id="video" playsinline webkit-playsinline></video>
+  <main>
+    <!-- Search Bar -->
+    <div class="search-container">
+      <span class="material-icons">search</span>
+      <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
+    </div>
 
-  <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-10 py-1">
-    <div class="animate-scroll">
-      🔥 Join Our Official Telegram Channel For More Updates! 🔥 Show Your Ad Here Contact Us On Telegram 💲
+    <!-- Featured Carousel -->
+    <div class="featured-carousel" id="featuredCarousel"></div>
+
+    <!-- Categories -->
+    <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
+
+    <!-- ✅ Recently Added Section -->
+    <section class="recently-added">
+      <h2 class="text-2xl font-bold mb-4">Recently Added</h2>
+      <div class="recently-grid" id="recentlyGrid"></div>
+    </section>
+
+    <!-- Channels -->
+    <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
+  </main>
+
+  <!-- Channel Info Modal -->
+  <div class="modal-bg" id="channelModal">
+    <div class="modal-content glassmorphic animate-modal">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <h2 class="text-xl font-bold mb-2" id="modalName"></h2>
+      <p id="modalCategory"></p>
+      <p id="modalLanguage"></p>
+      <p id="modalTags"></p>
+      <p id="modalAddedBy" class="text-sm mt-2"></p>
     </div>
   </div>
 
-  <div id="controls" class="controls">
-    <div class="flex items-center space-x-2">
-      <button id="playBtn" class="material-icons">play_arrow</button>
-      <button id="muteBtn" class="material-icons">volume_up</button>
-      <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
-    </div>
-    <button id="fsBtn" class="material-icons">fullscreen</button>
-  </div>
-</div>
+   <!-- Footer -->
+  <div id="footer"></div>
 
-<div class="favorites-social mx-4 mt-6 flex items-center justify-between p-4 bg-gray-800 rounded-lg">
-  <div class="flex items-center gap-6">
-    <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer hover:scale-125 transition-transform"></i>
-    <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer hover:scale-125 transition-transform hidden"></i>
-    <span class="text-gray-300 text-sm">Add to Favorites</span>
-  </div>
-  <div class="flex space-x-4 text-2xl">
-    <a href="https://facebook.com" target="_blank" class="text-blue-500"><i class="fab fa-facebook"></i></a>
-    <a href="https://wa.me/" target="_blank" class="text-green-400"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://t.me/" target="_blank" class="text-sky-400"><i class="fab fa-telegram"></i></a>
-    <a href="https://youtube.com" target="_blank" class="text-red-500"><i class="fab fa-youtube"></i></a>
-    <a href="https://discord.com" target="_blank" class="text-indigo-400"><i class="fab fa-discord"></i></a>
-  </div>
-</div>
+  <!-- Header/Footer scripts -->
+  <script type="module" src="assets/js/header.js"></script>
+  <script type="module" src="assets/js/footer.js"></script>
 
-<script type="module" src="assets/js/player.js"></script>
+  <!-- Main JS -->
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
