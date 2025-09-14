@@ -410,8 +410,20 @@ http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Adhitya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zVVFrJmb/1000123735.jpg",Adhitya Tv
 http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
 #EXTINF:-1 tvg-name="Star Movies" group-title="English" tvg-logo="https://i.ibb.co/LznH7sxB/1000123905.jpg",Star Movies
-http://89.187.189.98/STARMOVIESHD/index.m3u8
+http://89.187.189.98/STARMOVIESHD/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/0yKMJhGY/1000123917.jpg",Sakthi Tv
-https://edge4-moblive.yuppcdn.net/transsd/smil:saktv10.smil/playlist.m3u8
+https://edge4-moblive.yuppcdn.net/transsd/smil:saktv10.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/W4ZKRQYX/1000124145.png",Eye Tv
-https://edge4-moblive.yuppcdn.net/trans1sd/smil:nettv15.smil/playlist.m3u8
+https://edge4-moblive.yuppcdn.net/trans1sd/smil:nettv15.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Charana Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/R4TqXtHp/1000124186.jpg",Charana Tv
+https://edge3-moblive.yuppcdn.net/transhd2/smil:chtv05.smil/index.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Hiru Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/27p5xW3W/1000124187.jpg",Hiru Tv
+https://tv.hiruhost.com:1936/8012/8012/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="MMC Tv USA" group-title="Sinhala" tvg-logo="https://i.ibb.co/BSw8JMm/1000124188.jpg",MMC Tv USA
+https://edge3-moblive.yuppcdn.net/transsd/smil:chii02.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Nethra Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/hR974JRm/1000124189.jpg",Nethra Tv
+https://edge3-moblive.yuppcdn.net/transsd/smil:chii02.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="ShraddhaTV" group-title="Sinhala" tvg-logo="https://i.ibb.co/ZzMvrB9p/1000124190.jpg",ShraddhaTV
+https://edge3-moblive.yuppcdn.net/drm1/smil:shraddhatvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Sirasa TV" group-title="Sinhala" tvg-logo="https://i.ibb.co/qY3r2D4y/1000124192.png",Sirasa TV
+https://edge2-moblive.yuppcdn.net/transsd/smil:sirtv09.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
