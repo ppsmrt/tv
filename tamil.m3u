@@ -97,7 +97,7 @@ https://rtmp.bmlive.net/bms/emperortv/index.m3u8
 http://applelive.in:80/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="Selfie Tv" group-title="Tamil" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie Tv
 http://applelive.in/selfeetv/selfeetv.m3u8
-#EXTINF:-1 tvg-name="Zee tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/tnhgnDx/1000121265.jpg",Zee tamil
+#EXTINF:-1 tvg-name="Zee tamil HD" group-title="Tamil" tvg-logo="https://i.ibb.co/tnhgnDx/1000121265.jpg",Zee tamil HD
 https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
 #EXTINF:-1 tvg-name="Sun Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Fk8fYrqc/1000121921.jpg",Sun Tv
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
