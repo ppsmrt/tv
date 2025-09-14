@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const video = document.getElementById('video');
 const playBtn = document.getElementById('playBtn');
@@ -8,9 +8,6 @@ const muteBtn = document.getElementById('muteBtn');
 const volumeSlider = document.getElementById('volumeSlider');
 const controls = document.getElementById('controls');
 const videoTitle = document.getElementById('videoTitle');
-const addFavBtn = document.getElementById('addFav');
-const removeFavBtn = document.getElementById('removeFav');
-const container = document.getElementById('videoContainer'); // Make sure your HTML has this container
 
 let controlsTimeout;
 let scale = 1;
@@ -38,7 +35,9 @@ function qs(name) {
 
 // Convert slug → normalized (lowercase, replace - with space)
 let streamSlug = qs('stream');
-if (streamSlug) streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
+if (streamSlug) {
+  streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
+}
 
 if (!streamSlug) {
   alert('No stream specified');
@@ -59,15 +58,19 @@ if (!streamSlug) {
           video.play().catch(() => {});
         }
       });
-      if (!found) alert('Channel not found: ' + streamSlug);
-    } else alert('No channels available in database');
+      if (!found) {
+        alert('Channel not found: ' + streamSlug);
+      }
+    } else {
+      alert('No channels available in database');
+    }
   }).catch(err => {
     console.error('Firebase read failed:', err);
     alert('Failed to load stream data');
   });
 }
 
-// --- Controls ---
+// --- the rest of your code stays the same ---
 
 // Play/Pause toggle
 playBtn.addEventListener('click', () => {
@@ -80,27 +83,24 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-// Fullscreen toggle (Kodular/WebView compatible)
+// Fullscreen toggle
 fsBtn.addEventListener('click', () => {
-  if (document.fullscreenElement || video.webkitDisplayingFullscreen) {
-    // Exit fullscreen
-    if (document.exitFullscreen) document.exitFullscreen();
-    if (video.webkitExitFullscreen) video.webkitExitFullscreen();
-    container.style.width = '100%';
-    container.style.height = '100%';
-    video.style.width = '100%';
-    video.style.height = '100%';
-  } else {
-    // Enter fullscreen
-    if (container.requestFullscreen) {
-      container.requestFullscreen().catch(() => {});
+  if (!document.fullscreenElement) {
+    if (video.parentElement.requestFullscreen) {
+      video.parentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
     } else if (video.webkitEnterFullscreen) {
       video.webkitEnterFullscreen();
+    } else if (video.msRequestFullscreen) {
+      video.msRequestFullscreen();
     }
-    container.style.width = '100vw';
-    container.style.height = '100vh';
-    video.style.width = '100%';
-    video.style.height = '100%';
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('landscape').catch(() => {});
+    }
+  } else {
+    document.exitFullscreen();
+    if (screen.orientation && screen.orientation.unlock) {
+      screen.orientation.unlock();
+    }
   }
 });
 
@@ -181,7 +181,7 @@ video.addEventListener('touchend', e => {
 
 // Maintain fullscreen styles
 function applyFullscreenStyles() {
-  if (document.fullscreenElement || video.webkitDisplayingFullscreen) {
+  if (document.fullscreenElement) {
     video.style.width = '100%';
     video.style.height = '100%';
     video.style.objectFit = 'cover';
@@ -198,6 +198,9 @@ window.addEventListener('resize', applyFullscreenStyles);
 window.addEventListener('orientationchange', applyFullscreenStyles);
 
 // Favorites buttons
+const addFavBtn = document.getElementById('addFav');
+const removeFavBtn = document.getElementById('removeFav');
+
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
 function updateFavButtons() {
