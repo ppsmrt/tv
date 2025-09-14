@@ -1,9 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const video = document.getElementById('video');
-const videoTitle = document.getElementById('videoTitle');
-
 // Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
@@ -18,17 +15,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Helper function to get URL param
 function qs(name) {
   const u = new URL(location.href);
   return u.searchParams.get(name);
 }
 
-// Convert slug → normalized (lowercase, replace - with space)
 let streamSlug = qs('stream');
-if (streamSlug) {
-  streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
-}
+if (streamSlug) streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
 
 if (!streamSlug) {
   alert('No stream specified');
@@ -41,71 +34,97 @@ if (!streamSlug) {
         const data = childSnap.val();
         if (data.name && data.name.toLowerCase() === streamSlug) {
           found = true;
-          initializeShakaPlayer(data.stream);
-          videoTitle.textContent = data.name || 'Live Stream';
-          localStorage.setItem('selectedVideo', data.stream);
-          localStorage.setItem('selectedVideoTitle', data.name || 'Live Stream');
+          const videoUrl = data.stream;
+          document.getElementById('videoTitle').textContent = data.name || 'Live Stream';
+          loadShakaOrNative(videoUrl);
         }
       });
-      if (!found) {
-        alert('Channel not found: ' + streamSlug);
-      }
+      if (!found) alert('Channel not found: ' + streamSlug);
     } else {
       alert('No channels available in database');
     }
-  }).catch(err => {
-    console.error('Firebase read failed:', err);
-    alert('Failed to load stream data');
-  });
+  }).catch(err => console.error(err));
 }
 
-// Initialize Shaka Player with Premium UI and Controls
-function initializeShakaPlayer(streamUrl) {
-  if (!shaka.Player.isBrowserSupported()) {
-    alert('Browser not supported by Shaka Player');
-    return;
+function loadShakaOrNative(url) {
+  const video = document.getElementById('video');
+
+  const isHLS = url.endsWith('.m3u8');
+  const isDASH = url.endsWith('.mpd');
+
+  if (isHLS || isDASH) {
+    shaka.polyfill.installAll();
+    if (!shaka.Player.isBrowserSupported()) {
+      video.src = url;
+      video.play().catch(()=>{});
+      return;
+    }
+
+    const player = new shaka.Player(video);
+
+    if (!video.parentElement._shakaUI) {
+      const ui = new shaka.ui.Overlay(player, document.getElementById('videoContainer'), video);
+      ui.getControls();
+      video.parentElement._shakaUI = ui;
+    }
+
+    player.load(url).then(()=> {
+      console.log('Stream loaded with Shaka Player!');
+    }).catch(err => {
+      console.error('Shaka Player error:', err);
+      video.src = url;
+      video.play().catch(()=>{});
+    });
+  } else {
+    video.src = url;
+    video.play().catch(()=>{});
   }
 
-  // Create the player instance
-  const player = new shaka.Player(video);
+  // --- Orientation and aspect ratio handling ---
+  function updateVideoLayout() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
 
-  // Attach the UI controls
-  const ui = new shaka.ui.Overlay(player, document.getElementById('player-container'), video);
-  ui.getControls();
+    if (vw < vh) {
+      // Portrait: force 16:9 box
+      video.style.width = '100%';
+      video.style.height = 'auto';
+      const h = vw * 9 / 16;
+      video.style.maxHeight = `${h}px`;
+    } else {
+      // Landscape: fullscreen
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+    }
+  }
 
-  // Configure premium UI options (example)
-  ui.configure({
-    controlPanelElements: [
-      'play_pause',
-      'time_and_duration',
-      'spacer',
-      'mute',
-      'volume',
-      'fullscreen',
-      'overflow_menu'
-    ],
-    overflowMenuButtons: [
-      'captions',
-      'quality',
-      'picture_in_picture',
-      'cast',
-      'playback_rate'
-    ],
-    addSeekBar: true,
-    enableKeyboardPlaybackControls: true,
-  });
+  window.addEventListener('resize', updateVideoLayout);
+  window.addEventListener('orientationchange', updateVideoLayout);
+  updateVideoLayout();
 
-  // Load the stream
-  player.load(streamUrl).then(() => {
-    // Autoplay after load
-    video.play().catch(() => {});
-  }).catch(error => {
-    console.error('Error loading video:', error);
-    alert('Failed to load video stream');
-  });
+  // Auto-hide Shaka controls after 3s
+  let controlsTimeout;
+  const container = video.parentElement;
+  function showControls() {
+    if (container._shakaUI) {
+      container._shakaUI.getControls().show();
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(() => {
+        container._shakaUI.getControls().hide();
+      }, 3000);
+    }
+  }
 
-  // Optional: Listen for errors
-  player.addEventListener('error', event => {
-    console.error('Shaka Player error:', event.detail);
+  video.addEventListener('mousemove', showControls);
+  video.addEventListener('touchstart', showControls);
+  video.addEventListener('click', () => {
+    showControls();
+
+    // Auto fullscreen on tap for mobile
+    if (!document.fullscreenElement) {
+      container.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
+      if (screen.orientation?.lock) screen.orientation.lock('landscape').catch(()=>{});
+    }
   });
 }
