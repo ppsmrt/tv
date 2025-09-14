@@ -1,112 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TNM3U Player</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Live TV - Stream Live</title>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .animate-scroll {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll-left 15s linear infinite;
-    }
-    @keyframes scroll-left {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-  </style>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Fav Icon -->
+  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico">
+
+  <!-- Baloo 2 Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-black flex items-center justify-center h-screen">
+<body class="bg-gray-900 text-white font-sans">
 
-  <div class="relative w-full h-full">
-    <!-- Video Player -->
-    <video id="video" class="w-full h-full bg-black" playsinline webkit-playsinline controls></video>
+  <!-- Header -->
+  <header class="bg-gray-800 shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
+    <h1 class="text-2xl font-bold text-white">Live TV</h1>
+    <button class="p-2 rounded-md hover:bg-gray-700">
+      <span class="material-icons text-white">menu</span>
+    </button>
+  </header>
 
-    <!-- Transparent Overlay -->
-    <div id="videoOverlay"
-         class="absolute top-0 left-0 w-full h-full bg-transparent z-20"></div>
+  <main class="p-4 space-y-6">
 
-    <!-- Scrolling Ad -->
-    <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-40 text-white text-sm py-1 z-30">
-      <div class="animate-scroll whitespace-nowrap">
-        🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
+    <!-- Search Bar -->
+    <div class="relative">
+      <span class="material-icons absolute top-1/2 left-3 -translate-y-1/2 text-gray-400">search</span>
+      <input type="search" id="searchInput" placeholder="Search channels..."
+        class="w-full rounded-xl bg-gray-800 text-white placeholder-gray-400 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+    </div>
+
+    <!-- Featured Carousel -->
+    <div class="space-y-2">
+      <h2 class="text-lg font-semibold">Featured</h2>
+      <div id="featuredCarousel" class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+        <!-- Example card -->
+        <div class="min-w-[200px] bg-gray-800 rounded-xl shadow-lg p-3 flex-shrink-0 snap-start">
+          <div class="bg-gray-700 h-32 rounded-lg mb-2"></div>
+          <h3 class="text-white font-medium">Channel Name</h3>
+          <p class="text-gray-400 text-sm">Category</p>
+        </div>
+        <!-- Repeat for more cards dynamically -->
       </div>
     </div>
 
-    <!-- Controls -->
-    <div id="controls"
-         class="absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg z-30">
-      <div class="flex items-center space-x-2">
-        <button id="playBtn" class="material-icons text-white">play_arrow</button>
-        <button id="muteBtn" class="material-icons text-white">volume_up</button>
-        <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
+    <!-- Categories -->
+    <div class="flex gap-2 overflow-x-auto scrollbar-hide py-2">
+      <button class="px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium flex-shrink-0">Tamil</button>
+      <button class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium flex-shrink-0">Entertainment</button>
+      <button class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium flex-shrink-0">News</button>
+      <!-- Dynamically generate categories -->
+    </div>
+
+    <!-- Channels Grid -->
+    <section id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <!-- Example channel card -->
+      <div class="bg-gray-800 rounded-xl shadow-md p-3 cursor-pointer hover:scale-105 transition transform" onclick="openModal('Channel 1','Tamil','English','Music, Drama','Admin')">
+        <div class="bg-gray-700 h-32 rounded-lg mb-2"></div>
+        <h3 class="text-white font-semibold">Channel 1</h3>
+        <p class="text-gray-400 text-sm">Tamil</p>
       </div>
-      <button id="fsBtn" class="material-icons text-white">fullscreen</button>
+      <!-- Repeat dynamically -->
+    </section>
+
+  </main>
+
+  <!-- Channel Info Modal -->
+  <div id="channelModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-gray-900 rounded-2xl p-6 w-11/12 max-w-md relative glassmorphic backdrop-blur-md">
+      <button id="modalClose" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
+      <h2 id="modalName" class="text-xl font-bold mb-2">Channel Name</h2>
+      <p id="modalCategory" class="text-gray-400 mb-1">Category: Tamil</p>
+      <p id="modalLanguage" class="text-gray-400 mb-1">Language: English</p>
+      <p id="modalTags" class="text-gray-400 mb-1">Tags: Music, Drama</p>
+      <p id="modalAddedBy" class="text-sm text-gray-500 mt-2">Added by Admin</p>
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="bg-gray-800 shadow-inner p-4 text-center text-gray-400">
+    © 2025 Live TV. All rights reserved.
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="assets/js/header.js"></script>
+  <script type="module" src="assets/js/footer.js"></script>
+  <script type="module" src="assets/js/app.js"></script>
+
   <script>
-    // Get stream name from URL
-    const params = new URLSearchParams(window.location.search);
-    const streamName = params.get("stream");
+    const modal = document.getElementById('channelModal');
+    const modalClose = document.getElementById('modalClose');
 
-    // Masked stream URL
-    const maskedUrl = `https://www.tnm3u.live/player?stream=${encodeURIComponent(streamName)}`;
+    function openModal(name, category, language, tags, addedBy) {
+      document.getElementById('modalName').textContent = name;
+      document.getElementById('modalCategory').textContent = "Category: " + category;
+      document.getElementById('modalLanguage').textContent = "Language: " + language;
+      document.getElementById('modalTags').textContent = "Tags: " + tags;
+      document.getElementById('modalAddedBy').textContent = "Added by " + addedBy;
 
-    const video = document.getElementById("video");
-    const playBtn = document.getElementById("playBtn");
-    const muteBtn = document.getElementById("muteBtn");
-    const volumeSlider = document.getElementById("volumeSlider");
-    const fsBtn = document.getElementById("fsBtn");
-
-    // Load video
-    if (streamName) {
-      video.src = maskedUrl;
-      video.play().catch(err => console.log("Autoplay blocked:", err));
+      modal.classList.remove('opacity-0', 'pointer-events-none');
     }
 
-    // Overlay click → toggle play/pause
-    document.getElementById("videoOverlay").addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
-        playBtn.textContent = "pause";
-      } else {
-        video.pause();
-        playBtn.textContent = "play_arrow";
-      }
+    modalClose.addEventListener('click', () => {
+      modal.classList.add('opacity-0', 'pointer-events-none');
     });
 
-    // Play/Pause button
-    playBtn.addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
-        playBtn.textContent = "pause";
-      } else {
-        video.pause();
-        playBtn.textContent = "play_arrow";
-      }
-    });
-
-    // Mute/Unmute
-    muteBtn.addEventListener("click", () => {
-      video.muted = !video.muted;
-      muteBtn.textContent = video.muted ? "volume_off" : "volume_up";
-    });
-
-    // Volume control
-    volumeSlider.addEventListener("input", () => {
-      video.volume = volumeSlider.value;
-    });
-
-    // Fullscreen
-    fsBtn.addEventListener("click", () => {
-      if (video.requestFullscreen) {
-        video.requestFullscreen();
-      } else if (video.webkitRequestFullscreen) {
-        video.webkitRequestFullscreen();
-      }
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) modal.classList.add('opacity-0', 'pointer-events-none');
     });
   </script>
 
