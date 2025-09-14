@@ -17,9 +17,8 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-  <!-- Shaka Player -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.0/shaka-player.compiled.js"></script>
   <style>
+    /* Apply Baloo 2 font globally */
     html, body {
       font-family: 'Baloo 2', cursive;
       margin: 0;
@@ -28,6 +27,7 @@
       background: #111;
       overscroll-behavior: none;
     }
+    /* Video default */
     #video {
       width: 100%;
       height: auto;
@@ -36,13 +36,51 @@
       object-fit: cover;
       transition: transform 0.2s ease;
     }
-    video:fullscreen { width: 100% !important; height: 100% !important; object-fit: cover; }
-    .controls { transition: opacity 0.3s; }
-    .controls.hidden { opacity: 0; pointer-events: none; }
-    .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
-    .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
-    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-    .animate-scroll { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
+    /* Fullscreen video adjustments */
+    video:fullscreen {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+    }
+    /* Safe area for fullscreen */
+    :fullscreen {
+      padding: 0;
+      margin: 0;
+    }
+    /* Controls transition */
+    .controls {
+      transition: opacity 0.3s;
+    }
+    .controls.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* Ad strip */
+    .ad-strip {
+      height: 4px;
+      background-color: rgba(255,255,255,0.2);
+      margin-top: 8px;
+    }
+    .ad-progress {
+      height: 100%;
+      background-color: #f87171;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    /* Fullscreen immersive behavior on mobile */
+    body:fullscreen {
+      background: black;
+    }
+    /* Scrolling text ad animation */
+    @keyframes scroll {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-scroll {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 20s linear infinite;
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
@@ -50,9 +88,7 @@
   <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
     <div class="flex items-center">
       <span class="material-icons text-white">live_tv</span>
-      <h1 class="ml-2 text-lg font-bold text-white">
-        <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
-      </h1>
+      <h1 class="ml-2 text-lg font-bold text-white"><span id="videoTitle" class="font-semibold text-lg">Video Title</span></h1>
     </div>
     <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
       <span class="material-icons">arrow_back</span>
@@ -62,14 +98,14 @@
 
   <main class="flex-grow pt-20 pb-24">
     <!-- Video Player Card -->
-    <div id="videoContainer" class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
+    <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
       <div class="relative">
         <video id="video" playsinline webkit-playsinline></video>
 
         <!-- Scrolling Text Ad Above Controls -->
         <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1">
           <div class="animate-scroll whitespace-nowrap">
-            🔥 Join Our Official Telegram Channel For More Updates ! | Special Thanks 🔥 Tamil Live Links & Arjunan20 for Playlist support! 🔥 Show Your Ad Here Contact Us On Telegram 💲
+            🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
           </div>
         </div>
 
@@ -90,14 +126,19 @@
       </div>
     </div>
 
-    <!-- Favorites + Social Section -->
-    <div class="mx-4 mt-6 p-6 player-card flex items-center justify-between">
-      <div class="flex items-center gap-6">
+    <!-- Favorites Section -->
+    <div class="mx-4 mt-4 p-4 info-section flex flex-col items-center gap-4">
+      <p class="text-gray-300 text-sm text-center">Add this channel to your favorites and watch anytime you like it</p>
+      <div class="flex gap-8">
         <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
         <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
-        <span class="text-gray-300 text-sm">Add to Favorites</span>
       </div>
-      <div class="flex space-x-6 text-2xl">
+    </div>
+
+    <!-- Social Icons Section -->
+    <div class="mx-4 mt-6 p-6 player-card text-center">
+      <h3 class="font-semibold text-lg mb-5">🌐 Connect With Us</h3>
+      <div class="flex justify-center space-x-8 text-3xl social-icons">
         <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
         <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
         <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
@@ -108,21 +149,54 @@
 
     <!-- Video Info Section -->
     <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
-      <!-- Stream Info & Legal Notices ... keep as-is from your HTML -->
+      <h3 class="font-semibold mt-2 text-white text-lg">Stream Information</h3>
+      <p class="text-gray-300 text-sm leading-relaxed">
+        All streams displayed here are publicly available online. We do not host, store, or modify these streams in any way.
+        All rights remain with their original providers. This platform only provides an interface to access them for convenience.
+      </p>
+      <h3 class="font-semibold mt-4 text-white text-lg">Usage Rules</h3>
+      <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
+        <li><strong>Personal / Educational Use Only:</strong> Do not use these streams for commercial or public broadcasting purposes.</li>
+        <li><strong>No Redistribution:</strong> You are not allowed to redistribute or rebroadcast the streams without permission.</li>
+        <li><strong>Respect Copyrights & Licenses:</strong> Ensure you comply with the original content owner's terms and applicable laws.</li>
+      </ul>
+      <h3 class="font-semibold mt-4 text-white text-lg">Privacy & Technical Details</h3>
+      <ul class="list-disc list-inside text-gray-300 text-sm leading-relaxed">
+        <li>No personal data is collected, stored, or shared.</li>
+        <li>Streams are loaded directly from the original source; URLs are not logged or exposed publicly.</li>
+        <li>No server-side caching, recording, or proxying is done on our platform.</li>
+        <li>Playback happens on your device using standard open-source player libraries.</li>
+      </ul>
+      <h3 class="font-semibold mt-4 text-white text-lg">Open Source Components</h3>
+      <p class="text-gray-300 text-sm leading-relaxed">
+        This player uses open-source libraries under <strong>MIT, Apache, and GPL licenses</strong>.
+        For details on individual components and their licenses, please refer to the <em>Open Source Notice</em> section in the settings.
+      </p>
+      <h3 class="font-semibold mt-4 text-white text-lg">Legal Notice</h3>
+      <p class="text-gray-300 text-sm leading-relaxed">
+        Accessing publicly available streams for personal and educational purposes is generally considered legal in most regions.
+        However, you must comply with your local laws and the content owner's terms.
+        We do not guarantee the legality of accessing any specific content in your jurisdiction.
+      </p>
+      <h3 class="font-semibold mt-4 text-white text-lg">Takedown Requests</h3>
+      <p class="text-gray-300 text-sm leading-relaxed">
+        If you are a content owner and wish to request removal of a stream, please submit a verified takedown request.
+        We review and process valid requests within <strong>48 hours</strong>.
+      </p>
     </div>
 
     <!-- Ad1 -->
     <div class="w-full text-center my-4">  
-      <a href="https://telegram.me/tamilm3u" target="_blank" rel="noopener noreferrer">  
-        <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
-      </a>  
-    </div>  
+  <a href="https://telegram.me/tamilm3u" target="_blank" rel="noopener noreferrer">  
+    <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
+  </a>  
+</div>  
 
   </main>
 
   <!-- JS -->
-  <script type="module" src="assets/js/test.js"></script>
-  <script type="module" src="assets/js/header.js"></script>
-  <script type="module" src="assets/js/footer.js"></script>
+  <script type="module" src="assets/js/player.js"></script>
+<script type="module" src="assets/js/header.js"></script>
+<script type="module" src="assets/js/footer.js"></script>
 </body>
 </html>
