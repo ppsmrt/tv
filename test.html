@@ -1,128 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Player - Live TV</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <!-- Baloo 2 Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
-  <!-- FontAwesome for icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <!-- Shaka Player -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.0/shaka-player.compiled.js"></script>
-  <style>
-    html, body {
-      font-family: 'Baloo 2', cursive;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #111;
-      overscroll-behavior: none;
-    }
-    #video {
-      width: 100%;
-      height: auto;
-      max-height: 100vh;
-      background: black;
-      object-fit: cover;
-      transition: transform 0.2s ease;
-    }
-    video:fullscreen { width: 100% !important; height: 100% !important; object-fit: cover; }
-    .controls { transition: opacity 0.3s; }
-    .controls.hidden { opacity: 0; pointer-events: none; }
-    .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
-    .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
-    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-    .animate-scroll { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Premium Live TV Player</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.0/shaka-player.compiled.js"></script>
+<style>
+html, body { margin:0; padding:0; height:100%; background:#111; font-family:'Baloo 2', cursive; }
+#videoContainer { position:relative; width:100%; height:100vh; background:black; overflow:hidden; display:flex; justify-content:center; align-items:center; }
+#video { width:100%; height:100%; object-fit:cover; transition:transform 0.2s ease; background:black; }
+.controls { position:absolute; bottom:0; left:0; right:0; padding:10px 15px; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:space-between; border-radius:0 0 10px 10px; opacity:1; transition:opacity 0.3s; }
+.controls.hidden { opacity:0; pointer-events:none; }
+.controls .left, .controls .right { display:flex; align-items:center; gap:12px; }
+button { background:none; border:none; color:white; cursor:pointer; outline:none; }
+button:hover { color:#f87171; }
+#progressContainer { position:absolute; bottom:40px; left:0; right:0; height:5px; background:rgba(255,255,255,0.2); cursor:pointer; }
+#progress { height:100%; background:#f87171; width:0%; }
+#buffer { height:100%; background:rgba(255,255,255,0.5); width:0%; position:absolute; top:0; left:0; z-index:0; }
+.ticker { position:absolute; bottom:50px; left:0; width:100%; overflow:hidden; background:rgba(0,0,0,0.3); color:white; font-size:14px; padding:5px 0; white-space:nowrap; }
+.ticker span { display:inline-block; padding-left:100%; animation:scroll 20s linear infinite; }
+@keyframes scroll { 0%{transform:translateX(0);} 100%{transform:translateX(-100%);} }
+#loadingSpinner { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;border:5px solid rgba(255,255,255,0.3);border-top-color:#f87171;border-radius:50%;animation:spin 1s linear infinite;display:none; }
+@keyframes spin{0%{transform:translate(-50%,-50%) rotate(0deg);}100%{transform:translate(-50%,-50%) rotate(360deg);}}
+</style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
-  <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
-    <div class="flex items-center">
-      <span class="material-icons text-white">live_tv</span>
-      <h1 class="ml-2 text-lg font-bold text-white">
-        <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
-      </h1>
+<body>
+<div id="videoContainer">
+  <video id="video" playsinline webkit-playsinline></video>
+  <div id="loadingSpinner"></div>
+  <div class="ticker"><span>🔥 Join Our Telegram Channel For Updates | Show Your Ad Here Contact Us 🔥</span></div>
+  <div id="progressContainer"><div id="buffer"></div><div id="progress"></div></div>
+  <div id="controls">
+    <div class="left">
+      <button id="playBtn" class="material-icons">play_arrow</button>
+      <button id="muteBtn" class="material-icons">volume_up</button>
+      <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
+      <button id="favBtn"><i class="fa-regular fa-heart"></i></button>
+      <span id="videoTitle" class="ml-2 font-semibold text-white">Video Title</span>
     </div>
-    <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
-      <span class="material-icons">arrow_back</span>
-      <span class="font-semibold">Back</span>
-    </button>
-  </header>
-
-  <main class="flex-grow pt-20 pb-24">
-    <!-- Video Player Card -->
-    <div id="videoContainer" class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
-      <div class="relative">
-        <video id="video" playsinline webkit-playsinline></video>
-
-        <!-- Scrolling Text Ad Above Controls -->
-        <div class="absolute bottom-14 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1">
-          <div class="animate-scroll whitespace-nowrap">
-            🔥 Join Our Official Telegram Channel For More Updates ! | Special Thanks 🔥 Tamil Live Links & Arjunan20 for Playlist support! 🔥 Show Your Ad Here Contact Us On Telegram 💲
-          </div>
-        </div>
-
-        <!-- Ad strip -->
-        <div class="ad-strip absolute bottom-0 left-0 w-full">
-          <div id="adProgress" class="ad-progress"></div>
-        </div>
-
-        <!-- Controls -->
-        <div id="controls" class="controls absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black bg-opacity-30 p-2 rounded-lg">
-          <div class="flex items-center space-x-2">
-            <button id="playBtn" class="material-icons text-white">play_arrow</button>
-            <button id="muteBtn" class="material-icons text-white">volume_up</button>
-            <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
-          </div>
-          <button id="fsBtn" class="material-icons text-white">fullscreen</button>
-        </div>
-      </div>
+    <div class="right">
+      <button id="fsBtn" class="material-icons">fullscreen</button>
     </div>
+  </div>
+</div>
 
-    <!-- Favorites + Social Section -->
-    <div class="mx-4 mt-6 p-6 player-card flex items-center justify-between">
-      <div class="flex items-center gap-6">
-        <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
-        <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
-        <span class="text-gray-300 text-sm">Add to Favorites</span>
-      </div>
-      <div class="flex space-x-6 text-2xl">
-        <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
-        <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
-        <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125 transition"><i class="fab fa-youtube"></i></a>
-        <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125 transition"><i class="fab fa-discord"></i></a>
-      </div>
-    </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    <!-- Video Info Section -->
-    <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
-      <!-- Stream Info & Legal Notices ... keep as-is from your HTML -->
-    </div>
+const video = document.getElementById('video');
+const playBtn = document.getElementById('playBtn');
+const fsBtn = document.getElementById('fsBtn');
+const muteBtn = document.getElementById('muteBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const controls = document.getElementById('controls');
+const videoTitle = document.getElementById('videoTitle');
+const progress = document.getElementById('progress');
+const buffer = document.getElementById('buffer');
+const progressContainer = document.getElementById('progressContainer');
+const loadingSpinner = document.getElementById('loadingSpinner');
+const favBtn = document.getElementById('favBtn');
 
-    <!-- Ad1 -->
-    <div class="w-full text-center my-4">  
-      <a href="https://telegram.me/tamilm3u" target="_blank" rel="noopener noreferrer">  
-        <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
-      </a>  
-    </div>  
+let shakaPlayer = null;
+let favorites = JSON.parse(localStorage.getItem('favorites'))||[];
+let controlsTimeout, scale=1, initialDistance=null;
 
-  </main>
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-  <!-- JS -->
-  <script type="module" src="assets/js/test.js"></script>
-  <script type="module" src="assets/js/header.js"></script>
-  <script type="module" src="assets/js/footer.js"></script>
+function qs(name){return new URL(location.href).searchParams.get(name);}
+
+// ----- Shaka Player Init -----
+function initShaka() {
+  shaka.polyfill.installAll();
+  if(!shaka.Player.isBrowserSupported()) return;
+  shakaPlayer = new shaka.Player(video);
+  shakaPlayer.configure({streaming:{rebufferingGoal:4,bufferingGoal:30},abr:{enabled:true}});
+  shakaPlayer.addEventListener('error', e=>console.error('Shaka Error', e.detail||e));
+}
+
+// ----- Load Stream -----
+let slug = qs('stream'); if(slug) slug=slug.replace(/-/g,' ').toLowerCase();
+if(!slug) alert('No stream specified');
+else{
+  get(ref(db,'channels')).then(snap=>{
+    if(snap.exists()){
+      let found=false;
+      snap.forEach(child=>{
+        const data=child.val();
+        if(data.name && data.name.toLowerCase()===slug){
+          found=true;
+          videoTitle.textContent=data.name||'Live Stream';
+          localStorage.setItem('selectedVideo', data.stream);
+          localStorage.setItem('selectedVideoTitle', data.name||'Live Stream');
+          initShaka();
+          loadingSpinner.style.display='block';
+          shakaPlayer.load(data.stream).then(()=>{loadingSpinner.style.display='none'; video.play(); }).catch(err=>{console.error(err); loadingSpinner.style.display='none'; video.src=data.stream; video.play(); });
+        }
+      });
+      if(!found) alert('Channel not found');
+    }else alert('No channels in DB');
+  });
+}
+
+// ----- Controls -----
+function showControls(){ controls.classList.remove('hidden'); clearTimeout(controlsTimeout); controlsTimeout=setTimeout(()=>controls.classList.add('hidden'),3000);}
+video.addEventListener('mousemove',showControls);
+video.addEventListener('touchstart',showControls);
+controls.addEventListener('mouseenter',()=>clearTimeout(controlsTimeout));
+
+playBtn.addEventListener('click',()=>{if(video.paused){video.play();playBtn.textContent='pause';}else{video.pause();playBtn.textContent='play_arrow';}});
+muteBtn.addEventListener('click',()=>{video.muted=!video.muted;muteBtn.textContent=video.muted?'volume_off':'volume_up';});
+volumeSlider.addEventListener('input',()=>{video.volume=volumeSlider.value; video.muted=video.volume===0; muteBtn.textContent=video.muted?'volume_off':'volume_up';});
+
+// Progress bar
+video.addEventListener('timeupdate',()=>{progress.style.width=((video.currentTime/video.duration)*100)+'%';});
+video.addEventListener('progress',()=>{ if(video.buffered.length>0) buffer.style.width=((video.buffered.end(video.buffered.length-1)/video.duration)*100)+'%';});
+progressContainer.addEventListener('click',e=>{const rect=progressContainer.getBoundingClientRect(); const pct=(e.clientX-rect.left)/rect.width; video.currentTime=pct*video.duration;});
+
+// Fullscreen
+fsBtn.addEventListener('click',()=>{if(!document.fullscreenElement){video.parentElement.requestFullscreen();}else{document.exitFullscreen();}});
+document.addEventListener('fullscreenchange',()=>{video.style.objectFit='cover';});
+
+// Pinch & wheel zoom
+video.addEventListener('wheel',e=>{scale+=e.deltaY*-0.001;scale=Math.min(Math.max(1,scale),3);video.style.transform=`scale(${scale})`;});
+video.addEventListener('touchstart',e=>{if(e.touches.length===2) initialDistance=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY);});
+video.addEventListener('touchmove',e=>{if(e.touches.length===2&&initialDistance){const d=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY); scale=Math.min(Math.max(1,scale*(d/initialDistance)),3); video.style.transform=`scale(${scale})`; initialDistance=d;}});
+video.addEventListener('touchend',e=>{if(e.touches.length<2) initialDistance=null;});
+
+// Favorites
+function updateFav(){const src=localStorage.getItem('selectedVideo'); const isFav=favorites.some(f=>f.src===src); favBtn.innerHTML=isFav?'<i class="fa-solid fa-heart text-red-500"></i>':'<i class="fa-regular fa-heart"></i>'; }
+updateFav();
+favBtn.addEventListener('click',()=>{const src=localStorage.getItem('selectedVideo'); const title=localStorage.getItem('selectedVideoTitle')||'Unknown'; const idx=favorites.findIndex(f=>f.src===src); if(idx===-1){favorites.push({src,title});}else{favorites.splice(idx,1);} localStorage.setItem('favorites',JSON.stringify(favorites)); updateFav();});
+
+</script>
 </body>
 </html>
