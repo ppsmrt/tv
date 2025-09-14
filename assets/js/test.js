@@ -1,9 +1,27 @@
-// app.js
-
+// Make sure Shaka script is included in HTML as shown above
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue, runTransaction, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// Firebase Config
+/* --------- DOM elements (assumes these exist in your HTML) ---------- */
+const video = document.getElementById('video');
+const playBtn = document.getElementById('playBtn');
+const fsBtn = document.getElementById('fsBtn');
+const muteBtn = document.getElementById('muteBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const controls = document.getElementById('controls');
+const videoTitle = document.getElementById('videoTitle');
+const addFavBtn = document.getElementById('addFav');
+const removeFavBtn = document.getElementById('removeFav');
+const container = document.getElementById('videoContainer'); // container for fullscreen sizing
+
+/* ----------------- state vars ------------------ */
+let controlsTimeout;
+let scale = 1;
+let initialDistance = null;
+let shakaPlayer = null;
+let shakaLoadedManifest = null; // track manifest loaded by shaka
+
+/* ---------------- Firebase config ---------------- */
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -11,324 +29,322 @@ const firebaseConfig = {
   projectId: "tnm3ulive",
   storageBucket: "tnm3ulive.firebasestorage.app",
   messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// DOM Elements
-const grid = document.getElementById("channelsGrid");
-const categoryBar = document.getElementById("categoryBar");
-const filterBar = document.getElementById("filterBar"); // add <div id="filterBar"></div> below category bar
-const featuredCarousel = document.getElementById("featuredCarousel");
-const searchInput = document.getElementById("searchInput");
-
-// State
-let selectedCategory = "All";
-let selectedLanguage = "All";
-let selectedGenre = "All";
-let selectedSort = "A-Z";
-let channels = [];
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-let users = {};
-
-// Anonymous user ID
-let anonUserId = localStorage.getItem("anonUserId") || crypto.randomUUID();
-localStorage.setItem("anonUserId", anonUserId);
-
-// Skeleton loader
-grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
-
-// --- Analytics helpers ---
-function trackChannelView(channelId) {
-  const viewsRef = ref(db, `analytics/channels/${channelId}/views`);
-  runTransaction(viewsRef, (current) => (current || 0) + 1);
-
-  const lastRef = ref(db, `analytics/channels/${channelId}/lastWatched`);
-  set(lastRef, new Date().toISOString());
+/* ---------------- Helper: get query string ---------------- */
+function qs(name) {
+  const u = new URL(location.href);
+  return u.searchParams.get(name);
 }
 
-function trackInteraction(userId, type) {
-  const interactionRef = ref(db, `analytics/interactions/${userId}/${type}`);
-  runTransaction(interactionRef, (current) => (current || 0) + 1);
-}
+/* ---------------- Ensure we hide native controls (we use custom ones) ---------------- */
+video.controls = false; // hide native browser controls
 
-function trackSearch(userId, query) {
-  if (!query.trim()) return;
-  const searchRef = ref(db, `analytics/interactions/${userId}/searchQueries`);
-  runTransaction(searchRef, (current) => {
-    const arr = current || [];
-    arr.push(query.toLowerCase());
-    return arr;
-  });
-}
-
-// --- Favorite toggle ---
-function toggleFavorite(channel, favBtn) {
-  const exists = favorites.some((fav) => fav.src === channel.src);
-  if (exists) {
-    favorites = favorites.filter((fav) => fav.src !== channel.src);
-  } else {
-    favorites.push(channel);
-  }
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-  favBtn.innerHTML = `<i class="material-icons">${exists ? "favorite_border" : "favorite"}</i>`;
-  trackInteraction(anonUserId, "favoritesClicked");
-}
-
-// --- Info Modal ---
-function showInfoModal(channel) {
-  trackInteraction(anonUserId, "infoClicked");
-
-  let modal = document.getElementById("infoModal");
-  if (!modal) {
-    modal = document.createElement("div");
-    modal.id = "infoModal";
-    modal.className =
-      "fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-md z-50 hidden";
-    modal.innerHTML = `
-      <div class="bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl max-w-md w-full text-white shadow-xl border border-white/10 glass">
-        <h2 class="text-2xl font-bold mb-4" id="infoTitle"></h2>
-        <img id="infoThumb" class="w-full rounded-lg mb-4 shadow" alt="Channel thumbnail"/>
-        <div class="space-y-2 text-sm">
-          <p><strong>Name:</strong> <span id="infoName"></span></p>
-          <p><strong>Category:</strong> <span id="infoCategory"></span></p>
-          <p><strong>Language:</strong> <span id="infoLanguage"></span></p>
-          <p><strong>Genre:</strong> <span id="infoGenre"></span></p>
-          <p><strong>Tags:</strong> <span id="infoTags"></span></p>
-          <p><strong>Added By:</strong> <span id="infoAddedBy"></span></p>
-        </div>
-        <div class="text-right mt-5">
-          <button id="closeInfo" class="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition">Close</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    modal.querySelector("#closeInfo").onclick = () => modal.classList.add("hidden");
-  }
-
-  modal.querySelector("#infoTitle").textContent = channel.name;
-  modal.querySelector("#infoThumb").src = channel.logo;
-  modal.querySelector("#infoName").textContent = channel.name;
-  modal.querySelector("#infoCategory").textContent = channel.category;
-  modal.querySelector("#infoLanguage").textContent = channel.language;
-  modal.querySelector("#infoGenre").textContent = channel.genre;
-  modal.querySelector("#infoTags").textContent = channel.tags || "—";
-
-  let addedBy = "Admin";
-  if (channel.createdBy) {
-    addedBy = users[channel.createdBy]?.name || channel.createdBy || "Admin";
-  }
-  modal.querySelector("#infoAddedBy").textContent = addedBy;
-  modal.classList.remove("hidden");
-}
-
-// --- Create Channel Card ---
-function createChannelCard(c) {
-  const a = document.createElement("a");
-  a.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
-  a.className = "channel-card";
-  a.setAttribute("aria-label", `Watch ${c.name}`);
-  a.tabIndex = 0;
-
-  const img = document.createElement("img");
-  img.src = c.logo;
-  img.alt = c.name + " logo";
-  img.className = "channel-image";
-
-  const overlay = document.createElement("div");
-  overlay.className = "channel-overlay";
-  overlay.innerHTML = `▶ Watch<br><small>${c.category}</small>`;
-
-  const nameDiv = document.createElement("div");
-  nameDiv.className = "channel-name";
-  nameDiv.textContent = c.name;
-
-  const liveBadge = document.createElement("div");
-  liveBadge.className = "live-badge";
-  liveBadge.textContent = "LIVE";
-
-  const favBtn = document.createElement("div");
-  favBtn.className = "favorite-btn";
-  favBtn.style.right = "44px";
-  const isFav = favorites.some((fav) => fav.src === c.src);
-  favBtn.innerHTML = `<i class="material-icons">${isFav ? "favorite" : "favorite_border"}</i>`;
-  favBtn.onclick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const favObj = { title: c.name, src: c.src, thumb: c.logo, category: c.category };
-    toggleFavorite(favObj, favBtn);
-  };
-
-  const infoBtn = document.createElement("div");
-  infoBtn.className = "favorite-btn";
-  infoBtn.style.right = "4px";
-  infoBtn.innerHTML = `<i class="material-icons">info</i>`;
-  infoBtn.onclick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    showInfoModal(c);
-  };
-
-  a.addEventListener("click", () => trackChannelView(c.src));
-
-  a.append(img, overlay, nameDiv, liveBadge, favBtn, infoBtn);
-  return a;
-}
-
-// --- Render Categories ---
-function renderCategories() {
-  const fixedCats = ["Tamil", "Telugu", "Malayalam", "Kannada", "Hindi"];
-  const allCats = [...new Set(channels.map((c) => c.category))];
-  const cats = fixedCats.concat(allCats.filter((c) => !fixedCats.includes(c)));
-  const finalCats = ["All", ...cats];
-
-  categoryBar.innerHTML = "";
-  finalCats.forEach((cat) => {
-    const btn = document.createElement("button");
-    btn.className = "category-btn" + (cat === selectedCategory ? " active" : "");
-    btn.textContent = `${cat} (${
-      cat === "All" ? channels.length : channels.filter((c) => c.category === cat).length
-    })`;
-    btn.onclick = () => {
-      selectedCategory = cat;
-      renderCategories();
-      renderChannels(searchInput.value);
-      btn.scrollIntoView({ behavior: "smooth", inline: "center" });
-    };
-    categoryBar.appendChild(btn);
-  });
-}
-
-// --- Render Filters ---
-function renderFilters() {
-  filterBar.innerHTML = "";
-
-  // Languages
-  const langs = ["All", ...new Set(channels.map(c => c.language || "Unknown"))];
-  const langSelect = document.createElement("select");
-  langSelect.className = "filter-select";
-  langSelect.innerHTML = langs.map(l =>
-    `<option value="${l}" ${l === selectedLanguage ? "selected" : ""}>${l}</option>`
-  ).join("");
-  langSelect.onchange = (e) => {
-    selectedLanguage = e.target.value;
-    renderChannels(searchInput.value);
-  };
-
-  // Genres
-  const genres = ["All", ...new Set(channels.map(c => c.genre || c.channelType || "Unknown"))];
-  const genreSelect = document.createElement("select");
-  genreSelect.className = "filter-select";
-  genreSelect.innerHTML = genres.map(g =>
-    `<option value="${g}" ${g === selectedGenre ? "selected" : ""}>${g}</option>`
-  ).join("");
-  genreSelect.onchange = (e) => {
-    selectedGenre = e.target.value;
-    renderChannels(searchInput.value);
-  };
-
-  // Sort
-  const sortSelect = document.createElement("select");
-  sortSelect.className = "filter-select";
-  ["A-Z", "Newest", "Oldest"].forEach(opt => {
-    const o = document.createElement("option");
-    o.value = opt;
-    o.textContent = opt;
-    if (opt === selectedSort) o.selected = true;
-    sortSelect.appendChild(o);
-  });
-  sortSelect.onchange = (e) => {
-    selectedSort = e.target.value;
-    renderChannels(searchInput.value);
-  };
-
-  filterBar.append("Language: ", langSelect, "  Genre: ", genreSelect, "  Sort: ", sortSelect);
-}
-
-// --- Render Channels ---
-function renderChannels(filter = "") {
-  grid.innerHTML = "";
-
-  let filtered = channels.filter(c => {
-    const matchesCategory = selectedCategory === "All" || c.category === selectedCategory;
-    const matchesLang = selectedLanguage === "All" || (c.language || "Unknown") === selectedLanguage;
-    const matchesGenre = selectedGenre === "All" || (c.genre || c.channelType || "Unknown") === selectedGenre;
-    const matchesSearch = c.name.toLowerCase().includes(filter.toLowerCase());
-    return matchesCategory && matchesLang && matchesGenre && matchesSearch;
-  });
-
-  if (selectedSort === "A-Z") {
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (selectedSort === "Newest") {
-    filtered.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).reverse();
-  } else if (selectedSort === "Oldest") {
-    filtered.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
-  }
-
-  if (!filtered.length) {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels found</p>`;
+/* ------------- Shaka initialization & loader ------------- */
+function initShaka() {
+  // install polyfills and check support
+  if (!window.shaka) {
+    console.warn('Shaka Player not found. Add the Shaka script tag to your HTML.');
     return;
   }
 
-  filtered.forEach((c, i) => {
-    const card = createChannelCard(c);
-    grid.appendChild(card);
-    setTimeout(() => card.classList.add("show"), i * 80);
+  shaka.polyfill.installAll();
+
+  if (!shaka.Player.isBrowserSupported()) {
+    console.error('Shaka: Browser not supported for advanced playback. Falling back to native playback.');
+    return;
+  }
+
+  // Destroy prior player if any
+  if (shakaPlayer) {
+    try { shakaPlayer.destroy(); } catch (e) { /* ignore */ }
+    shakaPlayer = null;
+  }
+
+  shakaPlayer = new shaka.Player(video);
+
+  // Keep player config minimal and hidden (no UI exposed) — tweak for a premium behavior:
+  shakaPlayer.configure({
+    streaming: {
+      // lower rebuffer aggressiveness for smoother premium experience
+      rebufferingGoal: 4,
+      bufferingGoal: 30
+    },
+    abr: {
+      enabled: true,     // adaptive bitrate ON
+      defaultBandwidthEstimate: 1000000
+    },
+    manifest: {
+      // keep manifest warnings silent (no UI)
+      retryParameters: { maxAttempts: 2 }
+    }
+  });
+
+  // Log shaka errors to console for debugging
+  shakaPlayer.addEventListener('error', onShakaError);
+
+  // Prevent Shaka from adding any UI — we don't use shaka.ui
+}
+
+function onShakaError(event) {
+  const shakaErr = event.detail || event;
+  console.error('Shaka error', shakaErr);
+  // Optionally show a clean alert for users:
+  // alert('Playback error. Please try again later.');
+}
+
+/* Load the given stream URL using Shaka if supported, else fallback to setting video.src for MP4 */
+async function loadWithShakaOrFallback(url) {
+  if (!url) return;
+  shakaLoadedManifest = null;
+
+  if (window.shaka && shaka.Player.isBrowserSupported()) {
+    try {
+      // Try Shaka load (works for DASH/HLS/progressive as Shaka supports HLS manifests in many browsers)
+      await shakaPlayer.load(url); // throws on failure
+      shakaLoadedManifest = url;
+      // Ensure play is attempted
+      try { await video.play(); } catch (e) { /* autoplay policies may prevent immediate play */ }
+      console.log('Shaka loaded manifest:', url);
+      return;
+    } catch (err) {
+      console.warn('Shaka failed to load manifest, falling back to native src. Error:', err);
+      // destroy shaka player to avoid conflicts with native playback
+      try { shakaPlayer.destroy(); } catch (e) {}
+      shakaPlayer = null;
+    }
+  }
+
+  // Fallback: use native video src (for progressive mp4 etc.)
+  video.src = url;
+  video.load();
+  try { await video.play(); } catch (e) {}
+}
+
+/* ----------------- Firebase: fetch channel and start playback ----------------- */
+let streamSlug = qs('stream');
+if (streamSlug) streamSlug = streamSlug.replace(/-/g, ' ').toLowerCase();
+
+if (!streamSlug) {
+  alert('No stream specified');
+} else {
+  const channelsRef = ref(db, 'channels');
+  get(channelsRef).then(snapshot => {
+    if (snapshot.exists()) {
+      let found = false;
+      snapshot.forEach(childSnap => {
+        const data = childSnap.val();
+        if (data.name && data.name.toLowerCase() === streamSlug) {
+          found = true;
+          const streamUrl = data.stream;
+          const title = data.name || 'Live Stream';
+          videoTitle.textContent = title;
+          localStorage.setItem('selectedVideo', streamUrl);
+          localStorage.setItem('selectedVideoTitle', title);
+
+          // Initialize Shaka (if not already)
+          initShaka();
+
+          // Use Shaka player loader (async)
+          loadWithShakaOrFallback(streamUrl);
+
+          // keep video element ready for transforms and custom controls (no native UI)
+        }
+      });
+      if (!found) alert('Channel not found: ' + streamSlug);
+    } else {
+      alert('No channels available in database');
+    }
+  }).catch(err => {
+    console.error('Firebase read failed:', err);
+    alert('Failed to load stream data');
   });
 }
 
-// --- Render Featured ---
-function renderFeatured() {
-  featuredCarousel.innerHTML = "";
-  const featured = channels.slice(0, 10);
-  featured.forEach((c) => {
-    const card = document.createElement("div");
-    card.className = "featured-card";
-    card.innerHTML = `<img src="${c.logo}" alt="${c.name}"><div class="featured-overlay">${c.name}</div>`;
-    card.onclick = () =>
-      (window.location.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`);
-    featuredCarousel.appendChild(card);
-  });
-}
-
-// --- Search ---
-searchInput.addEventListener("input", (e) => {
-  renderChannels(e.target.value);
-  trackSearch(anonUserId, e.target.value);
-});
-
-// --- Firebase Fetch Channels ---
-onValue(ref(db, "channels"), (snapshot) => {
-  if (snapshot.exists()) {
-    channels = Object.values(snapshot.val()).map((c) => ({
-      name: c.name,
-      category: c.category,
-      genre: c.channelType || "Unknown",
-      language: c.language || "Unknown",
-      logo: c.icon,
-      src: c.stream,
-      tags: c.tags || "",
-      createdBy: c.createdBy || null,
-      createdAt: c.createdAt || Date.now()
-    }));
-    renderFeatured();
-    renderCategories();
-    renderFilters();
-    renderChannels(searchInput.value);
+/* ------------------ Controls: Play/Pause ------------------- */
+playBtn.addEventListener('click', async () => {
+  if (video.paused) {
+    try {
+      await video.play();
+      playBtn.textContent = 'pause';
+    } catch (e) {
+      console.warn('Play blocked by autoplay policies:', e);
+      playBtn.textContent = 'play_arrow';
+    }
   } else {
-    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#9ca3af;padding:1rem;">No channels available.</p>`;
+    video.pause();
+    playBtn.textContent = 'play_arrow';
   }
 });
 
-// --- Firebase Fetch Users/Admins ---
-onValue(ref(db, "admins&users"), (snapshot) => {
-  if (snapshot.exists()) {
-    users = snapshot.val();
+/* ------------------ Fullscreen (works with container & webkit fallback) ------------------ */
+fsBtn.addEventListener('click', () => {
+  if (document.fullscreenElement || video.webkitDisplayingFullscreen) {
+    if (document.exitFullscreen) document.exitFullscreen();
+    if (video.webkitExitFullscreen) video.webkitExitFullscreen();
+    container.style.width = '100%';
+    container.style.height = '100%';
+    video.style.width = '100%';
+    video.style.height = '100%';
+  } else {
+    if (container.requestFullscreen) {
+      container.requestFullscreen().catch(() => {});
+    } else if (video.webkitEnterFullscreen) {
+      video.webkitEnterFullscreen();
+    }
+    container.style.width = '100vw';
+    container.style.height = '100vh';
+    video.style.width = '100%';
+    video.style.height = '100%';
   }
 });
 
-// --- Fade-in ---
-window.addEventListener("load", () => document.body.classList.add("loaded"));
+/* ------------------ Mute & Volume ------------------ */
+muteBtn.addEventListener('click', () => {
+  video.muted = !video.muted;
+  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
+});
+volumeSlider.addEventListener('input', () => {
+  video.volume = volumeSlider.value;
+  video.muted = video.volume === 0;
+  muteBtn.textContent = video.muted ? 'volume_off' : 'volume_up';
+});
+
+/* ------------------ show/hide custom controls ------------------ */
+const showControls = () => {
+  controls.classList.remove('hidden');
+  clearTimeout(controlsTimeout);
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+  }
+};
+video.addEventListener('mousemove', showControls);
+video.addEventListener('touchstart', showControls);
+
+function updateControlsVisibility() {
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    controls.classList.add('hidden');
+  } else {
+    controls.classList.remove('hidden');
+  }
+}
+window.addEventListener('orientationchange', updateControlsVisibility);
+document.addEventListener('DOMContentLoaded', updateControlsVisibility);
+
+video.addEventListener('click', () => {
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    if (controls.classList.contains('hidden')) {
+      controls.classList.remove('hidden');
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(() => controls.classList.add('hidden'), 3000);
+    } else {
+      controls.classList.add('hidden');
+    }
+  }
+});
+
+/* ------------------ Pinch & Wheel Zoom (keeps existing behavior) ------------------ */
+video.addEventListener('wheel', e => {
+  scale += e.deltaY * -0.001;
+  scale = Math.min(Math.max(1, scale), 3);
+  video.style.transform = `scale(${scale})`;
+});
+video.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    initialDistance = Math.hypot(
+      e.touches[0].pageX - e.touches[1].pageX,
+      e.touches[0].pageY - e.touches[1].pageY
+    );
+  }
+});
+video.addEventListener('touchmove', e => {
+  if (e.touches.length === 2 && initialDistance) {
+    const currentDistance = Math.hypot(
+      e.touches[0].pageX - e.touches[1].pageX,
+      e.touches[0].pageY - e.touches[1].pageY
+    );
+    scale = Math.min(Math.max(1, scale * (currentDistance / initialDistance)), 3);
+    video.style.transform = `scale(${scale})`;
+    initialDistance = currentDistance;
+  }
+});
+video.addEventListener('touchend', e => {
+  if (e.touches.length < 2) initialDistance = null;
+});
+
+/* ------------------ Keep fullscreen styles correct ------------------ */
+function applyFullscreenStyles() {
+  if (document.fullscreenElement || video.webkitDisplayingFullscreen) {
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
+    video.style.transform = `scale(${scale})`;
+  } else {
+    video.style.width = '';
+    video.style.height = '';
+    video.style.objectFit = '';
+    video.style.transform = '';
+  }
+}
+document.addEventListener('fullscreenchange', applyFullscreenStyles);
+window.addEventListener('resize', applyFullscreenStyles);
+window.addEventListener('orientationchange', applyFullscreenStyles);
+
+/* ------------------ Favorites (unchanged logic) ------------------ */
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+function updateFavButtons() {
+  const videoSrc = localStorage.getItem('selectedVideo');
+  const isFav = favorites.some(fav => fav.src === videoSrc);
+  if (isFav) {
+    addFavBtn.classList.add('hidden');
+    removeFavBtn.classList.remove('hidden');
+  } else {
+    addFavBtn.classList.remove('hidden');
+    removeFavBtn.classList.add('hidden');
+  }
+}
+updateFavButtons();
+
+addFavBtn.addEventListener('click', () => {
+  const videoSrc = localStorage.getItem('selectedVideo');
+  const videoTitleStored = localStorage.getItem('selectedVideoTitle') || 'Unknown';
+  if (!videoSrc) return;
+  favorites.push({
+    title: videoTitleStored,
+    src: videoSrc,
+    thumb: '',
+    category: 'Unknown'
+  });
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavButtons();
+});
+
+removeFavBtn.addEventListener('click', () => {
+  const videoSrc = localStorage.getItem('selectedVideo');
+  favorites = favorites.filter(fav => fav.src !== videoSrc);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavButtons();
+});
+
+/* ------------------ Optional: Expose a safe function to reload same stream (useful in mobile webviews) ------------------ */
+window.reloadCurrentStream = async function() {
+  const current = localStorage.getItem('selectedVideo');
+  if (!current) return;
+  // if shaka was using this manifest, reload via shaka
+  if (shakaPlayer) {
+    try {
+      await shakaPlayer.load(current);
+      return;
+    } catch (e) {
+      console.warn('Reload with Shaka failed, trying fallback', e);
+    }
+  }
+  video.src = current;
+  video.load();
+  try { await video.play(); } catch (e) {}
+}
