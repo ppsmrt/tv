@@ -1,176 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>OTT Premium Player</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OTT Premium Player</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body class="bg-black text-white font-sans h-screen flex flex-col">
+<body class="bg-black text-white font-sans h-screen flex flex-col overflow-hidden">
 
-  <!-- Header -->
-  <header id="header" class="bg-gray-900 bg-opacity-80 backdrop-blur-sm p-4 flex items-center gap-4 z-50 absolute top-0 w-full transition-all duration-300">
-    <button id="goBack" class="text-white">
-      <span class="material-icons">arrow_back</span>
-    </button>
-    <h1 class="text-lg font-bold">Live Channel</h1>
-  </header>
+<!-- Header -->
+<header id="header" class="bg-gray-900 bg-opacity-80 backdrop-blur-sm p-4 flex items-center gap-4 z-50 absolute top-0 w-full transition-all duration-300">
+  <button id="goBack" class="text-white">
+    <span class="material-icons">arrow_back</span>
+  </button>
+  <h1 class="text-lg font-bold">Live Channel</h1>
+</header>
 
-  <!-- Video Container -->
-  <div class="flex-1 relative flex justify-center items-center">
+<!-- Video Container -->
+<div id="videoContainer" class="flex-1 relative flex justify-center items-center w-full h-full transition-all duration-500">
+  <video id="videoPlayer" class="w-full max-h-[56.25vw] md:max-h-full bg-black rounded-xl object-cover" playsinline>
+    <source src="https://www.tnm3u.live/stream/isai-aruvi.m3u8" type="application/x-mpegURL">
+    Your browser does not support HTML5 video.
+  </video>
 
-    <!-- Video -->
-    <video id="videoPlayer" class="w-full max-h-[56.25vw] md:max-h-full bg-black rounded-xl" playsinline>
-      <source src="https://www.tnm3u.live/stream/isai-aruvi.m3u8" type="application/x-mpegURL">
-      Your browser does not support HTML5 video.
-    </video>
+  <!-- Controls Overlay -->
+  <div id="controlsOverlay" class="absolute inset-0 flex flex-col justify-between p-4 opacity-0 transition-opacity duration-300 pointer-events-none">
 
-    <!-- Controls Overlay -->
-    <div id="controlsOverlay" class="absolute inset-0 flex flex-col justify-between p-4 opacity-0 transition-opacity duration-300 pointer-events-none">
+    <!-- Top Controls -->
+    <div class="flex justify-between items-center">
+      <button id="backBtnTop" class="text-white">
+        <span class="material-icons">arrow_back</span>
+      </button>
+      <div></div>
+    </div>
 
-      <!-- Top Controls -->
-      <div class="flex justify-between items-center">
-        <button id="backBtnTop" class="text-white">
-          <span class="material-icons">arrow_back</span>
-        </button>
-        <div></div>
+    <!-- Bottom Controls & Channel Info -->
+    <div class="flex flex-col gap-2">
+      <!-- Animated Channel Info -->
+      <div id="channelInfo" class="flex items-center gap-3 bg-black bg-opacity-70 p-2 rounded-xl backdrop-blur-md transform translate-y-10 opacity-0 transition-all duration-500">
+        <div class="w-12 h-12 bg-gray-700 rounded-lg flex-shrink-0"></div>
+        <div class="flex flex-col">
+          <span class="font-bold">Channel Name</span>
+          <span class="text-gray-400 text-sm">Catch your favorite shows here!</span>
+        </div>
       </div>
 
-      <!-- Bottom Controls & Info -->
-      <div class="flex flex-col gap-2">
-        <!-- Animated Channel Info Overlay -->
-        <div id="channelInfo" class="flex items-center gap-3 bg-black bg-opacity-70 p-2 rounded-xl backdrop-blur-md transform translate-y-10 opacity-0 transition-all duration-500">
-          <div class="w-12 h-12 bg-gray-700 rounded-lg flex-shrink-0"></div>
-          <div class="flex flex-col">
-            <span class="font-bold">Channel Name</span>
-            <span class="text-gray-400 text-sm">Catch your favorite shows here!</span>
-          </div>
-        </div>
+      <!-- Seek Bar -->
+      <input id="seekBar" type="range" min="0" max="100" value="0" class="w-full h-1 bg-gray-700 rounded-lg cursor-pointer">
 
-        <!-- Seek bar -->
-        <input id="seekBar" type="range" min="0" max="100" value="0" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer">
-
-        <!-- Buttons Row -->
-        <div class="flex justify-between items-center">
-          <button id="playPause" class="text-white text-3xl">
-            <span class="material-icons">play_arrow</span>
-          </button>
-          <span id="currentTime" class="text-sm">0:00</span>
-          <input id="volumeBar" type="range" min="0" max="1" step="0.01" value="1" class="w-24 h-1 bg-gray-700 rounded-lg cursor-pointer">
-          <span id="totalTime" class="text-sm">0:00</span>
-          <button id="fullscreenBtn" class="text-white text-3xl">
-            <span class="material-icons">fullscreen</span>
-          </button>
-        </div>
+      <!-- Controls Row -->
+      <div class="flex justify-between items-center">
+        <button id="playPause" class="text-white text-3xl">
+          <span class="material-icons">play_arrow</span>
+        </button>
+        <span id="currentTime" class="text-sm">0:00</span>
+        <input id="volumeBar" type="range" min="0" max="1" step="0.01" value="1" class="w-24 h-1 bg-gray-700 rounded-lg cursor-pointer">
+        <span id="totalTime" class="text-sm">0:00</span>
+        <button id="fullscreenBtn" class="text-white text-3xl">
+          <span class="material-icons">fullscreen</span>
+        </button>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    const video = document.getElementById('videoPlayer');
-    const controlsOverlay = document.getElementById('controlsOverlay');
-    const playPauseBtn = document.getElementById('playPause');
-    const seekBar = document.getElementById('seekBar');
-    const volumeBar = document.getElementById('volumeBar');
-    const currentTimeText = document.getElementById('currentTime');
-    const totalTimeText = document.getElementById('totalTime');
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
-    const goBack = document.getElementById('goBack');
-    const header = document.getElementById('header');
-    const channelInfo = document.getElementById('channelInfo');
+<!-- Mini Player -->
+<div id="miniPlayer" class="fixed bottom-4 right-4 w-56 h-32 bg-gray-900 rounded-xl overflow-hidden shadow-lg flex flex-col p-2 gap-1 opacity-0 pointer-events-none transition-all duration-500">
+  <video id="miniVideo" class="w-full h-20 bg-black rounded-lg object-cover" playsinline muted></video>
+  <div class="flex justify-between items-center w-full px-2">
+    <button id="miniPlayPause" class="text-white">
+      <span class="material-icons">pause</span>
+    </button>
+    <button id="closeMini" class="text-white">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+</div>
 
-    let controlsTimeout;
+<script>
+const video = document.getElementById('videoPlayer');
+const miniPlayer = document.getElementById('miniPlayer');
+const miniVideo = document.getElementById('miniVideo');
+const playPauseBtn = document.getElementById('playPause');
+const miniPlayPause = document.getElementById('miniPlayPause');
+const seekBar = document.getElementById('seekBar');
+const volumeBar = document.getElementById('volumeBar');
+const currentTimeText = document.getElementById('currentTime');
+const totalTimeText = document.getElementById('totalTime');
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const goBack = document.getElementById('goBack');
+const header = document.getElementById('header');
+const controlsOverlay = document.getElementById('controlsOverlay');
+const channelInfo = document.getElementById('channelInfo');
+const videoContainer = document.getElementById('videoContainer');
 
-    // Show controls
-    function showControls() {
-      controlsOverlay.style.opacity = '1';
-      header.style.opacity = '1';
-      channelInfo.style.opacity = '1';
-      channelInfo.style.transform = 'translateY(0)';
-      controlsOverlay.style.pointerEvents = 'auto';
+let controlsTimeout;
 
-      clearTimeout(controlsTimeout);
-      controlsTimeout = setTimeout(hideControls, 3000);
-    }
+// Show controls
+function showControls() {
+  controlsOverlay.style.opacity = '1';
+  header.style.opacity = '1';
+  channelInfo.style.opacity = '1';
+  channelInfo.style.transform = 'translateY(0)';
+  controlsOverlay.style.pointerEvents = 'auto';
+  clearTimeout(controlsTimeout);
+  controlsTimeout = setTimeout(hideControls, 3000);
+}
 
-    function hideControls() {
-      controlsOverlay.style.opacity = '0';
-      header.style.opacity = '0';
-      channelInfo.style.opacity = '0';
-      channelInfo.style.transform = 'translateY(10px)';
-      controlsOverlay.style.pointerEvents = 'none';
-    }
+function hideControls() {
+  controlsOverlay.style.opacity = '0';
+  header.style.opacity = '0';
+  channelInfo.style.opacity = '0';
+  channelInfo.style.transform = 'translateY(10px)';
+  controlsOverlay.style.pointerEvents = 'none';
+}
 
-    video.addEventListener('click', () => {
-      if(controlsOverlay.style.opacity === '1') hideControls();
-      else showControls();
-    });
+video.addEventListener('click', () => {
+  if(controlsOverlay.style.opacity === '1') hideControls();
+  else showControls();
+});
 
-    // Play/Pause toggle
-    playPauseBtn.addEventListener('click', () => {
-      if(video.paused) video.play();
-      else video.pause();
-    });
+// Play/Pause
+playPauseBtn.addEventListener('click', () => {
+  if(video.paused) video.play();
+  else video.pause();
+});
+video.addEventListener('play', () => playPauseBtn.innerHTML = '<span class="material-icons">pause</span>');
+video.addEventListener('pause', () => playPauseBtn.innerHTML = '<span class="material-icons">play_arrow</span>');
 
-    video.addEventListener('play', () => {
-      playPauseBtn.innerHTML = '<span class="material-icons">pause</span>';
-    });
-    video.addEventListener('pause', () => {
-      playPauseBtn.innerHTML = '<span class="material-icons">play_arrow</span>';
-    });
+// Seek
+video.addEventListener('timeupdate', () => {
+  const value = (video.currentTime / video.duration) * 100;
+  seekBar.value = value;
+  currentTimeText.textContent = formatTime(video.currentTime);
+  totalTimeText.textContent = formatTime(video.duration);
+});
+seekBar.addEventListener('input', () => video.currentTime = (seekBar.value / 100) * video.duration);
 
-    // Update seek bar
-    video.addEventListener('timeupdate', () => {
-      const value = (video.currentTime / video.duration) * 100;
-      seekBar.value = value;
-      currentTimeText.textContent = formatTime(video.currentTime);
-      totalTimeText.textContent = formatTime(video.duration);
-    });
+// Volume
+volumeBar.addEventListener('input', () => video.volume = volumeBar.value);
 
-    seekBar.addEventListener('input', () => {
-      video.currentTime = (seekBar.value / 100) * video.duration;
-    });
+// Fullscreen
+fullscreenBtn.addEventListener('click', () => {
+  if(!document.fullscreenElement) video.requestFullscreen();
+  else document.exitFullscreen();
+});
 
-    // Volume
-    volumeBar.addEventListener('input', () => video.volume = volumeBar.value);
+// Go back
+goBack.addEventListener('click', () => window.history.back());
 
-    // Fullscreen
-    fullscreenBtn.addEventListener('click', () => {
-      if(!document.fullscreenElement) video.requestFullscreen();
-      else document.exitFullscreen();
-    });
+// Format time
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs < 10 ? '0'+secs : secs}`;
+}
 
-    // Go back
-    goBack.addEventListener('click', () => window.history.back());
+// Mini-player
+function activateMiniPlayer() {
+  miniPlayer.style.opacity = '1';
+  miniPlayer.style.pointerEvents = 'auto';
+  miniVideo.src = video.currentSrc;
+  miniVideo.currentTime = video.currentTime;
+  miniVideo.play();
+  videoContainer.style.display = 'none';
+}
 
-    // Format time
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${mins}:${secs < 10 ? '0'+secs : secs}`;
-    }
+// Mini-player controls
+miniPlayPause.addEventListener('click', () => {
+  if(miniVideo.paused) miniVideo.play();
+  else miniVideo.pause();
+});
+document.getElementById('closeMini').addEventListener('click', () => {
+  miniVideo.pause();
+  miniPlayer.style.opacity = '0';
+  miniPlayer.style.pointerEvents = 'none';
+  videoContainer.style.display = 'flex';
+});
 
-    // Auto fullscreen landscape
-    function handleOrientation() {
-      if(window.innerWidth > window.innerHeight) {
-        if(video.requestFullscreen) video.requestFullscreen();
-      } else {
-        if(document.fullscreenElement) document.exitFullscreen();
-      }
-    }
-    window.addEventListener('resize', handleOrientation);
-    window.addEventListener('orientationchange', handleOrientation);
+// Example: activate mini-player after 5 seconds (for demo)
+setTimeout(activateMiniPlayer, 5000);
 
-    // Autoplay
-    video.autoplay = true;
-    video.muted = false;
-    video.playsInline = true;
+// Auto fullscreen landscape
+function handleOrientation() {
+  if(window.innerWidth > window.innerHeight) {
+    if(video.requestFullscreen) video.requestFullscreen();
+  } else {
+    if(document.fullscreenElement) document.exitFullscreen();
+  }
+}
+window.addEventListener('resize', handleOrientation);
+window.addEventListener('orientationchange', handleOrientation);
 
-    // Show controls initially
-    showControls();
-  </script>
+// Autoplay
+video.autoplay = true;
+video.muted = false;
+video.playsInline = true;
+
+// Initial controls
+showControls();
+</script>
+
 </body>
 </html>
