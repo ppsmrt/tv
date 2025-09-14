@@ -413,3 +413,5 @@ http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
 http://89.187.189.98/STARMOVIESHD/index.m3u8
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/0yKMJhGY/1000123917.jpg",Sakthi Tv
 https://edge4-moblive.yuppcdn.net/transsd/smil:saktv10.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="Eye Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/W4ZKRQYX/1000124145.png",Eye Tv
+https://edge4-moblive.yuppcdn.net/trans1sd/smil:nettv15.smil/playlist.m3u8
