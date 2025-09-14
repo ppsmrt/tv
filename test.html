@@ -15,36 +15,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.0/shaka-player.compiled.js"></script>
 
 <style>
-html, body { margin:0; padding:0; width:100%; height:100%; background:#111; font-family:'Baloo 2', cursive; overflow:hidden;}
-#videoContainer { position:relative; width:100%; height:100vh; display:flex; flex-direction:column; justify-content:flex-end; background:black; }
-#video { width:100%; height:100%; object-fit:cover; transition:transform 0.2s ease; }
-#controls { position:absolute; bottom:10px; left:10px; right:10px; display:flex; justify-content:space-between; align-items:center; padding:10px 15px; background:rgba(255,255,255,0.15); color:white; border-radius:8px; z-index:10; }
-#progressContainer { position:absolute; bottom:60px; left:0; width:100%; height:5px; background:rgba(255,255,255,0.2); cursor:pointer; z-index:9;}
-#buffer { position:absolute; top:0; left:0; height:100%; background:rgba(255,255,255,0.5); width:0%; }
-#progress { position:absolute; top:0; left:0; height:100%; background:#f87171; width:0%; }
-button { background:none; border:none; color:white; font-size:24px; }
-button:hover { color:#f87171; }
-input[type=range] { width:70px; }
-#loadingSpinner { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:5px solid rgba(255,255,255,0.3);border-top-color:#f87171;border-radius:50%;animation:spin 1s linear infinite;display:none; z-index:20;}
+html, body {margin:0; padding:0; width:100%; height:100%; background:#111; font-family:'Baloo 2', cursive; overflow:hidden;}
+#videoContainer {position:relative; width:100%; height:100vh; display:flex; flex-direction:column; justify-content:flex-end; background:black;}
+#video {width:100%; height:100%; object-fit:cover; transition:transform 0.2s ease;}
+#controls {position:absolute; bottom:10px; left:10px; right:10px; display:flex; justify-content:space-between; align-items:center; padding:10px 15px; background:rgba(255,255,255,0.15); color:white; border-radius:8px; z-index:10;}
+#progressContainer {position:absolute; bottom:60px; left:0; width:100%; height:5px; background:rgba(255,255,255,0.2); cursor:pointer; z-index:9;}
+#buffer {position:absolute; top:0; left:0; height:100%; background:rgba(255,255,255,0.5); width:0%;}
+#progress {position:absolute; top:0; left:0; height:100%; background:#f87171; width:0%;}
+button {background:none; border:none; color:white; font-size:24px;}
+button:hover {color:#f87171;}
+input[type=range]{width:70px;}
+#loadingSpinner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:5px solid rgba(255,255,255,0.3);border-top-color:#f87171;border-radius:50%;animation:spin 1s linear infinite;display:none; z-index:20;}
 @keyframes spin{0%{transform:translate(-50%,-50%) rotate(0deg);}100%{transform:translate(-50%,-50%) rotate(360deg);}}
-#header { position:absolute;top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:10px 15px; z-index:20; background:rgba(0,0,0,0.4);}
-.header-left { display:flex; align-items:center; gap:10px; color:white;}
-.header-right { display:flex; align-items:center; gap:10px; }
-.quality-menu { position:absolute; bottom:60px; right:10px; background:rgba(0,0,0,0.8); color:white; border-radius:6px; padding:5px; display:none; flex-direction:column; z-index:25;}
-.quality-menu button { font-size:14px; padding:6px 10px; text-align:left; }
-.quality-menu button:hover { background:rgba(255,255,255,0.2);}
-.ticker { position:absolute; top:0; left:0; width:100%; background:rgba(0,0,0,0.4); color:white; font-size:14px; padding:6px 0; white-space:nowrap; overflow:hidden; z-index:5;}
-.ticker span { display:inline-block; padding-left:100%; animation:scroll 25s linear infinite; }
-@keyframes scroll { 0% { transform:translateX(0);} 100%{transform:translateX(-100%);} }
+#header{position:absolute;top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:10px 15px; z-index:20; background:rgba(0,0,0,0.4);}
+.header-left{display:flex; align-items:center; gap:10px; color:white;}
+.header-right{display:flex; align-items:center; gap:10px;}
+.quality-menu{position:absolute; bottom:60px; right:10px; background:rgba(0,0,0,0.8); color:white; border-radius:6px; padding:5px; display:none; flex-direction:column; z-index:25;}
+.quality-menu button{font-size:14px; padding:6px 10px; text-align:left;}
+.quality-menu button:hover{background:rgba(255,255,255,0.2);}
+.ticker{position:absolute; top:0; left:0; width:100%; background:rgba(0,0,0,0.4); color:white; font-size:14px; padding:6px 0; white-space:nowrap; overflow:hidden; z-index:5;}
+.ticker span{display:inline-block; padding-left:100%; animation:scroll 25s linear infinite;}
+@keyframes scroll{0% {transform:translateX(0);} 100%{transform:translateX(-100%);}}
+#rotateMsg{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:white; background:rgba(0,0,0,0.5); padding:10px 20px; border-radius:10px; z-index:30; display:none; text-align:center;}
 </style>
 </head>
 <body>
 <div id="videoContainer">
-  <!-- Video -->
   <video id="video" playsinline webkit-playsinline></video>
   <div id="loadingSpinner"></div>
 
-  <!-- Floating Header -->
   <div id="header">
     <div class="header-left">
       <button onclick="history.back()" class="material-icons text-white">arrow_back</button>
@@ -58,13 +57,8 @@ input[type=range] { width:70px; }
     </div>
   </div>
 
-  <!-- Ticker Ad -->
   <div class="ticker"><span>🔥 Join Telegram Channel for Updates | Ads Here 🔥</span></div>
-
-  <!-- Progress Bar -->
   <div id="progressContainer"><div id="buffer"></div><div id="progress"></div></div>
-
-  <!-- Controls -->
   <div id="controls">
     <div class="flex items-center space-x-3">
       <button id="playBtn" class="material-icons">play_arrow</button>
@@ -77,9 +71,8 @@ input[type=range] { width:70px; }
       <button id="fsBtn" class="material-icons">fullscreen</button>
     </div>
   </div>
-
-  <!-- Quality Menu -->
   <div id="qualityMenu" class="quality-menu"></div>
+  <div id="rotateMsg">Rotate your device for best experience</div>
 </div>
 
 <script type="module">
@@ -100,8 +93,9 @@ const loadingSpinner=document.getElementById('loadingSpinner');
 const favBtn=document.getElementById('favBtn');
 const qualityBtn=document.getElementById('qualityBtn');
 const qualityMenu=document.getElementById('qualityMenu');
+const rotateMsg=document.getElementById('rotateMsg');
 
-let shakaPlayer=null,favorites=JSON.parse(localStorage.getItem('favorites'))||[],scale=1,initialDistance=null;
+let shakaPlayer=null,favorites=JSON.parse(localStorage.getItem('favorites'))||[];
 
 // Firebase
 const firebaseConfig={apiKey:"AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",authDomain:"tnm3ulive.firebaseapp.com",databaseURL:"https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"tnm3ulive",storageBucket:"tnm3ulive.firebasestorage.app",messagingSenderId:"80664356882",appId:"1:80664356882:web:c8464819b0515ec9b210cb"};
@@ -138,13 +132,11 @@ else{
             loadingSpinner.style.display='none';
             video.play();
             updateQualityMenu();
-            forceLandscape();
           }).catch(err=>{
             console.error(err);
             loadingSpinner.style.display='none';
             video.src=data.stream;
             video.play();
-            forceLandscape();
           });
         }
       });
@@ -166,8 +158,12 @@ video.addEventListener('progress',()=>{ if(video.buffered.length>0) buffer.style
 progressContainer.addEventListener('click',e=>{const rect=progressContainer.getBoundingClientRect(); const pct=(e.clientX-rect.left)/rect.width; video.currentTime=pct*video.duration;});
 
 // Fullscreen
-fsBtn.addEventListener('click',()=>{video.parentElement.requestFullscreen();});
-document.addEventListener('fullscreenchange',()=>{video.style.objectFit='cover';});
+fsBtn.addEventListener('click', async ()=>{
+  if(video.parentElement.requestFullscreen) await video.parentElement.requestFullscreen();
+  else if(video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+  video.style.objectFit='cover';
+});
+document.addEventListener('fullscreenchange',checkOrientation);
 
 // Favorites
 function updateFav(){const src=localStorage.getItem('selectedVideo'); const isFav=favorites.some(f=>f.src===src); favBtn.innerHTML=isFav?'<i class="fa-solid fa-heart text-red-500"></i>':'<i class="fa-regular fa-heart"></i>'; }
@@ -188,14 +184,15 @@ function updateQualityMenu(){
 }
 qualityBtn.addEventListener('click',()=>{qualityMenu.style.display=qualityMenu.style.display==='flex'?'none':'flex';});
 
-// --- Force Landscape ---
-function forceLandscape(){
-  if(screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(()=>{});
-  document.body.style.transform='rotate(90deg)';
-  document.body.style.transformOrigin='center';
-  document.body.style.width='100vh';
-  document.body.style.height='100vw';
+// --- Rotate Device Message ---
+function checkOrientation(){
+  if(window.innerHeight>window.innerWidth && document.fullscreenElement){
+    rotateMsg.style.display='block';
+  }else{
+    rotateMsg.style.display='none';
+  }
 }
+window.addEventListener('resize', checkOrientation);
 </script>
 </body>
 </html>
