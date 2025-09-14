@@ -95,7 +95,7 @@ https://segment.yuppcdn.net/110322/polimernews/playlist.m3u8
 https://rtmp.bmlive.net/bms/emperortv/index.m3u8
 #EXTINF:-1 tvg-name="Apple tv marthandam" group-title="Tamil" tvg-logo="https://play-lh.googleusercontent.com/6J8XBOYCu_cgqemEMGOg-AiPctEzjilNKzJ__ckcV67P-FiyVak8VaFSXRdjVgStguF8=w832-h470-rw",Apple tv marthandam
 http://applelive.in:80/appletv/appletv.m3u8
-#EXTINF:-1 tvg-name="Selfie tv puthukadai kaniyakumari district" group-title="Tamil" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie tv puthukadai kaniyakumari district
+#EXTINF:-1 tvg-name="Selfie Tv" group-title="Tamil" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie Tv
 http://applelive.in/selfeetv/selfeetv.m3u8
 #EXTINF:-1 tvg-name="Zee tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/tnhgnDx/1000121265.jpg",Zee tamil
 https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
