@@ -23,7 +23,7 @@ const footerHTML = `
 
   <!-- Right Buttons -->
   <div class="flex space-x-8">
-    <button class="flex flex-col items-center text-xs text-gray-400 hover:text-red-500 transition transform hover:scale-110" data-href="signin">
+    <button class="flex flex-col items-center text-xs text-gray-400 hover:text-red-500 transition transform hover:scale-110" data-href="account">
       <span class="material-icons text-2xl mb-1">person</span>
       Profile
     </button>
