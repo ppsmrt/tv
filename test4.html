@@ -3,136 +3,174 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Live TV - Stream Live</title>
+  <title>OTT Premium Player</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <!-- Fav Icon -->
-  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico">
-
-  <!-- Baloo 2 Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-gray-900 text-white font-sans h-screen flex flex-col">
+<body class="bg-black text-white font-sans h-screen flex flex-col">
 
   <!-- Header -->
-  <header class="bg-gray-800 shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
-    <h1 class="text-2xl font-bold text-white">Live TV</h1>
-    <button class="p-2 rounded-md hover:bg-gray-700">
-      <span class="material-icons text-white">menu</span>
+  <header id="header" class="bg-gray-900 bg-opacity-80 backdrop-blur-sm p-4 flex items-center gap-4 z-50 absolute top-0 w-full transition-all duration-300">
+    <button id="goBack" class="text-white">
+      <span class="material-icons">arrow_back</span>
     </button>
+    <h1 class="text-lg font-bold">Live Channel</h1>
   </header>
 
-  <!-- Main Content -->
-  <main class="flex-1 overflow-y-auto p-4 space-y-6">
+  <!-- Video Container -->
+  <div class="flex-1 relative flex justify-center items-center">
 
-    <!-- Search Bar -->
-    <div class="relative">
-      <span class="material-icons absolute top-1/2 left-3 -translate-y-1/2 text-gray-400">search</span>
-      <input type="search" id="searchInput" placeholder="Search channels..."
-        class="w-full rounded-xl bg-gray-800 text-white placeholder-gray-400 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-    </div>
+    <!-- Video -->
+    <video id="videoPlayer" class="w-full max-h-[56.25vw] md:max-h-full bg-black rounded-xl" playsinline>
+      <source src="https://www.tnm3u.live/stream/isai-aruvi.m3u8" type="application/x-mpegURL">
+      Your browser does not support HTML5 video.
+    </video>
 
-    <!-- Featured Carousel -->
-    <div class="space-y-2">
-      <h2 class="text-lg font-semibold">Featured</h2>
-      <div id="featuredCarousel" class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-        <!-- Example Card -->
-        <div class="min-w-[200px] bg-gray-800 rounded-2xl shadow-lg p-3 flex-shrink-0 snap-start transform hover:scale-105 transition-transform duration-300">
-          <div class="bg-gray-700 h-32 rounded-lg mb-2"></div>
-          <h3 class="text-white font-medium">Channel Name</h3>
-          <p class="text-gray-400 text-sm">Category</p>
+    <!-- Controls Overlay -->
+    <div id="controlsOverlay" class="absolute inset-0 flex flex-col justify-between p-4 opacity-0 transition-opacity duration-300 pointer-events-none">
+
+      <!-- Top Controls -->
+      <div class="flex justify-between items-center">
+        <button id="backBtnTop" class="text-white">
+          <span class="material-icons">arrow_back</span>
+        </button>
+        <div></div>
+      </div>
+
+      <!-- Bottom Controls & Info -->
+      <div class="flex flex-col gap-2">
+        <!-- Animated Channel Info Overlay -->
+        <div id="channelInfo" class="flex items-center gap-3 bg-black bg-opacity-70 p-2 rounded-xl backdrop-blur-md transform translate-y-10 opacity-0 transition-all duration-500">
+          <div class="w-12 h-12 bg-gray-700 rounded-lg flex-shrink-0"></div>
+          <div class="flex flex-col">
+            <span class="font-bold">Channel Name</span>
+            <span class="text-gray-400 text-sm">Catch your favorite shows here!</span>
+          </div>
+        </div>
+
+        <!-- Seek bar -->
+        <input id="seekBar" type="range" min="0" max="100" value="0" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+
+        <!-- Buttons Row -->
+        <div class="flex justify-between items-center">
+          <button id="playPause" class="text-white text-3xl">
+            <span class="material-icons">play_arrow</span>
+          </button>
+          <span id="currentTime" class="text-sm">0:00</span>
+          <input id="volumeBar" type="range" min="0" max="1" step="0.01" value="1" class="w-24 h-1 bg-gray-700 rounded-lg cursor-pointer">
+          <span id="totalTime" class="text-sm">0:00</span>
+          <button id="fullscreenBtn" class="text-white text-3xl">
+            <span class="material-icons">fullscreen</span>
+          </button>
         </div>
       </div>
     </div>
-
-    <!-- Categories Pills -->
-    <div class="flex gap-2 overflow-x-auto scrollbar-hide py-2">
-      <button class="px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium flex-shrink-0">Tamil</button>
-      <button class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium flex-shrink-0">Entertainment</button>
-      <button class="px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium flex-shrink-0">News</button>
-    </div>
-
-    <!-- Channels Grid -->
-    <section id="channelsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-      <!-- Example channel card -->
-      <div class="bg-gray-800 rounded-2xl shadow-md p-3 cursor-pointer hover:scale-105 transition-transform" onclick="openModal('Channel 1','Tamil','English','Music, Drama','Admin')">
-        <div class="bg-gray-700 h-32 rounded-lg mb-2"></div>
-        <h3 class="text-white font-semibold">Channel 1</h3>
-        <p class="text-gray-400 text-sm">Tamil</p>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Bottom Tab Navigation -->
-  <nav class="bg-gray-800 border-t border-gray-700 flex justify-around items-center p-2 sticky bottom-0 z-50">
-    <button class="flex flex-col items-center text-white">
-      <span class="material-icons">home</span>
-      <span class="text-xs">Home</span>
-    </button>
-    <button class="flex flex-col items-center text-gray-400 hover:text-white">
-      <span class="material-icons">live_tv</span>
-      <span class="text-xs">Live</span>
-    </button>
-    <button class="flex flex-col items-center text-gray-400 hover:text-white">
-      <span class="material-icons">search</span>
-      <span class="text-xs">Search</span>
-    </button>
-    <button class="flex flex-col items-center text-gray-400 hover:text-white">
-      <span class="material-icons">settings</span>
-      <span class="text-xs">Settings</span>
-    </button>
-  </nav>
-
-  <!-- Channel Info Modal -->
-  <div id="channelModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-    <div class="bg-gray-900 rounded-3xl p-6 w-11/12 max-w-md relative backdrop-blur-md glassmorphic transform scale-95 transition-all duration-300">
-      <button id="modalClose" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
-      <h2 id="modalName" class="text-xl font-bold mb-2">Channel Name</h2>
-      <p id="modalCategory" class="text-gray-400 mb-1">Category: Tamil</p>
-      <p id="modalLanguage" class="text-gray-400 mb-1">Language: English</p>
-      <p id="modalTags" class="text-gray-400 mb-1">Tags: Music, Drama</p>
-      <p id="modalAddedBy" class="text-sm text-gray-500 mt-2">Added by Admin</p>
-    </div>
   </div>
 
-  <!-- Scripts -->
-  <script type="module" src="assets/js/header.js"></script>
-  <script type="module" src="assets/js/footer.js"></script>
-  <script type="module" src="assets/js/app.js"></script>
-
   <script>
-    const modal = document.getElementById('channelModal');
-    const modalClose = document.getElementById('modalClose');
+    const video = document.getElementById('videoPlayer');
+    const controlsOverlay = document.getElementById('controlsOverlay');
+    const playPauseBtn = document.getElementById('playPause');
+    const seekBar = document.getElementById('seekBar');
+    const volumeBar = document.getElementById('volumeBar');
+    const currentTimeText = document.getElementById('currentTime');
+    const totalTimeText = document.getElementById('totalTime');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const goBack = document.getElementById('goBack');
+    const header = document.getElementById('header');
+    const channelInfo = document.getElementById('channelInfo');
 
-    function openModal(name, category, language, tags, addedBy) {
-      document.getElementById('modalName').textContent = name;
-      document.getElementById('modalCategory').textContent = "Category: " + category;
-      document.getElementById('modalLanguage').textContent = "Language: " + language;
-      document.getElementById('modalTags').textContent = "Tags: " + tags;
-      document.getElementById('modalAddedBy').textContent = "Added by " + addedBy;
+    let controlsTimeout;
 
-      modal.classList.remove('opacity-0', 'pointer-events-none');
-      setTimeout(() => modal.querySelector('div').classList.remove('scale-95'), 10);
+    // Show controls
+    function showControls() {
+      controlsOverlay.style.opacity = '1';
+      header.style.opacity = '1';
+      channelInfo.style.opacity = '1';
+      channelInfo.style.transform = 'translateY(0)';
+      controlsOverlay.style.pointerEvents = 'auto';
+
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(hideControls, 3000);
     }
 
-    modalClose.addEventListener('click', () => {
-      modal.querySelector('div').classList.add('scale-95');
-      setTimeout(() => modal.classList.add('opacity-0', 'pointer-events-none'), 200);
+    function hideControls() {
+      controlsOverlay.style.opacity = '0';
+      header.style.opacity = '0';
+      channelInfo.style.opacity = '0';
+      channelInfo.style.transform = 'translateY(10px)';
+      controlsOverlay.style.pointerEvents = 'none';
+    }
+
+    video.addEventListener('click', () => {
+      if(controlsOverlay.style.opacity === '1') hideControls();
+      else showControls();
     });
 
-    modal.addEventListener('click', (e) => {
-      if(e.target === modal) {
-        modal.querySelector('div').classList.add('scale-95');
-        setTimeout(() => modal.classList.add('opacity-0', 'pointer-events-none'), 200);
+    // Play/Pause toggle
+    playPauseBtn.addEventListener('click', () => {
+      if(video.paused) video.play();
+      else video.pause();
+    });
+
+    video.addEventListener('play', () => {
+      playPauseBtn.innerHTML = '<span class="material-icons">pause</span>';
+    });
+    video.addEventListener('pause', () => {
+      playPauseBtn.innerHTML = '<span class="material-icons">play_arrow</span>';
+    });
+
+    // Update seek bar
+    video.addEventListener('timeupdate', () => {
+      const value = (video.currentTime / video.duration) * 100;
+      seekBar.value = value;
+      currentTimeText.textContent = formatTime(video.currentTime);
+      totalTimeText.textContent = formatTime(video.duration);
+    });
+
+    seekBar.addEventListener('input', () => {
+      video.currentTime = (seekBar.value / 100) * video.duration;
+    });
+
+    // Volume
+    volumeBar.addEventListener('input', () => video.volume = volumeBar.value);
+
+    // Fullscreen
+    fullscreenBtn.addEventListener('click', () => {
+      if(!document.fullscreenElement) video.requestFullscreen();
+      else document.exitFullscreen();
+    });
+
+    // Go back
+    goBack.addEventListener('click', () => window.history.back());
+
+    // Format time
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0'+secs : secs}`;
+    }
+
+    // Auto fullscreen landscape
+    function handleOrientation() {
+      if(window.innerWidth > window.innerHeight) {
+        if(video.requestFullscreen) video.requestFullscreen();
+      } else {
+        if(document.fullscreenElement) document.exitFullscreen();
       }
-    });
-  </script>
+    }
+    window.addEventListener('resize', handleOrientation);
+    window.addEventListener('orientationchange', handleOrientation);
 
+    // Autoplay
+    video.autoplay = true;
+    video.muted = false;
+    video.playsInline = true;
+
+    // Show controls initially
+    showControls();
+  </script>
 </body>
 </html>
