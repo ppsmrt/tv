@@ -48,9 +48,10 @@ jobs:
                 const name = ch.name || "Unknown";
                 const logo = ch.icon || "";
                 const stream = ch.stream || "";
+                const group = ch.channelType || "Unknown"; // <-- Use channelType as group-title
                 if (!stream) continue;
 
-                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="Tamil" tvg-logo="${logo}",${name}`;
+                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${group}" tvg-logo="${logo}",${name}`;
                 m3u += `${extinf}\n${stream}\n`;
 
                 // Check if channel exists in previous file
