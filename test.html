@@ -19,19 +19,6 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
-
-  <!-- Additional Styling -->
-  <style>
-    .recently-added {
-      @apply px-4 py-6;
-    }
-    .recently-grid {
-      @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4;
-    }
-    .recently-card {
-      @apply bg-gray-800 rounded-xl overflow-hidden shadow hover:scale-105 transition cursor-pointer;
-    }
-  </style>
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -48,14 +35,14 @@
     <!-- Featured Carousel -->
     <div class="featured-carousel" id="featuredCarousel"></div>
 
+    <!-- Recently Added Carousel -->
+    <section>
+      <h2 class="section-title">Recently Added</h2>
+      <div id="recentlyAddedCarousel" class="carousel"></div>
+    </section>
+
     <!-- Categories -->
     <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
-
-    <!-- ✅ Recently Added Section -->
-    <section class="recently-added">
-      <h2 class="text-2xl font-bold mb-4">Recently Added</h2>
-      <div class="recently-grid" id="recentlyGrid"></div>
-    </section>
 
     <!-- Channels -->
     <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
