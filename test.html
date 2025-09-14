@@ -93,15 +93,8 @@ main button:hover {
   font-size: 12px;
 }
 
-::selection {
-  background: #2563eb;
-  color: #fff;
-}
-
-::-moz-selection {
-  background: #2563eb;
-  color: #fff;
-}
+::selection { background: #2563eb; color: #fff; }
+::-moz-selection { background: #2563eb; color: #fff; }
 </style>
 </head>
 <body>
@@ -126,6 +119,7 @@ main button:hover {
   <h2 class="text-3xl font-extrabold text-red-500 text-center">Submit a Channel</h2>
 
   <div class="space-y-4">
+    <!-- Channel Name -->
     <input type="text" id="channel-name" placeholder="Channel Name" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
 
     <!-- Upload Logo -->
@@ -144,7 +138,7 @@ main button:hover {
     <input type="hidden" id="channel-icon"/>
     <input type="text" id="channel-url" placeholder="Stream URL (m3u8)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
 
-    <!-- Category (also = language) -->
+    <!-- Language -->
     <select id="channel-category" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500">
       <option value="Tamil">Tamil</option>
       <option value="Telugu">Telugu</option>
@@ -155,7 +149,7 @@ main button:hover {
       <option value="Sports">Sports</option>
     </select>
 
-    <!-- Channel Type -->
+    <!-- Channel Type (Genre) -->
     <select id="channel-type" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500">
       <option value="Entertainment">Entertainment</option>
       <option value="News">News</option>
@@ -173,8 +167,11 @@ main button:hover {
     <!-- Country -->
     <input type="text" id="channel-country" value="India" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
 
-    <!-- Description -->
+    <!-- Description (auto-filled) -->
     <textarea id="channel-description" placeholder="Channel Description..." rows="3" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
+
+    <!-- Tags -->
+    <input type="text" id="channel-tags" placeholder="Tags (e.g. tamil, news, hd)" class="w-full bg-gray-700 placeholder-gray-400 text-white p-3 rounded-lg focus:ring-2 focus:ring-red-500"/>
 
     <!-- Accept Community Rules -->
     <div class="mt-2">
@@ -230,35 +227,22 @@ main button:hover {
 <!-- External JS -->
 <script type="module" src="assets/js/header.js"></script>
 <script type="module" src="assets/js/footer.js"></script>
-<script type="module" src="assets/js/test.js"></script>
+<script type="module" src="assets/js/edit-channel.js"></script>
 
 <script>
   // Show rules modal
   document.getElementById('show-rules').addEventListener('click', () => {
     document.getElementById('rules-modal').classList.remove('hidden');
   });
-
   // Close rules modal
   document.getElementById('close-rules').addEventListener('click', () => {
     document.getElementById('rules-modal').classList.add('hidden');
   });
-
   // Close modal if clicking outside
   document.getElementById('rules-modal').addEventListener('click', (e) => {
     if (e.target.id === 'rules-modal') {
       document.getElementById('rules-modal').classList.add('hidden');
     }
-  });
-
-  // Prevent submission if rules not accepted
-  document.getElementById('submit-btn').addEventListener('click', () => {
-    const checkbox = document.getElementById('accept-rules');
-    if (!checkbox.checked) {
-      alert('You must accept the community rules before submitting!');
-      return;
-    }
-    // Your existing submit logic here...
-    alert('Channel submitted successfully!');
   });
 </script>
 </body>
