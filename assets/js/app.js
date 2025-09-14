@@ -3,7 +3,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue, runTransaction, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// Firebase Config
+// --- Firebase Config ---
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -18,29 +18,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// DOM Elements
+// --- DOM Elements ---
 const grid = document.getElementById("channelsGrid");
 const categoryBar = document.getElementById("categoryBar");
 const featuredCarousel = document.getElementById("featuredCarousel");
 const searchInput = document.getElementById("searchInput");
 
-// State
-let selectedCategory = "All"; // default
+// --- State ---
+let selectedCategory = "All"; 
 let channels = [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-let users = {}; // store admins & users info
+let users = {}; 
 
-// Anonymous user ID for analytics if no login
+// Anonymous user ID
 let anonUserId = localStorage.getItem("anonUserId") || crypto.randomUUID();
 localStorage.setItem("anonUserId", anonUserId);
 
-// Skeleton loader
+// Skeleton Loader
 grid.innerHTML = '<div class="skeleton"></div>'.repeat(12);
 
 // --- Analytics ---
 function trackChannelView(channelId) {
   const viewsRef = ref(db, `analytics/channels/${channelId}/views`);
   runTransaction(viewsRef, (current) => (current || 0) + 1);
+
   const lastRef = ref(db, `analytics/channels/${channelId}/lastWatched`);
   set(lastRef, new Date().toISOString());
 }
