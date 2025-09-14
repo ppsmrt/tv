@@ -18,7 +18,6 @@
     referrerpolicy="no-referrer"
   />
   <style>
-    /* Apply Baloo 2 font globally */
     html, body {
       font-family: 'Baloo 2', cursive;
       margin: 0;
@@ -27,7 +26,6 @@
       background: #111;
       overscroll-behavior: none;
     }
-    /* Video default */
     #video {
       width: 100%;
       height: auto;
@@ -36,51 +34,19 @@
       object-fit: cover;
       transition: transform 0.2s ease;
     }
-    /* Fullscreen video adjustments */
     video:fullscreen {
       width: 100% !important;
       height: 100% !important;
       object-fit: cover;
     }
-    /* Safe area for fullscreen */
-    :fullscreen {
-      padding: 0;
-      margin: 0;
-    }
-    /* Controls transition */
-    .controls {
-      transition: opacity 0.3s;
-    }
-    .controls.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    /* Ad strip */
-    .ad-strip {
-      height: 4px;
-      background-color: rgba(255,255,255,0.2);
-      margin-top: 8px;
-    }
-    .ad-progress {
-      height: 100%;
-      background-color: #f87171;
-      width: 0%;
-      transition: width 0.3s;
-    }
-    /* Fullscreen immersive behavior on mobile */
-    body:fullscreen {
-      background: black;
-    }
-    /* Scrolling text ad animation */
-    @keyframes scroll {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    .animate-scroll {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll 20s linear infinite;
-    }
+    :fullscreen { padding: 0; margin: 0; }
+    .controls { transition: opacity 0.3s; }
+    .controls.hidden { opacity: 0; pointer-events: none; }
+    .ad-strip { height: 4px; background-color: rgba(255,255,255,0.2); margin-top: 8px; }
+    .ad-progress { height: 100%; background-color: #f87171; width: 0%; transition: width 0.3s; }
+    body:fullscreen { background: black; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    .animate-scroll { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
   </style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
@@ -88,7 +54,9 @@
   <header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 bg-gray-800 bg-opacity-90 shadow-md">
     <div class="flex items-center">
       <span class="material-icons text-white">live_tv</span>
-      <h1 class="ml-2 text-lg font-bold text-white"><span id="videoTitle" class="font-semibold text-lg">Video Title</span></h1>
+      <h1 class="ml-2 text-lg font-bold text-white">
+        <span id="videoTitle" class="font-semibold text-lg">Video Title</span>
+      </h1>
     </div>
     <button onclick="history.back()" class="flex items-center space-x-1 text-white hover:text-red-400">
       <span class="material-icons">arrow_back</span>
@@ -98,7 +66,7 @@
 
   <main class="flex-grow pt-20 pb-24">
     <!-- Video Player Card -->
-    <div class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
+    <div id="videoContainer" class="player-card mx-4 rounded-lg overflow-hidden bg-gray-800">
       <div class="relative">
         <video id="video" playsinline webkit-playsinline></video>
 
@@ -127,25 +95,23 @@
     </div>
 
     <!-- Favorites + Social Section -->
-<div class="mx-4 mt-6 p-6 player-card flex items-center justify-between">
-  
-  <!-- Favorites -->
-  <div class="flex items-center gap-6">
-    <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
-    <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
-    <span class="text-gray-300 text-sm">Add to Favorites</span>
-  </div>
+    <div class="mx-4 mt-6 p-6 player-card flex items-center justify-between">
+      <!-- Favorites -->
+      <div class="flex items-center gap-6">
+        <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125"></i>
+        <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer transition-transform duration-300 hover:scale-125 hidden"></i>
+        <span class="text-gray-300 text-sm">Add to Favorites</span>
+      </div>
 
-  <!-- Social Icons -->
-  <div class="flex space-x-6 text-2xl">
-    <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
-    <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
-    <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125 transition"><i class="fab fa-youtube"></i></a>
-    <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125 transition"><i class="fab fa-discord"></i></a>
-  </div>
-</div>
-
+      <!-- Social Icons -->
+      <div class="flex space-x-6 text-2xl">
+        <a href="https://facebook.com" target="_blank" class="text-blue-500 hover:scale-125 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://wa.me/" target="_blank" class="text-green-400 hover:scale-125 transition"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/" target="_blank" class="text-sky-400 hover:scale-125 transition"><i class="fab fa-telegram"></i></a>
+        <a href="https://youtube.com" target="_blank" class="text-red-500 hover:scale-125 transition"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.com" target="_blank" class="text-indigo-400 hover:scale-125 transition"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
 
     <!-- Video Info Section -->
     <div class="mx-4 mt-4 p-4 bg-gray-800 rounded-lg space-y-4 overflow-y-auto max-h-[40vh]">
@@ -187,16 +153,16 @@
 
     <!-- Ad1 -->
     <div class="w-full text-center my-4">  
-  <a href="https://telegram.me/tamilm3u" target="_blank" rel="noopener noreferrer">  
-    <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
-  </a>  
-</div>  
+      <a href="https://telegram.me/tamilm3u" target="_blank" rel="noopener noreferrer">  
+        <img src="https://i.ibb.co/3mZqL7mf/join-us-telegram.jpg" alt="Ad" class="max-w-[728px] w-[90%] h-auto mx-auto rounded-lg shadow-lg">  
+      </a>  
+    </div>  
 
   </main>
 
   <!-- JS -->
   <script type="module" src="assets/js/player.js"></script>
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
+  <script type="module" src="assets/js/header.js"></script>
+  <script type="module" src="assets/js/footer.js"></script>
 </body>
 </html>
