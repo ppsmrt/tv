@@ -3,10 +3,7 @@ import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.
 
 // Elements
 const video = document.getElementById('videoPlayer');
-const miniPlayer = document.getElementById('miniPlayer');
-const miniVideo = document.getElementById('miniVideo');
 const playPauseBtn = document.getElementById('playPause');
-const miniPlayPause = document.getElementById('miniPlayPause');
 const seekBar = document.getElementById('seekBar');
 const volumeBar = document.getElementById('volumeBar');
 const currentTimeText = document.getElementById('currentTime');
@@ -17,9 +14,7 @@ const controlsOverlay = document.getElementById('controlsOverlay');
 const channelInfo = document.getElementById('channelInfo');
 const channelNameEl = document.getElementById('channelName');
 
-const addFavBtn = document.getElementById('addFav');
-const removeFavBtn = document.getElementById('removeFav');
-let controlsTimeout, scale=1, initialDistance=null, favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+let controlsTimeout, scale=1, initialDistance=null;
 
 // Firebase config
 const firebaseConfig = {
@@ -99,45 +94,6 @@ function handleOrientation(){
 
 // Go back
 goBack.addEventListener('click',()=>window.history.back());
-
-// Mini-player
-function activateMiniPlayer(){
-  miniPlayer.style.opacity='1'; miniPlayer.style.pointerEvents='auto';
-  miniVideo.src=video.currentSrc;
-  miniVideo.currentTime=video.currentTime;
-  miniVideo.play(); video.parentElement.style.display='none';
-}
-miniPlayPause.addEventListener('click',()=>miniVideo.paused?miniVideo.play():miniVideo.pause());
-document.getElementById('closeMini').addEventListener('click',()=>{
-  miniVideo.pause();
-  miniPlayer.style.opacity='0';
-  miniPlayer.style.pointerEvents='none';
-  video.parentElement.style.display='flex';
-});
-setTimeout(activateMiniPlayer,5000);
-
-// Favorites
-function updateFavButtons(){
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const isFav = favorites.some(f=>f.src===videoSrc);
-  addFavBtn.classList.toggle('hidden',isFav);
-  removeFavBtn.classList.toggle('hidden',!isFav);
-}
-addFavBtn.addEventListener('click',()=>{
-  const videoSrc = localStorage.getItem('selectedVideo');
-  const videoTitleStored = localStorage.getItem('selectedVideoTitle') || 'Unknown';
-  if(!videoSrc) return;
-  favorites.push({title:videoTitleStored,src:videoSrc,thumb:'',category:'Unknown'});
-  localStorage.setItem('favorites',JSON.stringify(favorites));
-  updateFavButtons();
-});
-removeFavBtn.addEventListener('click',()=>{
-  const videoSrc = localStorage.getItem('selectedVideo');
-  favorites = favorites.filter(f=>f.src!==videoSrc);
-  localStorage.setItem('favorites',JSON.stringify(favorites));
-  updateFavButtons();
-});
-updateFavButtons();
 
 // Time formatting
 function formatTime(s){ const m=Math.floor(s/60), sec=Math.floor(s%60); return `${m}:${sec<10?'0'+sec:sec}`; }
