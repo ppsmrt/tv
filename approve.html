@@ -23,8 +23,10 @@ body { font-family: 'Baloo 2', cursive; background-color: #111827; color: white;
 </style>
 </head>
 <body>
-
-<header class="p-4 text-center text-2xl font-bold bg-red-600">Admin Approval Panel</header>
+  
+<!-- Header -->
+<div id="header">
+  
 <main class="p-6 max-w-4xl mx-auto">
   <h2 class="text-3xl font-extrabold mb-6 text-center">Pending Channel Requests</h2>
   <div id="requests-container" class="space-y-4"></div>
@@ -52,8 +54,15 @@ body { font-family: 'Baloo 2', cursive; background-color: #111827; color: white;
   </div>
 </div>
 
+<!-- Footer -->
+  <div id="footer"></div>
+  
 <!-- Toast -->
 <div id="toast-container"></div>
+  
+  <!-- JS -->
+  <script type="module" src="assets/js/header.js"></script>
+  <script type="module" src="assets/js/footer.js"></script>
 
 <!-- Firebase Admin Logic -->
 <script type="module">
