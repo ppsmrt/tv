@@ -1,86 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OTT Premium Player</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-  body { font-family:'Baloo 2', cursive; margin:0; background:black; color:white; overflow:hidden; }
-  video { object-fit: cover; transition: transform 0.2s ease; }
-  .controls-overlay { transition: opacity 0.3s; pointer-events:none; opacity:0; }
-  .controls-overlay.active { opacity:1; pointer-events:auto; }
-  .ad-strip { height:4px; background:rgba(255,255,255,0.2); width:100%; position:absolute; bottom:0; left:0; }
-  .ad-progress { height:100%; background:#f87171; width:0%; transition:width 0.3s; }
-  .animate-scroll { display:inline-block; padding-left:100%; animation:scroll 20s linear infinite; white-space:nowrap; }
-  @keyframes scroll { 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>Premium OTT Player</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Shaka Player -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.10/shaka-player.compiled.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.10/controls.min.css"/>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+    }
+    #video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: black;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: black;
+    }
+    .overlay-back {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 9999px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .overlay-back.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .overlay-back .material-icons {
+      color: white;
+      font-size: 28px;
+    }
+  </style>
 </head>
-<body class="flex flex-col h-screen">
-
-<!-- Header -->
-<header id="header" class="bg-gray-900 bg-opacity-80 backdrop-blur-sm p-4 flex items-center gap-4 z-50 absolute top-0 w-full transition-all duration-300">
-  <button id="goBack" class="text-white">
-    <span class="material-icons">arrow_back</span>
-  </button>
-  <h1 class="text-lg font-bold" id="videoTitle">Video Title</h1>
-</header>
-
-<!-- Video Container -->
-<div id="videoContainer" class="flex-1 relative flex justify-center items-center w-full h-full transition-all duration-500">
-  <video id="videoPlayer" class="w-full max-h-[56.25vw] md:max-h-full bg-black rounded-xl" playsinline></video>
-
-  <!-- Scrolling Text Ad -->
-  <div class="absolute bottom-20 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1">
-    <div class="animate-scroll">
-      🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
-    </div>
-  </div>
-
-  <!-- Ad Strip -->
-  <div class="ad-strip">
-    <div id="adProgress" class="ad-progress"></div>
-  </div>
-
-  <!-- Controls Overlay -->
-  <div id="controlsOverlay" class="controls-overlay absolute inset-0 flex flex-col justify-between p-4">
-    <div class="flex justify-between items-center">
-      <button id="backBtnTop" class="text-white"><span class="material-icons">arrow_back</span></button>
-      <div></div>
+<body>
+  <div id="video-container">
+    <!-- Back button overlay -->
+    <div id="backButton" class="overlay-back">
+      <span class="material-icons">arrow_back</span>
     </div>
 
-    <div class="flex flex-col gap-2">
-      <!-- Animated Channel Info -->
-      <div id="channelInfo" class="flex items-center gap-3 bg-black bg-opacity-70 p-2 rounded-xl backdrop-blur-md transform translate-y-0 opacity-100 transition-all duration-500">
-        <div class="w-12 h-12 bg-gray-700 rounded-lg flex-shrink-0"></div>
-        <div class="flex flex-col">
-          <span id="channelName" class="font-bold">Channel Name</span>
-          <span class="text-gray-400 text-sm">Catch your favorite shows here!</span>
-        </div>
-      </div>
+    <!-- Video -->
+    <video id="video" autoplay playsinline></video>
 
-      <!-- Seek & Volume -->
-      <input id="seekBar" type="range" min="0" max="100" value="0" class="w-full h-1 bg-gray-700 rounded-lg cursor-pointer">
-      <div class="flex justify-between items-center">
-        <button id="playPause" class="text-white text-3xl"><span class="material-icons">play_arrow</span></button>
-        <span id="currentTime" class="text-sm">0:00</span>
-        <input id="volumeBar" type="range" min="0" max="1" step="0.01" value="1" class="w-24 h-1 bg-gray-700 rounded-lg cursor-pointer">
-        <span id="totalTime" class="text-sm">0:00</span>
-        <button id="fullscreenBtn" class="text-white text-3xl"><span class="material-icons">fullscreen</span></button>
-      </div>
-    </div>
+    <!-- Shaka controls -->
+    <div class="shaka-controls-container opacity-0 transition-opacity duration-300"></div>
   </div>
-</div>
 
-<!-- Favorites -->
-<div class="fixed bottom-4 right-4 flex flex-col gap-2 z-50">
-  <i id="addFav" class="fa-regular fa-heart text-green-400 text-3xl cursor-pointer"></i>
-  <i id="removeFav" class="fa-solid fa-heart text-red-500 text-3xl cursor-pointer hidden"></i>
-</div>
-
-<script type="module" src="assets/js/test.js"></script>
+  <script src="player.js"></script>
 </body>
 </html>
