@@ -97,6 +97,22 @@ function showToast(msg, type="info") {
   setTimeout(()=>div.remove(), 3000);
 }
 
+/** Cache for user names */
+const userCache = {};
+async function getUserName(uid) {
+  if (!uid) return "Unknown";
+  if (userCache[uid]) return userCache[uid];
+  try {
+    const res = await fetch(`https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/users/${uid}.json`);
+    const data = await res.json();
+    const name = data?.name || uid;
+    userCache[uid] = name;
+    return name;
+  } catch {
+    return uid;
+  }
+}
+
 onAuthStateChanged(auth, async user=>{
   if(!user){ alert("Please login as admin"); window.location.href="signin"; return; }
 
@@ -108,23 +124,23 @@ onAuthStateChanged(auth, async user=>{
 
   // Load pending requests
   const reqRef = ref(db, "channelRequests");
-  onValue(reqRef, snap=>{
+  onValue(reqRef, async snap=>{
     container.innerHTML="";
     if(!snap.exists()){ container.innerHTML='<p class="text-center text-gray-400">No pending requests</p>'; return; }
 
-    snap.forEach(cs=>{
-      const c = cs.val();
-      const id = cs.key;
+    for (const cs of Object.values(snap.val())) {
+      const id = Object.keys(snap.val()).find(k=>snap.val()[k]===cs);
+      const submitterName = await getUserName(cs.submittedBy);
 
       const card = document.createElement("div");
       card.className="card";
       card.innerHTML = `
-        <img src="${c.icon}" alt="${c.name}">
+        <img src="${cs.icon}" alt="${cs.name}">
         <div class="flex-1">
-          <h4 class="text-xl font-bold">${c.name}</h4>
-          <p class="text-gray-400">${c.category}</p>
-          <p class="text-sm text-gray-500">By: ${c.submittedBy}</p>
-          ${c.lastEditedBy ? `<p class="text-xs text-yellow-400">Edited by: ${c.lastEditedBy}</p>` : ""}
+          <h4 class="text-xl font-bold">${cs.name}</h4>
+          <p class="text-gray-400">${cs.category}</p>
+          <p class="text-sm text-gray-500">By: ${submitterName}</p>
+          ${cs.lastEditedBy ? `<p class="text-xs text-yellow-400">Edited by: ${cs.lastEditedBy}</p>` : ""}
         </div>
         <div class="flex flex-col gap-2">
           <button class="btn btn-approve">Approve</button>
@@ -133,18 +149,18 @@ onAuthStateChanged(auth, async user=>{
         </div>
       `;
 
-      card.querySelector(".btn-approve").addEventListener("click",()=>approveChannel(id,c));
+      card.querySelector(".btn-approve").addEventListener("click",()=>approveChannel(id, cs));
       card.querySelector(".btn-reject").addEventListener("click",()=>rejectChannel(id));
       card.querySelector(".btn-edit").addEventListener("click",()=>{
         currentEditId=id;
-        editName.value=c.name;
-        editStream.value=c.stream;
-        editCategory.value=c.category;
+        editName.value=cs.name;
+        editStream.value=cs.stream;
+        editCategory.value=cs.category;
         editModal.style.display="flex";
       });
 
       container.appendChild(card);
-    });
+    }
   });
 });
 
@@ -152,10 +168,7 @@ async function approveChannel(id,data){
   try {
     const channelRef = push(ref(db,"channels"));
     await set(channelRef,{
-      name: data.name,
-      icon: data.icon,
-      stream: data.stream,
-      category: data.category,
+      ...data,   // preserve createdBy, createdAt, submittedBy, etc.
       approvedBy: adminName,
       approvedAt: Date.now()
     });
