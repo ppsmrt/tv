@@ -1,21 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const video = document.getElementById('video');
-const playBtn = document.getElementById('playBtn');
-const fsBtn = document.getElementById('fsBtn');
-const muteBtn = document.getElementById('muteBtn');
-const volumeSlider = document.getElementById('volumeSlider');
-const controls = document.getElementById('controls');
-const videoTitle = document.getElementById('videoTitle');
-const addFavBtn = document.getElementById('addFav');
-const removeFavBtn = document.getElementById('removeFav');
-const container = document.getElementById('videoContainer');
-
-let controlsTimeout, scale = 1, initialDistance = null, shakaPlayer = null, shakaLoadedManifest = null;
-video.controls = false;
-
-/* Firebase Config */
+// Firebase Setup
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -28,80 +14,63 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-function qs(name) { return new URL(location.href).searchParams.get(name); }
-function initShaka() {
-  shaka.polyfill.installAll();
-  if (!shaka.Player.isBrowserSupported()) return;
-  if (shakaPlayer) { try { shakaPlayer.destroy(); } catch(e){} shakaPlayer=null; }
-  shakaPlayer = new shaka.Player(video);
-  shakaPlayer.configure({
-    streaming:{rebufferingGoal:4, bufferingGoal:30},
-    abr:{enabled:true, defaultBandwidthEstimate:1000000},
-    manifest:{retryParameters:{maxAttempts:2}}
+// Elements
+const video = document.getElementById('video');
+const videoTitle = document.getElementById('videoTitle');
+const videoDesc = document.getElementById('videoDesc');
+const relatedContainer = document.getElementById('relatedChannels');
+
+// Shaka Player Setup
+shaka.polyfill.installAll();
+const player = new shaka.Player(video);
+const ui = new shaka.ui.Overlay(player, document.getElementById('videoContainer'), video);
+ui.configure({ controlPanelElements: ['play_pause', 'mute', 'volume', 'fullscreen', 'time_and_duration', 'seek_bar'] });
+player.configure({ streaming: { lowLatencyMode:true, rebufferingGoal:2, bufferingGoal:5 } });
+
+// Fetch selected stream from URL
+const urlParams = new URLSearchParams(window.location.search);
+let streamSlug = urlParams.get('stream');
+if (streamSlug) streamSlug = streamSlug.replace(/-/g,' ').toLowerCase();
+
+// Load video info from Firebase
+get(ref(db,'channels')).then(snapshot => {
+  if (!snapshot.exists()) return;
+  let selected = null;
+  snapshot.forEach(child => {
+    const data = child.val();
+    const nameSlug = data.name?.toLowerCase();
+    if (nameSlug === streamSlug) selected = data;
+
+    // Add to related channels
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<img src="${data.thumb || 'https://via.placeholder.com/150'}"/><p class="p-1 text-sm text-white">${data.name}</p>`;
+    card.onclick = () => {
+      loadStream(data);
+    };
+    relatedContainer.appendChild(card);
   });
-  shakaPlayer.addEventListener('error', e=>console.error('Shaka error', e.detail||e));
+  if(selected) loadStream(selected);
+}).catch(console.error);
+
+// Function to load stream
+function loadStream(data) {
+  videoTitle.textContent = data.name || 'Live Stream';
+  videoDesc.textContent = data.desc || 'No description available.';
+  player.load(data.stream).then(()=>video.play().catch(()=>{}));
 }
-async function loadWithShakaOrFallback(url){
-  if(!url) return;
-  shakaLoadedManifest=null;
-  if(window.shaka && shaka.Player.isBrowserSupported()){
-    try{ await shakaPlayer.load(url); shakaLoadedManifest=url; await video.play(); return; }
-    catch(err){ console.warn('Shaka load failed', err); try{shakaPlayer.destroy();}catch(e){} shakaPlayer=null; }
+
+// Favorites (localStorage)
+let favorites = JSON.parse(localStorage.getItem('favorites'))||[];
+function addToFav(data){
+  if(!favorites.some(f=>f.src===data.stream)) {
+    favorites.push({title:data.name, src:data.stream});
+    localStorage.setItem('favorites',JSON.stringify(favorites));
   }
-  video.src=url; video.load(); try{ await video.play(); }catch(e){}
+}
+function removeFromFav(data){
+  favorites = favorites.filter(f=>f.src!==data.stream);
+  localStorage.setItem('favorites',JSON.stringify(favorites));
 }
 
-/* ------------------- Load Stream ------------------- */
-let streamSlug = qs('stream');
-if(streamSlug) streamSlug=streamSlug.replace(/-/g,' ').toLowerCase();
-if(!streamSlug) alert('No stream specified');
-else {
-  const channelsRef=ref(db,'channels');
-  get(channelsRef).then(snapshot=>{
-    if(snapshot.exists()){
-      let found=false;
-      snapshot.forEach(childSnap=>{
-        const data=childSnap.val();
-        if(data.name && data.name.toLowerCase()===streamSlug){
-          found=true;
-          const streamUrl=data.stream, title=data.name||'Live Stream';
-          videoTitle.textContent=title;
-          localStorage.setItem('selectedVideo', streamUrl);
-          localStorage.setItem('selectedVideoTitle', title);
-          initShaka();
-          loadWithShakaOrFallback(streamUrl);
-        }
-      });
-      if(!found) alert('Channel not found: '+streamSlug);
-    }else alert('No channels available in database');
-  }).catch(err=>{console.error('Firebase read failed:',err); alert('Failed to load stream data');});
-}
-
-/* ------------------- Controls ------------------- */
-playBtn.addEventListener('click',async()=>{ if(video.paused){ try{ await video.play(); playBtn.textContent='pause'; }catch(e){ playBtn.textContent='play_arrow'; }} else{ video.pause(); playBtn.textContent='play_arrow'; }});
-fsBtn.addEventListener('click',()=>{
-  if(document.fullscreenElement||video.webkitDisplayingFullscreen){ document.exitFullscreen?.(); video.webkitExitFullscreen?.(); container.style.width='100%'; container.style.height='100%'; video.style.width='100%'; video.style.height='100%'; }
-  else { container.requestFullscreen?.()??video.webkitEnterFullscreen?.(); container.style.width='100vw'; container.style.height='100vh'; video.style.width='100%'; video.style.height='100%'; }
-});
-muteBtn.addEventListener('click',()=>{ video.muted=!video.muted; muteBtn.textContent=video.muted?'volume_off':'volume_up'; });
-volumeSlider.addEventListener('input',()=>{ video.volume=volumeSlider.value; video.muted=video.volume===0; muteBtn.textContent=video.muted?'volume_off':'volume_up'; });
-
-const showControls=()=>{ controls.classList.remove('hidden'); clearTimeout(controlsTimeout); if(window.matchMedia("(orientation: landscape)").matches) controlsTimeout=setTimeout(()=>controls.classList.add('hidden'),3000);};
-video.addEventListener('mousemove',showControls); video.addEventListener('touchstart',showControls);
-function updateControlsVisibility(){ if(window.matchMedia("(orientation: landscape)").matches) controls.classList.add('hidden'); else controls.classList.remove('hidden'); }
-window.addEventListener('orientationchange',updateControlsVisibility); document.addEventListener('DOMContentLoaded',updateControlsVisibility);
-video.addEventListener('click',()=>{ if(window.matchMedia("(orientation: landscape)").matches){ controls.classList.toggle('hidden'); if(!controls.classList.contains('hidden')) controlsTimeout=setTimeout(()=>controls.classList.add('hidden'),3000); }});
-
-video.addEventListener('wheel',e=>{ scale+=e.deltaY*-0.001; scale=Math.min(Math.max(1,scale),3); video.style.transform=`scale(${scale})`; });
-video.addEventListener('touchstart',e=>{ if(e.touches.length===2) initialDistance=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY); });
-video.addEventListener('touchmove',e=>{ if(e.touches.length===2 && initialDistance){ const currentDistance=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY); scale=Math.min(Math.max(1,scale*(currentDistance/initialDistance)),3); video.style.transform=`scale(${scale})`; initialDistance=currentDistance; }});
-video.addEventListener('touchend',e=>{ if(e.touches.length<2) initialDistance=null; });
-function applyFullscreenStyles(){ if(document.fullscreenElement||video.webkitDisplayingFullscreen){ video.style.width='100%'; video.style.height='100%'; video.style.objectFit='cover'; video.style.transform=`scale(${scale})`; }else{ video.style.width=''; video.style.height=''; video.style.objectFit=''; video.style.transform=''; }}
-document.addEventListener('fullscreenchange',applyFullscreenStyles); window.addEventListener('resize',applyFullscreenStyles); window.addEventListener('orientationchange',applyFullscreenStyles);
-
-/* ------------------- Favorites ------------------- */
-let favorites=JSON.parse(localStorage.getItem('favorites'))||[];
-function updateFavButtons(){ const videoSrc=localStorage.getItem('selectedVideo'); const isFav=favorites.some(f=>f.src===videoSrc); if(isFav){ addFavBtn.classList.add('hidden'); removeFavBtn.classList.remove('hidden'); }else{ addFavBtn.classList.remove('hidden'); removeFavBtn.classList.add('hidden'); } }
-updateFavButtons();
-addFavBtn.addEventListener('click',()=>{ const videoSrc=localStorage.getItem('selectedVideo'); const videoTitleStored=localStorage.getItem('selectedVideoTitle')||'Unknown'; if(!videoSrc) return; favorites.push({title:videoTitleStored,src:videoSrc,thumb:'',category:'Unknown'}); localStorage.setItem('favorites',JSON.stringify(favorites)); updateFavButtons(); });
-removeFavBtn.addEventListener('click',()=>{ const videoSrc=localStorage.getItem('selectedVideo'); favorites=favorites.filter(f=>f.src!==videoSrc); localStorage.setItem('favorites',JSON.stringify(favorites)); updateFavButtons(); });
+// Optional: Add scroll/tap to hide/show controls handled by Shaka UI itself
