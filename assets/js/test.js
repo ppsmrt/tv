@@ -13,7 +13,6 @@ const goBack = document.getElementById('goBack');
 const controlsOverlay = document.getElementById('controlsOverlay');
 const channelInfo = document.getElementById('channelInfo');
 const channelNameEl = document.getElementById('channelName');
-const channelLogoBox = channelInfo?.querySelector('.channel-logo');
 
 let controlsTimeout, scale = 1, initialDistance = null;
 
@@ -43,25 +42,10 @@ if (!streamSlug) {
         const data = child.val();
         if (data.name?.toLowerCase() === streamSlug) {
           found = true;
-
-          // 🎥 Setup video
           video.src = data.stream;
           channelNameEl.textContent = data.name;
-
-          // 🖼 Channel logo or fallback
-          if (channelLogoBox) {
-            if (data.logo) {
-              channelLogoBox.innerHTML = `<img src="${data.logo}" alt="${data.name}" class="w-12 h-12 rounded-lg object-cover"/>`;
-            } else {
-              channelLogoBox.textContent = data.name.charAt(0).toUpperCase();
-            }
-          }
-
-          // Save to localStorage
           localStorage.setItem('selectedVideo', data.stream);
           localStorage.setItem('selectedVideoTitle', data.name);
-
-          // Autoplay
           video.load();
           video.play().catch(() => { });
         }
