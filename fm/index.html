@@ -17,7 +17,11 @@
 <body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
 
   <!-- Header -->
-  <header class="p-4 text-center text-xl font-bold">Radio</header>
+  <header class="p-4 flex items-center justify-between bg-purple-950/70 backdrop-blur-md shadow-md">
+    <button onclick="window.history.back()" class="material-icons text-white text-2xl">arrow_back</button>
+    <h1 class="text-xl font-bold">Radio</h1>
+    <span class="w-6"></span> <!-- Spacer for symmetry -->
+  </header>
 
   <!-- Player Section -->
   <section class="flex flex-col items-center p-4">
@@ -49,12 +53,18 @@
   </section>
 
   <!-- Recently Played / FM List -->
-  <section class="mt-8 px-4 flex-1">
-    <h3 class="text-lg mb-4 font-bold">Recently Played</h3>
-    <div id="radioList" class="grid grid-cols-3 gap-4">
+  <section class="mt-6 px-4 flex-1">
+    <h3 class="text-lg mb-3 font-bold">Recently Played</h3>
+    <div id="radioList" 
+         class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
       <!-- Radios will be loaded here -->
     </div>
   </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 text-xs text-gray-400 bg-purple-950/70 backdrop-blur-md">
+    © <span id="year"></span> Tnm3u
+  </footer>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -84,6 +94,8 @@
     const radioIcon = document.getElementById("radioIcon");
     const radioList = document.getElementById("radioList");
 
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     let radios = [];
     let currentIndex = 0;
 
@@ -96,9 +108,9 @@
         const radio = { id: child.key, ...child.val() };
         radios.push(radio);
 
-        // Add to list
+        // Add to list (carousel card)
         const card = document.createElement("div");
-        card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md";
+        card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
         card.innerHTML = `
           <img src="${radio.icon}" alt="${radio.name}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow">
           <p class="font-bold truncate">${radio.name}</p>
@@ -153,5 +165,11 @@
       audio.volume = e.target.value;
     });
   </script>
+
+  <!-- Hide scrollbar style -->
+  <style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </body>
 </html>
