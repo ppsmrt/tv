@@ -16,53 +16,58 @@
 </head>
 <body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
 
-  <!-- Header -->
-  <header class="p-4 flex items-center justify-between bg-purple-950/70 backdrop-blur-md shadow-md">
+  <!-- Header (fixed) -->
+  <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between 
+                 bg-purple-950/70 backdrop-blur-md shadow-md">
     <button onclick="window.history.back()" class="material-icons text-white text-2xl">arrow_back</button>
     <h1 class="text-xl font-bold">Radio</h1>
-    <span class="w-6"></span> <!-- Spacer for symmetry -->
+    <span class="w-6"></span>
   </header>
 
-  <!-- Player Section -->
-  <section class="flex flex-col items-center p-4">
-    <img id="radioIcon" src="https://via.placeholder.com/150" alt="Radio Icon"
-         class="w-32 h-32 rounded-2xl shadow-lg mb-4">
+  <!-- Main Content (scrollable area) -->
+  <main class="flex-1 overflow-y-auto pt-20 pb-14 px-4">
+    <!-- Player Section -->
+    <section class="flex flex-col items-center">
+      <img id="radioIcon" src="https://via.placeholder.com/150" alt="Radio Icon"
+           class="w-32 h-32 rounded-2xl shadow-lg mb-4">
 
-    <h2 id="radioName" class="text-2xl font-bold">Lorem FM</h2>
-    <p id="radioLocation" class="text-sm text-gray-300">New York, 00.00</p>
+      <h2 id="radioName" class="text-2xl font-bold">Lorem FM</h2>
+      <p id="radioLocation" class="text-sm text-gray-300">New York, 00.00</p>
 
-    <!-- Audio Player -->
-    <audio id="radioAudio" class="hidden"></audio>
+      <!-- Audio Player -->
+      <audio id="radioAudio" class="hidden"></audio>
 
-    <!-- Volume Control -->
-    <div class="flex items-center gap-2 mt-4 w-64">
-      <span class="material-icons">volume_down</span>
-      <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5"
-             class="w-full accent-pink-500">
-      <span class="material-icons">volume_up</span>
-    </div>
+      <!-- Volume Control -->
+      <div class="flex items-center gap-2 mt-4 w-64">
+        <span class="material-icons">volume_down</span>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5"
+               class="w-full accent-pink-500">
+        <span class="material-icons">volume_up</span>
+      </div>
 
-    <!-- Controls -->
-    <div class="flex items-center gap-6 mt-6">
-      <button id="prevBtn" class="material-icons text-3xl">skip_previous</button>
-      <button id="playPauseBtn" class="bg-pink-600 rounded-full p-4 shadow-lg">
-        <span id="playPauseIcon" class="material-icons text-3xl">play_arrow</span>
-      </button>
-      <button id="nextBtn" class="material-icons text-3xl">skip_next</button>
-    </div>
-  </section>
+      <!-- Controls -->
+      <div class="flex items-center gap-6 mt-6">
+        <button id="prevBtn" class="material-icons text-3xl">skip_previous</button>
+        <button id="playPauseBtn" class="bg-pink-600 rounded-full p-4 shadow-lg">
+          <span id="playPauseIcon" class="material-icons text-3xl">play_arrow</span>
+        </button>
+        <button id="nextBtn" class="material-icons text-3xl">skip_next</button>
+      </div>
+    </section>
 
-  <!-- Recently Played / FM List -->
-  <section class="mt-6 px-4 flex-1">
-    <h3 class="text-lg mb-3 font-bold">Recently Played</h3>
-    <div id="radioList" 
-         class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
-      <!-- Radios will be loaded here -->
-    </div>
-  </section>
+    <!-- Recently Played / FM List -->
+    <section class="mt-6">
+      <h3 class="text-lg mb-3 font-bold">Recently Played</h3>
+      <div id="radioList" 
+           class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
+        <!-- Radios will be loaded here -->
+      </div>
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer class="text-center py-3 text-xs text-gray-400 bg-purple-950/70 backdrop-blur-md">
+  <!-- Footer (fixed) -->
+  <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 
+                 bg-purple-950/70 backdrop-blur-md">
     © <span id="year"></span> Tnm3u
   </footer>
 
