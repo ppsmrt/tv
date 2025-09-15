@@ -427,3 +427,5 @@ https://edge3-moblive.yuppcdn.net/transsd/smil:chii02.smil/playlist.m3u8?view=tn
 https://edge3-moblive.yuppcdn.net/drm1/smil:shraddhatvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Sirasa TV" group-title="Sinhala" tvg-logo="https://i.ibb.co/qY3r2D4y/1000124192.png",Sirasa TV
 https://edge2-moblive.yuppcdn.net/transsd/smil:sirtv09.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Siyatha Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/W4tBj7R3/1000124716.jpg",Siyatha Tv
+https://rtmp01.voaplus.com/hls/6x6ik312qk4grfxocfcv.m3u8
