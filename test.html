@@ -9,14 +9,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-  body { font-family:'Baloo 2', cursive; margin:0; background:black; color:white; overflow:hidden; }
-  video { object-fit: cover; transition: transform 0.2s ease; }
-  .controls-overlay { transition: opacity 0.3s; pointer-events:none; opacity:0; }
-  .controls-overlay.active { opacity:1; pointer-events:auto; }
-  .ad-strip { height:4px; background:rgba(255,255,255,0.2); width:100%; position:absolute; bottom:0; left:0; }
-  .ad-progress { height:100%; background:#f87171; width:0%; transition:width 0.3s; }
-  .animate-scroll { display:inline-block; padding-left:100%; animation:scroll 20s linear infinite; white-space:nowrap; }
-  @keyframes scroll { 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
+/* General */
+body {
+  font-family:'Baloo 2', cursive;
+  margin:0;
+  background:black;
+  color:white;
+  overflow:hidden;
+}
+video { object-fit: cover; transition: transform 0.2s ease; }
+.controls-overlay { transition: opacity 0.3s; pointer-events:none; opacity:0; }
+.controls-overlay.active { opacity:1; pointer-events:auto; }
+
+/* Channel info */
+#channelInfo.show {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+/* Ad strip */
+.ad-strip {
+  height:4px;
+  background:rgba(255,255,255,0.2);
+  width:100%;
+  position:absolute;
+  bottom:0;
+  left:0;
+}
+.ad-progress {
+  height:100%;
+  background:#f87171;
+  width:0%;
+  transition:width 0.3s;
+}
+
+/* Floating marquee */
+.floating-marquee {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  /* Gradient floating text */
+  background: linear-gradient(90deg, #ff8a00, #ff2e63, #6c63ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Glow */
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+
+  /* Animations */
+  animation: scroll-left 18s linear infinite, floaty 4s ease-in-out infinite;
+}
+
+@keyframes scroll-left {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
 </style>
 </head>
 <body class="flex flex-col h-screen">
@@ -32,9 +87,9 @@
 <div id="videoContainer" class="flex-1 relative flex justify-center items-center w-full h-full transition-all duration-500">
   <video id="videoPlayer" class="w-full max-h-[56.25vw] md:max-h-full bg-black rounded-xl" playsinline></video>
 
-  <!-- Scrolling Text Ad -->
-  <div class="absolute bottom-20 left-0 w-full overflow-hidden bg-black bg-opacity-10 text-white text-sm py-1">
-    <div class="animate-scroll">
+  <!-- Floating Scrolling Text -->
+  <div class="absolute bottom-20 left-0 w-full overflow-hidden bg-black bg-opacity-40 py-1">
+    <div class="floating-marquee">
       🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
     </div>
   </div>
