@@ -14,7 +14,7 @@ const controlsOverlay = document.getElementById('controlsOverlay');
 const channelInfo = document.getElementById('channelInfo');
 const channelNameEl = document.getElementById('channelName');
 
-let controlsTimeout, scale=1, initialDistance=null;
+let controlsTimeout, scale = 1, initialDistance = null;
 
 // Firebase config
 const firebaseConfig = {
@@ -30,76 +30,107 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // Get stream from URL
-function qs(name){ return new URL(location.href).searchParams.get(name); }
-let streamSlug = qs('stream')?.replace(/-/g,' ').toLowerCase();
-if(!streamSlug) alert('No stream specified');
-else {
-  get(ref(db,'channels')).then(snapshot=>{
-    if(snapshot.exists()){
-      let found=false;
-      snapshot.forEach(child=>{
+function qs(name) { return new URL(location.href).searchParams.get(name); }
+let streamSlug = qs('stream')?.replace(/-/g, ' ').toLowerCase();
+if (!streamSlug) {
+  alert('No stream specified');
+} else {
+  get(ref(db, 'channels')).then(snapshot => {
+    if (snapshot.exists()) {
+      let found = false;
+      snapshot.forEach(child => {
         const data = child.val();
-        if(data.name?.toLowerCase() === streamSlug){
-          found=true;
+        if (data.name?.toLowerCase() === streamSlug) {
+          found = true;
           video.src = data.stream;
           channelNameEl.textContent = data.name;
           localStorage.setItem('selectedVideo', data.stream);
           localStorage.setItem('selectedVideoTitle', data.name);
-          video.load(); video.play().catch(()=>{});
+          video.load();
+          video.play().catch(() => { });
         }
       });
-      if(!found) alert('Channel not found: '+streamSlug);
+      if (!found) alert('Channel not found: ' + streamSlug);
     } else alert('No channels available in database');
-  }).catch(err=>alert('Failed to load stream data'));
+  }).catch(err => alert('Failed to load stream data'));
 }
 
 // Controls
-function showControls(){
+function showControls() {
   controlsOverlay.classList.add('active');
-  channelInfo.style.transform='translateY(0)';
+  if (channelInfo) channelInfo.classList.add('show');
   clearTimeout(controlsTimeout);
-  controlsTimeout=setTimeout(hideControls,3000);
+  controlsTimeout = setTimeout(hideControls, 3000);
 }
-function hideControls(){
+function hideControls() {
   controlsOverlay.classList.remove('active');
-  channelInfo.style.transform='translateY(10px)';
+  if (channelInfo) channelInfo.classList.remove('show');
 }
-video.addEventListener('click',()=>controlsOverlay.classList.contains('active')?hideControls():showControls());
+video.addEventListener('click', () =>
+  controlsOverlay.classList.contains('active') ? hideControls() : showControls()
+);
 showControls();
 
 // Play/Pause
-playPauseBtn.addEventListener('click',()=>video.paused?video.play():video.pause());
-video.addEventListener('play',()=>playPauseBtn.innerHTML='<span class="material-icons">pause</span>');
-video.addEventListener('pause',()=>playPauseBtn.innerHTML='<span class="material-icons">play_arrow</span>');
+playPauseBtn.addEventListener('click', () => video.paused ? video.play() : video.pause());
+video.addEventListener('play', () => playPauseBtn.innerHTML = '<span class="material-icons">pause</span>');
+video.addEventListener('pause', () => playPauseBtn.innerHTML = '<span class="material-icons">play_arrow</span>');
 
 // Seek & Volume
-video.addEventListener('timeupdate',()=>{
-  seekBar.value=(video.currentTime/video.duration)*100 || 0;
-  currentTimeText.textContent=formatTime(video.currentTime);
-  totalTimeText.textContent=formatTime(video.duration);
+video.addEventListener('timeupdate', () => {
+  seekBar.value = (video.currentTime / video.duration) * 100 || 0;
+  currentTimeText.textContent = formatTime(video.currentTime);
+  totalTimeText.textContent = formatTime(video.duration);
 });
-seekBar.addEventListener('input',()=>video.currentTime=(seekBar.value/100)*video.duration);
-volumeBar.addEventListener('input',()=>{ video.volume=volumeBar.value; video.muted=video.volume===0; });
+seekBar.addEventListener('input', () => video.currentTime = (seekBar.value / 100) * video.duration);
+volumeBar.addEventListener('input', () => {
+  video.volume = volumeBar.value;
+  video.muted = video.volume === 0;
+});
 
 // Fullscreen & Orientation
-fullscreenBtn.addEventListener('click',()=>{ 
-  if(!document.fullscreenElement) video.parentElement.requestFullscreen().catch(()=>{});
+fullscreenBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) video.parentElement.requestFullscreen().catch(() => { });
   else document.exitFullscreen();
 });
-window.addEventListener('resize',handleOrientation);
-window.addEventListener('orientationchange',handleOrientation);
-function handleOrientation(){
-  if(window.innerWidth>window.innerHeight && !document.fullscreenElement) video.requestFullscreen().catch(()=>{});
+window.addEventListener('resize', handleOrientation);
+window.addEventListener('orientationchange', handleOrientation);
+function handleOrientation() {
+  if (window.innerWidth > window.innerHeight && !document.fullscreenElement) video.requestFullscreen().catch(() => { });
 }
 
 // Go back
-goBack.addEventListener('click',()=>window.history.back());
+goBack.addEventListener('click', () => window.history.back());
 
 // Time formatting
-function formatTime(s){ const m=Math.floor(s/60), sec=Math.floor(s%60); return `${m}:${sec<10?'0'+sec:sec}`; }
+function formatTime(s) {
+  const m = Math.floor(s / 60),
+    sec = Math.floor(s % 60);
+  return `${m}:${sec < 10 ? '0' + sec : sec}`;
+}
 
 // Pinch & wheel zoom
-video.addEventListener('wheel',e=>{ scale+=e.deltaY*-0.001; scale=Math.min(Math.max(1,scale),3); video.style.transform=`scale(${scale})`; });
-video.addEventListener('touchstart',e=>{ if(e.touches.length===2) initialDistance=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY); });
-video.addEventListener('touchmove',e=>{ if(e.touches.length===2 && initialDistance){ const cur=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY); scale=Math.min(Math.max(1,scale*(cur/initialDistance)),3); video.style.transform=`scale(${scale})`; initialDistance=cur; } });
-video.addEventListener('touchend',e=>{ if(e.touches.length<2) initialDistance=null; });
+video.addEventListener('wheel', e => {
+  scale += e.deltaY * -0.001;
+  scale = Math.min(Math.max(1, scale), 3);
+  video.style.transform = `scale(${scale})`;
+});
+video.addEventListener('touchstart', e => {
+  if (e.touches.length === 2)
+    initialDistance = Math.hypot(
+      e.touches[0].pageX - e.touches[1].pageX,
+      e.touches[0].pageY - e.touches[1].pageY
+    );
+});
+video.addEventListener('touchmove', e => {
+  if (e.touches.length === 2 && initialDistance) {
+    const cur = Math.hypot(
+      e.touches[0].pageX - e.touches[1].pageX,
+      e.touches[0].pageY - e.touches[1].pageY
+    );
+    scale = Math.min(Math.max(1, scale * (cur / initialDistance)), 3);
+    video.style.transform = `scale(${scale})`;
+    initialDistance = cur;
+  }
+});
+video.addEventListener('touchend', e => { if (e.touches.length < 2) initialDistance = null; });
