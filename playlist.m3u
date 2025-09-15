@@ -441,3 +441,5 @@ https://edge3-moblive.yuppcdn.net/transsd/smil:tnl12.smil/playlist.m3u8?view=tnm
 https://edge4-moblive.yuppcdn.net/trans1sd/smil:tv111.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Tv Derna" group-title="Sinhala" tvg-logo="https://i.ibb.co/svBGNz8p/1000124782.jpg",Tv Derna
 https://edge3-moblive.yuppcdn.net/transhd2/smil:detv04.smil/index.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Verbum Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/vCpT6Xyz/1000124783.jpg",Verbum Tv
+https://edge3-moblive.yuppcdn.net/drm1/smil:verbumtvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
