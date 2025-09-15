@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+  <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-3xl">
+    <h1 class="text-2xl font-bold text-center mb-6">🎙️ Radio Admin Panel</h1>
+    
+    <!-- Add Radio Form -->
+    <form id="radioForm" class="space-y-4 mb-8">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block font-medium">Name</label>
+          <input type="text" id="name" class="w-full p-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block font-medium">Stream URL</label>
+          <input type="url" id="stream" class="w-full p-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block font-medium">Icon URL</label>
+          <input type="url" id="icon" class="w-full p-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block font-medium">Language</label>
+          <input type="text" id="language" class="w-full p-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block font-medium">Location</label>
+          <input type="text" id="location" class="w-full p-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block font-medium">Genre</label>
+          <input type="text" id="genre" class="w-full p-2 border rounded-lg" required>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+        ➕ Add Radio
+      </button>
+    </form>
+
+    <p id="status" class="mt-4 text-center text-sm"></p>
+
+    <!-- Radio List -->
+    <h2 class="text-xl font-semibold mt-8 mb-4">📻 Existing Radios</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="p-2 border">Icon</th>
+            <th class="p-2 border">Name</th>
+            <th class="p-2 border">Language</th>
+            <th class="p-2 border">Location</th>
+            <th class="p-2 border">Genre</th>
+            <th class="p-2 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="radioList" class="divide-y"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push, set, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+    // 🔥 Your Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+      authDomain: "tnm3ulive.firebaseapp.com",
+      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tnm3ulive",
+      storageBucket: "tnm3ulive.firebasestorage.app",
+      messagingSenderId: "80664356882",
+      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+      measurementId: "G-FNS9JWZ9LS"
+    };
+
+    // Init
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+    const analytics = getAnalytics(app);
+
+    const form = document.getElementById('radioForm');
+    const statusEl = document.getElementById('status');
+    const radioList = document.getElementById('radioList');
+
+    // Ensure user logged in
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        statusEl.textContent = "⚠️ Please log in as admin.";
+        form.style.display = "none";
+      }
+    });
+
+    // Add Radio
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const radioData = {
+        name: document.getElementById('name').value,
+        stream: document.getElementById('stream').value,
+        icon: document.getElementById('icon').value,
+        language: document.getElementById('language').value,
+        location: document.getElementById('location').value,
+        genre: document.getElementById('genre').value,
+        createdAt: Date.now()
+      };
+
+      try {
+        const radiosRef = ref(db, "radios");
+        const newRadioRef = push(radiosRef);
+        await set(newRadioRef, radioData);
+
+        statusEl.textContent = "✅ Radio added successfully!";
+        statusEl.className = "mt-4 text-center text-green-600";
+        form.reset();
+      } catch (error) {
+        statusEl.textContent = "❌ Error: " + error.message;
+        statusEl.className = "mt-4 text-center text-red-600";
+      }
+    });
+
+    // Fetch & render radios
+    const radiosRef = ref(db, "radios");
+    onValue(radiosRef, (snapshot) => {
+      radioList.innerHTML = "";
+      snapshot.forEach(child => {
+        const radio = child.val();
+        const id = child.key;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="p-2 border"><img src="${radio.icon}" alt="icon" class="w-10 h-10 rounded"></td>
+          <td class="p-2 border">${radio.name}</td>
+          <td class="p-2 border">${radio.language}</td>
+          <td class="p-2 border">${radio.location}</td>
+          <td class="p-2 border">${radio.genre}</td>
+          <td class="p-2 border flex gap-2">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editRadio('${id}')">✏️</button>
+            <button class="bg-red-600 text-white px-2 py-1 rounded" onclick="deleteRadio('${id}')">🗑️</button>
+          </td>
+        `;
+        radioList.appendChild(tr);
+      });
+    });
+
+    // Delete Radio
+    window.deleteRadio = async (id) => {
+      if (confirm("Delete this radio?")) {
+        await remove(ref(db, "radios/" + id));
+      }
+    };
+
+    // Edit Radio (prefill form)
+    window.editRadio = async (id) => {
+      const radioRef = ref(db, "radios/" + id);
+      onValue(radioRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          document.getElementById('name').value = data.name;
+          document.getElementById('stream').value = data.stream;
+          document.getElementById('icon').value = data.icon;
+          document.getElementById('language').value = data.language;
+          document.getElementById('location').value = data.location;
+          document.getElementById('genre').value = data.genre;
+          statusEl.textContent = "✏️ Editing mode. Submit to update.";
+
+          // Override form submit to update
+          form.onsubmit = async (e) => {
+            e.preventDefault();
+            const updatedData = {
+              name: document.getElementById('name').value,
+              stream: document.getElementById('stream').value,
+              icon: document.getElementById('icon').value,
+              language: document.getElementById('language').value,
+              location: document.getElementById('location').value,
+              genre: document.getElementById('genre').value,
+              updatedAt: Date.now()
+            };
+            await update(radioRef, updatedData);
+            statusEl.textContent = "✅ Radio updated!";
+            form.reset();
+            form.onsubmit = null; // reset to add mode
+            form.addEventListener('submit', async (e) => { e.preventDefault(); }); 
+          };
+        }
+      }, { onlyOnce: true });
+    };
+  </script>
+</body>
+            </html>
