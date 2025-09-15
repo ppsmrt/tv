@@ -34,10 +34,7 @@
       <h2 id="radioName" class="text-2xl font-bold">Lorem FM</h2>
       <p id="radioLocation" class="text-sm text-gray-300">New York, 00.00</p>
 
-      <!-- Audio Player -->
-      <audio id="radioAudio" controls playsinline></audio> <!-- Added controls + playsinline -->
-
-      <!-- Volume Control -->
+      <!-- Custom Player Controls Only -->
       <div class="flex items-center gap-2 mt-4 w-64">
         <span class="material-icons">volume_down</span>
         <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5"
@@ -45,7 +42,6 @@
         <span class="material-icons">volume_up</span>
       </div>
 
-      <!-- Controls -->
       <div class="flex items-center gap-6 mt-6">
         <button id="prevBtn" class="material-icons text-3xl">skip_previous</button>
         <button id="playPauseBtn" class="bg-pink-600 rounded-full p-4 shadow-lg">
@@ -70,7 +66,6 @@
         <p class="text-sm text-gray-200 mb-4">
           Join our official Telegram channel for Live TV and exclusive updates.
         </p>
-        <!-- Telegram deep link for app -->
         <a href="tg://resolve?domain=tamilm3u" target="_blank"
            onclick="window.location='tg://resolve?domain=tamilm3u'; return false;"
            class="inline-block bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl shadow-md transition">
@@ -105,7 +100,9 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const audio = document.getElementById("radioAudio");
+    const audio = new Audio(); // custom audio object, no native controls
+    audio.volume = 0.5;
+
     const playPauseBtn = document.getElementById("playPauseBtn");
     const playPauseIcon = document.getElementById("playPauseIcon");
     const volumeControl = document.getElementById("volumeControl");
@@ -119,7 +116,6 @@
     let radios = [];
     let currentIndex = 0;
 
-    // Load radios from Firebase
     onValue(ref(db, "radios"), (snapshot) => {
       radios = [];
       radioList.innerHTML = "";
@@ -128,7 +124,6 @@
         const radio = { id: child.key, ...child.val() };
         radios.push(radio);
 
-        // Add to list (carousel card)
         const card = document.createElement("div");
         card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
         card.innerHTML = `
@@ -141,7 +136,7 @@
       });
 
       if (radios.length > 0) {
-        playRadio(0, false); // load first without autoplay
+        playRadio(0, false);
       }
     });
 
@@ -186,7 +181,6 @@
     });
   </script>
 
-  <!-- Hide scrollbar style -->
   <style>
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
