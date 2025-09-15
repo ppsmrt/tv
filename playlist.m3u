@@ -435,3 +435,9 @@ https://jk3lz8xklw79-hls-live.5centscdn.com/live/6226f7cbe59e99a90b5cef6f94f966f
 https://edge3-moblive.yuppcdn.net/drm/smil:jayamagatvdrm.smil/index.m3u8
 #EXTINF:-1 tvg-name="The Buddhist Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/jkVFQqy8/1000124771.jpg",The Buddhist Tv
 https://edge3-moblive.yuppcdn.net/drm1/smil:thebuddhistdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="TNL Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/rf4mMXYM/1000124772.jpg",TNL Tv
+https://edge3-moblive.yuppcdn.net/transsd/smil:tnl12.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Tv1" group-title="Sinhala" tvg-logo="https://i.ibb.co/rfyvGRDm/1000124781.jpg",Tv1
+https://edge4-moblive.yuppcdn.net/trans1sd/smil:tv111.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Tv Derna" group-title="Sinhala" tvg-logo="https://i.ibb.co/svBGNz8p/1000124782.jpg",Tv Derna
+https://edge3-moblive.yuppcdn.net/transhd2/smil:detv04.smil/index.m3u8?view=tnm3u-addedby=tnm3u
