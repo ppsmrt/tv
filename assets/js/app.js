@@ -117,10 +117,21 @@ function showInfoModal(channel) {
   modal.classList.remove("hidden");
 }
 
+// --- Detect environment ---
+function getPlayerBase() {
+  const ua = navigator.userAgent.toLowerCase();
+  if (ua.includes("wv")) {
+    return "test"; // Kodular (WebView)
+  } else {
+    return "player"; // Browser (Chrome/others)
+  }
+}
+
 // --- Create Channel Card ---
 function createChannelCard(c) {
+  const base = getPlayerBase();
   const a = document.createElement("a");
-  a.href = `test?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
+  a.href = `${base}?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
   a.className = "channel-card";
   a.setAttribute("aria-label", `Watch ${c.name}`);
   a.tabIndex = 0;
@@ -215,12 +226,13 @@ function renderChannels(filter = "") {
 // --- Render Featured ---
 function renderFeatured() {
   featuredCarousel.innerHTML = "";
+  const base = getPlayerBase();
   const featured = channels.slice(0, 10);
   featured.forEach(c => {
     const card = document.createElement("div");
     card.className = "featured-card";
     card.innerHTML = `<img src="${c.logo}" alt="${c.name}"><div class="featured-overlay">${c.name}</div>`;
-    card.onclick = () => window.location.href = `player?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
+    card.onclick = () => window.location.href = `${base}?stream=${encodeURIComponent(c.name.toLowerCase().replace(/\s+/g, "-"))}`;
     featuredCarousel.appendChild(card);
   });
 }
