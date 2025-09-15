@@ -9,7 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-  body { font-family:'Baloo 2', cursive; margin:0; background:black; color:white; overflow:hidden; }
+#channelInfo.show {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}  body { font-family:'Baloo 2', cursive; margin:0; background:black; color:white; overflow:hidden; }
   video { object-fit: cover; transition: transform 0.2s ease; }
   .controls-overlay { transition: opacity 0.3s; pointer-events:none; opacity:0; }
   .controls-overlay.active { opacity:1; pointer-events:auto; }
