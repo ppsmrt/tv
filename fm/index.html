@@ -35,7 +35,7 @@
       <p id="radioLocation" class="text-sm text-gray-300">New York, 00.00</p>
 
       <!-- Audio Player -->
-      <audio id="radioAudio" class="hidden"></audio>
+      <audio id="radioAudio" controls playsinline></audio> <!-- Added controls + playsinline -->
 
       <!-- Volume Control -->
       <div class="flex items-center gap-2 mt-4 w-64">
@@ -64,14 +64,15 @@
       </div>
     </section>
 
- <!-- Maintained By Section -->
+    <!-- Maintained By Section -->
     <section class="mt-6">
       <div class="bg-gradient-to-b from-pink-700 to-purple-900 rounded-2xl p-5 shadow-lg text-center">
-                
         <p class="text-sm text-gray-200 mb-4">
           Join our official Telegram channel for Live TV and exclusive updates.
         </p>
-        <a href="https://telegram.me/tamilm3u" target="_blank" 
+        <!-- Telegram deep link for app -->
+        <a href="tg://resolve?domain=tamilm3u" target="_blank"
+           onclick="window.location='tg://resolve?domain=tamilm3u'; return false;"
            class="inline-block bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl shadow-md transition">
           Join Telegram
         </a>
@@ -82,7 +83,7 @@
   <!-- Footer (fixed) -->
   <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 
                  bg-purple-950/70 backdrop-blur-md">
-  Proudly Maintained by Tnm3u © <span id="year"></span> 
+    Proudly Maintained by Tnm3u © <span id="year"></span> 
   </footer>
 
   <script type="module">
@@ -155,7 +156,7 @@
       audio.src = radio.stream;
 
       if (autoplay) {
-        audio.play();
+        audio.play().catch(() => console.log("Tap play to start audio"));
         playPauseIcon.textContent = "pause";
       } else {
         playPauseIcon.textContent = "play_arrow";
@@ -164,7 +165,7 @@
 
     playPauseBtn.addEventListener("click", () => {
       if (audio.paused) {
-        audio.play();
+        audio.play().catch(() => console.log("Tap play to start audio"));
         playPauseIcon.textContent = "pause";
       } else {
         audio.pause();
