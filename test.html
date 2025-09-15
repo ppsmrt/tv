@@ -1,134 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OTT Premium Player</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-/* General */
-body {
-  font-family:'Baloo 2', cursive;
-  margin:0;
-  background:black;
-  color:white;
-  overflow:hidden;
-}
-video { object-fit: cover; transition: transform 0.2s ease; }
-.controls-overlay { transition: opacity 0.3s; pointer-events:none; opacity:0; }
-.controls-overlay.active { opacity:1; pointer-events:auto; }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Premium OTT Player</title>
 
-/* Channel info */
-#channelInfo.show {
-  transform: translateY(0) !important;
-  opacity: 1 !important;
-}
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-/* Ad strip */
-.ad-strip {
-  height:4px;
-  background:rgba(255,255,255,0.2);
-  width:100%;
-  position:absolute;
-  bottom:0;
-  left:0;
-}
-.ad-progress {
-  height:100%;
-  background:#f87171;
-  width:0%;
-  transition:width 0.3s;
-}
-
-/* Floating marquee */
-.floating-marquee {
-  display: inline-block;
-  padding-left: 100%;
-  white-space: nowrap;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-
-  /* Gradient floating text */
-  background: linear-gradient(90deg, #ff8a00, #ff2e63, #6c63ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  /* Glow */
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-
-  /* Animations */
-  animation: scroll-left 18s linear infinite, floaty 4s ease-in-out infinite;
-}
-
-@keyframes scroll-left {
-  0%   { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-@keyframes floaty {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
-}
-</style>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    #videoPlayer {
+      width: 100%;
+      height: 100%;
+      background: black;
+      object-fit: contain;
+      transform-origin: center center;
+    }
+    #controlsOverlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    #controlsOverlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #channelInfo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+    }
+    #channelInfo.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
-<body class="flex flex-col h-screen">
+<body class="h-screen w-screen overflow-hidden relative">
 
-<!-- Header -->
-<header id="header" class="bg-transparent p-4 flex items-center z-50 absolute top-0 w-full">
-  <button id="goBack" class="text-white">
-    <span class="material-icons">arrow_back</span>
-  </button>
-</header>
+  <!-- Video -->
+  <video id="videoPlayer" class="absolute top-0 left-0 w-full h-full bg-black" playsinline></video>
 
-<!-- Video Container -->
-<div id="videoContainer" class="flex-1 relative flex justify-center items-center w-full h-full transition-all duration-500">
-  <video id="videoPlayer" class="w-full max-h-[56.25vw] md:max-h-full bg-black rounded-xl" playsinline></video>
-
-  <!-- Floating Scrolling Text -->
-  <div class="absolute bottom-20 left-0 w-full overflow-hidden bg-black bg-opacity-40 py-1">
-    <div class="floating-marquee">
-      🔥 Important : Soon Implementing Premium Features! | Stay Tuned 🔥 Best Features Await! 🔥
+  <!-- Channel Info -->
+  <div id="channelInfo" class="flex items-center gap-3 bg-black bg-opacity-70 p-2 rounded-xl backdrop-blur-md">
+    <div class="channel-logo w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center font-bold text-lg"></div>
+    <div class="flex flex-col">
+      <span id="channelName" class="font-bold">Channel Name</span>
+      <span class="text-gray-400 text-sm">Catch your favorite shows here!</span>
     </div>
-  </div>
-
-  <!-- Ad Strip -->
-  <div class="ad-strip">
-    <div id="adProgress" class="ad-progress"></div>
   </div>
 
   <!-- Controls Overlay -->
-  <div id="controlsOverlay" class="controls-overlay absolute inset-0 flex flex-col justify-between p-4">
-    <div class="flex justify-between items-center">
-      <button id="backBtnTop" class="text-white"><span class="material-icons">arrow_back</span></button>
-      <div></div>
+  <div id="controlsOverlay" class="p-4">
+    <div class="flex items-center justify-between mb-2">
+      <button id="goBack" class="text-white">
+        <span class="material-icons">arrow_back</span>
+      </button>
+      <button id="fullscreenBtn" class="text-white">
+        <span class="material-icons">fullscreen</span>
+      </button>
     </div>
 
-    <div class="flex flex-col gap-2">
-      <!-- Animated Channel Info -->
-      <div id="channelInfo" class="flex items-center gap-3 bg-black bg-opacity-70 p-2 rounded-xl backdrop-blur-md transform translate-y-10 opacity-0 transition-all duration-500">
-        <div class="w-12 h-12 bg-gray-700 rounded-lg flex-shrink-0"></div>
-        <div class="flex flex-col">
-          <span id="channelName" class="font-bold">Channel Name</span>
-          <span class="text-gray-400 text-sm">Catch your favorite shows here!</span>
-        </div>
-      </div>
-
-      <!-- Seek & Volume -->
-      <input id="seekBar" type="range" min="0" max="100" value="0" class="w-full h-1 bg-gray-700 rounded-lg cursor-pointer">
-      <div class="flex justify-between items-center">
-        <button id="playPause" class="text-white text-3xl"><span class="material-icons">play_arrow</span></button>
-        <span id="currentTime" class="text-sm">0:00</span>
-        <input id="volumeBar" type="range" min="0" max="1" step="0.01" value="1" class="w-24 h-1 bg-gray-700 rounded-lg cursor-pointer">
-        <span id="totalTime" class="text-sm">0:00</span>
-        <button id="fullscreenBtn" class="text-white text-3xl"><span class="material-icons">fullscreen</span></button>
-      </div>
+    <div class="flex items-center gap-2">
+      <button id="playPause" class="text-white">
+        <span class="material-icons">play_arrow</span>
+      </button>
+      <span id="currentTime" class="text-white text-sm">0:00</span>
+      <input id="seekBar" type="range" min="0" max="100" value="0" class="flex-1"/>
+      <span id="totalTime" class="text-white text-sm">0:00</span>
+      <input id="volumeBar" type="range" min="0" max="1" step="0.05" value="1"/>
     </div>
   </div>
-</div>
 
-<script type="module" src="assets/js/test.js"></script>
+  <!-- Player Script -->
+  <script type="module" src="test.js"></script>
 </body>
 </html>
