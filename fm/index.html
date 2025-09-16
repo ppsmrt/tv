@@ -3,28 +3,69 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>FM Radio Player</title>
+  <title>FM Radio Player</title>  
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->  
+<script src="https://cdn.tailwindcss.com"></script> 
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Material Icons -->  
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>  
 
-  <!-- Baloo 2 Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<!-- Baloo 2 Font -->  
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>  
+
+<style>
+    /* Page Wave Loader */
+    .page-waves {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 99999;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .wave-shape {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 120%;
+      background: radial-gradient(circle at 50% 50%, #ec4899 20%, #6b21a8 80%);
+      border-radius: 43%;
+      animation: waveSlide 2.2s ease-in-out forwards;
+    }
+    .wave-shape:nth-child(2) {
+      animation-delay: 0.2s;
+      opacity: 0.8;
+    }
+    .wave-shape:nth-child(3) {
+      animation-delay: 0.4s;
+      opacity: 0.6;
+    }
+    @keyframes waveSlide {
+      0% { transform: translateY(0) rotate(0deg); }
+      60% { transform: translateY(-40%) rotate(30deg); }
+      100% { transform: translateY(-120%) rotate(60deg); }
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
+<body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">  <!-- Wave Page Loader -->  <div id="pageLoader" class="page-waves">
+    <div class="wave-shape"></div>
+    <div class="wave-shape"></div>
+    <div class="wave-shape"></div>
+  </div>  
 
-  <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center bg-purple-950/70 backdrop-blur-md shadow-md">
+<!-- Header (fixed) -->
+
+<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center 
+                 bg-purple-950/70 backdrop-blur-md shadow-md">
     <div class="flex items-center gap-2">
       <span class="material-icons text-pink-400 text-2xl">radio</span>
       <h1 class="text-xl font-bold">FM Radio</h1>
     </div>
-  </header>
+  </header>  
 
-  <!-- Main -->
+<!-- Main -->
   <main class="flex-1 overflow-y-auto pt-20 pb-14 px-4">
     <!-- Player -->
     <section class="flex flex-col items-center">
@@ -70,12 +111,13 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 bg-purple-950/70 backdrop-blur-md">
-    Proudly Maintained by Tnm3u © <span id="year"></span>
-  </footer>
+<!-- Footer -->  
+<footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 
+                 bg-purple-950/70 backdrop-blur-md">
+    Proudly Maintained by Tnm3u © <span id="year"></span> 
+  </footer>  
 
-  <!-- Floating List Button -->
+<!-- Floating List Button -->
   <button id="listBtn" class="fixed bottom-20 right-5 z-50 bg-white text-purple-900 rounded-full p-4 shadow-xl hover:scale-105 transition-transform">
     <span class="material-icons text-3xl">list</span>
   </button>
@@ -275,7 +317,22 @@
     document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
 
     resetIdleTimer();
+</script>
+<script>
+    // Remove loader after animation
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("pageLoader");
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        loader.style.transition = "opacity 0.8s ease-out";
+        setTimeout(() => loader.remove(), 900);
+      }, 2200);
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
+</script>
 
   <style>
     .scrollbar-hide::-webkit-scrollbar { display: none; }
