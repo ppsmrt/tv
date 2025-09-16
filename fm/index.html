@@ -16,6 +16,48 @@
 </head>
 <body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
 
+<!-- Wave Page Loader (first load only) -->
+  <div id="pageLoader" class="page-waves hidden">
+    <div class="wave-shape"></div>
+    <div class="wave-shape"></div>
+    <div class="wave-shape"></div>
+  </div>
+
+<style>
+ /* Page Wave Loader */
+    .page-waves {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 99999;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .wave-shape {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 120%;
+      background: radial-gradient(circle at 50% 50%, #ec4899 20%, #6b21a8 80%);
+      border-radius: 43%;
+      animation: waveSlide 2.2s ease-in-out forwards;
+    }
+    .wave-shape:nth-child(2) {
+      animation-delay: 0.2s;
+      opacity: 0.8;
+    }
+    .wave-shape:nth-child(3) {
+      animation-delay: 0.4s;
+      opacity: 0.6;
+    }
+    @keyframes waveSlide {
+      0% { transform: translateY(0) rotate(0deg); }
+      60% { transform: translateY(-40%) rotate(30deg); }
+      100% { transform: translateY(-120%) rotate(60deg); }
+    }
+</style>
+
   <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center bg-purple-950/70 backdrop-blur-md shadow-md">
     <div class="flex items-center gap-2">
@@ -288,6 +330,24 @@
     .wave.delay-5 { animation-delay: 0.5s }
     .wave.delay-6 { animation-delay: 0.6s }
     @keyframes waveAnim { 0%, 40%, 100% { transform: scaleY(0.3);} 20% { transform: scaleY(1);} }
+
+<!-- Loader Script (first load only) -->
+  <script>
+    // Only show loader on first load in this session
+    if (!sessionStorage.getItem('firstLoadDone')) {
+      const loader = document.getElementById("pageLoader");
+      loader.classList.remove("hidden");
+
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loader.style.opacity = "0";
+          loader.style.transition = "opacity 0.8s ease-out";
+          setTimeout(() => loader.remove(), 900);
+        }, 2200);
+      });
+
+      sessionStorage.setItem('firstLoadDone', 'true');
+    }
   </style>
 </body>
 </html>
