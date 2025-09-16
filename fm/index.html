@@ -53,6 +53,13 @@
       </div>
     </section>
 
+    <!-- Recently Played -->
+    <section class="mt-6 hidden" id="recentSection">
+      <h3 class="text-lg mb-3 font-bold">Recently Played</h3>
+      <div id="recentList" 
+           class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"></div>
+    </section>
+
     <!-- FM List -->
     <section class="mt-6">
       <h3 class="text-lg mb-3 font-bold">Available FM Channels</h3>
@@ -139,6 +146,9 @@
     const radioIcon = document.getElementById("radioIcon");
     const radioList = document.getElementById("radioList");
 
+    const recentSection = document.getElementById("recentSection");
+    const recentList = document.getElementById("recentList");
+
     const screensaver = document.getElementById("screensaver");
     const ssName = document.getElementById("ssName");
     const ssLocation = document.getElementById("ssLocation");
@@ -149,6 +159,29 @@
 
     let radios = [];
     let currentIndex = 0;
+
+    // Load Recently Played
+    let recentRadios = JSON.parse(localStorage.getItem("recentRadios")) || [];
+
+    function renderRecent() {
+      recentList.innerHTML = "";
+      if (recentRadios.length === 0) {
+        recentSection.classList.add("hidden");
+        return;
+      }
+      recentSection.classList.remove("hidden");
+      recentRadios.forEach((radio) => {
+        const card = document.createElement("div");
+        card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
+        card.innerHTML = `
+          <img src="${radio.icon}" alt="${radio.name}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow">
+          <p class="font-bold truncate">${radio.name}</p>
+          <p class="text-xs text-gray-300 truncate">${radio.language}</p>
+        `;
+        card.onclick = () => playRadio(radios.findIndex(r => r.id === radio.id));
+        recentList.appendChild(card);
+      });
+    }
 
     onValue(ref(db, "radios"), (snapshot) => {
       radios = [];
@@ -168,6 +201,7 @@
         radioList.appendChild(card);
       });
       if (radios.length > 0) playRadio(0, false);
+      renderRecent();
     });
 
     function playRadio(index, autoplay = true) {
@@ -178,6 +212,13 @@
       radioLocation.textContent = `${radio.location || ""} ${radio.language || ""}`;
       radioIcon.src = radio.icon || "https://via.placeholder.com/150";
       audio.src = radio.stream;
+
+      // Save to Recently Played
+      recentRadios = recentRadios.filter(r => r.id !== radio.id);
+      recentRadios.unshift(radio);
+      if (recentRadios.length > 10) recentRadios.pop();
+      localStorage.setItem("recentRadios", JSON.stringify(recentRadios));
+      renderRecent();
 
       if (autoplay) {
         audio.play().catch(() => console.log("Tap play to start audio"));
