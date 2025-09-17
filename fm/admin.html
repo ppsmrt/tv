@@ -12,66 +12,73 @@
 <body class="bg-gradient-to-br from-gray-50 via-indigo-50 to-purple-100 min-h-screen flex flex-col font-sans">
 
   <!-- Header -->
-  <header class="bg-gradient-to-r from-indigo-700 via-purple-700 to-indigo-800 shadow-2xl text-white p-5 text-2xl font-extrabold flex justify-between items-center tracking-wide">
-    <span class="flex items-center gap-3 drop-shadow-lg">
-      <i class="fa fa-broadcast-tower text-yellow-300 text-2xl animate-pulse"></i> Radio Admin Panel
+  <header class="bg-gradient-to-r from-indigo-700 via-purple-700 to-indigo-800 shadow-xl text-white px-4 py-3 text-lg md:text-2xl font-extrabold flex justify-between items-center">
+    <span class="flex items-center gap-2 md:gap-3">
+      <i class="fa fa-broadcast-tower text-yellow-300 md:text-2xl text-lg animate-pulse"></i>
+      <span>Radio Admin Panel</span>
     </span>
-    <div class="flex gap-3">
-      <button id="loginBtn" class="bg-white/90 hover:bg-white text-indigo-700 font-semibold px-4 py-2 rounded-xl shadow-lg transition flex items-center gap-2 backdrop-blur-sm">
+    <div class="flex gap-2 md:gap-3">
+      <button id="loginBtn" class="bg-white/90 hover:bg-white text-indigo-700 font-semibold px-3 md:px-4 py-1.5 md:py-2 rounded-lg shadow-md transition flex items-center gap-1.5 text-sm md:text-base">
         <i class="fa fa-sign-in-alt"></i> Login
       </button>
-      <button id="logoutBtn" class="hidden bg-gradient-to-r from-red-600 to-red-700 hover:opacity-90 text-white font-semibold px-4 py-2 rounded-xl shadow-lg transition flex items-center gap-2">
+      <button id="logoutBtn" class="hidden bg-gradient-to-r from-red-600 to-red-700 hover:opacity-90 text-white font-semibold px-3 md:px-4 py-1.5 md:py-2 rounded-lg shadow-md transition flex items-center gap-1.5 text-sm md:text-base">
         <i class="fa fa-sign-out-alt"></i> Logout
       </button>
     </div>
   </header>
 
   <!-- Not authorized message -->
-  <section id="unauthorized" class="p-6 hidden">
-    <div class="bg-red-50 border-l-4 border-red-600 p-4 rounded-lg shadow-md flex items-center gap-3">
-      <i class="fa fa-exclamation-triangle text-red-600 text-xl"></i>
-      <p class="text-red-700 font-bold">You are not authorized to access this admin panel.</p>
+  <section id="unauthorized" class="p-4 hidden">
+    <div class="bg-red-50 border-l-4 border-red-600 p-3 rounded-lg shadow-sm flex items-center gap-2">
+      <i class="fa fa-exclamation-triangle text-red-600 text-lg"></i>
+      <p class="text-red-700 font-bold text-sm md:text-base">You are not authorized to access this admin panel.</p>
     </div>
   </section>
 
   <!-- Form -->
-  <section id="formSection" class="p-6 hidden">
-    <form id="radioForm" class="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-2xl space-y-6 border border-gray-100 grid md:grid-cols-2 gap-6 hover:shadow-indigo-200 transition">
+  <section id="formSection" class="p-4 md:p-6 hidden">
+    <form id="radioForm" class="bg-white/90 backdrop-blur-sm p-5 md:p-6 rounded-xl shadow-lg space-y-4 md:space-y-5 border border-gray-100 grid md:grid-cols-2 gap-4 md:gap-5 transition">
       <input type="hidden" id="editId" />
 
+      <!-- Name -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1"><i class="fa fa-signature text-indigo-600"></i> Name</label>
-        <input id="name" type="text" class="w-full border p-3 rounded-xl focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm" required />
+        <label class="block text-gray-700 font-semibold mb-1 text-sm"><i class="fa fa-signature text-indigo-600"></i> Name</label>
+        <input id="name" type="text" class="w-full border p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm" required />
       </div>
 
+      <!-- Stream URL -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1"><i class="fa fa-link text-indigo-600"></i> Stream URL</label>
-        <input id="stream" type="url" class="w-full border p-3 rounded-xl focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm" required />
+        <label class="block text-gray-700 font-semibold mb-1 text-sm"><i class="fa fa-link text-indigo-600"></i> Stream URL</label>
+        <input id="stream" type="url" class="w-full border p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm" required />
       </div>
 
+      <!-- Upload Icon -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-2"><i class="fa fa-image text-indigo-600"></i> Upload Icon</label>
-        <label for="iconFile" class="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-3 rounded-xl shadow-lg hover:opacity-90 transition flex items-center gap-2 font-semibold">
+        <label class="block text-gray-700 font-semibold mb-1 text-sm"><i class="fa fa-image text-indigo-600"></i> Upload Icon</label>
+        <label for="iconFile" class="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg shadow-md hover:opacity-90 transition flex items-center gap-2 text-sm font-semibold">
           <i class="fa fa-upload"></i> Choose File
         </label>
         <input id="iconFile" type="file" accept="image/*" class="hidden" />
-        <img id="iconPreview" class="hidden mt-3 w-20 h-20 rounded-xl shadow-lg border border-gray-200" />
+        <img id="iconPreview" class="hidden mt-2 w-16 h-16 rounded-lg shadow border border-gray-200" />
         <input type="hidden" id="icon" />
       </div>
 
+      <!-- Language -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1"><i class="fa fa-language text-indigo-600"></i> Language</label>
-        <input id="language" type="text" class="w-full border p-3 rounded-xl focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm" />
+        <label class="block text-gray-700 font-semibold mb-1 text-sm"><i class="fa fa-language text-indigo-600"></i> Language</label>
+        <input id="language" type="text" class="w-full border p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm" />
       </div>
 
+      <!-- Location -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1"><i class="fa fa-map-marker-alt text-indigo-600"></i> Location</label>
-        <input id="location" type="text" class="w-full border p-3 rounded-xl focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm" />
+        <label class="block text-gray-700 font-semibold mb-1 text-sm"><i class="fa fa-map-marker-alt text-indigo-600"></i> Location</label>
+        <input id="location" type="text" class="w-full border p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm" />
       </div>
 
+      <!-- Genre -->
       <div>
-        <label class="block text-gray-700 font-semibold mb-1"><i class="fa fa-music text-indigo-600"></i> Genre</label>
-        <select id="genre" class="w-full border p-3 rounded-xl focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm">
+        <label class="block text-gray-700 font-semibold mb-1 text-sm"><i class="fa fa-music text-indigo-600"></i> Genre</label>
+        <select id="genre" class="w-full border p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm">
           <option value="General">General</option>
           <option value="News">News</option>
           <option value="Music">Music</option>
@@ -81,8 +88,9 @@
         </select>
       </div>
 
+      <!-- Submit -->
       <div class="md:col-span-2">
-        <button class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white px-6 py-3 rounded-xl shadow-xl flex items-center gap-3 transition w-full justify-center font-semibold text-lg" type="submit">
+        <button class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white px-5 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition w-full justify-center font-semibold text-base" type="submit">
           <i class="fa fa-plus-circle"></i> <span id="formBtnText">Add Radio</span>
         </button>
       </div>
@@ -90,10 +98,10 @@
   </section>
 
   <!-- List -->
-  <section id="listSection" class="p-6 flex-1 hidden">
-    <div class="flex flex-wrap gap-4 items-center mb-6 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-md">
-      <input id="searchInput" type="text" placeholder="🔍 Search..." class="border p-3 rounded-xl flex-1 md:flex-none md:w-72 focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm" />
-      <select id="filterGenre" class="border p-3 rounded-xl focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm">
+  <section id="listSection" class="p-4 md:p-6 flex-1 hidden">
+    <div class="flex flex-wrap gap-2 md:gap-3 items-center mb-4 bg-white/80 backdrop-blur-sm p-3 rounded-lg shadow">
+      <input id="searchInput" type="text" placeholder="🔍 Search..." class="border p-2.5 rounded-lg flex-1 md:w-64 focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm" />
+      <select id="filterGenre" class="border p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm">
         <option value="">All Genres</option>
         <option value="General">General</option>
         <option value="News">News</option>
@@ -102,15 +110,35 @@
         <option value="Devotional">Devotional</option>
         <option value="Infotainment">Infotainment</option>
       </select>
-      <select id="sortSelect" class="border p-3 rounded-xl focus:ring-4 focus:ring-indigo-300 outline-none transition shadow-sm">
+      <select id="sortSelect" class="border p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none transition shadow-sm text-sm">
         <option value="az">Sort: A–Z</option>
         <option value="za">Sort: Z–A</option>
         <option value="latest">Latest</option>
         <option value="oldest">Oldest</option>
       </select>
     </div>
-    <h2 class="text-2xl font-bold mb-4 flex items-center gap-3 text-gray-800 drop-shadow-md"><i class="fa fa-list text-indigo-600"></i> Radio Channels</h2>
-    <div id="radioList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[70vh] overflow-y-auto pr-2"></div>
+
+    <h2 class="text-xl md:text-2xl font-bold mb-3 flex items-center gap-2 text-gray-800">
+      <i class="fa fa-list text-indigo-600"></i> Radio Channels
+    </h2>
+
+    <!-- Radio list items (cards) -->
+    <div id="radioList" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[70vh] overflow-y-auto pr-1.5">
+      <!-- Example card structure (your JS will populate dynamically, UI intact) -->
+      <!--
+      <div class="bg-white rounded-xl shadow-md p-4 flex items-center gap-3 hover:shadow-lg hover:scale-[1.02] transition cursor-pointer">
+        <img src="icon.png" alt="Station Icon" class="w-12 h-12 rounded-lg border shadow-sm object-cover" />
+        <div class="flex flex-col overflow-hidden">
+          <h3 class="font-semibold text-gray-800 text-sm md:text-base truncate">Station Name</h3>
+          <p class="text-xs text-gray-500 truncate flex items-center gap-1"><i class="fa fa-map-marker-alt text-indigo-500"></i> Location</p>
+          <p class="text-xs text-gray-500 truncate flex items-center gap-1"><i class="fa fa-language text-indigo-500"></i> Language</p>
+        </div>
+        <button class="ml-auto text-indigo-600 hover:text-indigo-800 transition">
+          <i class="fa fa-edit"></i>
+        </button>
+      </div>
+      -->
+    </div>
   </section>
 
   <!-- Scripts -->
