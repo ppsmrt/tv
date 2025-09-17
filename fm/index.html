@@ -129,7 +129,18 @@
         <h2 class="text-lg font-bold">All FM Channels</h2>
         <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
       </div>
-      <div id="channelList" class="overflow-y-auto max-h-[calc(75vh-60px)] p-4 space-y-3 scrollbar-hide"></div>
+
+      <!-- 🔍 Search Box -->
+      <div class="p-3">
+        <input 
+          type="text" 
+          id="channelSearch" 
+          placeholder="Search channels..." 
+          class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
+        />
+      </div>
+
+      <div id="channelList" class="overflow-y-auto max-h-[calc(75vh-120px)] p-4 space-y-3 scrollbar-hide"></div>
     </div>
   </div>
 
@@ -345,6 +356,17 @@
     .wave.delay-5 { animation-delay: 0.5s }
     .wave.delay-6 { animation-delay: 0.6s }
     @keyframes waveAnim { 0%, 40%, 100% { transform: scaleY(0.3);} 20% { transform: scaleY(1);} }
+
+// ✅ Channel Search Filter
+const channelSearch = document.getElementById("channelSearch");
+channelSearch.addEventListener("input", () => {
+  const term = channelSearch.value.toLowerCase();
+  const filtered = radios.filter(radio => 
+    radio.name.toLowerCase().includes(term) ||
+    (radio.location || "").toLowerCase().includes(term) ||
+    (radio.language || "").toLowerCase().includes(term)
+  );
+
   </style>
 </body>
 </html>
