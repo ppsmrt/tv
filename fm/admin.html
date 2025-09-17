@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Radio Admin Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/a2e0e6ad65.js" crossorigin="anonymous"></script>
+  <!-- Toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
-  <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-3xl">
-    <h1 class="text-2xl font-bold text-center mb-6">🎙️ Radio Admin Panel</h1>
-    
-    <!-- Add Radio Form -->
+  <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-5xl">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-3xl font-bold text-blue-700 flex items-center gap-2">
+        <i class="fas fa-broadcast-tower"></i> Radio Admin Panel
+      </h1>
+    </div>
+
+    <!-- Add/Edit Radio Form -->
     <form id="radioForm" class="space-y-4 mb-8">
-      <div class="grid grid-cols-2 gap-4">
+      <input type="hidden" id="editId" />
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div>
           <label class="block font-medium">Name</label>
           <input type="text" id="name" class="w-full p-2 border rounded-lg" required>
@@ -22,8 +33,15 @@
           <input type="url" id="stream" class="w-full p-2 border rounded-lg" required>
         </div>
         <div>
-          <label class="block font-medium">Icon URL</label>
-          <input type="url" id="icon" class="w-full p-2 border rounded-lg" required>
+          <label class="block font-medium">Icon Upload</label>
+          <div class="flex items-center gap-2">
+            <input type="file" id="iconUpload" class="hidden" accept="image/*">
+            <button type="button" id="uploadBtn" class="bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 flex items-center gap-2">
+              <i class="fas fa-upload"></i> Upload
+            </button>
+            <img id="iconPreview" src="" class="w-10 h-10 rounded hidden" />
+          </div>
+          <input type="hidden" id="icon" />
         </div>
         <div>
           <label class="block font-medium">Language</label>
@@ -35,21 +53,43 @@
         </div>
         <div>
           <label class="block font-medium">Genre</label>
-          <input type="text" id="genre" class="w-full p-2 border rounded-lg" required>
+          <select id="genre" class="w-full p-2 border rounded-lg" required>
+            <option value="">Select Genre</option>
+            <option>Songs</option>
+            <option>Entertainment</option>
+            <option>News</option>
+            <option>International</option>
+          </select>
         </div>
       </div>
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-        ➕ Add Radio
+      <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 text-lg font-semibold flex items-center justify-center gap-2">
+        <i class="fas fa-plus-circle"></i> <span id="formBtnText">Add Radio</span>
       </button>
     </form>
 
-    <p id="status" class="mt-4 text-center text-sm"></p>
+    <!-- Filters -->
+    <div class="flex flex-wrap items-center gap-4 mb-4">
+      <input type="text" id="searchBox" placeholder="🔍 Search by name..." class="p-2 border rounded-lg flex-1">
+      <select id="filterGenre" class="p-2 border rounded-lg">
+        <option value="">All Genres</option>
+        <option>Songs</option>
+        <option>Entertainment</option>
+        <option>News</option>
+        <option>International</option>
+      </select>
+      <select id="sortBy" class="p-2 border rounded-lg">
+        <option value="latest">Latest Added</option>
+        <option value="az">A-Z</option>
+      </select>
+    </div>
 
     <!-- Radio List -->
-    <h2 class="text-xl font-semibold mt-8 mb-4">📻 Existing Radios</h2>
+    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+      <i class="fas fa-list"></i> Existing Radios
+    </h2>
     <div class="overflow-x-auto">
-      <table class="w-full text-sm text-left border">
-        <thead class="bg-gray-200">
+      <table class="w-full text-sm text-left border rounded-lg overflow-hidden">
+        <thead class="bg-gray-200 text-gray-700">
           <tr>
             <th class="p-2 border">Icon</th>
             <th class="p-2 border">Name</th>
@@ -68,10 +108,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getDatabase, ref, push, set, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 
-    // 🔥 Your Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
       authDomain: "tnm3ulive.firebaseapp.com",
@@ -83,28 +120,60 @@
       measurementId: "G-FNS9JWZ9LS"
     };
 
-    // Init
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const auth = getAuth(app);
-    const analytics = getAnalytics(app);
 
     const form = document.getElementById('radioForm');
-    const statusEl = document.getElementById('status');
     const radioList = document.getElementById('radioList');
+    const formBtnText = document.getElementById('formBtnText');
+    const editIdEl = document.getElementById('editId');
 
-    // Ensure user logged in
-    onAuthStateChanged(auth, user => {
-      if (!user) {
-        statusEl.textContent = "⚠️ Please log in as admin.";
-        form.style.display = "none";
+    let radiosData = [];
+
+    // Toast helper
+    function toast(msg, type="success") {
+      Toastify({
+        text: msg,
+        backgroundColor: type === "error" ? "#DC2626" : "#16A34A",
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right"
+      }).showToast();
+    }
+
+    // Upload with ImgBB
+    document.getElementById('uploadBtn').addEventListener('click', () => {
+      document.getElementById('iconUpload').click();
+    });
+    document.getElementById('iconUpload').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("image", file);
+      try {
+        const res = await fetch("https://api.imgbb.com/1/upload?key=8604e4b4050c63c460d0bca39cf28708", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('icon').value = data.data.url;
+          const preview = document.getElementById('iconPreview');
+          preview.src = data.data.url;
+          preview.classList.remove("hidden");
+          toast("✅ Image uploaded!");
+        } else {
+          toast("❌ Upload failed!", "error");
+        }
+      } catch {
+        toast("❌ Upload error!", "error");
       }
     });
 
-    // Add Radio
+    // Add/Update Radio
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
       const radioData = {
         name: document.getElementById('name').value,
         stream: document.getElementById('stream').value,
@@ -112,89 +181,93 @@
         language: document.getElementById('language').value,
         location: document.getElementById('location').value,
         genre: document.getElementById('genre').value,
-        createdAt: Date.now()
+        updatedAt: Date.now()
       };
 
-      try {
-        const radiosRef = ref(db, "radios");
-        const newRadioRef = push(radiosRef);
-        await set(newRadioRef, radioData);
-
-        statusEl.textContent = "✅ Radio added successfully!";
-        statusEl.className = "mt-4 text-center text-green-600";
-        form.reset();
-      } catch (error) {
-        statusEl.textContent = "❌ Error: " + error.message;
-        statusEl.className = "mt-4 text-center text-red-600";
+      const editId = editIdEl.value;
+      if (editId) {
+        await update(ref(db, "radios/" + editId), radioData);
+        toast("✅ Radio updated!");
+      } else {
+        radioData.createdAt = Date.now();
+        const newRef = push(ref(db, "radios"));
+        await set(newRef, radioData);
+        toast("✅ Radio added!");
       }
+      form.reset();
+      document.getElementById('iconPreview').classList.add("hidden");
+      formBtnText.textContent = "Add Radio";
+      editIdEl.value = "";
     });
 
     // Fetch & render radios
     const radiosRef = ref(db, "radios");
     onValue(radiosRef, (snapshot) => {
-      radioList.innerHTML = "";
+      radiosData = [];
       snapshot.forEach(child => {
-        const radio = child.val();
-        const id = child.key;
+        radiosData.push({ id: child.key, ...child.val() });
+      });
+      renderRadios();
+    });
 
+    // Render radios with filters
+    function renderRadios() {
+      let list = [...radiosData];
+      const search = document.getElementById('searchBox').value.toLowerCase();
+      const filterGenre = document.getElementById('filterGenre').value;
+      const sortBy = document.getElementById('sortBy').value;
+
+      if (search) list = list.filter(r => r.name.toLowerCase().includes(search));
+      if (filterGenre) list = list.filter(r => r.genre === filterGenre);
+      if (sortBy === "az") list.sort((a, b) => a.name.localeCompare(b.name));
+      else list.sort((a, b) => (b.createdAt || b.updatedAt) - (a.createdAt || a.updatedAt));
+
+      radioList.innerHTML = "";
+      list.forEach(radio => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td class="p-2 border"><img src="${radio.icon}" alt="icon" class="w-10 h-10 rounded"></td>
-          <td class="p-2 border">${radio.name}</td>
+          <td class="p-2 border"><img src="${radio.icon}" class="w-10 h-10 rounded"></td>
+          <td class="p-2 border font-semibold">${radio.name}</td>
           <td class="p-2 border">${radio.language}</td>
           <td class="p-2 border">${radio.location}</td>
           <td class="p-2 border">${radio.genre}</td>
           <td class="p-2 border flex gap-2">
-            <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editRadio('${id}')">✏️</button>
-            <button class="bg-red-600 text-white px-2 py-1 rounded" onclick="deleteRadio('${id}')">🗑️</button>
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editRadio('${radio.id}')"><i class="fas fa-edit"></i></button>
+            <button class="bg-red-600 text-white px-2 py-1 rounded" onclick="deleteRadio('${radio.id}')"><i class="fas fa-trash"></i></button>
           </td>
         `;
         radioList.appendChild(tr);
       });
-    });
+    }
+
+    // Search/sort/filter triggers
+    document.getElementById('searchBox').addEventListener('input', renderRadios);
+    document.getElementById('filterGenre').addEventListener('change', renderRadios);
+    document.getElementById('sortBy').addEventListener('change', renderRadios);
 
     // Delete Radio
     window.deleteRadio = async (id) => {
       if (confirm("Delete this radio?")) {
         await remove(ref(db, "radios/" + id));
+        toast("🗑️ Radio deleted!", "error");
       }
     };
 
-    // Edit Radio (prefill form)
-    window.editRadio = async (id) => {
-      const radioRef = ref(db, "radios/" + id);
-      onValue(radioRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          document.getElementById('name').value = data.name;
-          document.getElementById('stream').value = data.stream;
-          document.getElementById('icon').value = data.icon;
-          document.getElementById('language').value = data.language;
-          document.getElementById('location').value = data.location;
-          document.getElementById('genre').value = data.genre;
-          statusEl.textContent = "✏️ Editing mode. Submit to update.";
-
-          // Override form submit to update
-          form.onsubmit = async (e) => {
-            e.preventDefault();
-            const updatedData = {
-              name: document.getElementById('name').value,
-              stream: document.getElementById('stream').value,
-              icon: document.getElementById('icon').value,
-              language: document.getElementById('language').value,
-              location: document.getElementById('location').value,
-              genre: document.getElementById('genre').value,
-              updatedAt: Date.now()
-            };
-            await update(radioRef, updatedData);
-            statusEl.textContent = "✅ Radio updated!";
-            form.reset();
-            form.onsubmit = null; // reset to add mode
-            form.addEventListener('submit', async (e) => { e.preventDefault(); }); 
-          };
-        }
-      }, { onlyOnce: true });
+    // Edit Radio
+    window.editRadio = (id) => {
+      const data = radiosData.find(r => r.id === id);
+      if (!data) return;
+      document.getElementById('name').value = data.name;
+      document.getElementById('stream').value = data.stream;
+      document.getElementById('icon').value = data.icon;
+      document.getElementById('language').value = data.language;
+      document.getElementById('location').value = data.location;
+      document.getElementById('genre').value = data.genre;
+      document.getElementById('iconPreview').src = data.icon;
+      document.getElementById('iconPreview').classList.remove("hidden");
+      editIdEl.value = id;
+      formBtnText.textContent = "Update Radio";
     };
   </script>
 </body>
-            </html>
+</html>
