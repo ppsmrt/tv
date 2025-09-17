@@ -459,3 +459,9 @@ https://play.google.com/store/apps/details?id=com.channel2.skystream
 https://play.google.com/store/apps/details?id=com.ipcloud.nvtv
 #EXTINF:-1 tvg-name="Vibgyor" group-title="Malayalam" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
 https://app.vibgyortv.com/live
+#EXTINF:-1 tvg-name="Thandhi One" group-title="Tamil" tvg-logo="https://i.ibb.co/Gf2bQb5s/1000127601.jpg",Thandhi One
+https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
+#EXTINF:-1 tvg-name="Vendhar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/TxWnWLgb/1000127602.jpg",Vendhar Tv
+https://cdn-3.pishow.tv/live/1271/master.m3u8
+#EXTINF:-1 tvg-name="MK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/TxWnWLgb/1000127602.jpg",MK Tv
+https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
