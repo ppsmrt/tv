@@ -175,3 +175,21 @@ https://edge3-moblive.yuppcdn.net/transsd/smil:chii02.smil/playlist.m3u8?view=tn
 https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
 #EXTINF:-1 tvg-name="Vendhar Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/TxWnWLgb/1000127602.jpg",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
+#EXTINF:-1 tvg-name="MK Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/vxYfsGSs/1000127615.jpg",MK Tv
+https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
+#EXTINF:-1 tvg-name="Chithiram" group-title="Entertainment" tvg-logo="https://i.ibb.co/GfxDw9K4/1000127613.jpg",Chithiram
+https://cdn-6.pishow.tv/live/1243/master.m3u8
+#EXTINF:-1 tvg-name="MK Tunes" group-title="Music" tvg-logo="https://i.ibb.co/N2nTm9qt/1000127608.jpg",MK Tunes
+https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-433
+#EXTINF:-1 tvg-name="News J" group-title="News" tvg-logo="https://i.ibb.co/6J4fPC0G/1000127616.jpg",News J
+https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1279
+#EXTINF:-1 tvg-name="Win Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/yFFFnpPW/1000127617.jpg",Win Tv
+https://cdn-4.pishow.tv/live/1531/master.m3u8
+#EXTINF:-1 tvg-name="Zee Tamil News" group-title="News" tvg-logo="https://i.ibb.co/Mxzzc6kN/1000127618.jpg",Zee Tamil News
+https://dpkvdnzbeen1l.cloudfront.net/index_4.m3u8
+#EXTINF:-1 tvg-name="Makkal Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/SXb7JWs5/1000127620.jpg",Makkal Tv
+http://5k8q87azdy4v-hls-live.wmncdn.net/MAKKAL/271ddf829afeece44d8732757fba1a66.sdp/index.m3u8
+#EXTINF:-1 tvg-name="DD Tamil" group-title="Entertainment" tvg-logo="https://i.ibb.co/1fPKCB2d/1000127622.jpg",DD Tamil
+https://d2lk5u59tns74c.cloudfront.net/out/v1/abf46b14847e45499f4a47f3a9afe93d/index.m3u8
+#EXTINF:-1 tvg-name="Akam Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/xtCs5Yfg/1000127625.jpg",Akam Tv
+http://stream.vstartv.org/p/3674/hybrid/play.m3u8
