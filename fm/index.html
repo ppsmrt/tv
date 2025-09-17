@@ -162,211 +162,211 @@
   </div>
 
   <!-- Scripts -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.firebasestorage.app",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-    const audio = new Audio();
-    audio.volume = 0.5;
+  const audio = new Audio();
+  audio.volume = 0.5;
 
-    const playPauseBtn = document.getElementById("playPauseBtn");
-    const playPauseIcon = document.getElementById("playPauseIcon");
-    const volumeControl = document.getElementById("volumeControl");
-    const radioName = document.getElementById("radioName");
-    const radioLocation = document.getElementById("radioLocation");
-    const radioIcon = document.getElementById("radioIcon");
-    const radioList = document.getElementById("radioList");
-    const recentSection = document.getElementById("recentSection");
-    const recentList = document.getElementById("recentList");
+  const playPauseBtn = document.getElementById("playPauseBtn");
+  const playPauseIcon = document.getElementById("playPauseIcon");
+  const volumeControl = document.getElementById("volumeControl");
+  const radioName = document.getElementById("radioName");
+  const radioLocation = document.getElementById("radioLocation");
+  const radioIcon = document.getElementById("radioIcon");
+  const radioList = document.getElementById("radioList");
+  const recentSection = document.getElementById("recentSection");
+  const recentList = document.getElementById("recentList");
 
-    const screensaver = document.getElementById("screensaver");
-    const ssName = document.getElementById("ssName");
-    const ssLocation = document.getElementById("ssLocation");
-    const ssPlayPause = document.getElementById("ssPlayPause");
-    const ssPlayPauseIcon = document.getElementById("ssPlayPauseIcon");
+  const screensaver = document.getElementById("screensaver");
+  const ssName = document.getElementById("ssName");
+  const ssLocation = document.getElementById("ssLocation");
+  const ssPlayPause = document.getElementById("ssPlayPause");
+  const ssPlayPauseIcon = document.getElementById("ssPlayPauseIcon");
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    let radios = [];
-    let currentIndex = 0;
-    let recentRadios = JSON.parse(localStorage.getItem("recentRadios")) || [];
+  let radios = [];
+  let currentIndex = 0;
+  let recentRadios = JSON.parse(localStorage.getItem("recentRadios")) || [];
 
-    function renderRecent() {
-      recentList.innerHTML = "";
-      if (recentRadios.length === 0) {
-        recentSection.classList.add("hidden");
-        return;
-      }
-      recentSection.classList.remove("hidden");
-      recentRadios.forEach(radio => {
-        const card = document.createElement("div");
-        card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
-        card.innerHTML = `<img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow"><p class="font-bold truncate">${radio.name}</p><p class="text-xs text-gray-300 truncate">${radio.language}</p>`;
-        card.onclick = () => playRadio(radios.findIndex(r => r.id === radio.id));
-        recentList.appendChild(card);
-      });
+  function renderRecent() {
+    recentList.innerHTML = "";
+    if (recentRadios.length === 0) {
+      recentSection.classList.add("hidden");
+      return;
     }
-
-    function renderChannelList() {
-      const channelList = document.getElementById("channelList");
-      channelList.innerHTML = "";
-      const sorted = [...radios].sort((a, b) => a.name.localeCompare(b.name));
-      sorted.forEach(radio => {
-        const item = document.createElement("div");
-        item.className = "flex items-center gap-4 bg-gradient-to-r from-pink-700/70 to-purple-900/70 rounded-xl p-3 shadow-md cursor-pointer hover:scale-[1.02] transition-transform";
-        item.innerHTML = `<img src="${radio.icon}" class="w-12 h-12 rounded-lg shadow"><div class="flex-1"><p class="font-bold">${radio.name}</p><p class="text-xs text-gray-300">${radio.language || ""} ${radio.location || ""}</p></div><span class="material-icons text-pink-400">play_circle</span>`;
-        item.onclick = () => { playRadio(radios.findIndex(r => r.id === radio.id)); closeOverlay.click(); };
-        channelList.appendChild(item);
-      });
-    }
-
-    onValue(ref(db, "radios"), snapshot => {
-      radios = [];
-      radioList.innerHTML = "";
-      snapshot.forEach(child => {
-        const radio = { id: child.key, ...child.val() };
-        radios.push(radio);
-        const card = document.createElement("div");
-        card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
-        card.innerHTML = `<img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow"><p class="font-bold truncate">${radio.name}</p><p class="text-xs text-gray-300">${radio.location || ""}</p>`;
-        card.onclick = () => playRadio(radios.indexOf(radio));
-        radioList.appendChild(card);
-      });
-      if (radios.length > 0) playRadio(0, false);
-      renderRecent();
-      renderChannelList();
+    recentSection.classList.remove("hidden");
+    recentRadios.forEach(radio => {
+      const card = document.createElement("div");
+      card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
+      card.innerHTML = `<img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow"><p class="font-bold truncate">${radio.name}</p><p class="text-xs text-gray-300 truncate">${radio.language}</p>`;
+      card.onclick = () => playRadio(radios.findIndex(r => r.id === radio.id));
+      recentList.appendChild(card);
     });
+  }
 
-    function playRadio(index, autoplay = true) {
-      currentIndex = index;
-      const radio = radios[index];
-      if (!radio) return;
-      radioName.textContent = radio.name;
-      radioLocation.textContent = radio.location || "";
-      radioIcon.src = radio.icon || "https://via.placeholder.com/150";
-      audio.src = radio.stream;
-
-      recentRadios = recentRadios.filter(r => r.id !== radio.id);
-      recentRadios.unshift(radio);
-      if (recentRadios.length > 10) recentRadios.pop();
-      localStorage.setItem("recentRadios", JSON.stringify(recentRadios));
-      renderRecent();
-
-      if (autoplay) {
-        audio.play().catch(() => console.log("Tap play to start audio"));
-        playPauseIcon.textContent = "pause"; ssPlayPauseIcon.textContent = "pause";
-      } else {
-        playPauseIcon.textContent = "play_arrow"; ssPlayPauseIcon.textContent = "play_arrow";
-      }
-    }
-
-    playPauseBtn.addEventListener("click", () => {
-      if (audio.paused) { audio.play(); playPauseIcon.textContent = "pause"; ssPlayPauseIcon.textContent = "pause"; }
-      else { audio.pause(); playPauseIcon.textContent = "play_arrow"; ssPlayPauseIcon.textContent = "play_arrow"; }
+  function renderChannelList(list = radios) {
+    const channelList = document.getElementById("channelList");
+    channelList.innerHTML = "";
+    const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
+    sorted.forEach(radio => {
+      const item = document.createElement("div");
+      item.className = "flex items-center gap-4 bg-gradient-to-r from-pink-700/70 to-purple-900/70 rounded-xl p-3 shadow-md cursor-pointer hover:scale-[1.02] transition-transform";
+      item.innerHTML = `<img src="${radio.icon}" class="w-12 h-12 rounded-lg shadow"><div class="flex-1"><p class="font-bold">${radio.name}</p><p class="text-xs text-gray-300">${radio.language || ""} ${radio.location || ""}</p></div><span class="material-icons text-pink-400">play_circle</span>`;
+      item.onclick = () => { playRadio(radios.findIndex(r => r.id === radio.id)); closeOverlay.click(); };
+      channelList.appendChild(item);
     });
-    document.getElementById("nextBtn").addEventListener("click", () => playRadio((currentIndex + 1) % radios.length));
-    document.getElementById("prevBtn").addEventListener("click", () => playRadio((currentIndex - 1 + radios.length) % radios.length));
-    volumeControl.addEventListener("input", e => audio.volume = e.target.value);
+  }
 
-    // Overlay open/close
-    const listBtn = document.getElementById("listBtn");
-    const channelOverlay = document.getElementById("channelOverlay");
-    const channelSheet = document.getElementById("channelSheet");
-    const closeOverlay = document.getElementById("closeOverlay");
-
-    listBtn.addEventListener("click", () => {
-      channelOverlay.classList.remove("pointer-events-none", "opacity-0");
-      setTimeout(() => channelSheet.classList.remove("translate-y-full"), 50);
+  onValue(ref(db, "radios"), snapshot => {
+    radios = [];
+    radioList.innerHTML = "";
+    snapshot.forEach(child => {
+      const radio = { id: child.key, ...child.val() };
+      radios.push(radio);
+      const card = document.createElement("div");
+      card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
+      card.innerHTML = `<img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow"><p class="font-bold truncate">${radio.name}</p><p class="text-xs text-gray-300">${radio.location || ""}</p>`;
+      card.onclick = () => playRadio(radios.indexOf(radio));
+      radioList.appendChild(card);
     });
-    closeOverlay.addEventListener("click", () => {
-      channelSheet.classList.add("translate-y-full");
-      setTimeout(() => channelOverlay.classList.add("opacity-0", "pointer-events-none"), 500);
-    });
+    if (radios.length > 0) playRadio(0, false);
+    renderRecent();
+    renderChannelList();
+  });
 
-    // Screensaver
-    let idleTimer;
-    const idleTime = 15000;
-    function showScreensaver() {
-      if (!audio.paused) {
-        ssName.textContent = radioName.textContent;
-        ssLocation.textContent = radioLocation.textContent;
-        screensaver.classList.remove("pointer-events-none");
-        screensaver.classList.add("opacity-100");
-      }
-    }
-    function hideScreensaver() {
-      screensaver.classList.remove("opacity-100");
-      screensaver.classList.add("pointer-events-none");
-      resetIdleTimer();
-    }
-    function resetIdleTimer() {
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(showScreensaver, idleTime);
-    }
-    ["mousemove","keydown","click","touchstart"].forEach(evt => document.addEventListener(evt, hideScreensaver));
+  function playRadio(index, autoplay = true) {
+    currentIndex = index;
+    const radio = radios[index];
+    if (!radio) return;
+    radioName.textContent = radio.name;
+    radioLocation.textContent = radio.location || "";
+    radioIcon.src = radio.icon || "https://via.placeholder.com/150";
+    audio.src = radio.stream;
 
-    ssPlayPause.addEventListener("click", () => {
-      if (audio.paused) { audio.play(); ssPlayPauseIcon.textContent = "pause"; playPauseIcon.textContent = "pause"; }
-      else { audio.pause(); ssPlayPauseIcon.textContent = "play_arrow"; playPauseIcon.textContent = "play_arrow"; }
-      resetIdleTimer();
-    });
-    document.getElementById("ssNext").addEventListener("click", () => { document.getElementById("nextBtn").click(); resetIdleTimer(); });
-    document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
+    recentRadios = recentRadios.filter(r => r.id !== radio.id);
+    recentRadios.unshift(radio);
+    if (recentRadios.length > 10) recentRadios.pop();
+    localStorage.setItem("recentRadios", JSON.stringify(recentRadios));
+    renderRecent();
 
+    if (autoplay) {
+      audio.play().catch(() => console.log("Tap play to start audio"));
+      playPauseIcon.textContent = "pause"; ssPlayPauseIcon.textContent = "pause";
+    } else {
+      playPauseIcon.textContent = "play_arrow"; ssPlayPauseIcon.textContent = "play_arrow";
+    }
+  }
+
+  playPauseBtn.addEventListener("click", () => {
+    if (audio.paused) { audio.play(); playPauseIcon.textContent = "pause"; ssPlayPauseIcon.textContent = "pause"; }
+    else { audio.pause(); playPauseIcon.textContent = "play_arrow"; ssPlayPauseIcon.textContent = "play_arrow"; }
+  });
+  document.getElementById("nextBtn").addEventListener("click", () => playRadio((currentIndex + 1) % radios.length));
+  document.getElementById("prevBtn").addEventListener("click", () => playRadio((currentIndex - 1 + radios.length) % radios.length));
+  volumeControl.addEventListener("input", e => audio.volume = e.target.value);
+
+  // Overlay open/close
+  const listBtn = document.getElementById("listBtn");
+  const channelOverlay = document.getElementById("channelOverlay");
+  const channelSheet = document.getElementById("channelSheet");
+  const closeOverlay = document.getElementById("closeOverlay");
+
+  listBtn.addEventListener("click", () => {
+    channelOverlay.classList.remove("pointer-events-none", "opacity-0");
+    setTimeout(() => channelSheet.classList.remove("translate-y-full"), 50);
+  });
+  closeOverlay.addEventListener("click", () => {
+    channelSheet.classList.add("translate-y-full");
+    setTimeout(() => channelOverlay.classList.add("opacity-0", "pointer-events-none"), 500);
+  });
+
+  // Screensaver
+  let idleTimer;
+  const idleTime = 15000;
+  function showScreensaver() {
+    if (!audio.paused) {
+      ssName.textContent = radioName.textContent;
+      ssLocation.textContent = radioLocation.textContent;
+      screensaver.classList.remove("pointer-events-none");
+      screensaver.classList.add("opacity-100");
+    }
+  }
+  function hideScreensaver() {
+    screensaver.classList.remove("opacity-100");
+    screensaver.classList.add("pointer-events-none");
     resetIdleTimer();
+  }
+  function resetIdleTimer() {
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(showScreensaver, idleTime);
+  }
+  ["mousemove","keydown","click","touchstart"].forEach(evt => document.addEventListener(evt, hideScreensaver));
+
+  ssPlayPause.addEventListener("click", () => {
+    if (audio.paused) { audio.play(); ssPlayPauseIcon.textContent = "pause"; playPauseIcon.textContent = "pause"; }
+    else { audio.pause(); ssPlayPauseIcon.textContent = "play_arrow"; playPauseIcon.textContent = "play_arrow"; }
+    resetIdleTimer();
+  });
+  document.getElementById("ssNext").addEventListener("click", () => { document.getElementById("nextBtn").click(); resetIdleTimer(); });
+  document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
+
+  resetIdleTimer();
+
+  // ✅ Channel Search Filter
+  const channelSearch = document.getElementById("channelSearch");
+  channelSearch.addEventListener("input", () => {
+    const term = channelSearch.value.toLowerCase();
+    const filtered = radios.filter(radio =>
+      radio.name.toLowerCase().includes(term) ||
+      (radio.location || "").toLowerCase().includes(term) ||
+      (radio.language || "").toLowerCase().includes(term)
+    );
+    renderChannelList(filtered);
+  });
 </script>
+
 <script>
-    // Remove loader after animation
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("pageLoader");
-      setTimeout(() => {
-        loader.style.opacity = "0";
-        loader.style.transition = "opacity 0.8s ease-out";
-        setTimeout(() => loader.remove(), 900);
-      }, 2200);
-    });
+  // Remove loader after animation
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("pageLoader");
+    setTimeout(() => {
+      loader.style.opacity = "0";
+      loader.style.transition = "opacity 0.8s ease-out";
+      setTimeout(() => loader.remove(), 900);
+    }, 2200);
+  });
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
-  <style>
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    .wave { width: 6px; height: 20px; background: white; border-radius: 3px; animation: waveAnim 1.2s infinite ease-in-out; }
-    .wave.delay-1 { animation-delay: 0.1s }
-    .wave.delay-2 { animation-delay: 0.2s }
-    .wave.delay-3 { animation-delay: 0.3s }
-    .wave.delay-4 { animation-delay: 0.4s }
-    .wave.delay-5 { animation-delay: 0.5s }
-    .wave.delay-6 { animation-delay: 0.6s }
-    @keyframes waveAnim { 0%, 40%, 100% { transform: scaleY(0.3);} 20% { transform: scaleY(1);} }
-
-// ✅ Channel Search Filter
-const channelSearch = document.getElementById("channelSearch");
-channelSearch.addEventListener("input", () => {
-  const term = channelSearch.value.toLowerCase();
-  const filtered = radios.filter(radio => 
-    radio.name.toLowerCase().includes(term) ||
-    (radio.location || "").toLowerCase().includes(term) ||
-    (radio.language || "").toLowerCase().includes(term)
-  );
-
-  </style>
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .wave { width: 6px; height: 20px; background: white; border-radius: 3px; animation: waveAnim 1.2s infinite ease-in-out; }
+  .wave.delay-1 { animation-delay: 0.1s }
+  .wave.delay-2 { animation-delay: 0.2s }
+  .wave.delay-3 { animation-delay: 0.3s }
+  .wave.delay-4 { animation-delay: 0.4s }
+  .wave.delay-5 { animation-delay: 0.5s }
+  .wave.delay-6 { animation-delay: 0.6s }
+  @keyframes waveAnim { 0%, 40%, 100% { transform: scaleY(0.3);} 20% { transform: scaleY(1);} }
+</style>
 </body>
 </html>
