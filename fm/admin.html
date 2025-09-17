@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Radio Admin Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome (CDN fixed) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/a2e0e6ad65.js" crossorigin="anonymous"></script>
   <!-- Toastify -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -34,12 +34,12 @@
         </div>
         <div>
           <label class="block font-medium">Icon Upload</label>
-          <div class="w-full flex items-center border rounded-lg p-2">
+          <div class="flex items-center gap-2 w-full">
             <input type="file" id="iconUpload" class="hidden" accept="image/*">
-            <button type="button" id="uploadBtn" class="bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 flex items-center gap-2">
+            <button type="button" id="uploadBtn" class="bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 flex items-center gap-2 w-full justify-center">
               <i class="fas fa-upload"></i> Upload
             </button>
-            <img id="iconPreview" src="" class="w-10 h-10 rounded ml-3 hidden" />
+            <img id="iconPreview" src="" class="w-10 h-10 rounded hidden" />
           </div>
           <input type="hidden" id="icon" />
         </div>
@@ -123,15 +123,14 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const form = document.getElementById('radioForm');
-    const radioList = document.getElementById('radioList');
-    const formBtnText = document.getElementById('formBtnText');
-    const editIdEl = document.getElementById('editId');
-
+    const form = document.getElementById("radioForm");
+    const radioList = document.getElementById("radioList");
+    const formBtnText = document.getElementById("formBtnText");
+    const editIdEl = document.getElementById("editId");
     let radiosData = [];
 
-    // Toast helper
-    function toast(msg, type="success") {
+    // ✅ Toast + Native Notification
+    function notify(msg, type="success") {
       Toastify({
         text: msg,
         backgroundColor: type === "error" ? "#DC2626" : "#16A34A",
@@ -140,13 +139,21 @@
         gravity: "top",
         position: "right"
       }).showToast();
+      if (Notification.permission === "granted") {
+        new Notification("Radio Admin", { body: msg, icon: "/favicon.ico" });
+      }
     }
 
-    // Upload with ImgBB
-    document.getElementById('uploadBtn').addEventListener('click', () => {
-      document.getElementById('iconUpload').click();
+    // ✅ Request notification permission
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+
+    // ✅ Upload with ImgBB
+    document.getElementById("uploadBtn").addEventListener("click", () => {
+      document.getElementById("iconUpload").click();
     });
-    document.getElementById('iconUpload').addEventListener('change', async (e) => {
+    document.getElementById("iconUpload").addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) return;
       const formData = new FormData();
@@ -158,53 +165,54 @@
         });
         const data = await res.json();
         if (data.success) {
-          document.getElementById('icon').value = data.data.url;
-          const preview = document.getElementById('iconPreview');
+          document.getElementById("icon").value = data.data.url;
+          const preview = document.getElementById("iconPreview");
           preview.src = data.data.url;
           preview.classList.remove("hidden");
-          toast("✅ Image uploaded!");
+          notify("✅ Image uploaded!");
         } else {
-          toast("❌ Upload failed!", "error");
+          notify("❌ Upload failed!", "error");
         }
       } catch {
-        toast("❌ Upload error!", "error");
+        notify("❌ Upload error!", "error");
       }
     });
 
-    // Add/Update Radio
-    form.addEventListener('submit', async (e) => {
+    // ✅ Add/Update Radio
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const radioData = {
-        name: document.getElementById('name').value.trim(),
-        stream: document.getElementById('stream').value.trim(),
-        icon: document.getElementById('icon').value.trim(),
-        language: document.getElementById('language').value.trim(),
-        location: document.getElementById('location').value.trim(),
-        genre: document.getElementById('genre').value,
+        name: document.getElementById("name").value.trim(),
+        stream: document.getElementById("stream").value.trim(),
+        icon: document.getElementById("icon").value,
+        language: document.getElementById("language").value.trim(),
+        location: document.getElementById("location").value.trim(),
+        genre: document.getElementById("genre").value,
         updatedAt: Date.now()
       };
 
-      const editId = editIdEl.value;
-      try {
-        if (editId) {
-          await update(ref(db, "radios/" + editId), radioData);
-          toast("✅ Radio updated!");
-        } else {
-          radioData.createdAt = Date.now();
-          const newRef = push(ref(db, "radios"));
-          await set(newRef, radioData);
-          toast("✅ Radio added!");
-        }
-        form.reset();
-        document.getElementById('iconPreview').classList.add("hidden");
-        formBtnText.textContent = "Add Radio";
-        editIdEl.value = "";
-      } catch {
-        toast("❌ Failed to save radio!", "error");
+      if (!radioData.name || !radioData.stream || !radioData.icon) {
+        notify("⚠️ Please fill all required fields!", "error");
+        return;
       }
+
+      const editId = editIdEl.value;
+      if (editId) {
+        await update(ref(db, "radios/" + editId), radioData);
+        notify("✅ Radio updated!");
+      } else {
+        radioData.createdAt = Date.now();
+        await set(push(ref(db, "radios")), radioData);
+        notify("✅ New radio added!");
+      }
+
+      form.reset();
+      document.getElementById("iconPreview").classList.add("hidden");
+      formBtnText.textContent = "Add Radio";
+      editIdEl.value = "";
     });
 
-    // Fetch & render radios
+    // ✅ Fetch & render radios
     const radiosRef = ref(db, "radios");
     onValue(radiosRef, (snapshot) => {
       radiosData = [];
@@ -214,12 +222,12 @@
       renderRadios();
     });
 
-    // Render radios with filters
+    // ✅ Render radios
     function renderRadios() {
       let list = [...radiosData];
-      const search = document.getElementById('searchBox').value.toLowerCase();
-      const filterGenre = document.getElementById('filterGenre').value;
-      const sortBy = document.getElementById('sortBy').value;
+      const search = document.getElementById("searchBox").value.toLowerCase();
+      const filterGenre = document.getElementById("filterGenre").value;
+      const sortBy = document.getElementById("sortBy").value;
 
       if (search) list = list.filter(r => r.name.toLowerCase().includes(search));
       if (filterGenre) list = list.filter(r => r.genre === filterGenre);
@@ -244,35 +252,31 @@
       });
     }
 
-    // Search/sort/filter triggers
-    document.getElementById('searchBox').addEventListener('input', renderRadios);
-    document.getElementById('filterGenre').addEventListener('change', renderRadios);
-    document.getElementById('sortBy').addEventListener('change', renderRadios);
+    // ✅ Search/sort/filter triggers
+    document.getElementById("searchBox").addEventListener("input", renderRadios);
+    document.getElementById("filterGenre").addEventListener("change", renderRadios);
+    document.getElementById("sortBy").addEventListener("change", renderRadios);
 
-    // Delete Radio
+    // ✅ Delete Radio
     window.deleteRadio = async (id) => {
       if (confirm("Delete this radio?")) {
-        try {
-          await remove(ref(db, "radios/" + id));
-          toast("🗑️ Radio deleted!", "error");
-        } catch {
-          toast("❌ Delete failed!", "error");
-        }
+        await remove(ref(db, "radios/" + id));
+        notify("🗑️ Radio deleted!", "error");
       }
     };
 
-    // Edit Radio
+    // ✅ Edit Radio
     window.editRadio = (id) => {
       const data = radiosData.find(r => r.id === id);
       if (!data) return;
-      document.getElementById('name').value = data.name;
-      document.getElementById('stream').value = data.stream;
-      document.getElementById('icon').value = data.icon;
-      document.getElementById('language').value = data.language;
-      document.getElementById('location').value = data.location;
-      document.getElementById('genre').value = data.genre;
-      document.getElementById('iconPreview').src = data.icon;
-      document.getElementById('iconPreview').classList.remove("hidden");
+      document.getElementById("name").value = data.name;
+      document.getElementById("stream").value = data.stream;
+      document.getElementById("icon").value = data.icon;
+      document.getElementById("language").value = data.language;
+      document.getElementById("location").value = data.location;
+      document.getElementById("genre").value = data.genre;
+      document.getElementById("iconPreview").src = data.icon;
+      document.getElementById("iconPreview").classList.remove("hidden");
       editIdEl.value = id;
       formBtnText.textContent = "Update Radio";
     };
