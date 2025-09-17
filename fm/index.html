@@ -231,7 +231,7 @@
         radios.push(radio);
         const card = document.createElement("div");
         card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
-        card.innerHTML = `<img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow"><p class="font-bold truncate">${radio.name}</p><p class="text-xs text-gray-300 truncate">${radio.language}</p>`;
+        card.innerHTML = `<img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow"><p class="font-bold truncate">${radio.name}</p><p class="text-xs text-gray-300">${radio.location || ""}</p>`;
         card.onclick = () => playRadio(radios.indexOf(radio));
         radioList.appendChild(card);
       });
@@ -245,7 +245,7 @@
       const radio = radios[index];
       if (!radio) return;
       radioName.textContent = radio.name;
-      radioLocation.textContent = `${radio.location || ""} ${radio.language || ""}`;
+      radioLocation.textContent = radio.location || "";
       radioIcon.src = radio.icon || "https://via.placeholder.com/150";
       audio.src = radio.stream;
 
