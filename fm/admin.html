@@ -15,7 +15,6 @@
   <header class="bg-indigo-600 text-white p-4 text-xl font-bold flex justify-between items-center">
     <span>🎵 Radio Admin Panel</span>
     <div class="flex gap-2">
-      <button onclick="Notification.requestPermission()" class="bg-white text-indigo-600 px-3 py-1 rounded-lg">🔔 Enable Notifications</button>
       <button id="loginBtn" class="bg-white text-indigo-600 px-3 py-1 rounded-lg">Login</button>
       <button id="logoutBtn" class="hidden bg-red-600 text-white px-3 py-1 rounded-lg">Logout</button>
     </div>
@@ -113,16 +112,10 @@
         gravity: "top",
         position: "right"
       }).showToast();
-
-      if (Notification.permission === "granted") {
-        new Notification("Radio Admin", { body: msg, icon: "/favicon.ico" });
-      }
     }
 
     // Auth
-    loginBtn.onclick = () => {
-      signInWithPopup(auth, new GoogleAuthProvider());
-    };
+    loginBtn.onclick = () => signInWithPopup(auth, new GoogleAuthProvider());
     logoutBtn.onclick = () => signOut(auth);
 
     async function checkAdmin(uid) {
@@ -187,12 +180,22 @@
 
         const editId = editIdEl.value;
         if (editId) {
-          await update(ref(db, "radios/" + editId), radioData);
-          notify("✅ Radio updated!");
+          try {
+            await update(ref(db, "radios/" + editId), radioData);
+            notify("✅ Radio updated!");
+          } catch (err) {
+            console.error("Update error:", err);
+            notify("❌ Failed to update radio: " + err.message, "error");
+          }
         } else {
           radioData.createdAt = Date.now();
-          await set(push(ref(db, "radios")), radioData);
-          notify("✅ New radio added!");
+          try {
+            await set(push(ref(db, "radios")), radioData);
+            notify("✅ New radio added!");
+          } catch (err) {
+            console.error("Add error:", err);
+            notify("❌ Failed to add radio: " + err.message, "error");
+          }
         }
 
         form.reset();
@@ -201,7 +204,7 @@
         editIdEl.value = "";
       } catch (err) {
         console.error("Save error:", err);
-        notify("❌ Failed to save radio", "error");
+        notify("❌ Failed to save radio: " + err.message, "error");
       }
     });
 
@@ -238,8 +241,13 @@
           };
           card.querySelector(".delete").onclick = async () => {
             if (confirm("Delete this radio?")) {
-              await remove(ref(db, "radios/" + id));
-              notify("🗑️ Radio deleted!");
+              try {
+                await remove(ref(db, "radios/" + id));
+                notify("🗑️ Radio deleted!");
+              } catch (err) {
+                console.error("Delete error:", err);
+                notify("❌ Failed to delete radio: " + err.message, "error");
+              }
             }
           };
           radioList.appendChild(card);
