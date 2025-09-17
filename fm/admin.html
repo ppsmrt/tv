@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Radio Admin Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome -->
-  <script src="https://kit.fontawesome.com/a2e0e6ad65.js" crossorigin="anonymous"></script>
+  <!-- FontAwesome (CDN fixed) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   <!-- Toastify -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -34,12 +34,12 @@
         </div>
         <div>
           <label class="block font-medium">Icon Upload</label>
-          <div class="flex items-center gap-2">
+          <div class="w-full flex items-center border rounded-lg p-2">
             <input type="file" id="iconUpload" class="hidden" accept="image/*">
             <button type="button" id="uploadBtn" class="bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 flex items-center gap-2">
               <i class="fas fa-upload"></i> Upload
             </button>
-            <img id="iconPreview" src="" class="w-10 h-10 rounded hidden" />
+            <img id="iconPreview" src="" class="w-10 h-10 rounded ml-3 hidden" />
           </div>
           <input type="hidden" id="icon" />
         </div>
@@ -175,29 +175,33 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const radioData = {
-        name: document.getElementById('name').value,
-        stream: document.getElementById('stream').value,
-        icon: document.getElementById('icon').value,
-        language: document.getElementById('language').value,
-        location: document.getElementById('location').value,
+        name: document.getElementById('name').value.trim(),
+        stream: document.getElementById('stream').value.trim(),
+        icon: document.getElementById('icon').value.trim(),
+        language: document.getElementById('language').value.trim(),
+        location: document.getElementById('location').value.trim(),
         genre: document.getElementById('genre').value,
         updatedAt: Date.now()
       };
 
       const editId = editIdEl.value;
-      if (editId) {
-        await update(ref(db, "radios/" + editId), radioData);
-        toast("✅ Radio updated!");
-      } else {
-        radioData.createdAt = Date.now();
-        const newRef = push(ref(db, "radios"));
-        await set(newRef, radioData);
-        toast("✅ Radio added!");
+      try {
+        if (editId) {
+          await update(ref(db, "radios/" + editId), radioData);
+          toast("✅ Radio updated!");
+        } else {
+          radioData.createdAt = Date.now();
+          const newRef = push(ref(db, "radios"));
+          await set(newRef, radioData);
+          toast("✅ Radio added!");
+        }
+        form.reset();
+        document.getElementById('iconPreview').classList.add("hidden");
+        formBtnText.textContent = "Add Radio";
+        editIdEl.value = "";
+      } catch {
+        toast("❌ Failed to save radio!", "error");
       }
-      form.reset();
-      document.getElementById('iconPreview').classList.add("hidden");
-      formBtnText.textContent = "Add Radio";
-      editIdEl.value = "";
     });
 
     // Fetch & render radios
@@ -248,8 +252,12 @@
     // Delete Radio
     window.deleteRadio = async (id) => {
       if (confirm("Delete this radio?")) {
-        await remove(ref(db, "radios/" + id));
-        toast("🗑️ Radio deleted!", "error");
+        try {
+          await remove(ref(db, "radios/" + id));
+          toast("🗑️ Radio deleted!", "error");
+        } catch {
+          toast("❌ Delete failed!", "error");
+        }
       }
     };
 
