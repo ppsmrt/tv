@@ -126,7 +126,7 @@
   <div id="channelOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center opacity-0 pointer-events-none transition-opacity duration-500 z-[9998]">
     <div id="channelSheet" class="bg-gradient-to-b from-purple-900 via-pink-800 to-black rounded-t-3xl shadow-2xl w-full max-h-[75%] overflow-hidden transform translate-y-full transition-transform duration-500">
       <div class="flex justify-between items-center p-4 border-b border-white/10">
-        <h2 class="text-lg font-bold">All FM Channels</h2>
+        <h2 class="text-lg font-bold">All FM Channels <span id="channelCount" class="text-pink-400">0</span></h2>
         <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
       </div>
 
@@ -354,6 +354,24 @@
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
+
+function renderChannelList(list = radios) {
+    const channelList = document.getElementById("channelList");
+    const channelCount = document.getElementById("channelCount"); // NEW
+    channelList.innerHTML = "";
+    const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
+
+    // Update count
+    channelCount.textContent = sorted.length;
+
+    sorted.forEach(radio => {
+      const item = document.createElement("div");
+      item.className = "flex items-center gap-4 bg-gradient-to-r from-pink-700/70 to-purple-900/70 rounded-xl p-3 shadow-md cursor-pointer hover:scale-[1.02] transition-transform";
+      item.innerHTML = `<img src="${radio.icon}" class="w-12 h-12 rounded-lg shadow"><div class="flex-1"><p class="font-bold">${radio.name}</p><p class="text-xs text-gray-300">${radio.language || ""} ${radio.location || ""}</p></div><span class="material-icons text-pink-400">play_circle</span>`;
+      item.onclick = () => { playRadio(radios.findIndex(r => r.id === radio.id)); closeOverlay.click(); };
+      channelList.appendChild(item);
+    });
+}
 </script>
 
 <style>
