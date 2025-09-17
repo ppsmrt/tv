@@ -463,5 +463,11 @@ https://app.vibgyortv.com/live
 https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
 #EXTINF:-1 tvg-name="Vendhar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/TxWnWLgb/1000127602.jpg",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
-#EXTINF:-1 tvg-name="MK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/TxWnWLgb/1000127602.jpg",MK Tv
+#EXTINF:-1 tvg-name="MK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/vxYfsGSs/1000127615.jpg",MK Tv
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
+#EXTINF:-1 tvg-name="Chithiram" group-title="Tamil" tvg-logo="https://i.ibb.co/GfxDw9K4/1000127613.jpg",Chithiram
+https://cdn-6.pishow.tv/live/1243/master.m3u8
+#EXTINF:-1 tvg-name="MK Tunes" group-title="Tamil" tvg-logo="https://i.ibb.co/N2nTm9qt/1000127608.jpg",MK Tunes
+https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-433
+#EXTINF:-1 tvg-name="News J" group-title="Tamil" tvg-logo="https://i.ibb.co/6J4fPC0G/1000127616.jpg",News J
+https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1279
