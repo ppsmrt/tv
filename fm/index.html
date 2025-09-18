@@ -130,16 +130,34 @@
         <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
       </div>
 
-      <!-- 🔍 Search Box -->
-      <div class="p-3">
-        <input 
-          type="text" 
-          id="channelSearch" 
-          placeholder="Search channels..." 
-          class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
-        />
-      </div>
+      <!-- 🔍 Search + Location + Type Filters -->
+<div class="p-3 grid grid-cols-3 gap-2">
+  <!-- Search -->
+  <input 
+    type="text" 
+    id="channelSearch" 
+    placeholder="Search..." 
+    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
+  />
 
+  <!-- Location -->
+  <select 
+    id="channelLocation" 
+    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
+  >
+    <option value="">All Locations</option>
+    <!-- Options will be dynamically added via JS -->
+  </select>
+
+  <!-- Type -->
+  <select 
+    id="channelType" 
+    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
+  >
+    <option value="">All Types</option>
+    <!-- Options will be dynamically added via JS -->
+  </select>
+</div>
       <div id="channelList" class="overflow-y-auto max-h-[calc(75vh-120px)] p-4 space-y-3 scrollbar-hide"></div>
     </div>
   </div>
@@ -196,6 +214,10 @@ const recentList = document.getElementById("recentList");
 const channelList = document.getElementById("channelList");
 const channelCount = document.getElementById("channelCount");
 
+const channelSearch = document.getElementById("channelSearch");
+const channelLocation = document.getElementById("channelLocation");
+const channelType = document.getElementById("channelType");
+
 const screensaver = document.getElementById("screensaver");
 const ssName = document.getElementById("ssName");
 const ssLocation = document.getElementById("ssLocation");
@@ -233,12 +255,23 @@ function renderRecent() {
   });
 }
 
-// Render channel list (all or filtered)
-function renderChannelList(list = radios) {
+// Render channel list with filters
+function renderChannelList() {
+  const searchTerm = channelSearch.value.toLowerCase();
+  const locFilter = channelLocation.value;
+  const typeFilter = channelType.value;
+
+  const filtered = radios.filter(radio => {
+    const matchSearch = radio.name.toLowerCase().includes(searchTerm) ||
+                        (radio.location || "").toLowerCase().includes(searchTerm) ||
+                        (radio.language || "").toLowerCase().includes(searchTerm);
+    const matchLoc = locFilter === "" || radio.location === locFilter;
+    const matchType = typeFilter === "" || radio.type === typeFilter;
+    return matchSearch && matchLoc && matchType;
+  });
+
   channelList.innerHTML = "";
-  const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
-  
-  // Update channel count
+  const sorted = filtered.sort((a, b) => a.name.localeCompare(b.name));
   if (channelCount) channelCount.textContent = sorted.length;
 
   sorted.forEach(radio => {
@@ -248,7 +281,7 @@ function renderChannelList(list = radios) {
       <img src="${radio.icon}" class="w-12 h-12 rounded-lg shadow">
       <div class="flex-1">
         <p class="font-bold">${radio.name}</p>
-        <p class="text-xs text-gray-300">${radio.language || ""} ${radio.location || ""}</p>
+        <p class="text-xs text-gray-300">${radio.language || ""}</p>
       </div>
       <span class="material-icons text-pink-400">play_circle</span>`;
     item.onclick = () => {
@@ -256,6 +289,31 @@ function renderChannelList(list = radios) {
       closeOverlay.click();
     };
     channelList.appendChild(item);
+  });
+}
+
+// Populate location & type filters
+function populateFilters() {
+  const locations = [...new Set(radios.map(r => r.location).filter(Boolean))];
+  const types = [...new Set(radios.map(r => r.type).filter(Boolean))];
+
+  channelLocation.innerHTML = `<option value="">All Locations</option>`;
+  locations.forEach(loc => {
+    const opt = document.createElement("option");
+    opt.value = loc;
+    opt.textContent = loc;
+    channelLocation.appendChild(opt);
+  });
+
+  channelType.innerHTML = `<option value="">All Types</option>`;
+  types.forEach(type => {
+    const opt = document.createElement("option");
+    opt.value = type;
+    // Friendly names only
+    if(type === "live") opt.textContent = "24x7 Radios";
+    else if(type === "fm") opt.textContent = "Radios";
+    else opt.textContent = type; // fallback
+    channelType.appendChild(opt);
   });
 }
 
@@ -270,7 +328,6 @@ function playRadio(index, autoplay = true) {
   radioIcon.src = radio.icon || "https://via.placeholder.com/150";
   audio.src = radio.stream;
 
-  // Update recent radios
   recentRadios = recentRadios.filter(r => r.id !== radio.id);
   recentRadios.unshift(radio);
   if (recentRadios.length > 10) recentRadios.pop();
@@ -288,10 +345,8 @@ function playRadio(index, autoplay = true) {
 }
 
 // ---------------------- Event Listeners ----------------------
-
-// Play/Pause
 playPauseBtn.addEventListener("click", () => {
-  if (audio.paused) { 
+  if (audio.paused) {
     audio.play(); 
     playPauseIcon.textContent = "pause"; 
     ssPlayPauseIcon.textContent = "pause"; 
@@ -302,14 +357,11 @@ playPauseBtn.addEventListener("click", () => {
   }
 });
 
-// Next / Previous
 document.getElementById("nextBtn").addEventListener("click", () => playRadio((currentIndex + 1) % radios.length));
 document.getElementById("prevBtn").addEventListener("click", () => playRadio((currentIndex - 1 + radios.length) % radios.length));
 
-// Volume
 volumeControl.addEventListener("input", e => audio.volume = e.target.value);
 
-// Overlay
 listBtn.addEventListener("click", () => {
   channelOverlay.classList.remove("pointer-events-none", "opacity-0");
   setTimeout(() => channelSheet.classList.remove("translate-y-full"), 50);
@@ -342,23 +394,23 @@ function resetIdleTimer() {
 ["mousemove","keydown","click","touchstart"].forEach(evt => document.addEventListener(evt, hideScreensaver));
 
 ssPlayPause.addEventListener("click", () => {
-  if (audio.paused) { audio.play(); ssPlayPauseIcon.textContent = "pause"; playPauseIcon.textContent = "pause"; }
-  else { audio.pause(); ssPlayPauseIcon.textContent = "play_arrow"; playPauseIcon.textContent = "play_arrow"; }
+  if (audio.paused) { 
+    audio.play(); 
+    ssPlayPauseIcon.textContent = "pause"; 
+    playPauseIcon.textContent = "pause"; 
+  } else { 
+    audio.pause(); 
+    ssPlayPauseIcon.textContent = "play_arrow"; 
+    playPauseIcon.textContent = "play_arrow"; 
+  }
   resetIdleTimer();
 });
 document.getElementById("ssNext").addEventListener("click", () => { document.getElementById("nextBtn").click(); resetIdleTimer(); });
 document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
 
-// Channel Search
-const channelSearch = document.getElementById("channelSearch");
-channelSearch.addEventListener("input", () => {
-  const term = channelSearch.value.toLowerCase();
-  const filtered = radios.filter(radio =>
-    radio.name.toLowerCase().includes(term) ||
-    (radio.location || "").toLowerCase().includes(term) ||
-    (radio.language || "").toLowerCase().includes(term)
-  );
-  renderChannelList(filtered);
+// Filter Inputs
+[channelSearch, channelLocation, channelType].forEach(input => {
+  input.addEventListener("input", renderChannelList);
 });
 
 // ---------------------- Firebase Data ----------------------
@@ -374,8 +426,10 @@ onValue(ref(db, "radios"), snapshot => {
     card.onclick = () => playRadio(radios.indexOf(radio));
     radioList.appendChild(card);
   });
+
   if (radios.length > 0) playRadio(0, false);
   renderRecent();
+  populateFilters();
   renderChannelList();
 });
 
