@@ -118,49 +118,31 @@
   </footer>  
 
 <!-- Floating List Button -->
-  <button id="listBtn" class="fixed bottom-20 right-5 z-50 bg-white text-purple-900 rounded-full p-4 shadow-xl hover:scale-105 transition-transform">
-    <span class="material-icons text-3xl">list</span>
-  </button>
+<button id="listBtn" class="fixed bottom-20 right-5 z-50 bg-white text-purple-900 rounded-full p-4 shadow-xl hover:scale-105 transition-transform">
+  <span class="material-icons text-3xl">list</span>
+</button>
 
-  <!-- Channel Overlay -->
-  <div id="channelOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center opacity-0 pointer-events-none transition-opacity duration-500 z-[9998]">
-    <div id="channelSheet" class="bg-gradient-to-b from-purple-900 via-pink-800 to-black rounded-t-3xl shadow-2xl w-full max-h-[75%] overflow-hidden transform translate-y-full transition-transform duration-500">
-      <div class="flex justify-between items-center p-4 border-b border-white/10">
-        <h2 class="text-lg font-bold">All FM Channels <span id="channelCount" class="text-pink-400">0</span></h2>
-        <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
-      </div>
-
-      <!-- 🔍 Search + Location + Type Filters -->
-<div class="p-3 grid grid-cols-3 gap-2">
-  <!-- Search -->
-  <input 
-    type="text" 
-    id="channelSearch" 
-    placeholder="Search..." 
-    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
-  />
-
-  <!-- Location -->
-  <select 
-    id="channelLocation" 
-    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
-  >
-    <option value="">All Locations</option>
-    <!-- Options will be dynamically added via JS -->
-  </select>
-
-  <!-- Type -->
-  <select 
-    id="channelType" 
-    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
-  >
-    <option value="">All Types</option>
-    <!-- Options will be dynamically added via JS -->
-  </select>
-</div>
-      <div id="channelList" class="overflow-y-auto max-h-[calc(75vh-120px)] p-4 space-y-3 scrollbar-hide"></div>
-    </div>
+<!-- Channel Overlay (Full Screen) -->
+<div id="channelOverlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm flex flex-col opacity-0 pointer-events-none transition-opacity duration-500 z-[9998]">
+  <div class="flex justify-between items-center p-4 border-b border-white/10">
+    <h2 class="text-lg font-bold text-white">All FM Channels <span id="channelCount" class="text-pink-400">0</span></h2>
+    <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
   </div>
+
+  <!-- 🔍 Search + Location + Type Filters -->
+  <div class="p-3 grid grid-cols-3 gap-2">
+    <input type="text" id="channelSearch" placeholder="Search..." class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+    <select id="channelLocation" class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <option value="">All Locations</option>
+    </select>
+    <select id="channelType" class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <option value="">All Types</option>
+    </select>
+  </div>
+
+  <!-- Full-height channel list -->
+  <div id="channelList" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide"></div>
+</div>
 
   <!-- Screensaver -->
   <div id="screensaver" class="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-black flex flex-col items-center justify-center text-white opacity-0 pointer-events-none transition-opacity duration-700 z-[9999]">
@@ -226,7 +208,6 @@ const ssPlayPauseIcon = document.getElementById("ssPlayPauseIcon");
 
 const listBtn = document.getElementById("listBtn");
 const channelOverlay = document.getElementById("channelOverlay");
-const channelSheet = document.getElementById("channelSheet");
 const closeOverlay = document.getElementById("closeOverlay");
 
 let radios = [];
@@ -309,10 +290,9 @@ function populateFilters() {
   types.forEach(type => {
     const opt = document.createElement("option");
     opt.value = type;
-    // Friendly names only
     if(type === "live") opt.textContent = "24x7 Radios";
     else if(type === "fm") opt.textContent = "Radios";
-    else opt.textContent = type; // fallback
+    else opt.textContent = type;
     channelType.appendChild(opt);
   });
 }
@@ -362,13 +342,14 @@ document.getElementById("prevBtn").addEventListener("click", () => playRadio((cu
 
 volumeControl.addEventListener("input", e => audio.volume = e.target.value);
 
+// Open full-screen overlay
 listBtn.addEventListener("click", () => {
   channelOverlay.classList.remove("pointer-events-none", "opacity-0");
-  setTimeout(() => channelSheet.classList.remove("translate-y-full"), 50);
 });
+
+// Close full-screen overlay
 closeOverlay.addEventListener("click", () => {
-  channelSheet.classList.add("translate-y-full");
-  setTimeout(() => channelOverlay.classList.add("opacity-0", "pointer-events-none"), 500);
+  channelOverlay.classList.add("opacity-0", "pointer-events-none");
 });
 
 // Screensaver
