@@ -201,3 +201,5 @@ http://ttv.7starcloud.com:1935/thirumagal/tv/playlist.m3u8
 http://ttv.7starcloud.com:1935/kctn/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="VCTN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/C3TN9Yv3/1000128228.jpg",VCTN Tv
 http://ttv.7starcloud.com:1935/vctn/tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Chennaii Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fzhxbNkb/1000128230.webp",Chennaii Tv
+http://notvstream.in/chennaiitv/chennaiitv.m3u8
