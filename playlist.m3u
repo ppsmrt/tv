@@ -483,3 +483,5 @@ https://d2lk5u59tns74c.cloudfront.net/out/v1/abf46b14847e45499f4a47f3a9afe93d/in
 http://ptu.ridsys.in/riptv/live/stream20/index.m3u8
 #EXTINF:-1 tvg-name="Akam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/xtCs5Yfg/1000127625.jpg",Akam Tv
 http://stream.vstartv.org/p/3674/hybrid/play.m3u8
+#EXTINF:-1 tvg-name="Sony Liv" group-title="Sports" tvg-logo="https://i.ibb.co/Tx9Y64ts/1000127990.jpg",Sony Liv
+https://dai.google.com/ssai/event/RP1mckhwQQChze2hZfnZlA/master.m3u8
