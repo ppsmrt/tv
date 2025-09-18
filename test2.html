@@ -55,16 +55,29 @@
     <div class="wave-shape"></div>
   </div>  
 
-<!-- Header (fixed) -->
-
-<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center 
+<!-- Header with Premium List Button -->
+<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
                  bg-purple-950/70 backdrop-blur-md shadow-md">
-    <div class="flex items-center gap-2">
-      <span class="material-icons text-pink-400 text-2xl">radio</span>
-      <h1 class="text-xl font-bold">FM Radio</h1>
-    </div>
-  </header>  
+  <div class="flex items-center gap-2">
+    <span class="material-icons text-pink-400 text-2xl">radio</span>
+    <h1 class="text-xl font-bold">FM Radio</h1>
+  </div>
 
+  <!-- Header List Button -->
+  <button id="headerListBtn" class="w-12 h-12 bg-gradient-to-tr from-pink-600 via-purple-800 to-pink-500 text-white rounded-full shadow-2xl shadow-pink-600/70 flex items-center justify-center hover:scale-110 hover:shadow-2xl hover:shadow-pink-500/90 transition-all duration-300">
+    <span class="material-icons text-2xl">list</span>
+  </button>
+</header>
+
+<!-- Wave Overlay -->
+<div id="waveOverlay" class="fixed inset-0 bg-gradient-to-br from-pink-500 via-purple-900 to-pink-700 opacity-0 pointer-events-none flex items-center justify-center z-[9999] transition-all duration-700">
+  <div class="w-0 h-0 rounded-full bg-white/20 animate-[waveExpand_0.7s_ease-out_forwards]"></div>
+</div>
+
+<!-- Wave Overlay -->
+<div id="waveOverlay" class="fixed inset-0 bg-gradient-to-br from-pink-500 via-purple-900 to-pink-700 opacity-0 pointer-events-none flex items-center justify-center z-[9999] transition-all duration-700">
+  <div class="w-40 h-40 bg-white/20 rounded-full animate-ping"></div>
+</div>
 <!-- Main -->
   <main class="flex-1 overflow-y-auto pt-20 pb-14 px-4">
     <!-- Player -->
@@ -117,57 +130,32 @@
     Proudly Maintained by Tnm3u © <span id="year"></span> 
   </footer>  
 
-<!-- Floating List Button -->
-<button id="listBtn" 
-  class="fixed bottom-24 left-6 z-50 
-         w-14 h-14 flex items-center justify-center
-         bg-gradient-to-br from-pink-500 via-purple-600 to-pink-700
-         text-white rounded-full
-         hover:translate-y-[-6px] hover:scale-110 active:scale-95
-         transition-all duration-300 ease-out
-         relative overflow-hidden group shadow-2xl">
-  
-  <!-- Glow Ring -->
-  <span class="absolute inset-0 rounded-full bg-pink-500/40 blur-lg opacity-70 group-hover:opacity-100 transition"></span>
-  
-  <!-- Icon -->
-  <span class="material-icons text-2xl relative z-10">list</span>
+<!-- Floating List Button - Premium Circle Enhanced -->
+<button id="listBtn" class="fixed bottom-20 right-5 z-50 w-14 h-14 bg-gradient-to-br from-pink-600 via-purple-800 to-pink-500 text-white rounded-full shadow-2xl shadow-pink-600/70 flex items-center justify-center hover:scale-110 hover:shadow-2xl hover:shadow-pink-500/90 transition-all duration-300">
+  <span class="material-icons text-3xl">list</span>
 </button>
 
-<style>
-  /* Floating Glow Animation */
-  #listBtn {
-    animation: pulseGlow 3s infinite ease-in-out;
-    box-shadow: 0 12px 25px rgba(236,72,153,0.45), 
-                0 8px 18px rgba(147,51,234,0.35);
-  }
-  @keyframes pulseGlow {
-    0%   { box-shadow: 0 12px 25px rgba(236,72,153,0.45), 0 8px 18px rgba(147,51,234,0.35); }
-    50%  { box-shadow: 0 18px 35px rgba(236,72,153,0.65), 0 12px 28px rgba(147,51,234,0.45); }
-    100% { box-shadow: 0 12px 25px rgba(236,72,153,0.45), 0 8px 18px rgba(147,51,234,0.35); }
-  }
-</style>
-  <!-- Channel Overlay -->
-  <div id="channelOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center opacity-0 pointer-events-none transition-opacity duration-500 z-[9998]">
-    <div id="channelSheet" class="bg-gradient-to-b from-purple-900 via-pink-800 to-black rounded-t-3xl shadow-2xl w-full max-h-[75%] overflow-hidden transform translate-y-full transition-transform duration-500">
-      <div class="flex justify-between items-center p-4 border-b border-white/10">
-        <h2 class="text-lg font-bold">All FM Channels <span id="channelCount" class="text-pink-400">0</span></h2>
-        <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
-      </div>
-
-      <!-- 🔍 Search Box -->
-      <div class="p-3">
-        <input 
-          type="text" 
-          id="channelSearch" 
-          placeholder="Search channels..." 
-          class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"
-        />
-      </div>
-
-      <div id="channelList" class="overflow-y-auto max-h-[calc(75vh-120px)] p-4 space-y-3 scrollbar-hide"></div>
-    </div>
+<!-- Channel Overlay (Full Screen) -->
+<div id="channelOverlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm flex flex-col opacity-0 pointer-events-none transition-opacity duration-500 z-[9998]">
+  <div class="flex justify-between items-center p-4 border-b border-white/10">
+    <h2 class="text-lg font-bold text-white">All FM Channels <span id="channelCount" class="text-pink-400">0</span></h2>
+    <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
   </div>
+
+  <!-- 🔍 Search + Location + Type Filters -->
+  <div class="p-3 grid grid-cols-3 gap-2">
+    <input type="text" id="channelSearch" placeholder="Search..." class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+    <select id="channelLocation" class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <option value="">All Locations</option>
+    </select>
+    <select id="channelType" class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <option value="">All Types</option>
+    </select>
+  </div>
+
+  <!-- Full-height channel list -->
+  <div id="channelList" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide"></div>
+</div>
 
   <!-- Screensaver -->
   <div id="screensaver" class="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-black flex flex-col items-center justify-center text-white opacity-0 pointer-events-none transition-opacity duration-700 z-[9999]">
@@ -221,6 +209,10 @@ const recentList = document.getElementById("recentList");
 const channelList = document.getElementById("channelList");
 const channelCount = document.getElementById("channelCount");
 
+const channelSearch = document.getElementById("channelSearch");
+const channelLocation = document.getElementById("channelLocation");
+const channelType = document.getElementById("channelType");
+
 const screensaver = document.getElementById("screensaver");
 const ssName = document.getElementById("ssName");
 const ssLocation = document.getElementById("ssLocation");
@@ -229,8 +221,10 @@ const ssPlayPauseIcon = document.getElementById("ssPlayPauseIcon");
 
 const listBtn = document.getElementById("listBtn");
 const channelOverlay = document.getElementById("channelOverlay");
-const channelSheet = document.getElementById("channelSheet");
 const closeOverlay = document.getElementById("closeOverlay");
+
+const headerListBtn = document.getElementById("headerListBtn");
+const waveOverlay = document.getElementById("waveOverlay");
 
 let radios = [];
 let currentIndex = 0;
@@ -258,12 +252,23 @@ function renderRecent() {
   });
 }
 
-// Render channel list (all or filtered)
-function renderChannelList(list = radios) {
+// Render channel list with filters
+function renderChannelList() {
+  const searchTerm = channelSearch.value.toLowerCase();
+  const locFilter = channelLocation.value;
+  const typeFilter = channelType.value;
+
+  const filtered = radios.filter(radio => {
+    const matchSearch = radio.name.toLowerCase().includes(searchTerm) ||
+                        (radio.location || "").toLowerCase().includes(searchTerm) ||
+                        (radio.language || "").toLowerCase().includes(searchTerm);
+    const matchLoc = locFilter === "" || radio.location === locFilter;
+    const matchType = typeFilter === "" || radio.type === typeFilter;
+    return matchSearch && matchLoc && matchType;
+  });
+
   channelList.innerHTML = "";
-  const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
-  
-  // Update channel count
+  const sorted = filtered.sort((a, b) => a.name.localeCompare(b.name));
   if (channelCount) channelCount.textContent = sorted.length;
 
   sorted.forEach(radio => {
@@ -273,7 +278,7 @@ function renderChannelList(list = radios) {
       <img src="${radio.icon}" class="w-12 h-12 rounded-lg shadow">
       <div class="flex-1">
         <p class="font-bold">${radio.name}</p>
-        <p class="text-xs text-gray-300">${radio.language || ""} ${radio.location || ""}</p>
+        <p class="text-xs text-gray-300">${radio.language || ""}</p>
       </div>
       <span class="material-icons text-pink-400">play_circle</span>`;
     item.onclick = () => {
@@ -281,6 +286,30 @@ function renderChannelList(list = radios) {
       closeOverlay.click();
     };
     channelList.appendChild(item);
+  });
+}
+
+// Populate location & type filters
+function populateFilters() {
+  const locations = [...new Set(radios.map(r => r.location).filter(Boolean))];
+  const types = [...new Set(radios.map(r => r.type).filter(Boolean))];
+
+  channelLocation.innerHTML = `<option value="">All Locations</option>`;
+  locations.forEach(loc => {
+    const opt = document.createElement("option");
+    opt.value = loc;
+    opt.textContent = loc;
+    channelLocation.appendChild(opt);
+  });
+
+  channelType.innerHTML = `<option value="">All Types</option>`;
+  types.forEach(type => {
+    const opt = document.createElement("option");
+    opt.value = type;
+    if(type === "live") opt.textContent = "24x7 Radios";
+    else if(type === "fm") opt.textContent = "Radios";
+    else opt.textContent = type;
+    channelType.appendChild(opt);
   });
 }
 
@@ -295,7 +324,6 @@ function playRadio(index, autoplay = true) {
   radioIcon.src = radio.icon || "https://via.placeholder.com/150";
   audio.src = radio.stream;
 
-  // Update recent radios
   recentRadios = recentRadios.filter(r => r.id !== radio.id);
   recentRadios.unshift(radio);
   if (recentRadios.length > 10) recentRadios.pop();
@@ -313,10 +341,8 @@ function playRadio(index, autoplay = true) {
 }
 
 // ---------------------- Event Listeners ----------------------
-
-// Play/Pause
 playPauseBtn.addEventListener("click", () => {
-  if (audio.paused) { 
+  if (audio.paused) {
     audio.play(); 
     playPauseIcon.textContent = "pause"; 
     ssPlayPauseIcon.textContent = "pause"; 
@@ -327,21 +353,44 @@ playPauseBtn.addEventListener("click", () => {
   }
 });
 
-// Next / Previous
 document.getElementById("nextBtn").addEventListener("click", () => playRadio((currentIndex + 1) % radios.length));
 document.getElementById("prevBtn").addEventListener("click", () => playRadio((currentIndex - 1 + radios.length) % radios.length));
 
-// Volume
 volumeControl.addEventListener("input", e => audio.volume = e.target.value);
 
-// Overlay
+// Open full-screen overlay
 listBtn.addEventListener("click", () => {
   channelOverlay.classList.remove("pointer-events-none", "opacity-0");
-  setTimeout(() => channelSheet.classList.remove("translate-y-full"), 50);
 });
+
+// Close full-screen overlay
 closeOverlay.addEventListener("click", () => {
-  channelSheet.classList.add("translate-y-full");
-  setTimeout(() => channelOverlay.classList.add("opacity-0", "pointer-events-none"), 500);
+  channelOverlay.classList.add("opacity-0", "pointer-events-none");
+});
+
+// ---------------------- Premium Header Wave Button ----------------------
+headerListBtn.addEventListener("click", (e) => {
+  const rect = headerListBtn.getBoundingClientRect();
+  const wave = waveOverlay.querySelector("div");
+
+  wave.style.left = `${rect.left + rect.width/2}px`;
+  wave.style.top = `${rect.top + rect.height/2}px`;
+  wave.style.width = "0px";
+  wave.style.height = "0px";
+
+  waveOverlay.classList.remove("opacity-0", "pointer-events-none");
+
+  // Animate wave
+  wave.animate([
+    { width: "0px", height: "0px", opacity: 1 },
+    { width: "2000px", height: "2000px", opacity: 0 }
+  ], { duration: 700, easing: "ease-out", fill: "forwards" });
+
+  // Redirect after animation
+  setTimeout(() => {
+    waveOverlay.classList.add("opacity-0", "pointer-events-none");
+    window.location.href = "fm/channel";
+  }, 700);
 });
 
 // Screensaver
@@ -367,23 +416,23 @@ function resetIdleTimer() {
 ["mousemove","keydown","click","touchstart"].forEach(evt => document.addEventListener(evt, hideScreensaver));
 
 ssPlayPause.addEventListener("click", () => {
-  if (audio.paused) { audio.play(); ssPlayPauseIcon.textContent = "pause"; playPauseIcon.textContent = "pause"; }
-  else { audio.pause(); ssPlayPauseIcon.textContent = "play_arrow"; playPauseIcon.textContent = "play_arrow"; }
+  if (audio.paused) { 
+    audio.play(); 
+    ssPlayPauseIcon.textContent = "pause"; 
+    playPauseIcon.textContent = "pause"; 
+  } else { 
+    audio.pause(); 
+    ssPlayPauseIcon.textContent = "play_arrow"; 
+    playPauseIcon.textContent = "play_arrow"; 
+  }
   resetIdleTimer();
 });
 document.getElementById("ssNext").addEventListener("click", () => { document.getElementById("nextBtn").click(); resetIdleTimer(); });
 document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
 
-// Channel Search
-const channelSearch = document.getElementById("channelSearch");
-channelSearch.addEventListener("input", () => {
-  const term = channelSearch.value.toLowerCase();
-  const filtered = radios.filter(radio =>
-    radio.name.toLowerCase().includes(term) ||
-    (radio.location || "").toLowerCase().includes(term) ||
-    (radio.language || "").toLowerCase().includes(term)
-  );
-  renderChannelList(filtered);
+// Filter Inputs
+[channelSearch, channelLocation, channelType].forEach(input => {
+  input.addEventListener("input", renderChannelList);
 });
 
 // ---------------------- Firebase Data ----------------------
@@ -399,8 +448,10 @@ onValue(ref(db, "radios"), snapshot => {
     card.onclick = () => playRadio(radios.indexOf(radio));
     radioList.appendChild(card);
   });
+
   if (radios.length > 0) playRadio(0, false);
   renderRecent();
+  populateFilters();
   renderChannelList();
 });
 
