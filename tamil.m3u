@@ -193,3 +193,5 @@ http://5k8q87azdy4v-hls-live.wmncdn.net/MAKKAL/271ddf829afeece44d8732757fba1a66.
 https://d2lk5u59tns74c.cloudfront.net/out/v1/abf46b14847e45499f4a47f3a9afe93d/index.m3u8
 #EXTINF:-1 tvg-name="Akam Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/xtCs5Yfg/1000127625.jpg",Akam Tv
 http://stream.vstartv.org/p/3674/hybrid/play.m3u8
+#EXTINF:-1 tvg-name="Vanavil HD" group-title="Regional" tvg-logo="https://i.ibb.co/SDWZTrnD/1000128151.webp",Vanavil HD
+http://ttv.7starcloud.com:1935/vaanavil/tv/playlist.m3u8
