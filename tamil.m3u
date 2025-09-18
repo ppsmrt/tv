@@ -195,3 +195,9 @@ https://d2lk5u59tns74c.cloudfront.net/out/v1/abf46b14847e45499f4a47f3a9afe93d/in
 http://stream.vstartv.org/p/3674/hybrid/play.m3u8
 #EXTINF:-1 tvg-name="Vanavil HD" group-title="Regional" tvg-logo="https://i.ibb.co/SDWZTrnD/1000128151.webp",Vanavil HD
 http://ttv.7starcloud.com:1935/vaanavil/tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Thirumagal Tv" group-title="Regional" tvg-logo="https://i.ibb.co/0VQn2qNR/1000128223.jpg",Thirumagal Tv
+http://ttv.7starcloud.com:1935/thirumagal/tv/playlist.m3u8
+#EXTINF:-1 tvg-name="KCTN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/Y4vzBKkf/1000128226.jpg",KCTN Tv
+http://ttv.7starcloud.com:1935/kctn/tv/playlist.m3u8
+#EXTINF:-1 tvg-name="VCTN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/C3TN9Yv3/1000128228.jpg",VCTN Tv
+http://ttv.7starcloud.com:1935/vctn/tv/playlist.m3u8
