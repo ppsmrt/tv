@@ -23,7 +23,7 @@
       position: fixed;
       bottom: 80px;
       right: 20px;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.9); /* glassy white */
       color: #4b0082;
       border-radius: 50%;
       width: 55px;
@@ -38,14 +38,16 @@
       font-size: 22px;
       transition: transform 0.2s ease;
     }
-    #translateBtn:hover { transform: scale(1.1); }
+    #translateBtn:hover {
+      transform: scale(1.1);
+    }
 
     /* Notification Popup */
     #translateNotify {
       position: fixed;
       bottom: 150px;
       right: 20px;
-      background: rgba(91,33,182,0.9);
+      background: rgba(91,33,182,0.8); /* purple glass */
       color: white;
       padding: 10px 15px;
       border-radius: 12px;
@@ -67,36 +69,8 @@
     .goog-te-gadget-icon {
       display: none !important;
     }
-    body { top: 0px !important; }
-
-    /* Custom Dropdown Style */
-    .goog-te-combo {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background: rgba(255,255,255,0.95);
-      color: #2c1b47;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-family: 'Baloo 2', sans-serif;
-      border: 2px solid rgba(147,51,234,0.4);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      outline: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      width: 220px;
-      margin: 10px auto;
-      display: block;
-      text-align: center;
-    }
-    .goog-te-combo:hover {
-      border-color: #ec4899; /* pink */
-      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-    }
-    .goog-te-combo:focus {
-      border-color: #ec4899;
-      outline: none;
+    body {
+      top: 0px !important;
     }
   </style>
 </head>
@@ -119,6 +93,7 @@
 
   <!-- Feature Cards -->
   <section class="grid gap-4">
+    <!-- Play Controls -->
     <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
       <span class="material-icons text-pink-400 text-3xl">play_circle</span>
       <div>
@@ -126,6 +101,8 @@
         <p class="text-sm text-gray-300">Use <b>Play / Pause</b>, <b>Next</b>, and <b>Previous</b> buttons to control your music. Volume slider adjusts sound smoothly.</p>
       </div>
     </div>
+
+    <!-- Recently Played -->
     <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
       <span class="material-icons text-pink-400 text-3xl">history</span>
       <div>
@@ -133,6 +110,8 @@
         <p class="text-sm text-gray-300">Your last 10 radios are saved automatically for quick access anytime.</p>
       </div>
     </div>
+
+    <!-- Full Channel List -->
     <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
       <span class="material-icons text-pink-400 text-3xl">list</span>
       <div>
@@ -140,6 +119,8 @@
         <p class="text-sm text-gray-300">Tap the <b>List Button</b> at the bottom right to view all FM channels in a full-screen list.</p>
       </div>
     </div>
+
+    <!-- Search + Filters -->
     <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
       <span class="material-icons text-pink-400 text-3xl">filter_alt</span>
       <div>
@@ -147,6 +128,8 @@
         <p class="text-sm text-gray-300">Quickly find stations by <b>searching</b> or filtering by <b>Language</b> and <b>Type</b> (FM or 24/7 Live).</p>
       </div>
     </div>
+
+    <!-- Screensaver -->
     <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
       <span class="material-icons text-pink-400 text-3xl">tv</span>
       <div>
@@ -154,6 +137,8 @@
         <p class="text-sm text-gray-300">If you’re idle for 15 seconds while music is playing, a <b>beautiful screensaver</b> shows Now Playing info with big controls.</p>
       </div>
     </div>
+
+    <!-- Updates -->
     <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
       <span class="material-icons text-pink-400 text-3xl">update</span>
       <div>
@@ -187,6 +172,7 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  // Google Translate Init
   function googleTranslateElementInit() {
     new google.translate.TranslateElement(
       {pageLanguage: 'en'},
@@ -194,7 +180,7 @@
     );
   }
 
-  // Show notification on load
+  // Notification show on page load
   window.addEventListener("load", () => {
     const notify = document.getElementById("translateNotify");
     notify.classList.add("show");
@@ -203,16 +189,13 @@
     }, 4000);
   });
 
-  // Button click → show styled dropdown
+  // Button click → open language menu
   document.getElementById("translateBtn").addEventListener("click", () => {
     const select = document.querySelector(".goog-te-combo");
     if (select) {
-      if (select.style.display === "block") {
-        select.style.display = "none"; // toggle off
-      } else {
-        select.style.display = "block"; // show styled dropdown
-        select.focus();
-      }
+      select.style.display = "block";
+      select.size = 10; // show multiple languages
+      select.focus();
     }
   });
 </script>
