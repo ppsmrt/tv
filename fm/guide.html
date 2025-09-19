@@ -17,7 +17,6 @@
 <body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
 
 <!-- Header -->
-<!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 bg-purple-950/70 backdrop-blur-md shadow-md">
   <!-- Left: Icon + Title -->
   <div class="flex items-center gap-2">
@@ -25,15 +24,19 @@
     <h1 class="text-xl font-bold">App Guide</h1>
   </div>
 
-  <!-- Right: Premium button -->
-  <button class="bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl shadow-lg transition flex items-center gap-1">
+  <!-- Right: Go to Player Button -->
+  <button id="goPlayerBtn" 
+          class="bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl shadow-lg transition flex items-center gap-1">
     <span class="material-icons text-base">play_circle_filled</span>
     <span>Go to Player</span>
   </button>
 </header>
 
+<!-- Spacer to prevent header overlap -->
+<div class="h-20"></div>
+
 <!-- Main Content -->
-<main class="flex-1 overflow-y-auto pt-20 pb-14 px-4 space-y-6">
+<main class="flex-1 overflow-y-auto pb-14 px-4 space-y-6">
 
   <!-- Intro -->
   <section class="bg-gradient-to-b from-pink-700/70 to-purple-900/70 rounded-2xl p-5 shadow-lg">
@@ -111,7 +114,19 @@
 </footer>
 
 <script>
+  // Update year
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Go to Player button (Option 2: history.back with fallback)
+  const goPlayerBtn = document.getElementById('goPlayerBtn');
+  goPlayerBtn.addEventListener('click', () => {
+    if(history.length > 1){
+      history.back();
+    } else {
+      window.location.href = "https://tnm3u.live/fm"; // fallback if no history
+    }
+  });
 </script>
+
 </body>
 </html>
