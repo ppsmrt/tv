@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Contact FM Radio</title>
+  <title>Contact FM Radio Admin</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,7 +16,6 @@
 
   <style>
     body { font-family: 'Baloo 2', cursive; }
-    input, textarea { background-color: rgba(55,0,100,0.5); }
   </style>
 </head>
 <body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white min-h-screen flex flex-col">
@@ -41,165 +40,53 @@
   <section class="bg-purple-950/50 rounded-2xl p-5 shadow-lg text-center">
     <h2 class="text-2xl font-bold mb-2">Get in Touch</h2>
     <p class="text-gray-300">
-      Have a question, suggestion, or want your radio station featured on FM Radio? Fill out the form below and we will get back to you as soon as possible.
+      Have a question, suggestion, or want your radio station featured on FM Radio? Reach out to us using the contact info below.
     </p>
   </section>
 
-  <!-- Contact Form -->
-  <section class="bg-purple-950/50 rounded-2xl p-5 shadow-lg">
-    <h3 class="text-xl font-bold mb-3">Contact Form</h3>
-    <form id="contactForm" class="space-y-4">
+  <!-- Contact Info (Clickable for Kodular) -->
+  <section class="bg-purple-950/50 rounded-2xl p-5 shadow-lg space-y-3">
+    <h3 class="text-xl font-bold mb-3">Contact Details</h3>
 
-      <!-- User Type Custom Dropdown -->
-      <div class="relative" id="userTypeDropdown">
-        <label class="block mb-1 text-gray-300 font-semibold">I am a:</label>
-        <button type="button" id="userTypeBtn"
-                class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/20
-                       text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-pink-500">
-          <span id="userTypeSelected">Select...</span>
-          <span class="material-icons text-gray-400">expand_more</span>
-        </button>
-        <ul id="userTypeMenu"
-            class="absolute hidden mt-1 w-full bg-purple-950/90 border border-white/20
-                   rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
-          <li class="px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg" data-value="user">User / Listener</li>
-          <li class="px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg" data-value="radioAdmin">Radio Station Admin</li>
-        </ul>
-      </div>
+    <a href="mailto:tnm3us@gmail.com" class="block w-full p-3 bg-purple-900/50 rounded-xl hover:bg-pink-600/30 transition flex items-center gap-2">
+      <span class="material-icons text-pink-400">email</span>
+      <span class="text-white">Email: tnm3us@gmail.com</span>
+    </a>
 
-      <!-- Name -->
-      <div>
-        <label for="name" class="block mb-1 text-gray-300 font-semibold">Full Name</label>
-        <input type="text" id="name" placeholder="Your Name" required class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-      </div>
+    <a href="https://t.me/tnm3u" target="_blank" class="block w-full p-3 bg-purple-900/50 rounded-xl hover:bg-pink-600/30 transition flex items-center gap-2">
+      <span class="material-icons text-pink-400">telegram</span>
+      <span class="text-white">Telegram: @tnm3u</span>
+    </a>
 
-      <!-- Email -->
-      <div>
-        <label for="email" class="block mb-1 text-gray-300 font-semibold">Email Address</label>
-        <input type="email" id="email" placeholder="you@example.com" required class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-      </div>
+    <a href="https://www.tnm3u.com" target="_blank" class="block w-full p-3 bg-purple-900/50 rounded-xl hover:bg-pink-600/30 transition flex items-center gap-2">
+      <span class="material-icons text-pink-400">public</span>
+      <span class="text-white">Website: www.tnm3u.com</span>
+    </a>
 
-      <!-- Subject -->
-      <div>
-        <label for="subject" class="block mb-1 text-gray-300 font-semibold">Subject</label>
-        <input type="text" id="subject" placeholder="Message Subject" required class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-      </div>
-
-      <!-- Message -->
-      <div>
-        <label for="message" class="block mb-1 text-gray-300 font-semibold">Message</label>
-        <textarea id="message" rows="5" placeholder="Write your message here..." required class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"></textarea>
-      </div>
-
-      <!-- Radio Admin Extra Fields -->
-      <div id="radioFields" class="hidden space-y-2">
-        <p class="text-gray-400 text-sm">For radio station admins, please provide your station details:</p>
-        <input type="text" id="radioName" placeholder="Station Name" class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-        <input type="text" id="radioStream" placeholder="Stream URL" class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-        <input type="text" id="radioLanguage" placeholder="Language" class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-        <input type="text" id="radioType" placeholder="Type (FM / Live / Other)" class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-        <input type="url" id="radioWebsite" placeholder="Website (optional)" class="w-full p-2 rounded-xl border border-white/20 text-white focus:ring-2 focus:ring-pink-500"/>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" class="bg-pink-600 px-5 py-3 rounded-xl shadow-lg hover:bg-pink-500 transition w-full font-semibold">Submit</button>
-    </form>
-    <p id="formMessage" class="mt-3 text-center text-green-400 hidden">Message sent successfully!</p>
-  </section>
-
-  <!-- Alternative Contact Info -->
-  <section class="bg-purple-950/50 rounded-2xl p-5 shadow-lg">
-    <h3 class="text-xl font-bold mb-3">Other Ways to Reach Us</h3>
-    <p class="text-gray-300 mb-2"><span class="material-icons align-middle">email</span> Email: <a href="mailto: tnm3us@gmail.com" class="text-pink-400">tnm3us@gmail.com</a></p>
-    <p class="text-gray-300 mb-2"><span class="material-icons align-middle">telegram</span> Telegram: <a href="https://t.me/tnm3u" target="_blank" class="text-pink-400">@tnm3u</a></p>
-    <p class="text-gray-300 mb-2"><span class="material-icons align-middle">public</span> Website: <a href="#" target="_blank" class="text-pink-400">www.tnm3u.com</a></p>
-    <p class="text-gray-300">We strive to respond within 24-48 hours for all queries and submissions.</p>
+    <p class="text-gray-300 mt-2">We strive to respond within 24-48 hours for all queries and submissions.</p>
   </section>
 
 </main>
 
 <!-- Footer -->
-<footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 
-               bg-purple-950/70 backdrop-blur-md">
-  Proudly Maintained by Tnm3u © <span id="year"></span> 
+<footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 bg-purple-950/70 backdrop-blur-md">
+  Proudly Maintained by Tnm3u © <span id="year"></span>
 </footer>
 
+<!-- Scripts -->
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // Back button
-  document.getElementById("backBtn").addEventListener("click", () => {
-    history.back();
-  });
-
-  // Custom dropdown logic
-  const userTypeDropdown = document.getElementById("userTypeDropdown");
-  const userTypeBtn = document.getElementById("userTypeBtn");
-  const userTypeMenu = document.getElementById("userTypeMenu");
-  const userTypeSelected = document.getElementById("userTypeSelected");
-  const radioFields = document.getElementById("radioFields");
-
-  // Toggle dropdown
-  userTypeBtn.addEventListener("click", () => {
-    userTypeMenu.classList.toggle("hidden");
-  });
-
-  // Select option
-  userTypeMenu.querySelectorAll("li").forEach(item => {
-    item.addEventListener("click", () => {
-      const value = item.dataset.value;
-      userTypeSelected.textContent = item.textContent;
-      userTypeMenu.classList.add("hidden");
-
-      // Show/hide radio fields
-      if(value === "radioAdmin") {
-        radioFields.classList.remove("hidden");
-      } else {
-        radioFields.classList.add("hidden");
-      }
-
-      userTypeBtn.dataset.value = value; // store selected value
-    });
-  });
-
-  // Close dropdown if clicked outside
-  document.addEventListener("click", (e) => {
-    if(!userTypeDropdown.contains(e.target)) {
-      userTypeMenu.classList.add("hidden");
+  // Back button acts like Android back
+  const backBtn = document.getElementById('backBtn');
+  backBtn.addEventListener('click', () => {
+    if (history.length > 1) {
+      history.back();
+    } else {
+      window.location.href = '/'; // fallback to home page
     }
   });
 
-  // Simple form submission
-  document.getElementById("contactForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const formData = {
-      type: userTypeBtn.dataset.value || "user",
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      subject: document.getElementById("subject").value,
-      message: document.getElementById("message").value,
-      radio: userTypeBtn.dataset.value === "radioAdmin" ? {
-        name: document.getElementById("radioName").value,
-        stream: document.getElementById("radioStream").value,
-        language: document.getElementById("radioLanguage").value,
-        type: document.getElementById("radioType").value,
-        website: document.getElementById("radioWebsite").value
-      } : null
-    };
-
-    console.log("Form Data:", formData);
-
-    // Show success message
-    document.getElementById("formMessage").classList.remove("hidden");
-    setTimeout(() => document.getElementById("formMessage").classList.add("hidden"), 5000);
-
-    // Reset form
-    document.getElementById("contactForm").reset();
-    radioFields.classList.add("hidden");
-    userTypeSelected.textContent = "Select...";
-    userTypeBtn.dataset.value = "";
-  });
+  // Auto-update year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
 </body>
