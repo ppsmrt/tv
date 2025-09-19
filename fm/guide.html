@@ -13,73 +13,13 @@
 
   <!-- Baloo 2 Font -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>  
-
-  <!-- Google Translate -->
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-  <style>
-    /* Floating Translate Button */
-    #translateBtn {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background: rgba(255,255,255,0.9); /* glassy white */
-      color: #4b0082;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      backdrop-filter: blur(6px);
-      cursor: pointer;
-      z-index: 9999;
-      font-size: 22px;
-      transition: transform 0.2s ease;
-    }
-    #translateBtn:hover {
-      transform: scale(1.1);
-    }
-
-    /* Notification Popup */
-    #translateNotify {
-      position: fixed;
-      bottom: 150px;
-      right: 20px;
-      background: rgba(91,33,182,0.8); /* purple glass */
-      color: white;
-      padding: 10px 15px;
-      border-radius: 12px;
-      font-size: 14px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-      backdrop-filter: blur(6px);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.4s ease;
-      z-index: 9998;
-    }
-    #translateNotify.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Hide default Google Translate bar */
-    .goog-te-banner-frame.skiptranslate,
-    .goog-te-gadget-icon {
-      display: none !important;
-    }
-    body {
-      top: 0px !important;
-    }
-  </style>
 </head>
 <body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
 
 <!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center bg-purple-950/70 backdrop-blur-md shadow-md">
   <span class="material-icons text-pink-400 text-2xl">info</span>
-  <h1 class="ml-2 text-xl font-bold">How To Use FM Radio</h1>
+  <h1 class="ml-2 text-xl font-bold">App Guide</h1>
 </header>
 
 <!-- Main Content -->
@@ -88,7 +28,7 @@
   <!-- Intro -->
   <section class="bg-gradient-to-b from-pink-700/70 to-purple-900/70 rounded-2xl p-5 shadow-lg">
     <h2 class="text-xl font-bold mb-2">Welcome to FM Radio</h2>
-    <p class="text-sm text-gray-200">Here’s a quick guide to help you explore all the powerful features available in your app.</p>
+    <p class="text-sm text-gray-200">Here’s a quick guide to help you explore all the powerful features available in FM Radio app.</p>
   </section>
 
   <!-- Feature Cards -->
@@ -125,7 +65,7 @@
       <span class="material-icons text-pink-400 text-3xl">filter_alt</span>
       <div>
         <h3 class="font-bold text-lg">Search & Filters</h3>
-        <p class="text-sm text-gray-300">Quickly find stations by <b>searching</b> or filtering by <b>Language</b> and <b>Type</b> (FM or 24/7 Live).</p>
+        <p class="text-sm text-gray-300">Quickly find stations by <b>searching</b> or filtering by <b>Language</b> and <b>Type</b> (Regional FM or 24/7 Live).</p>
       </div>
     </div>
 
@@ -160,45 +100,8 @@
   Proudly Maintained by Tnm3u © <span id="year"></span>
 </footer>
 
-<!-- Hidden Google Translate Widget -->
-<div id="google_translate_element" style="display:none;"></div>
-
-<!-- Floating Translate Button -->
-<div id="translateBtn">🌐</div>
-
-<!-- Notification -->
-<div id="translateNotify">Tap 🌐 to translate this page!</div>
-
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-
-  // Google Translate Init
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      {pageLanguage: 'en'},
-      'google_translate_element'
-    );
-  }
-
-  // Notification show on page load
-  window.addEventListener("load", () => {
-    const notify = document.getElementById("translateNotify");
-    notify.classList.add("show");
-    setTimeout(() => {
-      notify.classList.remove("show");
-    }, 4000);
-  });
-
-  // Button click → open language menu
-  document.getElementById("translateBtn").addEventListener("click", () => {
-    const select = document.querySelector(".goog-te-combo");
-    if (select) {
-      select.style.display = "block";
-      select.size = 10; // show multiple languages
-      select.focus();
-    }
-  });
 </script>
-
 </body>
 </html>
