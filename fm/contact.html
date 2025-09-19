@@ -23,6 +23,11 @@
 
 <!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center bg-purple-950/70 backdrop-blur-md shadow-md">
+  <!-- Back Button -->
+  <button id="backBtn" class="mr-3 p-2 rounded-full hover:bg-purple-900/50">
+    <span class="material-icons text-pink-400 text-2xl">arrow_back</span>
+  </button>
+
   <div class="flex items-center gap-2">
     <span class="material-icons text-pink-400 text-2xl">contacts</span>
     <h1 class="text-xl font-bold">Contact</h1>
@@ -121,6 +126,11 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Back button
+  document.getElementById("backBtn").addEventListener("click", () => {
+    history.back();
+  });
 
   // Custom dropdown logic
   const userTypeDropdown = document.getElementById("userTypeDropdown");
