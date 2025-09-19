@@ -14,25 +14,35 @@
   <!-- Baloo 2 Font -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
+<body id="pageBody" 
+      class="theme-default min-h-screen flex flex-col font-[Baloo_2] 
+             bg-gradient-to-b from-[var(--bg-from)] via-[var(--bg-via)] to-[var(--bg-to)] 
+             text-[var(--text)]">
 
   <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center 
-                 bg-purple-950/70 backdrop-blur-md shadow-md">
+                 bg-[var(--card)] backdrop-blur-md shadow-md justify-between text-[var(--card-text)]">
     <div class="flex items-center gap-2">
-      <span class="material-icons text-pink-400 text-2xl">radio</span>
+      <span class="material-icons text-2xl">radio</span>
       <h1 class="text-xl font-bold">FM Radio</h1>
     </div>
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" 
+            class="px-3 py-1 rounded-lg text-sm transition"
+            style="background: var(--button); color: var(--button-text);">
+      Switch Theme
+    </button>
   </header>
 
   <!-- Main Content -->
   <main class="flex-1 overflow-y-auto pt-20 pb-16 px-4 scroll-smooth">
 
     <!-- Search Bar -->
-    <div class="mb-4 flex items-center bg-purple-800/50 rounded-xl px-3 py-2 shadow-inner">
-      <span class="material-icons text-gray-300 mr-2">search</span>
+    <div class="mb-4 flex items-center rounded-xl px-3 py-2 shadow-inner"
+         style="background: var(--card); color: var(--card-text);">
+      <span class="material-icons mr-2">search</span>
       <input id="searchInput" type="text" placeholder="Search channels..."
-             class="bg-transparent flex-1 outline-none text-white placeholder-gray-400">
+             class="bg-transparent flex-1 outline-none placeholder-gray-400 text-[var(--card-text)]">
     </div>
 
     <!-- Channel List -->
@@ -40,11 +50,11 @@
 
     <!-- Maintained By -->
     <section class="mt-6">
-      <div class="bg-gradient-to-b from-pink-700 to-purple-900 rounded-2xl p-5 shadow-lg text-center">
-        <p class="text-sm text-gray-200 mb-4">
-          Join our official Telegram channel for Live TV and exclusive updates.
-        </p>
-        <span class="inline-block bg-pink-600 text-white font-semibold px-4 py-2 rounded-xl shadow-md">
+      <div class="rounded-2xl p-5 shadow-lg text-center"
+           style="background: var(--card); color: var(--card-text);">
+        <p class="text-sm mb-4">Join our official Telegram channel for Live TV and exclusive updates.</p>
+        <span class="inline-block font-semibold px-4 py-2 rounded-xl shadow-md"
+              style="background: var(--button); color: var(--button-text);">
           @tnm3u
         </span>
       </div>
@@ -52,34 +62,31 @@
   </main>
 
   <!-- Footer -->
-  <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 
-                 bg-purple-950/70 backdrop-blur-md">
+  <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs backdrop-blur-md"
+          style="background: var(--card); color: var(--card-text);">
     Proudly Maintained by Tnm3u © <span id="year"></span> 
   </footer>
 
   <!-- Screensaver Overlay -->
   <div id="screensaver" 
-       class="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-black flex flex-col items-center justify-center text-white opacity-0 pointer-events-none transition-opacity duration-700 z-[9999]">
+       class="fixed inset-0 flex flex-col items-center justify-center text-white opacity-0 pointer-events-none transition-opacity duration-700 z-[9999]"
+       style="background: linear-gradient(to bottom right, var(--bg-from), var(--bg-via), var(--bg-to));">
     
     <!-- Waveform -->
     <div class="flex gap-1 mb-6">
-      <div class="wave"></div>
-      <div class="wave delay-1"></div>
-      <div class="wave delay-2"></div>
-      <div class="wave delay-3"></div>
-      <div class="wave delay-4"></div>
-      <div class="wave delay-5"></div>
-      <div class="wave delay-6"></div>
+      <div class="wave"></div><div class="wave delay-1"></div><div class="wave delay-2"></div>
+      <div class="wave delay-3"></div><div class="wave delay-4"></div><div class="wave delay-5"></div>
     </div>
 
     <!-- Info -->
     <h2 id="ssName" class="text-2xl font-bold">FM Radio</h2>
-    <p id="ssLocation" class="text-sm text-gray-300 mb-6">Now Playing</p>
+    <p id="ssLocation" class="text-sm opacity-80 mb-6">Now Playing</p>
 
     <!-- Controls -->
     <div class="flex items-center gap-6">
       <button id="ssPrev" class="material-icons text-4xl">skip_previous</button>
-      <button id="ssPlayPause" class="bg-pink-600 rounded-full p-6 shadow-lg">
+      <button id="ssPlayPause" class="rounded-full p-6 shadow-lg"
+              style="background: var(--button); color: var(--button-text);">
         <span id="ssPlayPauseIcon" class="material-icons text-4xl">pause</span>
       </button>
       <button id="ssNext" class="material-icons text-4xl">skip_next</button>
@@ -124,29 +131,39 @@
     function renderChannels(filter = "") {
       channelList.innerHTML = "";
       let sorted = [...radios].sort((a, b) => a.name.localeCompare(b.name));
-      sorted
-        .filter(r => r.name.toLowerCase().includes(filter.toLowerCase()))
-        .forEach((radio, idx) => {
-          const row = document.createElement("div");
-          row.className = "flex items-center justify-between bg-gradient-to-r from-purple-900/60 to-pink-800/60 rounded-xl p-3 shadow-md snap-center transition-transform duration-300 hover:scale-[1.02]";
-          
-          row.innerHTML = `
-            <div class="flex items-center gap-3">
-              <img src="${radio.icon}" alt="${radio.name}" 
-                   class="w-12 h-12 rounded-lg shadow-md">
-              <div>
-                <p class="font-bold text-white">${radio.name}</p>
-                <p class="text-xs text-gray-300">${radio.language || ""} ${radio.location || ""}</p>
-              </div>
-            </div>
-            <button class="playBtn flex items-center justify-center w-12 h-12 rounded-full bg-pink-600 shadow-lg transition-transform hover:scale-110" data-index="${idx}">
-              <span class="material-icons text-2xl text-white">play_arrow</span>
-            </button>
-          `;
-          channelList.appendChild(row);
-        });
+      let filtered = sorted.filter(r => r.name.toLowerCase().includes(filter.toLowerCase()));
 
-      // Attach play button logic
+      if (filtered.length === 0) {
+        channelList.innerHTML = `
+          <div class="text-center py-10 opacity-70">
+            <span class="material-icons text-4xl mb-2">sentiment_dissatisfied</span>
+            <p>No Live Channels Found</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach((radio, idx) => {
+        const row = document.createElement("div");
+        row.className = "flex items-center justify-between rounded-xl p-3 shadow-md snap-center transition-transform duration-300 hover:scale-[1.02]";
+        row.style.background = "var(--card)";
+        row.style.color = "var(--card-text)";
+        
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${radio.icon}" alt="${radio.name}" class="w-12 h-12 rounded-lg shadow-md">
+            <div>
+              <p class="font-bold">${radio.name}</p>
+              <p class="text-xs opacity-80">${radio.language || ""} ${radio.location || ""}</p>
+            </div>
+          </div>
+          <button class="playBtn flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110" data-index="${idx}" style="background: var(--button); color: var(--button-text);">
+            <span class="material-icons text-2xl">play_arrow</span>
+          </button>
+        `;
+        channelList.appendChild(row);
+      });
+
       document.querySelectorAll(".playBtn").forEach(btn => {
         btn.onclick = () => playRadio(btn.dataset.index);
       });
@@ -157,11 +174,14 @@
       renderChannels(e.target.value);
     });
 
-    // Load from Firebase
+    // Load only LIVE channels from Firebase
     onValue(ref(db, "radios"), (snapshot) => {
       radios = [];
       snapshot.forEach((child) => {
-        radios.push({ id: child.key, ...child.val() });
+        const data = { id: child.key, ...child.val() };
+        if (data.type && data.type.toLowerCase() === "live") {
+          radios.push(data);
+        }
       });
       renderChannels();
       if (radios.length > 0) playRadio(0, false);
@@ -199,7 +219,7 @@
     // Screensaver Logic
     const screensaver = document.getElementById("screensaver");
     let idleTimer;
-    const idleTime = 15000; // 15s idle
+    const idleTime = 15000;
 
     function showScreensaver() {
       if (!audio.paused) {
@@ -222,7 +242,6 @@
       document.addEventListener(evt, hideScreensaver);
     });
 
-    // Screensaver controls
     ssPlayPause.addEventListener("click", () => {
       if (audio.paused) {
         audio.play();
@@ -243,31 +262,63 @@
     });
 
     resetIdleTimer();
+
+    // Theme Switcher with LocalStorage
+    const themes = [
+      "theme-default",
+      "theme-white-green",
+      "theme-white-red",
+      "theme-white-blue",
+      "theme-white-black",
+      "theme-black-green",
+      "theme-black-red",
+      "theme-black-blue",
+      "theme-black-white"
+    ];
+    let currentTheme = 0;
+    const pageBody = document.getElementById("pageBody");
+    const themeToggle = document.getElementById("themeToggle");
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem("selectedTheme");
+    if (savedTheme && themes.includes(savedTheme)) {
+      pageBody.classList.remove(themes[currentTheme]);
+      pageBody.classList.add(savedTheme);
+      currentTheme = themes.indexOf(savedTheme);
+    }
+
+    themeToggle.addEventListener("click", () => {
+      pageBody.classList.remove(themes[currentTheme]);
+      currentTheme = (currentTheme + 1) % themes.length;
+      pageBody.classList.add(themes[currentTheme]);
+      localStorage.setItem("selectedTheme", themes[currentTheme]);
+    });
   </script>
 
   <style>
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
     /* Waveform animation */
-    .wave {
-      width: 6px;
-      height: 20px;
-      background: white;
-      border-radius: 3px;
-      animation: waveAnim 1.2s infinite ease-in-out;
-    }
+    .wave { width: 6px; height: 20px; background: white; border-radius: 3px; animation: waveAnim 1.2s infinite ease-in-out; }
     .wave.delay-1 { animation-delay: 0.1s }
     .wave.delay-2 { animation-delay: 0.2s }
     .wave.delay-3 { animation-delay: 0.3s }
     .wave.delay-4 { animation-delay: 0.4s }
     .wave.delay-5 { animation-delay: 0.5s }
-    .wave.delay-6 { animation-delay: 0.6s }
 
     @keyframes waveAnim {
       0%, 40%, 100% { transform: scaleY(0.3); }
       20% { transform: scaleY(1); }
     }
+
+    /* THEME VARIABLES */
+    .theme-default { --bg-from: #4c1d95; --bg-via: #9d174d; --bg-to: #000; --text: #ffffff; --card: rgba(255,255,255,0.1); --card-text: #ffffff; --button: #ec4899; --button-text: #fff; }
+    .theme-white-green { --bg-from: #ffffff; --bg-via: #22c55e; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #22c55e; --button-text: #fff; }
+    .theme-white-red { --bg-from: #ffffff; --bg-via: #ef4444; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #ef4444; --button-text: #fff; }
+    .theme-white-blue { --bg-from: #ffffff; --bg-via: #3b82f6; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #3b82f6; --button-text: #fff; }
+    .theme-white-black { --bg-from: #ffffff; --bg-via: #000; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #000; --button-text: #fff; }
+    .theme-black-green { --bg-from: #000; --bg-via: #22c55e; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #22c55e; --button-text: #000; }
+    .theme-black-red { --bg-from: #000; --bg-via: #ef4444; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #ef4444; --button-text: #000; }
+    .theme-black-blue { --bg-from: #000; --bg-via: #3b82f6; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #3b82f6; --button-text: #000; }
+    .theme-black-white { --bg-from: #000; --bg-via: #fff; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #fff; --button-text: #000; }
   </style>
 </body>
 </html>
