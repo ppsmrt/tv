@@ -130,15 +130,40 @@
   </div>
 
   <!-- 🔍 Search + Location + Type Filters -->
-  <div class="p-3 grid grid-cols-3 gap-2">
-    <input type="text" id="channelSearch" placeholder="Search..." class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500"/>
-    <select id="channelLocation" class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500">
-      <option value="">All Locations</option>
-    </select>
-    <select id="channelType" class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500">
-      <option value="">All Types</option>
-    </select>
+<div class="p-3 grid grid-cols-3 gap-2">
+  <!-- Search -->
+  <input type="text" id="channelSearch" placeholder="Search..." 
+    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
+           focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+
+  <!-- Custom Location Dropdown -->
+  <div class="relative" id="locationDropdown">
+    <button type="button" 
+      class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
+             text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <span id="locationSelected">All Locations</span>
+      <span class="material-icons text-gray-400">expand_more</span>
+    </button>
+    <ul id="locationMenu" 
+      class="absolute hidden mt-1 w-full bg-purple-950/90 border border-white/10 
+             rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
+    </ul>
   </div>
+
+  <!-- Custom Type Dropdown -->
+  <div class="relative" id="typeDropdown">
+    <button type="button" 
+      class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
+             text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <span id="typeSelected">All Types</span>
+      <span class="material-icons text-gray-400">expand_more</span>
+    </button>
+    <ul id="typeMenu" 
+      class="absolute hidden mt-1 w-full bg-purple-950/90 border border-white/10 
+             rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
+    </ul>
+  </div>
+</div>
 
   <!-- Full-height channel list -->
   <div id="channelList" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide"></div>
@@ -197,8 +222,12 @@ const channelList = document.getElementById("channelList");
 const channelCount = document.getElementById("channelCount");
 
 const channelSearch = document.getElementById("channelSearch");
-const channelLocation = document.getElementById("channelLocation");
-const channelType = document.getElementById("channelType");
+
+// Custom dropdown elements
+const locationSelected = document.getElementById("locationSelected");
+const locationMenu = document.getElementById("locationMenu");
+const typeSelected = document.getElementById("typeSelected");
+const typeMenu = document.getElementById("typeMenu");
 
 const screensaver = document.getElementById("screensaver");
 const ssName = document.getElementById("ssName");
@@ -213,6 +242,10 @@ const closeOverlay = document.getElementById("closeOverlay");
 let radios = [];
 let currentIndex = 0;
 let recentRadios = JSON.parse(localStorage.getItem("recentRadios")) || [];
+
+// Selected filter values
+let selectedLocation = "";
+let selectedType = "";
 
 // ---------------------- Functions ----------------------
 
@@ -239,15 +272,13 @@ function renderRecent() {
 // Render channel list with filters
 function renderChannelList() {
   const searchTerm = channelSearch.value.toLowerCase();
-  const locFilter = channelLocation.value;
-  const typeFilter = channelType.value;
 
   const filtered = radios.filter(radio => {
     const matchSearch = radio.name.toLowerCase().includes(searchTerm) ||
                         (radio.location || "").toLowerCase().includes(searchTerm) ||
                         (radio.language || "").toLowerCase().includes(searchTerm);
-    const matchLoc = locFilter === "" || radio.location === locFilter;
-    const matchType = typeFilter === "" || radio.type === typeFilter;
+    const matchLoc = selectedLocation === "" || radio.location === selectedLocation;
+    const matchType = selectedType === "" || radio.type === selectedType;
     return matchSearch && matchLoc && matchType;
   });
 
@@ -273,27 +304,61 @@ function renderChannelList() {
   });
 }
 
-// Populate location & type filters
+// Populate location & type custom dropdowns
 function populateFilters() {
   const locations = [...new Set(radios.map(r => r.location).filter(Boolean))];
   const types = [...new Set(radios.map(r => r.type).filter(Boolean))];
 
-  channelLocation.innerHTML = `<option value="">All Locations</option>`;
+  // Locations
+  locationMenu.innerHTML = "";
+  const allLoc = document.createElement("li");
+  allLoc.textContent = "All Locations";
+  allLoc.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+  allLoc.onclick = () => {
+    selectedLocation = "";
+    locationSelected.textContent = "All Locations";
+    locationMenu.classList.add("hidden");
+    renderChannelList();
+  };
+  locationMenu.appendChild(allLoc);
+
   locations.forEach(loc => {
-    const opt = document.createElement("option");
-    opt.value = loc;
-    opt.textContent = loc;
-    channelLocation.appendChild(opt);
+    const li = document.createElement("li");
+    li.textContent = loc;
+    li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+    li.onclick = () => {
+      selectedLocation = loc;
+      locationSelected.textContent = loc;
+      locationMenu.classList.add("hidden");
+      renderChannelList();
+    };
+    locationMenu.appendChild(li);
   });
 
-  channelType.innerHTML = `<option value="">All Types</option>`;
+  // Types
+  typeMenu.innerHTML = "";
+  const allType = document.createElement("li");
+  allType.textContent = "All Types";
+  allType.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+  allType.onclick = () => {
+    selectedType = "";
+    typeSelected.textContent = "All Types";
+    typeMenu.classList.add("hidden");
+    renderChannelList();
+  };
+  typeMenu.appendChild(allType);
+
   types.forEach(type => {
-    const opt = document.createElement("option");
-    opt.value = type;
-    if(type === "live") opt.textContent = "24x7 Radios";
-    else if(type === "fm") opt.textContent = "Radios";
-    else opt.textContent = type;
-    channelType.appendChild(opt);
+    const li = document.createElement("li");
+    li.textContent = type === "live" ? "24x7 Radios" : type === "fm" ? "Radios" : type;
+    li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+    li.onclick = () => {
+      selectedType = type;
+      typeSelected.textContent = li.textContent;
+      typeMenu.classList.add("hidden");
+      renderChannelList();
+    };
+    typeMenu.appendChild(li);
   });
 }
 
@@ -352,6 +417,12 @@ closeOverlay.addEventListener("click", () => {
   channelOverlay.classList.add("opacity-0", "pointer-events-none");
 });
 
+// Toggle dropdown menus
+document.getElementById("locationDropdown").querySelector("button")
+  .addEventListener("click", () => locationMenu.classList.toggle("hidden"));
+document.getElementById("typeDropdown").querySelector("button")
+  .addEventListener("click", () => typeMenu.classList.toggle("hidden"));
+
 // Screensaver
 let idleTimer;
 const idleTime = 15000;
@@ -390,9 +461,7 @@ document.getElementById("ssNext").addEventListener("click", () => { document.get
 document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
 
 // Filter Inputs
-[channelSearch, channelLocation, channelType].forEach(input => {
-  input.addEventListener("input", renderChannelList);
-});
+channelSearch.addEventListener("input", renderChannelList);
 
 // ---------------------- Firebase Data ----------------------
 onValue(ref(db, "radios"), snapshot => {
