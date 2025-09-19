@@ -230,7 +230,6 @@ const recentSection = document.getElementById("recentSection");
 const recentList = document.getElementById("recentList");
 const channelList = document.getElementById("channelList");
 const channelCount = document.getElementById("channelCount");
-
 const channelSearch = document.getElementById("channelSearch");
 
 // Custom dropdown elements
@@ -239,12 +238,14 @@ const languageMenu = document.getElementById("languageMenu");
 const typeSelected = document.getElementById("typeSelected");
 const typeMenu = document.getElementById("typeMenu");
 
+// Screensaver
 const screensaver = document.getElementById("screensaver");
 const ssName = document.getElementById("ssName");
 const ssLocation = document.getElementById("ssLocation");
 const ssPlayPause = document.getElementById("ssPlayPause");
 const ssPlayPauseIcon = document.getElementById("ssPlayPauseIcon");
 
+// Overlay and buttons
 const listBtn = document.getElementById("listBtn");
 const channelOverlay = document.getElementById("channelOverlay");
 const closeOverlay = document.getElementById("closeOverlay");
@@ -259,7 +260,7 @@ let selectedType = "";
 
 // ---------------------- Functions ----------------------
 
-// Render recent radios
+// Render recent radios (no highlight)
 function renderRecent() {
   recentList.innerHTML = "";
   if (recentRadios.length === 0) {
@@ -279,7 +280,7 @@ function renderRecent() {
   });
 }
 
-// Render channel list with filters
+// Render channel list with filters and highlight current
 function renderChannelList() {
   const searchTerm = channelSearch.value.toLowerCase();
 
@@ -297,82 +298,66 @@ function renderChannelList() {
   if (channelCount) channelCount.textContent = sorted.length;
 
   sorted.forEach(radio => {
+    const isPlaying = radios[currentIndex]?.id === radio.id;
+
     const item = document.createElement("div");
-    item.className = "flex items-center gap-4 bg-gradient-to-r from-pink-700/70 to-purple-900/70 rounded-xl p-3 shadow-md cursor-pointer hover:scale-[1.02] transition-transform";
+    item.className = `flex items-center gap-4 rounded-xl p-3 shadow-md cursor-pointer hover:scale-[1.02] transition-transform
+                      ${isPlaying ? "bg-pink-700/70 scale-[1.02]" : "bg-gradient-to-r from-pink-700/70 to-purple-900/70"}`;
     item.innerHTML = `
       <img src="${radio.icon}" class="w-12 h-12 rounded-lg shadow">
       <div class="flex-1">
         <p class="font-bold">${radio.name}</p>
         <p class="text-xs text-gray-300">${radio.language || ""}</p>
       </div>
-      <span class="material-icons text-pink-400">play_circle</span>`;
+      <span class="material-icons text-pink-400">${isPlaying ? "pause_circle" : "play_circle"}</span>`;
+
     item.onclick = () => {
       playRadio(radios.findIndex(r => r.id === radio.id));
+      renderChannelList();
       closeOverlay.click();
     };
+
     channelList.appendChild(item);
   });
 }
 
-// Populate language & type custom dropdowns
+// Populate filters
 function populateFilters() {
   const languages = [...new Set(radios.map(r => r.language).filter(Boolean))];
   const types = [...new Set(radios.map(r => r.type).filter(Boolean))];
 
-  // Languages
+  // Language
   languageMenu.innerHTML = "";
   const allLang = document.createElement("li");
-  allLang.textContent = "All"; // ✅ Changed
+  allLang.textContent = "All";
   allLang.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
-  allLang.onclick = () => {
-    selectedLanguage = "";
-    languageSelected.textContent = "All"; // ✅ Changed
-    languageMenu.classList.add("hidden");
-    renderChannelList();
-  };
+  allLang.onclick = () => { selectedLanguage = ""; languageSelected.textContent = "All"; languageMenu.classList.add("hidden"); renderChannelList(); };
   languageMenu.appendChild(allLang);
-
   languages.forEach(lang => {
     const li = document.createElement("li");
     li.textContent = lang;
     li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
-    li.onclick = () => {
-      selectedLanguage = lang;
-      languageSelected.textContent = lang;
-      languageMenu.classList.add("hidden");
-      renderChannelList();
-    };
+    li.onclick = () => { selectedLanguage = lang; languageSelected.textContent = lang; languageMenu.classList.add("hidden"); renderChannelList(); };
     languageMenu.appendChild(li);
   });
 
-  // Types
+  // Type
   typeMenu.innerHTML = "";
   const allType = document.createElement("li");
   allType.textContent = "All Types";
   allType.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
-  allType.onclick = () => {
-    selectedType = "";
-    typeSelected.textContent = "All Types";
-    typeMenu.classList.add("hidden");
-    renderChannelList();
-  };
+  allType.onclick = () => { selectedType = ""; typeSelected.textContent = "All Types"; typeMenu.classList.add("hidden"); renderChannelList(); };
   typeMenu.appendChild(allType);
-
   types.forEach(type => {
     const li = document.createElement("li");
-    li.textContent = type === "live" ? "24/7 Live" : type === "fm" ? "Radios" : type; // ✅ Changed
+    li.textContent = type === "live" ? "24/7 Live" : type === "fm" ? "Radios" : type;
     li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
-    li.onclick = () => {
-      selectedType = type;
-      typeSelected.textContent = li.textContent;
-      typeMenu.classList.add("hidden");
-      renderChannelList();
-    };
+    li.onclick = () => { selectedType = type; typeSelected.textContent = li.textContent; typeMenu.classList.add("hidden"); renderChannelList(); };
     typeMenu.appendChild(li);
   });
 }
 
-// Play radio by index
+// Play radio
 function playRadio(index, autoplay = true) {
   currentIndex = index;
   const radio = radios[index];
@@ -387,6 +372,7 @@ function playRadio(index, autoplay = true) {
   recentRadios.unshift(radio);
   if (recentRadios.length > 10) recentRadios.pop();
   localStorage.setItem("recentRadios", JSON.stringify(recentRadios));
+
   renderRecent();
 
   if (autoplay) {
@@ -397,41 +383,25 @@ function playRadio(index, autoplay = true) {
     playPauseIcon.textContent = "play_arrow";
     ssPlayPauseIcon.textContent = "play_arrow";
   }
+
+  renderChannelList();
 }
 
 // ---------------------- Event Listeners ----------------------
 playPauseBtn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play(); 
-    playPauseIcon.textContent = "pause"; 
-    ssPlayPauseIcon.textContent = "pause"; 
-  } else { 
-    audio.pause(); 
-    playPauseIcon.textContent = "play_arrow"; 
-    ssPlayPauseIcon.textContent = "play_arrow"; 
-  }
+  if (audio.paused) { audio.play(); playPauseIcon.textContent = "pause"; ssPlayPauseIcon.textContent = "pause"; }
+  else { audio.pause(); playPauseIcon.textContent = "play_arrow"; ssPlayPauseIcon.textContent = "play_arrow"; }
 });
 
 document.getElementById("nextBtn").addEventListener("click", () => playRadio((currentIndex + 1) % radios.length));
 document.getElementById("prevBtn").addEventListener("click", () => playRadio((currentIndex - 1 + radios.length) % radios.length));
-
 volumeControl.addEventListener("input", e => audio.volume = e.target.value);
 
-// Open full-screen overlay
-listBtn.addEventListener("click", () => {
-  channelOverlay.classList.remove("pointer-events-none", "opacity-0");
-});
+listBtn.addEventListener("click", () => { channelOverlay.classList.remove("pointer-events-none", "opacity-0"); });
+closeOverlay.addEventListener("click", () => { channelOverlay.classList.add("opacity-0", "pointer-events-none"); });
 
-// Close full-screen overlay
-closeOverlay.addEventListener("click", () => {
-  channelOverlay.classList.add("opacity-0", "pointer-events-none");
-});
-
-// Toggle dropdown menus
-document.getElementById("languageDropdown").querySelector("button")
-  .addEventListener("click", () => languageMenu.classList.toggle("hidden"));
-document.getElementById("typeDropdown").querySelector("button")
-  .addEventListener("click", () => typeMenu.classList.toggle("hidden"));
+document.getElementById("languageDropdown").querySelector("button").addEventListener("click", () => languageMenu.classList.toggle("hidden"));
+document.getElementById("typeDropdown").querySelector("button").addEventListener("click", () => typeMenu.classList.toggle("hidden"));
 
 // Screensaver
 let idleTimer;
@@ -456,21 +426,13 @@ function resetIdleTimer() {
 ["mousemove","keydown","click","touchstart"].forEach(evt => document.addEventListener(evt, hideScreensaver));
 
 ssPlayPause.addEventListener("click", () => {
-  if (audio.paused) { 
-    audio.play(); 
-    ssPlayPauseIcon.textContent = "pause"; 
-    playPauseIcon.textContent = "pause"; 
-  } else { 
-    audio.pause(); 
-    ssPlayPauseIcon.textContent = "play_arrow"; 
-    playPauseIcon.textContent = "play_arrow"; 
-  }
+  if (audio.paused) { audio.play(); ssPlayPauseIcon.textContent = "pause"; playPauseIcon.textContent = "pause"; }
+  else { audio.pause(); ssPlayPauseIcon.textContent = "play_arrow"; playPauseIcon.textContent = "play_arrow"; }
   resetIdleTimer();
 });
 document.getElementById("ssNext").addEventListener("click", () => { document.getElementById("nextBtn").click(); resetIdleTimer(); });
 document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
 
-// Filter Inputs
 channelSearch.addEventListener("input", renderChannelList);
 
 // ---------------------- Firebase Data ----------------------
