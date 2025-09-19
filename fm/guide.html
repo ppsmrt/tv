@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>FM Radio - Premium Guide</title>  
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>  
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>  
+
+  <!-- Baloo 2 Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>  
+</head>
+<body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center bg-purple-950/70 backdrop-blur-md shadow-md">
+  <span class="material-icons text-pink-400 text-2xl">info</span>
+  <h1 class="ml-2 text-xl font-bold">Premium Guide</h1>
+</header>
+
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pt-20 pb-14 px-4 space-y-6">
+
+  <!-- Intro -->
+  <section class="bg-gradient-to-b from-pink-700/70 to-purple-900/70 rounded-2xl p-5 shadow-lg">
+    <h2 class="text-xl font-bold mb-2">Welcome to FM Radio</h2>
+    <p class="text-sm text-gray-200">Here’s a quick guide to help you explore all the powerful features available in your app.</p>
+  </section>
+
+  <!-- Feature Cards -->
+  <section class="grid gap-4">
+    <!-- Play Controls -->
+    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
+      <span class="material-icons text-pink-400 text-3xl">play_circle</span>
+      <div>
+        <h3 class="font-bold text-lg">Player Controls</h3>
+        <p class="text-sm text-gray-300">Use <b>Play / Pause</b>, <b>Next</b>, and <b>Previous</b> buttons to control your music. Volume slider adjusts sound smoothly.</p>
+      </div>
+    </div>
+
+    <!-- Recently Played -->
+    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
+      <span class="material-icons text-pink-400 text-3xl">history</span>
+      <div>
+        <h3 class="font-bold text-lg">Recently Played</h3>
+        <p class="text-sm text-gray-300">Your last 10 radios are saved automatically for quick access anytime.</p>
+      </div>
+    </div>
+
+    <!-- Full Channel List -->
+    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
+      <span class="material-icons text-pink-400 text-3xl">list</span>
+      <div>
+        <h3 class="font-bold text-lg">All Channels</h3>
+        <p class="text-sm text-gray-300">Tap the <b>List Button</b> at the bottom right to view all FM channels in a full-screen list.</p>
+      </div>
+    </div>
+
+    <!-- Search + Filters -->
+    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
+      <span class="material-icons text-pink-400 text-3xl">filter_alt</span>
+      <div>
+        <h3 class="font-bold text-lg">Search & Filters</h3>
+        <p class="text-sm text-gray-300">Quickly find stations by <b>searching</b> or filtering by <b>Language</b> and <b>Type</b> (FM or 24/7 Live).</p>
+      </div>
+    </div>
+
+    <!-- Screensaver -->
+    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
+      <span class="material-icons text-pink-400 text-3xl">tv</span>
+      <div>
+        <h3 class="font-bold text-lg">Screensaver Mode</h3>
+        <p class="text-sm text-gray-300">If you’re idle for 15 seconds while music is playing, a <b>beautiful screensaver</b> shows Now Playing info with big controls.</p>
+      </div>
+    </div>
+
+    <!-- Updates -->
+    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
+      <span class="material-icons text-pink-400 text-3xl">update</span>
+      <div>
+        <h3 class="font-bold text-lg">Automatic Updates</h3>
+        <p class="text-sm text-gray-300">All channel data updates live from our database. No app update needed for new radios!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Telegram Section -->
+  <section class="bg-gradient-to-b from-pink-700 to-purple-900 rounded-2xl p-5 shadow-lg text-center">
+    <p class="text-sm text-gray-200 mb-4">For latest live TV links and updates:</p>
+    <span class="inline-block bg-pink-600 text-white font-semibold px-4 py-2 rounded-xl shadow-md">@tnm3u</span>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 bg-purple-950/70 backdrop-blur-md">
+  Proudly Maintained by Tnm3u © <span id="year"></span>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
