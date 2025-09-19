@@ -56,14 +56,21 @@
   </div>  
 
 <!-- Header (fixed) -->
+<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
+               bg-purple-950/70 backdrop-blur-md shadow-md">
+  <!-- Left: Logo + Title -->
+  <div class="flex items-center gap-2">
+    <span class="material-icons text-pink-400 text-2xl">radio</span>
+    <h1 class="text-xl font-bold sm:text-lg">FM Radio</h1>
+  </div>
 
-<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center 
-                 bg-purple-950/70 backdrop-blur-md shadow-md">
-    <div class="flex items-center gap-2">
-      <span class="material-icons text-pink-400 text-2xl">radio</span>
-      <h1 class="text-xl font-bold">FM Radio</h1>
-    </div>
-  </header>  
+  <!-- Right: Navigation Links -->
+  <nav class="flex items-center gap-4 text-sm sm:text-xs">
+    <a href="fm/about" class="hover:text-pink-400 transition-colors">About</a>
+    <a href="fm/contact" class="hover:text-pink-400 transition-colors">Contact</a>
+    <a href="fm/guide" class="hover:text-pink-400 transition-colors">Guide</a>
+  </nav>
+</header>
 
 <!-- Main -->
   <main class="flex-1 overflow-y-auto pt-20 pb-14 px-4">
