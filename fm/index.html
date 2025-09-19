@@ -118,7 +118,10 @@
   </footer>  
 
 <!-- Floating List Button -->
-<button id="listBtn" class="fixed bottom-20 right-5 z-50 bg-white text-purple-900 rounded-full p-4 shadow-xl hover:scale-105 transition-transform">
+<button id="listBtn" 
+  class="fixed bottom-20 right-5 z-50 bg-white text-purple-900 
+         rounded-full w-16 h-16 flex items-center justify-center 
+         shadow-xl hover:scale-105 transition-transform">
   <span class="material-icons text-3xl">list</span>
 </button>
 
@@ -136,19 +139,19 @@
     class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
            focus:outline-none focus:ring-2 focus:ring-pink-500"/>
 
-  <!-- Custom Location Dropdown -->
-  <div class="relative" id="locationDropdown">
-    <button type="button" 
-      class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
-             text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-pink-500">
-      <span id="locationSelected">All Locations</span>
-      <span class="material-icons text-gray-400">expand_more</span>
-    </button>
-    <ul id="locationMenu" 
-      class="absolute hidden mt-1 w-full bg-purple-950/90 border border-white/10 
-             rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
-    </ul>
-  </div>
+  <!-- Custom Language Dropdown (replaces Location) -->
+<div class="relative" id="languageDropdown">
+  <button type="button" 
+    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
+           text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-pink-500">
+    <span id="languageSelected">Language</span>
+    <span class="material-icons text-gray-400">expand_more</span>
+  </button>
+  <ul id="languageMenu" 
+    class="absolute hidden mt-1 w-full bg-purple-950/90 border border-white/10 
+           rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
+  </ul>
+</div>
 
   <!-- Custom Type Dropdown -->
   <div class="relative" id="typeDropdown">
@@ -224,8 +227,8 @@ const channelCount = document.getElementById("channelCount");
 const channelSearch = document.getElementById("channelSearch");
 
 // Custom dropdown elements
-const locationSelected = document.getElementById("locationSelected");
-const locationMenu = document.getElementById("locationMenu");
+const languageSelected = document.getElementById("languageSelected");
+const languageMenu = document.getElementById("languageMenu");
 const typeSelected = document.getElementById("typeSelected");
 const typeMenu = document.getElementById("typeMenu");
 
@@ -244,7 +247,7 @@ let currentIndex = 0;
 let recentRadios = JSON.parse(localStorage.getItem("recentRadios")) || [];
 
 // Selected filter values
-let selectedLocation = "";
+let selectedLanguage = "";
 let selectedType = "";
 
 // ---------------------- Functions ----------------------
@@ -277,9 +280,9 @@ function renderChannelList() {
     const matchSearch = radio.name.toLowerCase().includes(searchTerm) ||
                         (radio.location || "").toLowerCase().includes(searchTerm) ||
                         (radio.language || "").toLowerCase().includes(searchTerm);
-    const matchLoc = selectedLocation === "" || radio.location === selectedLocation;
+    const matchLang = selectedLanguage === "" || radio.language === selectedLanguage;
     const matchType = selectedType === "" || radio.type === selectedType;
-    return matchSearch && matchLoc && matchType;
+    return matchSearch && matchLang && matchType;
   });
 
   channelList.innerHTML = "";
@@ -304,35 +307,35 @@ function renderChannelList() {
   });
 }
 
-// Populate location & type custom dropdowns
+// Populate language & type custom dropdowns
 function populateFilters() {
-  const locations = [...new Set(radios.map(r => r.location).filter(Boolean))];
+  const languages = [...new Set(radios.map(r => r.language).filter(Boolean))];
   const types = [...new Set(radios.map(r => r.type).filter(Boolean))];
 
-  // Locations
-  locationMenu.innerHTML = "";
-  const allLoc = document.createElement("li");
-  allLoc.textContent = "All Locations";
-  allLoc.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
-  allLoc.onclick = () => {
-    selectedLocation = "";
-    locationSelected.textContent = "All Locations";
-    locationMenu.classList.add("hidden");
+  // Languages
+  languageMenu.innerHTML = "";
+  const allLang = document.createElement("li");
+  allLang.textContent = "All"; // ✅ Changed
+  allLang.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+  allLang.onclick = () => {
+    selectedLanguage = "";
+    languageSelected.textContent = "All"; // ✅ Changed
+    languageMenu.classList.add("hidden");
     renderChannelList();
   };
-  locationMenu.appendChild(allLoc);
+  languageMenu.appendChild(allLang);
 
-  locations.forEach(loc => {
+  languages.forEach(lang => {
     const li = document.createElement("li");
-    li.textContent = loc;
+    li.textContent = lang;
     li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
     li.onclick = () => {
-      selectedLocation = loc;
-      locationSelected.textContent = loc;
-      locationMenu.classList.add("hidden");
+      selectedLanguage = lang;
+      languageSelected.textContent = lang;
+      languageMenu.classList.add("hidden");
       renderChannelList();
     };
-    locationMenu.appendChild(li);
+    languageMenu.appendChild(li);
   });
 
   // Types
@@ -350,7 +353,7 @@ function populateFilters() {
 
   types.forEach(type => {
     const li = document.createElement("li");
-    li.textContent = type === "live" ? "24x7 Radios" : type === "fm" ? "Radios" : type;
+    li.textContent = type === "live" ? "24/7 Live" : type === "fm" ? "Radios" : type; // ✅ Changed
     li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
     li.onclick = () => {
       selectedType = type;
@@ -418,8 +421,8 @@ closeOverlay.addEventListener("click", () => {
 });
 
 // Toggle dropdown menus
-document.getElementById("locationDropdown").querySelector("button")
-  .addEventListener("click", () => locationMenu.classList.toggle("hidden"));
+document.getElementById("languageDropdown").querySelector("button")
+  .addEventListener("click", () => languageMenu.classList.toggle("hidden"));
 document.getElementById("typeDropdown").querySelector("button")
   .addEventListener("click", () => typeMenu.classList.toggle("hidden"));
 
