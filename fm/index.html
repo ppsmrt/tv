@@ -69,28 +69,6 @@
       0%, 100% { transform: scaleY(1); }
       50% { transform: scaleY(2); }
     }
-    /* Ensure hamburger button always responds to touch */
-#menu-btn {
-  position: relative;      /* keeps it clickable */
-  z-index: 1001;           /* above header */
-  cursor: pointer;         /* force pointer cursor */
-  -webkit-tap-highlight-color: transparent; /* remove tap flash */
-}
-
-/* Overlay menu initial state */
-#nav-overlay {
-  pointer-events: none;       /* disable clicks when hidden */
-  transform: translateX(-100%);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  opacity: 0;                 /* fully hidden */
-  z-index: 1000;              /* below button but above content */
-}
-
-/* Overlay menu when active */
-#nav-overlay.translate-x-0 {
-  pointer-events: auto;   /* clickable only when visible */
-  opacity: 1;
-}
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-[Baloo_2] min-h-screen flex flex-col">
