@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>FM Radio - Premium Guide</title>  
+  <title>FM Radio - App Guide</title>  
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>  
@@ -13,120 +13,180 @@
 
   <!-- Baloo 2 Font -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>  
+
+  <style>
+    body { font-family: 'Baloo 2', cursive; }
+  </style>
 </head>
-<body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
 
-<!-- Header -->
-<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 bg-purple-950/70 backdrop-blur-md shadow-md">
-  <!-- Left: Icon + Title -->
-  <div class="flex items-center gap-2">
-    <span class="material-icons text-pink-400 text-2xl">info</span>
-    <h1 class="text-xl font-bold">App Guide</h1>
-  </div>
-
-  <!-- Right: Go to Player Button -->
-  <button id="goPlayerBtn" 
-          class="bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl shadow-lg transition flex items-center gap-1">
-    <span class="material-icons text-base">play_circle_filled</span>
-    <span>Go to Player</span>
-  </button>
-</header>
-
-<!-- Spacer to prevent header overlap -->
-<div class="h-20"></div>
-
-<!-- Main Content -->
-<main class="flex-1 overflow-y-auto pb-14 px-4 space-y-6">
-
-  <!-- Intro -->
-  <section class="bg-gradient-to-b from-pink-700/70 to-purple-900/70 rounded-2xl p-5 shadow-lg">
-    <h2 class="text-xl font-bold mb-2">Welcome to FM Radio</h2>
-    <p class="text-sm text-gray-200">Here’s a quick guide to help you explore all the powerful features available in FM Radio app.</p>
-  </section>
-
-  <!-- Feature Cards -->
-  <section class="grid gap-4">
-    <!-- Play Controls -->
-    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
-      <span class="material-icons text-pink-400 text-3xl">play_circle</span>
-      <div>
-        <h3 class="font-bold text-lg">Player Controls</h3>
-        <p class="text-sm text-gray-300">Use <b>Play / Pause</b>, <b>Next</b>, and <b>Previous</b> buttons to control your music. Volume slider adjusts sound smoothly.</p>
-      </div>
+  <!-- Header (Google-style) -->
+  <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between bg-white shadow-md border-b border-gray-200">
+    <div class="flex items-center gap-2">
+      <span class="material-icons text-blue-600 text-2xl">info</span>
+      <h1 class="text-xl font-bold sm:text-lg">App Guide</h1>
     </div>
+    <button id="menu-btn" class="material-icons text-2xl md:hidden">menu</button>
+    <nav id="nav-overlay" class="fixed inset-0 bg-white z-50 flex flex-col justify-center items-center gap-8
+                               transform -translate-x-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-4 md:translate-x-0">
+      <a href="https://tnm3u.live/fm/about" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+        <span class="material-icons">info</span>
+        About
+      </a>
+      <a href="https://tnm3u.live/fm/contact" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+        <span class="material-icons">contacts</span>
+        Contact
+      </a>
+      <a href="https://tnm3u.live/fm/guide" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+        <span class="material-icons">menu_book</span>
+        Guide
+      </a>
+      <a href="https://tnm3u.live/fm" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+        <span class="material-icons">play_circle_filled</span>
+        Player
+      </a>
+    </nav>
+  </header>
 
-    <!-- Recently Played -->
-    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
-      <span class="material-icons text-pink-400 text-3xl">history</span>
-      <div>
-        <h3 class="font-bold text-lg">Recently Played</h3>
-        <p class="text-sm text-gray-300">Your last 10 radios are saved automatically for quick access anytime.</p>
+  <!-- Spacer -->
+  <div class="h-20"></div>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto pb-14 px-4 space-y-6">
+
+    <!-- Intro -->
+    <section class="bg-white rounded-2xl p-6 shadow-md">
+      <h2 class="text-2xl font-bold mb-2 text-gray-900">Welcome to FM Radio</h2>
+      <p class="text-gray-700">
+        This guide will help you explore all the features of the FM Radio app efficiently.
+      </p>
+    </section>
+
+    <!-- Feature Cards -->
+    <section class="grid gap-4">
+      <!-- Player Controls -->
+      <div class="bg-white rounded-2xl p-5 flex gap-4 items-start shadow-md">
+        <span class="material-icons text-blue-600 text-3xl">play_circle</span>
+        <div>
+          <h3 class="font-bold text-lg text-gray-900">Player Controls</h3>
+          <p class="text-gray-700 text-sm">
+            Use <b>Play / Pause</b>, <b>Next</b>, and <b>Previous</b> buttons to control your music. Volume slider adjusts sound smoothly.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- Full Channel List -->
-    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
-      <span class="material-icons text-pink-400 text-3xl">list</span>
-      <div>
-        <h3 class="font-bold text-lg">All Channels</h3>
-        <p class="text-sm text-gray-300">Tap the <b>List Button</b> at the bottom right to view all FM channels in a full-screen list.</p>
+      <!-- Recently Played -->
+      <div class="bg-white rounded-2xl p-5 flex gap-4 items-start shadow-md">
+        <span class="material-icons text-blue-600 text-3xl">history</span>
+        <div>
+          <h3 class="font-bold text-lg text-gray-900">Recently Played</h3>
+          <p class="text-gray-700 text-sm">
+            Your last 10 radios are saved automatically for quick access anytime.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- Search + Filters -->
-    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
-      <span class="material-icons text-pink-400 text-3xl">filter_alt</span>
-      <div>
-        <h3 class="font-bold text-lg">Search & Filters</h3>
-        <p class="text-sm text-gray-300">Quickly find stations by <b>searching</b> or filtering by <b>Language</b> and <b>Type</b> (Regional FM or 24/7 Live).</p>
+      <!-- All Channels -->
+      <div class="bg-white rounded-2xl p-5 flex gap-4 items-start shadow-md">
+        <span class="material-icons text-blue-600 text-3xl">list</span>
+        <div>
+          <h3 class="font-bold text-lg text-gray-900">All Channels</h3>
+          <p class="text-gray-700 text-sm">
+            Tap the <b>List Button</b> at the bottom right to view all FM channels in a full-screen list.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- Screensaver -->
-    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
-      <span class="material-icons text-pink-400 text-3xl">tv</span>
-      <div>
-        <h3 class="font-bold text-lg">Screensaver Mode</h3>
-        <p class="text-sm text-gray-300">If you’re idle for 15 seconds while music is playing, a <b>beautiful screensaver</b> shows Now Playing info with big controls.</p>
+      <!-- Search & Filters -->
+      <div class="bg-white rounded-2xl p-5 flex gap-4 items-start shadow-md">
+        <span class="material-icons text-blue-600 text-3xl">filter_alt</span>
+        <div>
+          <h3 class="font-bold text-lg text-gray-900">Search & Filters</h3>
+          <p class="text-gray-700 text-sm">
+            Quickly find stations by <b>searching</b> or filtering by <b>Language</b> and <b>Type</b> (Regional FM or 24/7 Live).
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- Updates -->
-    <div class="bg-purple-950/60 rounded-2xl p-5 flex gap-4 items-start shadow-md">
-      <span class="material-icons text-pink-400 text-3xl">update</span>
-      <div>
-        <h3 class="font-bold text-lg">Automatic Updates</h3>
-        <p class="text-sm text-gray-300">All channel data updates live from our database. No app update needed for new radios!</p>
+      <!-- Screensaver -->
+      <div class="bg-white rounded-2xl p-5 flex gap-4 items-start shadow-md">
+        <span class="material-icons text-blue-600 text-3xl">tv</span>
+        <div>
+          <h3 class="font-bold text-lg text-gray-900">Screensaver Mode</h3>
+          <p class="text-gray-700 text-sm">
+            If idle while music is playing, a <b>beautiful screensaver</b> shows Now Playing info with big controls.
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Telegram Section -->
-  <section class="bg-gradient-to-b from-pink-700 to-purple-900 rounded-2xl p-5 shadow-lg text-center">
-    <p class="text-sm text-gray-200 mb-4">For latest live TV links and updates:</p>
-    <span class="inline-block bg-pink-600 text-white font-semibold px-4 py-2 rounded-xl shadow-md">@tnm3u</span>
-  </section>
-</main>
+      <!-- Automatic Updates -->
+      <div class="bg-white rounded-2xl p-5 flex gap-4 items-start shadow-md">
+        <span class="material-icons text-blue-600 text-3xl">update</span>
+        <div>
+          <h3 class="font-bold text-lg text-gray-900">Automatic Updates</h3>
+          <p class="text-gray-700 text-sm">
+            All channel data updates live from our database. No app update needed for new radios!
+          </p>
+        </div>
+      </div>
+    </section>
 
-<!-- Footer -->
-<footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 bg-purple-950/70 backdrop-blur-md">
-  Proudly Maintained by Tnm3u © <span id="year"></span>
-</footer>
+    <!-- Telegram Section -->
+    <section class="bg-white rounded-2xl p-5 shadow-md text-center">
+      <p class="text-gray-700 mb-4">For latest live TV links and updates:</p>
+      <span class="inline-block bg-gray-100 text-gray-900 font-medium px-4 py-2 rounded-md shadow-sm">@tnm3u</span>
+    </section>
 
-<script>
-  // Update year
-  document.getElementById("year").textContent = new Date().getFullYear();
+  </main>
 
-  // Go to Player button (Option 2: history.back with fallback)
-  const goPlayerBtn = document.getElementById('goPlayerBtn');
-  goPlayerBtn.addEventListener('click', () => {
-    if(history.length > 1){
-      history.back();
-    } else {
-      window.location.href = "https://tnm3u.live/fm"; // fallback if no history
-    }
-  });
-</script>
+  <!-- Footer -->
+  <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-500 bg-white border-t border-gray-200">
+    Proudly Maintained by Tnm3u © <span id="year"></span>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Go to Player button (history.back with fallback)
+    const goPlayerBtn = document.getElementById('goPlayerBtn');
+    goPlayerBtn.addEventListener('click', () => {
+      if(history.length > 1){
+        history.back();
+      } else {
+        window.location.href = "https://tnm3u.live/fm"; // fallback
+      }
+    });
+
+    // Mobile overlay menu
+    const menuBtn = document.getElementById('menu-btn');
+    const navOverlay = document.getElementById('nav-overlay');
+    const navLinks = navOverlay.querySelectorAll('a');
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navOverlay.classList.toggle('-translate-x-full');
+      navOverlay.classList.toggle('translate-x-0');
+    });
+
+    navOverlay.addEventListener('click', (e) => {
+      if(!e.target.closest('a')) {
+        navOverlay.classList.add('-translate-x-full');
+        navOverlay.classList.remove('translate-x-0');
+      }
+    });
+
+    navLinks.forEach(link => link.addEventListener('click', (e) => e.stopPropagation()));
+
+    // Highlight current page link
+    const currentURL = window.location.href;
+    navLinks.forEach(link => {
+      if(currentURL === link.href){
+        link.classList.add('text-blue-600','font-semibold');
+      }
+    });
+  </script>
 
 </body>
 </html>
