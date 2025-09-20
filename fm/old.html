@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>FM Radio Player</title>  
+
+<!-- Tailwind CSS -->  
+<script src="https://cdn.tailwindcss.com"></script> 
+
+<!-- Material Icons -->  
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>  
+
+<!-- Baloo 2 Font -->  
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>  
+
+<style>
+    /* Page Wave Loader */
+    .page-waves {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      z-index: 99999;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .wave-shape {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 120%;
+      background: radial-gradient(circle at 50% 50%, #ec4899 20%, #6b21a8 80%);
+      border-radius: 43%;
+      animation: waveSlide 2.2s ease-in-out forwards;
+    }
+    .wave-shape:nth-child(2) {
+      animation-delay: 0.2s;
+      opacity: 0.8;
+    }
+    .wave-shape:nth-child(3) {
+      animation-delay: 0.4s;
+      opacity: 0.6;
+    }
+    @keyframes waveSlide {
+      0% { transform: translateY(0) rotate(0deg); }
+      60% { transform: translateY(-40%) rotate(30deg); }
+      100% { transform: translateY(-120%) rotate(60deg); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white font-[Baloo_2] min-h-screen flex flex-col">  <!-- Wave Page Loader -->  <div id="pageLoader" class="page-waves">
+    <div class="wave-shape"></div>
+    <div class="wave-shape"></div>
+    <div class="wave-shape"></div>
+  </div>  
+
+<!-- Header (fixed) -->
+<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
+               bg-purple-950/70 backdrop-blur-md shadow-md">
+  <!-- Left: Logo + Title -->
+  <div class="flex items-center gap-2">
+    <span class="material-icons text-pink-400 text-2xl">radio</span>
+    <h1 class="text-xl font-bold sm:text-lg">FM Radio</h1>
+  </div>
+
+  <!-- Right: Navigation Links -->
+  <nav class="flex items-center gap-4 text-sm sm:text-xs">
+    <a href="https://tnm3u.live/fm/about" class="hover:text-pink-400 transition-colors">About</a>
+    <a href="https://tnm3u.live/fm/contact" class="hover:text-pink-400 transition-colors">Contact</a>
+    <a href="https://tnm3u.live/fm/guide" class="hover:text-pink-400 transition-colors">Guide</a>
+  </nav>
+</header>
+
+<!-- Main -->
+  <main class="flex-1 overflow-y-auto pt-20 pb-14 px-4">
+    <!-- Player -->
+    <section class="flex flex-col items-center">
+      <img id="radioIcon" src="https://via.placeholder.com/150" alt="Radio Icon" class="w-32 h-32 rounded-2xl shadow-lg mb-4">
+      <h2 id="radioName" class="text-2xl font-bold">Lorem FM</h2>
+      <p id="radioLocation" class="text-sm text-gray-300">New York, 00.00</p>
+
+      <!-- Volume -->
+      <div class="flex items-center gap-2 mt-4 w-64">
+        <span class="material-icons">volume_down</span>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" class="w-full accent-pink-500">
+        <span class="material-icons">volume_up</span>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-6 mt-6">
+        <button id="prevBtn" class="material-icons text-3xl">skip_previous</button>
+        <button id="playPauseBtn" class="bg-pink-600 rounded-full p-4 shadow-lg">
+          <span id="playPauseIcon" class="material-icons text-3xl">play_arrow</span>
+        </button>
+        <button id="nextBtn" class="material-icons text-3xl">skip_next</button>
+      </div>
+    </section>
+
+    <!-- Recently Played -->
+    <section class="mt-6 hidden" id="recentSection">
+      <h3 class="text-lg mb-3 font-bold">Recently Played</h3>
+      <div id="recentList" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"></div>
+    </section>
+
+    <!-- FM List (kept as horizontal showcase) -->
+    <section class="hidden mt-6">
+      <h3 class="text-lg mb-3 font-bold">Available FM Channels</h3>
+      <div id="radioList" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"></div>
+    </section>
+
+    <!-- Maintained By -->
+    <section class="mt-6">
+      <div class="bg-gradient-to-b from-pink-700 to-purple-900 rounded-2xl p-5 shadow-lg text-center">
+        <p class="text-sm text-gray-200 mb-4">Join our official Telegram channel for Live TV and exclusive updates.</p>
+        <span class="inline-block bg-pink-600 text-white font-semibold px-4 py-2 rounded-xl shadow-md">@tnm3u</span>
+      </div>
+    </section>
+  </main>
+
+<!-- Footer -->  
+<footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 
+                 bg-purple-950/70 backdrop-blur-md">
+    Proudly Maintained by Tnm3u © <span id="year"></span> 
+  </footer>  
+
+<!-- Floating List Button -->
+<button id="listBtn" 
+  class="fixed bottom-20 right-5 z-50 bg-white text-purple-900 
+         rounded-full w-16 h-16 flex items-center justify-center 
+         shadow-xl hover:scale-105 transition-transform">
+  <span class="material-icons text-3xl">list</span>
+</button>
+
+<!-- Channel Overlay (Full Screen) -->
+<div id="channelOverlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm flex flex-col opacity-0 pointer-events-none transition-opacity duration-500 z-[9998]">
+  <div class="flex justify-between items-center p-4 border-b border-white/10">
+    <h2 class="text-lg font-bold text-white">All FM Channels <span id="channelCount" class="text-pink-400">0</span></h2>
+    <button id="closeOverlay" class="material-icons text-gray-300 hover:text-white">close</button>
+  </div>
+
+  <!-- 🔍 Search + Location + Type Filters -->
+<div class="p-3 grid grid-cols-3 gap-2">
+  <!-- Search -->
+  <input type="text" id="channelSearch" placeholder="Search..." 
+    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
+           focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+
+  <!-- Custom Language Dropdown (replaces Location) -->
+<div class="relative" id="languageDropdown">
+  <button type="button" 
+    class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
+           text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-pink-500">
+    <span id="languageSelected">Language</span>
+    <span class="material-icons text-gray-400">expand_more</span>
+  </button>
+  <ul id="languageMenu" 
+    class="absolute hidden mt-1 w-full bg-purple-950/90 border border-white/10 
+           rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
+  </ul>
+</div>
+
+  <!-- Custom Type Dropdown -->
+  <div class="relative" id="typeDropdown">
+    <button type="button" 
+      class="w-full p-2 rounded-xl bg-purple-950/50 border border-white/10 
+             text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <span id="typeSelected">All Types</span>
+      <span class="material-icons text-gray-400">expand_more</span>
+    </button>
+    <ul id="typeMenu" 
+      class="absolute hidden mt-1 w-full bg-purple-950/90 border border-white/10 
+             rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
+    </ul>
+  </div>
+</div>
+
+  <!-- Full-height channel list -->
+  <div id="channelList" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide"></div>
+</div>
+
+  <!-- Screensaver -->
+  <div id="screensaver" class="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-black flex flex-col items-center justify-center text-white opacity-0 pointer-events-none transition-opacity duration-700 z-[9999]">
+    <div class="flex gap-1 mb-6">
+      <div class="wave"></div><div class="wave delay-1"></div><div class="wave delay-2"></div>
+      <div class="wave delay-3"></div><div class="wave delay-4"></div><div class="wave delay-5"></div><div class="wave delay-6"></div>
+    </div>
+    <h2 id="ssName" class="text-2xl font-bold">FM Radio</h2>
+    <p id="ssLocation" class="text-sm text-gray-300 mb-6">Now Playing</p>
+    <div class="flex items-center gap-6">
+      <button id="ssPrev" class="material-icons text-4xl">skip_previous</button>
+      <button id="ssPlayPause" class="bg-pink-600 rounded-full p-6 shadow-lg">
+        <span id="ssPlayPauseIcon" class="material-icons text-4xl">pause</span>
+      </button>
+      <button id="ssNext" class="material-icons text-4xl">skip_next</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const audio = new Audio();
+audio.volume = 0.5;
+
+// DOM Elements
+const playPauseBtn = document.getElementById("playPauseBtn");
+const playPauseIcon = document.getElementById("playPauseIcon");
+const volumeControl = document.getElementById("volumeControl");
+const radioName = document.getElementById("radioName");
+const radioLocation = document.getElementById("radioLocation");
+const radioIcon = document.getElementById("radioIcon");
+const radioList = document.getElementById("radioList");
+const recentSection = document.getElementById("recentSection");
+const recentList = document.getElementById("recentList");
+const channelList = document.getElementById("channelList");
+const channelCount = document.getElementById("channelCount");
+const channelSearch = document.getElementById("channelSearch");
+
+// Custom dropdown elements
+const languageSelected = document.getElementById("languageSelected");
+const languageMenu = document.getElementById("languageMenu");
+const typeSelected = document.getElementById("typeSelected");
+const typeMenu = document.getElementById("typeMenu");
+
+// Screensaver
+const screensaver = document.getElementById("screensaver");
+const ssName = document.getElementById("ssName");
+const ssLocation = document.getElementById("ssLocation");
+const ssPlayPause = document.getElementById("ssPlayPause");
+const ssPlayPauseIcon = document.getElementById("ssPlayPauseIcon");
+
+// Overlay and buttons
+const listBtn = document.getElementById("listBtn");
+const channelOverlay = document.getElementById("channelOverlay");
+const closeOverlay = document.getElementById("closeOverlay");
+
+let radios = [];
+let currentIndex = 0;
+let recentRadios = JSON.parse(localStorage.getItem("recentRadios")) || [];
+
+// Selected filter values
+let selectedLanguage = "";
+let selectedType = "";
+
+// ---------------------- Functions ----------------------
+
+// Render recent radios (no highlight)
+function renderRecent() {
+  recentList.innerHTML = "";
+  if (recentRadios.length === 0) {
+    recentSection.classList.add("hidden");
+    return;
+  }
+  recentSection.classList.remove("hidden");
+  recentRadios.forEach(radio => {
+    const card = document.createElement("div");
+    card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
+    card.innerHTML = `
+      <img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow">
+      <p class="font-bold truncate">${radio.name}</p>
+      <p class="text-xs text-gray-300 truncate">${radio.language || ""}</p>`;
+    card.onclick = () => playRadio(radios.findIndex(r => r.id === radio.id));
+    recentList.appendChild(card);
+  });
+}
+
+// Render channel list with filters and highlight current
+function renderChannelList() {
+  const searchTerm = channelSearch.value.toLowerCase();
+
+  const filtered = radios.filter(radio => {
+    const matchSearch = radio.name.toLowerCase().includes(searchTerm) ||
+                        (radio.location || "").toLowerCase().includes(searchTerm) ||
+                        (radio.language || "").toLowerCase().includes(searchTerm);
+    const matchLang = selectedLanguage === "" || radio.language === selectedLanguage;
+    const matchType = selectedType === "" || radio.type === selectedType;
+    return matchSearch && matchLang && matchType;
+  });
+
+  channelList.innerHTML = "";
+  const sorted = filtered.sort((a, b) => a.name.localeCompare(b.name));
+  if (channelCount) channelCount.textContent = sorted.length;
+
+  sorted.forEach(radio => {
+    const isPlaying = radios[currentIndex]?.id === radio.id;
+
+    const item = document.createElement("div");
+    item.className = `flex items-center gap-4 rounded-xl p-3 shadow-md cursor-pointer hover:scale-[1.02] transition-transform
+                      ${isPlaying ? "bg-pink-700/70 scale-[1.02]" : "bg-gradient-to-r from-pink-700/70 to-purple-900/70"}`;
+    item.innerHTML = `
+      <img src="${radio.icon}" class="w-12 h-12 rounded-lg shadow">
+      <div class="flex-1">
+        <p class="font-bold">${radio.name}</p>
+        <p class="text-xs text-gray-300">${radio.language || ""}</p>
+      </div>
+      <span class="material-icons text-pink-400">${isPlaying ? "pause_circle" : "play_circle"}</span>`;
+
+    item.onclick = () => {
+      playRadio(radios.findIndex(r => r.id === radio.id));
+      renderChannelList();
+      closeOverlay.click();
+    };
+
+    channelList.appendChild(item);
+  });
+}
+
+// Populate filters
+function populateFilters() {
+  const languages = [...new Set(radios.map(r => r.language).filter(Boolean))];
+  const types = [...new Set(radios.map(r => r.type).filter(Boolean))];
+
+  // Language
+  languageMenu.innerHTML = "";
+  const allLang = document.createElement("li");
+  allLang.textContent = "All";
+  allLang.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+  allLang.onclick = () => { selectedLanguage = ""; languageSelected.textContent = "All"; languageMenu.classList.add("hidden"); renderChannelList(); };
+  languageMenu.appendChild(allLang);
+  languages.forEach(lang => {
+    const li = document.createElement("li");
+    li.textContent = lang;
+    li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+    li.onclick = () => { selectedLanguage = lang; languageSelected.textContent = lang; languageMenu.classList.add("hidden"); renderChannelList(); };
+    languageMenu.appendChild(li);
+  });
+
+  // Type
+  typeMenu.innerHTML = "";
+  const allType = document.createElement("li");
+  allType.textContent = "All Types";
+  allType.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+  allType.onclick = () => { selectedType = ""; typeSelected.textContent = "All Types"; typeMenu.classList.add("hidden"); renderChannelList(); };
+  typeMenu.appendChild(allType);
+  types.forEach(type => {
+    const li = document.createElement("li");
+    li.textContent = type === "live" ? "24/7 Live" : type === "fm" ? "Radios" : type;
+    li.className = "px-3 py-2 hover:bg-pink-600/40 cursor-pointer rounded-lg";
+    li.onclick = () => { selectedType = type; typeSelected.textContent = li.textContent; typeMenu.classList.add("hidden"); renderChannelList(); };
+    typeMenu.appendChild(li);
+  });
+}
+
+// Play radio
+function playRadio(index, autoplay = true) {
+  currentIndex = index;
+  const radio = radios[index];
+  if (!radio) return;
+
+  radioName.textContent = radio.name;
+  radioLocation.textContent = radio.location || "";
+  radioIcon.src = radio.icon || "https://via.placeholder.com/150";
+  audio.src = radio.stream;
+
+  recentRadios = recentRadios.filter(r => r.id !== radio.id);
+  recentRadios.unshift(radio);
+  if (recentRadios.length > 10) recentRadios.pop();
+  localStorage.setItem("recentRadios", JSON.stringify(recentRadios));
+
+  renderRecent();
+
+  if (autoplay) {
+    audio.play().catch(() => console.log("Tap play to start audio"));
+    playPauseIcon.textContent = "pause";
+    ssPlayPauseIcon.textContent = "pause";
+  } else {
+    playPauseIcon.textContent = "play_arrow";
+    ssPlayPauseIcon.textContent = "play_arrow";
+  }
+
+  renderChannelList();
+}
+
+// ---------------------- Event Listeners ----------------------
+playPauseBtn.addEventListener("click", () => {
+  if (audio.paused) { audio.play(); playPauseIcon.textContent = "pause"; ssPlayPauseIcon.textContent = "pause"; }
+  else { audio.pause(); playPauseIcon.textContent = "play_arrow"; ssPlayPauseIcon.textContent = "play_arrow"; }
+});
+
+document.getElementById("nextBtn").addEventListener("click", () => playRadio((currentIndex + 1) % radios.length));
+document.getElementById("prevBtn").addEventListener("click", () => playRadio((currentIndex - 1 + radios.length) % radios.length));
+volumeControl.addEventListener("input", e => audio.volume = e.target.value);
+
+listBtn.addEventListener("click", () => { channelOverlay.classList.remove("pointer-events-none", "opacity-0"); });
+closeOverlay.addEventListener("click", () => { channelOverlay.classList.add("opacity-0", "pointer-events-none"); });
+
+document.getElementById("languageDropdown").querySelector("button").addEventListener("click", () => languageMenu.classList.toggle("hidden"));
+document.getElementById("typeDropdown").querySelector("button").addEventListener("click", () => typeMenu.classList.toggle("hidden"));
+
+// Screensaver
+let idleTimer;
+const idleTime = 15000;
+function showScreensaver() {
+  if (!audio.paused) {
+    ssName.textContent = radioName.textContent;
+    ssLocation.textContent = radioLocation.textContent;
+    screensaver.classList.remove("pointer-events-none");
+    screensaver.classList.add("opacity-100");
+  }
+}
+function hideScreensaver() {
+  screensaver.classList.remove("opacity-100");
+  screensaver.classList.add("pointer-events-none");
+  resetIdleTimer();
+}
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(showScreensaver, idleTime);
+}
+["mousemove","keydown","click","touchstart"].forEach(evt => document.addEventListener(evt, hideScreensaver));
+
+ssPlayPause.addEventListener("click", () => {
+  if (audio.paused) { audio.play(); ssPlayPauseIcon.textContent = "pause"; playPauseIcon.textContent = "pause"; }
+  else { audio.pause(); ssPlayPauseIcon.textContent = "play_arrow"; playPauseIcon.textContent = "play_arrow"; }
+  resetIdleTimer();
+});
+document.getElementById("ssNext").addEventListener("click", () => { document.getElementById("nextBtn").click(); resetIdleTimer(); });
+document.getElementById("ssPrev").addEventListener("click", () => { document.getElementById("prevBtn").click(); resetIdleTimer(); });
+
+channelSearch.addEventListener("input", renderChannelList);
+
+// ---------------------- Firebase Data ----------------------
+onValue(ref(db, "radios"), snapshot => {
+  radios = [];
+  radioList.innerHTML = "";
+  snapshot.forEach(child => {
+    const radio = { id: child.key, ...child.val() };
+    radios.push(radio);
+    const card = document.createElement("div");
+    card.className = "bg-gradient-to-b from-pink-700 to-purple-900 rounded-xl p-3 text-center cursor-pointer shadow-md w-32 flex-shrink-0 snap-center transition-transform duration-300 hover:scale-105";
+    card.innerHTML = `<img src="${radio.icon}" class="w-16 h-16 mx-auto mb-2 rounded-lg shadow"><p class="font-bold truncate">${radio.name}</p><p class="text-xs text-gray-300">${radio.location || ""}</p>`;
+    card.onclick = () => playRadio(radios.indexOf(radio));
+    radioList.appendChild(card);
+  });
+
+  if (radios.length > 0) playRadio(0, false);
+  renderRecent();
+  populateFilters();
+  renderChannelList();
+});
+
+// ---------------------- Page Loader ----------------------
+window.addEventListener("load", () => {
+  const loader = document.getElementById("pageLoader");
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    loader.style.transition = "opacity 0.8s ease-out";
+    setTimeout(() => loader.remove(), 900);
+  }, 2200);
+});
+
+resetIdleTimer();
+
+ // Auto-update year
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .wave { width: 6px; height: 20px; background: white; border-radius: 3px; animation: waveAnim 1.2s infinite ease-in-out; }
+  .wave.delay-1 { animation-delay: 0.1s }
+  .wave.delay-2 { animation-delay: 0.2s }
+  .wave.delay-3 { animation-delay: 0.3s }
+  .wave.delay-4 { animation-delay: 0.4s }
+  .wave.delay-5 { animation-delay: 0.5s }
+  .wave.delay-6 { animation-delay: 0.6s }
+  @keyframes waveAnim { 0%, 40%, 100% { transform: scaleY(0.3);} 20% { transform: scaleY(1);} }
+</style>
+</body>
+</html>
