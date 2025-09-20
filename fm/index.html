@@ -79,21 +79,62 @@
   </div>  
 
   <!-- Header (fixed) -->
-  <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
-                 bg-white shadow-md border-b border-gray-200">
-    <!-- Left: Logo + Title -->
-    <div class="flex items-center gap-2">
-      <span class="material-icons text-blue-600 text-2xl">radio</span>
-      <h1 class="text-xl font-bold sm:text-lg">FM Radio</h1>
-    </div>
+<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
+               bg-white shadow-md border-b border-gray-200">
+  <!-- Left: Logo + Title -->
+  <div class="flex items-center gap-2">
+    <span class="material-icons text-blue-600 text-2xl">radio</span>
+    <h1 class="text-xl font-bold sm:text-lg">FM Radio</h1>
+  </div>
 
-    <!-- Right: Navigation Links -->
-    <nav class="flex items-center gap-4 text-sm sm:text-xs">
-      <a href="https://tnm3u.live/fm/about" class="hover:text-blue-600 transition-colors">About</a>
-      <a href="https://tnm3u.live/fm/contact" class="hover:text-blue-600 transition-colors">Contact</a>
-      <a href="https://tnm3u.live/fm/guide" class="hover:text-blue-600 transition-colors">Guide</a>
-    </nav>
-  </header>
+  <!-- Hamburger Button (mobile) -->
+  <button id="menu-btn" class="material-icons text-2xl md:hidden">menu</button>
+
+  <!-- Navigation Links (Full-screen mobile menu) -->
+  <nav id="nav-menu" class="fixed inset-0 bg-white z-50 flex flex-col justify-center items-center gap-8
+                             transform -translate-y-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-4 md:translate-y-0">
+    <a href="https://tnm3u.live/fm/about" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+      <span class="material-icons">info</span>
+      About
+    </a>
+    <a href="https://tnm3u.live/fm/contact" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+      <span class="material-icons">contacts</span>
+      Contact
+    </a>
+    <a href="https://tnm3u.live/fm/guide" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+      <span class="material-icons">menu_book</span>
+      Guide
+    </a>
+    <!-- Close button for mobile -->
+    <button id="close-menu" class="absolute top-6 right-6 material-icons text-3xl md:hidden">close</button>
+  </nav>
+</header>
+
+<!-- JS for full-screen menu toggle -->
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  const closeMenu = document.getElementById('close-menu');
+
+  // Open menu
+  menuBtn.addEventListener('click', () => {
+    navMenu.classList.remove('-translate-y-full');
+  });
+
+  // Close menu
+  closeMenu.addEventListener('click', () => {
+    navMenu.classList.add('-translate-y-full');
+  });
+
+  // Highlight active link
+  const links = navMenu.querySelectorAll('a');
+  const currentURL = window.location.href;
+  links.forEach(link => {
+    if (currentURL === link.href) {
+      link.classList.add('text-blue-600', 'font-semibold');
+    }
+  });
+</script>
 
   <!-- Main -->
   <main class="flex-1 overflow-y-auto pt-20 pb-14 px-4">
