@@ -18,82 +18,140 @@
     body { font-family: 'Baloo 2', cursive; }
   </style>
 </head>
-<body class="bg-gradient-to-b from-purple-900 via-pink-800 to-black text-white min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
 
-<!-- Header -->
-<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 bg-purple-950/70 backdrop-blur-md shadow-md">
-  <!-- Left: Icon + Title -->
-  <div class="flex items-center gap-2">
-    <span class="material-icons text-pink-400 text-2xl">contacts</span>
-    <h1 class="text-xl font-bold">Contact</h1>
-  </div>
+  <!-- Header (Google-style) -->
+  <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
+                 bg-white shadow-md border-b border-gray-200">
+    <div class="flex items-center gap-2">
+      <span class="material-icons text-black-600 text-2xl">contacts</span>
+      <h1 class="text-xl font-bold sm:text-lg">Contact</h1>
+    </div>
+    <button id="menu-btn" class="material-icons text-2xl md:hidden">menu</button>
+    <nav id="nav-overlay" class="fixed inset-0 bg-white z-50 flex flex-col justify-center items-center gap-8
+                               transform -translate-x-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-4 md:translate-x-0">
+      <a href="https://tnm3u.live/fm/about" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+        <span class="material-icons">info</span>
+        About
+      </a>
+      <a href="https://tnm3u.live/fm/contact" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+        <span class="material-icons">contacts</span>
+        Contact
+      </a>
+      <a href="https://tnm3u.live/fm/guide" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+        <span class="material-icons">menu_book</span>
+        Guide
+      </a>
+      <a href="https://tnm3u.live/fm" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+        <span class="material-icons">play_circle_filled</span>
+        Player
+      </a>
+    </nav>
+  </header>
 
-  <!-- Right: Go to Player Button -->
-  <button id="goPlayerBtn" 
-          class="bg-pink-600 hover:bg-pink-500 text-white font-semibold px-4 py-2 rounded-xl shadow-lg transition flex items-center gap-1">
-    <span class="material-icons text-base">play_circle_filled</span>
-    <span>Go to Player</span>
-  </button>
-</header> 
+  <!-- Spacer -->
+  <div class="h-20"></div>
 
-<!-- Spacer to prevent header overlap -->
-<div class="h-24"></div>
+  <main class="flex-1 overflow-y-auto pb-14 px-4 space-y-6">
 
-<!-- Main Content -->
-<main class="flex-1 pb-14 px-4 overflow-y-auto space-y-6">
+    <!-- Intro Section -->
+    <section class="bg-white rounded-2xl p-6 shadow-md text-center">
+      <h2 class="text-2xl font-bold mb-2 text-gray-900">Get in Touch</h2>
+      <p class="text-gray-700">
+        Have a question, suggestion, or want your radio station featured on FM Radio? Reach out to us using the contact info below.
+      </p>
+    </section>
 
-  <!-- Intro -->
-  <section class="bg-purple-950/50 rounded-2xl p-5 shadow-lg text-center">
-    <h2 class="text-2xl font-bold mb-2">Get in Touch</h2>
-    <p class="text-gray-300">
-      Have a question, suggestion, or want your radio station featured on FM Radio? Reach out to us using the contact info below.
-    </p>
-  </section>
+    <!-- Contact Info Section -->
+    <section class="bg-white rounded-2xl p-6 shadow-md space-y-4">
+      <h3 class="text-xl font-bold mb-3 text-gray-900">Contact Details</h3>
 
-  <!-- Contact Info (Clickable for Kodular) -->
-  <section class="bg-purple-950/50 rounded-2xl p-5 shadow-lg space-y-3">
-    <h3 class="text-xl font-bold mb-3">Contact Details</h3>
+      <a href="mailto:tnm3us@gmail.com" class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:bg-gray-100 transition">
+        <i class="material-icons text-gray-700 text-lg">email</i>
+        <span class="text-gray-900">Email: tnm3us@gmail.com</span>
+      </a>
 
-    <a href="mailto:tnm3us@gmail.com" class="block w-full p-3 bg-purple-900/50 rounded-xl hover:bg-pink-600/30 transition flex items-center gap-2">
-      <span class="material-icons text-pink-400">email</span>
-      <span class="text-white">Email: tnm3us@gmail.com</span>
-    </a>
+      <a href="https://telegram.me/tnm3u" target="_blank" class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:bg-gray-100 transition">
+        <i class="material-icons text-gray-700 text-lg">send</i>
+        <span class="text-gray-900">Telegram: @tnm3u</span>
+      </a>
 
-    <a href="https://t.me/tnm3u" target="_blank" class="block w-full p-3 bg-purple-900/50 rounded-xl hover:bg-pink-600/30 transition flex items-center gap-2">
-      <span class="material-icons text-pink-400">telegram</span>
-      <span class="text-white">Telegram: @tnm3u</span>
-    </a>
+      <a href="https://www.tnm3u.live" target="_blank" class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:bg-gray-100 transition">
+        <i class="material-icons text-gray-700 text-lg">public</i>
+        <span class="text-gray-900">Website: www.tnm3u.live</span>
+      </a>
+    </section>
 
-    <a href="https://www.tnm3u.live" target="_blank" class="block w-full p-3 bg-purple-900/50 rounded-xl hover:bg-pink-600/30 transition flex items-center gap-2">
-      <span class="material-icons text-pink-400">public</span>
-      <span class="text-white">Website: www.tnm3u.live</span>
-    </a>
+    <!-- Support & Feedback Section -->
+    <section class="bg-white rounded-2xl p-6 shadow-md space-y-4">
+      <h3 class="text-xl font-bold mb-3 text-gray-900">Support & Feedback</h3>
+      <p class="text-gray-700">
+        For support, bug reports, or feature requests, please email us or use the feedback form on our website. We aim to respond within 24-48 hours.
+      </p>
+      <a href="mailto:tnm3us@gmail.com" target="_blank" class="inline-block px-5 py-3 bg-white border border-gray-300 rounded-md shadow-sm hover:shadow-md transition text-gray-900 font-medium">
+        Submit Feedback
+      </a>
+    </section>
 
-    <p class="text-gray-300 mt-2">We strive to respond within 24-48 hours for all queries and submissions.</p>
-  </section>
+    <!-- Social Links Section -->
+    <section class="bg-white rounded-2xl p-6 shadow-md text-center">
+      <h3 class="text-xl font-bold mb-4 text-gray-900">Follow & Connect</h3>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="https://t.me/tnm3u" target="_blank" class="w-12 h-12 flex items-center justify-center bg-white border border-gray-300 rounded-full shadow-sm hover:shadow-md transition">
+          <i class="material-icons text-gray-700 text-lg">send</i>
+        </a>
+        <a href="mailto:tnm3us@gmail.com" class="w-12 h-12 flex items-center justify-center bg-white border border-gray-300 rounded-full shadow-sm hover:shadow-md transition">
+          <i class="material-icons text-gray-700 text-lg">email</i>
+        </a>
+        <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center bg-white border border-gray-300 rounded-full shadow-sm hover:shadow-md transition">
+          <i class="material-icons text-gray-700 text-lg">public</i>
+        </a>
+      </div>
+    </section>
 
-</main>
+  </main>
 
-<!-- Footer -->
-<footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-400 bg-purple-950/70 backdrop-blur-md">
-  Proudly Maintained by Tnm3u © <span id="year"></span>
-</footer>
+  <!-- Footer -->
+  <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs text-gray-500 
+                 bg-white border-t border-gray-200">
+    Proudly Maintained by Tnm3u © <span id="year"></span>
+  </footer>
 
-<!-- Scripts -->
-<script>
-  // Update year
-  document.getElementById("year").textContent = new Date().getFullYear();
+  <!-- JS -->
+  <script>
+    // Auto-update year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Go to Player button (history.back with fallback)
-  const goPlayerBtn = document.getElementById('goPlayerBtn');
-  goPlayerBtn.addEventListener('click', () => {
-    if(history.length > 1){
-      history.back();
-    } else {
-      window.location.href = "https://tnm3u.live/fm"; // fallback
-    }
-  });
-</script>
+    // Menu toggle for mobile overlay
+    const menuBtn = document.getElementById('menu-btn');
+    const navOverlay = document.getElementById('nav-overlay');
+    const navLinks = navOverlay.querySelectorAll('a');
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navOverlay.classList.toggle('-translate-x-full');
+      navOverlay.classList.toggle('translate-x-0');
+    });
+
+    // Close overlay when clicking outside or on overlay background (not links)
+    navOverlay.addEventListener('click', (e) => {
+      if (!e.target.closest('a')) {
+        navOverlay.classList.add('-translate-x-full');
+        navOverlay.classList.remove('translate-x-0');
+      }
+    });
+
+    // Prevent clicks on links from closing overlay
+    navLinks.forEach(link => link.addEventListener('click', (e) => e.stopPropagation()));
+
+    // Highlight current page link
+    const currentURL = window.location.href;
+    navLinks.forEach(link => {
+      if (currentURL === link.href) {
+        link.classList.add('text-blue-600', 'font-semibold');
+      }
+    });
+  </script>
 
 </body>
 </html>
