@@ -78,7 +78,7 @@
     <div class="wave-shape"></div>
   </div>  
 
-  <!-- Header (fixed) -->
+  <!-- Header (Google-style) -->
 <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
                bg-white shadow-md border-b border-gray-200">
   <!-- Left: Logo + Title -->
@@ -90,10 +90,10 @@
   <!-- Hamburger Button (mobile) -->
   <button id="menu-btn" class="material-icons text-2xl md:hidden">menu</button>
 
-  <!-- Navigation Links (Full-screen mobile menu) -->
-  <nav id="nav-menu" class="fixed inset-0 bg-white z-50 flex flex-col justify-center items-center gap-8
-                             transform -translate-y-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-4 md:translate-y-0">
-    <a href="https://tnm3u.live/fm/about" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+  <!-- Navigation Overlay Menu -->
+  <nav id="nav-overlay" class="fixed inset-0 bg-white z-50 flex flex-col justify-center items-center gap-8
+                             transform -translate-x-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-4 md:translate-x-0">
+    <a href="https://tnm3u.live/fm/about" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
       <span class="material-icons">info</span>
       About
     </a>
@@ -105,31 +105,44 @@
       <span class="material-icons">menu_book</span>
       Guide
     </a>
-    <!-- Close button for mobile -->
-    <button id="close-menu" class="absolute top-6 right-6 material-icons text-3xl md:hidden">close</button>
+    <a href="https://tnm3u.live/fm" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+      <span class="material-icons">play_circle_filled</span>
+      Player
+    </a>
   </nav>
 </header>
 
-<!-- JS for full-screen menu toggle -->
+<!-- JS for Header & Overlay -->
 <script>
   const menuBtn = document.getElementById('menu-btn');
-  const navMenu = document.getElementById('nav-menu');
-  const closeMenu = document.getElementById('close-menu');
+  const navOverlay = document.getElementById('nav-overlay');
+  const navLinks = navOverlay.querySelectorAll('a');
 
-  // Open menu
-  menuBtn.addEventListener('click', () => {
-    navMenu.classList.remove('-translate-y-full');
+  // Toggle overlay on menu button click
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navOverlay.classList.toggle('-translate-x-full');
+    navOverlay.classList.toggle('translate-x-0');
   });
 
-  // Close menu
-  closeMenu.addEventListener('click', () => {
-    navMenu.classList.add('-translate-y-full');
+  // Close overlay if clicking outside overlay or on overlay background
+  navOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('a')) {
+      navOverlay.classList.add('-translate-x-full');
+      navOverlay.classList.remove('translate-x-0');
+    }
   });
 
-  // Highlight active link
-  const links = navMenu.querySelectorAll('a');
+  // Prevent clicks on links from closing overlay
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  // Highlight current page link
   const currentURL = window.location.href;
-  links.forEach(link => {
+  navLinks.forEach(link => {
     if (currentURL === link.href) {
       link.classList.add('text-blue-600', 'font-semibold');
     }
