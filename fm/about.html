@@ -22,35 +22,75 @@
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
 
   <!-- Header (Google-style) -->
-  <header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
-                 bg-white shadow-md border-b border-gray-200">
-    <!-- Left: Logo + Title -->
-    <div class="flex items-center gap-2">
-      <span class="material-icons text-blue-600 text-2xl">radio</span>
-      <h1 class="text-xl font-bold sm:text-lg">FM Radio</h1>
-    </div>
+<header class="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between
+               bg-white shadow-md border-b border-gray-200">
+  <!-- Left: Logo + Title -->
+  <div class="flex items-center gap-2">
+    <span class="material-icons text-blue-600 text-2xl">radio</span>
+    <h1 class="text-xl font-bold sm:text-lg">FM Radio</h1>
+  </div>
 
-    <!-- Hamburger Button (mobile) -->
-    <button id="menu-btn" class="material-icons text-2xl md:hidden">menu</button>
+  <!-- Hamburger Button (mobile) -->
+  <button id="menu-btn" class="material-icons text-2xl md:hidden">menu</button>
 
-    <!-- Navigation Links Overlay -->
-    <div id="nav-overlay" class="fixed inset-0 bg-white bg-opacity-95 z-50 transform -translate-x-full transition-transform duration-300 md:static md:translate-x-0 md:flex md:flex-row md:gap-4 md:bg-transparent">
-      <nav class="flex flex-col justify-center items-center gap-8 h-full md:flex-row md:h-auto">
-        <a href="https://tnm3u.live/fm/about" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
-          <span class="material-icons">info</span>
-          About
-        </a>
-        <a href="https://tnm3u.live/fm/contact" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
-          <span class="material-icons">contacts</span>
-          Contact
-        </a>
-        <a href="https://tnm3u.live/fm/guide" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
-          <span class="material-icons">menu_book</span>
-          Guide
-        </a>
+  <!-- Navigation Overlay Menu -->
+  <nav id="nav-overlay" class="fixed inset-0 bg-white z-50 flex flex-col justify-center items-center gap-8
+                             transform -translate-x-full transition-transform duration-300 md:static md:flex md:flex-row md:gap-4 md:translate-x-0">
+<a href="https://tnm3u.live/fm" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+      <span class="material-icons">play_circle_filled</span>
+      Player
+    </a>
+    <a href="https://tnm3u.live/fm/about" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors font-semibold">
+      <span class="material-icons">info</span>
+      About
+    </a>
+    <a href="https://tnm3u.live/fm/contact" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+      <span class="material-icons">contacts</span>
+      Contact
+    </a>
+    <a href="https://tnm3u.live/fm/guide" class="flex items-center gap-2 text-2xl md:text-base hover:text-blue-600 transition-colors">
+      <span class="material-icons">menu_book</span>
+      Guide
+    </a>
       </nav>
-    </div>
-  </header>
+</header>
+
+<!-- JS for Header & Overlay -->
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const navOverlay = document.getElementById('nav-overlay');
+  const navLinks = navOverlay.querySelectorAll('a');
+
+  // Toggle overlay on menu button click
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navOverlay.classList.toggle('-translate-x-full');
+    navOverlay.classList.toggle('translate-x-0');
+  });
+
+  // Close overlay if clicking outside overlay or on overlay background
+  navOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('a')) {
+      navOverlay.classList.add('-translate-x-full');
+      navOverlay.classList.remove('translate-x-0');
+    }
+  });
+
+  // Prevent clicks on links from closing overlay
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  // Highlight current page link
+  const currentURL = window.location.href;
+  navLinks.forEach(link => {
+    if (currentURL === link.href) {
+      link.classList.add('text-blue-600', 'font-semibold');
+    }
+  });
+</script>
 
   <!-- Spacer -->
   <div class="h-20"></div>
