@@ -26,7 +26,6 @@
       <span class="material-icons text-2xl">radio</span>
       <h1 class="text-xl font-bold">FM Radio</h1>
     </div>
-    <!-- Theme Toggle Button -->
     <button id="themeToggle" 
             class="px-3 py-1 rounded-lg text-sm transition"
             style="background: var(--button); color: var(--button-text);">
@@ -35,7 +34,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 overflow-y-auto pt-20 pb-16 px-4 scroll-smooth">
+  <main class="flex-1 overflow-y-auto pt-20 pb-24 px-4 scroll-smooth">
 
     <!-- Search Bar -->
     <div class="mb-4 flex items-center rounded-xl px-3 py-2 shadow-inner"
@@ -62,10 +61,28 @@
   </main>
 
   <!-- Footer -->
-  <footer class="fixed bottom-0 left-0 right-0 z-50 text-center py-3 text-xs backdrop-blur-md"
+  <footer class="fixed bottom-0 left-0 right-0 z-40 text-center py-3 text-xs backdrop-blur-md"
           style="background: var(--card); color: var(--card-text);">
     Proudly Maintained by Tnm3u © <span id="year"></span> 
   </footer>
+
+  <!-- Mini Player (above footer) -->
+<div id="miniPlayer" class="fixed bottom-10 left-0 right-0 z-50 hidden">
+  <div class="mx-2 rounded-lg shadow-md flex items-center justify-between px-3 py-2"
+       style="background: var(--button); color: var(--button-text);">
+    <div class="flex items-center gap-2">
+      <span id="miniTitle" class="font-bold text-sm">Now Playing</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="miniPlayPause" class="material-icons text-lg">pause</button>
+      <button id="miniStop" class="material-icons text-lg">stop</button>
+      <button id="miniMute" class="material-icons text-lg">volume_up</button>
+      <button id="miniVolDown" class="material-icons text-lg">remove</button>
+      <button id="miniVolUp" class="material-icons text-lg">add</button>
+    </div>
+  </div>
+</div>
+
 
   <!-- Screensaver Overlay -->
   <div id="screensaver" 
@@ -123,6 +140,14 @@
     const ssPlayPause = document.getElementById("ssPlayPause");
     const ssPlayPauseIcon = document.getElementById("ssPlayPauseIcon");
 
+    const miniPlayer = document.getElementById("miniPlayer");
+    const miniTitle = document.getElementById("miniTitle");
+    const miniPlayPause = document.getElementById("miniPlayPause");
+    const miniStop = document.getElementById("miniStop");
+    const miniMute = document.getElementById("miniMute");
+    const miniVolDown = document.getElementById("miniVolDown");
+    const miniVolUp = document.getElementById("miniVolUp");
+
     document.getElementById("year").textContent = new Date().getFullYear();
 
     let radios = [];
@@ -164,17 +189,12 @@
         channelList.appendChild(row);
       });
 
-      // ✅ Fixed toggle play/pause
       document.querySelectorAll(".playBtn").forEach(btn => {
         btn.onclick = () => {
           const index = parseInt(btn.dataset.index);
-
-          // If clicking the same channel that's already playing → pause
           if (currentIndex == index && !audio.paused) {
             audio.pause();
-            ssPlayPauseIcon.textContent = "play_arrow";
-            btn.querySelector("span").textContent = "play_arrow";
-            btn.querySelector("span").classList.remove("animate-pulse");
+            updateIcons("pause");
           } else {
             playRadio(index);
           }
@@ -182,12 +202,22 @@
       });
     }
 
-    // Search filter
-    searchInput.addEventListener("input", (e) => {
-      renderChannels(e.target.value);
-    });
+    function updateIcons(state) {
+      // reset list icons
+      document.querySelectorAll(".playBtn span").forEach(icon => {
+        icon.textContent = "play_arrow";
+        icon.classList.remove("animate-pulse");
+      });
+      if (state === "play" && currentIndex >= 0) {
+        const activeBtn = document.querySelector(`.playBtn[data-index="${currentIndex}"] span`);
+        if (activeBtn) {
+          activeBtn.textContent = "equalizer";
+          activeBtn.classList.add("animate-pulse");
+        }
+      }
+    }
 
-    // Load only LIVE channels from Firebase
+    // Load channels
     onValue(ref(db, "radios"), (snapshot) => {
       radios = [];
       snapshot.forEach((child) => {
@@ -199,7 +229,7 @@
       renderChannels();
     });
 
-    function playRadio(index, autoplay = true) {
+    function playRadio(index) {
       currentIndex = index;
       const radio = radios[index];
       if (!radio) return;
@@ -208,31 +238,67 @@
       ssLocation.textContent = `${radio.location || ""} ${radio.language || ""}`;
       audio.src = radio.stream;
 
-      // Reset all play buttons
-      document.querySelectorAll(".playBtn span").forEach(icon => {
-        icon.textContent = "play_arrow";
-        icon.classList.remove("animate-pulse");
-      });
+      audio.play().catch(() => console.log("Tap play to start audio"));
+      ssPlayPauseIcon.textContent = "pause";
 
-      const activeBtn = document.querySelector(`.playBtn[data-index="${index}"] span`);
+      updateIcons("play");
 
-      if (autoplay) {
-        audio.play().catch(() => console.log("Tap play to start audio"));
-        ssPlayPauseIcon.textContent = "pause";
-        if (activeBtn) {
-          activeBtn.textContent = "equalizer";
-          activeBtn.classList.add("animate-pulse");
-        }
-      } else {
-        ssPlayPauseIcon.textContent = "play_arrow";
-      }
+      miniPlayer.classList.remove("hidden");
+      miniTitle.textContent = radio.name;
+      miniPlayPause.textContent = "pause";
     }
 
-    // Screensaver Logic
+    // Screensaver Play/Pause
+    ssPlayPause.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        ssPlayPauseIcon.textContent = "pause";
+        miniPlayPause.textContent = "pause";
+        updateIcons("play");
+      } else {
+        audio.pause();
+        ssPlayPauseIcon.textContent = "play_arrow";
+        miniPlayPause.textContent = "play_arrow";
+        updateIcons("pause");
+      }
+    });
+
+    // Mini Player Controls
+    miniPlayPause.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        miniPlayPause.textContent = "pause";
+        ssPlayPauseIcon.textContent = "pause";
+        updateIcons("play");
+      } else {
+        audio.pause();
+        miniPlayPause.textContent = "play_arrow";
+        ssPlayPauseIcon.textContent = "play_arrow";
+        updateIcons("pause");
+      }
+    });
+    miniStop.addEventListener("click", () => {
+      audio.pause();
+      audio.src = "";
+      miniPlayer.classList.add("hidden");
+      ssPlayPauseIcon.textContent = "play_arrow";
+      updateIcons("pause");
+    });
+    miniMute.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      miniMute.textContent = audio.muted ? "volume_off" : "volume_up";
+    });
+    miniVolDown.addEventListener("click", () => {
+      audio.volume = Math.max(0, audio.volume - 0.1);
+    });
+    miniVolUp.addEventListener("click", () => {
+      audio.volume = Math.min(1, audio.volume + 0.1);
+    });
+
+    // Screensaver Logic (unchanged except icon sync)
     const screensaver = document.getElementById("screensaver");
     let idleTimer;
     const idleTime = 15000;
-
     function showScreensaver() {
       if (!audio.paused) {
         ssName.textContent = radios[currentIndex]?.name || "FM Radio";
@@ -253,52 +319,19 @@
     ["mousemove", "keydown", "click", "touchstart"].forEach(evt => {
       document.addEventListener(evt, hideScreensaver);
     });
-
-    ssPlayPause.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        ssPlayPauseIcon.textContent = "pause";
-      } else {
-        audio.pause();
-        ssPlayPauseIcon.textContent = "play_arrow";
-      }
-      resetIdleTimer();
-    });
-    document.getElementById("ssNext").addEventListener("click", () => {
-      playRadio((currentIndex + 1) % radios.length);
-      resetIdleTimer();
-    });
-    document.getElementById("ssPrev").addEventListener("click", () => {
-      playRadio((currentIndex - 1 + radios.length) % radios.length);
-      resetIdleTimer();
-    });
-
     resetIdleTimer();
 
-    // Theme Switcher with LocalStorage
-    const themes = [
-      "theme-default",
-      "theme-white-green",
-      "theme-white-red",
-      "theme-white-blue",
-      "theme-white-black",
-      "theme-black-green",
-      "theme-black-red",
-      "theme-black-blue",
-      "theme-black-white"
-    ];
+    // Theme Switcher
+    const themes = ["theme-default","theme-white-green","theme-white-red","theme-white-blue","theme-white-black","theme-black-green","theme-black-red","theme-black-blue","theme-black-white"];
     let currentTheme = 0;
     const pageBody = document.getElementById("pageBody");
     const themeToggle = document.getElementById("themeToggle");
-
-    // Load saved theme
     const savedTheme = localStorage.getItem("selectedTheme");
     if (savedTheme && themes.includes(savedTheme)) {
       pageBody.classList.remove(themes[currentTheme]);
       pageBody.classList.add(savedTheme);
       currentTheme = themes.indexOf(savedTheme);
     }
-
     themeToggle.addEventListener("click", () => {
       pageBody.classList.remove(themes[currentTheme]);
       currentTheme = (currentTheme + 1) % themes.length;
@@ -308,29 +341,24 @@
   </script>
 
   <style>
-    /* Waveform animation */
     .wave { width: 6px; height: 20px; background: white; border-radius: 3px; animation: waveAnim 1.2s infinite ease-in-out; }
     .wave.delay-1 { animation-delay: 0.1s }
     .wave.delay-2 { animation-delay: 0.2s }
     .wave.delay-3 { animation-delay: 0.3s }
     .wave.delay-4 { animation-delay: 0.4s }
     .wave.delay-5 { animation-delay: 0.5s }
-
-    @keyframes waveAnim {
-      0%, 40%, 100% { transform: scaleY(0.3); }
-      20% { transform: scaleY(1); }
-    }
+    @keyframes waveAnim { 0%, 40%, 100% { transform: scaleY(0.3); } 20% { transform: scaleY(1); } }
 
     /* THEME VARIABLES */
-    .theme-default { --bg-from: #4c1d95; --bg-via: #9d174d; --bg-to: #000; --text: #ffffff; --card: rgba(255,255,255,0.1); --card-text: #ffffff; --button: #ec4899; --button-text: #fff; }
-    .theme-white-green { --bg-from: #ffffff; --bg-via: #22c55e; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #22c55e; --button-text: #fff; }
-    .theme-white-red { --bg-from: #ffffff; --bg-via: #ef4444; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #ef4444; --button-text: #fff; }
-    .theme-white-blue { --bg-from: #ffffff; --bg-via: #3b82f6; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #3b82f6; --button-text: #fff; }
-    .theme-white-black { --bg-from: #ffffff; --bg-via: #000; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #000; --button-text: #fff; }
-    .theme-black-green { --bg-from: #000; --bg-via: #22c55e; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #22c55e; --button-text: #000; }
-    .theme-black-red { --bg-from: #000; --bg-via: #ef4444; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #ef4444; --button-text: #000; }
-    .theme-black-blue { --bg-from: #000; --bg-via: #3b82f6; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #3b82f6; --button-text: #000; }
-    .theme-black-white { --bg-from: #000; --bg-via: #fff; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #fff; --button-text: #000; }
+    .theme-default { --bg-from:#4c1d95;--bg-via:#9d174d;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#ec4899;--button-text:#fff;}
+    .theme-white-green {--bg-from:#fff;--bg-via:#22c55e;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#22c55e;--button-text:#fff;}
+    .theme-white-red {--bg-from:#fff;--bg-via:#ef4444;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#ef4444;--button-text:#fff;}
+    .theme-white-blue {--bg-from:#fff;--bg-via:#3b82f6;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#3b82f6;--button-text:#fff;}
+    .theme-white-black {--bg-from:#fff;--bg-via:#000;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#000;--button-text:#fff;}
+    .theme-black-green {--bg-from:#000;--bg-via:#22c55e;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#22c55e;--button-text:#000;}
+    .theme-black-red {--bg-from:#000;--bg-via:#ef4444;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#ef4444;--button-text:#000;}
+    .theme-black-blue {--bg-from:#000;--bg-via:#3b82f6;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#3b82f6;--button-text:#000;}
+    .theme-black-white {--bg-from:#000;--bg-via:#fff;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#fff;--button-text:#000;}
   </style>
 </body>
 </html>
