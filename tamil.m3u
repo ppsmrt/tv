@@ -19,7 +19,7 @@ https://cdn.smartstream.video/smartstream-us/velichamtv/velichamtv/playlist.m3u8
 https://cdn.zionmediait.com/zionmediaitserver2024/97484f5ce6da96e496a9b87c439835d0.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Vikatan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/kg7DFJzM/vikatan.jpg",Vikatan Tv
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/vikatan-tv/master.m3u8
-#EXTINF:-1 tvg-name="Isai Aruvi" group-title="Entertainment" tvg-logo="https://i.ibb.co/dJ4dk5T6/20250902-233253329275990566368619.jpg",Isai Aruvi
+#EXTINF:-1 tvg-name="Isai Aruvi" group-title="Music" tvg-logo="https://i.ibb.co/dJ4dk5T6/20250902-233253329275990566368619.jpg",Isai Aruvi
 https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
 #EXTINF:-1 tvg-name="Vasantham Tv" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_2331256390089163949888562.jpg",Vasantham Tv
 https://edge2-moblive.yuppcdn.net/trans1sd/smil:vatv07.smil/playlist.m3u8
