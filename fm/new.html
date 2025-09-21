@@ -13,25 +13,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body { font-family: 'Baloo 2', cursive; }
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-@keyframes pulse {0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-@keyframes bounce {0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-
-/* Screensaver animations */
-@keyframes spin-slow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-.animate-spin-slow { animation: spin-slow 6s linear infinite; }
-
-@keyframes wave { 0%,100% { height: 20%; } 50% { height: 80%; } }
-.animate-wave { animation: wave 1s ease-in-out infinite; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-600 { animation-delay: 0.6s; }
-.delay-800 { animation-delay: 0.8s; }
+  body { font-family: 'Baloo 2', cursive; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  @keyframes pulse {0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  @keyframes bounce {0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+  @keyframes wave { 0% { transform: scaleY(1); } 50% { transform: scaleY(1.5); } 100% { transform: scaleY(1); } }
 </style>
 </head>
-<body class="bg-gray-100 overflow-x-hidden">
+<body class="bg-gray-100 overflow-x-hidden relative">
 
 <!-- Header -->
 <header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4 text-center">
@@ -40,11 +31,10 @@ body { font-family: 'Baloo 2', cursive; }
     <span id="battery-status">🔋 --%</span>
   </div>
 
-  <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
+  <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse overflow-hidden">
     <i class="fa-solid fa-headphones text-3xl text-white"></i>
   </div>
 
-  <!-- Dynamic Station Name & Location -->
   <div class="mt-2">
     <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
     <div id="headerLocation" class="text-sm opacity-80">--</div>
@@ -63,7 +53,7 @@ body { font-family: 'Baloo 2', cursive; }
 
 <!-- Mini Player -->
 <div id="miniPlayer" class="fixed bottom-20 left-3 right-3 bg-indigo-600 text-white rounded-2xl p-3 flex flex-col md:flex-row justify-between items-center shadow-lg backdrop-blur-md hidden cursor-pointer transition-all">
-  <div class="flex justify-between items-center w-full md:w-auto gap-2">
+  <div class="flex justify-between items-center w-full md:w-auto">
     <span id="miniStation" class="text-sm md:text-base font-semibold">Playing: --</span>
     <div class="flex gap-2 ml-2 md:ml-4">
       <button id="playPauseBtn" class="w-9 h-9 bg-white/20 rounded-xl flex justify-center items-center hover:bg-white/40 transition"><i class="fa-solid fa-play"></i></button>
@@ -82,35 +72,29 @@ body { font-family: 'Baloo 2', cursive; }
 </footer>
 
 <!-- Screensaver -->
-<div id="screensaver" class="fixed inset-0 bg-black/90 z-50 flex flex-col justify-center items-center hidden">
-  <div class="w-40 h-40 rounded-full overflow-hidden border-8 border-white mb-6 animate-spin-slow flex justify-center items-center">
-    <i class="fa-solid fa-compact-disc text-4xl text-white"></i>
+<div id="screensaver" class="fixed inset-0 bg-gray-900 bg-opacity-95 flex flex-col justify-center items-center text-white hidden z-50">
+  <div class="w-40 h-40 rounded-full overflow-hidden relative animate-spin mb-6">
+    <img id="discIcon" src="" class="w-full h-full object-cover" alt="Radio Icon">
   </div>
-  <div class="w-48 h-6 flex justify-around items-end mb-4">
-    <div class="w-2 bg-indigo-500 animate-wave"></div>
-    <div class="w-2 bg-indigo-500 animate-wave delay-200"></div>
-    <div class="w-2 bg-indigo-500 animate-wave delay-400"></div>
-    <div class="w-2 bg-indigo-500 animate-wave delay-600"></div>
-    <div class="w-2 bg-indigo-500 animate-wave delay-800"></div>
+  <div class="flex gap-1 justify-center mb-4">
+    <div class="w-1 h-6 bg-white animate-wave"></div>
+    <div class="w-1 h-4 bg-white animate-wave delay-100"></div>
+    <div class="w-1 h-5 bg-white animate-wave delay-200"></div>
+    <div class="w-1 h-6 bg-white animate-wave delay-300"></div>
+    <div class="w-1 h-4 bg-white animate-wave delay-400"></div>
   </div>
-  <div class="text-center text-white">
-    <div id="screensaverStation" class="text-xl font-bold mb-1">--</div>
-    <div id="screensaverLanguage" class="text-sm opacity-80 mb-2">--</div>
-    <div id="screensaverTime" class="text-sm opacity-80">--:--</div>
-  </div>
+  <div id="ssStation" class="font-bold text-xl">--</div>
+  <div id="ssLanguage" class="text-sm opacity-80">--</div>
+  <div id="ssTime" class="text-xs opacity-50 mt-1">--:--</div>
 </div>
 
-<!-- Radio Info Modal -->
-<div id="radioInfoModal" class="fixed inset-0 bg-black/70 z-60 flex justify-center items-center hidden">
-  <div class="bg-white rounded-2xl p-6 w-80 text-center">
-    <h2 class="text-lg font-bold mb-2" id="infoName">Radio Name</h2>
-    <p id="infoLanguage" class="mb-1">Language: --</p>
-    <p id="infoLocation" class="mb-1">Location: --</p>
-    <p id="infoType" class="mb-1">Type: --</p>
-    <p id="infoGenre" class="mb-2">Genre: --</p>
-    <button id="closeModal" class="bg-indigo-600 text-white px-4 py-2 rounded-full mt-2">Close</button>
-  </div>
-</div>
+<style>
+  .animate-wave { animation: wave 1s infinite ease-in-out; transform-origin: bottom; display:inline-block; margin:0 1px; }
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+</style>
 
 <!-- Firebase + Radio Logic -->
 <script type="module">
@@ -137,72 +121,24 @@ const stationList = document.getElementById("stationList");
 const miniPlayer = document.getElementById("miniPlayer");
 const miniStation = document.getElementById("miniStation");
 const playPauseBtn = document.getElementById("playPauseBtn");
-const stopBtn = document.getElementById("stopBtn");
 const muteBtn = document.getElementById("muteBtn");
+const stopBtn = document.getElementById("stopBtn");
 const headerStation = document.getElementById("headerStation");
 const headerLocation = document.getElementById("headerLocation");
-
 const screensaver = document.getElementById("screensaver");
-const screensaverStation = document.getElementById("screensaverStation");
-const screensaverLanguage = document.getElementById("screensaverLanguage");
-const screensaverTime = document.getElementById("screensaverTime");
-
-const radioInfoModal = document.getElementById("radioInfoModal");
-const closeModal = document.getElementById("closeModal");
-const infoName = document.getElementById("infoName");
-const infoLanguage = document.getElementById("infoLanguage");
-const infoLocation = document.getElementById("infoLocation");
-const infoType = document.getElementById("infoType");
-const infoGenre = document.getElementById("infoGenre");
+const discIcon = document.getElementById("discIcon");
+const ssStation = document.getElementById("ssStation");
+const ssLanguage = document.getElementById("ssLanguage");
+const ssTime = document.getElementById("ssTime");
 
 let radios = [];
 let currentIndex = null;
-let screensaverTimer;
+let idleTimer = null;
 
-// Reset screensaver timer
-function resetScreensaverTimer() {
-  if (!audio.src || currentIndex === null) {
-    screensaver.classList.add("hidden");
-    return;
-  }
-  screensaver.classList.add("hidden");
-  clear
-clearTimeout(screensaverTimer);
-  screensaverTimer = setTimeout(() => {
-    screensaver.classList.remove("hidden");
-    if (currentIndex !== null) {
-      const radio = radios[currentIndex];
-      screensaverStation.textContent = radio.name;
-      screensaverLanguage.textContent = radio.language || radio.location || "";
-      const now = new Date();
-      screensaverTime.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-    }
-  }, 15000); // 15 seconds idle
-}
-
-// Call resetScreensaverTimer on user interactions
-['mousemove','keydown','touchstart','click'].forEach(evt => {
-  document.addEventListener(evt, resetScreensaverTimer);
-});
-resetScreensaverTimer();
-
-// Play radio function
+// Play radio
 function playRadio(index) {
   const radio = radios[index];
   if (!radio) return;
-
-  // Toggle same channel
-  if (currentIndex === index) {
-    if (audio.paused) {
-      audio.play();
-      playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-    } else {
-      audio.pause();
-      playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-    }
-    resetScreensaverTimer();
-    return;
-  }
 
   // Stop previous
   if (currentIndex !== null && currentIndex !== index) {
@@ -210,60 +146,31 @@ function playRadio(index) {
     audio.currentTime = 0;
   }
 
-  // Play new channel
   audio.src = radio.stream;
   audio.play().catch(() => console.log("Tap play to start audio"));
 
   currentIndex = index;
 
-  // Update Mini Player & Header
   miniStation.textContent = `Playing: ${radio.name}`;
   miniPlayer.classList.remove("hidden");
-  playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
 
   headerStation.textContent = radio.name;
   headerLocation.textContent = radio.location || "";
 
+  discIcon.src = radio.icon || ""; // Set disc image for screensaver
+  ssStation.textContent = radio.name;
+  ssLanguage.textContent = radio.language || "--";
+
   renderStationList();
 
-  // Increment play count in Firebase
+  // Increment play count
   const radioRef = ref(db, `radios/${radio.id}/playCount`);
   runTransaction(radioRef, current => (current || 0) + 1);
 
-  resetScreensaverTimer();
+  resetIdleTimer();
 }
 
-// Mini player buttons
-playPauseBtn.addEventListener("click", () => {
-  if (!audio.src) return;
-  if (audio.paused) {
-    audio.play();
-    playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-  } else {
-    audio.pause();
-    playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-  }
-  resetScreensaverTimer();
-});
-
-muteBtn.addEventListener("click", () => {
-  audio.muted = !audio.muted;
-  muteBtn.innerHTML = audio.muted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
-});
-
-stopBtn.addEventListener("click", () => {
-  audio.pause();
-  audio.currentTime = 0;
-  miniPlayer.classList.add("hidden");
-  playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-  currentIndex = null;
-
-  headerStation.textContent = "--";
-  headerLocation.textContent = "--";
-  resetScreensaverTimer();
-});
-
-// Render station list
+// Render list
 function renderStationList() {
   const searchTerm = document.getElementById("channelSearch").value.toLowerCase();
   stationList.innerHTML = "";
@@ -300,38 +207,61 @@ function renderStationList() {
       setTimeout(() => favStar.classList.remove("animate-bounce"), 500);
     });
 
-    // Info modal
+    // Info popup
     const infoBtn = item.querySelector(".info-btn");
     infoBtn.addEventListener("click", e => {
       e.stopPropagation();
-      infoName.textContent = radio.name;
-      infoLanguage.textContent = `Language: ${radio.language || "--"}`;
-      infoLocation.textContent = `Location: ${radio.location || "--"}`;
-      infoType.textContent = `Type: ${radio.type || "FM/Live"}`;
-      infoGenre.textContent = `Genre: ${radio.genre || "--"}`;
-      radioInfoModal.classList.remove("hidden");
+      alert(
+        `Name: ${radio.name}\nLanguage: ${radio.language || '--'}\nLocation: ${radio.location || '--'}\nType: ${radio.type || 'FM'}\nGenre: ${radio.genre || '--'}`
+      );
     });
 
     stationList.appendChild(item);
   });
 }
 
-// Close modal
-closeModal.addEventListener("click", () => {
-  radioInfoModal.classList.add("hidden");
+// Mini Player buttons
+playPauseBtn.addEventListener("click", () => {
+  if (!audio.src) return;
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  } else {
+    audio.pause();
+    playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+  }
+  resetIdleTimer();
+});
+
+muteBtn.addEventListener("click", () => {
+  audio.muted = !audio.muted;
+  muteBtn.innerHTML = audio.muted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
+  resetIdleTimer();
+});
+
+stopBtn.addEventListener("click", () => {
+  audio.pause();
+  audio.currentTime = 0;
+  miniPlayer.classList.add("hidden");
+  playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+  currentIndex = null;
+
+  headerStation.textContent = "--";
+  headerLocation.textContent = "--";
+
+  hideScreensaver();
 });
 
 // Search input
 document.getElementById("channelSearch").addEventListener("input", renderStationList);
 
-// ---------------------- Firebase Load ----------------------
+// Load radios from Firebase
 onValue(ref(db, "radios"), snapshot => {
   radios = [];
   snapshot.forEach(child => {
     const radio = { id: child.key, ...child.val() };
     radios.push(radio);
   });
-
   renderStationList();
 });
 
@@ -339,6 +269,7 @@ onValue(ref(db, "radios"), snapshot => {
 function updateTime() {
   const now = new Date();
   document.getElementById('current-time').innerText = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  ssTime.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
 }
 setInterval(updateTime, 1000);
 updateTime();
@@ -353,7 +284,28 @@ if (navigator.getBattery) {
     battery.addEventListener('levelchange', updateBattery);
   });
 } else { document.getElementById('battery-status').innerText = '🔋 N/A'; }
-</script>
 
+// ---------------- Idle Screensaver -----------------
+function resetIdleTimer() {
+  hideScreensaver();
+  if (!audio.src || audio.paused) return;
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => showScreensaver(), 15000); // 15s
+}
+
+function showScreensaver() {
+  if (!audio.src || audio.paused) return;
+  screensaver.classList.remove("hidden");
+}
+
+function hideScreensaver() {
+  screensaver.classList.add("hidden");
+}
+
+// Reset idle timer on activity
+['mousemove','keydown','click','touchstart'].forEach(evt => {
+  document.addEventListener(evt, resetIdleTimer);
+});
+</script>
 </body>
 </html>
