@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FM Radio Premium UI - Firebase Fixed</title>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body { font-family: 'Baloo 2', cursive; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  @keyframes pulse {0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  @keyframes bounce {0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+</style>
+</head>
+<body class="bg-gray-100 overflow-x-hidden">
+
+<!-- Header -->
+<header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4">
+  <div class="flex justify-between items-center text-sm font-semibold opacity-90">
+    <span id="current-time">--:--</span>
+    <span id="battery-status">🔋 --%</span>
+  </div>
+
+  <div class="text-center mt-3">
+    <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
+      <i class="fa-solid fa-headphones text-3xl text-white"></i>
+    </div>
+    <div class="mt-2 font-bold text-xl">FM 700 Culture</div>
+    <div class="text-sm opacity-80">All Canada</div>
+  </div>
+</header>
+
+<script>
+  // Update current time
+  function updateTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2,'0');
+    const minutes = now.getMinutes().toString().padStart(2,'0');
+    document.getElementById('current-time').innerText = `${hours}:${minutes}`;
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+
+  // Battery API
+  if (navigator.getBattery) {
+    navigator.getBattery().then(battery => {
+      function updateBattery() {
+        const percent = Math.floor(battery.level * 100);
+        document.getElementById('battery-status').innerText = `🔋 ${percent}%`;
+      }
+      updateBattery();
+      battery.addEventListener('levelchange', updateBattery);
+      battery.addEventListener('chargingchange', updateBattery);
+    });
+  } else { document.getElementById('battery-status').innerText = '🔋 N/A'; }
+</script>
+
+<!-- Search -->
+<div class="px-5 py-3">
+  <input type="text" id="channelSearch" placeholder="Search Stations..." class="w-full px-4 py-2 rounded-full shadow-md border-none focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+</div>
+
+<!-- Station List -->
+<section id="stationList" class="px-5 py-3 space-y-4 max-h-[60vh] overflow-y-auto scrollbar-hide">
+  <!-- Firebase channels will render here -->
+</section>
+
+<!-- Mini Player -->
+<div id="miniPlayer" class="fixed bottom-20 left-3 right-3 bg-indigo-600 text-white rounded-2xl p-3 flex flex-col md:flex-row justify-between items-center shadow-lg backdrop-blur-md hidden cursor-pointer transition-all">
+  <div class="flex justify-between items-center w-full md:w-auto">
+    <span id="miniStation" class="text-sm md:text-base font-semibold">Playing: FM 700 Culture</span>
+    <div class="flex gap-2 ml-2 md:ml-4">
+      <button id="playPauseBtn" class="w-9 h-9 bg-white/20 rounded-xl flex justify-center items-center hover:bg-white/40 transition"><i class="fa-solid fa-play"></i></button>
+      <button id="stopBtn" class="w-9 h-9 bg-white/20 rounded-xl flex justify-center items-center hover:bg-white/40 transition"><i class="fa-solid fa-stop"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white/10 backdrop-blur-md flex justify-around p-2 text-xs font-semibold rounded-t-2xl shadow-inner">
+  <div class="flex flex-col items-center cursor-pointer hover:translate-y-1 transition"><i class="fa-solid fa-share-nodes"></i>Share</div>
+  <div class="flex flex-col items-center cursor-pointer hover:translate-y-1 transition"><i class="fa-solid fa-music"></i>Browser</div>
+  <div class="flex flex-col items-center cursor-pointer hover:translate-y-1 transition"><i class="fa-solid fa-star"></i>Favorites</div>
+  <div class="flex flex-col items-center cursor-pointer hover:translate-y-1 transition"><i class="fa-solid fa-clock-rotate-left"></i>Recent</div>
+</footer>
+
+<!-- Firebase + Radio Logic -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const audio = new Audio();
+audio.volume = 0.5;
+
+const stationList = document.getElementById("stationList");
+const miniPlayer = document.getElementById("miniPlayer");
+const miniStation = document.getElementById("miniStation");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const stopBtn = document.getElementById("stopBtn");
+
+let radios = [];
+let currentIndex = null;
+
+// Play radio function
+function playRadio(index) {
+  const radio = radios[index];
+  if (!radio) return;
+
+  // Toggle same channel
+  if (currentIndex === index) {
+    if (audio.paused) {
+      audio.play();
+      playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    } else {
+      audio.pause();
+      playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    }
+    return;
+  }
+
+  // Stop previous
+  if (currentIndex !== null && currentIndex !== index) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  // Play new channel
+  audio.src = radio.stream;
+  audio.play().catch(() => console.log("Tap play to start audio"));
+
+  miniStation.textContent = `Playing: ${radio.name}`;
+  miniPlayer.classList.remove("hidden");
+  currentIndex = index;
+
+  renderStationList();
+
+  // Increment play count
+  const radioRef = ref(db, `radios/${radio.id}`);
+  runTransaction(radioRef, currentData => {
+    if (currentData) {
+      currentData.playCount = (currentData.playCount || 0) + 1;
+      radio.playCount = currentData.playCount;
+      return currentData;
+    }
+    return { ...radio, playCount: 1 };
+  }).then(() => {
+    const item = document.querySelector(`.station-item[data-id="${radio.id}"]`);
+    if (item) item.querySelector(".play-count").textContent = `${radio.playCount} plays`;
+  });
+}
+
+// Render station list
+function renderStationList() {
+  const searchTerm = document.getElementById("channelSearch").value.toLowerCase();
+  stationList.innerHTML = "";
+
+  radios.forEach(radio => {
+    if (!radio.name.toLowerCase().includes(searchTerm)) return;
+
+    const isPlaying = radios[currentIndex]?.id === radio.id;
+
+    const item = document.createElement("div");
+    item.className = `station-item flex items-center gap-4 bg-white rounded-2xl p-3 shadow hover:-translate-y-1 hover:shadow-lg transition cursor-pointer ${isPlaying ? 'scale-[1.02] bg-blue-50' : ''}`;
+    item.dataset.id = radio.id;
+    item.innerHTML = `
+      <div class="w-12 h-12 flex justify-center items-center text-white text-lg rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500">
+        <i class="fa-solid fa-radio"></i>
+      </div>
+      <div class="flex-1">
+        <h2 class="text-sm font-semibold">${radio.name}</h2>
+        <p class="text-xs text-gray-500">${radio.location || ""}</p>
+      </div>
+      <span class="text-xs text-gray-600 play-count">${radio.playCount || 0} plays</span>
+      <i class="fa-regular fa-star text-indigo-600 ml-2 cursor-pointer"></i>
+<i class="fa-solid fa-ellipsis-vertical text-indigo-600 ml-2 cursor-pointer"></i>
+    `;
+
+    // Click station to play
+    item.addEventListener("click", () => {
+      const index = radios.findIndex(r => r.id === radio.id);
+      playRadio(index);
+    });
+
+    // Favorite toggle with bounce effect
+    const favStar = item.querySelector(".fa-regular.fa-star");
+    favStar.addEventListener("click", e => {
+      e.stopPropagation();
+      favStar.classList.toggle("fa-solid");
+      favStar.classList.toggle("animate-bounce");
+      setTimeout(() => favStar.classList.remove("animate-bounce"), 500);
+    });
+
+    stationList.appendChild(item);
+  });
+}
+
+// Mini player buttons
+playPauseBtn.addEventListener("click", () => {
+  if (!audio.src) return;
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  } else {
+    audio.pause();
+    playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+  }
+});
+
+stopBtn.addEventListener("click", () => {
+  audio.pause();
+  audio.currentTime = 0;
+  miniPlayer.classList.add("hidden");
+  playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+  currentIndex = null;
+});
+
+// Search input
+document.getElementById("channelSearch").addEventListener("input", renderStationList);
+
+// ---------------------- Firebase Load ----------------------
+onValue(ref(db, "radios"), snapshot => {
+  radios = [];
+  snapshot.forEach(child => {
+    const radio = { id: child.key, ...child.val() };
+    radios.push(radio);
+  });
+
+  renderStationList();
+});
+</script>
+</body>
+</html>
