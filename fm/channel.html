@@ -66,23 +66,22 @@
     Proudly Maintained by Tnm3u © <span id="year"></span> 
   </footer>
 
-  <!-- Mini Player (above footer) -->
-<div id="miniPlayer" class="fixed bottom-10 left-0 right-0 z-50 hidden">
-  <div class="mx-2 rounded-lg shadow-md flex items-center justify-between px-3 py-2"
-       style="background: var(--button); color: var(--button-text);">
-    <div class="flex items-center gap-2">
-      <span id="miniTitle" class="font-bold text-sm">Now Playing</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <button id="miniPlayPause" class="material-icons text-lg">pause</button>
-      <button id="miniStop" class="material-icons text-lg">stop</button>
-      <button id="miniMute" class="material-icons text-lg">volume_up</button>
-      <button id="miniVolDown" class="material-icons text-lg">remove</button>
-      <button id="miniVolUp" class="material-icons text-lg">add</button>
+  <!-- Mini Player -->
+  <div id="miniPlayer" class="fixed bottom-10 left-0 right-0 z-50 hidden">
+    <div class="mx-2 rounded-lg shadow-md flex items-center justify-between px-3 py-2"
+         style="background: var(--button); color: var(--button-text);">
+      <div class="flex items-center gap-2">
+        <span id="miniTitle" class="font-bold text-sm">Now Playing</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="miniPlayPause" class="material-icons text-lg">pause</button>
+        <button id="miniStop" class="material-icons text-lg">stop</button>
+        <button id="miniMute" class="material-icons text-lg">volume_up</button>
+        <button id="miniVolDown" class="material-icons text-lg">remove</button>
+        <button id="miniVolUp" class="material-icons text-lg">add</button>
+      </div>
     </div>
   </div>
-</div>
-
 
   <!-- Screensaver Overlay -->
   <div id="screensaver" 
@@ -115,7 +114,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
       authDomain: "tnm3ulive.firebaseapp.com",
@@ -151,12 +149,13 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     let radios = [];
+    let sortedRadios = [];
     let currentIndex = -1;
 
     function renderChannels(filter = "") {
       channelList.innerHTML = "";
-      let sorted = [...radios].sort((a, b) => a.name.localeCompare(b.name));
-      let filtered = sorted.filter(r => r.name.toLowerCase().includes(filter.toLowerCase()));
+      sortedRadios = [...radios].sort((a, b) => a.name.localeCompare(b.name));
+      let filtered = sortedRadios.filter(r => r.name.toLowerCase().includes(filter.toLowerCase()));
 
       if (filtered.length === 0) {
         channelList.innerHTML = `
@@ -168,12 +167,14 @@
         return;
       }
 
-      filtered.forEach((radio, idx) => {
+      filtered.forEach((radio) => {
+        const originalIndex = radios.findIndex(r => r.id === radio.id);
+
         const row = document.createElement("div");
         row.className = "flex items-center justify-between rounded-xl p-3 shadow-md snap-center transition-transform duration-300 hover:scale-[1.02]";
         row.style.background = "var(--card)";
         row.style.color = "var(--card-text)";
-        
+
         row.innerHTML = `
           <div class="flex items-center gap-3">
             <img src="${radio.icon}" alt="${radio.name}" class="w-12 h-12 rounded-lg shadow-md">
@@ -182,7 +183,9 @@
               <p class="text-xs opacity-80">${radio.language || ""} ${radio.location || ""}</p>
             </div>
           </div>
-          <button class="playBtn flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110" data-index="${idx}" style="background: var(--button); color: var(--button-text);">
+          <button class="playBtn flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110" 
+                  data-index="${originalIndex}" 
+                  style="background: var(--button); color: var(--button-text);">
             <span class="material-icons text-2xl">play_arrow</span>
           </button>
         `;
@@ -203,7 +206,6 @@
     }
 
     function updateIcons(state) {
-      // reset list icons
       document.querySelectorAll(".playBtn span").forEach(icon => {
         icon.textContent = "play_arrow";
         icon.classList.remove("animate-pulse");
@@ -217,7 +219,6 @@
       }
     }
 
-    // Load channels
     onValue(ref(db, "radios"), (snapshot) => {
       radios = [];
       snapshot.forEach((child) => {
@@ -248,18 +249,15 @@
       miniPlayPause.textContent = "pause";
     }
 
-    // Screensaver Play/Pause
-    ssPlayPause.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        ssPlayPauseIcon.textContent = "pause";
-        miniPlayPause.textContent = "pause";
-        updateIcons("play");
-      } else {
-        audio.pause();
-        ssPlayPauseIcon.textContent = "play_arrow";
-        miniPlayPause.textContent = "play_arrow";
-        updateIcons("pause");
+    // Next/Prev
+    document.getElementById("ssNext").addEventListener("click", () => {
+      if (radios.length > 0) {
+        playRadio((currentIndex + 1) % radios.length);
+      }
+    });
+    document.getElementById("ssPrev").addEventListener("click", () => {
+      if (radios.length > 0) {
+        playRadio((currentIndex - 1 + radios.length) % radios.length);
       }
     });
 
@@ -295,7 +293,22 @@
       audio.volume = Math.min(1, audio.volume + 0.1);
     });
 
-    // Screensaver Logic (unchanged except icon sync)
+    // Screensaver Play/Pause
+    ssPlayPause.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        ssPlayPauseIcon.textContent = "pause";
+        miniPlayPause.textContent = "pause";
+        updateIcons("play");
+      } else {
+        audio.pause();
+        ssPlayPauseIcon.textContent = "play_arrow";
+        miniPlayPause.textContent = "play_arrow";
+        updateIcons("pause");
+      }
+    });
+
+    // Screensaver Idle Logic
     const screensaver = document.getElementById("screensaver");
     let idleTimer;
     const idleTime = 15000;
@@ -340,25 +353,40 @@
     });
   </script>
 
-  <style>
-    .wave { width: 6px; height: 20px; background: white; border-radius: 3px; animation: waveAnim 1.2s infinite ease-in-out; }
-    .wave.delay-1 { animation-delay: 0.1s }
-    .wave.delay-2 { animation-delay: 0.2s }
-    .wave.delay-3 { animation-delay: 0.3s }
-    .wave.delay-4 { animation-delay: 0.4s }
-    .wave.delay-5 { animation-delay: 0.5s }
-    @keyframes waveAnim { 0%, 40%, 100% { transform: scaleY(0.3); } 20% { transform: scaleY(1); } }
+ <style>
+  /* Waveform animation */
+  .wave { width: 6px; height: 20px; background: white; border-radius: 3px; animation: waveAnim 1.2s infinite ease-in-out; }
+  .wave.delay-1 { animation-delay: 0.1s }
+  .wave.delay-2 { animation-delay: 0.2s }
+  .wave.delay-3 { animation-delay: 0.3s }
+  .wave.delay-4 { animation-delay: 0.4s }
+  .wave.delay-5 { animation-delay: 0.5s }
 
-    /* THEME VARIABLES */
-    .theme-default { --bg-from:#4c1d95;--bg-via:#9d174d;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#ec4899;--button-text:#fff;}
-    .theme-white-green {--bg-from:#fff;--bg-via:#22c55e;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#22c55e;--button-text:#fff;}
-    .theme-white-red {--bg-from:#fff;--bg-via:#ef4444;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#ef4444;--button-text:#fff;}
-    .theme-white-blue {--bg-from:#fff;--bg-via:#3b82f6;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#3b82f6;--button-text:#fff;}
-    .theme-white-black {--bg-from:#fff;--bg-via:#000;--bg-to:#fff;--text:#000;--card:rgba(0,0,0,0.05);--card-text:#000;--button:#000;--button-text:#fff;}
-    .theme-black-green {--bg-from:#000;--bg-via:#22c55e;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#22c55e;--button-text:#000;}
-    .theme-black-red {--bg-from:#000;--bg-via:#ef4444;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#ef4444;--button-text:#000;}
-    .theme-black-blue {--bg-from:#000;--bg-via:#3b82f6;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#3b82f6;--button-text:#000;}
-    .theme-black-white {--bg-from:#000;--bg-via:#fff;--bg-to:#000;--text:#fff;--card:rgba(255,255,255,0.1);--card-text:#fff;--button:#fff;--button-text:#000;}
-  </style>
+  @keyframes waveAnim {
+    0%, 40%, 100% { transform: scaleY(0.3); }
+    20% { transform: scaleY(1); }
+  }
+
+  /* THEME VARIABLES */
+  .theme-default { --bg-from: #4c1d95; --bg-via: #9d174d; --bg-to: #000; --text: #ffffff; --card: rgba(255,255,255,0.1); --card-text: #ffffff; --button: #ec4899; --button-text: #fff; }
+  .theme-white-green { --bg-from: #ffffff; --bg-via: #22c55e; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #22c55e; --button-text: #fff; }
+  .theme-white-red { --bg-from: #ffffff; --bg-via: #ef4444; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #ef4444; --button-text: #fff; }
+  .theme-white-blue { --bg-from: #ffffff; --bg-via: #3b82f6; --bg-to: #ffffff; --text: #000; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #3b82f6; --button-text: #fff; }
+  .theme-white-black { --bg-from: #ffffff; --bg-via: #fff; --bg-to: #ffffff; --text: #ffffff; --card: rgba(0,0,0,0.05); --card-text: #000; --button: #000; --button-text: #fff; }
+  .theme-black-green { --bg-from: #000; --bg-via: #22c55e; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #22c55e; --button-text: #000; }
+  .theme-black-red { --bg-from: #000; --bg-via: #ef4444; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #ef4444; --button-text: #000; }
+  .theme-black-blue { --bg-from: #000; --bg-via: #3b82f6; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #3b82f6; --button-text: #000; }
+  .theme-black-white { --bg-from: #000; --bg-via: #000; --bg-to: #000; --text: #fff; --card: rgba(255,255,255,0.1); --card-text: #fff; --button: #fff; --button-text: #000; }
+
+  /* small visual niceties for mini-player icons/buttons */
+  #miniPlayer .material-icons { user-select: none; cursor: pointer; }
+  .playBtn .material-icons, .playBtn span { user-select: none; pointer-events: none; } /* icon itself doesn't capture clicks, button does */
+
+  /* make sure mini player sits neatly above footer on small screens */
+  @media (max-width: 520px) {
+    #miniPlayer { bottom: 14px; }
+    #miniPlayer .mx-2 { margin-left: 10px; margin-right: 10px; }
+  }
+</style>
 </body>
 </html>
