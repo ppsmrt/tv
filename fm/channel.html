@@ -126,7 +126,7 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     let radios = [];
-    let currentIndex = 0;
+    let currentIndex = -1;
 
     function renderChannels(filter = "") {
       channelList.innerHTML = "";
@@ -164,8 +164,21 @@
         channelList.appendChild(row);
       });
 
+      // ✅ Fixed toggle play/pause
       document.querySelectorAll(".playBtn").forEach(btn => {
-        btn.onclick = () => playRadio(btn.dataset.index);
+        btn.onclick = () => {
+          const index = parseInt(btn.dataset.index);
+
+          // If clicking the same channel that's already playing → pause
+          if (currentIndex == index && !audio.paused) {
+            audio.pause();
+            ssPlayPauseIcon.textContent = "play_arrow";
+            btn.querySelector("span").textContent = "play_arrow";
+            btn.querySelector("span").classList.remove("animate-pulse");
+          } else {
+            playRadio(index);
+          }
+        };
       });
     }
 
@@ -184,7 +197,6 @@
         }
       });
       renderChannels();
-      if (radios.length > 0) playRadio(0, false);
     });
 
     function playRadio(index, autoplay = true) {
