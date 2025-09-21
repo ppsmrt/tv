@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FM Radio Premium UI - Firebase Fixed</title>
+<title>FM Radio Premium UI</title>
 
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -23,45 +23,22 @@
 <body class="bg-gray-100 overflow-x-hidden">
 
 <!-- Header -->
-<header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4">
-  <div class="flex justify-between items-center text-sm font-semibold opacity-90">
+<header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4 text-center">
+  <div class="flex justify-between items-center text-sm font-semibold opacity-90 mb-2">
     <span id="current-time">--:--</span>
     <span id="battery-status">🔋 --%</span>
   </div>
 
-  <div class="text-center mt-3">
-    <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
-      <i class="fa-solid fa-headphones text-3xl text-white"></i>
-    </div>
-    <div class="mt-2 font-bold text-xl">FM 700 Culture</div>
-    <div class="text-sm opacity-80">All Canada</div>
+  <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
+    <i class="fa-solid fa-headphones text-3xl text-white"></i>
+  </div>
+
+  <!-- Dynamic Station Name & Location -->
+  <div class="mt-2">
+    <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
+    <div id="headerLocation" class="text-sm opacity-80">--</div>
   </div>
 </header>
-
-<script>
-  // Update current time
-  function updateTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2,'0');
-    const minutes = now.getMinutes().toString().padStart(2,'0');
-    document.getElementById('current-time').innerText = `${hours}:${minutes}`;
-  }
-  setInterval(updateTime, 1000);
-  updateTime();
-
-  // Battery API
-  if (navigator.getBattery) {
-    navigator.getBattery().then(battery => {
-      function updateBattery() {
-        const percent = Math.floor(battery.level * 100);
-        document.getElementById('battery-status').innerText = `🔋 ${percent}%`;
-      }
-      updateBattery();
-      battery.addEventListener('levelchange', updateBattery);
-      battery.addEventListener('chargingchange', updateBattery);
-    });
-  } else { document.getElementById('battery-status').innerText = '🔋 N/A'; }
-</script>
 
 <!-- Search -->
 <div class="px-5 py-3">
@@ -70,13 +47,13 @@
 
 <!-- Station List -->
 <section id="stationList" class="px-5 py-3 space-y-4 max-h-[60vh] overflow-y-auto scrollbar-hide">
-  <!-- Firebase channels will render here -->
+  <!-- Firebase stations will render here -->
 </section>
 
 <!-- Mini Player -->
 <div id="miniPlayer" class="fixed bottom-20 left-3 right-3 bg-indigo-600 text-white rounded-2xl p-3 flex flex-col md:flex-row justify-between items-center shadow-lg backdrop-blur-md hidden cursor-pointer transition-all">
   <div class="flex justify-between items-center w-full md:w-auto">
-    <span id="miniStation" class="text-sm md:text-base font-semibold">Playing: FM 700 Culture</span>
+    <span id="miniStation" class="text-sm md:text-base font-semibold">Playing: --</span>
     <div class="flex gap-2 ml-2 md:ml-4">
       <button id="playPauseBtn" class="w-9 h-9 bg-white/20 rounded-xl flex justify-center items-center hover:bg-white/40 transition"><i class="fa-solid fa-play"></i></button>
       <button id="stopBtn" class="w-9 h-9 bg-white/20 rounded-xl flex justify-center items-center hover:bg-white/40 transition"><i class="fa-solid fa-stop"></i></button>
@@ -118,6 +95,8 @@ const miniPlayer = document.getElementById("miniPlayer");
 const miniStation = document.getElementById("miniStation");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const stopBtn = document.getElementById("stopBtn");
+const headerStation = document.getElementById("headerStation");
+const headerLocation = document.getElementById("headerLocation");
 
 let radios = [];
 let currentIndex = null;
@@ -149,25 +128,20 @@ function playRadio(index) {
   audio.src = radio.stream;
   audio.play().catch(() => console.log("Tap play to start audio"));
 
+  currentIndex = index;
+
+  // Update Mini Player & Header
   miniStation.textContent = `Playing: ${radio.name}`;
   miniPlayer.classList.remove("hidden");
-  currentIndex = index;
+
+  headerStation.textContent = radio.name;
+  headerLocation.textContent = radio.location || "";
 
   renderStationList();
 
-  // Increment play count
-  const radioRef = ref(db, `radios/${radio.id}`);
-  runTransaction(radioRef, currentData => {
-    if (currentData) {
-      currentData.playCount = (currentData.playCount || 0) + 1;
-      radio.playCount = currentData.playCount;
-      return currentData;
-    }
-    return { ...radio, playCount: 1 };
-  }).then(() => {
-    const item = document.querySelector(`.station-item[data-id="${radio.id}"]`);
-    if (item) item.querySelector(".play-count").textContent = `${radio.playCount} plays`;
-  });
+  // Increment play count in Firebase
+  const radioRef = ref(db, `radios/${radio.id}/playCount`);
+  runTransaction(radioRef, current => (current || 0) + 1);
 }
 
 // Render station list
@@ -175,14 +149,13 @@ function renderStationList() {
   const searchTerm = document.getElementById("channelSearch").value.toLowerCase();
   stationList.innerHTML = "";
 
-  radios.forEach(radio => {
+  radios.forEach((radio, i) => {
     if (!radio.name.toLowerCase().includes(searchTerm)) return;
 
-    const isPlaying = radios[currentIndex]?.id === radio.id;
+    const isPlaying = currentIndex === i;
 
     const item = document.createElement("div");
     item.className = `station-item flex items-center gap-4 bg-white rounded-2xl p-3 shadow hover:-translate-y-1 hover:shadow-lg transition cursor-pointer ${isPlaying ? 'scale-[1.02] bg-blue-50' : ''}`;
-    item.dataset.id = radio.id;
     item.innerHTML = `
       <div class="w-12 h-12 flex justify-center items-center text-white text-lg rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500">
         <i class="fa-solid fa-radio"></i>
@@ -193,16 +166,13 @@ function renderStationList() {
       </div>
       <span class="text-xs text-gray-600 play-count">${radio.playCount || 0} plays</span>
       <i class="fa-regular fa-star text-indigo-600 ml-2 cursor-pointer"></i>
-<i class="fa-solid fa-ellipsis-vertical text-indigo-600 ml-2 cursor-pointer"></i>
+      <i class="fa-solid fa-ellipsis-vertical text-indigo-600 ml-2 cursor-pointer"></i>
     `;
 
-    // Click station to play
-    item.addEventListener("click", () => {
-      const index = radios.findIndex(r => r.id === radio.id);
-      playRadio(index);
-    });
+    // Click to play
+    item.addEventListener("click", () => playRadio(i));
 
-    // Favorite toggle with bounce effect
+    // Favorite toggle
     const favStar = item.querySelector(".fa-regular.fa-star");
     favStar.addEventListener("click", e => {
       e.stopPropagation();
@@ -233,6 +203,9 @@ stopBtn.addEventListener("click", () => {
   miniPlayer.classList.add("hidden");
   playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
   currentIndex = null;
+
+  headerStation.textContent = "--";
+  headerLocation.textContent = "--";
 });
 
 // Search input
@@ -248,6 +221,26 @@ onValue(ref(db, "radios"), snapshot => {
 
   renderStationList();
 });
+
+// Current time & battery
+function updateTime() {
+  const now = new Date();
+  document.getElementById('current-time').innerText = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+if (navigator.getBattery) {
+  navigator.getBattery().then(battery => {
+    function updateBattery() {
+      const percent = Math.floor(battery.level * 100);
+      document.getElementById('battery-status').innerText = `🔋 ${percent}%`;
+    }
+    updateBattery();
+    battery.addEventListener('levelchange', updateBattery);
+  });
+} else { document.getElementById('battery-status').innerText = '🔋 N/A'; }
 </script>
+
 </body>
 </html>
