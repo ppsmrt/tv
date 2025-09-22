@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>FM Radio – Open Telegram</title>
+  <title>FM Radio – Telegram</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,10 +30,10 @@
   <div class="bg-white rounded-3xl shadow-lg p-6 w-full max-w-sm text-center space-y-4">
     <h2 class="text-2xl font-bold">Open our Telegram Channel</h2>
     <p class="text-gray-600">
-      Click the button below to view the latest updates and live TV links on Telegram.
+      Tap the button below to view the latest updates and live TV links on Telegram.
     </p>
 
-    <!-- Open in Telegram button -->
+    <!-- Button to open external browser -->
     <a id="openTelegram" 
        href="https://t.me/tnm3u" 
        target="_blank" 
@@ -43,7 +43,7 @@
     </a>
 
     <p class="text-gray-400 text-sm mt-4">
-      If Telegram app is installed on your device, it will open automatically.
+      Telegram app will open if installed; otherwise, it opens in your browser.
     </p>
   </div>
 
@@ -52,17 +52,14 @@
     Proudly Maintained by Tnm3u © <span id="year"></span>
   </footer>
 
-  <!-- JS -->
   <script>
     // Auto-update year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Optional: try auto-redirect after 1 second for mobile
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile) {
-      setTimeout(() => {
-        window.location.href = "https://t.me/tnm3u";
-      }, 1500); // small delay so user sees splash
+    // Optional: detect if in Kodular WebView and give hint
+    const isKodular = /android_webview|webview/i.test(navigator.userAgent);
+    if (isKodular) {
+      console.log("Running inside Kodular WebView. Use Activity Starter to open Telegram externally.");
     }
   </script>
 
