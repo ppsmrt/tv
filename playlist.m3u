@@ -511,3 +511,9 @@ https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/ndtvindiam
 https://abp-i.akamaihd.net/hls/live/765531/abpmajha/master.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="NDTV 24Xx7" group-title="Hindi" tvg-logo="https://i.ibb.co/knLR14Y/1000131640.png",NDTV 24Xx7
 https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Crime Flix" group-title="English" tvg-logo="https://i.ibb.co/gbhRMMtQ/1000131643.jpg",Crime Flix
+https://dgx2snzx175pa.cloudfront.net/scheduler/scheduleMaster/391.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="24hrs Movies" group-title="English" tvg-logo="https://i.ibb.co/0j2HYSzx/1000131644.jpg",24hrs Movies
+https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Movies Channel" group-title="English" tvg-logo="https://i.ibb.co/DDQb6gkL/1000131645.jpg",Movies Channel
+https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8
