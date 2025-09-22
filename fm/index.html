@@ -47,14 +47,36 @@
     </div>
   </header>
 
-<!-- Ad Banner -->
+<!-- Short Notification with Fade Animation -->
 <div class="px-5 mt-3">
-  <a href="https://tnm3u.live/telegram" target="_blank" class="block w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200 hover:scale-105 transition-transform">
-    <img src="https://raw.githubusercontent.com/ppsmrt/tv/refs/heads/main/assets/images/ad/join-us-telegram.jpg" 
-         alt="Ad Banner" 
-         class="w-full h-auto max-h-24 object-contain">
-  </a>
+  <div id="notificationBanner" class="bg-indigo-50 border-l-4 border-indigo-600 text-indigo-800 p-3 rounded-2xl shadow-md text-center text-sm transition-opacity duration-500 opacity-100">
+    📢 New stations live!
+  </div>
 </div>
+
+<script>
+  const messages = [
+    "📢 New stations live!",
+    "🎶 Trending now on FM Radio!",
+    "⭐ Save your favourite stations!",
+    "📡 Listen to live Tamil FM!"
+  ];
+
+  let index = 0;
+  const banner = document.getElementById("notificationBanner");
+
+  setInterval(() => {
+    // Fade out
+    banner.classList.add("opacity-0");
+
+    setTimeout(() => {
+      // Change text and fade in
+      index = (index + 1) % messages.length;
+      banner.textContent = messages[index];
+      banner.classList.remove("opacity-0");
+    }, 500); // Match transition duration
+  }, 5000); // Change every 5 seconds
+</script>
 
   <!-- Search -->
   <div class="px-5 py-3">
