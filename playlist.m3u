@@ -505,5 +505,9 @@ https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8?view=tnm3u-
 https://live20.bozztv.com/akamaissh101/ssh101/sungo546/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Aaj Tak" group-title="Hindi" tvg-logo="https://i.ibb.co/fVpm5qXC/1000131639.jpg",Aaj Tak
 https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="NDTV" group-title="Hindi" tvg-logo="https://i.ibb.co/knLR14Y/1000131640.png",NDTV
+#EXTINF:-1 tvg-name="NDTV India" group-title="Hindi" tvg-logo="https://i.ibb.co/knLR14Y/1000131640.png",NDTV India
 https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/ndtvindiamaster.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="ABP News" group-title="Hindi" tvg-logo="https://i.ibb.co/ffmQTSC/1000131641.jpg",ABP News
+https://abp-i.akamaihd.net/hls/live/765531/abpmajha/master.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="NDTV 24Xx7" group-title="Hindi" tvg-logo="https://i.ibb.co/knLR14Y/1000131640.png",NDTV 24Xx7
+https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8?view=tnm3u-addedby=tnm3u
