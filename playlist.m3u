@@ -495,3 +495,5 @@ http://ttv.7starcloud.com:1935/kctn/tv/playlist.m3u8
 http://ttv.7starcloud.com:1935/vctn/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Chennaii Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fzhxbNkb/1000128230.webp",Chennaii Tv
 http://notvstream.in/chennaiitv/chennaiitv.m3u8
+#EXTINF:-1 tvg-name="Asianet" group-title="Malayalam" tvg-logo="https://i.ibb.co/VYPB5q31/1000131506.jpg",Asianet
+http://217.20.112.199/asianet/index.m3u8
