@@ -202,4 +202,10 @@ http://ttv.7starcloud.com:1935/kctn/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="VCTN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/C3TN9Yv3/1000128228.jpg",VCTN Tv
 http://ttv.7starcloud.com:1935/vctn/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Chennaii Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fzhxbNkb/1000128230.webp",Chennaii Tv
-http://notvstream.in/chennaiitv/chennaiitv.m3u8
+http://notvstream.in/chennaiitv/chennaiitv.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Astro Vanavil" group-title="Entertainment" tvg-logo="https://i.ibb.co/5hSNK4Tv/1000131634.jpg",Astro Vanavil
+https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Astro Vinmeen" group-title="Entertainment" tvg-logo="https://i.ibb.co/j9RZhSMr/1000131636.jpg",Astro Vinmeen
+https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Astro Thangathirai" group-title="Entertainment" tvg-logo="https://i.ibb.co/B5XmrHMC/1000131638.jpg",Astro Thangathirai
+https://live20.bozztv.com/akamaissh101/ssh101/sungo546/playlist.m3u8?view=tnm3u-addedby=tnm3u
