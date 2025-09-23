@@ -451,8 +451,6 @@ https://play.google.com/store/apps/details?id=com.logicwebs.weonekerala
 https://play.google.com/store/apps/details?id=com.pcv.skystream
 #EXTINF:-1 tvg-name="TCN Channel" group-title="Malayalam" tvg-logo="https://i.ibb.co/F4gKkRvf/1000313351.jpg",TCN Channel
 https://play.google.com/store/apps/details?id=com.tcv.skystream
-#EXTINF:-1 tvg-name="Periyar Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/zW61P0dG/1000313352.jpg",Periyar Vision
-https://play.google.com/store/apps/details?id=com.onecloud.periyarvision
 #EXTINF:-1 tvg-name="Channel 2" group-title="Malayalam" tvg-logo="https://i.ibb.co/N2PwmDRF/1000313353.jpg",Channel 2
 https://play.google.com/store/apps/details?id=com.channel2.skystream
 #EXTINF:-1 tvg-name="NV TV" group-title="Malayalam" tvg-logo="https://i.ibb.co/FjyzxK7/1000313355.jpg",NV TV
@@ -517,3 +515,5 @@ https://dgx2snzx175pa.cloudfront.net/scheduler/scheduleMaster/391.m3u8?view=tnm3
 https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Movies Channel" group-title="English" tvg-logo="https://i.ibb.co/DDQb6gkL/1000131645.jpg",Movies Channel
 https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8
+#EXTINF:-1 tvg-name="Thai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/JwzV28Bk/1000132408.jpg",Thai Tv
+https://cdn.anystream.uk:8082/thaitv/thailive/playlist.m3u8
