@@ -209,3 +209,5 @@ https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8?view=tnm3u-
 https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Astro Thangathirai" group-title="Entertainment" tvg-logo="https://i.ibb.co/B5XmrHMC/1000131638.jpg",Astro Thangathirai
 https://live20.bozztv.com/akamaissh101/ssh101/sungo546/playlist.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Thai Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/JwzV28Bk/1000132408.jpg",Thai Tv
+https://cdn.anystream.uk:8082/thaitv/thailive/playlist.m3u8
