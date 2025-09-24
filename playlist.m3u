@@ -515,3 +515,5 @@ https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
 http://89.187.189.98/STARSPORTSTAMIL/index.m3u8
 #EXTINF:-1 tvg-name="Star Sports" group-title="Sports" tvg-logo="https://i.ibb.co/F4HNL5pb/1000132436.jpg",Star Sports
 http://89.187.189.98/STARSPORTS3/index.m3u8
+#EXTINF:-1 tvg-name="We One Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/RKC56Ff/1000132909.jpg",We One Tv
+http://stream.logichost.in:1935/WEONE/live/chunklist_w617388636.m3u8
