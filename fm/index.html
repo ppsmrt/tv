@@ -81,6 +81,22 @@
   <!-- Search -->
   <div class="px-5 py-3">
     <input type="text" id="channelSearch" placeholder="Search Stations..." class="w-full px-4 py-2 rounded-full shadow-md border-none focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+
+    <!-- =======================
+         Injected: Filter buttons
+         (single-choice: All / Live / FM)
+         ======================= -->
+    <div class="flex gap-3 justify-center mt-3">
+      <button id="filterAll" class="px-4 py-1.5 rounded-full bg-indigo-600 text-white text-sm font-semibold shadow">
+        All
+      </button>
+      <button id="filterLive" class="px-4 py-1.5 rounded-full bg-white text-gray-700 border border-indigo-300 text-sm shadow">
+        24x7 Live
+      </button>
+      <button id="filterFM" class="px-4 py-1.5 rounded-full bg-white text-gray-700 border border-indigo-300 text-sm shadow">
+        Local Radios
+      </button>
+    </div>
   </div>
 
   <!-- SPA Pages -->
@@ -249,6 +265,40 @@
   let screensaverTimer;
   let favourites = [];
 
+  // ---------------- Injected: Filter state & handlers ----------------
+  // (single-choice: "all" | "live" | "fm")
+  let activeFilter = "all";
+  const filterAll = document.getElementById("filterAll");
+  const filterLive = document.getElementById("filterLive");
+  const filterFM = document.getElementById("filterFM");
+
+  function setFilter(filter) {
+    activeFilter = filter;
+    // reset styles
+    [filterAll, filterLive, filterFM].forEach(btn=>{
+      btn.classList.remove("bg-indigo-600","text-white");
+      btn.classList.add("bg-white","text-gray-700","border","border-indigo-300");
+    });
+    // set active style
+    if(filter==="all"){
+      filterAll.classList.add("bg-indigo-600","text-white");
+      filterAll.classList.remove("bg-white","text-gray-700","border","border-indigo-300");
+    } else if(filter==="live"){
+      filterLive.classList.add("bg-indigo-600","text-white");
+      filterLive.classList.remove("bg-white","text-gray-700","border","border-indigo-300");
+    } else if(filter==="fm"){
+      filterFM.classList.add("bg-indigo-600","text-white");
+      filterFM.classList.remove("bg-white","text-gray-700","border","border-indigo-300");
+    }
+    // rerender list
+    renderStationList();
+  }
+
+  filterAll.addEventListener("click", ()=> setFilter("all"));
+  filterLive.addEventListener("click", ()=> setFilter("live"));
+  filterFM.addEventListener("click", ()=> setFilter("fm"));
+  // ---------------- end injected ----------------
+
   // ---------------- Screensaver ----------------
   function resetScreensaverTimer() {
     clearTimeout(screensaverTimer);
@@ -332,7 +382,16 @@
     const searchTerm = searchInput.value.toLowerCase();
     stationList.innerHTML = "";
 
-    const filtered = radios.filter(r => r.name.toLowerCase().includes(searchTerm));
+    // make filtered mutable so we can apply activeFilter
+    let filtered = radios.filter(r => r.name.toLowerCase().includes(searchTerm));
+
+    // ---------------- Apply the injected filter logic (single-choice) ----------------
+    if(activeFilter === "live"){
+      filtered = filtered.filter(r => (r.type||"").toLowerCase() === "live");
+    } else if(activeFilter === "fm"){
+      filtered = filtered.filter(r => (r.type||"").toLowerCase() === "fm");
+    }
+    // ----------------------------------------------------------------------------------
 
     // ✅ only show filtered count, not "of total"
     searchInput.placeholder = `Search (${filtered.length}) Channels...`;
@@ -497,6 +556,8 @@
 
   // ---------------- Default ----------------
   showPage('home');
+  // set default filter to All (ensures button styles render on load)
+  setFilter("all");
 </script>
-<body>
+</body>
 </html>
