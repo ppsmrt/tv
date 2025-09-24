@@ -33,49 +33,49 @@
 <body class="bg-gray-100 overflow-x-hidden">
 
   <!-- Header -->
-  <header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4 text-center">
-    <div class="flex justify-between items-center text-sm font-semibold opacity-90 mb-2">
-      <span id="current-time">--:--</span>
-      <span id="battery-status">🔋 --%</span>
+<header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4 text-center">
+  <!-- Top row: time - notification - battery -->
+  <div class="flex justify-between items-center text-sm font-semibold opacity-90 mb-2">
+    <span id="current-time">--:--</span>
+    
+    <!-- 🔔 Notification inline -->
+    <div id="notificationBanner" class="px-3 py-0.5 rounded-full bg-white/20 text-xs font-medium shadow transition-opacity duration-500 opacity-100">
+      <i class="fa-solid fa-bullhorn text-red-400"></i> <span id="notificationText">New stations live!</span>
     </div>
-    <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
-      <i class="fa-solid fa-headphones text-3xl text-white"></i>
-    </div>
-    <div class="mt-2">
-      <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
-      <div id="headerLocation" class="text-sm opacity-80">--</div>
-    </div>
-  </header>
-
-<!-- Notification -->
-<div class="px-5 mt-3">
-  <div id="notificationBanner" class="bg-indigo-50 border-l-4 border-indigo-600 text-indigo-800 p-3 rounded-2xl shadow-md text-center text-sm transition-opacity duration-500 opacity-100">
-    <i class="fa-solid fa-bullhorn text-red-600"></i> New stations live!
+    
+    <span id="battery-status">🔋 --%</span>
   </div>
-</div>
+
+  <!-- Center Logo -->
+  <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
+    <i class="fa-solid fa-headphones text-3xl text-white"></i>
+  </div>
+  <div class="mt-2">
+    <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
+    <div id="headerLocation" class="text-sm opacity-80">--</div>
+  </div>
+</header>
 
 <script>
   const messages = [
-    "📢 New stations live!",
-    "🎶 Trending now on FM Radio!",
-    "⭐ Save your favourite stations!",
-    "📡 Listen to live Tamil FM!"
+    "New stations live!",
+    "Trending now on FM Radio!",
+    "Save your favourite stations!",
+    "Listen to live Tamil FM!"
   ];
 
   let index = 0;
   const banner = document.getElementById("notificationBanner");
+  const bannerText = document.getElementById("notificationText");
 
   setInterval(() => {
-    // Fade out
     banner.classList.add("opacity-0");
-
     setTimeout(() => {
-      // Change text and fade in
       index = (index + 1) % messages.length;
-      banner.textContent = messages[index];
+      bannerText.textContent = messages[index];
       banner.classList.remove("opacity-0");
-    }, 500); // Match transition duration
-  }, 5000); // Change every 5 seconds
+    }, 500);
+  }, 5000);
 </script>
 
   <!-- Search -->
@@ -432,7 +432,7 @@
         infoName.textContent=radio.name;
         infoLanguage.textContent=`Language: ${radio.language||"--"}`;
         infoLocation.textContent=`Location: ${radio.location||"--"}`;
-        infoType.textContent=`Type: ${radio.type||"FM/Live"}`;
+        infoType.textContent = `Type: ${radio.type?.toLowerCase() === "fm" ? "Local Channel" : radio.type?.toLowerCase() === "live" ? "24x7 Live" : "FM/Live"}`;
         infoGenre.textContent=`Genre: ${radio.genre||"--"}`;
         radioInfoModal.classList.remove("hidden");
       });
@@ -532,32 +532,35 @@
   searchInput.addEventListener("input", renderStationList);
 
   // ---------------- Time & Battery ----------------
-  function updateTime(){
-    const now = new Date();
-    document.getElementById('current-time').innerText = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-  }
-  setInterval(updateTime, 1000);
-  updateTime();
+  // ---------------- Time & Battery ----------------
+function updateTime() {
+  const now = new Date();
+  // Device regional settings decide 12h or 24h
+  const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('current-time').innerText = timeString;
+}
+setInterval(updateTime, 1000);
+updateTime();
 
-  if(navigator.getBattery){
-    navigator.getBattery().then(battery=>{
-      function updateBattery(){
-        const percent = Math.floor(battery.level * 100);
-        document.getElementById('battery-status').innerText = `🔋 ${percent}%`;
-      }
-      updateBattery();
-      battery.addEventListener('levelchange', updateBattery);
-    }).catch(()=> {
-      document.getElementById('battery-status').innerText = '🔋 N/A';
-    });
-  } else {
+if (navigator.getBattery) {
+  navigator.getBattery().then(battery => {
+    function updateBattery() {
+      const percent = Math.floor(battery.level * 100);
+      document.getElementById('battery-status').innerText = `🔋 ${percent}%`;
+    }
+    updateBattery();
+    battery.addEventListener('levelchange', updateBattery);
+  }).catch(() => {
     document.getElementById('battery-status').innerText = '🔋 N/A';
-  }
+  });
+} else {
+  document.getElementById('battery-status').innerText = '🔋 N/A';
+}
 
-  // ---------------- Default ----------------
-  showPage('home');
-  // set default filter to All (ensures button styles render on load)
-  setFilter("all");
+// ---------------- Default ----------------
+showPage('home');
+// set default filter to All (ensures button styles render on load)
+setFilter("all");
 </script>
 </body>
 </html>
