@@ -273,8 +273,6 @@ http://kcltv.livebox.co.in/kclhls/live.m3u8
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-name="Sun Music" group-title="Tamil" tvg-logo="https://i.ibb.co/6cNQ4GD1/1000121935.jpg",Sun Music
 http://goldenpro.xyz:80/live/miyem2026/RV1G544/72123.ts
-#EXTINF:-1 tvg-name="Koickal News" group-title="Malayalam" tvg-logo="https://i.ibb.co/XTyjZ17/1000121945.jpg",Koickal News
-https://play.applelive.in/koickalnews/koickalnews.m3u8
 #EXTINF:-1 tvg-name="Max Movies" group-title="Tamil" tvg-logo="https://i.ibb.co/bMS9MB9W/1000122159.jpg",Max Movies
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-name="Leo Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Wpf1ZXTF/1000122161.jpg",Leo Tv
@@ -443,18 +441,6 @@ https://edge4-moblive.yuppcdn.net/trans1sd/smil:tv111.smil/playlist.m3u8?view=tn
 https://edge3-moblive.yuppcdn.net/transhd2/smil:detv04.smil/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Verbum Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/vCpT6Xyz/1000124783.jpg",Verbum Tv
 https://edge3-moblive.yuppcdn.net/drm1/smil:verbumtvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="KCV HD" group-title="Malayalam" tvg-logo="https://i.ibb.co/XkWWYm4x/1000313348.jpg",KCV HD
-https://play.google.com/store/apps/details?id=com.kcv.skystream
-#EXTINF:-1 tvg-name="We One Kerala" group-title="Malayalam" tvg-logo="https://i.ibb.co/fzpgXB5z/1000313350.png",We One Kerala
-https://play.google.com/store/apps/details?id=com.logicwebs.weonekerala
-#EXTINF:-1 tvg-name="PCV" group-title="Malayalam" tvg-logo="https://i.ibb.co/7Nt25HYZ/1000313349.png",PCV
-https://play.google.com/store/apps/details?id=com.pcv.skystream
-#EXTINF:-1 tvg-name="TCN Channel" group-title="Malayalam" tvg-logo="https://i.ibb.co/F4gKkRvf/1000313351.jpg",TCN Channel
-https://play.google.com/store/apps/details?id=com.tcv.skystream
-#EXTINF:-1 tvg-name="Channel 2" group-title="Malayalam" tvg-logo="https://i.ibb.co/N2PwmDRF/1000313353.jpg",Channel 2
-https://play.google.com/store/apps/details?id=com.channel2.skystream
-#EXTINF:-1 tvg-name="NV TV" group-title="Malayalam" tvg-logo="https://i.ibb.co/FjyzxK7/1000313355.jpg",NV TV
-https://play.google.com/store/apps/details?id=com.ipcloud.nvtv
 #EXTINF:-1 tvg-name="Vibgyor" group-title="Malayalam" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
 https://app.vibgyortv.com/live
 #EXTINF:-1 tvg-name="Thandhi One" group-title="Tamil" tvg-logo="https://i.ibb.co/Gf2bQb5s/1000127601.jpg",Thandhi One
