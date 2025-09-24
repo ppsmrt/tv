@@ -521,3 +521,11 @@ https://cdn.anystream.uk:8082/thaitv/thailive/playlist.m3u8
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
 #EXTINF:-1 tvg-name="Kamudy Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/R4TvPMrK/1000132433.jpg",Kamudy Tv
 https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Astro Cricket" group-title="Sports" tvg-logo="https://i.ibb.co/Fk9HxqS6/1000132440.jpg",Astro Cricket
+https://tgn.bozztv.com/eshgtv-dvrfl05/gin-lemar/index.m3u8
+#EXTINF:-1 tvg-name="Willow" group-title="Sports" tvg-logo="https://i.ibb.co/DDXwJhHX/1000132438.png",Willow
+https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
+#EXTINF:-1 tvg-name="Star Sports Tamil" group-title="Sports" tvg-logo="https://i.ibb.co/hxVcZnsZ/1000132435.jpg",Star Sports Tamil
+http://89.187.189.98/STARSPORTSTAMIL/index.m3u8
+#EXTINF:-1 tvg-name="Star Sports" group-title="Sports" tvg-logo="https://i.ibb.co/F4HNL5pb/1000132436.jpg",Star Sports
+http://89.187.189.98/STARSPORTS3/index.m3u8
