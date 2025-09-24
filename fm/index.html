@@ -97,6 +97,31 @@
         Local Radios
       </button>
     </div>
+
+    <!-- =======================
+         Injected: Language Filter buttons
+         (pill-shaped, modern, single-choice: All / Tamil / Telugu / etc.)
+         ======================= -->
+    <div class="flex gap-2 justify-center mt-2 flex-wrap">
+      <button id="langAll" class="px-3 py-1 rounded-full bg-indigo-600 text-white text-xs font-semibold shadow">
+        All Languages
+      </button>
+      <button id="langTamil" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
+        Tamil
+      </button>
+      <button id="langTelugu" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
+        Telugu
+      </button>
+      <button id="langMalayalam" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
+        Malayalam
+      </button>
+      <button id="langHindi" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
+        Hindi
+      </button>
+      <button id="langEnglish" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
+        English
+      </button>
+    </div>
   </div>
 
   <!-- SPA Pages -->
@@ -141,11 +166,11 @@
     <p class="text-sm text-gray-800 leading-relaxed">
       We respect your privacy.  
       <br><br>
-      • No personal data is collected, stored, or sold. <br>
-      • Your favourites and preferences remain only on your device. <br>
-      • Streaming content is provided by third-party radio stations; their servers 
+      - No personal data is collected, stored, or sold. <br>
+      - Your favourites and preferences remain only on your device. <br>
+      - Streaming content is provided by third-party radio stations; their servers 
         may process technical data (like IP address) required to deliver streams. <br>
-      • Server uses for analytics, stability, and notifications, but 
+      - Server uses for analytics, stability, and notifications, but 
         without collecting sensitive personal information.  
       <br><br>
       Our goal is to keep your experience safe, transparent, and enjoyable.
@@ -299,240 +324,286 @@
   filterFM.addEventListener("click", ()=> setFilter("fm"));
   // ---------------- end injected ----------------
 
-  // ---------------- Screensaver ----------------
-  function resetScreensaverTimer() {
-    clearTimeout(screensaverTimer);
-    screensaver.classList.add("hidden");
-    if (!audio.src || audio.paused) return;
-    screensaverTimer = setTimeout(() => {
-      if (audio.src && !audio.paused) {
-        screensaver.classList.remove("hidden");
-        if (currentIndex !== null) {
-          const radio = radios[currentIndex];
-          screensaverStation.textContent = radio.name;
-          screensaverLanguage.textContent = radio.language || radio.location || "";
-          const now = new Date();
-          screensaverTime.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-        }
+ // ---------------- Injected: Language Filter state & handlers ----------------
+// (single-choice: "all" | "tamil" | "telugu" | "malayalam" | "hindi" | "english")
+let activeLangFilter = "all";
+const langAll = document.getElementById("langAll");
+const langTamil = document.getElementById("langTamil");
+const langTelugu = document.getElementById("langTelugu");
+const langMalayalam = document.getElementById("langMalayalam");
+const langHindi = document.getElementById("langHindi");
+const langEnglish = document.getElementById("langEnglish");
+
+function setLangFilter(lang) {
+  activeLangFilter = lang;
+  // Reset all language button styles
+  [langAll, langTamil, langTelugu, langMalayalam, langHindi, langEnglish].forEach(btn => {
+    btn.classList.remove("bg-indigo-600", "text-white");
+    btn.classList.add("bg-white", "text-gray-700", "border", "border-indigo-300");
+  });
+  // Set active style for the selected button
+  const activeBtn = {
+    "all": langAll,
+    "tamil": langTamil,
+    "telugu": langTelugu,
+    "malayalam": langMalayalam,
+    "hindi": langHindi,
+    "english": langEnglish
+  }[lang];
+  if (activeBtn) {
+    activeBtn.classList.add("bg-indigo-600", "text-white");
+    activeBtn.classList.remove("bg-white", "text-gray-700", "border", "border-indigo-300");
+  }
+  // Rerender the list to apply the new language filter
+  renderStationList();
+}
+
+// Event listeners for language filter buttons
+langAll.addEventListener("click", () => setLangFilter("all"));
+langTamil.addEventListener("click", () => setLangFilter("tamil"));
+langTelugu.addEventListener("click", () => setLangFilter("telugu"));
+langMalayalam.addEventListener("click", () => setLangFilter("malayalam"));
+langHindi.addEventListener("click", () => setLangFilter("hindi"));
+langEnglish.addEventListener("click", () => setLangFilter("english"));
+// ---------------- end injected language filter ----------------
+
+// ---------------- Screensaver ----------------
+function resetScreensaverTimer() {
+  clearTimeout(screensaverTimer);
+  screensaver.classList.add("hidden");
+  if (!audio.src || audio.paused) return;
+  screensaverTimer = setTimeout(() => {
+    if (audio.src && !audio.paused) {
+      screensaver.classList.remove("hidden");
+      if (currentIndex !== null) {
+        const radio = radios[currentIndex];
+        screensaverStation.textContent = radio.name;
+        screensaverLanguage.textContent = radio.language || radio.location || "";
+        const now = new Date();
+        screensaverTime.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
       }
-    }, 10000);
-  }
-  ['mousemove','keydown','touchstart','click'].forEach(evt => document.addEventListener(evt, resetScreensaverTimer));
-  resetScreensaverTimer();
-
-  // ---------------- Player ----------------
-  function playRadio(index) {
-    const radio = radios[index];
-    if (!radio) return;
-
-    if (currentIndex === index) {
-      if (audio.paused) audio.play(); else audio.pause();
-      playPauseBtn.innerHTML = audio.paused ? '<i class="fa-solid fa-play"></i>' : '<i class="fa-solid fa-pause"></i>';
-      resetScreensaverTimer();
-      return;
     }
+  }, 10000);
+}
+['mousemove','keydown','touchstart','click'].forEach(evt => document.addEventListener(evt, resetScreensaverTimer));
+resetScreensaverTimer();
 
-    if (currentIndex !== null && currentIndex !== index) {
-      audio.pause();
-      audio.currentTime = 0;
-    }
+// ---------------- Player ----------------
+function playRadio(index) {
+  const radio = radios[index];
+  if (!radio) return;
 
-    audio.src = radio.stream;
-    audio.play().catch(()=>console.log("Tap play to start audio"));
-    currentIndex = index;
-
-    miniStation.textContent = `Playing: ${radio.name}`;
-    miniPlayer.classList.remove("hidden");
-    playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-    headerStation.textContent = radio.name;
-    headerLocation.textContent = radio.location || "";
-
-    renderStationList();
-
-    const radioRef = ref(db, `radios/${radio.id}/playCount`);
-    runTransaction(radioRef, current => (current || 0) + 1);
-
-    resetScreensaverTimer();
-  }
-
-  playPauseBtn.addEventListener("click", ()=>{
-    if (!audio.src) return;
+  if (currentIndex === index) {
     if (audio.paused) audio.play(); else audio.pause();
     playPauseBtn.innerHTML = audio.paused ? '<i class="fa-solid fa-play"></i>' : '<i class="fa-solid fa-pause"></i>';
     resetScreensaverTimer();
-  });
+    return;
+  }
 
-  muteBtn.addEventListener("click", ()=>{
-    audio.muted = !audio.muted;
-    muteBtn.innerHTML = audio.muted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
-  });
-
-  stopBtn.addEventListener("click", ()=>{
+  if (currentIndex !== null && currentIndex !== index) {
     audio.pause();
     audio.currentTime = 0;
-    miniPlayer.classList.add("hidden");
-    currentIndex = null;
-    headerStation.textContent="--";
-    headerLocation.textContent="--";
-    resetScreensaverTimer();
+  }
+
+  audio.src = radio.stream;
+  audio.play().catch(()=>console.log("Tap play to start audio"));
+  currentIndex = index;
+
+  miniStation.textContent = `Playing: ${radio.name}`;
+  miniPlayer.classList.remove("hidden");
+  playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  headerStation.textContent = radio.name;
+  headerLocation.textContent = radio.location || "";
+
+  renderStationList();
+
+  const radioRef = ref(db, `radios/${radio.id}/playCount`);
+  runTransaction(radioRef, current => (current || 0) + 1);
+
+  resetScreensaverTimer();
+}
+
+playPauseBtn.addEventListener("click", ()=>{
+  if (!audio.src) return;
+  if (audio.paused) audio.play(); else audio.pause();
+  playPauseBtn.innerHTML = audio.paused ? '<i class="fa-solid fa-play"></i>' : '<i class="fa-solid fa-pause"></i>';
+  resetScreensaverTimer();
+});
+
+muteBtn.addEventListener("click", ()=>{
+  audio.muted = !audio.muted;
+  muteBtn.innerHTML = audio.muted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
+});
+
+stopBtn.addEventListener("click", ()=>{
+  audio.pause();
+  audio.currentTime = 0;
+  miniPlayer.classList.add("hidden");
+  currentIndex = null;
+  headerStation.textContent="--";
+  headerLocation.textContent="--";
+  resetScreensaverTimer();
+});
+
+// ---------------- Render List ---------------- (Updated to include language filter)
+function renderStationList() {
+  const searchTerm = searchInput.value.toLowerCase();
+  stationList.innerHTML = "";
+
+  // Start with search filter
+  let filtered = radios.filter(r => r.name.toLowerCase().includes(searchTerm));
+
+  // Apply type filter (existing logic)
+  if(activeFilter === "live"){
+    filtered = filtered.filter(r => (r.type||"").toLowerCase() === "live");
+  } else if(activeFilter === "fm"){
+    filtered = filtered.filter(r => (r.type||"").toLowerCase() === "fm");
+  }
+
+  // Apply language filter (new logic - chained after type filter)
+  if(activeLangFilter !== "all"){
+    filtered = filtered.filter(r => (r.language || "").toLowerCase() === activeLangFilter);
+  }
+
+  // Update placeholder with final filtered count
+  searchInput.placeholder = `Search (${filtered.length}) Channels...`;
+
+  filtered.forEach((radio,i)=>{
+    const realIndex = radios.findIndex(r => r.id === radio.id);
+    const isPlaying = currentIndex===realIndex;
+    const item = document.createElement("div");
+    item.className = `station-item flex items-center gap-4 bg-white rounded-2xl p-3 shadow hover:-translate-y-1 hover:shadow-lg transition cursor-pointer ${isPlaying?'scale-[1.02] bg-blue-50':''}`;
+    item.innerHTML=`
+      <div class="w-12 h-12 flex justify-center items-center text-white text-lg rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500">
+        <i class="fa-solid fa-radio"></i>
+      </div>
+      <div class="flex-1">
+        <h2 class="text-sm font-semibold">${radio.name}</h2>
+        <p class="text-xs text-gray-500">${radio.location||""}</p>
+      </div>
+      <span class="text-xs text-gray-600 play-count">${radio.playCount||0} plays</span>
+      <i class="fa-regular fa-star text-indigo-600 ml-2 cursor-pointer"></i>
+      <i class="fa-solid fa-ellipsis-vertical text-indigo-600 ml-2 cursor-pointer info-btn"></i>
+    `;
+    item.addEventListener("click",()=>playRadio(realIndex));
+
+    const favStar=item.querySelector(".fa-regular.fa-star");
+    favStar.addEventListener("click", e=>{
+      e.stopPropagation();
+      favStar.classList.toggle("fa-solid");
+      favStar.classList.toggle("animate-bounce");
+      if(favourites.some(f=>f.id===radio.id)) favourites=favourites.filter(f=>f.id!==radio.id);
+      else favourites.push(radio);
+      renderFavourites();
+      setTimeout(()=>favStar.classList.remove("animate-bounce"),500);
+    });
+
+    const infoBtn=item.querySelector(".info-btn");
+    infoBtn.addEventListener("click", e=>{
+      e.stopPropagation();
+      infoName.textContent=radio.name;
+      infoLanguage.textContent=`Language: ${radio.language||"--"}`;
+      infoLocation.textContent=`Location: ${radio.location||"--"}`;
+      infoType.textContent = `Type: ${radio.type?.toLowerCase() === "fm" ? "Local Channel" : radio.type?.toLowerCase() === "live" ? "24x7 Live" : "FM/Live"}`;
+      infoGenre.textContent=`Genre: ${radio.genre||"--"}`;
+      radioInfoModal.classList.remove("hidden");
+    });
+
+    stationList.appendChild(item);
   });
+}
 
-  // ---------------- Render List ----------------
-  function renderStationList() {
-    const searchTerm = searchInput.value.toLowerCase();
-    stationList.innerHTML = "";
+// ---------------- Favourites ----------------
+function renderFavourites(){
+  favList.innerHTML = "";
+  if(favourites.length===0){
+    favList.innerHTML="<p class='text-gray-500'>No favourites yet</p>";
+    return;
+  }
+  favourites.forEach(radio=>{
+    const div = document.createElement("div");
+    div.className = "p-3 bg-white rounded-xl shadow cursor-pointer";
+    div.innerHTML = `${radio.name} <span class="text-xs text-gray-500">(${radio.playCount||0} plays)</span>`;
+    div.addEventListener("click",()=>{
+      const index = radios.findIndex(r=>r.id===radio.id);
+      playRadio(index);
+      showPage('home');
+    });
+    favList.appendChild(div);
+  });
+}
 
-    // make filtered mutable so we can apply activeFilter
-    let filtered = radios.filter(r => r.name.toLowerCase().includes(searchTerm));
+// ---------------- Trending ----------------
+function renderTrending(){
+  trendingList.innerHTML = "";
+  const sorted = [...radios].sort((a,b)=> (b.playCount||0)-(a.playCount||0)).slice(0,10);
+  if(sorted.length===0){
+    trendingList.innerHTML="<p class='text-gray-500'>No trending data</p>";
+    return;
+  }
+  sorted.forEach(radio=>{
+    const div = document.createElement("div");
+    div.className = "p-3 bg-white rounded-xl shadow cursor-pointer";
+    div.innerHTML = `${radio.name} <span class="text-xs text-gray-500">(${radio.playCount||0} plays)</span>`;
+    div.addEventListener("click", ()=>{
+      const index = radios.findIndex(item => item.id === radio.id);
+      if (index !== -1) playRadio(index);
+      showPage('home');
+    });
+    trendingList.appendChild(div);
+  });
+}
 
-    // ---------------- Apply the injected filter logic (single-choice) ----------------
-    if(activeFilter === "live"){
-      filtered = filtered.filter(r => (r.type||"").toLowerCase() === "live");
-    } else if(activeFilter === "fm"){
-      filtered = filtered.filter(r => (r.type||"").toLowerCase() === "fm");
-    }
-    // ----------------------------------------------------------------------------------
+// ---------------- Pages ----------------
+function showPage(page){
+  const pages = {
+    home: document.getElementById('page-home'),
+    favourites: document.getElementById('page-favourites'),
+    trending: document.getElementById('page-trending'),
+    about: document.getElementById('page-about')
+  };
+  Object.values(pages).forEach(p => p.classList.add('hidden'));
+  if(pages[page]) pages[page].classList.remove('hidden');
 
-    // ✅ only show filtered count, not "of total"
-    searchInput.placeholder = `Search (${filtered.length}) Channels...`;
+  if(page === 'favourites') renderFavourites();
+  if(page === 'trending') renderTrending();
+}
 
-    filtered.forEach((radio,i)=>{
-      const realIndex = radios.findIndex(r => r.id === radio.id);
-      const isPlaying = currentIndex===realIndex;
-      const item = document.createElement("div");
-      item.className = `station-item flex items-center gap-4 bg-white rounded-2xl p-3 shadow hover:-translate-y-1 hover:shadow-lg transition cursor-pointer ${isPlaying?'scale-[1.02] bg-blue-50':''}`;
-      item.innerHTML=`
-        <div class="w-12 h-12 flex justify-center items-center text-white text-lg rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500">
-          <i class="fa-solid fa-radio"></i>
-        </div>
-        <div class="flex-1">
-          <h2 class="text-sm font-semibold">${radio.name}</h2>
-          <p class="text-xs text-gray-500">${radio.location||""}</p>
-        </div>
-        <span class="text-xs text-gray-600 play-count">${radio.playCount||0} plays</span>
-        <i class="fa-regular fa-star text-indigo-600 ml-2 cursor-pointer"></i>
-        <i class="fa-solid fa-ellipsis-vertical text-indigo-600 ml-2 cursor-pointer info-btn"></i>
-      `;
-      item.addEventListener("click",()=>playRadio(realIndex));
+const navHome = document.getElementById("nav-home");
+const navFav  = document.getElementById("nav-favourites");
+const navTrend = document.getElementById("nav-trending");
+const navAbout = document.getElementById("nav-about");
 
-      const favStar=item.querySelector(".fa-regular.fa-star");
-      favStar.addEventListener("click", e=>{
-        e.stopPropagation();
-        favStar.classList.toggle("fa-solid");
-        favStar.classList.toggle("animate-bounce");
-        if(favourites.some(f=>f.id===radio.id)) favourites=favourites.filter(f=>f.id!==radio.id);
-        else favourites.push(radio);
-        renderFavourites();
-        setTimeout(()=>favStar.classList.remove("animate-bounce"),500);
-      });
+navHome?.addEventListener("click", ()=> showPage('home'));
+navFav?.addEventListener("click", ()=> showPage('favourites'));
+navTrend?.addEventListener("click", ()=> showPage('trending'));
+navAbout?.addEventListener("click", ()=> showPage('about'));
 
-      const infoBtn=item.querySelector(".info-btn");
-      infoBtn.addEventListener("click", e=>{
-        e.stopPropagation();
-        infoName.textContent=radio.name;
-        infoLanguage.textContent=`Language: ${radio.language||"--"}`;
-        infoLocation.textContent=`Location: ${radio.location||"--"}`;
-        infoType.textContent = `Type: ${radio.type?.toLowerCase() === "fm" ? "Local Channel" : radio.type?.toLowerCase() === "live" ? "24x7 Live" : "FM/Live"}`;
-        infoGenre.textContent=`Genre: ${radio.genre||"--"}`;
-        radioInfoModal.classList.remove("hidden");
-      });
+// ---------------- Modal ----------------
+closeModal.addEventListener("click", ()=> radioInfoModal.classList.add("hidden"));
+radioInfoModal.addEventListener("click", (e)=>{
+  if(e.target === radioInfoModal) radioInfoModal.classList.add("hidden");
+});
 
-      stationList.appendChild(item);
+// ---------------- Firebase ----------------
+onValue(ref(db,"radios"), snapshot=>{
+  radios = [];
+  if(snapshot.exists()){
+    snapshot.forEach(child=>{
+      radios.push({ id: child.key, ...child.val() });
     });
   }
-
-  // ---------------- Favourites ----------------
-  function renderFavourites(){
-    favList.innerHTML = "";
-    if(favourites.length===0){
-      favList.innerHTML="<p class='text-gray-500'>No favourites yet</p>";
-      return;
-    }
-    favourites.forEach(radio=>{
-      const div = document.createElement("div");
-      div.className = "p-3 bg-white rounded-xl shadow cursor-pointer";
-      div.innerHTML = `${radio.name} <span class="text-xs text-gray-500">(${radio.playCount||0} plays)</span>`;
-      div.addEventListener("click",()=>{
-        const index = radios.findIndex(r=>r.id===radio.id);
-        playRadio(index);
-        showPage('home');
-      });
-      favList.appendChild(div);
-    });
+  if(currentIndex !== null){
+    const stillExists = radios[currentIndex] && radios[currentIndex].id;
+    if(!stillExists) currentIndex = null;
   }
+  renderStationList();
+  renderTrending();
+});
 
-  // ---------------- Trending ----------------
-  function renderTrending(){
-    trendingList.innerHTML = "";
-    const sorted = [...radios].sort((a,b)=> (b.playCount||0)-(a.playCount||0)).slice(0,10);
-    if(sorted.length===0){
-      trendingList.innerHTML="<p class='text-gray-500'>No trending data</p>";
-      return;
-    }
-    sorted.forEach(radio=>{
-      const div = document.createElement("div");
-      div.className = "p-3 bg-white rounded-xl shadow cursor-pointer";
-      div.innerHTML = `${radio.name} <span class="text-xs text-gray-500">(${radio.playCount||0} plays)</span>`;
-      div.addEventListener("click", ()=>{
-        const index = radios.findIndex(item => item.id === radio.id);
-        if (index !== -1) playRadio(index);
-        showPage('home');
-      });
-      trendingList.appendChild(div);
-    });
-  }
+searchInput.addEventListener("input", renderStationList);
 
-  // ---------------- Pages ----------------
-  function showPage(page){
-    const pages = {
-      home: document.getElementById('page-home'),
-      favourites: document.getElementById('page-favourites'),
-      trending: document.getElementById('page-trending'),
-      about: document.getElementById('page-about')
-    };
-    Object.values(pages).forEach(p => p.classList.add('hidden'));
-    if(pages[page]) pages[page].classList.remove('hidden');
-
-    if(page === 'favourites') renderFavourites();
-    if(page === 'trending') renderTrending();
-  }
-
-  const navHome = document.getElementById("nav-home");
-  const navFav  = document.getElementById("nav-favourites");
-  const navTrend = document.getElementById("nav-trending");
-  const navAbout = document.getElementById("nav-about");
-
-  navHome?.addEventListener("click", ()=> showPage('home'));
-  navFav?.addEventListener("click", ()=> showPage('favourites'));
-  navTrend?.addEventListener("click", ()=> showPage('trending'));
-  navAbout?.addEventListener("click", ()=> showPage('about'));
-
-  // ---------------- Modal ----------------
-  closeModal.addEventListener("click", ()=> radioInfoModal.classList.add("hidden"));
-  radioInfoModal.addEventListener("click", (e)=>{
-    if(e.target === radioInfoModal) radioInfoModal.classList.add("hidden");
-  });
-
-  // ---------------- Firebase ----------------
-  onValue(ref(db,"radios"), snapshot=>{
-    radios = [];
-    if(snapshot.exists()){
-      snapshot.forEach(child=>{
-        radios.push({ id: child.key, ...child.val() });
-      });
-    }
-    if(currentIndex !== null){
-      const stillExists = radios[currentIndex] && radios[currentIndex].id;
-      if(!stillExists) currentIndex = null;
-    }
-    renderStationList();
-    renderTrending();
-  });
-
-  searchInput.addEventListener("input", renderStationList);
-
-  // ---------------- Time & Battery ----------------
-  // ---------------- Time & Battery ----------------
+// ---------------- Time & Battery ----------------
 function updateTime() {
   const now = new Date();
   // Device regional settings decide 12h or 24h
@@ -559,8 +630,9 @@ if (navigator.getBattery) {
 
 // ---------------- Default ----------------
 showPage('home');
-// set default filter to All (ensures button styles render on load)
+// Set default filters (ensures button styles render on load)
 setFilter("all");
+setLangFilter("all");
 </script>
 </body>
 </html>
