@@ -547,3 +547,5 @@ https://ipcloud.live/nilatvnellai/nilahd/index.m3u8
 https://account2.livebox.co.in/AkashTvhls/live.m3u8
 #EXTINF:-1 tvg-name="Manasu Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/WNg4JQ24/1000133602.jpg",Manasu Tv
 https://stream6.livebox.co.in/manasutvhls/live.m3u8
+#EXTINF:-1 tvg-name="GEM Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/dw8brjkv/1000133604.jpg",GEM Tv
+https://gemtv.circle7stream.com/gem/fcce47a8559e30755582c396ce7fce9e.sdp/playlist.m3u8
