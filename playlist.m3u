@@ -360,7 +360,7 @@ http://111.92.41.129:11037/hls/kv.m3u8
 #EXTINF:-1 tvg-name="Weone News" group-title="Malayalam" tvg-logo="https://i.ibb.co/tMRvdZBM/1000122547.jpg",Weone News
 http://103.118.151.130:11037/hls/we.m3u8
 #EXTINF:-1 tvg-name="Kannur Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/DdC5c35/1000122549.png",Kannur Vision
-http://stream.logichost.in:1935/kannurvision/live/chunklist_w577117846.m3u8
+http://stream.logichost.in:1935/kannurvision/live/playlist.m3u8
 #EXTINF:-1 tvg-name="Zee News Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/8gBVbk3V/1000122553.jpg",Zee News Malayalam
 https://d1ty2af03alkwd.cloudfront.net/index_4.m3u8
 #EXTINF:-1 tvg-name="Janam Tv Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/LD5BxJR7/1000122557.jpg",Janam Tv Malayalam
@@ -517,3 +517,5 @@ http://89.187.189.98/STARSPORTSTAMIL/index.m3u8
 http://89.187.189.98/STARSPORTS3/index.m3u8
 #EXTINF:-1 tvg-name="We One Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/RKC56Ff/1000132909.jpg",We One Tv
 http://stream.logichost.in:1935/WEONE/live/chunklist_w617388636.m3u8
+#EXTINF:-1 tvg-name="Koickal News" group-title="Malayalam" tvg-logo="https://i.ibb.co/mFRsSRqn/1000133160.jpg",Koickal News
+https://play.applelive.in/koickalnews/koickalnews.m3u8
