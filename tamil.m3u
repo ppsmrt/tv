@@ -237,3 +237,5 @@ http://hdserver.7starcloud.com:1935/jayaamtv/jayaamtv/playlist.m3u8
 http://livematrix.in:80/sangamamtv/sangamamtv.m3u8
 #EXTINF:-1 tvg-name="Nila HD Tv" group-title="Regional" tvg-logo="https://i.ibb.co/v4Xnt2jC/1000133582.jpg",Nila HD Tv
 https://ipcloud.live/nilatvnellai/nilahd/index.m3u8
+#EXTINF:-1 tvg-name="Akash Tv" group-title="Regional" tvg-logo="https://i.ibb.co/sv9xwcF8/1000133599.jpg",Akash Tv
+https://account2.livebox.co.in/AkashTvhls/live.m3u8
