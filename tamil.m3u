@@ -213,3 +213,9 @@ https://live20.bozztv.com/akamaissh101/ssh101/sungo546/playlist.m3u8?view=tnm3u-
 https://cdn.anystream.uk:8082/thaitv/thailive/playlist.m3u8
 #EXTINF:-1 tvg-name="DD Sports" group-title="Sports" tvg-logo="https://i.ibb.co/1hyZSR6/1000132432.jpg",DD Sports
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
+#EXTINF:-1 tvg-name="Success Tv" group-title="Regional" tvg-logo="https://i.ibb.co/cKCSr0dB/1000133564.jpg",Success Tv
+https://stream.onecloudlive.in/successtv/successtvhd/index.m3u8
+#EXTINF:-1 tvg-name="Btv Tamil" group-title="Regional" tvg-logo="https://i.ibb.co/39N9KXzF/1000133565.jpg",Btv Tamil
+https://rtmp.applelive.in/boobsh/boobsh/index.m3u8
+#EXTINF:-1 tvg-name="Analai Express" group-title="Regional" tvg-logo="https://i.ibb.co/7tNSJQPM/1000133566.jpg",Analai Express
+http://198.144.149.206:8080/MONTAMIL_CINEMA/index.m3u8?token=GTR
