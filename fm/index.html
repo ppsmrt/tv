@@ -33,97 +33,71 @@
 <body class="bg-gray-100 overflow-x-hidden">
 
   <!-- Header -->
-<header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4 text-center">
-  <!-- Top row: time - notification - battery -->
-  <div class="flex justify-between items-center text-sm font-semibold opacity-90 mb-2">
-    <span id="current-time">--:--</span>
-    
-    <!-- 🔔 Notification inline -->
-    <div id="notificationBanner" class="px-3 py-0.5 rounded-full bg-white/20 text-xs font-medium shadow transition-opacity duration-500 opacity-100">
-      <i class="fa-solid fa-bullhorn text-red-400"></i> <span id="notificationText">New stations live!</span>
-    </div>
-    
-    <span id="battery-status">🔋 --%</span>
-  </div>
-
-  <!-- Center Logo -->
-  <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
-    <i class="fa-solid fa-headphones text-3xl text-white"></i>
-  </div>
-  <div class="mt-2">
-    <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
-    <div id="headerLocation" class="text-sm opacity-80">--</div>
-  </div>
-</header>
-
-<script>
-  const messages = [
-    "New stations live!",
-    "Trending now on FM Radio!",
-    "Save your favourite stations!",
-    "Listen to live Tamil FM!"
-  ];
-
-  let index = 0;
-  const banner = document.getElementById("notificationBanner");
-  const bannerText = document.getElementById("notificationText");
-
-  setInterval(() => {
-    banner.classList.add("opacity-0");
-    setTimeout(() => {
-      index = (index + 1) % messages.length;
-      bannerText.textContent = messages[index];
-      banner.classList.remove("opacity-0");
-    }, 500);
-  }, 5000);
-</script>
-
-  <!-- Search -->
-  <div class="px-5 py-3">
-    <input type="text" id="channelSearch" placeholder="Search Stations..." class="w-full px-4 py-2 rounded-full shadow-md border-none focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
-
-    <!-- =======================
-         Injected: Filter buttons
-         (single-choice: All / Live / FM)
-         ======================= -->
-    <div class="flex gap-3 justify-center mt-3">
-      <button id="filterAll" class="px-4 py-1.5 rounded-full bg-indigo-600 text-white text-sm font-semibold shadow">
-        All
-      </button>
-      <button id="filterLive" class="px-4 py-1.5 rounded-full bg-white text-gray-700 border border-indigo-300 text-sm shadow">
-        24x7 Live
-      </button>
-      <button id="filterFM" class="px-4 py-1.5 rounded-full bg-white text-gray-700 border border-indigo-300 text-sm shadow">
-        Local Radios
-      </button>
+  <header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4 text-center">
+    <!-- Top row: time - notification - battery -->
+    <div class="flex justify-between items-center text-sm font-semibold opacity-90 mb-2">
+      <span id="current-time">--:--</span>
+      <div id="notificationBanner" class="px-3 py-0.5 rounded-full bg-white/20 text-xs font-medium shadow transition-opacity duration-500 opacity-100">
+        <i class="fa-solid fa-bullhorn text-red-400"></i> <span id="notificationText">New stations live!</span>
+      </div>
+      <span id="battery-status">🔋 --%</span>
     </div>
 
-    <!-- =======================
-         Injected: Language Filter buttons
-         (pill-shaped, modern, single-choice: All / Tamil / Telugu / etc.)
-         ======================= -->
-    <div class="flex gap-2 justify-center mt-2 flex-wrap">
-      <button id="langAll" class="px-3 py-1 rounded-full bg-indigo-600 text-white text-xs font-semibold shadow">
-        All Languages
-      </button>
-      <button id="langTamil" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
-        Tamil
-      </button>
-      <button id="langTelugu" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
-        Telugu
-      </button>
-      <button id="langMalayalam" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
-        Malayalam
-      </button>
-      <button id="langHindi" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
-        Hindi
-      </button>
-      <button id="langEnglish" class="px-3 py-1 rounded-full bg-white text-gray-700 border border-indigo-300 text-xs shadow">
-        English
-      </button>
+    <!-- Center Logo -->
+    <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
+      <i class="fa-solid fa-headphones text-3xl text-white"></i>
+    </div>
+    <div class="mt-2">
+      <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
+      <div id="headerLocation" class="text-sm opacity-80">--</div>
+    </div>
+  </header>
+
+  <!-- Search + Filters Row (Mobile-Friendly) -->
+<div class="px-3 py-3 flex justify-center gap-2 flex-wrap">
+
+  <!-- Search Input -->
+  <input type="text" id="channelSearch" placeholder="Search Stations..."
+    class="flex-1 min-w-[30%] max-w-[40%] px-3 py-2 rounded-full shadow-md border-none focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+
+  <!-- Type Filter -->
+  <div class="relative flex-1 min-w-[30%] max-w-[30%]">
+    <select id="typeFilter"
+      class="appearance-none w-full px-3 py-2 rounded-full border border-indigo-300 bg-white text-sm text-indigo-700 font-medium shadow cursor-pointer">
+      <option value="all">All</option>
+      <option value="live">24x7 Live</option>
+      <option value="fm">Local Radios</option>
+    </select>
+    <!-- Custom arrow -->
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+      <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
     </div>
   </div>
 
+  <!-- Language Filter -->
+  <div class="relative flex-1 min-w-[30%] max-w-[30%]">
+    <select id="langFilter"
+      class="appearance-none w-full px-3 py-2 rounded-full border border-indigo-300 bg-white text-sm text-indigo-700 font-medium shadow cursor-pointer">
+      <option value="all">Languages</option>
+      <option value="tamil">Tamil</option>
+      <option value="telugu">Telugu</option>
+      <option value="malayalam">Malayalam</option>
+      <option value="hindi">Hindi</option>
+      <option value="english">English</option>
+    </select>
+    <!-- Custom arrow -->
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+      <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+  
   <!-- SPA Pages -->
   <section id="page-home" class="px-5 py-3 space-y-4 max-h-[60vh] overflow-y-auto scrollbar-hide">
     <div id="stationList" class="space-y-3"></div>
@@ -138,45 +112,43 @@
   </section>
 
   <section id="page-about" class="hidden px-5 py-6 text-left space-y-6 overflow-y-auto max-h-[70vh]">
-  <!-- About -->
-  <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 shadow">
-    <h2 class="text-lg font-bold mb-2"><i class="fa-solid fa-circle-info text-orange-600"></i> About This App</h2>
-    <p class="text-sm text-gray-800 leading-relaxed">
-      <span class="font-semibold">FM Radio Premium</span> is a modern streaming radio app 
-      designed to deliver high-quality audio from Tamil, Telugu, Malayalam, Hindi, and international FM stations.  
-      Enjoy music, talk shows, and news with a sleek interface, favourites, trending stations, 
-      and a responsive mini-player that keeps your listening smooth and uninterrupted.
-    </p>
-  </div>
-
-  <!-- Author -->
-  <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 shadow">
-    <h2 class="text-lg font-bold mb-2"><i class="fa-solid fa-user text-blue-600"></i> Author & Developer</h2>
-    <p class="text-sm text-gray-800 leading-relaxed">
-      This app is developed by <span class="font-semibold">Palani</span>, 
-      an independent developer passionate about building apps that combine 
-      entertainment with simplicity.  
-      Feedback and suggestions are always welcome to help improve your listening experience.
-    </p>
-  </div>
-
-  <!-- Privacy -->
-  <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 shadow">
-    <h2 class="text-lg font-bold mb-2"><i class="fa-solid fa-eye text-green-600"></i> Privacy & Data Policy</h2>
-    <p class="text-sm text-gray-800 leading-relaxed">
-      We respect your privacy.  
-      <br><br>
-      - No personal data is collected, stored, or sold. <br>
-      - Your favourites and preferences remain only on your device. <br>
-      - Streaming content is provided by third-party radio stations; their servers 
-        may process technical data (like IP address) required to deliver streams. <br>
-      - Server uses for analytics, stability, and notifications, but 
-        without collecting sensitive personal information.  
-      <br><br>
-      Our goal is to keep your experience safe, transparent, and enjoyable.
-    </p>
-  </div>
-</section>
+    <!-- About -->
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 shadow">
+      <h2 class="text-lg font-bold mb-2"><i class="fa-solid fa-circle-info text-orange-600"></i> About This App</h2>
+      <p class="text-sm text-gray-800 leading-relaxed">
+        <span class="font-semibold">FM Radio Premium</span> is a modern streaming radio app 
+        designed to deliver high-quality audio from Tamil, Telugu, Malayalam, Hindi, and international FM stations.  
+        Enjoy music, talk shows, and news with a sleek interface, favourites, trending stations, 
+        and a responsive mini-player that keeps your listening smooth and uninterrupted.
+      </p>
+    </div>
+    <!-- Author -->
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 shadow">
+      <h2 class="text-lg font-bold mb-2"><i class="fa-solid fa-user text-blue-600"></i> Author & Developer</h2>
+      <p class="text-sm text-gray-800 leading-relaxed">
+        This app is developed by <span class="font-semibold">Palani</span>, 
+        an independent developer passionate about building apps that combine 
+        entertainment with simplicity.  
+        Feedback and suggestions are always welcome to help improve your listening experience.
+      </p>
+    </div>
+    <!-- Privacy -->
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 shadow">
+      <h2 class="text-lg font-bold mb-2"><i class="fa-solid fa-eye text-green-600"></i> Privacy & Data Policy</h2>
+      <p class="text-sm text-gray-800 leading-relaxed">
+        We respect your privacy.  
+        <br><br>
+        - No personal data is collected, stored, or sold. <br>
+        - Your favourites and preferences remain only on your device. <br>
+        - Streaming content is provided by third-party radio stations; their servers 
+          may process technical data (like IP address) required to deliver streams. <br>
+        - Server uses for analytics, stability, and notifications, but 
+          without collecting sensitive personal information.  
+        <br><br>
+        Our goal is to keep your experience safe, transparent, and enjoyable.
+      </p>
+    </div>
+  </section>
 
   <!-- Mini Player -->
   <div id="miniPlayer" class="fixed bottom-20 left-3 right-3 bg-indigo-600 text-white rounded-2xl p-3 flex flex-col md:flex-row justify-between items-center shadow-lg backdrop-blur-md hidden cursor-pointer transition-all">
@@ -237,135 +209,75 @@
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- External JS -->
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.firebasestorage.app",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-  const audio = new Audio();
-  audio.volume = 0.5;
+const audio = new Audio();
+audio.volume = 0.5;
 
-  const stationList = document.getElementById("stationList");
-  const miniPlayer = document.getElementById("miniPlayer");
-  const miniStation = document.getElementById("miniStation");
-  const playPauseBtn = document.getElementById("playPauseBtn");
-  const stopBtn = document.getElementById("stopBtn");
-  const muteBtn = document.getElementById("muteBtn");
-  const headerStation = document.getElementById("headerStation");
-  const headerLocation = document.getElementById("headerLocation");
+const stationList = document.getElementById("stationList");
+const miniPlayer = document.getElementById("miniPlayer");
+const miniStation = document.getElementById("miniStation");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const stopBtn = document.getElementById("stopBtn");
+const muteBtn = document.getElementById("muteBtn");
+const headerStation = document.getElementById("headerStation");
+const headerLocation = document.getElementById("headerLocation");
 
-  const screensaver = document.getElementById("screensaver");
-  const screensaverStation = document.getElementById("screensaverStation");
-  const screensaverLanguage = document.getElementById("screensaverLanguage");
-  const screensaverTime = document.getElementById("screensaverTime");
+const screensaver = document.getElementById("screensaver");
+const screensaverStation = document.getElementById("screensaverStation");
+const screensaverLanguage = document.getElementById("screensaverLanguage");
+const screensaverTime = document.getElementById("screensaverTime");
 
-  const radioInfoModal = document.getElementById("radioInfoModal");
-  const closeModal = document.getElementById("closeModal");
-  const infoName = document.getElementById("infoName");
-  const infoLanguage = document.getElementById("infoLanguage");
-  const infoLocation = document.getElementById("infoLocation");
-  const infoType = document.getElementById("infoType");
-  const infoGenre = document.getElementById("infoGenre");
+const radioInfoModal = document.getElementById("radioInfoModal");
+const closeModal = document.getElementById("closeModal");
+const infoName = document.getElementById("infoName");
+const infoLanguage = document.getElementById("infoLanguage");
+const infoLocation = document.getElementById("infoLocation");
+const infoType = document.getElementById("infoType");
+const infoGenre = document.getElementById("infoGenre");
 
-  const favList = document.getElementById("favList");
-  const trendingList = document.getElementById("trendingList");
-  const searchInput = document.getElementById("channelSearch");
+const favList = document.getElementById("favList");
+const trendingList = document.getElementById("trendingList");
+const searchInput = document.getElementById("channelSearch");
 
-  let radios = [];
-  let currentIndex = null;
-  let screensaverTimer;
-  let favourites = [];
+// Filters
+let radios = [];
+let currentIndex = null;
+let screensaverTimer;
+let favourites = [];
 
-  // ---------------- Injected: Filter state & handlers ----------------
-  // (single-choice: "all" | "live" | "fm")
-  let activeFilter = "all";
-  const filterAll = document.getElementById("filterAll");
-  const filterLive = document.getElementById("filterLive");
-  const filterFM = document.getElementById("filterFM");
-
-  function setFilter(filter) {
-    activeFilter = filter;
-    // reset styles
-    [filterAll, filterLive, filterFM].forEach(btn=>{
-      btn.classList.remove("bg-indigo-600","text-white");
-      btn.classList.add("bg-white","text-gray-700","border","border-indigo-300");
-    });
-    // set active style
-    if(filter==="all"){
-      filterAll.classList.add("bg-indigo-600","text-white");
-      filterAll.classList.remove("bg-white","text-gray-700","border","border-indigo-300");
-    } else if(filter==="live"){
-      filterLive.classList.add("bg-indigo-600","text-white");
-      filterLive.classList.remove("bg-white","text-gray-700","border","border-indigo-300");
-    } else if(filter==="fm"){
-      filterFM.classList.add("bg-indigo-600","text-white");
-      filterFM.classList.remove("bg-white","text-gray-700","border","border-indigo-300");
-    }
-    // rerender list
-    renderStationList();
-  }
-
-  filterAll.addEventListener("click", ()=> setFilter("all"));
-  filterLive.addEventListener("click", ()=> setFilter("live"));
-  filterFM.addEventListener("click", ()=> setFilter("fm"));
-  // ---------------- end injected ----------------
-
- // ---------------- Injected: Language Filter state & handlers ----------------
-// (single-choice: "all" | "tamil" | "telugu" | "malayalam" | "hindi" | "english")
-let activeLangFilter = "all";
-const langAll = document.getElementById("langAll");
-const langTamil = document.getElementById("langTamil");
-const langTelugu = document.getElementById("langTelugu");
-const langMalayalam = document.getElementById("langMalayalam");
-const langHindi = document.getElementById("langHindi");
-const langEnglish = document.getElementById("langEnglish");
-
-function setLangFilter(lang) {
-  activeLangFilter = lang;
-  // Reset all language button styles
-  [langAll, langTamil, langTelugu, langMalayalam, langHindi, langEnglish].forEach(btn => {
-    btn.classList.remove("bg-indigo-600", "text-white");
-    btn.classList.add("bg-white", "text-gray-700", "border", "border-indigo-300");
-  });
-  // Set active style for the selected button
-  const activeBtn = {
-    "all": langAll,
-    "tamil": langTamil,
-    "telugu": langTelugu,
-    "malayalam": langMalayalam,
-    "hindi": langHindi,
-    "english": langEnglish
-  }[lang];
-  if (activeBtn) {
-    activeBtn.classList.add("bg-indigo-600", "text-white");
-    activeBtn.classList.remove("bg-white", "text-gray-700", "border", "border-indigo-300");
-  }
-  // Rerender the list to apply the new language filter
+// ---------------- Type Filter ----------------
+let activeFilter = "all";
+const typeFilter = document.getElementById("typeFilter");
+typeFilter.addEventListener("change", () => {
+  activeFilter = typeFilter.value;
   renderStationList();
-}
+});
 
-// Event listeners for language filter buttons
-langAll.addEventListener("click", () => setLangFilter("all"));
-langTamil.addEventListener("click", () => setLangFilter("tamil"));
-langTelugu.addEventListener("click", () => setLangFilter("telugu"));
-langMalayalam.addEventListener("click", () => setLangFilter("malayalam"));
-langHindi.addEventListener("click", () => setLangFilter("hindi"));
-langEnglish.addEventListener("click", () => setLangFilter("english"));
-// ---------------- end injected language filter ----------------
+// ---------------- Language Filter ----------------
+let activeLangFilter = "all";
+const langFilter = document.getElementById("langFilter");
+langFilter.addEventListener("change", () => {
+  activeLangFilter = langFilter.value;
+  renderStationList();
+});
 
 // ---------------- Screensaver ----------------
 function resetScreensaverTimer() {
@@ -445,27 +357,23 @@ stopBtn.addEventListener("click", ()=>{
   resetScreensaverTimer();
 });
 
-// ---------------- Render List ---------------- (Updated to include language filter)
+// ---------------- Render List ----------------
 function renderStationList() {
   const searchTerm = searchInput.value.toLowerCase();
   stationList.innerHTML = "";
 
-  // Start with search filter
   let filtered = radios.filter(r => r.name.toLowerCase().includes(searchTerm));
 
-  // Apply type filter (existing logic)
   if(activeFilter === "live"){
     filtered = filtered.filter(r => (r.type||"").toLowerCase() === "live");
   } else if(activeFilter === "fm"){
     filtered = filtered.filter(r => (r.type||"").toLowerCase() === "fm");
   }
 
-  // Apply language filter (new logic - chained after type filter)
   if(activeLangFilter !== "all"){
     filtered = filtered.filter(r => (r.language || "").toLowerCase() === activeLangFilter);
   }
 
-  // Update placeholder with final filtered count
   searchInput.placeholder = `Search (${filtered.length}) Channels...`;
 
   filtered.forEach((radio,i)=>{
@@ -478,9 +386,12 @@ function renderStationList() {
         <i class="fa-solid fa-radio"></i>
       </div>
       <div class="flex-1">
-        <h2 class="text-sm font-semibold">${radio.name}</h2>
-        <p class="text-xs text-gray-500">${radio.location||""}</p>
-      </div>
+  <h2 class="text-sm font-semibold">${radio.name}</h2>
+  <p class="text-xs text-gray-500">
+    ${radio.location || "Unknown"}${radio.location && radio.genre ? " • " : ""}${radio.genre || ""}
+  </p>
+</div>
+
       <span class="text-xs text-gray-600 play-count">${radio.playCount||0} plays</span>
       <i class="fa-regular fa-star text-indigo-600 ml-2 cursor-pointer"></i>
       <i class="fa-solid fa-ellipsis-vertical text-indigo-600 ml-2 cursor-pointer info-btn"></i>
@@ -569,15 +480,10 @@ function showPage(page){
   if(page === 'trending') renderTrending();
 }
 
-const navHome = document.getElementById("nav-home");
-const navFav  = document.getElementById("nav-favourites");
-const navTrend = document.getElementById("nav-trending");
-const navAbout = document.getElementById("nav-about");
-
-navHome?.addEventListener("click", ()=> showPage('home'));
-navFav?.addEventListener("click", ()=> showPage('favourites'));
-navTrend?.addEventListener("click", ()=> showPage('trending'));
-navAbout?.addEventListener("click", ()=> showPage('about'));
+document.getElementById("nav-home")?.addEventListener("click", ()=> showPage('home'));
+document.getElementById("nav-favourites")?.addEventListener("click", ()=> showPage('favourites'));
+document.getElementById("nav-trending")?.addEventListener("click", ()=> showPage('trending'));
+document.getElementById("nav-about")?.addEventListener("click", ()=> showPage('about'));
 
 // ---------------- Modal ----------------
 closeModal.addEventListener("click", ()=> radioInfoModal.classList.add("hidden"));
@@ -606,7 +512,6 @@ searchInput.addEventListener("input", renderStationList);
 // ---------------- Time & Battery ----------------
 function updateTime() {
   const now = new Date();
-  // Device regional settings decide 12h or 24h
   const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   document.getElementById('current-time').innerText = timeString;
 }
@@ -630,9 +535,6 @@ if (navigator.getBattery) {
 
 // ---------------- Default ----------------
 showPage('home');
-// Set default filters (ensures button styles render on load)
-setFilter("all");
-setLangFilter("all");
 </script>
 </body>
 </html>
