@@ -525,3 +525,17 @@ https://stream.onecloudlive.in/successtv/successtvhd/index.m3u8
 https://rtmp.applelive.in/boobsh/boobsh/index.m3u8
 #EXTINF:-1 tvg-name="Analai Express" group-title="Tamil" tvg-logo="https://i.ibb.co/7tNSJQPM/1000133566.jpg",Analai Express
 http://198.144.149.206:8080/MONTAMIL_CINEMA/index.m3u8?token=GTR
+#EXTINF:-1 tvg-name="Tamil Magan" group-title="Tamil" tvg-logo="https://i.ibb.co/ycYP60yP/1000133567.jpg",Tamil Magan
+http://120.138.14.16:8080/hls/tamilmagantv/index.m3u8
+#EXTINF:-1 tvg-name="Vedha Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/JFjFfFNs/1000133568.jpg",Vedha Tv
+https://skystream.in/live/vedha6528/index.m3u8
+#EXTINF:-1 tvg-name="JC Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/21dpjSk8/1000133570.jpg",JC Tv
+https://skystream.in/live/vedha6528/index.m3u8
+#EXTINF:-1 tvg-name="Thulir Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Rp9f1PS3/1000133573.jpg",Thulir Tv
+http://live.singamcloud.in/Thulirtv/thulirtv/index.m3u8
+#EXTINF:-1 tvg-name="Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/wbTGMtP/1000133574.webp",Sakthi Tv
+https://server2.iptelevision.in/hls/sakthitv.m3u8
+#EXTINF:-1 tvg-name="Cheran Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Fb9W0Mtr/1000133576.jpg",Cheran Tv
+http://ser2.applelive.in/cherantv/cherantv.m3u8
+#EXTINF:-1 tvg-name="Jayaam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/FtLw4Yj/1000133578.jpg",Jayaam Tv
+http://hdserver.7starcloud.com:1935/jayaamtv/jayaamtv/playlist.m3u8
