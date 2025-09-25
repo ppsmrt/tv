@@ -233,3 +233,7 @@ https://server2.iptelevision.in/hls/sakthitv.m3u8
 http://ser2.applelive.in/cherantv/cherantv.m3u8
 #EXTINF:-1 tvg-name="Jayaam Tv" group-title="Regional" tvg-logo="https://i.ibb.co/FtLw4Yj/1000133578.jpg",Jayaam Tv
 http://hdserver.7starcloud.com:1935/jayaamtv/jayaamtv/playlist.m3u8
+#EXTINF:-1 tvg-name="Sangamam HD Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fVvTtvVY/1000133580.jpg",Sangamam HD Tv
+http://livematrix.in:80/sangamamtv/sangamamtv.m3u8
+#EXTINF:-1 tvg-name="Nila HD Tv" group-title="Regional" tvg-logo="https://i.ibb.co/v4Xnt2jC/1000133582.jpg",Nila HD Tv
+https://ipcloud.live/nilatvnellai/nilahd/index.m3u8
