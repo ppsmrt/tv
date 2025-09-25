@@ -519,3 +519,9 @@ http://89.187.189.98/STARSPORTS3/index.m3u8
 http://stream.logichost.in:1935/WEONE/live/chunklist_w617388636.m3u8
 #EXTINF:-1 tvg-name="Koickal News" group-title="Malayalam" tvg-logo="https://i.ibb.co/mFRsSRqn/1000133160.jpg",Koickal News
 https://play.applelive.in/koickalnews/koickalnews.m3u8
+#EXTINF:-1 tvg-name="Success Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/cKCSr0dB/1000133564.jpg",Success Tv
+https://stream.onecloudlive.in/successtv/successtvhd/index.m3u8
+#EXTINF:-1 tvg-name="Btv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/39N9KXzF/1000133565.jpg",Btv Tamil
+https://rtmp.applelive.in/boobsh/boobsh/index.m3u8
+#EXTINF:-1 tvg-name="Analai Express" group-title="Tamil" tvg-logo="https://i.ibb.co/7tNSJQPM/1000133566.jpg",Analai Express
+http://198.144.149.206:8080/MONTAMIL_CINEMA/index.m3u8?token=GTR
