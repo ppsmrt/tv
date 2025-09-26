@@ -14,7 +14,7 @@ const footerHTML = `
     </button>
   </div>
 
-  <!-- Floating Add Button (Clean, No Bar) -->
+  <!-- Floating Add Button -->
   <div class="absolute left-1/2 -translate-x-1/2 -top-10">
     <button class="bg-gradient-to-br from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white p-5 rounded-full shadow-xl shadow-red-600/50 transition transform hover:scale-110 hover:rotate-6 border border-red-500" data-href="add-channel">
       <span class="material-icons text-3xl">add</span>
@@ -23,7 +23,7 @@ const footerHTML = `
 
   <!-- Right Buttons -->
   <div class="flex space-x-8">
-    <button class="flex flex-col items-center text-xs text-gray-400 hover:text-red-500 transition transform hover:scale-110" data-href="https://tnm3u.live/fm">
+    <button class="flex flex-col items-center text-xs text-gray-400 hover:text-red-500 transition transform hover:scale-110" data-href="fm">
       <span class="material-icons text-2xl mb-1">radio</span>
       Radios
     </button>
@@ -33,6 +33,18 @@ const footerHTML = `
     </button>
   </div>
 </footer>
+
+<!-- Fullscreen Overlay for FM -->
+<div id="fmOverlay" class="fixed inset-0 bg-black hidden z-[9999] flex flex-col">
+  <div class="flex justify-between items-center bg-gray-900 text-white px-4 py-3">
+    <span class="font-semibold">📻 FM Radios</span>
+    <button id="fmBackBtn" class="text-red-500 hover:text-red-400 flex items-center space-x-1">
+      <span class="material-icons">arrow_back</span>
+      <span>Back</span>
+    </button>
+  </div>
+  <iframe src="https://tnm3u.live/fm" class="flex-1 w-full border-0"></iframe>
+</div>
 `;
 
 document.body.insertAdjacentHTML('beforeend', footerHTML);
@@ -49,8 +61,29 @@ document.querySelectorAll('footer button').forEach(btn => {
   // Navigation
   btn.addEventListener('click', () => {
     const target = btn.getAttribute('data-href');
-    if (target) {
+    if (!target) return;
+
+    if (target === "fm") {
+      // Open FM in overlay
+      document.getElementById("fmOverlay").classList.remove("hidden");
+      history.pushState({ fmOpen: true }, "FM");
+    } else {
       window.location.href = target;
     }
   });
+});
+
+// Back button inside overlay
+document.getElementById("fmBackBtn").addEventListener("click", () => {
+  document.getElementById("fmOverlay").classList.add("hidden");
+  window.location.href = "/"; // back to Home
+});
+
+// Handle browser back button
+window.addEventListener("popstate", (e) => {
+  if (e.state && e.state.fmOpen) {
+    document.getElementById("fmOverlay").classList.remove("hidden");
+  } else {
+    document.getElementById("fmOverlay").classList.add("hidden");
+  }
 });
