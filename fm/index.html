@@ -34,25 +34,49 @@
 
   <!-- Header -->
   <header class="bg-gradient-to-r from-indigo-600 to-sky-500 text-white rounded-b-2xl shadow-lg p-4 text-center">
-    <!-- Top row: time - notification - battery -->
-    <div class="flex justify-between items-center text-sm font-semibold opacity-90 mb-2">
-      <span id="current-time">--:--</span>
-      <div id="notificationBanner" class="px-3 py-0.5 rounded-full bg-white/20 text-xs font-medium shadow transition-opacity duration-500 opacity-100">
-        <i class="fa-solid fa-bullhorn text-red-400"></i> <span id="notificationText">New stations live!</span>
-      </div>
-      <span id="battery-status">🔋 --%</span>
+  <!-- Top row: time - notification - battery -->
+  <div class="flex justify-between items-center text-sm font-semibold opacity-90 mb-2">
+    <span id="current-time">--:--</span>
+    
+    <!-- 🔔 Notification inline -->
+    <div id="notificationBanner" class="px-3 py-0.5 rounded-full bg-white/20 text-xs font-medium shadow transition-opacity duration-500 opacity-100">
+      <i class="fa-solid fa-bullhorn text-red-400"></i> <span id="notificationText">New stations live!</span>
     </div>
+    
+    <span id="battery-status">🔋 --%</span>
+  </div>
 
-    <!-- Center Logo -->
-    <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
-      <i class="fa-solid fa-headphones text-3xl text-white"></i>
-    </div>
-    <div class="mt-2">
-      <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
-      <div id="headerLocation" class="text-sm opacity-80">--</div>
-    </div>
-  </header>
+  <!-- Center Logo -->
+  <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center animate-pulse">
+    <i class="fa-solid fa-headphones text-3xl text-white"></i>
+  </div>
+  <div class="mt-2">
+    <div id="headerStation" class="font-bold text-xl animate-pulse">--</div>
+    <div id="headerLocation" class="text-sm opacity-80">--</div>
+  </div>
+</header>
 
+<script>
+  const messages = [
+    "New stations live!",
+    "Trending now on FM Radio!",
+    "Save your favourite stations!",
+    "Listen to live Tamil FM!"
+  ];
+
+  let index = 0;
+  const banner = document.getElementById("notificationBanner");
+  const bannerText = document.getElementById("notificationText");
+
+  setInterval(() => {
+    banner.classList.add("opacity-0");
+    setTimeout(() => {
+      index = (index + 1) % messages.length;
+      bannerText.textContent = messages[index];
+      banner.classList.remove("opacity-0");
+    }, 500);
+  }, 5000);
+</script>
   <!-- Search + Filters Row (Mobile-Friendly) -->
 <div class="px-3 py-3 flex justify-center gap-2 flex-wrap">
 
