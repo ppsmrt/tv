@@ -257,7 +257,7 @@ https://sscloud7.com/live/omsakthitv/index.m3u8
 https://stream.onecloudlive.in/nellaitv/nellaitv/index.m3u8
 #EXTINF:-1 tvg-name="Yaal 4K Tv" group-title="Regional" tvg-logo="https://i.ibb.co/MypMcjN5/1000135646.png",Yaal 4K Tv
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
-#EXTINF:-1 tvg-name="PCN" group-title="Regional" tvg-logo="https://i.ibb.co/dJzBsNYr/1000135647.png",PCN
+#EXTINF:-1 tvg-name="PCN" group-title="Regional" tvg-logo="https://i.ibb.co/84PznRCF/1000135656.webp",PCN
 https://rtmp.bmlive.net/bms/pcn/stream.m3u8
 #EXTINF:-1 tvg-name="Mathi Tv" group-title="Regional" tvg-logo="https://i.ibb.co/WN9h6cj8/1000135649.jpg",Mathi Tv
 https://notvstream.in/mathitv/mathitv.m3u8
@@ -267,3 +267,7 @@ https://rtmp.applelive.in/gmusic/gmusic/index.m3u8
 https://play.applelive.in/dolphintv/dolphintv.m3u8
 #EXTINF:-1 tvg-name="Velavan Tv" group-title="Regional" tvg-logo="https://i.ibb.co/zVSZrMrR/1000135655.webp",Velavan Tv
 https://rtmp.applelive.in/srivelavantvultrahd/srivelavantvultrahd/index.m3u8
+#EXTINF:-1 tvg-name="Aarya Tv" group-title="Regional" tvg-logo="https://i.ibb.co/XxkR7ckH/1000135657.png",Aarya Tv
+https://live.sscloud7.in/live/aaryaatv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="Max Music Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fd3L6TVk/1000135660.jpg",Max Music Tv
+https://live.maxtn.in/maxmusic/maxmusic/index.m3u8
