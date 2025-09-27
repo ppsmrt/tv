@@ -1,186 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FM Radio Auto Notification</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9fb;
-      padding: 20px;
-    }
-    h1 { text-align: center; color: #333; }
-    .output {
-      background: white;
-      border: 1px solid #ddd;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 14px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 5px 0;
-    }
-    button:hover { background: #0056b3; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live TV</title>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<!-- HLS.js for .m3u8 streams -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+body { font-family: 'Roboto', sans-serif; background-color: #f1f3f4; margin:0; }
+header { display:flex; align-items:center; justify-content:space-between; padding:0.5rem 1rem; background:white; box-shadow:0 1px 3px rgba(0,0,0,0.1); position:sticky; top:0; z-index:50; }
+.title { font-weight:500; font-size:1.2rem; color:#202124; }
+.icon-btn { display:flex; align-items:center; justify-content:center; cursor:pointer; color:#202124; }
+
+.search-bar-container { max-width:400px; margin:0.5rem auto; overflow:hidden; height:0; transition: height 0.3s, opacity 0.3s; opacity:0; }
+.search-bar-container.open { height:50px; opacity:1; }
+.search-bar { width:100%; height:100%; background:white; border-radius:9999px; border:1px solid #dadce0; display:flex; align-items:center; padding:0 1rem; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+.search-bar input { flex:1; border:none; outline:none; font-size:0.95rem; }
+
+#categoryPopup { position:absolute; top:100%; right:60px; background:white; border-radius:0.75rem; border:1px solid #dadce0; box-shadow:0 8px 24px rgba(0,0,0,0.15); padding:0.5rem 1rem; display:none; z-index:100; min-width:200px; }
+#categoryPopup div { padding:0.5rem 0.75rem; cursor:pointer; border-radius:0.5rem; margin-bottom:0.25rem; transition: background 0.2s; }
+#categoryPopup div:hover, #categoryPopup div.selected { background-color: #f1f3f4; }
+
+.side-drawer { position: fixed; top:0; left:-240px; width:240px; height:100%; background:white; box-shadow:2px 0 12px rgba(0,0,0,0.2); padding:1rem; transition:left 0.3s ease; display:flex; flex-direction:column; gap:1rem; z-index:60; }
+.side-drawer.open { left:0; }
+.drawer-item { display:flex; align-items:center; gap:12px; font-size:0.95rem; color:#202124; cursor:pointer; padding:0.5rem; border-radius:0.5rem; transition:background 0.2s; }
+.drawer-item:hover { background:#f1f3f4; }
+
+main { flex:1; padding:1rem; }
+.section-title { font-weight:600; font-size:1rem; margin:1rem 0 0.5rem 0; color:#202124; }
+.carousel { display:flex; overflow-x:auto; gap:1rem; padding-bottom:0.5rem; scroll-behavior:smooth; }
+.carousel::-webkit-scrollbar { display:none; }
+.carousel-card { min-width:120px; flex-shrink:0; background:white; border-radius:0.75rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:0.5rem; display:flex; flex-direction:column; align-items:center; cursor:pointer; transition: transform 0.2s; }
+.carousel-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
+.channel-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:1rem; margin-top:0.5rem; }
+.channel-card { background:white; border-radius:0.75rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:0.5rem; display:flex; flex-direction:column; align-items:center; cursor:pointer; transition: transform 0.2s; }
+.channel-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
+.channel-logo { width:80px; height:50px; object-fit:contain; border-radius:0.5rem; }
+.channel-name { margin-top:0.4rem; font-size:0.85rem; font-weight:500; text-align:center; }
+
+footer { text-align:center; padding:0.5rem; font-size:0.75rem; color:#5f6368; background:#ffffff; border-top:1px solid #e0e0e0; margin-top:1rem; }
+
+#playerModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:200; justify-content:center; align-items:center; }
+#playerContainer { position:relative; width:90%; max-width:720px; background:#000; border-radius:0.75rem; overflow:hidden; }
+#playerVideo { width:100%; height:400px; background:black; }
+#playerClose { position:absolute; top:0.5rem; right:0.5rem; color:white; font-size:1.5rem; cursor:pointer; z-index:10; }
+#playerControls { display:flex; justify-content:space-between; align-items:center; padding:0.5rem; background:rgba(0,0,0,0.5); color:white; font-size:0.9rem; }
+</style>
 </head>
-<body>
-  <h1>📻 FM Radio Auto Notification</h1>
+<body class="flex flex-col min-h-screen">
 
-  <div>
-    <h3>📄 Full Notification</h3>
-    <div class="output" id="fullOutput"></div>
-    <button onclick="copyText('fullOutput')">Copy Full</button>
+<div class="side-drawer" id="sideDrawer">
+  <div class="drawer-item"><span class="material-symbols-outlined">home</span> Home</div>
+  <div class="drawer-item"><span class="material-symbols-outlined">live_tv</span> Live TV</div>
+  <div class="drawer-item"><span class="material-symbols-outlined">play_circle</span> For You</div>
+  <div class="drawer-item"><span class="material-symbols-outlined">video_library</span> Library</div>
+  <div class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</div>
+</div>
+
+<header>
+  <div class="flex items-center">
+    <div class="icon-btn mr-3" id="menuBtn"><span class="material-symbols-outlined">menu</span></div>
+    <div class="title">Live TV</div>
   </div>
-
-  <div>
-    <h3>📱 WhatsApp Notification</h3>
-    <div class="output" id="whatsappOutput"></div>
-    <button onclick="copyText('whatsappOutput')">Copy WhatsApp</button>
+  <div class="flex items-center relative">
+    <div class="icon-btn mr-3" id="categoryBtn"><span class="material-symbols-outlined">category</span></div>
+    <div class="icon-btn" id="searchBtn"><span class="material-symbols-outlined">search</span></div>
+    <div id="categoryPopup">
+      <div data-category="All">All</div>
+      <div data-category="Tamil">Tamil</div>
+      <div data-category="News">News</div>
+      <div data-category="Sports">Sports</div>
+      <div data-category="Entertainment">Entertainment</div>
+      <div data-category="Music">Music</div>
+      <div data-category="Movies">Movies</div>
+      <div data-category="Kids">Kids</div>
+    </div>
   </div>
+</header>
 
-  <div>
-    <h3>💬 Discord Notification</h3>
-    <div class="output" id="discordOutput"></div>
-    <button onclick="copyText('discordOutput')">Copy Discord</button>
+<div class="search-bar-container" id="searchContainer">
+  <div class="search-bar"><input type="search" placeholder="Search channels..." aria-label="Search channels" id="searchInput"></div>
+</div>
+
+<main>
+  <h2 class="section-title">Trending Now</h2>
+  <div class="carousel" id="trendingCarousel"></div>
+
+  <h2 class="section-title">Recently Added</h2>
+  <div class="carousel" id="recentCarousel"></div>
+
+  <h2 class="section-title">All Channels</h2>
+  <div class="channel-grid" id="channelGrid"></div>
+</main>
+
+<footer>&copy; 2025 Live TV</footer>
+
+<!-- Player Modal -->
+<div id="playerModal" class="flex">
+  <div id="playerContainer">
+    <span id="playerClose">&times;</span>
+    <video id="playerVideo" controls></video>
   </div>
+</div>
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+firebase.initializeApp(firebaseConfig);
+const dbRef = firebase.database().ref("channels");
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.firebasestorage.app",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
+const trendingCarousel = document.getElementById('trendingCarousel');
+const recentCarousel = document.getElementById('recentCarousel');
+const channelGrid = document.getElementById('channelGrid');
+const searchInput = document.getElementById('searchInput');
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+// Player elements
+const playerModal = document.getElementById('playerModal');
+const playerVideo = document.getElementById('playerVideo');
+const playerClose = document.getElementById('playerClose');
 
-    async function fetchRadios() {
-      const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, "radios"));
+let allChannels = [];
 
-      if (!snapshot.exists()) {
-        document.getElementById("fullOutput").textContent = "⚠ No radios found!";
-        return;
-      }
+// Function to open popup player
+function openPlayer(streamUrl){
+  if(Hls.isSupported() && streamUrl.endsWith('.m3u8')){
+    if(playerVideo.hls) playerVideo.hls.destroy();
+    const hls = new Hls();
+    hls.loadSource(streamUrl);
+    hls.attachMedia(playerVideo);
+    playerVideo.hls = hls;
+  } else {
+    playerVideo.src = streamUrl;
+  }
+  playerModal.style.display = 'flex';
+  playerVideo.play();
+}
 
-      const data = snapshot.val();
-      const radios = Object.values(data);
-      const total = radios.length;
+playerClose.addEventListener('click', ()=>{
+  playerVideo.pause();
+  playerVideo.src = '';
+  if(playerVideo.hls) playerVideo.hls.destroy();
+  playerModal.style.display = 'none';
+});
 
-      // Group radios by language
-      const grouped = {};
-      radios.forEach(r => {
-        const lang = r.language || "Other";
-        if (!grouped[lang]) grouped[lang] = [];
-        grouped[lang].push("📻 " + (r.name || "Unknown Radio"));
-      });
+// Create cards
+function createCard(channel){
+  const card = document.createElement('div');
+  card.className = 'channel-card';
+  card.dataset.category = channel.category;
+  card.innerHTML = `<img class="channel-logo" src="${channel.icon}" alt="${channel.name}"><div class="channel-name">${channel.name}</div>`;
+  card.addEventListener('click', ()=>{
+    dbRef.child(channel.id).child('clicks').transaction(val=>(val||0)+1);
+    openPlayer(channel.stream);
+  });
+  return card;
+}
+function createCarouselCard(channel){
+  const card = document.createElement('div');
+  card.className = 'carousel-card';
+  card.innerHTML = `<img class="channel-logo" src="${channel.icon}" alt="${channel.name}"><div class="channel-name">${channel.name}</div>`;
+  card.addEventListener('click', ()=>{
+    dbRef.child(channel.id).child('clicks').transaction(val=>(val||0)+1);
+    openPlayer(channel.stream);
+  });
+  return card;
+}
 
-      // Detect new radios (last 24h)
-      const now = new Date();
-      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
-      const newRadios = radios.filter(r => r.createdAt && new Date(r.createdAt).getTime() >= last24h);
+// Render functions
+function renderChannels(channels){
+  channelGrid.innerHTML = '';
+  channels.forEach(ch=>channelGrid.appendChild(createCard(ch)));
+}
+function renderTrending(){
+  const trending = [...allChannels].sort((a,b)=> (b.clicks||0)-(a.clicks||0)).slice(0,10);
+  trendingCarousel.innerHTML='';
+  trending.forEach(ch=>trendingCarousel.appendChild(createCarouselCard(ch)));
+}
+function renderRecentlyAdded(){
+  const recent = [...allChannels].sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt)).slice(0,10);
+  recentCarousel.innerHTML='';
+  recent.forEach(ch=>recentCarousel.appendChild(createCarouselCard(ch)));
+}
+function filterByCategory(category){
+  const cards = channelGrid.querySelectorAll('.channel-card');
+  cards.forEach(card=> card.style.display = (category==='All' || card.dataset.category===category)?'flex':'none');
+}
+function filterBySearch(query){
+  const cards = channelGrid.querySelectorAll('.channel-card');
+  cards.forEach(card=> card.style.display = card.querySelector('.channel-name').textContent.toLowerCase().includes(query.toLowerCase())?'flex':'none');
+}
 
-      const oldCount = total - newRadios.length;
-      const newCount = total;
+// Load Firebase channels
+dbRef.on('value', snapshot=>{
+  allChannels=[];
+  snapshot.forEach(snap=>{
+    const ch = snap.val();
+    ch.id = snap.key;
+    if(!ch.clicks) ch.clicks=0;
+    allChannels.push(ch);
+  });
+  renderChannels(allChannels);
+  renderTrending();
+  renderRecentlyAdded();
+});
 
-      // Build full notification
-      let full =
-`📻 𝙁𝙈 𝙍𝙖𝙙𝙞𝙤 𝘽𝙮 𝙏𝙉𝙈3𝙐
-➖➖➖➖➖➖➖➖➖➖➖➖
-🎶 About Application 
-Stream your favorite Indian and international FM stations in Tamil, English, Telugu, Malayalam, and Hindi. Enjoy music, talk shows, and nonstop entertainment anytime, anywhere!
-➖➖➖➖➖➖➖➖➖➖➖➖
-🇮🇳 Languages 
-♨️ Tamil
-♨️ Telugu
-♨️ Malayalam
-♨️ Hindi
-♨️ English
-➖➖➖➖➖➖➖➖➖➖➖➖
-`;
+// Search
+const searchBtn = document.getElementById('searchBtn');
+const searchContainer = document.getElementById('searchContainer');
+searchBtn.addEventListener('click', ()=>searchContainer.classList.toggle('open'));
+searchInput.addEventListener('input', ()=>filterBySearch(searchInput.value));
 
-      // Add grouped radios
-      for (const lang of Object.keys(grouped)) {
-        full += `☘ ${lang} FM Stations\n` + grouped[lang].join("\n") + "\n\n";
-      }
+// Category
+const categoryBtn = document.getElementById('categoryBtn');
+const categoryPopup = document.getElementById('categoryPopup');
+categoryBtn.addEventListener('click', e=>{ e.stopPropagation(); categoryPopup.style.display = categoryPopup.style.display==='block'?'none':'block'; });
+document.addEventListener('click', e=>{ if(!categoryPopup.contains(e.target) && !categoryBtn.contains(e.target)) categoryPopup.style.display='none'; });
+const categoryItems = categoryPopup.querySelectorAll('div');
+categoryItems.forEach(item=>{
+  item.addEventListener('click', ()=>{
+    categoryItems.forEach(i=>i.classList.remove('selected'));
+    item.classList.add('selected');
+    filterByCategory(item.dataset.category);
+    categoryPopup.style.display='none';
+  });
+});
 
-      // Channel update
-      full += 
-`➖➖➖➖➖➖➖➖➖➖➖➖
-📡 Channel Update
-From ${oldCount} → ${newCount} channels, giving you more nonstop music, talk shows, and entertainment.
-➖➖➖➖➖➖➖➖➖➖➖➖
-🤝 Community Help
-Help us make FM Radio even better!
-🔍 If any 24/7 channels are missing or mixed with local channels, please report them.
-📩 We’ll review and add them quickly to keep the station collection complete and accurate.
-➖➖➖➖➖➖➖➖➖➖➖➖
-📥 Download Now
-⚡️ FM Radio App
-➖➖➖➖➖➖➖➖➖➖➖➖
-🚀 For more updates follow us
-Telegram | WhatsApp | Discord
-➖➖➖➖➖➖➖➖➖➖➖➖
-Any concerns, adding your fm channels, promotion in the app please mail to us tnm3us@gmail.com all queries will be evaluated and resolved in 48 hours.
-`;
+// Side drawer
+const menuBtn = document.getElementById('menuBtn');
+const sideDrawer = document.getElementById('sideDrawer');
+menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
+document.addEventListener('click', e=>{ if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open'); });
 
-      // WhatsApp version
-      const whatsapp =
-`📻 FM Radio By TNM3U
-🎶 ${newCount}+ Indian & International FM Stations
-♨️ Tamil | Telugu | Malayalam | Hindi | English
-✨ New Radios:
-${newRadios.map(r => "📻 " + r.name).join("\n") || "No new radios in last 24h"}
-📡 Total: ${newCount} channels
-📥 Download Now & Enjoy!`;
-
-      // Discord version
-      const discord =
-`**📻 FM Radio By TNM3U**
-
-🎶 ${newCount}+ Stations
-♨️ Tamil | Telugu | Malayalam | Hindi | English
-
-📡 Channel Update: ${oldCount} → ${newCount} stations
-✨ **New Radios:**
-${newRadios.map(r => "📻 " + r.name).join("\n") || "_No new radios today_"}
-
-🤝 Help us improve: Report missing/mixed channels.
-
-📥 Download Now!`;
-
-      document.getElementById("fullOutput").textContent = full;
-      document.getElementById("whatsappOutput").textContent = whatsapp;
-      document.getElementById("discordOutput").textContent = discord;
-    }
-
-    fetchRadios();
-
-    window.copyText = function(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied!");
-      });
-    }
-  </script>
+</script>
 </body>
 </html>
