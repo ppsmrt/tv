@@ -553,3 +553,5 @@ https://gemtv.circle7stream.com/gem/fcce47a8559e30755582c396ce7fce9e.sdp/playlis
 https://thamilaaramtv24-hls.secdn.net/thamilaaramtv24-channel/play/ThamilaaramTV.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Jeyam HD Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/pBTBVLvW/1000133983.png",Jeyam HD Tv
 https://live.sscloud7.in/live/jeyamtv/index.m3u8
+#EXTINF:-1 tvg-name="Roja Movies HD" group-title="Tamil" tvg-logo="https://i.ibb.co/21by5dpD/1000135211.png",Roja Movies HD
+https://live.rojatv.cloud/rojamovies/rojamovies/index.m3u8
