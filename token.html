@@ -1,106 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FM Radio Notification Tool</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FM Radio Auto Notification</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f9;
-      margin: 0;
+      background: #f9f9fb;
       padding: 20px;
     }
-    h1 {
-      text-align: center;
-      color: #222;
-    }
-    textarea {
-      width: 100%;
-      height: 180px;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      resize: vertical;
-    }
+    h1 { text-align: center; color: #333; }
     .output {
       background: white;
+      border: 1px solid #ddd;
       padding: 12px;
       border-radius: 8px;
-      border: 1px solid #ddd;
-      margin-bottom: 15px;
-      font-size: 14px;
+      margin-bottom: 20px;
       white-space: pre-wrap;
       word-break: break-word;
+      font-size: 14px;
     }
     button {
       background: #007bff;
-      border: none;
       color: white;
-      padding: 10px 16px;
+      padding: 8px 14px;
+      border: none;
       border-radius: 6px;
       cursor: pointer;
       margin: 5px 0;
-      font-size: 14px;
     }
-    button:hover {
-      background: #0056b3;
-    }
-    .section {
-      margin-bottom: 25px;
-    }
+    button:hover { background: #0056b3; }
   </style>
 </head>
 <body>
-  <h1>📻 FM Radio Notification Tool</h1>
+  <h1>📻 FM Radio Auto Notification</h1>
 
-  <div class="section">
-    <h3>✍️ Enter Full Notification</h3>
-    <textarea id="fullInput" placeholder="Paste your full notification here..."></textarea>
-    <button onclick="generate()">Generate Versions</button>
-  </div>
-
-  <div class="section">
+  <div>
     <h3>📄 Full Notification</h3>
     <div class="output" id="fullOutput"></div>
     <button onclick="copyText('fullOutput')">Copy Full</button>
   </div>
 
-  <div class="section">
-    <h3>📱 WhatsApp Version</h3>
+  <div>
+    <h3>📱 WhatsApp Notification</h3>
     <div class="output" id="whatsappOutput"></div>
     <button onclick="copyText('whatsappOutput')">Copy WhatsApp</button>
   </div>
 
-  <div class="section">
-    <h3>💬 Discord Version</h3>
+  <div>
+    <h3>💬 Discord Notification</h3>
     <div class="output" id="discordOutput"></div>
     <button onclick="copyText('discordOutput')">Copy Discord</button>
   </div>
 
-  <script>
-    function generate() {
-      const input = document.getElementById("fullInput").value.trim();
-      if (!input) {
-        alert("Please paste your notification first!");
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+      authDomain: "tnm3ulive.firebaseapp.com",
+      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tnm3ulive",
+      storageBucket: "tnm3ulive.firebasestorage.app",
+      messagingSenderId: "80664356882",
+      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+      measurementId: "G-FNS9JWZ9LS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    async function fetchRadios() {
+      const dbRef = ref(db);
+      const snapshot = await get(child(dbRef, "radios"));
+
+      if (!snapshot.exists()) {
+        document.getElementById("fullOutput").textContent = "⚠ No radios found!";
         return;
       }
 
-      // Full Output
-      document.getElementById("fullOutput").textContent = input;
+      const data = snapshot.val();
+      const radios = Object.values(data);
+      const total = radios.length;
 
-      // WhatsApp Version (short + emojis + download focus)
-      const whatsapp = "📻 FM Radio By TNM3U\n🎶 Stream 248+ Indian & International FM Stations\n♨️ Tamil | Telugu | Malayalam | Hindi | English\n📡 Nonstop Music, Talk Shows & More!\n📥 Download Now & Enjoy!";
+      // Group radios by language
+      const grouped = {};
+      radios.forEach(r => {
+        const lang = r.language || "Other";
+        if (!grouped[lang]) grouped[lang] = [];
+        grouped[lang].push("📻 " + (r.name || "Unknown Radio"));
+      });
+
+      // Detect new radios (last 24h)
+      const now = new Date();
+      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
+      const newRadios = radios.filter(r => r.createdAt && new Date(r.createdAt).getTime() >= last24h);
+
+      const oldCount = total - newRadios.length;
+      const newCount = total;
+
+      // Build full notification
+      let full =
+`📻 𝙁𝙈 𝙍𝙖𝙙𝙞𝙤 𝘽𝙮 𝙏𝙉𝙈3𝙐
+➖➖➖➖➖➖➖➖➖➖➖➖
+🎶 About Application 
+Stream your favorite Indian and international FM stations in Tamil, English, Telugu, Malayalam, and Hindi. Enjoy music, talk shows, and nonstop entertainment anytime, anywhere!
+➖➖➖➖➖➖➖➖➖➖➖➖
+🇮🇳 Languages 
+♨️ Tamil
+♨️ Telugu
+♨️ Malayalam
+♨️ Hindi
+♨️ English
+➖➖➖➖➖➖➖➖➖➖➖➖
+`;
+
+      // Add grouped radios
+      for (const lang of Object.keys(grouped)) {
+        full += `☘ ${lang} FM Stations\n` + grouped[lang].join("\n") + "\n\n";
+      }
+
+      // Channel update
+      full += 
+`➖➖➖➖➖➖➖➖➖➖➖➖
+📡 Channel Update
+From ${oldCount} → ${newCount} channels, giving you more nonstop music, talk shows, and entertainment.
+➖➖➖➖➖➖➖➖➖➖➖➖
+🤝 Community Help
+Help us make FM Radio even better!
+🔍 If any 24/7 channels are missing or mixed with local channels, please report them.
+📩 We’ll review and add them quickly to keep the station collection complete and accurate.
+➖➖➖➖➖➖➖➖➖➖➖➖
+📥 Download Now
+⚡️ FM Radio App
+➖➖➖➖➖➖➖➖➖➖➖➖
+🚀 For more updates follow us
+Telegram | WhatsApp | Discord
+➖➖➖➖➖➖➖➖➖➖➖➖
+Any concerns, adding your fm channels, promotion in the app please mail to us tnm3us@gmail.com all queries will be evaluated and resolved in 48 hours.
+`;
+
+      // WhatsApp version
+      const whatsapp =
+`📻 FM Radio By TNM3U
+🎶 ${newCount}+ Indian & International FM Stations
+♨️ Tamil | Telugu | Malayalam | Hindi | English
+✨ New Radios:
+${newRadios.map(r => "📻 " + r.name).join("\n") || "No new radios in last 24h"}
+📡 Total: ${newCount} channels
+📥 Download Now & Enjoy!`;
+
+      // Discord version
+      const discord =
+`**📻 FM Radio By TNM3U**
+
+🎶 ${newCount}+ Stations
+♨️ Tamil | Telugu | Malayalam | Hindi | English
+
+📡 Channel Update: ${oldCount} → ${newCount} stations
+✨ **New Radios:**
+${newRadios.map(r => "📻 " + r.name).join("\n") || "_No new radios today_"}
+
+🤝 Help us improve: Report missing/mixed channels.
+
+📥 Download Now!`;
+
+      document.getElementById("fullOutput").textContent = full;
       document.getElementById("whatsappOutput").textContent = whatsapp;
-
-      // Discord Version (structured, highlights updates + community help)
-      const discord = "**📻 FM Radio By TNM3U**\n\n🎶 248+ Indian & International Stations\n♨️ Tamil | Telugu | Malayalam | Hindi | English\n\n📡 Channel Update: 224 → 248 stations!\n🤝 Help us improve: Report missing/mixed channels.\n\n📥 Download Now!";
       document.getElementById("discordOutput").textContent = discord;
     }
 
-    function copyText(id) {
+    fetchRadios();
+
+    window.copyText = function(id) {
       const text = document.getElementById(id).textContent;
       navigator.clipboard.writeText(text).then(() => {
         alert("Copied!");
