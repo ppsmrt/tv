@@ -555,3 +555,7 @@ https://thamilaaramtv24-hls.secdn.net/thamilaaramtv24-channel/play/ThamilaaramTV
 https://live.sscloud7.in/live/jeyamtv/index.m3u8
 #EXTINF:-1 tvg-name="Roja Movies HD" group-title="Tamil" tvg-logo="https://i.ibb.co/21by5dpD/1000135211.png",Roja Movies HD
 https://live.rojatv.cloud/rojamovies/rojamovies/index.m3u8
+#EXTINF:-1 tvg-name="Kovai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/TBF3LCqw/1000135638.jpg",Kovai Tv
+https://account31.livebox.co.in/Kovaitvhls/live.m3u8
+#EXTINF:-1 tvg-name="Om Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/4Z6NRvJq/1000135640.jpg",Om Sakthi Tv
+https://sscloud7.com/live/omsakthitv/index.m3u8
