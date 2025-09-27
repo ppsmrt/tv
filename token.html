@@ -3,161 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Daily Token Generator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-
-    // 🔑 Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.appspot.com",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const auth = getAuth(app);
-
-    // ✅ Allowed admin emails
-    const ADMINS = ["ppsmart7@gmail.com", "you@domain.com"];
-
-    // Generate secure 6-character alphanumeric token
-    function generateToken() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      const array = new Uint32Array(6);
-      window.crypto.getRandomValues(array);
-      let token = "";
-      for (let i = 0; i < array.length; i++) {
-        token += chars[array[i] % chars.length];
-      }
-      return token;
+  <title>FM Radio Notification Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
     }
+    h1 {
+      text-align: center;
+      color: #222;
+    }
+    textarea {
+      width: 100%;
+      height: 180px;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      resize: vertical;
+    }
+    .output {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    button {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📻 FM Radio Notification Tool</h1>
 
-    async function generateTodayToken(overwrite = false) {
-      const today = new Date().toISOString().split("T")[0];
-      const tokenRef = ref(db, "tokens/" + today);
+  <div class="section">
+    <h3>✍️ Enter Full Notification</h3>
+    <textarea id="fullInput" placeholder="Paste your full notification here..."></textarea>
+    <button onclick="generate()">Generate Versions</button>
+  </div>
 
-      const snapshot = await get(tokenRef);
-      if (snapshot.exists() && !overwrite) {
-        document.getElementById("todayToken").textContent = snapshot.val().token;
+  <div class="section">
+    <h3>📄 Full Notification</h3>
+    <div class="output" id="fullOutput"></div>
+    <button onclick="copyText('fullOutput')">Copy Full</button>
+  </div>
+
+  <div class="section">
+    <h3>📱 WhatsApp Version</h3>
+    <div class="output" id="whatsappOutput"></div>
+    <button onclick="copyText('whatsappOutput')">Copy WhatsApp</button>
+  </div>
+
+  <div class="section">
+    <h3>💬 Discord Version</h3>
+    <div class="output" id="discordOutput"></div>
+    <button onclick="copyText('discordOutput')">Copy Discord</button>
+  </div>
+
+  <script>
+    function generate() {
+      const input = document.getElementById("fullInput").value.trim();
+      if (!input) {
+        alert("Please paste your notification first!");
         return;
       }
 
-      const token = generateToken();
-      await set(tokenRef, { token, createdAt: new Date().toISOString() });
-      document.getElementById("todayToken").textContent = token;
-      if (overwrite) alert("Today's token regenerated: " + token);
+      // Full Output
+      document.getElementById("fullOutput").textContent = input;
+
+      // WhatsApp Version (short + emojis + download focus)
+      const whatsapp = "📻 FM Radio By TNM3U\n🎶 Stream 248+ Indian & International FM Stations\n♨️ Tamil | Telugu | Malayalam | Hindi | English\n📡 Nonstop Music, Talk Shows & More!\n📥 Download Now & Enjoy!";
+      document.getElementById("whatsappOutput").textContent = whatsapp;
+
+      // Discord Version (structured, highlights updates + community help)
+      const discord = "**📻 FM Radio By TNM3U**\n\n🎶 248+ Indian & International Stations\n♨️ Tamil | Telugu | Malayalam | Hindi | English\n\n📡 Channel Update: 224 → 248 stations!\n🤝 Help us improve: Report missing/mixed channels.\n\n📥 Download Now!";
+      document.getElementById("discordOutput").textContent = discord;
     }
 
-    function loadTokens() {
-      const tokensRef = ref(db, "tokens");
-      onValue(tokensRef, (snapshot) => {
-        const data = snapshot.val() || {};
-        const list = document.getElementById("tokenList");
-        list.innerHTML = "";
-
-        const sortedDates = Object.keys(data).sort((a, b) => b.localeCompare(a));
-        sortedDates.forEach(date => {
-          const li = document.createElement("li");
-          li.textContent = `${date}: ${data[date].token}`;
-          list.appendChild(li);
-        });
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied!");
       });
     }
-
-    // ✅ Login
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-      } catch (err) {
-        alert("Login failed: " + err.message);
-      }
-    });
-
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      await signOut(auth);
-    });
-
-    // ✅ Auth state listener
-    onAuthStateChanged(auth, (user) => {
-      if (user && ADMINS.includes(user.email)) {
-        document.getElementById("loginSection").classList.add("hidden");
-        document.getElementById("appSection").classList.remove("hidden");
-
-        generateTodayToken();
-        loadTokens();
-        scheduleMidnightToken();
-      } else {
-        document.getElementById("loginSection").classList.remove("hidden");
-        document.getElementById("appSection").classList.add("hidden");
-      }
-    });
-
-    // Auto-generate token at midnight
-    function scheduleMidnightToken() {
-      const now = new Date();
-      const nextMidnight = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() + 1,
-        0, 0, 0, 500
-      );
-      const timeout = nextMidnight.getTime() - now.getTime();
-      setTimeout(() => {
-        generateTodayToken();
-        scheduleMidnightToken();
-      }, timeout);
-    }
-
   </script>
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
-  <div class="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-4 text-center">Admin Token Generator</h1>
-
-    <!-- Login Section -->
-    <div id="loginSection">
-      <form id="loginForm" class="space-y-3">
-        <input id="email" type="email" placeholder="Admin Email" class="w-full border p-2 rounded" required>
-        <input id="password" type="password" placeholder="Password" class="w-full border p-2 rounded" required>
-        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Login</button>
-      </form>
-    </div>
-
-    <!-- App Section (visible only to admins) -->
-    <div id="appSection" class="hidden">
-      <div class="flex justify-between items-center mb-4">
-        <button id="logoutBtn" class="text-sm text-red-600">Logout</button>
-        <button id="regenerateBtn" class="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Regenerate Today’s Token</button>
-      </div>
-
-      <div class="mb-4">
-        <p class="mt-2 text-lg"><strong>Today's Token:</strong> 
-          <span id="todayToken" class="text-blue-600 text-xl font-bold"></span>
-        </p>
-      </div>
-
-      <hr class="my-4">
-
-      <h2 class="text-xl font-semibold mb-2">Token History</h2>
-      <ul id="tokenList" class="list-disc list-inside text-sm text-gray-700"></ul>
-    </div>
-
-    <script>
-      document.getElementById("regenerateBtn").addEventListener("click", () => {
-        generateTodayToken(true); // overwrite token
-      });
-    </script>
-  </div>
 </body>
 </html>
