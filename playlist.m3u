@@ -575,3 +575,5 @@ https://play.applelive.in/dolphintv/dolphintv.m3u8
 https://rtmp.applelive.in/srivelavantvultrahd/srivelavantvultrahd/index.m3u8
 #EXTINF:-1 tvg-name="Aarya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/XxkR7ckH/1000135657.png",Aarya Tv
 https://live.sscloud7.in/live/aaryaatv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="Max Music Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fd3L6TVk/1000135660.jpg",Max Music Tv
+https://live.maxtn.in/maxmusic/maxmusic/index.m3u8
