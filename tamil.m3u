@@ -307,3 +307,13 @@ https://sscloud7.com/live/smileytv/index.m3u8
 https://play.applelive.in/jaitv/jaitv.m3u8
 #EXTINF:-1 tvg-name="JR Malar Tv" group-title="Regional" tvg-logo="https://i.ibb.co/rR3nbrxg/1000136488.jpg",JR Malar Tv
 https://server.sscloud7.in/live/malartv/index.m3u8
+#EXTINF:-1 tvg-name="Ramya Tv" group-title="Regional" tvg-logo="https://i.ibb.co/rR3nbrxg/1000136488.jpg",Ramya Tv
+http://brightmeltech.in/ramyatv/ramyatv.m3u8
+#EXTINF:-1 tvg-name="Ramya Tv" group-title="Regional" tvg-logo="https://i.ibb.co/bjmC38F2/1000136491.png",Ramya Tv
+http://brightmeltech.in/ramyatv/ramyatv.m3u8
+#EXTINF:-1 tvg-name="Arul Tv" group-title="Regional" tvg-logo="https://i.ibb.co/JRx3Ppdm/1000136493.jpg",Arul Tv
+http://arulstream.in:1935/ArulTv/live/playlist.m3u8
+#EXTINF:-1 tvg-name="A2A Tv" group-title="Regional" tvg-logo="https://i.ibb.co/rRNfF9xK/1000136495.jpg",A2A Tv
+https://live.sscloud7.in/live/a2atv/index.m3u8
+#EXTINF:-1 tvg-name="Sky Tv" group-title="Regional" tvg-logo="https://i.ibb.co/F43L9dd7/1000136497.jpg",Sky Tv
+https://sscloud7.com/live/skytv/index.m3u8
