@@ -351,3 +351,15 @@ https://stream.sscloud7.in/live/mptv/index.m3u8
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
 #EXTINF:-1 tvg-name="7 Star" group-title="Regional" tvg-logo="https://i.ibb.co/XBD1348/1000136548.jpg",7 Star
 http://7starcloud.com:1935/live/7star2/playlist.m3u8
+#EXTINF:-1 tvg-name="King Tv" group-title="Regional" tvg-logo="https://i.ibb.co/f77w9N8/1000136550.jpg",King Tv
+https://rtmp.bmlive.net/kingtv/kingtv/index.m3u8
+#EXTINF:-1 tvg-name="Kumari Plus" group-title="Regional" tvg-logo="https://i.ibb.co/Jw1SJDSB/1000136552.jpg",Kumari Plus
+http://rtmp.applelive.in/kumariplus/kumariplus/index.m3u8
+#EXTINF:-1 tvg-name="Prime Tv" group-title="Regional" tvg-logo="https://i.ibb.co/hJDYjh32/1000136554.jpg",Prime Tv
+https://live.applelive.in/primetv/primetv/index.m3u8
+#EXTINF:-1 tvg-name="Singam Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fVRtpgjv/1000136555.jpg",Singam Tv
+http://live.brightmeltech.in/singamtv/singamtv.m3u8
+#EXTINF:-1 tvg-name="Selfie Tv" group-title="Regional" tvg-logo="https://i.ibb.co/23S45yPB/1000136557.jpg",Selfie Tv
+http://play.applelive.in/selfeetv/selfeetv.m3u8
+#EXTINF:-1 tvg-name="JCV Tv" group-title="Regional" tvg-logo="https://i.ibb.co/kgT6SB24/1000136559.jpg",JCV Tv
+https://play.applelive.in/jcvtv/jcvtv.m3u8
