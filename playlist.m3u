@@ -625,3 +625,9 @@ https://live.sscloud7.in/live/a2atv/index.m3u8
 https://sscloud7.com/live/skytv/index.m3u8
 #EXTINF:-1 tvg-name="PCV Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mrBwmDKp/1000136499.jpg",PCV Tv
 https://stream.sscloud7.in/live/livepcv/index.m3u8
+#EXTINF:-1 tvg-name="Malar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/whXKKMNM/1000136503.jpg",Malar Tv
+https://sscloud7.com/live/malartv/index.m3u8
+#EXTINF:-1 tvg-name="Bharathi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/PGhh0LKz/1000136505.jpg",Bharathi Tv
+https://server.sscloud7.in/live/bharathitv/index.m3u8
+#EXTINF:-1 tvg-name="Hitech Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/HThdptr6/1000136507.jpg",Hitech Tv
+https://server.notvstream.in/hitechtv/hitechtv.m3u8
