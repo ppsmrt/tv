@@ -597,3 +597,7 @@ https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 https://sscloud7.com/live/jithtv/index.m3u8
 #EXTINF:-1 tvg-name="SS Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/x8GK2zvp/1000136467.png",SS Tv
 https://server.sscloud7.in/live/sshd/index.m3u8
+#EXTINF:-1 tvg-name="Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/RGThWXLc/1000136469.jpg",Sakthi Tv
+https://live.sscloud7.in/live/sakthitv/index.m3u8
+#EXTINF:-1 tvg-name="Velavan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mCHRtk8d/1000136472.jpg",Velavan Tv
+http://velavantv.sscloud7.in/live/velavantv/index.m3u8
