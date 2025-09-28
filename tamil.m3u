@@ -343,3 +343,11 @@ https://live.sscloud7.in/live/suryatv/index.m3u8
 https://live.skystream.in/live/no1tv/index.m3u8
 #EXTINF:-1 tvg-name="King Tv" group-title="Regional" tvg-logo="https://i.ibb.co/Swyg9d4W/1000136534.jpg",King Tv
 http://kingtv.sscloud7.in/kingtv/kingtv/index.m3u8
+#EXTINF:-1 tvg-name="Maran Tv" group-title="Regional" tvg-logo="https://i.ibb.co/0dPpSVg/1000136536.jpg",Maran Tv
+https://server.sscloud7.in/marantv/marantv/index.m3u8
+#EXTINF:-1 tvg-name="MP Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fzH6Z1q3/1000136542.jpg",MP Tv
+https://stream.sscloud7.in/live/mptv/index.m3u8
+#EXTINF:-1 tvg-name="Mayuri Tv" group-title="Regional" tvg-logo="https://i.ibb.co/36PY5KH/1000136545.jpg",Mayuri Tv
+https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
+#EXTINF:-1 tvg-name="7 Star" group-title="Regional" tvg-logo="https://i.ibb.co/XBD1348/1000136548.jpg",7 Star
+http://7starcloud.com:1935/live/7star2/playlist.m3u8
