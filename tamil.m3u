@@ -285,3 +285,7 @@ https://stream.galaxyott.live/live/subintv/index.m3u8
 http://omtv.7starcloud.com:1935/omtv/live/live.m3u8
 #EXTINF:-1 tvg-name="U Tv" group-title="Regional" tvg-logo="https://i.ibb.co/1YwxTLZH/1000136452.jpg",U Tv
 https://stream.galaxyott.live/live/utv/index.m3u8
+#EXTINF:-1 tvg-name="Anandham Tv" group-title="Regional" tvg-logo="https://i.ibb.co/G4jz0WHG/1000136463.jpg",Anandham Tv
+https://stream.galaxyott.live/live/anandhamtv/index.m3u8
+#EXTINF:-1 tvg-name="Jith Tv" group-title="Regional" tvg-logo="https://i.ibb.co/WpDgyPfR/1000136465.jpg",Jith Tv
+https://sscloud7.com/live/jithtv/index.m3u8
