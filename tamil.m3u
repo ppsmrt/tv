@@ -317,3 +317,7 @@ http://arulstream.in:1935/ArulTv/live/playlist.m3u8
 https://live.sscloud7.in/live/a2atv/index.m3u8
 #EXTINF:-1 tvg-name="Sky Tv" group-title="Regional" tvg-logo="https://i.ibb.co/F43L9dd7/1000136497.jpg",Sky Tv
 https://sscloud7.com/live/skytv/index.m3u8
+#EXTINF:-1 tvg-name="PCV Tv" group-title="Regional" tvg-logo="https://i.ibb.co/mrBwmDKp/1000136499.jpg",PCV Tv
+https://stream.sscloud7.in/live/livepcv/index.m3u8
+#EXTINF:-1 tvg-name="Malar Tv" group-title="Regional" tvg-logo="https://i.ibb.co/dwj2Ggwv/1000136501.jpg",Malar Tv
+https://sscloud7.com/live/malartv/index.m3u8
