@@ -275,3 +275,7 @@ https://live.maxtn.in/maxmusic/maxmusic/index.m3u8
 http://srnet.bmlive.net:1935/isaisaral/mystream/index.m3u8
 #EXTINF:-1 tvg-name="SR Music" group-title="Entertainment" tvg-logo="https://i.ibb.co/0Rgzrmfg/1000136014.jpg",SR Music
 http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
+#EXTINF:-1 tvg-name="Jayam Tv" group-title="Regional" tvg-logo="https://i.ibb.co/ZRqFWV7d/1000136442.png",Jayam Tv
+https://ipcloud.live/jayamtv/jayamtvhd/index.m3u8
+#EXTINF:-1 tvg-name="TSN Music" group-title="Regional" tvg-logo="https://i.ibb.co/1tmKf5QH/1000136447.png",TSN Music
+http://198.144.149.206:8080/NOTV/VAAGAI/index.m3u8?token=GTR
