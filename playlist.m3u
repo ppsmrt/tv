@@ -589,3 +589,5 @@ http://198.144.149.206:8080/NOTV/VAAGAI/index.m3u8?token=GTR
 https://stream.galaxyott.live/live/subintv/index.m3u8
 #EXTINF:-1 tvg-name="Om TV" group-title="Tamil" tvg-logo="https://i.ibb.co/xKZ0ydCW/1000136450.jpg",Om TV
 http://omtv.7starcloud.com:1935/omtv/live/live.m3u8
+#EXTINF:-1 tvg-name="U Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1YwxTLZH/1000136452.jpg",U Tv
+https://stream.galaxyott.live/live/utv/index.m3u8
