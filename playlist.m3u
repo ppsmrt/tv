@@ -601,3 +601,13 @@ https://server.sscloud7.in/live/sshd/index.m3u8
 https://live.sscloud7.in/live/sakthitv/index.m3u8
 #EXTINF:-1 tvg-name="Velavan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mCHRtk8d/1000136472.jpg",Velavan Tv
 http://velavantv.sscloud7.in/live/velavantv/index.m3u8
+#EXTINF:-1 tvg-name="Deiva Oli" group-title="Tamil" tvg-logo="https://i.ibb.co/ymdjPWqT/1000136474.jpg",Deiva Oli
+https://stream.sscloud7.in/live/deivaoli/index.m3u8
+#EXTINF:-1 tvg-name="Vani Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zVJ04Z9y/1000136476.jpg",Vani Tv
+https://live.sscloud7.in/live/vanitvhd/index.m3u8
+#EXTINF:-1 tvg-name="SNR Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/xt6mtWj5/1000136482.png",SNR Tv
+http://198.144.149.206:8080/NOTV/ASOSACHENNAI/tracks-v1a1/mono.m3u8?token=GTR
+#EXTINF:-1 tvg-name="Smiley Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/gMYkgZLq/1000136484.jpg",Smiley Tv
+https://sscloud7.com/live/smileytv/index.m3u8
+#EXTINF:-1 tvg-name="Jai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/chFFCsj2/1000136486.jpg",Jai Tv
+https://play.applelive.in/jaitv/jaitv.m3u8
