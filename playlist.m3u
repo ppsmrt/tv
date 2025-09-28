@@ -645,3 +645,11 @@ https://server.sscloud7.in/live/malligai/index.m3u8
 https://stream.sscloud7.in/live/ntv/index.m3u8
 #EXTINF:-1 tvg-name="Surya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/vxR1yb6N/1000136529.jpg",Surya Tv
 https://live.sscloud7.in/live/suryatv/index.m3u8
+#EXTINF:-1 tvg-name="No1 Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/nsCH3v5L/1000136532.jpg",No1 Tv
+https://live.skystream.in/live/no1tv/index.m3u8
+#EXTINF:-1 tvg-name="King Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Swyg9d4W/1000136534.jpg",King Tv
+http://kingtv.sscloud7.in/kingtv/kingtv/index.m3u8
+#EXTINF:-1 tvg-name="Maran Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/0dPpSVg/1000136536.jpg",Maran Tv
+https://server.sscloud7.in/marantv/marantv/index.m3u8
+#EXTINF:-1 tvg-name="MP Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fzH6Z1q3/1000136542.jpg",MP Tv
+https://stream.sscloud7.in/live/mptv/index.m3u8
