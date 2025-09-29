@@ -715,3 +715,7 @@ https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/ts-eu-
 https://5a1178b42cc03.streamlock.net/8212/8212/chunklist_w887200395.m3u8
 #EXTINF:-1 tvg-name="Surya Tv HD" group-title="Tamil" tvg-logo="https://i.ibb.co/DDQrBSwT/1000137238.jpg",Surya Tv HD
 https://galaxyott.live/hls/suryatv.m3u8
+#EXTINF:-1 tvg-name="S Max Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1Hmxbv5/1000137243.png",S Max Tv
+http://applelive.in/smaxtv/smaxtv.m3u8
+#EXTINF:-1 tvg-name="Rock Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/pjNZprmf/1000137245.jpg",Rock Tv
+https://apis.avmediawork.in/tvhls/rocktv.m3u8
