@@ -363,3 +363,21 @@ http://live.brightmeltech.in/singamtv/singamtv.m3u8
 http://play.applelive.in/selfeetv/selfeetv.m3u8
 #EXTINF:-1 tvg-name="JCV Tv" group-title="Regional" tvg-logo="https://i.ibb.co/kgT6SB24/1000136559.jpg",JCV Tv
 https://play.applelive.in/jcvtv/jcvtv.m3u8
+#EXTINF:-1 tvg-name="Tiger Tv" group-title="Regional" tvg-logo="https://i.ibb.co/PZ0xMkLF/1000136561.jpg",Tiger Tv
+https://stream.onecloudlive.in/tigertv/tigertvhd/index.m3u8
+#EXTINF:-1 tvg-name="7screen" group-title="Regional" tvg-logo="https://i.ibb.co/hJ1LLf41/1000136563.jpg",7screen
+https://account33.livebox.co.in/7GREEN4Khls/live.m3u8
+#EXTINF:-1 tvg-name="Fort Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/939BbvTv/1000136565.jpg",Fort Tv
+https://stream.onecloudlive.in/forttv/fortchannel/index.m3u8
+#EXTINF:-1 tvg-name="Time Tv" group-title="Regional" tvg-logo="https://i.ibb.co/1G99vW7k/1000136567.jpg",Time Tv
+https://live.olidigital.in/timetv/timetv/index.m3u8
+#EXTINF:-1 tvg-name="Mallai Tv" group-title="Regional" tvg-logo="https://i.ibb.co/QvTHJWhy/1000136573.jpg",Mallai Tv
+https://rojatv.cloud/mallaitv/mallaitv/index.m3u8
+#EXTINF:-1 tvg-name="DTV" group-title="Regional" tvg-logo="https://i.ibb.co/3mM9r95N/1000136574.webp",DTV
+https://stream.d6-pro.com/Dtv/live/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="Max Tv HD" group-title="Regional" tvg-logo="https://i.ibb.co/CpVXy6dG/1000136576.jpg",Max Tv HD
+https://stream.onecloudlive.in/maxtv/maxtvtenkasi/index.m3u8
+#EXTINF:-1 tvg-name="SK Tv" group-title="Regional" tvg-logo="https://i.ibb.co/B566zzxL/1000136577.png",SK Tv
+https://stream.galaxyott.live/live/sktv/index.m3u8
+#EXTINF:-1 tvg-name="Top Tv" group-title="Regional" tvg-logo="https://i.ibb.co/J84DsHC/1000136583.jpg",Top Tv
+https://stream.onecloudlive.in/toptv/toptvhd/index.m3u8
