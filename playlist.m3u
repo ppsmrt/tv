@@ -697,3 +697,5 @@ http://103.159.180.5:1935/live/nishanew/live.m3u8
 https://ipcloud.live/shalinitv/shalinitv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="RJP Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zh78y1SD/1000137207.jpg",RJP Tv
 https://ipcloud.live/rjtamiltv/rjtamil/index.m3u8
+#EXTINF:-1 tvg-name="JRP Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zhYDg8X5/1000137209.jpg",JRP Tv
+https://ipcloud.live/jrptv/jrphd/index.m3u8
