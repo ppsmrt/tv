@@ -381,3 +381,5 @@ https://stream.onecloudlive.in/maxtv/maxtvtenkasi/index.m3u8
 https://stream.galaxyott.live/live/sktv/index.m3u8
 #EXTINF:-1 tvg-name="Top Tv" group-title="Regional" tvg-logo="https://i.ibb.co/J84DsHC/1000136583.jpg",Top Tv
 https://stream.onecloudlive.in/toptv/toptvhd/index.m3u8
+#EXTINF:-1 tvg-name="Isai Saaral" group-title="Regional" tvg-logo="https://i.ibb.co/4RCVPdb5/1000136628.jpg",Isai Saaral
+http://srnet.bmlive.net:1935/isaisaral/mystream/chunklist_w1441521074.m3u8
