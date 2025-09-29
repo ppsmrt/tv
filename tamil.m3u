@@ -383,3 +383,9 @@ https://stream.galaxyott.live/live/sktv/index.m3u8
 https://stream.onecloudlive.in/toptv/toptvhd/index.m3u8
 #EXTINF:-1 tvg-name="Isai Saaral" group-title="Regional" tvg-logo="https://i.ibb.co/4RCVPdb5/1000136628.jpg",Isai Saaral
 http://srnet.bmlive.net:1935/isaisaral/mystream/chunklist_w1441521074.m3u8
+#EXTINF:-1 tvg-name="TDN" group-title="Regional" tvg-logo="https://i.ibb.co/h1BTNcjY/1000136660.jpg",TDN
+https://live.maxtn.in/tdn/tdn/index.m3u8
+#EXTINF:-1 tvg-name="Jeyam Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fV19dTvF/1000136666.jpg",Jeyam Tv
+https://stream.onecloudlive.in/jeyam/jeyammdu/index.m3u8
+#EXTINF:-1 tvg-name="Moon Tv Roja" group-title="Regional" tvg-logo="https://i.ibb.co/yn28B7Lh/1000136668.jpg",Moon Tv Roja
+https://live.maxtn.in/moontv/moontv/index.m3u8
