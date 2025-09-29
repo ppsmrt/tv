@@ -695,3 +695,5 @@ https://live.maxtn.in/tdn/tdn/index.m3u8
 https://stream.onecloudlive.in/jeyam/jeyammdu/index.m3u8
 #EXTINF:-1 tvg-name="Moon Tv Roja" group-title="Tamil" tvg-logo="https://i.ibb.co/yn28B7Lh/1000136668.jpg",Moon Tv Roja
 https://live.maxtn.in/moontv/moontv/index.m3u8
+#EXTINF:-1 tvg-name="Aasatha Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/gFhN76hq/1000136925.png",Aasatha Kannada
+https://aasthaott.akamaized.net/110923/smil:aasthakannada.smil/playlist.m3u8
