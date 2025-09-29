@@ -705,3 +705,13 @@ https://live.olidigital.in/olitv/olitv/index.m3u8
 https://brightmeltech.in/kchannel/kchannel.m3u8
 #EXTINF:-1 tvg-name="CTN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/tPTmmsz0/1000137227.jpg",CTN Tv
 https://rtmp.bmlive.net/ctn/ctntn/index.m3u8
+#EXTINF:-1 tvg-name="Hi-tech Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fdNP9sN7/1000137232.png",Hi-tech Tv
+https://server.notvstream.in/hitechtv/hitechtv.m3u8
+#EXTINF:-1 tvg-name="Men Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/S48gcynt/1000137234.jpg",Men Tv
+https://ipcloud.live/mtv/menhd/index.m3u8
+#EXTINF:-1 tvg-name="Action Hollywood Movies Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7Ny0Q4mK/1000137236.jpg",Action Hollywood Movies Tv
+https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/ts-eu-w1-n2/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-name="CCV Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/vvQY4QGG/1000137237.jpg",CCV Tv
+https://5a1178b42cc03.streamlock.net/8212/8212/chunklist_w887200395.m3u8
+#EXTINF:-1 tvg-name="Surya Tv HD" group-title="Tamil" tvg-logo="https://i.ibb.co/DDQrBSwT/1000137238.jpg",Surya Tv HD
+https://galaxyott.live/hls/suryatv.m3u8
