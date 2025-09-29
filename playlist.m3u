@@ -699,3 +699,9 @@ https://ipcloud.live/shalinitv/shalinitv/tracks-v1a1/mono.m3u8
 https://ipcloud.live/rjtamiltv/rjtamil/index.m3u8
 #EXTINF:-1 tvg-name="JRP Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zhYDg8X5/1000137209.jpg",JRP Tv
 https://ipcloud.live/jrptv/jrphd/index.m3u8
+#EXTINF:-1 tvg-name="Oli Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/NnkzFJXQ/1000137216.jpg",Oli Tv
+https://live.olidigital.in/olitv/olitv/index.m3u8
+#EXTINF:-1 tvg-name="K Channel" group-title="Tamil" tvg-logo="https://i.ibb.co/4nxJG0Lh/1000137219.jpg",K Channel
+https://brightmeltech.in/kchannel/kchannel.m3u8
+#EXTINF:-1 tvg-name="CTN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/tPTmmsz0/1000137227.jpg",CTN Tv
+https://rtmp.bmlive.net/ctn/ctntn/index.m3u8
