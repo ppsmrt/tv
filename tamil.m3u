@@ -389,3 +389,9 @@ https://live.maxtn.in/tdn/tdn/index.m3u8
 https://stream.onecloudlive.in/jeyam/jeyammdu/index.m3u8
 #EXTINF:-1 tvg-name="Moon Tv Roja" group-title="Regional" tvg-logo="https://i.ibb.co/yn28B7Lh/1000136668.jpg",Moon Tv Roja
 https://live.maxtn.in/moontv/moontv/index.m3u8
+#EXTINF:-1 tvg-name="Nisha Tv" group-title="Regional" tvg-logo="https://i.ibb.co/j9dZ7FFY/1000137203.jpg",Nisha Tv
+http://103.159.180.5:1935/live/nishanew/live.m3u8
+#EXTINF:-1 tvg-name="Shalini Tv" group-title="Regional" tvg-logo="https://i.ibb.co/Kp75zLN8/1000137205.jpg",Shalini Tv
+https://ipcloud.live/shalinitv/shalinitv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="RJP Tv" group-title="Regional" tvg-logo="https://i.ibb.co/zh78y1SD/1000137207.jpg",RJP Tv
+https://ipcloud.live/rjtamiltv/rjtamil/index.m3u8
