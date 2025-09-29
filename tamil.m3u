@@ -403,3 +403,7 @@ https://live.olidigital.in/olitv/olitv/index.m3u8
 https://brightmeltech.in/kchannel/kchannel.m3u8
 #EXTINF:-1 tvg-name="CTN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/tPTmmsz0/1000137227.jpg",CTN Tv
 https://rtmp.bmlive.net/ctn/ctntn/index.m3u8
+#EXTINF:-1 tvg-name="Hi-tech Tv" group-title="Regional" tvg-logo="https://i.ibb.co/fdNP9sN7/1000137232.png",Hi-tech Tv
+https://server.notvstream.in/hitechtv/hitechtv.m3u8
+#EXTINF:-1 tvg-name="Men Tv" group-title="Regional" tvg-logo="https://i.ibb.co/S48gcynt/1000137234.jpg",Men Tv
+https://ipcloud.live/mtv/menhd/index.m3u8
