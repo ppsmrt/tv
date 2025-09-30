@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📺 Live TV Auto Notification</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f9f9fb, #f1f4ff);
+      margin: 0; padding: 20px;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      color: #111;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    h3 {
+      margin: 15px 0 8px;
+      font-size: 1rem;
+      color: #333;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .output {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      padding: 14px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      font-family: monospace;
+    }
+    button {
+      display: inline-block;
+      background: #007bff;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <h1>📺 Live TV Auto Notification</h1>
+
+  <div class="card">
+    <h3>📄 Full Notification (New Channels Only)</h3>
+    <div class="output" id="fullOutput">⏳ Loading...</div>
+    <button onclick="copyText('fullOutput')">📋 Copy Full</button>
+  </div>
+
+  <div class="card">
+    <h3>📱 WhatsApp Notification</h3>
+    <div class="output" id="whatsappOutput">⏳ Loading...</div>
+    <button onclick="copyText('whatsappOutput')">📋 Copy WhatsApp</button>
+  </div>
+
+  <div class="card">
+    <h3>💬 Discord Notification</h3>
+    <div class="output" id="discordOutput">⏳ Loading...</div>
+    <button onclick="copyText('discordOutput')">📋 Copy Discord</button>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+      authDomain: "tnm3ulive.firebaseapp.com",
+      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tnm3ulive",
+      storageBucket: "tnm3ulive.firebasestorage.app",
+      messagingSenderId: "80664356882",
+      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+      measurementId: "G-FNS9JWZ9LS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    async function fetchChannels() {
+      const dbRef = ref(db);
+      const snapshot = await get(child(dbRef, "channels"));
+
+      if (!snapshot.exists()) {
+        document.getElementById("fullOutput").textContent = "⚠ No channels found!";
+        return;
+      }
+
+      const data = snapshot.val();
+      const channels = Object.values(data);
+      const total = channels.length;
+
+      // Detect new channels (last 24h)
+      const now = new Date();
+      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
+      const newChannels = channels.filter(c => c.createdAt && new Date(c.createdAt).getTime() >= last24h);
+
+      const oldCount = total - newChannels.length;
+      const newCount = total;
+
+      // Group only NEW channels by category
+      const grouped = {};
+      newChannels.forEach(c => {
+        const cat = c.category || "Other";
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push("💫 " + (c.name || "Unknown Channel"));
+      });
+
+      // Build full notification
+      let full =
+`📺 𝙇𝙞𝙫𝙚 𝙏𝙫 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 𝘽𝙮 𝙏𝙣𝙢3𝙪
+➖➖➖➖➖➖➖➖➖➖➖➖
+📌 𝘼𝙗𝙤𝙪𝙩 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩
+Enjoy a wide range of regional and local Indian TV channels, and watch your favorite programs anytime, anywhere without interruptions.
+➖➖➖➖➖➖➖➖➖➖➖➖
+✨ Newly Added Channels (Last 24h)
+`;
+
+      if (newChannels.length === 0) {
+        full += "⚠ No new channels added in the last 24h.\n\n";
+      } else {
+        for (const cat of Object.keys(grouped)) {
+          full += `♻️ ${cat} Channels\n` + grouped[cat].join("\n") + "\n\n";
+        }
+      }
+
+      full += 
+`➖➖➖➖➖➖➖➖➖➖➖➖
+📡 Channel Update
+From ${oldCount} → ${newCount} total channels available now!
+➖➖➖➖➖➖➖➖➖➖➖➖
+☀️ тим3υ ρℓαуℓιѕт
+http://tnm3u.live/playlist.m3u
+➖➖➖➖➖➖➖➖➖➖➖➖
+📢 For more updates follow our channel
+[Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)
+➖➖➖➖➖➖➖➖➖➖➖➖
+Any concerns or takedown requests please mail to tnm3us@gmail.com. All queries will be evaluated and resolved in 48 hours.`;
+
+      // WhatsApp version
+      const whatsapp =
+`📺 Live TV By TNM3U
+🎬 ${newCount}+ Indian & International Channels
+♨️ Tamil | Telugu | Malayalam | Hindi | English
+✨ New Channels (24h):
+${newChannels.map(c => "📺 " + c.name).join("\n") || "No new channels"}
+📡 Total: ${newCount} channels
+☀️ Playlist: http://tnm3u.live/playlist.m3u
+📢 Updates: Telegram | WhatsApp | Discord
+🛡️ Issues: tnm3us@gmail.com`;
+
+      // Discord version
+      const discord =
+`**📺 Live TV By TNM3U**
+
+🎬 ${newCount}+ Channels  
+♨️ Tamil | Telugu | Malayalam | Hindi | English  
+
+📡 Channel Update: ${oldCount} → ${newCount} channels  
+✨ **New Channels (24h):**  
+${newChannels.map(c => "📺 " + c.name).join("\n") || "_No new channels today_"}  
+
+☀️ Playlist: http://tnm3u.live/playlist.m3u  
+📢 Follow: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)  
+🛡️ Issues: tnm3us@gmail.com`;
+
+      document.getElementById("fullOutput").textContent = full;
+      document.getElementById("whatsappOutput").textContent = whatsapp;
+      document.getElementById("discordOutput").textContent = discord;
+    }
+
+    fetchChannels();
+
+    window.copyText = function(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied!");
+      });
+    }
+  </script>
+</body>
+</html>
