@@ -12,6 +12,7 @@
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <!-- HLS.js for .m3u8 streams -->
@@ -41,21 +42,14 @@ main { flex:1; padding:1rem; }
 .section-title { font-weight:600; font-size:1rem; margin:1rem 0 0.5rem 0; color:#202124; }
 .carousel { display:flex; overflow-x:auto; gap:1rem; padding-bottom:0.5rem; scroll-behavior:smooth; }
 .carousel::-webkit-scrollbar { display:none; }
-.carousel-card { min-width:120px; flex-shrink:0; background:white; border-radius:0.75rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:0.5rem; display:flex; flex-direction:column; align-items:center; cursor:pointer; transition: transform 0.2s; }
-.carousel-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
 .channel-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:1rem; margin-top:0.5rem; }
-.channel-card { background:white; border-radius:0.75rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:0.5rem; display:flex; flex-direction:column; align-items:center; cursor:pointer; transition: transform 0.2s; }
-.channel-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
-.channel-logo { width:80px; height:50px; object-fit:contain; border-radius:0.5rem; }
-.channel-name { margin-top:0.4rem; font-size:0.85rem; font-weight:500; text-align:center; }
 
 footer { text-align:center; padding:0.5rem; font-size:0.75rem; color:#5f6368; background:#ffffff; border-top:1px solid #e0e0e0; margin-top:1rem; }
 
-#playerModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:200; justify-content:center; align-items:center; }
-#playerContainer { position:relative; width:90%; max-width:720px; background:#000; border-radius:0.75rem; overflow:hidden; }
-#playerVideo { width:100%; height:400px; background:black; }
-#playerClose { position:absolute; top:0.5rem; right:0.5rem; color:white; font-size:1.5rem; cursor:pointer; z-index:10; }
-#playerControls { display:flex; justify-content:space-between; align-items:center; padding:0.5rem; background:rgba(0,0,0,0.5); color:white; font-size:0.9rem; }
+#playerModal { display:none; position:fixed; inset:0; background:rgba(255,255,255,0.95); z-index:200; justify-content:center; align-items:center; }
+#playerContainer { position:relative; width:90%; max-width:720px; background:#f1f3f4; border-radius:0.75rem; overflow:hidden; }
+#playerVideo { width:100%; height:400px; background:black; border-radius:0.5rem; }
+#playerClose { position:absolute; top:0.5rem; right:0.5rem; color:#202124; font-size:1.5rem; cursor:pointer; z-index:10; }
 </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -76,16 +70,7 @@ footer { text-align:center; padding:0.5rem; font-size:0.75rem; color:#5f6368; ba
   <div class="flex items-center relative">
     <div class="icon-btn mr-3" id="categoryBtn"><span class="material-symbols-outlined">category</span></div>
     <div class="icon-btn" id="searchBtn"><span class="material-symbols-outlined">search</span></div>
-    <div id="categoryPopup">
-      <div data-category="All">All</div>
-      <div data-category="Tamil">Tamil</div>
-      <div data-category="News">News</div>
-      <div data-category="Sports">Sports</div>
-      <div data-category="Entertainment">Entertainment</div>
-      <div data-category="Music">Music</div>
-      <div data-category="Movies">Movies</div>
-      <div data-category="Kids">Kids</div>
-    </div>
+    <div id="categoryPopup"></div>
   </div>
 </header>
 
@@ -94,7 +79,7 @@ footer { text-align:center; padding:0.5rem; font-size:0.75rem; color:#5f6368; ba
 </div>
 
 <main>
-  <h2 class="section-title">Trending Now</h2>
+  <h2 class="section-title" id="trendingTitle">Trending Now</h2>
   <div class="carousel" id="trendingCarousel"></div>
 
   <h2 class="section-title">Recently Added</h2>
@@ -132,6 +117,7 @@ const trendingCarousel = document.getElementById('trendingCarousel');
 const recentCarousel = document.getElementById('recentCarousel');
 const channelGrid = document.getElementById('channelGrid');
 const searchInput = document.getElementById('searchInput');
+const trendingTitle = document.getElementById('trendingTitle');
 
 // Player elements
 const playerModal = document.getElementById('playerModal');
@@ -162,26 +148,47 @@ playerClose.addEventListener('click', ()=>{
   playerModal.style.display = 'none';
 });
 
-// Create cards
+// Card design – light UI with enlarged icon
 function createCard(channel){
   const card = document.createElement('div');
-  card.className = 'channel-card';
+  card.className = 'bg-white rounded-xl p-3 flex flex-col items-center shadow-sm hover:shadow-md hover:scale-105 transition cursor-pointer channel-card';
   card.dataset.category = channel.category;
-  card.innerHTML = `<img class="channel-logo" src="${channel.icon}" alt="${channel.name}"><div class="channel-name">${channel.name}</div>`;
+
+  card.innerHTML = `
+    <div class="w-full flex-1 flex items-center justify-center mb-2">
+      <img src="${channel.icon}" alt="${channel.name}" class="w-full h-full object-contain rounded-md"/>
+    </div>
+    <div class="text-center text-gray-900 font-semibold text-sm" style="font-family:'Baloo 2', cursive;">
+      ${channel.name}
+    </div>
+  `;
+
   card.addEventListener('click', ()=>{
     dbRef.child(channel.id).child('clicks').transaction(val=>(val||0)+1);
     openPlayer(channel.stream);
   });
+
   return card;
 }
+
 function createCarouselCard(channel){
   const card = document.createElement('div');
-  card.className = 'carousel-card';
-  card.innerHTML = `<img class="channel-logo" src="${channel.icon}" alt="${channel.name}"><div class="channel-name">${channel.name}</div>`;
+  card.className = 'bg-white rounded-xl p-3 flex flex-col items-center shadow-sm hover:shadow-md hover:scale-105 transition cursor-pointer min-w-[120px]';
+
+  card.innerHTML = `
+    <div class="w-full flex-1 flex items-center justify-center mb-2">
+      <img src="${channel.icon}" alt="${channel.name}" class="w-full h-full object-contain rounded-md"/>
+    </div>
+    <div class="text-center text-gray-900 font-semibold text-sm" style="font-family:'Baloo 2', cursive;">
+      ${channel.name}
+    </div>
+  `;
+
   card.addEventListener('click', ()=>{
     dbRef.child(channel.id).child('clicks').transaction(val=>(val||0)+1);
     openPlayer(channel.stream);
   });
+
   return card;
 }
 
@@ -190,23 +197,64 @@ function renderChannels(channels){
   channelGrid.innerHTML = '';
   channels.forEach(ch=>channelGrid.appendChild(createCard(ch)));
 }
+
 function renderTrending(){
   const trending = [...allChannels].sort((a,b)=> (b.clicks||0)-(a.clicks||0)).slice(0,10);
   trendingCarousel.innerHTML='';
   trending.forEach(ch=>trendingCarousel.appendChild(createCarouselCard(ch)));
 }
-function renderRecentlyAdded(){
-  const recent = [...allChannels].sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt)).slice(0,10);
-  recentCarousel.innerHTML='';
-  recent.forEach(ch=>recentCarousel.appendChild(createCarouselCard(ch)));
+
+function renderRecentlyAdded(category = "All"){
+  let recent = [...allChannels];
+  if(category !== "All"){
+    recent = recent.filter(ch => ch.category === category);
+  }
+
+  recent = recent
+    .filter(ch => ch.createdAt) // ensure createdAt exists
+    .sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0,10);
+
+  recentCarousel.innerHTML = '';
+  recent.forEach(ch => recentCarousel.appendChild(createCarouselCard(ch)));
 }
+
+function renderCategories(){
+  const categoryPopup = document.getElementById('categoryPopup');
+  categoryPopup.innerHTML = '';
+  const categories = ["All", ...new Set(allChannels.map(ch => ch.category))];
+  categories.forEach(cat=>{
+    const div = document.createElement('div');
+    div.textContent = cat;
+    div.dataset.category = cat;
+    div.addEventListener('click', ()=>{
+      categoryPopup.querySelectorAll('div').forEach(i=>i.classList.remove('selected'));
+      div.classList.add('selected');
+      filterByCategory(cat);
+      categoryPopup.style.display = 'none';
+    });
+    categoryPopup.appendChild(div);
+  });
+}
+
 function filterByCategory(category){
   const cards = channelGrid.querySelectorAll('.channel-card');
   cards.forEach(card=> card.style.display = (category==='All' || card.dataset.category===category)?'flex':'none');
+
+  if(category === "All"){
+    trendingTitle.style.display = "block";
+    trendingCarousel.style.display = "flex";
+    renderRecentlyAdded("All");
+  } else {
+    trendingTitle.style.display = "none";
+    trendingCarousel.style.display = "none";
+    renderRecentlyAdded(category);
+  }
 }
+
 function filterBySearch(query){
   const cards = channelGrid.querySelectorAll('.channel-card');
-  cards.forEach(card=> card.style.display = card.querySelector('.channel-name').textContent.toLowerCase().includes(query.toLowerCase())?'flex':'none');
+  cards.forEach(card=> card.style.display = card.textContent.toLowerCase().includes(query.toLowerCase())?'flex':'none');
 }
 
 // Load Firebase channels
@@ -216,11 +264,13 @@ dbRef.on('value', snapshot=>{
     const ch = snap.val();
     ch.id = snap.key;
     if(!ch.clicks) ch.clicks=0;
+    if(!ch.createdAt) ch.createdAt = new Date().toISOString(); // assign timestamp if missing
     allChannels.push(ch);
   });
   renderChannels(allChannels);
   renderTrending();
   renderRecentlyAdded();
+  renderCategories();
 });
 
 // Search
@@ -229,20 +279,11 @@ const searchContainer = document.getElementById('searchContainer');
 searchBtn.addEventListener('click', ()=>searchContainer.classList.toggle('open'));
 searchInput.addEventListener('input', ()=>filterBySearch(searchInput.value));
 
-// Category
+// Category toggle
 const categoryBtn = document.getElementById('categoryBtn');
 const categoryPopup = document.getElementById('categoryPopup');
 categoryBtn.addEventListener('click', e=>{ e.stopPropagation(); categoryPopup.style.display = categoryPopup.style.display==='block'?'none':'block'; });
 document.addEventListener('click', e=>{ if(!categoryPopup.contains(e.target) && !categoryBtn.contains(e.target)) categoryPopup.style.display='none'; });
-const categoryItems = categoryPopup.querySelectorAll('div');
-categoryItems.forEach(item=>{
-  item.addEventListener('click', ()=>{
-    categoryItems.forEach(i=>i.classList.remove('selected'));
-    item.classList.add('selected');
-    filterByCategory(item.dataset.category);
-    categoryPopup.style.display='none';
-  });
-});
 
 // Side drawer
 const menuBtn = document.getElementById('menuBtn');
