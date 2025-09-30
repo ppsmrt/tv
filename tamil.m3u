@@ -429,8 +429,6 @@ https://stream.sscloud7.in/live/maishatv/index.m3u8
 http://brightmeltech.in/gsjktv/gsjktv.m3u8
 #EXTINF:-1 tvg-name="Maa Tv" group-title="Regional" tvg-logo="https://i.ibb.co/tpjPhVqr/1000137324.jpg",Maa Tv
 https://live.singamcloud.in/maatv/maatv/index.m3u8
-#EXTINF:-1 tvg-name="Teak Vision HD" group-title="Regional" tvg-logo="https://i.ibb.co/JWVTVBqs/1000137330.jpg",Teak Vision HD
-https://hd.singamcloud.in/teakvision/teakvision/index.m3u8
 #EXTINF:-1 tvg-name="Sasi HD" group-title="Regional" tvg-logo="https://i.ibb.co/Nnmrhy66/1000137338.png",Sasi HD
 http://sasitv.phoenixcreations.online/sasitv/sasitv/playlist.m3u8
 #EXTINF:-1 tvg-name="Subash Tv" group-title="Regional" tvg-logo="https://i.ibb.co/KjtgcG4m/1000137340.png",Subash Tv
@@ -449,7 +447,5 @@ http://sartv.phoenixcreations.online/sartv/sartv/playlist.m3u8
 https://server.streamwell.in/hls/srkcity.m3u8
 #EXTINF:-1 tvg-name="Dark Tv" group-title="Regional" tvg-logo="https://i.ibb.co/gLtBWtsP/1000137561.jpg",Dark Tv
 https://play.applelive.in/darktv/darktv.m3u8
-#EXTINF:-1 tvg-name="GTv" group-title="Regional" tvg-logo="https://i.ibb.co/Gv9jd5N6/1000137563.jpg",GTv
-https://play.applelive.in/gtvmax/gtvmax.m3u8
 #EXTINF:-1 tvg-name="Sri Vasanth Tv" group-title="Regional" tvg-logo="https://i.ibb.co/nNtWC4Wh/1000137565.jpg",Sri Vasanth Tv
 https://play.applelive.in/vasanthtv/vasanthtv.m3u8
