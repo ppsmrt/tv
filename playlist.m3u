@@ -759,3 +759,5 @@ https://play.applelive.in/gtvmax/gtvmax.m3u8
 https://play.applelive.in/vasanthtv/vasanthtv.m3u8
 #EXTINF:-1 tvg-name="PR Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7N2Wm1LH/1000138210.jpg",PR Tv
 http://applelive.in/prtv/prtv.m3u8
+#EXTINF:-1 tvg-name="JC Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7N2Wm1LH/1000138210.jpg",JC Tv
+https://ktismaservers.in:3545/live/jctvlive.m3u8
