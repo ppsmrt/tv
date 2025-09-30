@@ -125,6 +125,28 @@
         grouped[cat].push("💫 " + (c.name || "Unknown Channel"));
       });
 
+      // --- Supported players + languages block ---
+      const playersBlock =
+`𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙚𝙙 𝙄𝙋𝙏𝙑 𝙋𝙡𝙖𝙮𝙚𝙧𝙨
+➥ Tivimate
+➥ Ott Navigator
+➥ Ns Player
+➥ Televizo
+➥ IPTV Pro
+Much more apps are supported
+➖➖➖➖➖➖➖➖➖➖➖➖`;
+
+      const languagesBlock =
+`🇮🇳 Languages 
+♨️ Tamil
+♨️ Telugu
+♨️ Malayalam
+♨️ Kannada
+♨️ Hindi
+♨️ English
+♨️ Sinhala
+➖➖➖➖➖➖➖➖➖➖➖➖`;
+
       // Build full notification
       let full =
 `📺 𝙇𝙞𝙫𝙚 𝙏𝙫 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 𝘽𝙮 𝙏𝙣𝙢3𝙪
@@ -132,6 +154,8 @@
 📌 𝘼𝙗𝙤𝙪𝙩 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩
 Enjoy a wide range of regional and local Indian TV channels, and watch your favorite programs anytime, anywhere without interruptions.
 ➖➖➖➖➖➖➖➖➖➖➖➖
+${playersBlock}
+${languagesBlock}
 ✨ Newly Added Channels (Last 24h)
 `;
 
@@ -151,6 +175,9 @@ From ${oldCount} → ${newCount} total channels available now!
 ☀️ тим3υ ρℓαуℓιѕт
 http://tnm3u.live/playlist.m3u
 ➖➖➖➖➖➖➖➖➖➖➖➖
+📥 Android Application
+⚡️ Live Tv V1.1
+➖➖➖➖➖➖➖➖➖➖➖➖
 📢 For more updates follow our channel
 [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)
 ➖➖➖➖➖➖➖➖➖➖➖➖
@@ -160,7 +187,8 @@ Any concerns or takedown requests please mail to tnm3us@gmail.com. All queries w
       const whatsapp =
 `📺 Live TV By TNM3U
 🎬 ${newCount}+ Indian & International Channels
-♨️ Tamil | Telugu | Malayalam | Hindi | English
+${playersBlock}
+${languagesBlock}
 ✨ New Channels (24h):
 ${newChannels.map(c => "📺 " + c.name).join("\n") || "No new channels"}
 📡 Total: ${newCount} channels
@@ -173,13 +201,17 @@ ${newChannels.map(c => "📺 " + c.name).join("\n") || "No new channels"}
 `**📺 Live TV By TNM3U**
 
 🎬 ${newCount}+ Channels  
-♨️ Tamil | Telugu | Malayalam | Hindi | English  
+
+${playersBlock}
+
+${languagesBlock}
 
 📡 Channel Update: ${oldCount} → ${newCount} channels  
 ✨ **New Channels (24h):**  
 ${newChannels.map(c => "📺 " + c.name).join("\n") || "_No new channels today_"}  
 
 ☀️ Playlist: http://tnm3u.live/playlist.m3u  
+📥 Android App: Live Tv V1.1  
 📢 Follow: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)  
 🛡️ Issues: tnm3us@gmail.com`;
 
