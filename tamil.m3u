@@ -449,3 +449,5 @@ https://server.streamwell.in/hls/srkcity.m3u8
 https://play.applelive.in/darktv/darktv.m3u8
 #EXTINF:-1 tvg-name="Sri Vasanth Tv" group-title="Regional" tvg-logo="https://i.ibb.co/nNtWC4Wh/1000137565.jpg",Sri Vasanth Tv
 https://play.applelive.in/vasanthtv/vasanthtv.m3u8
+#EXTINF:-1 tvg-name="PR Tv" group-title="Regional" tvg-logo="https://i.ibb.co/7N2Wm1LH/1000138210.jpg",PR Tv
+http://applelive.in/prtv/prtv.m3u8
