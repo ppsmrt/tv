@@ -25,6 +25,7 @@ body {
   flex-direction: column;
 }
 
+/* Header */
 header {
   height: 64px;
   display: flex;
@@ -35,6 +36,11 @@ header {
   z-index: 20;
 }
 
+header a {
+  text-decoration: none;
+}
+
+/* Footer */
 footer {
   padding: 1rem;
   text-align: center;
@@ -44,12 +50,12 @@ footer {
   background: rgba(17,24,39,0.95);
 }
 
+/* Buttons */
 button, a {
   cursor: pointer;
-  text-decoration: none;
 }
 
-/* Buttons */
+/* Primary Button */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -75,7 +81,7 @@ h2.section-title {
   margin-bottom: 1rem;
 }
 
-/* Features Cards */
+/* Feature Cards */
 .feature-card {
   background: rgba(31,41,55,0.85);
   padding: 2rem;
@@ -93,9 +99,33 @@ h2.section-title {
   color: #f87171;
   margin-bottom: 0.5rem;
 }
+
+/* Home Options Cards */
+.home-option {
+  background: rgba(31,41,55,0.85);
+  padding: 2rem;
+  border-radius: 2xl;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.home-option:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.7);
+  background: rgba(31,41,55,0.95);
+}
+.home-option span {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-cols-3 { grid-template-columns: repeat(1, minmax(0,1fr)); }
+}
 </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
 <!-- Header -->
 <header class="flex items-center justify-between px-4">
@@ -108,32 +138,38 @@ h2.section-title {
     <a href="#download" class="text-red-400 font-semibold hover:text-pink-400 transition">Download</a>
   </nav>
 </header>
+
 <main class="flex-1 w-full flex flex-col items-center px-4 py-10">
 
   <!-- Hero Section -->
-<section class="w-full max-w-4xl text-center bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 rounded-3xl p-12 shadow-xl mb-12">
-  <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-6">Welcome to Live TV App</h2>
-  <p class="text-gray-300 text-lg sm:text-xl leading-relaxed mb-4">
-    Discover the ultimate platform to stream your favorite TV channels anytime, anywhere. Enjoy <strong>HD & 4K live streams</strong> across news, sports, movies, music, and more. Designed for a <strong>premium, smooth, and uninterrupted viewing experience</strong>, Live TV App keeps you connected to what matters most.
-  </p>
-  <p class="text-gray-400 text-md sm:text-lg leading-relaxed mb-6">
-    Our app offers <strong>fast, reliable streaming</strong> with easy navigation, customizable playlists, and continuous updates to ensure you always have access to the latest channels. Ideal for Android users, it’s your one-stop solution for live entertainment.
-  </p>
-  <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-    <a href="generate.html" class="btn-primary">Get Started</a>
-    <a href="#features" class="btn-primary">Explore Features</a>
-  </div>
-</section>
+  <section class="w-full max-w-4xl text-center bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 rounded-3xl p-12 shadow-xl mb-12">
+    <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-6">Welcome to Live TV App</h2>
+    <p class="text-gray-300 text-lg sm:text-xl leading-relaxed mb-4">
+      Stream your favorite channels anytime, anywhere. Enjoy <strong>HD & 4K live streams</strong> across news, sports, movies, music, and more.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+      <a href="/" class="btn-primary">Get Started</a>
+      <a href="#features" class="btn-primary">Explore Features</a>
+    </div>
+  </section>
 
-  <!-- About Section -->
-  <section class="w-full max-w-4xl mb-12 text-center">
-    <h3 class="text-3xl font-bold mb-4 text-white">About Live TV App</h3>
-    <p class="text-gray-300 text-lg leading-relaxed mb-4">
-      Live TV App consolidates all your favorite channels in one place. Whether you love sports, movies, music, or the latest news, our platform offers a **curated, high-quality streaming experience** that’s reliable and easy to use.
-    </p>
-    <p class="text-gray-300 text-lg leading-relaxed">
-      Organize your channels with playlists, explore multiple categories seamlessly, and enjoy a **fast, low-latency streaming experience** designed for Android devices. Your favorite shows and channels are always just a tap away.
-    </p>
+  <!-- Home Options -->
+  <section class="w-full max-w-4xl grid grid-cols-3 gap-6 mb-12 text-center">
+    <a href="browse.html" class="home-option flex flex-col items-center justify-center">
+      <span class="material-icons text-red-400">tv</span>
+      <h4 class="text-white font-semibold mb-1">Browse Online</h4>
+      <p class="text-gray-300 text-sm">Stream channels online instantly, no download required.</p>
+    </a>
+    <a href="#download" class="home-option flex flex-col items-center justify-center">
+      <span class="material-icons text-green-400">android</span>
+      <h4 class="text-white font-semibold mb-1">Download App</h4>
+      <p class="text-gray-300 text-sm">Get the Android app for seamless streaming anywhere.</p>
+    </a>
+    <a href="generate.html" class="home-option flex flex-col items-center justify-center">
+      <span class="material-icons text-pink-400">playlist_add</span>
+      <h4 class="text-white font-semibold mb-1">Use Playlist</h4>
+      <p class="text-gray-300 text-sm">Generate and manage playlists for your favorite channels.</p>
+    </a>
   </section>
 
   <!-- Features Section -->
@@ -141,77 +177,48 @@ h2.section-title {
     <div class="feature-card flex flex-col items-center">
       <span class="material-icons">hd</span>
       <h4 class="text-white font-semibold mb-2">HD & 4K Streams</h4>
-      <p class="text-gray-300 text-sm text-center">Enjoy crystal-clear high definition and 4K live streaming for all channels.</p>
+      <p class="text-gray-300 text-sm text-center">Crystal-clear high definition and 4K streaming for all channels.</p>
     </div>
     <div class="feature-card flex flex-col items-center">
       <span class="material-icons">category</span>
       <h4 class="text-white font-semibold mb-2">Multi-Category Channels</h4>
-      <p class="text-gray-300 text-sm text-center">Access a wide range of categories including sports, news, movies, and music.</p>
+      <p class="text-gray-300 text-sm text-center">Sports, news, movies, music, and more categories available.</p>
     </div>
     <div class="feature-card flex flex-col items-center">
       <span class="material-icons">update</span>
       <h4 class="text-white font-semibold mb-2">Regular Updates</h4>
       <p class="text-gray-300 text-sm text-center">Channels and playlists are updated frequently for uninterrupted streaming.</p>
     </div>
-    <div class="feature-card flex flex-col items-center">
-      <span class="material-icons">bolt</span>
-      <h4 class="text-white font-semibold mb-2">Fast & Reliable</h4>
-      <p class="text-gray-300 text-sm text-center">Low-latency streaming ensures smooth playback across all channels.</p>
-    </div>
-    <div class="feature-card flex flex-col items-center">
-      <span class="material-icons">devices</span>
-      <h4 class="text-white font-semibold mb-2">Android Optimized</h4>
-      <p class="text-gray-300 text-sm text-center">Optimized performance for all Android devices, including phones and tablets.</p>
-    </div>
-    <div class="feature-card flex flex-col items-center">
-      <span class="material-icons">download</span>
-      <h4 class="text-white font-semibold mb-2">Offline Access</h4>
-      <p class="text-gray-300 text-sm text-center">Download playlists and enjoy your favorite channels without internet connectivity.</p>
-    </div>
   </section>
 
   <!-- Call to Action Section -->
-<section class="w-full max-w-4xl text-center mb-12 bg-gray-800/80 p-12 rounded-3xl shadow-xl">
-  <h3 class="text-3xl font-extrabold text-white mb-4">Ready to Unlock Premium Live TV?</h3>
-  <p class="text-gray-300 text-lg mb-6">
-    Generate your personalized playlist instantly and enjoy **HD & 4K streaming** across all categories — news, sports, movies, and music.
-  </p>
+  <section class="w-full max-w-4xl text-center mb-12 bg-gray-800/80 p-12 rounded-3xl shadow-xl">
+    <h3 class="text-3xl font-extrabold text-white mb-4">Ready to Unlock Premium Live TV?</h3>
+    <p class="text-gray-300 text-lg mb-6">
+      Generate your personalized playlist instantly and enjoy **HD & 4K streaming** across all categories — news, sports, movies, and music.
+    </p>
+    <a href="generate.html" class="btn-primary text-lg px-12 py-4 inline-flex items-center justify-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+      <span class="material-icons">playlist_add</span> Get Your Playlist Now
+    </a>
+  </section>
 
-  <!-- Mini Features -->
-  <div class="flex justify-center gap-6 mb-6 flex-wrap text-gray-200">
-    <div class="flex items-center gap-1 font-medium">
-      <span class="material-icons text-red-400">hd</span> HD & 4K
-    </div>
-    <div class="flex items-center gap-1 font-medium">
-      <span class="material-icons text-red-400">category</span> Multi-Category
-    </div>
-    <div class="flex items-center gap-1 font-medium">
-      <span class="material-icons text-red-400">download</span> Offline Access
-    </div>
-  </div>
-
-  <a href="generate.html" class="btn-primary text-lg px-12 py-4 inline-flex items-center justify-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
-    <span class="material-icons">playlist_add</span> Generate Your Playlist Now
-  </a>
-</section>
-
-<!-- Android Download Section -->
-<section id="download" class="w-full max-w-4xl text-center mb-12 bg-gray-800/80 p-12 rounded-3xl shadow-xl">
-  <h3 class="text-3xl font-bold mb-4 text-white">Download Android App</h3>
-  <p class="text-gray-300 text-lg mb-6">
-    Enjoy Live TV anywhere on your Android device. Download the APK safely and start streaming premium channels instantly.
-  </p>
-  <a href="#" class="btn-primary text-lg px-12 py-4 inline-flex items-center justify-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
-    <span class="material-icons">android</span> Download for Android
-  </a>
-  <p class="text-gray-400 text-sm mt-4">Compatible with Android 5.0+ devices. Safe & secure download.</p>
-</section>
+  <!-- Android Download Section -->
+  <section id="download" class="w-full max-w-4xl text-center mb-12 bg-gray-800/80 p-12 rounded-3xl shadow-xl">
+    <h3 class="text-3xl font-bold mb-4 text-white">Download Android App</h3>
+    <p class="text-gray-300 text-lg mb-6">
+      Enjoy Live TV anywhere on your Android device. Download the APK safely and start streaming premium channels instantly.
+    </p>
+    <a href="#" class="btn-primary text-lg px-12 py-4 inline-flex items-center justify-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+      <span class="material-icons">android</span> Download for Android
+    </a>
+    <p class="text-gray-400 text-sm mt-4">Compatible with Android 5.0+ devices. Safe & secure download.</p>
+  </section>
 
 </main>
 
 <!-- Footer -->
 <footer>
-  &copy; 2025 Live TV App. All Rights Reserved.
+ TNM3U &copy; 2025. All Rights Reserved.
 </footer>
 
 </body>
