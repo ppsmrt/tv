@@ -761,3 +761,5 @@ https://play.applelive.in/vasanthtv/vasanthtv.m3u8
 http://applelive.in/prtv/prtv.m3u8
 #EXTINF:-1 tvg-name="JC Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/4nj5qDL9/1000138217.webp",JC Tv
 https://ktismaservers.in:3545/live/jctvlive.m3u8
+#EXTINF:-1 tvg-name="Riya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/HLbWPVYf/1000138231.jpg",Riya Tv
+http://applelive.in/riyatv/riyatv.m3u8
