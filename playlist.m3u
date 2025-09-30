@@ -755,3 +755,5 @@ https://server.streamwell.in/hls/srkcity.m3u8
 https://play.applelive.in/darktv/darktv.m3u8
 #EXTINF:-1 tvg-name="GTv" group-title="Tamil" tvg-logo="https://i.ibb.co/Gv9jd5N6/1000137563.jpg",GTv
 https://play.applelive.in/gtvmax/gtvmax.m3u8
+#EXTINF:-1 tvg-name="Sri Vasanth Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/nNtWC4Wh/1000137565.jpg",Sri Vasanth Tv
+https://play.applelive.in/vasanthtv/vasanthtv.m3u8
