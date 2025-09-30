@@ -447,3 +447,7 @@ http://almthendraltv.phoenixcreations.online/almthendraltv/almthendraltv/playlis
 http://sartv.phoenixcreations.online/sartv/sartv/playlist.m3u8
 #EXTINF:-1 tvg-name="SRK HD TV" group-title="Regional" tvg-logo="https://i.ibb.co/FLcN9gdh/1000137367.png",SRK HD TV
 https://server.streamwell.in/hls/srkcity.m3u8
+#EXTINF:-1 tvg-name="Dark Tv" group-title="Regional" tvg-logo="https://i.ibb.co/gLtBWtsP/1000137561.jpg",Dark Tv
+https://play.applelive.in/darktv/darktv.m3u8
+#EXTINF:-1 tvg-name="GTv" group-title="Regional" tvg-logo="https://i.ibb.co/Gv9jd5N6/1000137563.jpg",GTv
+https://play.applelive.in/gtvmax/gtvmax.m3u8
