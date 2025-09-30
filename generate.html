@@ -1,233 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>📺 Live TV Auto Notification</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f9f9fb, #f1f4ff);
-      margin: 0; padding: 20px;
-      color: #222;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Font Generator</title>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Lobster&family=Pacifico&family=Playfair+Display&family=Poppins&family=Monoton&family=Fredoka+One&family=Press+Start+2P&family=Bangers&family=Kaushan+Script&family=Orbitron&family=Raleway&family=Dancing+Script&family=Shadows+Into+Light&family=Indie+Flower&family=Gloria+Hallelujah&family=Fjalla+One&family=Caveat&family=Courgette&family=Amatic+SC&family=Zilla+Slab&family=Major+Mono+Display&family=Patrick+Hand&family=Chewy&family=Baloo+2&family=Exo+2&family=Kalam&family=Permanent+Marker&family=Cookie&family=Righteous&family=Sigmar+One&family=Architects+Daughter&family=Arvo&family=Special+Elite&family=Luckiest+Guy&family=Great+Vibes&family=Sacramento&family=Yellowtail&family=Poiret+One&family=Unica+One&family=Russo+One&family=Varela+Round&family=Overpass&family=Teko&family=Anton&family=Prompt&family=Titillium+Web&family=Julius+Sans+One&family=Abril+Fatface&display=swap" rel="stylesheet">  <style>
+    .font-box {
+      transition: transform 0.2s;
     }
-    h1 {
-      text-align: center;
-      color: #111;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+    .font-box:hover {
+      transform: scale(1.02);
     }
-    h3 {
-      margin: 15px 0 8px;
-      font-size: 1rem;
-      color: #333;
-    }
-    .card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .output {
-      background: #fafafa;
-      border: 1px solid #ddd;
-      padding: 14px;
-      border-radius: 8px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 10px;
-      font-family: monospace;
-    }
-    button {
-      display: inline-block;
-      background: #007bff;
-      color: white;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      margin-top: 5px;
-    }
-    button:hover { background: #0056b3; }
-  </style>
-</head>
-<body>
-  <h1>📺 Live TV Auto Notification</h1>
+  </style></head>
+<body class="bg-gray-100 text-gray-900 font-sans">  <!-- Header -->  <header class="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 shadow-lg text-white flex items-center justify-between">
+    <h1 class="text-2xl font-bold"><i class="fa-solid fa-font"></i> Premium Font Generator</h1>
+  </header>  <!-- Input Section -->  <section class="p-6">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-lg flex flex-col gap-3">
+      <input id="userInput" type="text" placeholder="Type your text here..." class="border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <button onclick="generateFonts()" class="bg-indigo-600 text-white px-6 py-2 rounded-xl shadow hover:bg-indigo-700 flex items-center justify-center gap-2"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate</button>
+    </div>
+  </section>  <!-- Font Output Section -->  <section id="output" class="p-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6"></section>  <!-- Toast Notification -->  <div id="toast" class="fixed bottom-5 right-5 hidden bg-black text-white px-4 py-2 rounded-lg shadow-lg"></div>  <script>
+    const fonts = [
+      'Roboto','Lobster','Pacifico','Playfair Display','Poppins','Monoton','Fredoka One','Press Start 2P','Bangers','Kaushan Script','Orbitron','Raleway','Dancing Script','Shadows Into Light','Indie Flower','Gloria Hallelujah','Fjalla One','Caveat','Courgette','Amatic SC','Zilla Slab','Major Mono Display','Patrick Hand','Chewy','Baloo 2','Exo 2','Kalam','Permanent Marker','Cookie','Righteous','Sigmar One','Architects Daughter','Arvo','Special Elite','Luckiest Guy','Great Vibes','Sacramento','Yellowtail','Poiret One','Unica One','Russo One','Varela Round','Overpass','Teko','Anton','Prompt','Titillium Web','Julius Sans One','Abril Fatface'
+    ];
 
-  <div class="card">
-    <h3>📄 Full Notification (New Channels Only)</h3>
-    <div class="output" id="fullOutput">⏳ Loading...</div>
-    <button onclick="copyText('fullOutput')">📋 Copy Full</button>
-  </div>
-
-  <div class="card">
-    <h3>📱 WhatsApp Notification</h3>
-    <div class="output" id="whatsappOutput">⏳ Loading...</div>
-    <button onclick="copyText('whatsappOutput')">📋 Copy WhatsApp</button>
-  </div>
-
-  <div class="card">
-    <h3>💬 Discord Notification</h3>
-    <div class="output" id="discordOutput">⏳ Loading...</div>
-    <button onclick="copyText('discordOutput')">📋 Copy Discord</button>
-  </div>
-
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.firebasestorage.app",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    async function fetchChannels() {
-      const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, "channels"));
-
-      if (!snapshot.exists()) {
-        document.getElementById("fullOutput").textContent = "⚠ No channels found!";
+    function generateFonts(){
+      const text = document.getElementById('userInput').value.trim();
+      const output = document.getElementById('output');
+      output.innerHTML = '';
+      if(!text){
+        showToast('⚠️ Please enter some text!');
         return;
       }
-
-      const data = snapshot.val();
-      const channels = Object.values(data);
-      const total = channels.length;
-
-      // Detect new channels (last 24h)
-      const now = new Date();
-      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
-      const newChannels = channels.filter(c => c.createdAt && new Date(c.createdAt).getTime() >= last24h);
-
-      const oldCount = total - newChannels.length;
-      const newCount = total;
-
-      // Group only NEW channels by category
-      const grouped = {};
-      newChannels.forEach(c => {
-        const cat = c.category || "Other";
-        if (!grouped[cat]) grouped[cat] = [];
-        grouped[cat].push("💫 " + (c.name || "Unknown Channel"));
-      });
-
-      // --- Supported players + languages block ---
-      const playersBlock =
-`𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙚𝙙 𝙄𝙋𝙏𝙑 𝙋𝙡𝙖𝙮𝙚𝙧𝙨
-➥ Tivimate
-➥ Ott Navigator
-➥ Ns Player
-➥ Televizo
-➥ IPTV Pro
-Much more apps are supported
-➖➖➖➖➖➖➖➖➖➖➖➖`;
-
-      const languagesBlock =
-`🇮🇳 Languages 
-♨️ Tamil
-♨️ Telugu
-♨️ Malayalam
-♨️ Kannada
-♨️ Hindi
-♨️ English
-♨️ Sinhala
-➖➖➖➖➖➖➖➖➖➖➖➖`;
-
-      // Build full notification
-      let full =
-`📺 𝙇𝙞𝙫𝙚 𝙏𝙫 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 𝘽𝙮 𝙏𝙣𝙢3𝙪
-➖➖➖➖➖➖➖➖➖➖➖➖
-📌 𝘼𝙗𝙤𝙪𝙩 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩
-Enjoy a wide range of regional and local Indian TV channels, and watch your favorite programs anytime, anywhere without interruptions.
-➖➖➖➖➖➖➖➖➖➖➖➖
-${playersBlock}
-${languagesBlock}
-✨ Newly Added Channels (Last 24h)
-`;
-
-      if (newChannels.length === 0) {
-        full += "⚠ No new channels added in the last 24h.\n\n";
-      } else {
-        for (const cat of Object.keys(grouped)) {
-          full += `♻️ ${cat} Channels\n` + grouped[cat].join("\n") + "\n\n";
-        }
-      }
-
-      full += 
-`➖➖➖➖➖➖➖➖➖➖➖➖
-📡 Channel Update
-From ${oldCount} → ${newCount} total channels available now!
-➖➖➖➖➖➖➖➖➖➖➖➖
-☀️ тим3υ ρℓαуℓιѕт
-http://tnm3u.live/playlist.m3u
-➖➖➖➖➖➖➖➖➖➖➖➖
-📥 Android Application
-⚡️ Live Tv V1.1
-➖➖➖➖➖➖➖➖➖➖➖➖
-📢 For more updates follow our channel
-[Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)
-➖➖➖➖➖➖➖➖➖➖➖➖
-Any concerns or takedown requests please mail to tnm3us@gmail.com. All queries will be evaluated and resolved in 48 hours.`;
-
-      // WhatsApp version
-      const whatsapp =
-`📺 Live TV By TNM3U
-🎬 ${newCount}+ Indian & International Channels
-${playersBlock}
-${languagesBlock}
-✨ New Channels (24h):
-${newChannels.map(c => "📺 " + c.name).join("\n") || "No new channels"}
-📡 Total: ${newCount} channels
-☀️ Playlist: http://tnm3u.live/playlist.m3u
-📢 Updates: Telegram | WhatsApp | Discord
-🛡️ Issues: tnm3us@gmail.com`;
-
-      // Discord version
-      const discord =
-`**📺 Live TV By TNM3U**
-
-🎬 ${newCount}+ Channels  
-
-${playersBlock}
-
-${languagesBlock}
-
-📡 Channel Update: ${oldCount} → ${newCount} channels  
-✨ **New Channels (24h):**  
-${newChannels.map(c => "📺 " + c.name).join("\n") || "_No new channels today_"}  
-
-☀️ Playlist: http://tnm3u.live/playlist.m3u  
-📥 Android App: Live Tv V1.1  
-📢 Follow: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)  
-🛡️ Issues: tnm3us@gmail.com`;
-
-      document.getElementById("fullOutput").textContent = full;
-      document.getElementById("whatsappOutput").textContent = whatsapp;
-      document.getElementById("discordOutput").textContent = discord;
-    }
-
-    fetchChannels();
-
-    window.copyText = function(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied!");
+      fonts.forEach(font => {
+        const box = document.createElement('div');
+        box.className = 'font-box bg-white p-4 rounded-xl shadow cursor-pointer';
+        box.style.fontFamily = `'${font}', cursive, sans-serif`;
+        box.innerHTML = `<div class="flex justify-between items-center"><span class="text-lg">${text}</span><button class="ml-2 text-indigo-600" onclick=\"copyText(\'${text}\',this)\"><i class='fa-solid fa-copy'></i></button></div><p class='text-sm text-gray-500 mt-1'>${font}</p>`;
+        output.appendChild(box);
       });
     }
-  </script>
-</body>
+
+    function copyText(text,btn){
+      navigator.clipboard.writeText(text).then(()=>{
+        showToast('✅ Copied to clipboard!');
+        btn.classList.add('text-green-600');
+        setTimeout(()=>btn.classList.remove('text-green-600'),1500);
+      });
+    }
+
+    function showToast(msg){
+      const toast=document.getElementById('toast');
+      toast.innerText=msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('opacity-100');
+      setTimeout(()=>{
+        toast.classList.add('hidden');
+      },2000);
+    }
+  </script></body>
 </html>
