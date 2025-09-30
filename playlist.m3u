@@ -282,7 +282,7 @@ https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 #EXTINF:-1 tvg-name="Aadhavan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/GQn3zdXz/1000122170.jpg",Aadhavan Tv
 https://ipcloud.live/aadhavantv/aadhavanhd/index.m3u8
 #EXTINF:-1 tvg-name="Apple" group-title="Tamil" tvg-logo="https://i.ibb.co/tMf6VD68/1000122172.jpg",Apple
-https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
+https://play.applelive.in/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="Agilam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zHsXQ0Vk/1000122174.jpg",Agilam Tv
 https://stream.onecloudlive.in/akilamtv/akilamtvhd/index.m3u8
 #EXTINF:-1 tvg-name="3 Star Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/5WCcZ58x/1000122176.jpg",3 Star Tv
@@ -719,3 +719,35 @@ https://galaxyott.live/hls/suryatv.m3u8
 http://applelive.in/smaxtv/smaxtv.m3u8
 #EXTINF:-1 tvg-name="Rock Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/pjNZprmf/1000137245.jpg",Rock Tv
 https://apis.avmediawork.in/tvhls/rocktv.m3u8
+#EXTINF:-1 tvg-name="SMCV Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/jNxtjPP/1000137250.jpg",SMCV Tv
+https://singamcloud.in/smcvtv/smcvtv/index.m3u8
+#EXTINF:-1 tvg-name="DJeyam" group-title="Tamil" tvg-logo="https://i.ibb.co/VYbgLDk7/1000137312.jpg",DJeyam
+https://stream.singamcloud.in/djeyam/djeyam/index.m3u8
+#EXTINF:-1 tvg-name="Jeyam Plus Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/VpNW1qjH/1000137313.jpg",Jeyam Plus Tv
+https://stream.singamcloud.in/jeyamplus/jeyamplus/index.m3u8
+#EXTINF:-1 tvg-name="Shalini Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/KpXXsqgh/1000137315.png",Shalini Tv
+http://live.singamcloud.in/shalinitv/shalinitv/index.m3u8
+#EXTINF:-1 tvg-name="Manisha Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/5Xk8YC8k/1000137316.webp",Manisha Tv
+https://stream.sscloud7.in/live/maishatv/index.m3u8
+#EXTINF:-1 tvg-name="GSJK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/JFkSgmqh/1000137318.jpg",GSJK Tv
+http://brightmeltech.in/gsjktv/gsjktv.m3u8
+#EXTINF:-1 tvg-name="Maa Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/tpjPhVqr/1000137324.jpg",Maa Tv
+https://live.singamcloud.in/maatv/maatv/index.m3u8
+#EXTINF:-1 tvg-name="Teak Vision HD" group-title="Tamil" tvg-logo="https://i.ibb.co/JWVTVBqs/1000137330.jpg",Teak Vision HD
+https://hd.singamcloud.in/teakvision/teakvision/index.m3u8
+#EXTINF:-1 tvg-name="Sasi HD" group-title="Tamil" tvg-logo="https://i.ibb.co/Nnmrhy66/1000137338.png",Sasi HD
+http://sasitv.phoenixcreations.online/sasitv/sasitv/playlist.m3u8
+#EXTINF:-1 tvg-name="Subash Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/KjtgcG4m/1000137340.png",Subash Tv
+https://ipcloud.live/subashtv/subashhd/index.m3u8
+#EXTINF:-1 tvg-name="Madhan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/6cbshJhQ/1000137342.png",Madhan Tv
+http://madhantv.phoenixcreations.online/madhantv/madhantv/playlist.m3u8
+#EXTINF:-1 tvg-name="Magizh Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/PGkM1C1h/1000137344.png",Magizh Tv
+http://magizhtv.phoenixcreations.online/magizhtv/magizhtv/playlist.m3u8
+#EXTINF:-1 tvg-name="APS Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/bMpwqJXb/1000137350.png",APS Tv
+http://apstv.phoenixcreations.online/apstv/apstv/playlist.m3u8
+#EXTINF:-1 tvg-name="Thendral HD" group-title="Tamil" tvg-logo="https://i.ibb.co/svb85Vyw/1000137351.png",Thendral HD
+http://almthendraltv.phoenixcreations.online/almthendraltv/almthendraltv/playlist.m3u8
+#EXTINF:-1 tvg-name="SAR Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/KtpnCCy/1000137356.jpg",SAR Tv
+http://sartv.phoenixcreations.online/sartv/sartv/playlist.m3u8
+#EXTINF:-1 tvg-name="SRK HD TV" group-title="Tamil" tvg-logo="https://i.ibb.co/FLcN9gdh/1000137367.png",SRK HD TV
+https://server.streamwell.in/hls/srkcity.m3u8
