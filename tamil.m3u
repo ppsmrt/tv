@@ -118,7 +118,7 @@ https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 #EXTINF:-1 tvg-name="Aadhavan Tv" group-title="Regional" tvg-logo="https://i.ibb.co/GQn3zdXz/1000122170.jpg",Aadhavan Tv
 https://ipcloud.live/aadhavantv/aadhavanhd/index.m3u8
 #EXTINF:-1 tvg-name="Apple" group-title="Regional" tvg-logo="https://i.ibb.co/tMf6VD68/1000122172.jpg",Apple
-https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
+https://play.applelive.in/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="Agilam Tv" group-title="Regional" tvg-logo="https://i.ibb.co/zHsXQ0Vk/1000122174.jpg",Agilam Tv
 https://stream.onecloudlive.in/akilamtv/akilamtvhd/index.m3u8
 #EXTINF:-1 tvg-name="3 Star Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/5WCcZ58x/1000122176.jpg",3 Star Tv
@@ -437,3 +437,13 @@ http://sasitv.phoenixcreations.online/sasitv/sasitv/playlist.m3u8
 https://ipcloud.live/subashtv/subashhd/index.m3u8
 #EXTINF:-1 tvg-name="Madhan Tv" group-title="Regional" tvg-logo="https://i.ibb.co/6cbshJhQ/1000137342.png",Madhan Tv
 http://madhantv.phoenixcreations.online/madhantv/madhantv/playlist.m3u8
+#EXTINF:-1 tvg-name="Magizh Tv" group-title="Regional" tvg-logo="https://i.ibb.co/PGkM1C1h/1000137344.png",Magizh Tv
+http://magizhtv.phoenixcreations.online/magizhtv/magizhtv/playlist.m3u8
+#EXTINF:-1 tvg-name="APS Tv" group-title="Regional" tvg-logo="https://i.ibb.co/bMpwqJXb/1000137350.png",APS Tv
+http://apstv.phoenixcreations.online/apstv/apstv/playlist.m3u8
+#EXTINF:-1 tvg-name="Thendral HD" group-title="Regional" tvg-logo="https://i.ibb.co/svb85Vyw/1000137351.png",Thendral HD
+http://almthendraltv.phoenixcreations.online/almthendraltv/almthendraltv/playlist.m3u8
+#EXTINF:-1 tvg-name="SAR Tv" group-title="Regional" tvg-logo="https://i.ibb.co/KtpnCCy/1000137356.jpg",SAR Tv
+http://sartv.phoenixcreations.online/sartv/sartv/playlist.m3u8
+#EXTINF:-1 tvg-name="SRK HD TV" group-title="Regional" tvg-logo="https://i.ibb.co/FLcN9gdh/1000137367.png",SRK HD TV
+https://server.streamwell.in/hls/srkcity.m3u8
