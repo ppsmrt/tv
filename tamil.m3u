@@ -453,3 +453,13 @@ https://play.applelive.in/vasanthtv/vasanthtv.m3u8
 http://applelive.in/prtv/prtv.m3u8
 #EXTINF:-1 tvg-name="JC Tv" group-title="Regional" tvg-logo="https://i.ibb.co/4nj5qDL9/1000138217.webp",JC Tv
 https://ktismaservers.in:3545/live/jctvlive.m3u8
+#EXTINF:-1 tvg-name="Riya Tv" group-title="Regional" tvg-logo="https://i.ibb.co/HLbWPVYf/1000138231.jpg",Riya Tv
+http://applelive.in/riyatv/riyatv.m3u8
+#EXTINF:-1 tvg-name="G Tv Kumbakonam" group-title="Regional" tvg-logo="https://i.ibb.co/zhsj0pdV/1000138237.jpg",G Tv Kumbakonam
+http://live.singamcloud.in/gtv/gtv/index.m3u8
+#EXTINF:-1 tvg-name="Garudan Tv" group-title="Regional" tvg-logo="https://i.ibb.co/PGcKNYxD/1000138239.jpg",Garudan Tv
+http://garudatv.applelive.in/hls/garudantv.m3u8
+#EXTINF:-1 tvg-name="Sri Krishna Tv" group-title="Regional" tvg-logo="https://i.ibb.co/20m9gFyp/1000138241.jpg",Sri Krishna Tv
+http://media.7starcloud.com:1935/erodekrishnatv/livestream/playlist.m3u8
+#EXTINF:-1 tvg-name="NTN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/ZpTQJjWL/1000138244.jpg",NTN Tv
+https://live.skystream.in/live/ntntv/index.m3u8
