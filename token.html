@@ -3,196 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FM Radio Auto Notification</title>
+  <title>Auto Notification Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9fb;
-      padding: 20px;
-    }
-    h1 { text-align: center; color: #333; }
-    .output {
-      background: white;
-      border: 1px solid #ddd;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 14px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 5px 0;
-    }
-    button:hover { background: #0056b3; }
-  </style>
-</head>
-<body>
-  <h1>📻 FM Radio Auto Notification</h1>
-
-  <div>
-    <h3>📄 Full Notification</h3>
-    <div class="output" id="fullOutput"></div>
-    <button onclick="copyText('fullOutput')">Copy Full</button>
-  </div>
-
-  <div>
-    <h3>📱 WhatsApp Notification</h3>
-    <div class="output" id="whatsappOutput"></div>
-    <button onclick="copyText('whatsappOutput')">Copy WhatsApp</button>
-  </div>
-
-  <div>
-    <h3>💬 Discord Notification</h3>
-    <div class="output" id="discordOutput"></div>
-    <button onclick="copyText('discordOutput')">Copy Discord</button>
-  </div>
-
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.firebasestorage.app",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    async function fetchRadios() {
-      const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, "radios"));
-
-      if (!snapshot.exists()) {
-        document.getElementById("fullOutput").textContent = "⚠ No radios found!";
-        return;
-      }
-
-      const data = snapshot.val();
-      const radios = Object.values(data);
-      const total = radios.length;
-
-      // Group radios by language
-      const grouped = {};
-      radios.forEach(r => {
-        const lang = r.language || "Other";
-        if (!grouped[lang]) grouped[lang] = [];
-        grouped[lang].push("📻 " + (r.name || "Unknown Radio"));
-      });
-
-      // Detect new radios (last 24h)
-      const now = new Date();
-      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
-      const newRadios = radios.filter(r => r.createdAt && new Date(r.createdAt).getTime() >= last24h);
-
-      const oldCount = total - newRadios.length;
-      const newCount = total;
-
-      // Build full notification
-      let full =
-`📻 𝙁𝙈 𝙍𝙖𝙙𝙞𝙤 𝘽𝙮 𝙏𝙉𝙈3𝙐
-➖➖➖➖➖➖➖➖➖➖➖➖
-🎶 About Application 
-Stream your favorite Indian and international FM stations in Tamil, English, Telugu, Malayalam, and Hindi. Enjoy music, talk shows, and nonstop entertainment anytime, anywhere!
-➖➖➖➖➖➖➖➖➖➖➖➖
-🇮🇳 Languages 
-♨️ Tamil
-♨️ Telugu
-♨️ Malayalam
-♨️ Hindi
-♨️ English
-➖➖➖➖➖➖➖➖➖➖➖➖
-`;
-
-      // Add grouped radios
-      for (const lang of Object.keys(grouped)) {
-        full += `☘ ${lang} FM Stations\n` + grouped[lang].join("\n") + "\n\n";
-      }
-
-      // Channel update
-      full += 
-`➖➖➖➖➖➖➖➖➖➖➖➖
-📡 Channel Update
-From ${oldCount} → ${newCount} channels, giving you more nonstop music, talk shows, and entertainment.
-➖➖➖➖➖➖➖➖➖➖➖➖
-🤝 Community Help
-Help us make FM Radio even better!
-🔍 If any 24/7 channels are missing or mixed with local channels, please report them.
-📩 We’ll review and add them quickly to keep the station collection complete and accurate.
-➖➖➖➖➖➖➖➖➖➖➖➖
-📥 Download Now
-⚡️ FM Radio App
-➖➖➖➖➖➖➖➖➖➖➖➖
-🚀 For more updates follow us
-Telegram | WhatsApp | Discord
-➖➖➖➖➖➖➖➖➖➖➖➖
-Any concerns, adding your fm channels, promotion in the app please mail to us tnm3us@gmail.com all queries will be evaluated and resolved in 48 hours.
-`;
-
-      // WhatsApp version
-      const whatsapp =
-`📻 FM Radio By TNM3U
-🎶 ${newCount}+ Indian & International FM Stations
-♨️ Tamil | Telugu | Malayalam | Hindi | English
-✨ New Radios:
-${newRadios.map(r => "📻 " + r.name).join("\n") || "No new radios in last 24h"}
-📡 Total: ${newCount} channels
-📥 Download Now & Enjoy!`;
-
-      // Discord version
-      const discord =
-`**📻 FM Radio By TNM3U**
-
-🎶 ${newCount}+ Stations
-♨️ Tamil | Telugu | Malayalam | Hindi | English
-
-📡 Channel Update: ${oldCount} → ${newCount} stations
-✨ **New Radios:**
-${newRadios.map(r => "📻 " + r.name).join("\n") || "_No new radios today_"}
-
-🤝 Help us improve: Report missing/mixed channels.
-
-📥 Download Now!`;
-
-      document.getElementById("fullOutput").textContent = full;
-      document.getElementById("whatsappOutput").textContent = whatsapp;
-      document.getElementById("discordOutput").textContent = discord;
-    }
-
-    fetchRadios();
-
-    window.copyText = function(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied!");
-      });
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>📺 Live TV Auto Notification</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #f9f9fb, #f1f4ff);
       margin: 0; padding: 20px;
       color: #222;
@@ -203,6 +17,7 @@ ${newRadios.map(r => "📻 " + r.name).join("\n") || "_No new radios today_"}
       font-size: 1.8rem;
       margin-bottom: 20px;
     }
+    h2 { margin-top: 40px; text-align:center; color:#444; }
     h3 {
       margin: 15px 0 8px;
       font-size: 1rem;
@@ -243,24 +58,42 @@ ${newRadios.map(r => "📻 " + r.name).join("\n") || "_No new radios today_"}
   </style>
 </head>
 <body>
-  <h1>📺 Live TV Auto Notification</h1>
+  <h1>📢 Auto Notification Generator</h1>
 
+  <!-- ================= FM Radio ================= -->
+  <h2>📻 FM Radio Auto Notification</h2>
   <div class="card">
-    <h3>📄 Full Notification (New Channels Only)</h3>
-    <div class="output" id="fullOutput">⏳ Loading...</div>
-    <button onclick="copyText('fullOutput')">📋 Copy Full</button>
+    <h3>📄 Full Notification</h3>
+    <div class="output" id="fmFull">⏳ Loading...</div>
+    <button onclick="copyText('fmFull')">📋 Copy Full</button>
   </div>
-
   <div class="card">
     <h3>📱 WhatsApp Notification</h3>
-    <div class="output" id="whatsappOutput">⏳ Loading...</div>
-    <button onclick="copyText('whatsappOutput')">📋 Copy WhatsApp</button>
+    <div class="output" id="fmWhatsapp">⏳ Loading...</div>
+    <button onclick="copyText('fmWhatsapp')">📋 Copy WhatsApp</button>
   </div>
-
   <div class="card">
     <h3>💬 Discord Notification</h3>
-    <div class="output" id="discordOutput">⏳ Loading...</div>
-    <button onclick="copyText('discordOutput')">📋 Copy Discord</button>
+    <div class="output" id="fmDiscord">⏳ Loading...</div>
+    <button onclick="copyText('fmDiscord')">📋 Copy Discord</button>
+  </div>
+
+  <!-- ================= Live TV ================= -->
+  <h2>📺 Live TV Auto Notification</h2>
+  <div class="card">
+    <h3>📄 Full Notification (New Channels Only)</h3>
+    <div class="output" id="tvFull">⏳ Loading...</div>
+    <button onclick="copyText('tvFull')">📋 Copy Full</button>
+  </div>
+  <div class="card">
+    <h3>📱 WhatsApp Notification</h3>
+    <div class="output" id="tvWhatsapp">⏳ Loading...</div>
+    <button onclick="copyText('tvWhatsapp')">📋 Copy WhatsApp</button>
+  </div>
+  <div class="card">
+    <h3>💬 Discord Notification</h3>
+    <div class="output" id="tvDiscord">⏳ Loading...</div>
+    <button onclick="copyText('tvDiscord')">📋 Copy Discord</button>
   </div>
 
   <!-- Firebase -->
@@ -282,28 +115,120 @@ ${newRadios.map(r => "📻 " + r.name).join("\n") || "_No new radios today_"}
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    async function fetchChannels() {
-      const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, "channels"));
-
+    // ================= FM Radio =================
+    async function fetchRadios() {
+      const snapshot = await get(child(ref(db), "radios"));
       if (!snapshot.exists()) {
-        document.getElementById("fullOutput").textContent = "⚠ No channels found!";
+        document.getElementById("fmFull").textContent = "⚠ No radios found!";
+        document.getElementById("fmWhatsapp").textContent = "⚠ No radios found!";
+        document.getElementById("fmDiscord").textContent = "⚠ No radios found!";
         return;
       }
 
-      const data = snapshot.val();
-      const channels = Object.values(data);
-      const total = channels.length;
+      const radios = Object.values(snapshot.val());
+      const total = radios.length;
+      const now = new Date();
+      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
+      const newRadios = radios.filter(r => r.createdAt && new Date(r.createdAt).getTime() >= last24h);
+      const oldCount = total - newRadios.length;
 
-      // Detect new channels (last 24h)
+      // ---------- GROUP ONLY NEW RADIOS (last 24h) ----------
+      const groupedNew = {};
+      newRadios.forEach(r => {
+        const lang = r.language || "Other";
+        if (!groupedNew[lang]) groupedNew[lang] = [];
+        groupedNew[lang].push("📻 " + (r.name || "Unknown Radio"));
+      });
+
+      // Full FM Notification: show only newly added radios (last 24h)
+      let full =
+`📻 𝙁𝙈 𝙍𝙖𝙙𝙞𝙤 𝘽𝙮 𝙏𝙉𝙈3𝙐
+➖➖➖➖➖➖➖➖➖➖➖➖
+🎶 About Application 
+Stream your favorite Indian and international FM stations in Tamil, English, Telugu, Malayalam, and Hindi. Enjoy music, talk shows, and nonstop entertainment anytime, anywhere!
+➖➖➖➖➖➖➖➖➖➖➖➖
+🇮🇳 Languages 
+♨️ Tamil
+♨️ Telugu
+♨️ Malayalam
+♨️ Hindi
+♨️ English
+➖➖➖➖➖➖➖➖➖➖➖➖
+`;
+
+      if (newRadios.length === 0) {
+        full += "⚠ No new radios added in the last 24h.\n\n";
+      } else {
+        for (const lang of Object.keys(groupedNew)) {
+          full += `☘ ${lang} FM Stations\n` + groupedNew[lang].join("\n") + "\n\n";
+        }
+      }
+
+      full += 
+`➖➖➖➖➖➖➖➖➖➖➖➖
+📡 Channel Update
+From ${oldCount} → ${total} channels, giving you more nonstop music, talk shows, and entertainment.
+➖➖➖➖➖➖➖➖➖➖➖➖
+🤝 Community Help
+Help us make FM Radio even better!
+🔍 If any 24/7 channels are missing or mixed with local channels, please report them.
+📩 We’ll review and add them quickly to keep the station collection complete and accurate.
+➖➖➖➖➖➖➖➖➖➖➖➖
+📥 Download Now
+⚡️ FM Radio App
+➖➖➖➖➖➖➖➖➖➖➖➖
+🚀 For more updates follow us
+Telegram: https://t.me/tnm3u | WhatsApp: https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15 | Discord: https://discord.com/invite/XxmUxb4Z
+➖➖➖➖➖➖➖➖➖➖➖➖
+Any concerns, adding your fm channels, promotion in the app please mail to us tnm3us@gmail.com all queries will be evaluated and resolved in 48 hours.
+`;
+
+      // WhatsApp version (keeps same as before)
+      const whatsapp =
+`📻 FM Radio By TNM3U
+🎶 ${total}+ Indian & International FM Stations
+♨️ Tamil | Telugu | Malayalam | Hindi | English
+✨ New Radios:
+${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "No new radios in last 24h"}
+📡 Total: ${total} channels
+📥 Download Now & Enjoy!`;
+
+      // Discord version
+      const discord =
+`**📻 FM Radio By TNM3U**
+
+🎶 ${total}+ Stations
+♨️ Tamil | Telugu | Malayalam | Hindi | English
+
+📡 Channel Update: ${oldCount} → ${total} stations
+✨ **New Radios:**
+${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "_No new radios today_"}
+
+🤝 Help us improve: Report missing/mixed channels.
+
+📥 Download Now!`;
+
+      document.getElementById("fmFull").textContent = full;
+      document.getElementById("fmWhatsapp").textContent = whatsapp;
+      document.getElementById("fmDiscord").textContent = discord;
+    }
+
+    // ================= Live TV =================
+    async function fetchChannels() {
+      const snapshot = await get(child(ref(db), "channels"));
+      if (!snapshot.exists()) {
+        document.getElementById("tvFull").textContent = "⚠ No channels found!";
+        document.getElementById("tvWhatsapp").textContent = "⚠ No channels found!";
+        document.getElementById("tvDiscord").textContent = "⚠ No channels found!";
+        return;
+      }
+      const channels = Object.values(snapshot.val());
+      const total = channels.length;
       const now = new Date();
       const last24h = now.getTime() - (24 * 60 * 60 * 1000);
       const newChannels = channels.filter(c => c.createdAt && new Date(c.createdAt).getTime() >= last24h);
-
       const oldCount = total - newChannels.length;
-      const newCount = total;
 
-      // Group only NEW channels by category
       const grouped = {};
       newChannels.forEach(c => {
         const cat = c.category || "Other";
@@ -311,7 +236,6 @@ ${newRadios.map(r => "📻 " + r.name).join("\n") || "_No new radios today_"}
         grouped[cat].push("💫 " + (c.name || "Unknown Channel"));
       });
 
-      // --- Supported players + languages block ---
       const playersBlock =
 `𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙚𝙙 𝙄𝙋𝙏𝙑 𝙋𝙡𝙖𝙮𝙚𝙧𝙨
 ➥ Tivimate
@@ -333,7 +257,6 @@ Much more apps are supported
 ♨️ Sinhala
 ➖➖➖➖➖➖➖➖➖➖➖➖`;
 
-      // Build full notification
       let full =
 `📺 𝙇𝙞𝙫𝙚 𝙏𝙫 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 𝘽𝙮 𝙏𝙣𝙢3𝙪
 ➖➖➖➖➖➖➖➖➖➖➖➖
@@ -356,7 +279,7 @@ ${languagesBlock}
       full += 
 `➖➖➖➖➖➖➖➖➖➖➖➖
 📡 Channel Update
-From ${oldCount} → ${newCount} total channels available now!
+From ${oldCount} → ${total} total channels available now!
 ➖➖➖➖➖➖➖➖➖➖➖➖
 ☀️ тим3υ ρℓαуℓιѕт
 http://tnm3u.live/playlist.m3u
@@ -365,19 +288,19 @@ http://tnm3u.live/playlist.m3u
 ⚡️ Live Tv V1.1
 ➖➖➖➖➖➖➖➖➖➖➖➖
 📢 For more updates follow our channel
-[Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)
+Telegram: https://t.me/tnm3u | WhatsApp: https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15 | Discord: https://discord.com/invite/XxmUxb4Z
 ➖➖➖➖➖➖➖➖➖➖➖➖
 Any concerns or takedown requests please mail to tnm3us@gmail.com. All queries will be evaluated and resolved in 48 hours.`;
 
       // WhatsApp version
       const whatsapp =
 `📺 Live TV By TNM3U
-🎬 ${newCount}+ Indian & International Channels
+🎬 ${total}+ Indian & International Channels
 ${playersBlock}
 ${languagesBlock}
 ✨ New Channels (24h):
-${newChannels.map(c => "📺 " + c.name).join("\n") || "No new channels"}
-📡 Total: ${newCount} channels
+${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "No new channels"}
+📡 Total: ${total} channels
 ☀️ Playlist: http://tnm3u.live/playlist.m3u
 📢 Updates: Telegram | WhatsApp | Discord
 🛡️ Issues: tnm3us@gmail.com`;
@@ -386,28 +309,31 @@ ${newChannels.map(c => "📺 " + c.name).join("\n") || "No new channels"}
       const discord =
 `**📺 Live TV By TNM3U**
 
-🎬 ${newCount}+ Channels  
+🎬 ${total}+ Channels  
 
 ${playersBlock}
 
 ${languagesBlock}
 
-📡 Channel Update: ${oldCount} → ${newCount} channels  
+📡 Channel Update: ${oldCount} → ${total} channels  
 ✨ **New Channels (24h):**  
-${newChannels.map(c => "📺 " + c.name).join("\n") || "_No new channels today_"}  
+${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "_No new channels today_"}  
 
 ☀️ Playlist: http://tnm3u.live/playlist.m3u  
 📥 Android App: Live Tv V1.1  
-📢 Follow: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)  
+📢 Follow: https://t.me/tnm3u | https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15 | https://discord.com/invite/XxmUxb4Z  
 🛡️ Issues: tnm3us@gmail.com`;
 
-      document.getElementById("fullOutput").textContent = full;
-      document.getElementById("whatsappOutput").textContent = whatsapp;
-      document.getElementById("discordOutput").textContent = discord;
+      document.getElementById("tvFull").textContent = full;
+      document.getElementById("tvWhatsapp").textContent = whatsapp;
+      document.getElementById("tvDiscord").textContent = discord;
     }
 
+    // Run both
+    fetchRadios();
     fetchChannels();
 
+    // Copy Function
     window.copyText = function(id) {
       const text = document.getElementById(id).textContent;
       navigator.clipboard.writeText(text).then(() => {
