@@ -3,103 +3,26 @@
   const style = document.createElement("style");
   style.textContent = `
     /* Header */
-    #header {
-      background: #1E1E1E;
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-direction: column;
-    }
-    #header .header-bar {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    #header .icon-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #fff;
-    }
-    #header .title {
-      font-weight: 600;
-      font-size: 1.125rem;
-    }
+    #header { background: #1E1E1E; color: white; position: sticky; top: 0; z-index: 50; padding: 0.75rem; display: flex; align-items: center; justify-content: space-between; flex-direction: column; }
+    #header .header-bar { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+    #header .icon-btn { display: flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; position: relative; }
+    #header .title { font-weight: 600; font-size: 1.125rem; }
+
+    /* Notification badge */
+    .notif-badge { position: absolute; top: -4px; right: -4px; background: #facc15; color: #000; font-size: 0.65rem; font-weight: 700; padding: 1px 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
     /* Side Drawer */
-    .side-drawer {
-      position: fixed;
-      top: 0;
-      left: -240px;
-      width: 240px;
-      height: 100%;
-      background: #1E1E1E;
-      padding: 1rem;
-      transition: left 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      z-index: 100;
-    }
-    .side-drawer.open {
-      left: 0;
-    }
-    .drawer-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.95rem;
-      color: #fff;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      transition: background 0.2s;
-      text-decoration: none;
-    }
-    .drawer-item:hover {
-      background: #2C2C2C;
-    }
-
-    /* Drawer Footer Social Links */
-    .drawer-footer {
-      margin-top: auto;
-      display: flex;
-      justify-content: space-around;
-      padding-top: 1rem;
-      border-top: 1px solid #333;
-    }
-    .drawer-footer a {
-      color: #fff;
-      font-size: 1.5rem;
-      transition: color 0.2s;
-    }
-    .drawer-footer a:hover {
-      color: #1DB954; /* greenish for hover */
-    }
+    .side-drawer { position: fixed; top: 0; left: -240px; width: 240px; height: 100%; background: #1E1E1E; padding: 1rem; transition: left 0.3s ease; display: flex; flex-direction: column; gap: 1rem; z-index: 100; }
+    .side-drawer.open { left: 0; }
+    .drawer-item { display:flex; align-items:center; gap:12px; font-size:0.95rem; color:#fff; cursor:pointer; padding:0.5rem; border-radius:0.5rem; transition:background 0.2s; text-decoration:none; }
+    .drawer-item:hover { background:#2C2C2C; }
+    .drawer-footer { margin-top:auto; display:flex; justify-content:space-around; padding-top:1rem; border-top:1px solid #333; }
+    .drawer-footer a { color:#fff; font-size:1.5rem; transition: color 0.2s; }
+    .drawer-footer a:hover { color: #1DB954; }
 
     /* Search Container */
-    #searchContainer {
-      width: 100%;
-      background: #1E1E1E;
-      padding: 0.5rem;
-      display: none;
-    }
-    #searchContainer input {
-      width: 100%;
-      padding: 0.5rem 0.75rem;
-      border-radius: 0.5rem;
-      background: #2C2C2C;
-      color: white;
-      border: none;
-      outline: none;
-    }
+    #searchContainer { width: 100%; background: #1E1E1E; padding: 0.5rem; display: none; }
+    #searchContainer input { width: 100%; padding:0.5rem 0.75rem; border-radius:0.5rem; background: #2C2C2C; color:white; border:none; outline:none; }
   `;
   document.head.appendChild(style);
 
@@ -117,84 +40,81 @@
 
         <!-- Drawer Footer with Social Icons -->
         <div class="drawer-footer">
-          <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp">
-            <span class="material-symbols-outlined">chat</span>
-          </a>
-          <a href="https://discord.com/invite/yourinvite" target="_blank" title="Discord">
-            <span class="material-symbols-outlined">groups</span>
-          </a>
-          <a href="mailto:tnm3us@gmail.com" title="Email">
-            <span class="material-symbols-outlined">mail</span>
-          </a>
+          <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp"><span class="material-symbols-outlined">chat</span></a>
+          <a href="https://discord.com/invite/yourinvite" target="_blank" title="Discord"><span class="material-symbols-outlined">groups</span></a>
+          <a href="mailto:tnm3us@gmail.com" title="Email"><span class="material-symbols-outlined">mail</span></a>
         </div>
       </div>
 
       <!-- Header Bar -->
       <div class="header-bar">
         <div class="flex items-center">
-          <div class="icon-btn mr-3" id="menuBtn">
-            <span class="material-symbols-outlined">menu</span>
-          </div>
+          <div class="icon-btn mr-3" id="menuBtn"><span class="material-symbols-outlined">menu</span></div>
           <div class="title">Live TV</div>
         </div>
         <div class="flex items-center relative">
-          <div class="icon-btn" id="searchBtn">
-            <span class="material-symbols-outlined">search</span>
+          <div class="icon-btn" id="searchBtn"><span class="material-symbols-outlined">search</span></div>
+          <div class="icon-btn ml-4" id="notifBtn">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="notif-badge" id="notifCount" style="display:none;">0</span>
           </div>
         </div>
       </div>
 
       <!-- Search Bar -->
-      <div id="searchContainer">
-        <input type="text" id="searchInput" placeholder="Search channels..." />
-      </div>
+      <div id="searchContainer"><input type="text" id="searchInput" placeholder="Search channels..." /></div>
     `;
 
-    // Side Drawer toggle logic
+    // Side Drawer toggle
     const menuBtn = document.getElementById("menuBtn");
     const sideDrawer = document.getElementById("sideDrawer");
+    menuBtn.addEventListener("click", e => { e.stopPropagation(); sideDrawer.classList.toggle("open"); });
+    document.addEventListener("click", e => { if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove("open"); });
 
-    menuBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      sideDrawer.classList.toggle("open");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) {
-        sideDrawer.classList.remove("open");
-      }
-    });
-
-    // Search toggle + filter logic
+    // Search toggle
     const searchBtn = document.getElementById("searchBtn");
     const searchContainer = document.getElementById("searchContainer");
     const searchInput = document.getElementById("searchInput");
+    searchBtn.addEventListener("click", e => { e.stopPropagation(); searchContainer.style.display = (searchContainer.style.display==="block")?"none":"block"; searchInput.focus(); });
 
-    searchBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (searchContainer.style.display === "block") {
-        searchContainer.style.display = "none";
-      } else {
-        searchContainer.style.display = "block";
-        searchInput.focus();
-      }
-    });
-
-    // Live search filter (requires .channel-item elements in DOM)
+    // Live search filter
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase();
-      const channels = document.querySelectorAll(".channel-item");
-      channels.forEach(channel => {
-        const name = channel.textContent.toLowerCase();
-        channel.style.display = name.includes(query) ? "" : "none";
+      document.querySelectorAll(".channel-item").forEach(channel=>{
+        channel.style.display = channel.textContent.toLowerCase().includes(query)?"":"none";
       });
     });
+    document.addEventListener("click", e => { if(!searchContainer.contains(e.target) && !searchBtn.contains(e.target)) searchContainer.style.display="none"; });
 
-    // Close search when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!searchContainer.contains(e.target) && !searchBtn.contains(e.target)) {
-        searchContainer.style.display = "none";
+    // Notification logic
+    const notifCountEl = document.getElementById("notifCount");
+    const notifBtn = document.getElementById("notifBtn");
+
+    const ONE_DAY = 24*60*60*1000;
+    function updateNotificationCount(channels) {
+      const now = Date.now();
+      const recentCount = channels.filter(c => c.createdAt && (now - new Date(c.createdAt).getTime()) < ONE_DAY).length;
+      if(recentCount>0) {
+        notifCountEl.style.display = "flex";
+        notifCountEl.textContent = recentCount;
+      } else {
+        notifCountEl.style.display = "none";
       }
+    }
+
+    // Fetch channels from Firebase
+    const db = firebase.database().ref("channels");
+    db.on("value", snap=>{
+      const channels = [];
+      snap.forEach(s=>{
+        const ch = s.val();
+        ch.createdAt = ch.createdAt || new Date().toISOString();
+        channels.push(ch);
+      });
+      updateNotificationCount(channels);
     });
+
+    // Click notification icon: optional, e.g., go to notifications page
+    notifBtn.addEventListener("click", () => { window.location.href="notifications.html"; });
   }
 })();
