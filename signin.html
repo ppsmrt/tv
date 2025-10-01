@@ -1,272 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Sign In - Live TV</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In - Live TV</title>
 
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-<!-- Baloo 2 Font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-<style>
-  body {
-    background: #111827;
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Baloo 2', cursive;
-    color: white;
-  }
-
-  main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    margin-top: 64px;
-    margin-bottom: 56px;
-  }
-
-  input:focus + label,
-  input:not(:placeholder-shown) + label {
-    top: 0.3rem !important;
-    font-size: 0.75rem !important;
-    color: #f87171 !important;
-    font-weight: 600;
-  }
-
-  header {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    padding: 0 1.5rem;
-    background: rgba(31,41,55,0.9);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    z-index: 50;
-  }
-
-  /* Toast animation */
-  #toast {
-    transform: translateY(100px);
-    transition: all 0.5s ease;
-  }
-  #toast.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* Already logged in overlay */
-  #alreadyLoggedInOverlay {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-  }
-  #alreadyLoggedInOverlay.show {
-    opacity: 1;
-    pointer-events: all;
-  }
-</style>
+  <style>
+    body { font-family:'Roboto', sans-serif; background:#121212; margin:0; color:white; }
+    .icon-btn { display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; }
+    input { background:#1E1E1E; border:1px solid #444; }
+    input:focus { border-color:#666; outline:none; }
+  </style>
 </head>
-<body>
-<div id="header"></div>
+<body class="flex flex-col min-h-screen">
 
-<!-- Main Content -->
-<main style="margin-top:64px; margin-bottom:40px;">
-  <div class="relative w-full max-w-md">
-    <div class="bg-gray-800/90 backdrop-blur-2xl rounded-2xl shadow-2xl p-6 border border-gray-700/30">
-      <div class="text-center mb-4">
-        <h2 class="text-3xl font-bold mb-2 text-white">Welcome Back!</h2>
-        <p class="text-gray-400 mb-3">Sign in to continue watching your favorite live TV channels.</p>
-        <ul class="text-gray-300 text-sm mb-3 space-y-1 text-left inline-block">
-          <li><i class="fas fa-check text-red-400 mr-2"></i> Access 100+ Live Channels</li>
-          <li><i class="fas fa-check text-red-400 mr-2"></i> HD Streaming Quality</li>
-          <li><i class="fas fa-check text-red-400 mr-2"></i> Personalized Watchlist</li>
-        </ul>
-        <p class="text-gray-400 text-xs">Your credentials are safe and encrypted.</p>
+<!-- Header -->
+<header class="flex items-center justify-between p-3 bg-[#1E1E1E] sticky top-0 z-50">
+  <div class="flex items-center">
+    <div class="title font-semibold text-lg">Sign In</div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="flex-1 flex justify-center items-center px-4">
+  <div class="w-full max-w-sm bg-[#1E1E1E] p-6 rounded-xl shadow-lg">
+    <h2 class="text-xl font-semibold mb-4" style="font-family:'Baloo 2', cursive;">Welcome Back</h2>
+    
+    <form id="loginForm" class="flex flex-col gap-4">
+      <div>
+        <label for="email" class="block text-sm mb-1 text-gray-300">Email</label>
+        <input type="email" id="email" required
+          class="w-full px-4 py-2 rounded-lg text-white"/>
       </div>
 
-      <!-- Enhanced Form -->
-      <form id="signinForm" class="space-y-4">
+      <div>
+        <label for="password" class="block text-sm mb-1 text-gray-300">Password</label>
+        <input type="password" id="password" required
+          class="w-full px-4 py-2 rounded-lg text-white"/>
+      </div>
 
-        <!-- Email -->
-        <div class="relative">
-          <span class="material-icons absolute left-3 top-3 text-gray-400 pointer-events-none">email</span>
-          <input type="email" id="email" required placeholder="Email"
-                 class="peer w-full pl-10 pr-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 bg-gray-900 text-white placeholder-transparent transition-all shadow-sm"/>
-          <label for="email"
-                 class="absolute left-10 top-3 text-gray-400 text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-red-400 peer-focus:text-sm font-medium">
-            Email
-          </label>
-        </div>
+      <button type="submit" class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg">
+        Sign In
+      </button>
+    </form>
 
-        <!-- Password -->
-        <div class="relative">
-          <span class="material-icons absolute left-3 top-3 text-gray-400 pointer-events-none">lock</span>
-          <input type="password" id="password" required placeholder="Password"
-                 class="peer w-full pl-10 pr-4 py-3 rounded-xl border border-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500 bg-gray-900 text-white placeholder-transparent transition-all shadow-sm"/>
-          <label for="password"
-                 class="absolute left-10 top-3 text-gray-400 text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-red-400 peer-focus:text-sm font-medium">
-            Password
-          </label>
-        </div>
+    <p class="text-sm text-gray-400 mt-4">Don’t have an account? <a href="signup.html" class="text-yellow-400 hover:underline">Sign Up</a></p>
 
-        <!-- Forgot Password -->
-        <div class="text-right">
-          <a href="forgot-password.html" class="text-red-400 text-sm font-medium hover:underline hover:text-red-500 transition-colors">Forgot Password?</a>
-        </div>
-
-        <!-- Sign In Button -->
-        <button type="submit" id="signinBtn" 
-                class="w-full py-3 rounded-xl bg-red-500 text-white font-semibold shadow-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform">
-          <svg id="spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-          </svg>
-          <span id="btnText">Sign In</span>
-        </button>
-      </form>
-
-      <!-- Sign Up -->
-      <p class="mt-4 text-center text-gray-300">
-        Don't have an account? 
-        <a href="signup.html" class="text-red-400 font-semibold hover:underline hover:text-red-500 transition-colors">Sign Up</a>
-      </p>
-    </div>
+    <div id="errorMsg" class="text-red-500 text-sm mt-2 hidden"></div>
   </div>
 </main>
 
-<!-- Toast Notification -->
-<div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none z-50">
-  <span id="toastMsg"></span>
-</div>
+<!-- Footer -->
+<footer class="text-center p-3 text-gray-400 bg-[#1E1E1E] border-t border-gray-700">
+  Tnm3u &copy; 2025 Live TV
+</footer>
 
-<!-- Already Logged In Overlay -->
-<div id="alreadyLoggedInOverlay" class="fixed inset-0 bg-gray-900/90 flex flex-col items-center justify-center z-50 hidden">
-  <svg class="animate-spin h-16 w-16 text-red-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-  </svg>
-  <p class="text-white text-xl font-semibold">You're already logged in</p>
-</div>
+<script>
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
 
-<div id="footer"></div>
-<script type="module" src="assets/js/header.js"></script>  
-<script type="module" src="assets/js/footer.js"></script>
+  const form = document.getElementById("loginForm");
+  const errorMsg = document.getElementById("errorMsg");
 
-<!-- Firebase & JS -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.appspot.com",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
-};
+    try {
+      const userCred = await auth.signInWithEmailAndPassword(email, password);
+      const user = userCred.user;
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+      // Check admin
+      const adminRef = db.ref("admins/" + user.uid);
+      const snapshot = await adminRef.get();
 
-setPersistence(auth, browserLocalPersistence);
-
-const signinForm = document.getElementById("signinForm");
-const signinBtn = document.getElementById("signinBtn");
-const spinner = document.getElementById("spinner");
-const btnText = document.getElementById("btnText");
-const toast = document.getElementById("toast");
-const toastMsg = document.getElementById("toastMsg");
-const overlay = document.getElementById("alreadyLoggedInOverlay");
-
-// Check if user is already logged in
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    overlay.classList.add("show"); // show overlay
-    setTimeout(async () => {
-      const adminRef = ref(db, "admins/" + user.uid);
-      const adminSnapshot = await get(adminRef);
-
-      if (adminSnapshot.exists() && adminSnapshot.val().role === "admin") {
-        window.location.href = "admin";
+      if (snapshot.exists() && snapshot.val().role === "admin") {
+        window.location.href = "admin.html";
       } else {
-        window.location.href = "/";
+        window.location.href = "index.html";
       }
-    }, 1500);
-  }
-});
-
-// Toast utility
-function showToast(message, type = "error") {
-  toastMsg.textContent = message;
-  toast.style.backgroundColor = type === "success" ? "#16a34a" : "#111827";
-  toast.classList.add("show");
-  toast.classList.remove("opacity-0", "pointer-events-none");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-    toast.classList.add("opacity-0", "pointer-events-none");
-  }, 3000);
-}
-
-// Firebase error mapping
-function parseFirebaseError(error) {
-  switch (error.code) {
-    case "auth/user-not-found": return "Account not found. Please check your email or sign up.";
-    case "auth/wrong-password": return "Incorrect password. Please try again.";
-    case "auth/invalid-email": return "Invalid email format.";
-    case "auth/too-many-requests": return "Too many attempts. Please try again later.";
-    default: return "Login failed. Please try again.";
-  }
-}
-
-// Sign-in form submit
-signinForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  spinner.classList.remove("hidden");
-  btnText.textContent = "Logging in...";
-  signinBtn.disabled = true;
-
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    const adminRef = ref(db, "admins/" + user.uid);
-    const adminSnapshot = await get(adminRef);
-
-    if (adminSnapshot.exists() && adminSnapshot.val().role === "admin") {
-      showToast("Welcome Admin! Redirecting...", "success");
-      setTimeout(() => window.location.href = "admin", 1000);
-    } else {
-      showToast("Login successful! Redirecting...", "success");
-      setTimeout(() => window.location.href = "/", 1000);
+    } catch (error) {
+      errorMsg.textContent = error.message;
+      errorMsg.classList.remove("hidden");
     }
-  } catch (error) {
-    showToast(parseFirebaseError(error));
-  } finally {
-    spinner.classList.add("hidden");
-    btnText.textContent = "Sign In";
-    signinBtn.disabled = false;
-  }
-});
+  });
 </script>
+
 </body>
 </html>
