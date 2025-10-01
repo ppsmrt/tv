@@ -48,7 +48,8 @@ jobs:
                 const name = ch.name || "Unknown";
                 const logo = ch.icon || "";
                 const stream = ch.stream || "";
-                const group = ch.channelType || "Unknown"; // <-- Use channelType as group-title
+                const group = (ch.channelType === "regional") ? "Local Channels" : ch.channelType || "Unknown";
+
                 if (!stream) continue;
 
                 const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${group}" tvg-logo="${logo}",${name}`;
