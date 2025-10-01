@@ -100,3 +100,11 @@
     });
   }
 })();
+
+// Side drawer
+const menuBtn = document.getElementById('menuBtn');
+const sideDrawer = document.getElementById('sideDrawer');
+menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
+document.addEventListener('click', e=>{
+  if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
+});
