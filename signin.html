@@ -93,17 +93,36 @@
     try {
       const userCred = await auth.signInWithEmailAndPassword(email, password);
       const user = userCred.user;
+      console.log("Logged in UID:", user.uid);
 
-      // Check admin
+      let isAdmin = false;
+
+      // ✅ First check by UID
       const adminRef = db.ref("admins/" + user.uid);
       const snapshot = await adminRef.get();
 
-      if (snapshot.exists() && snapshot.val().role === "admin") {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        console.log("Admin node:", data);
+        if (data.role === "admin") {
+          isAdmin = true;
+        }
+      } else {
+        // ✅ Fallback: check by email
+        const snap = await db.ref("admins").orderByChild("email").equalTo(user.email).get();
+        if (snap.exists()) {
+          console.log("Admin found by email");
+          isAdmin = true;
+        }
+      }
+
+      if (isAdmin) {
         window.location.href = "admin.html";
       } else {
         window.location.href = "index.html";
       }
     } catch (error) {
+      console.error("Login error:", error);
       errorMsg.textContent = error.message;
       errorMsg.classList.remove("hidden");
     }
