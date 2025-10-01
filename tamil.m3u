@@ -463,3 +463,7 @@ http://garudatv.applelive.in/hls/garudantv.m3u8
 http://media.7starcloud.com:1935/erodekrishnatv/livestream/playlist.m3u8
 #EXTINF:-1 tvg-name="NTN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/ZpTQJjWL/1000138244.jpg",NTN Tv
 https://live.skystream.in/live/ntntv/index.m3u8
+#EXTINF:-1 tvg-name="Ezhil Tv" group-title="Regional" tvg-logo="https://i.ibb.co/s9mzfspL/1000138411.webp",Ezhil Tv
+http://198.144.149.206:8080/NOTV/EZHILTV/index.m3u8?token=GTR
+#EXTINF:-1 tvg-name="Thirupur Voice Tv" group-title="Regional" tvg-logo="https://i.ibb.co/xSrjHgc9/1000138412.webp",Thirupur Voice Tv
+http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
