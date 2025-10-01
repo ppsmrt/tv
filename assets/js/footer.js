@@ -9,12 +9,18 @@
       border-top: 1px solid #374151;
       color: #9CA3AF;
       font-size: 0.9rem;
+      transition: color 0.3s ease;
+      cursor: default;
+    }
+    #footer:hover {
+      color: #FFD700; /* subtle golden highlight */
     }
   `;
   document.head.appendChild(style);
 
   const footer = document.getElementById("footer");
   if (footer) {
-    footer.innerHTML = `Tnm3u &copy; 2025 Live TV`;
+    const currentYear = new Date().getFullYear();
+    footer.innerHTML = `©️ ${currentYear} Live TV · Innovation in Entertainment.`;
   }
 })();
