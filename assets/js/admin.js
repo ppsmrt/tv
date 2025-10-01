@@ -111,8 +111,6 @@ const descriptionTemplates = {
     `Learn with expert lectures, tutorials, and knowledge-packed programs designed for students and lifelong learners. Stay ahead with ${name} on tnm3u.live.`,
   Regional: (name) =>
     `Get updates, news, and stories from your city and region, covering events that matter most to you. Watch ${name} live on tnm3u.live.`
-International: (name) =>
-  `Stay connected with global news, world events, international culture, and major happenings from around the globe. Watch ${name} live on tnm3u.live.`,
 };
 
 const nameInput = document.getElementById("name");
