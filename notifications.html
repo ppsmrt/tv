@@ -2,180 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Notifications - Live TV</title>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-<!-- Baloo 2 Font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <style>
-html, body {
-  font-family: 'Baloo 2', cursive;
-  background-color: #111827;
-  color: #fff;
-  margin: 0;
-  min-height: 100vh;
-}
-
-header {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 1.5rem;
-  background: rgba(31,41,55,0.95);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-  z-index: 20;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-main {
-  padding: 84px 1rem 84px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* Notification Card */
-.notification-card {
-  display: flex;
-  align-items: center;
-  background: #1f2937;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  cursor: pointer;
-}
-.notification-card:hover {
-  background: #374151;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(248,113,113,0.4);
-}
-
-.notification-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  object-fit: cover;
-  margin-right: 16px;
-  flex-shrink: 0;
-  background: #111;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-}
-
-.notification-content {
-  flex: 1;
-}
-
-.notification-title {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #f9fafb;
-  line-height: 1.2rem;
-}
-
-.notification-category {
-  font-size: 0.85rem;
-  color: #9ca3af;
-  margin-top: 2px;
-}
-
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 4rem;
-  text-align: center;
-  animation: fadeIn 0.5s ease-in-out;
-}
-.empty-state .title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #f87171;
-  margin-bottom: 1rem;
-}
-.empty-state img {
-  max-width: 280px;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-}
-
-/* Skeleton */
-.skeleton {
-  background: #1f2937;
-  border-radius: 16px;
-  height: 80px;
-  margin-bottom: 14px;
-  animation: pulse 1.5s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* New Badge */
-.new-badge {
-  display: inline-block;
-  background: #f87171;
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 8px;
-  margin-left: 8px;
-}
-
-.notification-card.new {
-  border: 1px solid #f87171;
-  animation: glow 1.5s ease-in-out 2;
-}
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 12px #f87171; }
-  50% { box-shadow: 0 0 24px #f87171; }
-}
+body { font-family: 'Roboto', sans-serif; background-color:#121212; color:white; margin:0; min-height:100vh; }
+.notification-card { display:flex; align-items:center; gap:12px; background:#1E1E1E; padding:12px; border-radius:12px; margin-bottom:12px; cursor:pointer; transition:all 0.3s ease; }
+.notification-card:hover { background:#2C2C2C; transform:translateY(-2px); }
+.notification-icon { width:60px; height:60px; border-radius:12px; object-fit:cover; background:#111; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; }
+.notification-content { flex:1; }
+.notification-title { font-weight:700; font-family:'Baloo 2', cursive; font-size:1rem; }
+.notification-category { font-size:0.85rem; color:#9ca3af; margin-top:2px; }
+.new-badge { display:inline-block; background:#facc15; color:#000; font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:8px; margin-left:6px; }
+.notification-card.new { border:1px solid #facc15; animation: glow 1.5s ease-in-out 2; }
+@keyframes glow { 0%,100%{box-shadow:0 0 12px #facc15;} 50%{box-shadow:0 0 24px #facc15;} }
+.empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:3rem; text-align:center; }
+.empty-state .title { font-size:1.5rem; font-weight:700; color:#facc15; margin-bottom:1rem; }
+.empty-state img { max-width:240px; border-radius:12px; box-shadow:0 4px 14px rgba(0,0,0,0.6); }
 </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
+<!-- Header -->
 <div id="header"></div>
 
-<main id="notificationsContainer">
-  <div class="skeleton"></div>
-  <div class="skeleton"></div>
-  <div class="skeleton"></div>
+<main class="flex-1 p-4" id="notificationsContainer">
+  <!-- Skeleton loader while fetching -->
+  <div class="notification-card" style="height:70px; opacity:0.6;"></div>
+  <div class="notification-card" style="height:70px; opacity:0.6;"></div>
+  <div class="notification-card" style="height:70px; opacity:0.6;"></div>
 </main>
 
+<!-- Footer -->
 <div id="footer"></div>
 
-<!-- JS Files -->
-<script type="module" src="assets/js/header.js"></script>
-<script type="module" src="assets/js/footer.js"></script>
+<script src="assets/js/header.js"></script>
+<script src="assets/js/footer.js"></script>
 
-<script type="module">
-// Logic remains intact, only UI shows latest 10 items
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-// Firebase Config
+<script>
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
@@ -186,57 +60,58 @@ const firebaseConfig = {
   appId: "1:80664356882:web:c8464819b0515ec9b210cb",
   measurementId: "G-FNS9JWZ9LS"
 };
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 const container = document.getElementById('notificationsContainer');
+let channelsCache = [], notificationsCache = [];
 
 function timeAgo(timestamp) {
-  if (!timestamp) return "";
-  const diff = Math.floor((Date.now() - timestamp) / 1000);
-  if (diff < 60) return `${diff}s ago`;
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
+  if(!timestamp) return "";
+  const diff = Math.floor((Date.now() - timestamp)/1000);
+  if(diff<60) return diff+"s ago";
+  if(diff<3600) return Math.floor(diff/60)+"m ago";
+  if(diff<86400) return Math.floor(diff/3600)+"h ago";
+  return Math.floor(diff/86400)+"d ago";
 }
 
-function createNotificationCard(notification) {
+function createNotificationCard(notification){
   const card = document.createElement('div');
   card.className = 'notification-card';
-  if (notification.url) card.onclick = () => window.location.href = notification.url;
+  if(notification.url) card.onclick = ()=> window.location.href = notification.url;
 
   const ONE_DAY = 24*60*60*1000;
-  const isNew = Date.now() - (notification.timestamp || 0) < ONE_DAY;
-  if (isNew) card.classList.add('new');
+  const isNew = Date.now() - (notification.timestamp||0) < ONE_DAY;
+  if(isNew) card.classList.add('new');
 
   const img = document.createElement('img');
-  img.className = 'notification-icon';
-  img.src = notification.logo && notification.logo.trim() !== '' ? notification.logo : '';
-  img.alt = notification.name || "Notification";
-  img.onerror = () => {
+  img.className='notification-icon';
+  img.src = notification.logo||'';
+  img.alt = notification.name||'Notification';
+  img.onerror = ()=>{
     const icon = document.createElement('span');
-    icon.className = 'material-icons notification-icon';
-    icon.textContent = 'notifications';
+    icon.className='material-symbols-outlined notification-icon';
+    icon.textContent='notifications';
     img.replaceWith(icon);
   };
 
   const content = document.createElement('div');
-  content.className = 'notification-content';
+  content.className='notification-content';
 
   const title = document.createElement('div');
-  title.className = 'notification-title';
+  title.className='notification-title';
   title.textContent = notification.message || "New Update";
 
-  if (isNew) {
+  if(isNew){
     const badge = document.createElement('span');
-    badge.className = 'new-badge';
-    badge.textContent = 'NEW';
+    badge.className='new-badge';
+    badge.textContent='NEW';
     title.appendChild(badge);
   }
 
   const meta = document.createElement('div');
-  meta.className = 'notification-category';
-  meta.textContent = `${notification.category || 'Update'} • ${timeAgo(notification.timestamp)}`;
+  meta.className='notification-category';
+  meta.textContent = `${notification.category||'Update'} • ${timeAgo(notification.timestamp)}`;
 
   content.appendChild(title);
   content.appendChild(meta);
@@ -246,7 +121,7 @@ function createNotificationCard(notification) {
   return card;
 }
 
-function renderEmptyState() {
+function renderEmptyState(){
   container.innerHTML = `
     <div class="empty-state">
       <div class="title">ஒன்னும் இல்லை!</div>
@@ -255,50 +130,45 @@ function renderEmptyState() {
   `;
 }
 
-function renderNotifications(list) {
-  container.innerHTML = '';
-  if (list.length === 0) {
+function renderNotifications(list){
+  container.innerHTML='';
+  if(list.length===0){
     renderEmptyState();
     return;
   }
-  list.forEach(n => container.appendChild(createNotificationCard(n)));
+  list.forEach(n=> container.appendChild(createNotificationCard(n)));
 }
 
-let channelsCache = [];
-let notificationsCache = [];
-
-onValue(ref(db, 'channels'), snapshot => {
-  const data = snapshot.val() || {};
-  channelsCache = Object.entries(data).map(([id, c]) => ({
-    message: `New channel added: ${c.name || 'Unknown'}`,
-    logo: c.icon || '',
-    url: c.stream || '',
-    name: c.name || 'Unknown',
+// Firebase listeners
+firebase.database().ref('channels').on('value', snap=>{
+  const data = snap.val()||{};
+  channelsCache = Object.entries(data).map(([id,c])=>({
+    message: `New channel added: ${c.name||'Unknown'}`,
+    logo: c.icon||'',
+    url: c.stream||'',
+    name: c.name||'Unknown',
     timestamp: c.createdAt ? new Date(c.createdAt).getTime() : 0,
     category: 'Channel'
   }));
   updateUI();
 });
 
-onValue(ref(db, 'notifications'), snapshot => {
-  const data = snapshot.val() || {};
-  notificationsCache = Object.entries(data).map(([id, n]) => ({
+firebase.database().ref('notifications').on('value', snap=>{
+  const data = snap.val()||{};
+  notificationsCache = Object.entries(data).map(([id,n])=>({
     message: n.message,
-    logo: n.logo || '',
-    url: n.url || '',
-    name: n.message || 'Notification',
-    timestamp: n.timestamp || 0,
-    category: n.type || 'Notification'
+    logo: n.logo||'',
+    url: n.url||'',
+    name: n.message||'Notification',
+    timestamp: n.timestamp||0,
+    category: n.type||'Notification'
   }));
   updateUI();
 });
 
-function updateUI() {
-  const merged = [...channelsCache, ...notificationsCache].sort((a,b) => b.timestamp - a.timestamp);
-
-  // Limit to latest 10 items
-  const latest10 = merged.slice(0, 10);
-
+function updateUI(){
+  const merged = [...channelsCache, ...notificationsCache].sort((a,b)=>b.timestamp - a.timestamp);
+  const latest10 = merged.slice(0,10);
   renderNotifications(latest10);
 }
 </script>
