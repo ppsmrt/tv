@@ -3,238 +3,205 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Download App - Live TV</title>
+<title>Download Live TV & FM</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-<!-- Baloo 2 Font -->
+<!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <style>
-body {
-  font-family: 'Baloo 2', cursive;
-  background: linear-gradient(135deg, #1f2937, #111827);
-  color: #f9fafb;
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
+body { font-family: 'Baloo 2', cursive; background-color: #121212; color: #fff; }
+.device-screen img { width: 100%; height: 100%; object-fit: cover; animation: slide 8s infinite alternate; border-radius: 0.5rem; }
+@keyframes slide { 0% { transform: translateY(0%); } 50% { transform: translateY(-50%); } 100% { transform: translateY(0%); } }
+/* Header */
 header {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 1.5rem;
-  background: rgba(31,41,55,0.95);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.75rem 1rem;
+  background:#1E1E1E;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
 
-footer {
-  padding: 1rem;
-  text-align: center;
-  font-size: 0.875rem;
-  color: #9ca3af;
-  border-top: 1px solid #1f2937;
-  background: rgba(17,24,39,0.95);
+header .title {
+  font-weight:600;
+  font-size:1.2rem;
+  color:#fff;
 }
 
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 2rem 1rem;
-  text-align: center;
+header .nav-link {
+  color:#aaa;
+  font-weight:500;
+  margin-left:1rem;
+  transition: color 0.2s;
 }
 
-h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  color: #f87171;
-  margin-bottom: 0.5rem;
+header .nav-link.active {
+  color:#f87171; /* red-400 */
+  font-weight:600;
 }
 
-h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 1.5rem;
+header .nav-link:hover {
+  color:#fca5a5; /* red-300 */
 }
 
-p {
-  margin-bottom: 0.75rem;
+/* Side Drawer */
+.side-drawer {
+  position: fixed;
+  top:0; left:-240px;
+  width:240px; height:100%;
+  background:#1E1E1E;
+  padding:1rem;
+  transition:left 0.3s;
+  display:flex; flex-direction:column; gap:1rem;
+  z-index:60;
 }
+.side-drawer.open { left:0; }
+.drawer-item {
+  display:flex; align-items:center; gap:12px;
+  font-size:0.95rem; color:white; cursor:pointer;
+  padding:0.5rem; border-radius:0.5rem; transition:background 0.2s;
+  text-decoration:none;
+}
+.drawer-item:hover { background:#2C2C2C; }
 
-ul {
-  list-style-type: disc;
-  list-style-position: inside;
-  text-align: left;
-  color: #d1d5db;
-  margin: 1rem auto 2rem auto;
-  max-width: 500px;
-}
-
-.download-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 2rem;
-  margin-top: 1rem;
-  background: linear-gradient(90deg, #f472b6, #ef4444);
-  color: #fff;
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: 1.125rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none;
-}
-.download-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(248,113,113,0.5);
-}
-
-.playlist-link {
-  display: inline-block;
-  margin-top: 1.5rem;
-  color: #f87171;
-  text-decoration: underline;
-  cursor: pointer;
-  font-weight: 500;
-}
-.playlist-link:hover {
-  color: #f472b6;
-}
-
-.device-mockup {
-  width: 250px;
-  max-width: 90%;
-  height: 500px;
-  background: #111827;
-  border: 8px solid #1f2937;
-  border-radius: 40px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  margin: 2rem 0;
-  overflow: hidden;
-  position: relative;
-}
-
-.device-screen {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 32px;
-}
-
-.device-screen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  animation: slide 8s infinite alternate;
-}
-
-@keyframes slide {
-  0% { transform: translateY(0%); }
-  50% { transform: translateY(-50%); }
-  100% { transform: translateY(0%); }
-}
-
-.app-info {
-  background: rgba(31,41,55,0.8);
-  padding: 1rem 2rem;
-  border-radius: 2xl;
-  margin-bottom: 2rem;
-  max-width: 600px;
-  text-align: left;
-}
-
-.app-info h3 {
-  color: #f87171;
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.app-info p, .app-info li {
-  color: #d1d5db;
-  font-size: 0.95rem;
-}
 </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
+<!-- Side Drawer -->
+<div class="side-drawer" id="sideDrawer">
+  <a href="/" class="drawer-item"><span class="material-symbols-outlined">home</span> Home</a>
+  <a href="/" class="drawer-item"><span class="material-symbols-outlined">live_tv</span> Live TV</a>
+  <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlists</a>
+  <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
+</div>
+
 <!-- Header -->
-<header class="flex items-center justify-between px-4">
+<header>
   <div class="flex items-center gap-2">
-    <span class="material-icons text-red-400 text-2xl">live_tv</span>
-    <h1 class="text-lg font-bold">Live TV App</h1>
+    <div id="menuBtn" class="cursor-pointer"><span class="material-symbols-outlined text-white text-2xl">menu</span></div>
+    <div class="title">Live TV</div>
   </div>
+  <nav class="flex items-center gap-4">
+    <a href="/" class="nav-link">Home</a>
+    <a href="playlist" class="nav-link active">Playlists</a>
+  </nav>
 </header>
 
-<main>
-  <h1>Official Live TV App</h1>
-  <h2>Version 2.3.1 — Release: 01 Oct 2025</h2>
+<!-- Main Content -->
+<main class="flex-1 p-4 flex flex-col items-center gap-16">
 
-  <!-- Device Mockup with Screenshots -->
-  <div class="device-mockup">
-    <div class="device-screen">
-      <img src="https://www.tnm3u.live/assets/images/app1.jpg" alt="App Screenshot 1"/>
-      <img src="https://www.tnm3u.live/assets/images/app2.jpg" alt="App Screenshot 2"/>
-      <img src="https://www.tnm3u.live/assets/images/app3.jpg" alt="App Screenshot 3"/>
+  <!-- Live TV App Section -->
+  <section class="w-full max-w-xl flex flex-col items-center gap-6">
+    <h1 class="text-3xl font-bold text-red-400 mb-2">Live TV</h1>
+    <h2 class="text-xl font-medium text-white mb-6">Version 2.3.1 — Release: 01 Oct 2025</h2>
+
+    <!-- Device Mockup -->
+    <div class="w-64 max-w-[90%] h-[500px] bg-[#1E1E1E] border-8 border-[#2C2C2C] rounded-3xl shadow-xl overflow-hidden">
+      <div class="device-screen w-full h-full">
+        <img src="https://www.tnm3u.live/assets/images/app1.jpg" alt="App Screenshot 1"/>
+        <img src="https://www.tnm3u.live/assets/images/app2.jpg" alt="App Screenshot 2"/>
+        <img src="https://www.tnm3u.live/assets/images/app3.jpg" alt="App Screenshot 3"/>
+      </div>
     </div>
-  </div>
 
-  <!-- App Details -->
-  <div class="app-info">
-    <h3>App Information:</h3>
-    <p><strong>App Name:</strong> Live TV App</p>
-    <p><strong>Version:</strong> 2.3.1</p>
-    <p><strong>Release Date:</strong> 01 Oct 2025</p>
-    <p><strong>Size:</strong> 25 MB</p>
-    <p><strong>Requirements:</strong> Android 5.0 or later</p>
-    
-    <h3>New Features:</h3>
-    <ul>
-      <li>Optimized live streaming performance</li>
-      <li>New Tamil, Telugu, Kannada & Kerala playlists</li>
-      <li>Updated UI for smoother navigation</li>
-      <li>Bug fixes & improved app stability</li>
-      <li>Integrated playlist copy feature</li>
-    </ul>
-  </div>
+    <!-- App Info Card -->
+    <div class="bg-[#1E1E1E] p-5 rounded-2xl w-full shadow-lg">
+      <h3 class="text-red-400 font-semibold text-xl mb-3">App Information:</h3>
+      <p><strong>App Name:</strong> Live TV</p>
+      <p><strong>Version:</strong> 1.1</p>
+      <p><strong>Release Date:</strong> 01 Oct 2025</p>
+      <p><strong>Size:</strong> 25 MB</p>
+      <p><strong>Requirements:</strong> Android 5.0 or later</p>
 
-  <!-- Download and Playlist Options -->
-<div class="mt-8 text-center max-w-2xl">
-  <!-- Download Button -->
-  <a href="https://example.com/your-app.apk" class="download-btn">
-    <span class="material-icons">android</span> Download Android APK
-  </a>
+      <h3 class="text-red-400 font-semibold text-xl mt-4 mb-2">New Features:</h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-1">
+        <li>Optimized live streaming performance</li>
+        <li>New Tamil, Telugu, Kannada & Malayalam playlists</li>
+        <li>Updated UI for smoother navigation</li>
+        <li>Bug fixes & improved app stability</li>
+        <li>Integrated playlist copy feature</li>
+      </ul>
+    </div>
 
-  <!-- Playlist Explanation -->
-  <p class="text-gray-300 mt-6 text-lg leading-relaxed">
-    Prefer not to install the app? No problem! You can directly access our curated playlists and stream channels using any IPTV application of your choice.
-  </p>
+    <!-- Download & Playlist -->
+    <div class="flex flex-col items-center gap-4">
+      <a href="https://tnm3u.live/assets/app/Live_Tv_v1.1.apk" class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-red-500 rounded-full font-semibold text-white hover:shadow-lg transition transform hover:-translate-y-1">
+        <span class="material-symbols-outlined">android</span> Download LIVE TV
+      </a>
 
-  <a href="playlist.html" class="playlist-link">
-    View Playlists
-  </a>
-</div>
+      <p class="text-gray-400 text-center max-w-md">
+        Prefer not to install the app? You can directly access our curated playlists and stream channels using any IPTV application of your choice.
+      </p>
+
+      <a href="playlist.html" class="text-red-400 hover:text-pink-500 underline font-medium">
+        View Playlists
+      </a>
+    </div>
+  </section>
+
+  <!-- FM Radio App Section -->
+  <section class="w-full max-w-xl flex flex-col items-center gap-6">
+    <h1 class="text-3xl font-bold text-green-400 mb-2">FM Radio App</h1>
+    <h2 class="text-xl font-medium text-white mb-6">Version 2.0 — Release: 01 Oct 2025</h2>
+
+    <!-- Device Mockup -->
+    <div class="w-64 max-w-[90%] h-[500px] bg-[#1E1E1E] border-8 border-[#2C2C2C] rounded-3xl shadow-xl overflow-hidden">
+      <div class="device-screen w-full h-full">
+        <img src="https://www.tnm3u.live/assets/images/fm1.jpg" alt="FM App Screenshot 1"/>
+        <img src="https://www.tnm3u.live/assets/images/fm2.jpg" alt="FM App Screenshot 2"/>
+        <img src="https://www.tnm3u.live/assets/images/fm3.jpg" alt="FM App Screenshot 3"/>
+      </div>
+    </div>
+
+    <!-- App Info Card -->
+    <div class="bg-[#1E1E1E] p-5 rounded-2xl w-full shadow-lg">
+      <h3 class="text-green-400 font-semibold text-xl mb-3">App Information:</h3>
+      <p><strong>App Name:</strong> FM Radio App</p>
+      <p><strong>Version:</strong> 2.0</p>
+      <p><strong>Release Date:</strong> 01 Oct 2025</p>
+      <p><strong>Size:</strong> 11 MB</p>
+      <p><strong>Requirements:</strong> Android 5.0 or later</p>
+
+      <h3 class="text-green-400 font-semibold text-xl mt-4 mb-2">New Features:</h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-1">
+        <li>High-quality FM radio streaming</li>
+        <li>Curated Tamil, Telugu, Malayalam , English & Regional channels</li>
+        <li>User-friendly interface with 300+ FM Stations</li>
+      </ul>
+    </div>
+
+    <!-- Download & Playlist -->
+    <div class="flex flex-col items-center gap-4">
+      <a href="https://tnm3u.live/assets/app/FM_Radio_v2.0.apk" class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full font-semibold text-white hover:shadow-lg transition transform hover:-translate-y-1">
+        <span class="material-symbols-outlined">radio</span> Download FM Radio
+      </a>
+
+         </div>
+  </section>
 
 </main>
 
 <!-- Footer -->
-<footer>
-  &copy; 2025 Live TV App. All Rights Reserved.
+<footer class="text-center p-3 text-gray-400 bg-[#1E1E1E] border-t border-gray-700">
+  &copy; 2025 Live TV & FM Apps. All Rights Reserved.
 </footer>
+
+<script>
+// Side drawer toggle
+const menuBtn = document.getElementById('menuBtn');
+const sideDrawer = document.getElementById('sideDrawer');
+menuBtn.addEventListener('click', () => sideDrawer.classList.toggle('open'));
+document.addEventListener('click', e=>{
+  if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
+});
+</script>
 
 </body>
 </html>
