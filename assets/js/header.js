@@ -1,132 +1,102 @@
-function loadHeader() {
-  const headerContainer = document.getElementById("header");
-  if (!headerContainer) return;
-
-  const path = window.location.pathname;
-  let page = path.substring(path.lastIndexOf('/') + 1);
-  if (!page) page = 'index.html'; // handle root URL
-
-  function formatTitle(filename) {
-    if (filename === 'index.html') return 'Home';
-    let name = filename.replace('.html','');
-    name = name.replace(/[-_]/g,' ');
-    return name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  }
-
-  const title = formatTitle(page);
-
-  let rightIconHTML = '';
-
-  if (page === 'index.html') {
-    // Home page → Animated notification bell
-    rightIconHTML = `
-      <button id="notificationBtn" style="
-        position: relative;
-        background:none;
-        border:none;
-        cursor:pointer;
-        outline:none;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        width:40px;
-        height:40px;
-        border-radius:50%;
-        transition: transform 0.2s;
-      ">
-        <span class="material-icons bell-icon" style="
-          font-size:28px;
-          color:white;
-          animation: ring 1.5s infinite;
-        ">notifications</span>
-      </button>
-
-      <style>
-        @keyframes ring {
-          0% { transform: rotate(0deg); }
-          15% { transform: rotate(15deg); }
-          30% { transform: rotate(-10deg); }
-          45% { transform: rotate(15deg); }
-          60% { transform: rotate(-10deg); }
-          75% { transform: rotate(15deg); }
-          100% { transform: rotate(0deg); }
-        }
-        #notificationBtn:hover {
-          transform: scale(1.2);
-        }
-      </style>
-    `;
-  } else {
-    // Other pages → Back button with icon
-    rightIconHTML = `
-      <button id="backBtn" style="
-        display:flex;
-        align-items:center;
-        color:white;
-        background:none;
-        border:none;
-        font-size:16px;
-        cursor:pointer;
-        font-weight:500;
-        transition: transform 0.2s;
-      ">
-        <span class="material-icons" style="margin-right:4px;">arrow_back</span> Back
-      </button>
-    `;
-  }
-
-  headerContainer.innerHTML = `
-    <header style="
-      height: 64px;
+// header.js
+(function () {
+  const style = document.createElement("style");
+  style.textContent = `
+    /* Header */
+    #header {
+      background: #1E1E1E;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 1.5rem;
-      background: rgba(31,41,55,0.85);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 20;
+    }
+    #header .icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+    }
+    #header .title {
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+
+    /* Side Drawer */
+    .side-drawer {
       position: fixed;
       top: 0;
+      left: -240px;
+      width: 240px;
+      height: 100%;
+      background: #1E1E1E;
+      padding: 1rem;
+      transition: left 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 100;
+    }
+    .side-drawer.open {
       left: 0;
-      right: 0;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-    ">
-      <div style="display:flex; align-items:center;">
-        <span class="material-icons" style="
-          color:white;
-          font-size:28px;
-          margin-right:8px;
-        ">live_tv</span>
-        <h1 style="
-          font-size:1.25rem;
-          font-weight:600;
-          color:white;
-        ">${title}</h1>
-      </div>
-      <div>
-        ${rightIconHTML}
-      </div>
-    </header>
+    }
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: #fff;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .drawer-item:hover {
+      background: #2C2C2C;
+    }
   `;
+  document.head.appendChild(style);
 
-  // Event listeners
-  if (page === 'index.html') {
-    const notifBtn = document.getElementById('notificationBtn');
-    if (notifBtn) {
-      notifBtn.addEventListener('click', () => {
-        window.location.href = 'notifications.html';
-      });
-    }
-  } else {
-    const backBtn = document.getElementById('backBtn');
-    if (backBtn) {
-      backBtn.addEventListener('click', () => {
-        window.history.back();
-      });
-    }
+  const header = document.getElementById("header");
+  if (header) {
+    header.innerHTML = `
+      <!-- Side Drawer -->
+      <div class="side-drawer" id="sideDrawer">
+        <a href="/" class="drawer-item"><span class="material-symbols-outlined">home</span> Home</a>
+        <a href="applications" class="drawer-item"><span class="material-symbols-outlined">android</span> IPTV Applications</a>
+        <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlist</a>
+        <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
+        <a href="signin" class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</a>
+      </div>
+
+      <!-- Header Bar -->
+      <div class="flex items-center">
+        <div class="icon-btn mr-3" id="menuBtn">
+          <span class="material-symbols-outlined">menu</span>
+        </div>
+        <div class="title">Live TV</div>
+      </div>
+      <div class="flex items-center relative">
+        <div class="icon-btn" id="searchBtn">
+          <span class="material-symbols-outlined">search</span>
+        </div>
+      </div>
+    `;
+
+    // Side Drawer toggle logic
+    const menuBtn = document.getElementById("menuBtn");
+    const sideDrawer = document.getElementById("sideDrawer");
+    document.addEventListener("click", (e) => {
+      if (menuBtn.contains(e.target)) {
+        sideDrawer.classList.toggle("open");
+      } else if (!sideDrawer.contains(e.target)) {
+        sideDrawer.classList.remove("open");
+      }
+    });
   }
-}
-
-document.addEventListener("DOMContentLoaded", loadHeader);
+})();
