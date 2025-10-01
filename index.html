@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live TV</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Notifications - Live TV</title>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -15,20 +15,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-<!-- HLS.js for .m3u8 streams -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <style>
-body { font-family: 'Roboto', sans-serif; background-color: #121212; margin:0; color:white; }
-.icon-btn { display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; }
-.side-drawer { position: fixed; top:0; left:-240px; width:240px; height:100%; background:#1E1E1E; padding:1rem; transition:left 0.3s ease; display:flex; flex-direction:column; gap:1rem; z-index:60; }
-.side-drawer.open { left:0; }
-.drawer-item { display:flex; align-items:center; gap:12px; font-size:0.95rem; color:#fff; cursor:pointer; padding:0.5rem; border-radius:0.5rem; transition:background 0.2s; text-decoration:none; }
-.drawer-item:hover { background:#2C2C2C; }
-.channel-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap:0.75rem; margin-top:0.5rem; }
-.channel-card { background:#1E1E1E; border-radius:0.75rem; padding:0.5rem; text-align:center; cursor:pointer; transition: transform 0.2s, box-shadow 0.2s; }
-.channel-card:hover { transform:scale(1.05); box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-.channel-card img { width:100%; height:70px; object-contain; border-radius:0.5rem; }
+body { font-family: 'Roboto', sans-serif; background-color:#121212; color:white; margin:0; min-height:100vh; }
+.notification-card { display:flex; align-items:center; gap:12px; background:#1E1E1E; padding:12px; border-radius:12px; margin-bottom:12px; cursor:pointer; transition:all 0.3s ease; }
+.notification-card:hover { background:#2C2C2C; transform:translateY(-2px); }
+.notification-icon { width:60px; height:60px; border-radius:12px; object-fit:cover; background:#111; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; }
+.notification-content { flex:1; }
+.notification-title { font-weight:700; font-family:'Baloo 2', cursive; font-size:1rem; }
+.notification-category { font-size:0.85rem; color:#9ca3af; margin-top:2px; }
+.new-badge { display:inline-block; background:#facc15; color:#000; font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:8px; margin-left:6px; }
+.notification-card.new { border:1px solid #facc15; animation: glow 1.5s ease-in-out 2; }
+@keyframes glow { 0%,100%{box-shadow:0 0 12px #facc15;} 50%{box-shadow:0 0 24px #facc15;} }
+.empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:3rem; text-align:center; }
+.empty-state .title { font-size:1.5rem; font-weight:700; color:#facc15; margin-bottom:1rem; }
+.empty-state img { max-width:240px; border-radius:12px; box-shadow:0 4px 14px rgba(0,0,0,0.6); }
 </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -36,65 +36,18 @@ body { font-family: 'Roboto', sans-serif; background-color: #121212; margin:0; c
 <!-- Header -->
 <div id="header"></div>
 
-<!-- Search Bar -->
-<div class="search-bar-container hidden px-4 py-2" id="searchContainer">
-  <input type="search" placeholder="Search channels..." id="searchInput"
-    class="w-full px-4 py-2 rounded-lg bg-[#1E1E1E] text-white border border-gray-600 outline-none"/>
-</div>
-
-<!-- Main Content -->
-<main class="flex-1 p-4">
-  <!-- Category List -->
-  <div id="categoryList"></div>
-
-  <!-- Channels Grid/List View -->
-  <div id="categoryChannels" class="hidden">
-    <div class="flex justify-between items-center mb-4">
-      <!-- Back Button -->
-      <button id="backToCategories" class="flex items-center justify-center h-10 px-4 bg-gray-800 text-white rounded-lg">
-        ← Back
-      </button>
-
-      <!-- Sort + View Buttons -->
-      <div class="flex items-center gap-2">
-        <!-- Sort Buttons -->
-        <button class="sort-btn flex items-center justify-center h-10 w-10 bg-gray-800 rounded-lg" data-sort="az" title="A–Z">
-          <span class="material-symbols-outlined">sort_by_alpha</span>
-        </button>
-        <button class="sort-btn flex items-center justify-center h-10 w-10 bg-gray-800 rounded-lg" data-sort="za" title="Z–A">
-          <span class="material-symbols-outlined rotate-180">sort_by_alpha</span>
-        </button>
-        <button class="sort-btn flex items-center justify-center h-10 w-10 bg-gray-800 rounded-lg" data-sort="recent" title="Recent">
-          <span class="material-symbols-outlined">update</span>
-        </button>
-
-        <!-- View Toggle -->
-        <button id="viewToggle" class="flex items-center justify-center h-10 w-10 bg-gray-800 text-white rounded-lg">
-          <span class="material-symbols-outlined" id="viewIcon">grid_view</span>
-        </button>
-      </div>
-    </div>
-
-    <h2 class="font-semibold text-lg mb-2" id="categoryTitle"></h2>
-    <div id="channelGrid" class="channel-grid"></div>
-  </div>
+<main class="flex-1 p-4" id="notificationsContainer">
+  <!-- Skeleton loader while fetching -->
+  <div class="notification-card" style="height:70px; opacity:0.6;"></div>
+  <div class="notification-card" style="height:70px; opacity:0.6;"></div>
+  <div class="notification-card" style="height:70px; opacity:0.6;"></div>
 </main>
 
 <!-- Footer -->
-  <div id="footer"></div>
+<div id="footer"></div>
 
-<!-- Scripts -->
 <script src="assets/js/header.js"></script>
 <script src="assets/js/footer.js"></script>
-
-
-<!-- Player Modal -->
-<div id="playerModal" class="hidden fixed inset-0 bg-black/90 z-50 flex justify-center items-center">
-  <div id="playerContainer" class="relative w-[90%] max-w-[720px] bg-black rounded-lg overflow-hidden">
-    <span id="playerClose" class="absolute top-2 right-2 text-white text-2xl font-bold cursor-pointer">&times;</span>
-    <video id="playerVideo" class="w-full h-[400px]" controls></video>
-  </div>
-</div>
 
 <script>
 const firebaseConfig = {
@@ -108,177 +61,115 @@ const firebaseConfig = {
   measurementId: "G-FNS9JWZ9LS"
 };
 firebase.initializeApp(firebaseConfig);
-const dbRef = firebase.database().ref("channels");
+const db = firebase.database();
 
-// Elements
-const categoryList = document.getElementById('categoryList');
-const categoryChannels = document.getElementById('categoryChannels');
-const backToCategories = document.getElementById('backToCategories');
-const categoryTitle = document.getElementById('categoryTitle');
-const channelGrid = document.getElementById('channelGrid');
-const searchInput = document.getElementById('searchInput');
-const searchContainer = document.getElementById('searchContainer');
-const searchBtn = document.getElementById('searchBtn');
+const container = document.getElementById('notificationsContainer');
+let channelsCache = [], notificationsCache = [];
 
-// Player elements
-const playerModal = document.getElementById('playerModal');
-const playerVideo = document.getElementById('playerVideo');
-const playerClose = document.getElementById('playerClose');
-
-let allChannels = [];
-let filteredChannels = [];
-let currentView = "grid";
-
-// Open Player
-function openPlayer(streamUrl){
-  if(Hls.isSupported() && streamUrl.endsWith('.m3u8')){
-    if(playerVideo.hls) playerVideo.hls.destroy();
-    const hls = new Hls();
-    hls.loadSource(streamUrl);
-    hls.attachMedia(playerVideo);
-    playerVideo.hls = hls;
-  } else {
-    playerVideo.src = streamUrl;
-  }
-  playerModal.classList.remove('hidden');
-  playerVideo.play();
-  if (/Mobi|Android/i.test(navigator.userAgent)) {
-    if (playerVideo.requestFullscreen) playerVideo.requestFullscreen();
-  }
+function timeAgo(timestamp) {
+  if(!timestamp) return "";
+  const diff = Math.floor((Date.now() - timestamp)/1000);
+  if(diff<60) return diff+"s ago";
+  if(diff<3600) return Math.floor(diff/60)+"m ago";
+  if(diff<86400) return Math.floor(diff/3600)+"h ago";
+  return Math.floor(diff/86400)+"d ago";
 }
 
-// Close Player
-function closePlayer(){
-  if(playerVideo.hls){ playerVideo.hls.destroy(); playerVideo.hls=null; }
-  playerVideo.pause();
-  playerVideo.removeAttribute('src');
-  playerVideo.load();
-  playerModal.classList.add('hidden');
-}
-
-// Close button
-playerClose.addEventListener('click', closePlayer);
-
-// Close on ESC
-document.addEventListener('keydown', (e)=>{
-  if(e.key === "Escape" && !playerModal.classList.contains('hidden')) closePlayer();
-});
-
-// Close if clicked outside video
-playerModal.addEventListener('click', (e)=>{
-  if(e.target === playerModal) closePlayer();
-});
-
-// Create Channel Card
-function createCard(channel){
+function createNotificationCard(notification){
   const card = document.createElement('div');
-  card.className = currentView === "grid" ? "channel-card" : "flex items-center gap-3 bg-[#1E1E1E] p-3 rounded-lg cursor-pointer hover:bg-[#2C2C2C]";
-  card.innerHTML = currentView === "grid" ? `
-    <img src="${channel.icon}" alt="${channel.name}"/>
-    <div class="text-white mt-2 font-medium text-sm" style="font-family:'Baloo 2', cursive;">${channel.name}</div>
-  ` : `
-    <img src="${channel.icon}" alt="${channel.name}" class="w-12 h-12 rounded"/>
-    <div class="text-white font-medium" style="font-family:'Baloo 2', cursive;">${channel.name}</div>
-  `;
-  card.addEventListener('click', ()=>{
-    dbRef.child(channel.id).child('clicks').transaction(val=>(val||0)+1);
-    openPlayer(channel.stream);
-  });
+  card.className = 'notification-card';
+  if(notification.url) card.onclick = ()=> window.location.href = notification.url;
+
+  const ONE_DAY = 24*60*60*1000;
+  const isNew = Date.now() - (notification.timestamp||0) < ONE_DAY;
+  if(isNew) card.classList.add('new');
+
+  const img = document.createElement('img');
+  img.className='notification-icon';
+  img.src = notification.logo||'';
+  img.alt = notification.name||'Notification';
+  img.onerror = ()=>{
+    const icon = document.createElement('span');
+    icon.className='material-symbols-outlined notification-icon';
+    icon.textContent='notifications';
+    img.replaceWith(icon);
+  };
+
+  const content = document.createElement('div');
+  content.className='notification-content';
+
+  const title = document.createElement('div');
+  title.className='notification-title';
+  title.textContent = notification.message || "New Update";
+
+  if(isNew){
+    const badge = document.createElement('span');
+    badge.className='new-badge';
+    badge.textContent='NEW';
+    title.appendChild(badge);
+  }
+
+  const meta = document.createElement('div');
+  meta.className='notification-category';
+  meta.textContent = `${notification.category||'Update'} • ${timeAgo(notification.timestamp)}`;
+
+  content.appendChild(title);
+  content.appendChild(meta);
+  card.appendChild(img);
+  card.appendChild(content);
+
   return card;
 }
 
-// Render Channels
-function renderChannels(channels){
-  channelGrid.innerHTML = '';
-  let list = [...channels];
-
-  // Sort
-  const activeSortBtn = document.querySelector('.sort-btn.active');
-  const sortValue = activeSortBtn ? activeSortBtn.dataset.sort : "az";
-  if(sortValue === "az") list.sort((a,b)=>a.name.localeCompare(b.name));
-  else if(sortValue === "za") list.sort((a,b)=>b.name.localeCompare(a.name));
-  else if(sortValue === "recent") list.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
-
-  channelGrid.className = currentView === "grid" ? "channel-grid" : "flex flex-col gap-2";
-
-  list.forEach(ch=> channelGrid.appendChild(createCard(ch)));
+function renderEmptyState(){
+  container.innerHTML = `
+    <div class="empty-state">
+      <div class="title">ஒன்னும் இல்லை!</div>
+      <img src="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0032382345023889667523819.jpg" alt="Empty State"/>
+    </div>
+  `;
 }
 
-// Open Category
-function openCategory(category){
-  categoryList.style.display = 'none';
-  categoryChannels.classList.remove('hidden');
-  categoryTitle.textContent = category;
-  filteredChannels = allChannels.filter(ch => ch.category === category);
-  renderChannels(filteredChannels);
+function renderNotifications(list){
+  container.innerHTML='';
+  if(list.length===0){
+    renderEmptyState();
+    return;
+  }
+  list.forEach(n=> container.appendChild(createNotificationCard(n)));
 }
 
-// Back button
-backToCategories.addEventListener('click', ()=>{
-  categoryChannels.classList.add('hidden');
-  categoryList.style.display = 'block';
+// Firebase listeners
+firebase.database().ref('channels').on('value', snap=>{
+  const data = snap.val()||{};
+  channelsCache = Object.entries(data).map(([id,c])=>({
+    message: `New channel added: ${c.name||'Unknown'}`,
+    logo: c.icon||'',
+    url: c.stream||'',
+    name: c.name||'Unknown',
+    timestamp: c.createdAt ? new Date(c.createdAt).getTime() : 0,
+    category: 'Channel'
+  }));
+  updateUI();
 });
 
-// Sort buttons
-document.querySelectorAll('.sort-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    renderChannels(filteredChannels);
-  });
+firebase.database().ref('notifications').on('value', snap=>{
+  const data = snap.val()||{};
+  notificationsCache = Object.entries(data).map(([id,n])=>({
+    message: n.message,
+    logo: n.logo||'',
+    url: n.url||'',
+    name: n.message||'Notification',
+    timestamp: n.timestamp||0,
+    category: n.type||'Notification'
+  }));
+  updateUI();
 });
 
-// View toggle
-document.getElementById('viewToggle').addEventListener('click', ()=>{
-  currentView = currentView==="grid"?"list":"grid";
-  document.getElementById('viewIcon').textContent = currentView==="grid"?"grid_view":"list";
-  renderChannels(filteredChannels);
-});
-
-// Search
-searchBtn.addEventListener('click', ()=> searchContainer.classList.toggle('hidden'));
-searchInput.addEventListener('input', ()=>{
-  const query = searchInput.value.toLowerCase();
-  const cards = channelGrid.querySelectorAll('.channel-card, .flex.items-center');
-  cards.forEach(card=>{
-    card.style.display = card.textContent.toLowerCase().includes(query) ? 'block' : 'none';
-  });
-});
-
-// Fetch from Firebase
-dbRef.on('value', snapshot=>{
-  allChannels=[];
-  snapshot.forEach(snap=>{
-    const ch = snap.val();
-    ch.id = snap.key;
-    if(!ch.clicks) ch.clicks=0;
-    if(!ch.createdAt) ch.createdAt = new Date().toISOString();
-    allChannels.push(ch);
-  });
-  renderCategoryList();
-});
-
-// Render Categories
-function renderCategoryList(){
-  categoryList.innerHTML = '';
-  const categories = [...new Set(allChannels.map(ch => ch.category))];
-  categories.forEach(cat=>{
-    const count = allChannels.filter(ch => ch.category === cat).length;
-    const row = document.createElement('div');
-    row.className = "flex items-center justify-between p-4 bg-[#1E1E1E] rounded-lg mb-2 cursor-pointer hover:bg-[#2C2C2C] transition";
-    row.innerHTML = `
-      <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-yellow-500">folder</span>
-        <span class="text-white font-medium">${cat}</span>
-      </div>
-      <div class="flex items-center gap-2 text-gray-300">
-        <span>${count}</span>
-        <span class="material-symbols-outlined">chevron_right</span>
-      </div>
-    `;
-    row.addEventListener('click', ()=>openCategory(cat));
-    categoryList.appendChild(row);
-  });
+function updateUI(){
+  const merged = [...channelsCache, ...notificationsCache].sort((a,b)=>b.timestamp - a.timestamp);
+  const latest10 = merged.slice(0,10);
+  renderNotifications(latest10);
 }
 </script>
 
