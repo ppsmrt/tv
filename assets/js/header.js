@@ -71,6 +71,7 @@
         <a href="applications" class="drawer-item"><span class="material-symbols-outlined">android</span> IPTV Applications</a>
         <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlist</a>
         <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
+         <a href="about" class="drawer-item"><span class="material-symbols-outlined">info</span> Aboout</a>
         <a href="signin" class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</a>
       </div>
 
