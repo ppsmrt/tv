@@ -198,11 +198,15 @@ const overlay = document.getElementById("alreadyLoggedInOverlay");
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     overlay.classList.add("show"); // show overlay
-    // Wait 1.5 seconds, then smoothly redirect
     setTimeout(async () => {
       const adminRef = ref(db, "admins/" + user.uid);
       const adminSnapshot = await get(adminRef);
-      window.location.href = adminSnapshot.exists() ? "admin" : "/";
+
+      if (adminSnapshot.exists() && adminSnapshot.val().role === "admin") {
+        window.location.href = "admin";
+      } else {
+        window.location.href = "/";
+      }
     }, 1500);
   }
 });
@@ -244,14 +248,17 @@ signinForm.addEventListener("submit", async (e) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+
     const adminRef = ref(db, "admins/" + user.uid);
     const adminSnapshot = await get(adminRef);
 
-    showToast("Login successful! Redirecting...", "success");
-
-    setTimeout(() => {
-      window.location.href = adminSnapshot.exists() ? "admin" : "/";
-    }, 1000);
+    if (adminSnapshot.exists() && adminSnapshot.val().role === "admin") {
+      showToast("Welcome Admin! Redirecting...", "success");
+      setTimeout(() => window.location.href = "admin", 1000);
+    } else {
+      showToast("Login successful! Redirecting...", "success");
+      setTimeout(() => window.location.href = "/", 1000);
+    }
   } catch (error) {
     showToast(parseFirebaseError(error));
   } finally {
