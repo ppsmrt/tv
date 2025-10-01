@@ -793,3 +793,9 @@ http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
 http://195.181.169.162/ETV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Gemini Movies" group-title="Telugu" tvg-logo="https://i.ibb.co/XZ92LxgN/1000139039.jpg",Gemini Movies
 http://195.181.169.162/GEMINI_MOVIES_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Zee Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/dC1x0h2/1000139057.jpg",Zee Kannada
+http://195.181.169.162/ZEE_KANNADA_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Colors Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/Vc2V2WcR/1000139059.jpg",Colors Kannada
+http://195.181.169.162/COLORS_KANNADA_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Udhaya Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/j9Gc9K0g/1000139061.jpg",Udhaya Tv
+http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
