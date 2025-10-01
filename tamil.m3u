@@ -431,3 +431,5 @@ http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
 https://stream.galaxyott.live/live/dharshantv/index.m3u8
 #EXTINF:-1 tvg-name="Devathai Tv" group-title="Regional" tvg-logo="https://i.ibb.co/hJMX40D9/1000138934.jpg",Devathai Tv
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
+#EXTINF:-1 tvg-name="Jaya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/mrrFgZfK/1000139002.png",Jaya Tv
+http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
