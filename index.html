@@ -1,67 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Live TV - Stream Live</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live TV</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-  <!-- Fav Icon -->
-  <link rel="icon" type="image/x-icon" href="https://tnm3u.live/assets/icon/favicon.ico">
+<!-- HLS.js for .m3u8 streams -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-  <!-- Baloo 2 Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<style>
+body { font-family: 'Roboto', sans-serif; background-color: #121212; margin:0; color:white; }
+header { display:flex; align-items:center; justify-content:space-between; padding:0.75rem 1rem; background:#1E1E1E; position:sticky; top:0; z-index:50; }
+.title { font-weight:600; font-size:1.2rem; color:#fff; }
+.icon-btn { display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; }
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+.side-drawer { position: fixed; top:0; left:-240px; width:240px; height:100%; background:#1E1E1E; padding:1rem; transition:left 0.3s ease; display:flex; flex-direction:column; gap:1rem; z-index:60; }
+.side-drawer.open { left:0; }
+.drawer-item { display:flex; align-items:center; gap:12px; font-size:0.95rem; color:#fff; cursor:pointer; padding:0.5rem; border-radius:0.5rem; transition:background 0.2s; }
+.drawer-item:hover { background:#2C2C2C; }
+
+.channel-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap:0.75rem;
+  margin-top:0.5rem;
+}
+.channel-card {
+  background:#1E1E1E;
+  border-radius:0.75rem;
+  padding:0.5rem;
+  text-align:center;
+  cursor:pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.channel-card:hover { transform:scale(1.05); box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+.channel-card img { width:100%; height:70px; object-contain; border-radius:0.5rem; }
+
+footer { text-align:center; padding:0.75rem; font-size:0.8rem; color:#aaa; background:#1E1E1E; border-top:1px solid #333; margin-top:1rem; }
+
+#playerModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:200; justify-content:center; align-items:center; }
+#playerContainer { position:relative; width:90%; max-width:720px; background:#000; border-radius:0.75rem; overflow:hidden; }
+#playerVideo { width:100%; height:400px; background:black; }
+#playerClose { position:absolute; top:0.5rem; right:0.5rem; color:white; font-size:2rem; font-weight:bold; cursor:pointer; }
+</style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="flex flex-col min-h-screen">
 
-  <!-- Header -->
-  <div id="header"></div>
+<!-- Side Drawer -->
+<div class="side-drawer" id="sideDrawer">
+  <a href="home" class="drawer-item">
+  <span class="material-symbols-outlined">home</span> Home
+</a>
+  <a href="/" class="drawer-item"><span class="material-symbols-outlined">live_tv</span> Live TV</a>
+  <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlist</a>
+  <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
+  <div class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</div>
+</div>
 
-  <main>
-    <!-- Search Bar -->
-    <div class="search-container">
-      <span class="material-icons">search</span>
-      <input type="search" id="searchInput" placeholder="Search channels..." aria-label="Search channels"/>
-    </div>
-
-    <!-- Featured Carousel -->
-    <div class="featured-carousel" id="featuredCarousel"></div>
-
-    <!-- Categories -->
-    <nav class="category-bar" id="categoryBar" role="navigation" aria-label="Channel categories"></nav>
-
-    <!-- Channels -->
-    <section class="channels-grid" id="channelsGrid" aria-live="polite" aria-relevant="additions removals"></section>
-  </main>
-
-  <!-- Channel Info Modal -->
-  <div class="modal-bg" id="channelModal">
-    <div class="modal-content glassmorphic animate-modal">
-      <span class="modal-close" id="modalClose">&times;</span>
-      <h2 class="text-xl font-bold mb-2" id="modalName"></h2>
-      <p id="modalCategory"></p>
-      <p id="modalLanguage"></p>
-      <p id="modalTags"></p>
-      <p id="modalAddedBy" class="text-sm mt-2"></p>
-    </div>
+<!-- Header -->
+<header>
+  <div class="flex items-center">
+    <div class="icon-btn mr-3" id="menuBtn"><span class="material-symbols-outlined">menu</span></div>
+    <div class="title">Live TV</div>
   </div>
+  <div class="flex items-center relative">
+    <div class="icon-btn" id="searchBtn"><span class="material-symbols-outlined">search</span></div>
+  </div>
+</header>
 
-   <!-- Footer -->
-  <div id="footer"></div>
+<!-- Search Bar -->
+<div class="search-bar-container hidden px-4 py-2" id="searchContainer">
+  <input type="search" placeholder="Search channels..." id="searchInput"
+    class="w-full px-4 py-2 rounded-lg bg-[#1E1E1E] text-white border border-gray-600 outline-none"/>
+</div>
 
-  <!-- Header/Footer scripts -->
-  <script type="module" src="assets/js/header.js"></script>
-  <script type="module" src="assets/js/footer.js"></script>
+<!-- Main -->
+<main class="p-4">
+  <!-- Category List -->
+  <div id="categoryList"></div>
 
-  <!-- Main JS -->
-  <script type="module" src="assets/js/app.js"></script>
+  <!-- Channels Grid View -->
+  <div id="categoryChannels" class="hidden">
+    <button id="backToCategories" class="mb-4 px-4 py-2 bg-gray-800 text-white rounded-lg">
+      ← Back
+    </button>
+    <h2 class="font-semibold text-lg mb-2" id="categoryTitle"></h2>
+    <div class="channel-grid" id="channelGrid"></div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>&copy; 2025 Live TV</footer>
+
+<!-- Player Modal -->
+<div id="playerModal" class="flex">
+  <div id="playerContainer">
+    <span id="playerClose">&times;</span>
+    <video id="playerVideo" controls></video>
+  </div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.firebasestorage.app",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
+firebase.initializeApp(firebaseConfig);
+const dbRef = firebase.database().ref("channels");
+
+// Elements
+const categoryList = document.getElementById('categoryList');
+const categoryChannels = document.getElementById('categoryChannels');
+const backToCategories = document.getElementById('backToCategories');
+const categoryTitle = document.getElementById('categoryTitle');
+const channelGrid = document.getElementById('channelGrid');
+const searchInput = document.getElementById('searchInput');
+const searchContainer = document.getElementById('searchContainer');
+const searchBtn = document.getElementById('searchBtn');
+
+// Player elements
+const playerModal = document.getElementById('playerModal');
+const playerVideo = document.getElementById('playerVideo');
+const playerClose = document.getElementById('playerClose');
+
+let allChannels = [];
+
+// Open Player
+function openPlayer(streamUrl){
+  if(Hls.isSupported() && streamUrl.endsWith('.m3u8')){
+    if(playerVideo.hls) playerVideo.hls.destroy();
+    const hls = new Hls();
+    hls.loadSource(streamUrl);
+    hls.attachMedia(playerVideo);
+    playerVideo.hls = hls;
+  } else {
+    playerVideo.src = streamUrl;
+  }
+
+  playerModal.style.display = 'flex';
+  playerVideo.play();
+
+  // Auto fullscreen on mobile
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    if (playerVideo.requestFullscreen) {
+      playerVideo.requestFullscreen();
+    } else if (playerVideo.webkitRequestFullscreen) { // Safari
+      playerVideo.webkitRequestFullscreen();
+    } else if (playerVideo.msRequestFullscreen) { // IE/Edge
+      playerVideo.msRequestFullscreen();
+    }
+  }
+}
+
+// Close Player (Reusable function)
+function closePlayer(){
+  if(playerVideo.hls){
+    playerVideo.hls.destroy();
+    playerVideo.hls = null;
+  }
+  playerVideo.pause();
+  playerVideo.removeAttribute('src');
+  playerVideo.load();
+  playerModal.style.display = 'none';
+}
+
+// Close button
+playerClose.addEventListener('click', closePlayer);
+
+// Close on ESC
+document.addEventListener('keydown', (e)=>{
+  if(e.key === "Escape" && playerModal.style.display === 'flex'){
+    closePlayer();
+  }
+});
+
+// Close if clicked outside video
+playerModal.addEventListener('click', (e)=>{
+  if(e.target === playerModal){
+    closePlayer();
+  }
+});
+
+// Channel Card
+function createCard(channel){
+  const card = document.createElement('div');
+  card.className = 'channel-card';
+  card.dataset.category = channel.category;
+  card.innerHTML = `
+    <img src="${channel.icon}" alt="${channel.name}"/>
+    <div class="text-white mt-2 font-medium text-sm" style="font-family:'Baloo 2', cursive;">
+      ${channel.name}
+    </div>
+  `;
+  card.addEventListener('click', ()=>{
+    dbRef.child(channel.id).child('clicks').transaction(val=>(val||0)+1);
+    openPlayer(channel.stream);
+  });
+  return card;
+}
+
+// Render Channels
+function renderChannels(channels){
+  channelGrid.innerHTML = '';
+  channels.forEach(ch=>channelGrid.appendChild(createCard(ch)));
+}
+
+// Render Category List
+function renderCategoryList(){
+  categoryList.innerHTML = '';
+  const categories = [...new Set(allChannels.map(ch => ch.category))];
+  categories.forEach(cat=>{
+    const count = allChannels.filter(ch => ch.category === cat).length;
+    const row = document.createElement('div');
+    row.className = "flex items-center justify-between p-4 bg-[#1E1E1E] rounded-lg mb-2 cursor-pointer hover:bg-[#2C2C2C] transition";
+    row.innerHTML = `
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-yellow-500">folder</span>
+        <span class="text-white font-medium">${cat}</span>
+      </div>
+      <div class="flex items-center gap-2 text-gray-300">
+        <span>${count}</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </div>
+    `;
+    row.addEventListener('click', ()=>openCategory(cat));
+    categoryList.appendChild(row);
+  });
+}
+
+function openCategory(category){
+  categoryList.style.display = 'none';
+  categoryChannels.classList.remove('hidden');
+  categoryTitle.textContent = category;
+  renderChannels(allChannels.filter(ch => ch.category === category));
+}
+
+backToCategories.addEventListener('click', ()=>{
+  categoryChannels.classList.add('hidden');
+  categoryList.style.display = 'block';
+});
+
+// Search
+searchBtn.addEventListener('click', ()=>searchContainer.classList.toggle('hidden'));
+searchInput.addEventListener('input', ()=>{
+  const query = searchInput.value.toLowerCase();
+  const cards = channelGrid.querySelectorAll('.channel-card');
+  cards.forEach(card=>{
+    card.style.display = card.textContent.toLowerCase().includes(query) ? 'block' : 'none';
+  });
+});
+
+// Firebase fetch
+dbRef.on('value', snapshot=>{
+  allChannels=[];
+  snapshot.forEach(snap=>{
+    const ch = snap.val();
+    ch.id = snap.key;
+    if(!ch.clicks) ch.clicks=0;
+    if(!ch.createdAt) ch.createdAt = new Date().toISOString();
+    allChannels.push(ch);
+  });
+  renderCategoryList();
+});
+
+// Side drawer
+const menuBtn = document.getElementById('menuBtn');
+const sideDrawer = document.getElementById('sideDrawer');
+menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
+document.addEventListener('click', e=>{ if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open'); });
+</script>
 </body>
 </html>
