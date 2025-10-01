@@ -3,21 +3,19 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>IPTV Apps Download</title>
+<title>Download - Live TV</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-<!-- Baloo 2 Font -->
+<!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
 <style>
   body {
     font-family: 'Baloo 2', cursive;
-    background-color: #111827;
+    background-color: #121212;
     color: #f9fafb;
     margin: 0;
     min-height: 100vh;
@@ -25,122 +23,187 @@
     flex-direction: column;
   }
 
+  /* Header */
   header {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    padding: 0 1.5rem;
-    background: rgba(31,41,55,0.9);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    z-index: 20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0.75rem 1rem;
+    background:#1E1E1E;
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+  header .title {
+    font-weight:600;
+    font-size:1.2rem;
+    color:#fff;
+  }
+  header .nav-link {
+    color:#aaa;
+    font-weight:500;
+    margin-left:1rem;
+    transition: color 0.2s;
+  }
+  header .nav-link.active {
+    color:#f87171;
+    font-weight:600;
+  }
+  header .nav-link:hover {
+    color:#fca5a5;
   }
 
+  /* Side Drawer */
+  .side-drawer {
+    position: fixed;
+    top:0; left:-240px;
+    width:240px; height:100%;
+    background:#1E1E1E;
+    padding:1rem;
+    transition:left 0.3s;
+    display:flex; flex-direction:column; gap:1rem;
+    z-index:60;
+  }
+  .side-drawer.open { left:0; }
+  .drawer-item {
+    display:flex; align-items:center; gap:12px;
+    font-size:0.95rem; color:white; cursor:pointer;
+    padding:0.5rem; border-radius:0.5rem; transition:background 0.2s;
+    text-decoration:none;
+  }
+  .drawer-item:hover { background:#2C2C2C; }
+
+  /* Main */
   main {
-    flex: 1;
-    padding: 2rem 1rem;
-    max-width: 900px;
-    margin: 0 auto;
+    flex:1;
+    padding:2rem 1rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  main h2 {
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:1.5rem;
+    text-align:center;
+  }
+  main p {
+    text-align:center;
+    color:#d1d5db;
+    margin-bottom:2rem;
+    max-width:700px;
+    margin-left:auto;
+    margin-right:auto;
   }
 
-  h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-
+  /* App Cards */
   .app-card {
-    display: flex;
-    align-items: flex-start;
-    background: #1f2937;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    display:flex;
+    align-items:flex-start;
+    background:#1E1E1E;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:20px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
     transition: transform 0.2s ease;
   }
-  .app-card:hover {
-    transform: translateY(-3px);
-  }
+  .app-card:hover { transform: translateY(-3px); }
 
   .app-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 14px;
-    object-fit: cover;
-    margin-right: 16px;
+    width:64px;
+    height:64px;
+    border-radius:14px;
+    object-fit:cover;
+    margin-right:16px;
   }
 
-  .app-info h2 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 4px;
+  .app-info h3 {
+    font-size:1.2rem;
+    font-weight:700;
+    margin-bottom:4px;
   }
-
   .app-category {
-    display: inline-block;
-    font-size: 0.75rem;
-    background: #374151;
-    padding: 2px 8px;
-    border-radius: 8px;
-    margin-bottom: 6px;
-    color: #d1d5db;
+    display:inline-block;
+    font-size:0.75rem;
+    background:#2C2C2C;
+    padding:2px 8px;
+    border-radius:8px;
+    margin-bottom:6px;
+    color:#d1d5db;
   }
-
   .app-desc {
-    font-size: 0.9rem;
-    color: #9ca3af;
-    margin-bottom: 10px;
+    font-size:0.9rem;
+    color:#9ca3af;
+    margin-bottom:10px;
   }
 
   .download-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(90deg,#f87171,#ef4444);
-    color: white;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 8px 16px;
-    border-radius: 9999px;
-    box-shadow: 0 6px 18px rgba(248,113,113,0.5);
-    cursor: pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:linear-gradient(90deg,#f472b6,#ef4444);
+    color:white;
+    font-weight:600;
+    font-size:0.9rem;
+    padding:8px 16px;
+    border-radius:9999px;
+    box-shadow:0 6px 18px rgba(248,113,113,0.5);
+    cursor:pointer;
     transition: all 0.2s ease;
+    text-decoration:none;
   }
   .download-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 24px rgba(248,113,113,0.6);
+    transform:scale(1.05);
+    box-shadow:0 8px 24px rgba(248,113,113,0.6);
   }
 
+  /* Footer */
   footer {
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.875rem;
-    color: #9ca3af;
-    border-top: 1px solid #1f2937;
-    background: rgba(17,24,39,0.95);
+    padding:1rem;
+    text-align:center;
+    font-size:0.875rem;
+    color:#9ca3af;
+    border-top:1px solid #333;
+    background:#1E1E1E;
   }
 </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
+<!-- Side Drawer -->
+<div class="side-drawer" id="sideDrawer">
+  <a href="/" class="drawer-item"><span class="material-symbols-outlined">home</span> Home</a>
+  <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlists</a>
+  <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
+</div>
+
+<!-- Header -->
 <header>
-  <span class="material-icons">apps</span>
-  <h1 class="ml-2 text-lg font-bold">IPTV Apps</h1>
+  <div class="flex items-center gap-2">
+    <div id="menuBtn" class="cursor-pointer"><span class="material-symbols-outlined text-white text-2xl">menu</span></div>
+    <div class="title">Live TV</div>
+  </div>
+  <nav class="flex items-center gap-4">
+    <a href="/" class="nav-link">Home</a>
+    <a href="playlist" class="nav-link">Playlists</a>
+    <a href="download" class="nav-link active">Download</a>
+  </nav>
 </header>
 
+<!-- Main -->
 <main>
-  <h1>Download IPTV Applications</h1>
+  <h2>Download IPTV Applications</h2>
+  <p>Get recommended IPTV and media players to enjoy seamless streaming. Choose and install any of the apps below to open playlists easily.</p>
 
   <!-- App 1 -->
   <div class="app-card">
     <img src="https://play-lh.googleusercontent.com/-8d3GdmISMXbjfX8KdmAbfXq83QtkxHumLZiFuZoObSLr0YBF5zEhYeAmPg-rUMQVkrW=w480-h960-rw" alt="App Icon" class="app-icon">
     <div class="app-info">
-      <h2>XP IPTV Player</h2>
+      <h3>XP IPTV Player</h3>
       <span class="app-category">IPTV Player</span>
-      <p class="app-desc">Discover endless entertainment possibilities with XP IPTV ! Whether you're watching movies, series, live TV, or catch-up content from your preferred IPTV ...</p>
+      <p class="app-desc">Discover endless entertainment possibilities with XP IPTV! Movies, series, live TV, or catch-up — just add your playlist.</p>
       <a href="https://play.google.com/store/apps/details?id=com.sidhbalitech.ninexplayer" class="download-btn">
-        <span class="material-icons">file_download</span> Download
+        <span class="material-symbols-outlined">file_download</span> Download
       </a>
     </div>
   </div>
@@ -149,11 +212,11 @@
   <div class="app-card">
     <img src="https://play-lh.googleusercontent.com/dS1QjnY21LPf4V1LvajD78-BmJoCRaxlNSnvYjdUjguDSmIWeAsp0OerRK9KAVlEhQ=w480-h960-rw" alt="App Icon" class="app-icon">
     <div class="app-info">
-      <h2>Televizo</h2>
+      <h3>Televizo</h3>
       <span class="app-category">IPTV Player</span>
-      <p class="app-desc">Televizo is a video player only. Televizo does not provide any content. You must add your own playlist to watch videos or channels.</p>
+      <p class="app-desc">Televizo is only a video player. You must add your own playlist to watch videos or channels.</p>
       <a href="https://play.google.com/store/apps/details?id=com.ottplay.ottplay" class="download-btn">
-        <span class="material-icons">file_download</span> Download
+        <span class="material-symbols-outlined">file_download</span> Download
       </a>
     </div>
   </div>
@@ -162,11 +225,11 @@
   <div class="app-card">
     <img src="https://via.placeholder.com/64x64.png?text=P" alt="App Icon" class="app-icon">
     <div class="app-info">
-      <h2>Perfect Player</h2>
+      <h3>Perfect Player</h3>
       <span class="app-category">Media Player</span>
-      <p class="app-desc">Lightweight IPTV media player with playlist support and customizable channel groups.</p>
+      <p class="app-desc">Lightweight IPTV player with playlist support and customizable channel groups.</p>
       <a href="#" class="download-btn">
-        <span class="material-icons">file_download</span> Download
+        <span class="material-symbols-outlined">file_download</span> Download
       </a>
     </div>
   </div>
@@ -175,19 +238,30 @@
   <div class="app-card">
     <img src="https://via.placeholder.com/64x64.png?text=V" alt="App Icon" class="app-icon">
     <div class="app-info">
-      <h2>VLC Media Player</h2>
+      <h3>VLC Media Player</h3>
       <span class="app-category">Media Player</span>
-      <p class="app-desc">Universal free media player that supports IPTV playlist streaming across all platforms.</p>
+      <p class="app-desc">Universal free media player with IPTV playlist streaming support across platforms.</p>
       <a href="#" class="download-btn">
-        <span class="material-icons">file_download</span> Download
+        <span class="material-symbols-outlined">file_download</span> Download
       </a>
     </div>
   </div>
 </main>
 
+<!-- Footer -->
 <footer>
   &copy; 2025 Live TV. All Rights Reserved.
 </footer>
+
+<script>
+// Side drawer toggle
+const menuBtn = document.getElementById('menuBtn');
+const sideDrawer = document.getElementById('sideDrawer');
+menuBtn.addEventListener('click', () => sideDrawer.classList.toggle('open'));
+document.addEventListener('click', e=>{
+  if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
+});
+</script>
 
 </body>
 </html>
