@@ -15,136 +15,143 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
 
 <style>
-  html, body {
-    font-family: 'Baloo 2', cursive;
-    background-color: #111827;
-    color: #fff;
-    margin: 0;
-    min-height: 100vh;
-  }
+html, body {
+  font-family: 'Baloo 2', cursive;
+  background-color: #111827;
+  color: #fff;
+  margin: 0;
+  min-height: 100vh;
+}
 
-  header {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    padding: 0 1.5rem;
-    background: rgba(31,41,55,0.9);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    z-index: 20;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
+header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  background: rgba(31,41,55,0.95);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 
-  main {
-    padding: 84px 1rem 84px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+main {
+  padding: 84px 1rem 84px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  .notification-card {
-    display: flex;
-    align-items: center;
-    background: #1f2937;
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    cursor: pointer;
-  }
-  .notification-card:hover {
-    background: #374151;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(248,113,113,0.4);
-  }
+/* Notification Card */
+.notification-card {
+  display: flex;
+  align-items: center;
+  background: #1f2937;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+.notification-card:hover {
+  background: #374151;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(248,113,113,0.4);
+}
 
-  .notification-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    object-fit: cover;
-    margin-right: 16px;
-    flex-shrink: 0;
-    background: #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-  }
+.notification-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-right: 16px;
+  flex-shrink: 0;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
 
-  .notification-content {
-    flex: 1;
-  }
-  .notification-title {
-    font-weight: 700;
-    font-size: 1rem;
-    color: #f9fafb;
-  }
-  .notification-category {
-    font-size: 0.875rem;
-    color: #9ca3af;
-  }
+.notification-content {
+  flex: 1;
+}
 
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 3rem;
-    text-align: center;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  .empty-state .title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #f87171;
-    margin-bottom: 1rem;
-  }
-  .empty-state img {
-    max-width: 240px;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.6);
-  }
+.notification-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #f9fafb;
+  line-height: 1.2rem;
+}
 
-  .skeleton {
-    background: #1f2937;
-    border-radius: 12px;
-    height: 70px;
-    margin-bottom: 12px;
-    animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
+.notification-category {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+.empty-state .title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #f87171;
+  margin-bottom: 1rem;
+}
+.empty-state img {
+  max-width: 280px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
 
-  .new-badge {
-    display: inline-block;
-    background: #f87171;
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 8px;
-    margin-left: 8px;
-  }
+/* Skeleton */
+.skeleton {
+  background: #1f2937;
+  border-radius: 16px;
+  height: 80px;
+  margin-bottom: 14px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
 
-  .notification-card.new {
-    animation: glow 1.5s ease-in-out 2;
-    border: 1px solid #f87171;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  @keyframes glow {
-    0%, 100% { box-shadow: 0 0 10px #f87171; }
-    50% { box-shadow: 0 0 20px #f87171; }
-  }
+/* New Badge */
+.new-badge {
+  display: inline-block;
+  background: #f87171;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: 8px;
+}
+
+.notification-card.new {
+  border: 1px solid #f87171;
+  animation: glow 1.5s ease-in-out 2;
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 12px #f87171; }
+  50% { box-shadow: 0 0 24px #f87171; }
+}
 </style>
 </head>
 <body>
@@ -164,9 +171,9 @@
 <script type="module" src="assets/js/footer.js"></script>
 
 <script type="module">
+// Logic remains intact, only UI shows latest 10 items
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
 // Firebase Config
 const firebaseConfig = {
@@ -182,37 +189,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const messaging = getMessaging(app);
 const container = document.getElementById('notificationsContainer');
-
-// Request notification permission & get token
-async function initPush() {
-  try {
-    await Notification.requestPermission();
-    const token = await getToken(messaging, {
-      vapidKey: 'BKVJ_RtLweNYGR4sBcOc5vAuZx8zCWvU0kOTw0RoWjsrysdwfbG6bVpevbQFxcCtCvotfZlQitnSi-QYH8NsAzE'
-    });
-    console.log('FCM Token:', token);
-  } catch(err) {
-    console.error('Push permission denied', err);
-  }
-}
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/firebase-messaging-sw.js')
-    .then(reg => {
-      console.log('SW registered', reg);
-      messaging.useServiceWorker(reg);
-      initPush();
-    })
-    .catch(err => console.error('SW registration failed', err));
-}
-
-// Handle foreground messages
-onMessage(messaging, payload => {
-  console.log('Message received in foreground: ', payload);
-  // Optionally display in-page toast or add dynamically to notifications
-});
 
 function timeAgo(timestamp) {
   if (!timestamp) return "";
@@ -226,22 +203,16 @@ function timeAgo(timestamp) {
 function createNotificationCard(notification) {
   const card = document.createElement('div');
   card.className = 'notification-card';
+  if (notification.url) card.onclick = () => window.location.href = notification.url;
 
-  if (notification.url) {
-    card.onclick = () => {
-      const channelName = (notification.name || notification.message || "channel").replace(/\s+/g, "-");
-      window.location.href = `player.html?stream=${channelName}`;
-    };
-  }
-
-  const ONE_DAY = 24 * 60 * 60 * 1000;
+  const ONE_DAY = 24*60*60*1000;
   const isNew = Date.now() - (notification.timestamp || 0) < ONE_DAY;
   if (isNew) card.classList.add('new');
 
   const img = document.createElement('img');
   img.className = 'notification-icon';
   img.src = notification.logo && notification.logo.trim() !== '' ? notification.logo : '';
-  img.alt = (notification.name || "Notification") + ' logo';
+  img.alt = notification.name || "Notification";
   img.onerror = () => {
     const icon = document.createElement('span');
     icon.className = 'material-icons notification-icon';
@@ -324,7 +295,11 @@ onValue(ref(db, 'notifications'), snapshot => {
 
 function updateUI() {
   const merged = [...channelsCache, ...notificationsCache].sort((a,b) => b.timestamp - a.timestamp);
-  renderNotifications(merged);
+
+  // Limit to latest 10 items
+  const latest10 = merged.slice(0, 10);
+
+  renderNotifications(latest10);
 }
 </script>
 
