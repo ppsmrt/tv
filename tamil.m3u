@@ -92,7 +92,7 @@ https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
 #EXTINF:-1 tvg-name="Sun Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Fk8fYrqc/1000121921.jpg",Sun Tv
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-name="Sun Music" group-title="Music" tvg-logo="https://i.ibb.co/6cNQ4GD1/1000121935.jpg",Sun Music
-http://goldenpro.xyz:80/live/miyem2026/RV1G544/72123.ts
+http://195.181.169.162/SUN_MUSIC_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Max Movies" group-title="Regional" tvg-logo="https://i.ibb.co/bMS9MB9W/1000122159.jpg",Max Movies
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-name="Leo Tv" group-title="Regional" tvg-logo="https://i.ibb.co/Wpf1ZXTF/1000122161.jpg",Leo Tv
