@@ -67,6 +67,23 @@
       background: #2C2C2C;
     }
 
+    /* Drawer Footer Social Links */
+    .drawer-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-around;
+      padding-top: 1rem;
+      border-top: 1px solid #333;
+    }
+    .drawer-footer a {
+      color: #fff;
+      font-size: 1.5rem;
+      transition: color 0.2s;
+    }
+    .drawer-footer a:hover {
+      color: #1DB954; /* greenish for hover */
+    }
+
     /* Search Container */
     #searchContainer {
       width: 100%;
@@ -97,6 +114,19 @@
         <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
         <a href="about" class="drawer-item"><span class="material-symbols-outlined">info</span> About</a>
         <a href="signin" class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</a>
+
+        <!-- Drawer Footer with Social Icons -->
+        <div class="drawer-footer">
+          <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp">
+            <span class="material-symbols-outlined">chat</span>
+          </a>
+          <a href="https://discord.com/invite/yourinvite" target="_blank" title="Discord">
+            <span class="material-symbols-outlined">groups</span>
+          </a>
+          <a href="mailto:tnm3us@gmail.com" title="Email">
+            <span class="material-symbols-outlined">mail</span>
+          </a>
+        </div>
       </div>
 
       <!-- Header Bar -->
