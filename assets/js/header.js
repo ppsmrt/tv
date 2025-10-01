@@ -13,6 +13,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-direction: column;
+    }
+    #header .header-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     #header .icon-btn {
       display: flex;
@@ -59,6 +66,23 @@
     .drawer-item:hover {
       background: #2C2C2C;
     }
+
+    /* Search Container */
+    #searchContainer {
+      width: 100%;
+      background: #1E1E1E;
+      padding: 0.5rem;
+      display: none;
+    }
+    #searchContainer input {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      background: #2C2C2C;
+      color: white;
+      border: none;
+      outline: none;
+    }
   `;
   document.head.appendChild(style);
 
@@ -76,16 +100,23 @@
       </div>
 
       <!-- Header Bar -->
-      <div class="flex items-center">
-        <div class="icon-btn mr-3" id="menuBtn">
-          <span class="material-symbols-outlined">menu</span>
+      <div class="header-bar">
+        <div class="flex items-center">
+          <div class="icon-btn mr-3" id="menuBtn">
+            <span class="material-symbols-outlined">menu</span>
+          </div>
+          <div class="title">Live TV</div>
         </div>
-        <div class="title">Live TV</div>
+        <div class="flex items-center relative">
+          <div class="icon-btn" id="searchBtn">
+            <span class="material-symbols-outlined">search</span>
+          </div>
+        </div>
       </div>
-      <div class="flex items-center relative">
-        <div class="icon-btn" id="searchBtn">
-          <span class="material-symbols-outlined">search</span>
-        </div>
+
+      <!-- Search Bar -->
+      <div id="searchContainer">
+        <input type="text" id="searchInput" placeholder="Search channels..." />
       </div>
     `;
 
@@ -93,16 +124,46 @@
     const menuBtn = document.getElementById("menuBtn");
     const sideDrawer = document.getElementById("sideDrawer");
 
-    // Toggle drawer when menu button is clicked
     menuBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       sideDrawer.classList.toggle("open");
     });
 
-    // Close drawer when clicking outside
     document.addEventListener("click", (e) => {
       if (!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) {
         sideDrawer.classList.remove("open");
+      }
+    });
+
+    // Search toggle + filter logic
+    const searchBtn = document.getElementById("searchBtn");
+    const searchContainer = document.getElementById("searchContainer");
+    const searchInput = document.getElementById("searchInput");
+
+    searchBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (searchContainer.style.display === "block") {
+        searchContainer.style.display = "none";
+      } else {
+        searchContainer.style.display = "block";
+        searchInput.focus();
+      }
+    });
+
+    // Live search filter (requires .channel-item elements in DOM)
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const channels = document.querySelectorAll(".channel-item");
+      channels.forEach(channel => {
+        const name = channel.textContent.toLowerCase();
+        channel.style.display = name.includes(query) ? "" : "none";
+      });
+    });
+
+    // Close search when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!searchContainer.contains(e.target) && !searchBtn.contains(e.target)) {
+        searchContainer.style.display = "none";
       }
     });
   }
