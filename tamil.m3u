@@ -69,7 +69,7 @@ http://richtv.stream.onecloudlive.in/richtv/richtvhd/index.m3u8
 https://cdn.bozztv.com/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
 #EXTINF:-1 tvg-name="Rasi Tamil" group-title="Regional" tvg-logo="https://i.ibb.co/YF0ZXBwV/rasitamil.jpg",Rasi Tamil
 http://rasinetworks.in:1935/rasitamil/rasitamil.stream_aac/index.m3u8
-#EXTINF:-1 tvg-name="Rasi Movies" group-title="Movies" tvg-logo="https://i.ibb.co/ZRFYXdvm/rasimovies.jpg",Rasi Movies
+#EXTINF:-1 tvg-name="Rasi Movies" group-title="Regional" tvg-logo="https://i.ibb.co/ZRFYXdvm/rasimovies.jpg",Rasi Movies
 http://rasinetworks.in:1935/rasimovies/rasimovies.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="Rasi Comedy" group-title="Entertainment" tvg-logo="https://i.ibb.co/Z633zv8m/rasicomedy.jpg",Rasi Comedy
 http://rasinetworks.in:1935/rasicomedy/rasicomedy.stream_aac/index.m3u8
@@ -405,8 +405,6 @@ https://rtmp.bmlive.net/ctn/ctntn/index.m3u8
 https://server.notvstream.in/hitechtv/hitechtv.m3u8
 #EXTINF:-1 tvg-name="Men Tv" group-title="Regional" tvg-logo="https://i.ibb.co/S48gcynt/1000137234.jpg",Men Tv
 https://ipcloud.live/mtv/menhd/index.m3u8
-#EXTINF:-1 tvg-name="Action Hollywood Movies Tv" group-title="Regional" tvg-logo="https://i.ibb.co/7Ny0Q4mK/1000137236.jpg",Action Hollywood Movies Tv
-https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/ts-eu-w1-n2/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-name="Surya Tv HD" group-title="Regional" tvg-logo="https://i.ibb.co/DDQrBSwT/1000137238.jpg",Surya Tv HD
 https://galaxyott.live/hls/suryatv.m3u8
 #EXTINF:-1 tvg-name="S Max Tv" group-title="Regional" tvg-logo="https://i.ibb.co/1Hmxbv5/1000137243.png",S Max Tv
