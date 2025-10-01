@@ -769,3 +769,5 @@ https://live.skystream.in/live/ntntv/index.m3u8
 http://198.144.149.206:8080/NOTV/EZHILTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Thirupur Voice Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/xSrjHgc9/1000138412.webp",Thirupur Voice Tv
 http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
+#EXTINF:-1 tvg-name="Dharshan Kanchi TV" group-title="Tamil" tvg-logo="https://i.ibb.co/cPK91Zq/1000138897.jpg",Dharshan Kanchi TV
+https://stream.galaxyott.live/live/dharshantv/index.m3u8
