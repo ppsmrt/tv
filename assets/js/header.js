@@ -71,7 +71,7 @@
         <a href="applications" class="drawer-item"><span class="material-symbols-outlined">android</span> IPTV Applications</a>
         <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlist</a>
         <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
-         <a href="about" class="drawer-item"><span class="material-symbols-outlined">info</span> Aboout</a>
+        <a href="about" class="drawer-item"><span class="material-symbols-outlined">info</span> About</a>
         <a href="signin" class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</a>
       </div>
 
@@ -95,7 +95,7 @@
 
     // Toggle drawer when menu button is clicked
     menuBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // Prevent event from bubbling to document
+      e.stopPropagation();
       sideDrawer.classList.toggle("open");
     });
 
