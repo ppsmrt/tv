@@ -789,3 +789,7 @@ http://195.181.169.162/ZEE_CINEMALU_HD/index.m3u8?token=test
 http://195.181.169.162/SURYA_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Zee Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/5XMywNJx/1000139028.jpg",Zee Telugu
 http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="E Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/F47Bh3GB/1000139037.jpg",E Tv
+http://195.181.169.162/ETV_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Gemini Movies" group-title="Telugu" tvg-logo="https://i.ibb.co/XZ92LxgN/1000139039.jpg",Gemini Movies
+http://195.181.169.162/GEMINI_MOVIES_HD/index.m3u8?token=test
