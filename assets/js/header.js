@@ -91,20 +91,18 @@
     // Side Drawer toggle logic
     const menuBtn = document.getElementById("menuBtn");
     const sideDrawer = document.getElementById("sideDrawer");
+
+    // Toggle drawer when menu button is clicked
+    menuBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent event from bubbling to document
+      sideDrawer.classList.toggle("open");
+    });
+
+    // Close drawer when clicking outside
     document.addEventListener("click", (e) => {
-      if (menuBtn.contains(e.target)) {
-        sideDrawer.classList.toggle("open");
-      } else if (!sideDrawer.contains(e.target)) {
+      if (!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) {
         sideDrawer.classList.remove("open");
       }
     });
   }
 })();
-
-// Side drawer
-const menuBtn = document.getElementById('menuBtn');
-const sideDrawer = document.getElementById('sideDrawer');
-menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
-document.addEventListener('click', e=>{
-  if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
-});
