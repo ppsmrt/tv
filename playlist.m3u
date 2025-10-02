@@ -889,3 +889,15 @@ https://m6gdavepdn93-hls-live.5centscdn.com/indialife/d0dbe915091d400bd8ee7f27f0
 https://edge2-moblive.yuppcdn.net/drm/smil:knowledgetvdrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Ada Derana" group-title="Sinhala" tvg-logo="https://i.ibb.co/GDPh1KN/1000139781.jpg",Ada Derana
 https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
+#EXTINF:-1 tvg-name="Event Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/1tRwGRZ6/1000139782.jpg",Event Tv
+https://edge2-moblive.yuppcdn.net/drm/smil:eventtvdrm.smil/manifest.m3u8
+#EXTINF:-1 tvg-name="Kadamba Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/gkZchXD/1000139784.jpg",Kadamba Tv
+https://guru.shashwatha.com/hls/live/kadamba.m3u8
+#EXTINF:-1 tvg-name="Vijay Tv SD" group-title="Tamil" tvg-logo="https://i.ibb.co/pBKHbC8C/1000139785.jpg",Vijay Tv SD
+https://live.dinesh29.com.np/stream/jiotvplus/starvijay/master.m3u8
+#EXTINF:-1 tvg-name="Vijay Super" group-title="Tamil" tvg-logo="https://i.ibb.co/VYJJhXkv/1000139786.jpg",Vijay Super
+https://live.dinesh29.com.np/stream/jiotvplus/vijaysuperhd/master.m3u8
+#EXTINF:-1 tvg-name="Vijay Takkar" group-title="Tamil" tvg-logo="https://i.ibb.co/jXjzmYd/1000139787.jpg",Vijay Takkar
+https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
+#EXTINF:-1 tvg-name="Swasthik Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/NggsYMp8/1000139788.jpg",Swasthik Tv
+https://guru.shashwatha.com/hls/live/swastik.m3u8
