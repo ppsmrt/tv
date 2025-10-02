@@ -43,7 +43,7 @@ https://cdn-2.pishow.tv/live/1383/master.m3u8
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Movies" tvg-logo="https://i.ibb.co/bjqKRT24/20250904-171740.jpg",K Tv
 http://89.187.189.98/KTVHD/index.m3u8
-#EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Regional" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
+#EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
 http://applelive.in/thalapathytv/thalapathytv.m3u8
 #EXTINF:-1 tvg-name="ATN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/jPXTLj0Q/atntv.jpg",ATN Tv
 http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
@@ -61,7 +61,7 @@ http://richtv.stream.onecloudlive.in/richtv/richtvhd/index.m3u8
 http://rasinetworks.in:1935/rasitamil/rasitamil.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="Rasi Movies" group-title="Movies" tvg-logo="https://i.ibb.co/ZRFYXdvm/rasimovies.jpg",Rasi Movies
 http://rasinetworks.in:1935/rasimovies/rasimovies.stream_aac/index.m3u8
-#EXTINF:-1 tvg-name="Rasi Comedy" group-title="Regional" tvg-logo="https://i.ibb.co/Z633zv8m/rasicomedy.jpg",Rasi Comedy
+#EXTINF:-1 tvg-name="Rasi Comedy" group-title="Local Channels" tvg-logo="https://i.ibb.co/Z633zv8m/rasicomedy.jpg",Rasi Comedy
 http://rasinetworks.in:1935/rasicomedy/rasicomedy.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="Rasi Music" group-title="Music" tvg-logo="https://i.ibb.co/FkPwykW7/1000118463.jpg",Rasi Music
 http://rasinetworks.in:1935/rasimusic/rasimusic.stream_aac/index.m3u8
@@ -227,7 +227,7 @@ https://notvstream.in/mathitv/mathitv.m3u8
 https://rtmp.applelive.in/gmusic/gmusic/index.m3u8
 #EXTINF:-1 tvg-name="Dolphin Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/yn3CVVBZ/1000135652.webp",Dolphin Tv
 https://play.applelive.in/dolphintv/dolphintv.m3u8
-#EXTINF:-1 tvg-name="Velavan Tv" group-title="Regional" tvg-logo="https://i.ibb.co/zVSZrMrR/1000135655.webp",Velavan Tv
+#EXTINF:-1 tvg-name="Velavan Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/zVSZrMrR/1000135655.webp",Velavan Tv
 https://rtmp.applelive.in/srivelavantvultrahd/srivelavantvultrahd/index.m3u8
 #EXTINF:-1 tvg-name="Max Music Tv" group-title="Music" tvg-logo="https://i.ibb.co/fd3L6TVk/1000135660.jpg",Max Music Tv
 https://live.maxtn.in/maxmusic/maxmusic/index.m3u8
