@@ -434,7 +434,7 @@ https://edge3-moblive.yuppcdn.net/transhd2/smil:detv04.smil/index.m3u8?view=tnm3
 #EXTINF:-1 tvg-name="Verbum Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/vCpT6Xyz/1000124783.jpg",Verbum Tv
 https://edge3-moblive.yuppcdn.net/drm1/smil:verbumtvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Vibgyor" group-title="Malayalam" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
-https://app.vibgyortv.com/live
+https://pvqybagglz24-hls-live.5centscdn.com/7788_push_2913_001/c98886a28a6a78b57f2d090f3b0ecac4.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Thandhi One" group-title="Tamil" tvg-logo="https://i.ibb.co/Gf2bQb5s/1000127601.jpg",Thandhi One
 https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
 #EXTINF:-1 tvg-name="Vendhar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/TxWnWLgb/1000127602.jpg",Vendhar Tv
@@ -855,3 +855,19 @@ http://89.187.189.98/CARTOONNETWORK/index.m3u8
 http://89.187.189.98/ANIMALPLANETHD/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Science" group-title="Infotainment" tvg-logo="https://i.ibb.co/ZR8N0Qpq/1000139549.jpg",Discovery Science
 http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Turbo" group-title="Infotainment" tvg-logo="https://i.ibb.co/1fDzbgtJ/1000139551.jpg",Discovery Turbo
+http://89.187.189.98/DISCOVERYTURBO/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Kids" group-title="Kids" tvg-logo="https://i.ibb.co/zpK7FRb/1000139554.jpg",Discovery Kids
+http://89.187.189.98/DISCOVERYKIDS/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 1 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/CpsRgBg4/1000139559.jpg",Sony Ten Sports 1 HD1
+http://51.15.7.9:3141/ten1/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 2 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/nM091bvw/1000139574.jpg",Sony Ten Sports 2 HD1
+http://51.15.7.9:3141/ten2/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 3 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/CKLN2vkF/1000139575.jpg",Sony Ten Sports 3 HD1
+http://51.15.7.9:3141/ten3/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 5 HD1" group-title="Tamil" tvg-logo="https://i.ibb.co/FbFMycQR/1000139591.jpg",Sony Ten Sports 5 HD1
+http://51.15.7.9:3141/ten5/index.m3u8
+#EXTINF:-1 tvg-name="Raj News Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/JwfmB9Yx/1000139495.jpg",Raj News Telugu
+https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Raj_News_Telugu/master_1.m3u8
+#EXTINF:-1 tvg-name="Etv Telangana" group-title="Telugu" tvg-logo="https://i.ibb.co/VYH0X2fY/1000139604.jpg",Etv Telangana
+https://dssp63pjfajz9.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_TS_H264-3_cloud_in/index.m3u8
