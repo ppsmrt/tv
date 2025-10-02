@@ -36,7 +36,7 @@
   <!-- Content Split -->
   <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
 
-    <!-- Left: Form (independent scroll) -->
+    <!-- Left: Form -->
     <div class="w-full md:w-1/2 p-5 bg-white shadow-lg overflow-y-auto">
       <form id="channelForm" class="grid gap-4 md:grid-cols-2">
         <input type="hidden" id="channelId"/>
@@ -109,6 +109,7 @@
                 <option value="Documentary">Documentary</option>
                 <option value="Education">Education</option>
                 <option value="Regional">Regional</option>
+                <option value="Local">Local Channels</option>
               </select>
             </div>
 
@@ -155,24 +156,23 @@
       <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
     </div>
 
-    <!-- Right: Channel List (independent scroll) -->
+    <!-- Right: Channel List -->
     <div class="flex-1 flex flex-col overflow-hidden">
-
-      <!-- Filter, Sort & Search -->
       <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
         <div class="flex gap-3">
           <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
             <option value="All">All Categories</option>
-            <option value="Tamil">Tamil</option>
+           <option value="Tamil">Tamil</option>
             <option value="Telugu">Telugu</option>
             <option value="Kannada">Kannada</option>
             <option value="Malayalam">Malayalam</option>
+            <option value="English">English</option>
             <option value="Hindi">Hindi</option>
+            <option value="Sinhala">Sinhala</option>
             <option value="Kids">Kids</option>
             <option value="Sports">Sports</option>
-<option value="English">English</option>
-<option value="International">International</option>
-<option value="Sinhala">Sinhala</option>
+            <option value="International">International</option>
+            <option value="Infotainment">Infotainment</option>
           </select>
 
           <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
@@ -189,13 +189,11 @@
         </div>
       </div>
 
-      <!-- Channel List -->
       <div class="flex-1 overflow-y-auto p-5">
         <h2 class="text-xl font-bold mb-4">Channels</h2>
         <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
     </div>
-
   </div>
 
   <!-- Footer -->
