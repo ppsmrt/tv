@@ -460,7 +460,7 @@ http://ptu.ridsys.in/riptv/live/stream20/index.m3u8
 #EXTINF:-1 tvg-name="Akam Tv" group-title="International" tvg-logo="https://i.ibb.co/xtCs5Yfg/1000127625.jpg",Akam Tv
 http://stream.vstartv.org/p/3674/hybrid/play.m3u8
 #EXTINF:-1 tvg-name="Sony TEN Sports 1" group-title="Sports" tvg-logo="https://i.ibb.co/GQTZLSz7/1000139016.jpg",Sony TEN Sports 1
-http://195.181.169.162/TEN_1_HD/index.m3u8?view=tnm3u-addedby=tnm3u
+http://195.181.169.162/TEN_1_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Vanavil HD" group-title="Tamil" tvg-logo="https://i.ibb.co/SDWZTrnD/1000128151.webp",Vanavil HD
 http://ttv.7starcloud.com:1935/vaanavil/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Thirumagal Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/0VQn2qNR/1000128223.jpg",Thirumagal Tv
