@@ -879,3 +879,13 @@ https://ipcloud.live/nattuvartha/nvtvstream/index.m3u8
 https://96vd9q4kyxq7-hls-live.5centscdn.com/livestream/f25aeb3e9210967d546a077de6e105e4.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="N Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/WN5N7KnG/1000139771.jpg",N Tv
 https://mars.streambridge.cloud/ntv/live/playlist.m3u8
+#EXTINF:-1 tvg-name="KVTV" group-title="Malayalam" tvg-logo="https://i.ibb.co/V01PjjbM/1000139773.png",KVTV
+https://2-fss-2.themediacdn.com/pl_138/206324-3157542-1/chunklist.m3u8
+#EXTINF:-1 tvg-name="Nikky Tv" group-title="Kids" tvg-logo="https://i.ibb.co/C3wBwgqL/1000139775.jpg",Nikky Tv
+https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
+#EXTINF:-1 tvg-name="Pravasi Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/5WfHsPr2/1000139778.jpg",Pravasi Tv
+https://m6gdavepdn93-hls-live.5centscdn.com/indialife/d0dbe915091d400bd8ee7f27f0791303.sdp/chunks.m3u8
+#EXTINF:-1 tvg-name="Three Vision Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/bMMqLNTn/1000139779.jpg",Three Vision Tv
+https://edge2-moblive.yuppcdn.net/drm/smil:knowledgetvdrm.smil/manifest.m3u8
+#EXTINF:-1 tvg-name="Ada Derana" group-title="Sinhala" tvg-logo="https://i.ibb.co/GDPh1KN/1000139781.jpg",Ada Derana
+https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
