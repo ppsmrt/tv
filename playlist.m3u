@@ -909,3 +909,5 @@ https://guru.shashwatha.com/hls/live/rrtv.m3u8
 https://guru.shashwatha.com/hls/live/sne.m3u8
 #EXTINF:-1 tvg-name="Sity" group-title="Kannada" tvg-logo="https://i.ibb.co/vCRt1HYp/1000139800.png",Sity
 https://guru.shashwatha.com/hls/live/sity.m3u8
+#EXTINF:-1 tvg-name="& Flix HD" group-title="English" tvg-logo="https://i.ibb.co/whsm6qKX/1000139802.jpg",& Flix HD
+https://m3u.denver1769.fun/Port/TP/index.ts?id=a02a
