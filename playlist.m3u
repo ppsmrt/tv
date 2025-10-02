@@ -361,9 +361,9 @@ https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccda
 https://segment.yuppcdn.net/050522/reporter/playlist.m3u8
 #EXTINF:-1 tvg-name="IBC 24" group-title="Hindi" tvg-logo="https://i.ibb.co/B5zmn5L0/1000122564.jpg",IBC 24
 https://cdn-3.pishow.tv/live/220/master.m3u8
-#EXTINF:-1 tvg-name="IBC Bakthi" group-title="Tamil" tvg-logo="https://i.ibb.co/gM6n2Qwf/1000122568.jpg",IBC Bakthi
+#EXTINF:-1 tvg-name="IBC Bakthi" group-title="International" tvg-logo="https://i.ibb.co/gM6n2Qwf/1000122568.jpg",IBC Bakthi
 http://ibc.massstream.net/IBC2/index.m3u8
-#EXTINF:-1 tvg-name="IBC Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/K1vWbkZ/1000122569.jpg",IBC Tamil
+#EXTINF:-1 tvg-name="IBC Tamil" group-title="International" tvg-logo="https://i.ibb.co/K1vWbkZ/1000122569.jpg",IBC Tamil
 http://ibc.massstream.net/IBC/index.m3u8
 #EXTINF:-1 tvg-name="UTV Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/twnrWP6R/1000122573.jpg",UTV Malayalam
 https://em4qj6nedyvg-hls-live.wmncdn.net/utv/ab2de115318ae40bdd434e193a2f2e7f.sdp/playlist.m3u8
@@ -619,8 +619,6 @@ https://stream.sscloud7.in/live/livepcv/index.m3u8
 https://sscloud7.com/live/malartv/index.m3u8
 #EXTINF:-1 tvg-name="Bharathi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/PGhh0LKz/1000136505.jpg",Bharathi Tv
 https://server.sscloud7.in/live/bharathitv/index.m3u8
-#EXTINF:-1 tvg-name="Hitech Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/HThdptr6/1000136507.jpg",Hitech Tv
-https://server.notvstream.in/hitechtv/hitechtv.m3u8
 #EXTINF:-1 tvg-name="Vishil Max Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/KRDrKMc/1000136509.jpg",Vishil Max Tv
 https://stream.sscloud7.in/live/vishiltv2/index.m3u8
 #EXTINF:-1 tvg-name="Thendral Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/kgxJkNYV/1000136510.png",Thendral Tv
@@ -699,7 +697,7 @@ https://live.olidigital.in/olitv/olitv/index.m3u8
 https://brightmeltech.in/kchannel/kchannel.m3u8
 #EXTINF:-1 tvg-name="CTN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/tPTmmsz0/1000137227.jpg",CTN Tv
 https://rtmp.bmlive.net/ctn/ctntn/index.m3u8
-#EXTINF:-1 tvg-name="Hi-tech Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fdNP9sN7/1000137232.png",Hi-tech Tv
+#EXTINF:-1 tvg-name="Hitech Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fdNP9sN7/1000137232.png",Hitech Tv
 https://server.notvstream.in/hitechtv/hitechtv.m3u8
 #EXTINF:-1 tvg-name="Men Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/S48gcynt/1000137234.jpg",Men Tv
 https://ipcloud.live/mtv/menhd/index.m3u8
@@ -849,3 +847,5 @@ https://streams2.sofast.tv/ptnr-yupptv/title-TOLLY-TV-TEL_yupptv/v1/master/611d7
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/big-tv/index.m3u8
 #EXTINF:-1 tvg-name="TTN Live" group-title="International" tvg-logo="https://i.ibb.co/ymj8rrMb/1000139468.jpg",TTN Live
 https://5e5679f71b925.streamlock.net:442/live/ttntv/chunklist.m3u
+#EXTINF:-1 tvg-name="Vissa" group-title="Telugu" tvg-logo="https://i.ibb.co/MkhtpWFw/1000139524.jpg",Vissa
+https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Vissa_Tv/master_1.m3u8
