@@ -799,3 +799,11 @@ http://195.181.169.162/ZEE_KANNADA_HD/index.m3u8?token=test
 http://195.181.169.162/COLORS_KANNADA_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Udhaya Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/j9Gc9K0g/1000139061.jpg",Udhaya Tv
 http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="SRK City" group-title="Telugu" tvg-logo="https://i.ibb.co/q3QyMt67/1000139110.jpg",SRK City
+https://server.streamwell.in/hls/srkcity.m3u8
+#EXTINF:-1 tvg-name="GNT Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/TqDgNQwz/1000139111.jpg",GNT Tv
+https://amigofx.com:1936/srkent/srkent/playlist.m3u8
+#EXTINF:-1 tvg-name="SLN News" group-title="Telugu" tvg-logo="https://i.ibb.co/Lzj5x9cZ/1000139112.jpg",SLN News
+https://vvsolutions-server11.in/slnnews_2/video.m3u8
+#EXTINF:-1 tvg-name="Ava Family" group-title="International" tvg-logo="https://i.ibb.co/rK0NDWSy/1000139113.jpg",Ava Family
+https://familyhls.avatv.live/hls/stream.m3u8
