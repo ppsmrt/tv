@@ -75,7 +75,7 @@ http://198.144.149.206:8080/NOTV/KANCHIMEDIA/tracks-v1a1/mono.ts.m3u8?token=GTR
 https://galaxyott.live/hls/sanaplus.m3u8
 #EXTINF:-1 tvg-name="Sana Tv" group-title="Regional" tvg-logo="https://i.ibb.co/353wVfZ6/sanatv.png",Sana Tv
 https://galaxyott.live/hls/sanatv.m3u8
-#EXTINF:-1 tvg-name="Aarthi" group-title="Local" tvg-logo="https://i.ibb.co/zhKMVsPC/aarthi-tv.jpg",Aarthi
+#EXTINF:-1 tvg-name="Aarthi" group-title="Local Channels" tvg-logo="https://i.ibb.co/zhKMVsPC/aarthi-tv.jpg",Aarthi
 http://198.144.149.206:8080/NOTV/AARTHITV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Iratai Pathai" group-title="Local Channel" tvg-logo="https://i.ibb.co/zVcRph7f/1000120836.jpg",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
@@ -103,7 +103,7 @@ https://ipcloud.live/app/minnaltv/minnalhd/index.m3u8
 https://stream.onecloudlive.in/maruthitv/maruthitvhd/index.m3u8
 #EXTINF:-1 tvg-name="Nila Oli Tv" group-title="Regional" tvg-logo="https://i.ibb.co/d8HRXH3/1000122167.jpg",Nila Oli Tv
 https://live.olidigital.in/nilatv/nilatv/index.m3u8
-#EXTINF:-1 tvg-name="Aadhavan Tv" group-title="Local" tvg-logo="https://i.ibb.co/GQn3zdXz/1000122170.jpg",Aadhavan Tv
+#EXTINF:-1 tvg-name="Aadhavan Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/GQn3zdXz/1000122170.jpg",Aadhavan Tv
 https://ipcloud.live/aadhavantv/aadhavanhd/index.m3u8
 #EXTINF:-1 tvg-name="Apple" group-title="Local Channel" tvg-logo="https://i.ibb.co/tMf6VD68/1000122172.jpg",Apple
 https://play.applelive.in/appletv/appletv.m3u8
@@ -121,7 +121,7 @@ https://stream.iplive.xyz/amtv/amtv/tracks-v1a1/mono.m3u8
 https://ipcloud.live/paavai/live/index.m3u8
 #EXTINF:-1 tvg-name="Pothigai Thendral" group-title="Regional" tvg-logo="https://i.ibb.co/gZ9qSFDz/1000122453.jpg",Pothigai Thendral
 https://ipcloud.live/pothigai/thendral/index.m3u8
-#EXTINF:-1 tvg-name="Adhvika" group-title="Local" tvg-logo="https://i.ibb.co/35820nx8/1000122454.webp",Adhvika
+#EXTINF:-1 tvg-name="Adhvika" group-title="Local Channels" tvg-logo="https://i.ibb.co/35820nx8/1000122454.webp",Adhvika
 https://stream.advikadigital.in/advika/advika/index.m3u8
 #EXTINF:-1 tvg-name="Vasantham" group-title="Regional" tvg-logo="https://i.ibb.co/84s7F61c/1000122456.jpg",Vasantham
 https://stream.onecloudlive.in/dhandapani/vasanthamtv/tracks-v1a1/mono.m3u8
@@ -271,7 +271,7 @@ http://brightmeltech.in/ramyatv/ramyatv.m3u8
 http://brightmeltech.in/ramyatv/ramyatv.m3u8
 #EXTINF:-1 tvg-name="Arul Tv" group-title="Local Channel" tvg-logo="https://i.ibb.co/JRx3Ppdm/1000136493.jpg",Arul Tv
 http://arulstream.in:1935/ArulTv/live/playlist.m3u8
-#EXTINF:-1 tvg-name="A2A Tv" group-title="Local" tvg-logo="https://i.ibb.co/rRNfF9xK/1000136495.jpg",A2A Tv
+#EXTINF:-1 tvg-name="A2A Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/rRNfF9xK/1000136495.jpg",A2A Tv
 https://live.sscloud7.in/live/a2atv/index.m3u8
 #EXTINF:-1 tvg-name="Sky Tv" group-title="Regional" tvg-logo="https://i.ibb.co/F43L9dd7/1000136497.jpg",Sky Tv
 https://sscloud7.com/live/skytv/index.m3u8
@@ -285,7 +285,7 @@ https://server.sscloud7.in/live/bharathitv/index.m3u8
 https://stream.sscloud7.in/live/vishiltv2/index.m3u8
 #EXTINF:-1 tvg-name="Thendral Tv" group-title="Regional" tvg-logo="https://i.ibb.co/kgxJkNYV/1000136510.png",Thendral Tv
 https://sscloud7.com/live/thendraltv/index.m3u8
-#EXTINF:-1 tvg-name="Aaryaa Tv" group-title="Local Channel" tvg-logo="https://i.ibb.co/dRLxwNg/1000136512.jpg",Aaryaa Tv
+#EXTINF:-1 tvg-name="Aaryaa Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dRLxwNg/1000136512.jpg",Aaryaa Tv
 https://live.sscloud7.in/live/aaryaatv/index.m3u8
 #EXTINF:-1 tvg-name="Suriyan Tv" group-title="Regional" tvg-logo="https://i.ibb.co/Pz56hzqp/1000136514.jpg",Suriyan Tv
 https://sscloud7.com/live/suriyantv/index.m3u8
@@ -305,7 +305,7 @@ https://server.sscloud7.in/marantv/marantv/index.m3u8
 https://stream.sscloud7.in/live/mptv/index.m3u8
 #EXTINF:-1 tvg-name="Mayuri Tv" group-title="Regional" tvg-logo="https://i.ibb.co/36PY5KH/1000136545.jpg",Mayuri Tv
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
-#EXTINF:-1 tvg-name="7 Star" group-title="Local" tvg-logo="https://i.ibb.co/XBD1348/1000136548.jpg",7 Star
+#EXTINF:-1 tvg-name="7 Star" group-title="Local Channels" tvg-logo="https://i.ibb.co/XBD1348/1000136548.jpg",7 Star
 http://7starcloud.com:1935/live/7star2/playlist.m3u8
 #EXTINF:-1 tvg-name="King Tv" group-title="Local Channel" tvg-logo="https://i.ibb.co/f77w9N8/1000136550.jpg",King Tv
 https://rtmp.bmlive.net/kingtv/kingtv/index.m3u8
@@ -319,7 +319,7 @@ http://live.brightmeltech.in/singamtv/singamtv.m3u8
 https://play.applelive.in/jcvtv/jcvtv.m3u8
 #EXTINF:-1 tvg-name="Tiger Tv" group-title="Regional" tvg-logo="https://i.ibb.co/PZ0xMkLF/1000136561.jpg",Tiger Tv
 https://stream.onecloudlive.in/tigertv/tigertvhd/index.m3u8
-#EXTINF:-1 tvg-name="7screen" group-title="Local" tvg-logo="https://i.ibb.co/hJ1LLf41/1000136563.jpg",7screen
+#EXTINF:-1 tvg-name="7screen" group-title="Local Channels" tvg-logo="https://i.ibb.co/hJ1LLf41/1000136563.jpg",7screen
 https://account33.livebox.co.in/7GREEN4Khls/live.m3u8
 #EXTINF:-1 tvg-name="Fort Tv" group-title="Local Channel" tvg-logo="https://i.ibb.co/939BbvTv/1000136565.jpg",Fort Tv
 https://stream.onecloudlive.in/forttv/fortchannel/index.m3u8
@@ -425,6 +425,8 @@ https://stream.galaxyott.live/live/dharshantv/index.m3u8
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
 #EXTINF:-1 tvg-name="Jaya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/mrrFgZfK/1000139002.png",Jaya Tv
 http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="4 sides Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/RkcxBZLh/1000139348.jpg",4 sides Tv
+https://mars.streambridge.cloud/4sidestv/telugu/playlist.m3u8
 #EXTINF:-1 tvg-name="Vijay Tv SD" group-title="Entertainment" tvg-logo="https://i.ibb.co/pBKHbC8C/1000139785.jpg",Vijay Tv SD
 https://live.dinesh29.com.np/stream/jiotvplus/starvijay/master.m3u8
 #EXTINF:-1 tvg-name="Vijay Super" group-title="Entertainment" tvg-logo="https://i.ibb.co/VYJJhXkv/1000139786.jpg",Vijay Super
