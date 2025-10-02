@@ -567,8 +567,6 @@ https://play.applelive.in/dolphintv/dolphintv.m3u8
 https://rtmp.applelive.in/srivelavantvultrahd/srivelavantvultrahd/index.m3u8
 #EXTINF:-1 tvg-name="Max Music Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fd3L6TVk/1000135660.jpg",Max Music Tv
 https://live.maxtn.in/maxmusic/maxmusic/index.m3u8
-#EXTINF:-1 tvg-name="Isai Saral" group-title="Tamil" tvg-logo="https://i.ibb.co/RTbYpMqL/1000136013.webp",Isai Saral
-http://srnet.bmlive.net:1935/isaisaral/mystream/index.m3u8
 #EXTINF:-1 tvg-name="SR Music" group-title="Tamil" tvg-logo="https://i.ibb.co/0Rgzrmfg/1000136014.jpg",SR Music
 http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
 #EXTINF:-1 tvg-name="Jayam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/ZRqFWV7d/1000136442.png",Jayam Tv
