@@ -3,13 +3,54 @@
   const style = document.createElement("style");
   style.textContent = `
     /* Header */
-    #header { background: #1E1E1E; color: white; position: sticky; top: 0; z-index: 50; padding: 0.75rem; display: flex; align-items: center; justify-content: space-between; flex-direction: column; }
-    #header .header-bar { width: 100%; display: flex; align-items: center; justify-content: space-between; }
-    #header .icon-btn { display: flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; position: relative; }
-    #header .title { font-weight: 600; font-size: 1.125rem; }
+    #header {
+      background: #1E1E1E;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+    #header .header-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #header .icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      position: relative;
+    }
+    #header .title {
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
 
-    /* Notification badge */
-    .notif-badge { position: absolute; top: -4px; right: -4px; background: #facc15; color: #000; font-size: 0.65rem; font-weight: 700; padding: 1px 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    /* Notification badge (red with white text) */
+    .notif-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #dc2626; /* red-600 */
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      min-height: 18px;
+    }
 
     /* Side Drawer */
     .side-drawer { position: fixed; top: 0; left: -240px; width: 240px; height: 100%; background: #1E1E1E; padding: 1rem; transition: left 0.3s ease; display: flex; flex-direction: column; gap: 1rem; z-index: 100; }
@@ -68,33 +109,44 @@
     // Side Drawer toggle
     const menuBtn = document.getElementById("menuBtn");
     const sideDrawer = document.getElementById("sideDrawer");
-    menuBtn.addEventListener("click", e => { e.stopPropagation(); sideDrawer.classList.toggle("open"); });
-    document.addEventListener("click", e => { if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove("open"); });
+    menuBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      sideDrawer.classList.toggle("open");
+    });
+    document.addEventListener("click", e => {
+      if (!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove("open");
+    });
 
     // Search toggle
     const searchBtn = document.getElementById("searchBtn");
     const searchContainer = document.getElementById("searchContainer");
     const searchInput = document.getElementById("searchInput");
-    searchBtn.addEventListener("click", e => { e.stopPropagation(); searchContainer.style.display = (searchContainer.style.display==="block")?"none":"block"; searchInput.focus(); });
+    searchBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      searchContainer.style.display = (searchContainer.style.display === "block") ? "none" : "block";
+      searchInput.focus();
+    });
 
     // Live search filter
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase();
-      document.querySelectorAll(".channel-item").forEach(channel=>{
-        channel.style.display = channel.textContent.toLowerCase().includes(query)?"":"none";
+      document.querySelectorAll(".channel-item").forEach(channel => {
+        channel.style.display = channel.textContent.toLowerCase().includes(query) ? "" : "none";
       });
     });
-    document.addEventListener("click", e => { if(!searchContainer.contains(e.target) && !searchBtn.contains(e.target)) searchContainer.style.display="none"; });
+    document.addEventListener("click", e => {
+      if (!searchContainer.contains(e.target) && !searchBtn.contains(e.target)) searchContainer.style.display = "none";
+    });
 
     // Notification logic
     const notifCountEl = document.getElementById("notifCount");
     const notifBtn = document.getElementById("notifBtn");
 
-    const ONE_DAY = 24*60*60*1000;
+    const ONE_DAY = 24 * 60 * 60 * 1000;
     function updateNotificationCount(channels) {
       const now = Date.now();
       const recentCount = channels.filter(c => c.createdAt && (now - new Date(c.createdAt).getTime()) < ONE_DAY).length;
-      if(recentCount>0) {
+      if (recentCount > 0) {
         notifCountEl.style.display = "flex";
         notifCountEl.textContent = recentCount;
       } else {
@@ -104,17 +156,22 @@
 
     // Fetch channels from Firebase
     const db = firebase.database().ref("channels");
-    db.on("value", snap=>{
+    db.on("value", snap => {
       const channels = [];
-      snap.forEach(s=>{
+      snap.forEach(s => {
         const ch = s.val();
-        ch.createdAt = ch.createdAt || new Date().toISOString();
+        // Ensure createdAt exists
+        if (!ch.createdAt) {
+          ch.createdAt = new Date().toISOString();
+        }
         channels.push(ch);
       });
       updateNotificationCount(channels);
     });
 
-    // Click notification icon: optional, e.g., go to notifications page
-    notifBtn.addEventListener("click", () => { window.location.href="notifications.html"; });
+    // Click notification icon → go to notifications page
+    notifBtn.addEventListener("click", () => {
+      window.location.href = "notifications.html";
+    });
   }
 })();
