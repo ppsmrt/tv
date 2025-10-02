@@ -1,1 +1,105 @@
-##
+#EXTM3U
+#EXTINF:-1 tvg-name="News 24x7 Malayalam" group-title="News" tvg-logo="https://i.ibb.co/ccnq4t9W/news24x7malayalam.jpg",News 24x7 Malayalam
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-malayalam-24x7/index.m3u8
+#EXTINF:-1 tvg-name="South Vision" group-title="Regional" tvg-logo="https://i.ibb.co/ZRj1vTrF/1000120396.jpg",South Vision
+https://live.skystream.in/live/southvsnklm/index.m3u8
+#EXTINF:-1 tvg-name="N  Media" group-title="Entertainment" tvg-logo="https://i.ibb.co/5Wr3H5zX/bb574b993d1d.jpg",N  Media
+https://live.skystream.in/live/newmedia2924/index.m3u8?hls_ctx=4483yu96
+#EXTINF:-1 tvg-name="Swantham" group-title="Unknown" tvg-logo="https://i.ibb.co/9HnKDrtf/1000121277.jpg",Swantham
+http://cloud.logichost.in:1935/SWANTHAM/live/chunklist_w1753452838.m3u8
+#EXTINF:-1 tvg-name="Anand Tv" group-title="Regional" tvg-logo="https://i.ibb.co/XrHMxg82/1000121279.jpg",Anand Tv
+http://45.249.171.155:8090/anandmedia/kairalitv_576/index.m3u8
+#EXTINF:-1 tvg-name="Safari Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/mCXLsjHM/1000121289.jpg",Safari Tv
+https://j78dp346yq5r-hls-live.5centscdn.com/safari/live.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Vision Kerala" group-title="Regional" tvg-logo="https://i.ibb.co/xSxVC7fz/1000121291.jpg",Vision Kerala
+http://103.85.204.205:1935/VISIONMEDIA/live/playlist.m3u8
+#EXTINF:-1 tvg-name="One Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/qLHQzdzC/1000121293.jpg",One Tv
+http://137.59.86.218:1935/live/onetv/playlist.m3u8
+#EXTINF:-1 tvg-name="Mazhavil Manorama" group-title="Unknown" tvg-logo="https://i.ibb.co/6cmTMgMV/1000121295.jpg",Mazhavil Manorama
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mazhavilmanorama_nim_https/050522/mazhavilmanorama/playlist.m3u8
+#EXTINF:-1 tvg-name="MCV Channel" group-title="Unknown" tvg-logo="https://i.ibb.co/1YnYjrm4/1000121297.jpg",MCV Channel
+http://cloud.logichost.in:1935/live/mcvlive/chunklist_w141497558.m3u8
+#EXTINF:-1 tvg-name="Malabar Plus" group-title="Unknown" tvg-logo="https://i.ibb.co/RTC4yJn9/1000121317.jpg",Malabar Plus
+http://cloud.logichost.in:1935/live/mplus/chunklist_w380881802.m3u8
+#EXTINF:-1 tvg-name="Malabar News" group-title="Unknown" tvg-logo="https://i.ibb.co/d0mb2sgY/1000121310.jpg",Malabar News
+http://cloud.logichost.in:1935/live/malabarnews/chunklist_w1073688293.m3u8
+#EXTINF:-1 tvg-name="One Tv Local" group-title="Unknown" tvg-logo="https://i.ibb.co/qYw9v6fx/1000121414.jpg",One Tv Local
+http://rtmp.logichost.in:1935/live/onetv/chunklist_w1554463648.m3u8
+#EXTINF:-1 tvg-name="TCN Entertainments" group-title="Unknown" tvg-logo="https://i.ibb.co/7tS0wpSq/1000121418.jpg",TCN Entertainments
+http://cloud.logichost.in:1935/TCN/live/playlist.m3u8
+#EXTINF:-1 tvg-name="Vision Media" group-title="Regional" tvg-logo="https://i.ibb.co/60J5nv9N/1000121431.jpg",Vision Media
+http://103.85.204.205:1935/VISIONMEDIA/live/chunklist_w1236262378.m3u8
+#EXTINF:-1 tvg-name="KCN HD" group-title="Regional" tvg-logo="https://i.ibb.co/mr4CtGK3/1000121466.jpg",KCN HD
+http://kcnsdhlsapp.ylivestream.com/kcnsdapphls/index.m3u8
+#EXTINF:-1 tvg-name="PTA News" group-title="News" tvg-logo="https://i.ibb.co/60tqyTR2/1000121468.jpg",PTA News
+http://cloud.logichost.in:1935/PTA/live/chunklist_w508578235.m3u8
+#EXTINF:-1 tvg-name="AJ Net" group-title="Entertainment" tvg-logo="https://i.ibb.co/1G3Jmrty/1000121852.jpg",AJ Net
+http://stream.logichost.in:1935/AJNET/live/chunklist_w1099842082.m3u8
+#EXTINF:-1 tvg-name="Balatara Vision" group-title="Regional" tvg-logo="https://i.ibb.co/Lzd8qD8J/1000121865.jpg",Balatara Vision
+http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
+#EXTINF:-1 tvg-name="KCL" group-title="Unknown" tvg-logo="https://i.ibb.co/230fBYpC/1000121868.jpg",KCL
+http://kcltv.livebox.co.in/kclhls/live.m3u8
+#EXTINF:-1 tvg-name="Real News" group-title="Unknown" tvg-logo="https://i.ibb.co/xtGgPTKw/1000122474.jpg",Real News
+https://bk7l298nyx53-hls-live.5centscdn.com/realnews/e7dee419f91aa9e65939d3677fb9c4f5.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Flowers Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/SD69P5MP/1000122475.jpg",Flowers Tv
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/flowers_nim_https/050522/flowers/playlist.m3u8
+#EXTINF:-1 tvg-name="Magna Vision" group-title="Unknown" tvg-logo="https://i.ibb.co/xtmVfHdW/1000122479.jpg",Magna Vision
+https://j78dpa3edq5r-hls-live.5centscdn.com/abr/0864028584026e6ad9cdf922473177a4/playlist.m3u8
+#EXTINF:-1 tvg-name="Pulari Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/DHmsyrBq/1000122481.jpg",Pulari Tv
+https://royalstarindia.co.in/pularitv_hls/pularitv.m3u8
+#EXTINF:-1 tvg-name="Garshom Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/q3dgj8K0/1000122483.jpg",Garshom Tv
+https://og2qd3aal7an-hls-live.5centscdn.com/garshomtv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Kite Victers" group-title="Unknown" tvg-logo="https://i.ibb.co/FqLkZQD4/1000122485.jpg",Kite Victers
+https://932y4x26ljv8-hls-live.5centscdn.com/victers/tv.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="DD Malayalam" group-title="Unknown" tvg-logo="https://i.ibb.co/Z6X2NBXT/1000122486.png",DD Malayalam
+https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/562ee8f9-9950-48a0-ba1d-effa00cf0478/2.m3u8
+#EXTINF:-1 tvg-name="24 News" group-title="News" tvg-logo="https://i.ibb.co/fYYvcS0W/1000122488.jpg",24 News
+https://segment.yuppcdn.net/110322/channel24/playlist.m3u8
+#EXTINF:-1 tvg-name="C Malayalam Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/DDRgFWPY/1000122489.jpg",C Malayalam Tv
+https://2-fss-2.streamhoster.com/pl_120/206508-3261972-1/playlist.m3u8
+#EXTINF:-1 tvg-name="VBC News" group-title="Unknown" tvg-logo="https://i.ibb.co/k6gdLdhn/1000122492.jpg",VBC News
+https://5a1178b42cc03.streamlock.net/8200/8200/playlist.m3u8
+#EXTINF:-1 tvg-name="Kalika Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/G3Q9ncvd/1000122504.jpg",Kalika Tv
+http://server.applelive.in/kalikatv/kalikatv.m3u8
+#EXTINF:-1 tvg-name="Star Net" group-title="Unknown" tvg-logo="https://i.ibb.co/ycqV2hSB/1000122494.jpg",Star Net
+https://5a1178b42cc03.streamlock.net/8220/8220/playlist.m3u8
+#EXTINF:-1 tvg-name="Madhurbhumi" group-title="Unknown" tvg-logo="https://i.ibb.co/hxCTz0zt/1000122505.jpg",Madhurbhumi
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mathrubhuminews_nim_https/110322/mathrubhuminews/playlist.m3u8
+#EXTINF:-1 tvg-name="Manorama News" group-title="Unknown" tvg-logo="https://i.ibb.co/rRxVLNC7/1000122507.jpg",Manorama News
+https://mmtvnews1.akamaized.net/v1/master/673630b269b766886555eebfddd4f27f3de3ab50/mmtvNewsCampaign1/index.m3u8
+#EXTINF:-1 tvg-name="VCV Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/23JRgJRR/1000122511.jpg",VCV Tv
+https://5a1178b42cc03.streamlock.net/8210/8210/playlist.m3u8
+#EXTINF:-1 tvg-name="KC Vision" group-title="Unknown" tvg-logo="https://i.ibb.co/fdYmsD8V/1000122526.jpg",KC Vision
+http://111.92.41.129:11037/hls/kv.m3u8
+#EXTINF:-1 tvg-name="Weone News" group-title="News" tvg-logo="https://i.ibb.co/tMRvdZBM/1000122547.jpg",Weone News
+http://103.118.151.130:11037/hls/we.m3u8
+#EXTINF:-1 tvg-name="Kannur Vision" group-title="Regional" tvg-logo="https://i.ibb.co/DdC5c35/1000122549.png",Kannur Vision
+http://stream.logichost.in:1935/kannurvision/live/playlist.m3u8
+#EXTINF:-1 tvg-name="Zee News Malayalam" group-title="News" tvg-logo="https://i.ibb.co/8gBVbk3V/1000122553.jpg",Zee News Malayalam
+https://d1ty2af03alkwd.cloudfront.net/index_4.m3u8
+#EXTINF:-1 tvg-name="Janam Tv Malayalam" group-title="News" tvg-logo="https://i.ibb.co/LD5BxJR7/1000122557.jpg",Janam Tv Malayalam
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/janamtv_nim_https/140622/janamtv/playlist.m3u8
+#EXTINF:-1 tvg-name="Reporter" group-title="News" tvg-logo="https://i.ibb.co/G35tYhkd/1000122562.jpg",Reporter
+https://segment.yuppcdn.net/050522/reporter/playlist.m3u8
+#EXTINF:-1 tvg-name="UTV Malayalam" group-title="Regional" tvg-logo="https://i.ibb.co/twnrWP6R/1000122573.jpg",UTV Malayalam
+https://em4qj6nedyvg-hls-live.wmncdn.net/utv/ab2de115318ae40bdd434e193a2f2e7f.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Fox Tv" group-title="Regional" tvg-logo="https://i.ibb.co/7JZmwkc1/1000123272.jpg",Fox Tv
+http://103.118.151.130:11037/hls/fox.m3u8
+#EXTINF:-1 tvg-name="Vibgyor" group-title="Entertainment" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
+https://app.vibgyortv.com/live
+#EXTINF:-1 tvg-name="Asianet" group-title="Entertainment" tvg-logo="https://i.ibb.co/VYPB5q31/1000131506.jpg",Asianet
+http://217.20.112.199/asianet/index.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Kamudy Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/R4TvPMrK/1000132433.jpg",Kamudy Tv
+https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="We One Tv" group-title="Regional" tvg-logo="https://i.ibb.co/RKC56Ff/1000132909.jpg",We One Tv
+http://stream.logichost.in:1935/WEONE/live/chunklist_w617388636.m3u8
+#EXTINF:-1 tvg-name="Koickal News" group-title="Regional" tvg-logo="https://i.ibb.co/mFRsSRqn/1000133160.jpg",Koickal News
+https://play.applelive.in/koickalnews/koickalnews.m3u8
+#EXTINF:-1 tvg-name="CCV Tv" group-title="Regional" tvg-logo="https://i.ibb.co/vvQY4QGG/1000137237.jpg",CCV Tv
+https://5a1178b42cc03.streamlock.net/8212/8212/chunklist_w887200395.m3u8
+#EXTINF:-1 tvg-name="Teak Vision HD" group-title="Regional" tvg-logo="https://i.ibb.co/JWVTVBqs/1000137330.jpg",Teak Vision HD
+https://hd.singamcloud.in/teakvision/teakvision/index.m3u8
+#EXTINF:-1 tvg-name="GTv" group-title="Regional" tvg-logo="https://i.ibb.co/Gv9jd5N6/1000137563.jpg",GTv
+https://play.applelive.in/gtvmax/gtvmax.m3u8
+#EXTINF:-1 tvg-name="Surya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/ynqbMTXB/1000139026.jpg",Surya Tv
+http://195.181.169.162/SURYA_HD/index.m3u8?token=test
