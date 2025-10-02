@@ -119,3 +119,5 @@ https://vvsolutions-server11.in/slnnews_2/video.m3u8
 https://vvsolution.in/hls/bcntv_633.m3u8
 #EXTINF:-1 tvg-name="SR Tv" group-title="Regional" tvg-logo="https://i.ibb.co/VWfwVytt/1000139292.png",SR Tv
 https://vvsolutions-server11.in/bcncartoon2_37/video.m3u8
+#EXTINF:-1 tvg-name="Sana Tv" group-title="Regional" tvg-logo="https://i.ibb.co/C5Hj0J2g/1000139294.png",Sana Tv
+https://vvsolutions-server11.in/sanatv_23/video.m3u8
