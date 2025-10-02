@@ -869,3 +869,9 @@ http://51.15.7.9:3141/ten5/index.m3u8
 https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Raj_News_Telugu/master_1.m3u8
 #EXTINF:-1 tvg-name="Etv Telangana" group-title="Telugu" tvg-logo="https://i.ibb.co/VYH0X2fY/1000139604.jpg",Etv Telangana
 https://dssp63pjfajz9.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_TS_H264-3_cloud_in/index.m3u8
+#EXTINF:-1 tvg-name="Periyar Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/Kjs4mQyY/1000139764.jpg",Periyar Vision
+https://stream.onecloudlive.in/periyarvision/periyarvision/index.m3u8
+#EXTINF:-1 tvg-name="Powran Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/tTmZPSDc/1000139768.jpg",Powran Tv
+https://stream.onecloudlive.in/powranmedia/livestream/index.m3u8
+#EXTINF:-1 tvg-name="Nattuvartha Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/7dGhPqvv/1000139767.jpg",Nattuvartha Tv
+https://ipcloud.live/nattuvartha/nvtvstream/index.m3u8
