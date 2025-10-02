@@ -121,3 +121,5 @@ https://vvsolution.in/hls/bcntv_633.m3u8
 https://vvsolutions-server11.in/bcncartoon2_37/video.m3u8
 #EXTINF:-1 tvg-name="Sana Tv" group-title="Regional" tvg-logo="https://i.ibb.co/C5Hj0J2g/1000139294.png",Sana Tv
 https://vvsolutions-server11.in/sanatv_23/video.m3u8
+#EXTINF:-1 tvg-name="Gee Tv" group-title="Regional" tvg-logo="https://i.ibb.co/PsBskG9d/1000139295.webp",Gee Tv
+https://mumbai-edge.smartplaytv.in/GeeTV/index.m3u8
