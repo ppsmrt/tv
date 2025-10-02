@@ -841,3 +841,7 @@ https://d2cj1h11htct8o.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a
 https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_ABHIRUCHI_H264-3_cloud-in/index.m3u8
 #EXTINF:-1 tvg-name="Star Maa HD" group-title="Telugu" tvg-logo="https://i.ibb.co/Z1bTXYyW/1000139387.jpg",Star Maa HD
 https://live.dinesh29.com.np/stream/jiotvplus/maahd/master.m3u8
+#EXTINF:-1 tvg-name="Mango Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/sdMD63b0/1000139453.jpg",Mango Tv
+https://amg01911-mangotv-amg01911c1-xiaomi-in-1270.playouts.now.amagi.tv/playlist/amg01911-mangomassmedia-mangotv-xiaomiin/playlist.m3u8
+#EXTINF:-1 tvg-name="Tolly Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/Wvbj69kp/1000139454.png",Tolly Tv
+https://streams2.sofast.tv/ptnr-yupptv/title-TOLLY-TV-TEL_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/13b5735d-52c3-4be0-853d-e0ec0127e708/manifest.m3u8
