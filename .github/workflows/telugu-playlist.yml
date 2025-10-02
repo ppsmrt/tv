@@ -1,4 +1,4 @@
-name: Auto-update telugu.m3u
+name: Auto-update Telugu playlist
 
 on:
   schedule:
@@ -40,11 +40,11 @@ jobs:
               }
 
               let m3u = "#EXTM3U\n";
-              let changesSummary = [];
+              const currentChannels = [];
 
               for (const id of Object.keys(data)) {
                 const ch = data[id];
-                if (ch.category !== "Telugu") continue; // Only Telugu channels
+                if (ch.category !== "Telugu") continue;
                 const name = ch.name || "Unknown";
                 const logo = ch.icon || "";
                 const stream = ch.stream || "";
@@ -54,38 +54,21 @@ jobs:
 
                 const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${group}" tvg-logo="${logo}",${name}`;
                 m3u += `${extinf}\n${stream}\n`;
-
-                // Check if channel exists in previous file
-                const prevLineIndex = prevData.indexOf(name);
-                if (prevLineIndex === -1) {
-                  changesSummary.push(`Added: ${name}`);
-                } else {
-                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
-                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
-                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
-                    changesSummary.push(`Updated: ${name}`);
-                  }
-                }
+                currentChannels.push(name);
               }
 
-              // Check for removed channels
-              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
-              oldNames.forEach(name => {
-                if (!Object.values(data).some(ch => ch.name === name && ch.category === "Telugu")) {
-                  changesSummary.push(`Removed: ${name}`);
-                }
-              });
-
-              if (changesSummary.length === 0) {
-                console.log("No changes in an.m3u, skipping file generation.");
+              // Compare with previous file
+              if (m3u.trim() === prevData.trim()) {
+                console.log("No changes detected in an.m3u. Skipping commit.");
                 console.log('::set-output name=changed::false');
                 return;
               }
 
               fs.writeFileSync(filePath, m3u);
               console.log('an.m3u updated successfully.');
-              console.log(`::set-output name=changed::true`);
-              console.log(`::set-output name=summary::${changesSummary.join('; ')}`);
+              console.log(`Updated channels: ${currentChannels.join(', ')}`);
+              console.log('::set-output name=changed::true');
+              console.log(`::set-output name=summary::${currentChannels.join('; ')}`);
 
             } catch (err) {
               console.error('Error fetching channels:', err);
