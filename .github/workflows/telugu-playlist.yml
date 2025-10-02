@@ -1,0 +1,103 @@
+name: Auto-update telugu.m3u
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Generate an.m3u only if changed
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+
+          const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const filePath = 'an.m3u';
+          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
+
+          (async () => {
+            try {
+              const res = await fetch(url);
+              const data = await res.json();
+              if (!data) {
+                console.log("No channels found.");
+                return;
+              }
+
+              let m3u = "#EXTM3U\n";
+              let changesSummary = [];
+
+              for (const id of Object.keys(data)) {
+                const ch = data[id];
+                if (ch.category !== "Telugu") continue; // Only Telugu channels
+                const name = ch.name || "Unknown";
+                const logo = ch.icon || "";
+                const stream = ch.stream || "";
+                const group = (ch.channelType === "regional") ? "Local Channels" : ch.channelType || "Unknown";
+
+                if (!stream) continue;
+
+                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${group}" tvg-logo="${logo}",${name}`;
+                m3u += `${extinf}\n${stream}\n`;
+
+                // Check if channel exists in previous file
+                const prevLineIndex = prevData.indexOf(name);
+                if (prevLineIndex === -1) {
+                  changesSummary.push(`Added: ${name}`);
+                } else {
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
+                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
+                }
+              }
+
+              // Check for removed channels
+              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+              oldNames.forEach(name => {
+                if (!Object.values(data).some(ch => ch.name === name && ch.category === "Telugu")) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in an.m3u, skipping file generation.");
+                console.log('::set-output name=changed::false');
+                return;
+              }
+
+              fs.writeFileSync(filePath, m3u);
+              console.log('an.m3u updated successfully.');
+              console.log(`::set-output name=changed::true`);
+              console.log(`::set-output name=summary::${changesSummary.join('; ')}`);
+
+            } catch (err) {
+              console.error('Error fetching channels:', err);
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add an.m3u
+          git commit -m "Auto-update an.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
