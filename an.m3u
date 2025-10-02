@@ -117,3 +117,5 @@ https://amigofx.com:1936/srkent/srkent/playlist.m3u8
 https://vvsolutions-server11.in/slnnews_2/video.m3u8
 #EXTINF:-1 tvg-name="BCN Tv" group-title="Regional" tvg-logo="https://i.ibb.co/97Cr3zF/1000139115.jpg",BCN Tv
 https://vvsolution.in/hls/bcntv_633.m3u8
+#EXTINF:-1 tvg-name="SR Tv" group-title="Regional" tvg-logo="https://i.ibb.co/VWfwVytt/1000139292.png",SR Tv
+https://vvsolutions-server11.in/bcncartoon2_37/video.m3u8
