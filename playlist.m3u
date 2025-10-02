@@ -853,3 +853,5 @@ https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Vissa_Tv/master_1.m
 http://89.187.189.98/CARTOONNETWORK/index.m3u8
 #EXTINF:-1 tvg-name="Animal Planet" group-title="Infotainment" tvg-logo="https://i.ibb.co/gLFzq8yS/1000139534.jpg",Animal Planet
 http://89.187.189.98/ANIMALPLANETHD/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Science" group-title="Infotainment" tvg-logo="https://i.ibb.co/ZR8N0Qpq/1000139549.jpg",Discovery Science
+http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
