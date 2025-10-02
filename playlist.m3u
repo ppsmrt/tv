@@ -813,3 +813,5 @@ https://vvsolution.in/hls/bcntv_633.m3u8
 http://195.181.169.162/MOVIES_NOW_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="SR Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/VWfwVytt/1000139292.png",SR Tv
 https://vvsolutions-server11.in/bcncartoon2_37/video.m3u8
+#EXTINF:-1 tvg-name="Sana Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/C5Hj0J2g/1000139294.png",Sana Tv
+https://vvsolutions-server11.in/sanatv_23/video.m3u8
