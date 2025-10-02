@@ -807,3 +807,7 @@ https://amigofx.com:1936/srkent/srkent/playlist.m3u8
 https://vvsolutions-server11.in/slnnews_2/video.m3u8
 #EXTINF:-1 tvg-name="Ava Family" group-title="International" tvg-logo="https://i.ibb.co/rK0NDWSy/1000139113.jpg",Ava Family
 https://familyhls.avatv.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="BCN Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/97Cr3zF/1000139115.jpg",BCN Tv
+https://vvsolution.in/hls/bcntv_633.m3u8
+#EXTINF:-1 tvg-name="Movies Now" group-title="English" tvg-logo="https://i.ibb.co/rKmXpv0P/1000139118.jpg",Movies Now
+http://195.181.169.162/MOVIES_NOW_HD/index.m3u8?token=test
