@@ -175,25 +175,8 @@ footer {
 </head>
 <body class="flex flex-col min-h-screen">
 
-<!-- Side Drawer -->
-<div class="side-drawer" id="sideDrawer">
-  <a href="/" class="drawer-item"><span class="material-symbols-outlined">home</span> Home</a>
-  <a href="/" class="drawer-item"><span class="material-symbols-outlined">live_tv</span> Live TV</a>
-  <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlists</a>
-  <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
-</div>
-
 <!-- Header -->
-<header>
-  <div class="flex items-center gap-2">
-    <div id="menuBtn" class="cursor-pointer"><span class="material-symbols-outlined text-white text-2xl">menu</span></div>
-    <div class="title">Live TV</div>
-  </div>
-  <nav class="flex items-center gap-4">
-    <a href="/" class="nav-link">Home</a>
-    <a href="playlist" class="nav-link active">Playlists</a>
-  </nav>
-</header>
+  <div id="header"></div>
 
 <!-- Main -->
 <main>
@@ -246,9 +229,11 @@ footer {
 </main>
 
 <!-- Footer -->
-<footer>
-  &copy; 2025 Live TV. All Rights Reserved.
-</footer>
+  <div id="footer"></div>
+  
+<!-- Header & Footer -->
+  <script type="module" src="assets/js/header.js"></script>
+  <script type="module" src="assets/js/footer.js"></script>
 
 <!-- Toast -->
 <div id="toast">
