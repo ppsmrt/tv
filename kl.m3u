@@ -105,5 +105,11 @@ https://play.applelive.in/gtvmax/gtvmax.m3u8
 http://195.181.169.162/SURYA_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Periyar Vision" group-title="Entertainment" tvg-logo="https://i.ibb.co/Kjs4mQyY/1000139764.jpg",Periyar Vision
 https://stream.onecloudlive.in/periyarvision/periyarvision/index.m3u8
-#EXTINF:-1 tvg-name="Powran Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/nN47218x/1000139765.jpg",Powran Tv
+#EXTINF:-1 tvg-name="Powran Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/tTmZPSDc/1000139768.jpg",Powran Tv
 https://stream.onecloudlive.in/powranmedia/livestream/index.m3u8
+#EXTINF:-1 tvg-name="Nattuvartha Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/7dGhPqvv/1000139767.jpg",Nattuvartha Tv
+https://ipcloud.live/nattuvartha/nvtvstream/index.m3u8
+#EXTINF:-1 tvg-name="CCTV Kunnamkulam" group-title="Entertainment" tvg-logo="https://i.ibb.co/7NCF1pS7/1000139770.jpg",CCTV Kunnamkulam
+https://96vd9q4kyxq7-hls-live.5centscdn.com/livestream/f25aeb3e9210967d546a077de6e105e4.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="N Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/WN5N7KnG/1000139771.jpg",N Tv
+https://mars.streambridge.cloud/ntv/live/playlist.m3u8
