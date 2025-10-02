@@ -425,3 +425,9 @@ https://stream.galaxyott.live/live/dharshantv/index.m3u8
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
 #EXTINF:-1 tvg-name="Jaya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/mrrFgZfK/1000139002.png",Jaya Tv
 http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Vijay Tv SD" group-title="Entertainment" tvg-logo="https://i.ibb.co/pBKHbC8C/1000139785.jpg",Vijay Tv SD
+https://live.dinesh29.com.np/stream/jiotvplus/starvijay/master.m3u8
+#EXTINF:-1 tvg-name="Vijay Super" group-title="Entertainment" tvg-logo="https://i.ibb.co/VYJJhXkv/1000139786.jpg",Vijay Super
+https://live.dinesh29.com.np/stream/jiotvplus/vijaysuperhd/master.m3u8
+#EXTINF:-1 tvg-name="Vijay Takkar" group-title="Entertainment" tvg-logo="https://i.ibb.co/jXjzmYd/1000139787.jpg",Vijay Takkar
+https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
