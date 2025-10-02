@@ -393,9 +393,9 @@ http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 https://ipcloud.live/asokatv/asokahd/index.m3u8
 #EXTINF:-1 tvg-name="MSN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/b8YRQMd/1000123705.jpg",MSN Tv
 https://ipcloud.live/msntv/msntv/index.m3u8
-#EXTINF:-1 tvg-name="Vijay Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1Ywkv0Sd/1000123725.jpg",Vijay Tv
+#EXTINF:-1 tvg-name="Vijay Tv HD" group-title="Tamil" tvg-logo="https://i.ibb.co/1Ywkv0Sd/1000123725.jpg",Vijay Tv HD
 http://bestp55.xyz/live/A7FC77529786/519C32219872/72120.ts
-#EXTINF:-1 tvg-name="Zee Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/p6x4tcQ4/1000123730.jpg",Zee Tamil
+#EXTINF:-1 tvg-name="Zee Tamil SD" group-title="Tamil" tvg-logo="https://i.ibb.co/p6x4tcQ4/1000123730.jpg",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Adhitya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zVVFrJmb/1000123735.jpg",Adhitya Tv
 http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
@@ -849,3 +849,7 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://5e5679f71b925.streamlock.net:442/live/ttntv/chunklist.m3u
 #EXTINF:-1 tvg-name="Vissa" group-title="Telugu" tvg-logo="https://i.ibb.co/MkhtpWFw/1000139524.jpg",Vissa
 https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Vissa_Tv/master_1.m3u8
+#EXTINF:-1 tvg-name="Cartoon Network" group-title="Kids" tvg-logo="https://i.ibb.co/p6Xd6Mmy/1000139532.jpg",Cartoon Network
+http://89.187.189.98/CARTOONNETWORK/index.m3u8
+#EXTINF:-1 tvg-name="Animal Planet" group-title="Infotainment" tvg-logo="https://i.ibb.co/gLFzq8yS/1000139534.jpg",Animal Planet
+http://89.187.189.98/ANIMALPLANETHD/index.m3u8
