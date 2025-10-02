@@ -1,4 +1,3 @@
-// Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
 import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
@@ -83,6 +82,11 @@ function showToast(message, type = "success") {
   }, 3000);
 }
 
+// Status helper
+function showStatus(msg, isError = false) {
+  showToast(msg, isError ? "error" : "success");
+}
+
 // Templates for auto description
 const descriptionTemplates = {
   News: (name) =>
@@ -107,8 +111,8 @@ const descriptionTemplates = {
     `Learn with expert lectures, tutorials, and knowledge-packed programs designed for students and lifelong learners. Stay ahead with ${name} on tnm3u.live.`,
   Regional: (name) =>
     `Get updates, news, and stories from your city and region, covering events that matter most to you. Watch ${name} live on tnm3u.live.`,
-  Local Channel: (name) =>
-    `Tune into your community with ${name}, bringing you local updates, cultural events, neighborhood stories, and regional highlights. Watch it live on tnm3u.live.` // ✅ Added
+  Local: (name) =>
+    `Tune into your community with ${name}, bringing you local updates, cultural events, neighborhood stories, and regional highlights. Watch it live on tnm3u.live.`
 };
 
 const nameInput = document.getElementById("name");
@@ -144,7 +148,7 @@ form.addEventListener("submit", async (e) => {
   const description = descriptionBox.value.trim();
 
   if (!name || !icon || !stream || !category || !channelType || !language || !country) {
-    showToast("⚠️ Please fill all required fields.", "error");
+    showStatus("⚠️ Please fill all required fields.", true);
     return;
   }
 
@@ -178,7 +182,7 @@ form.addEventListener("submit", async (e) => {
         editedAt: now,
         editedBy: adminName
       });
-      showToast("✅ Channel updated!");
+      showStatus("✅ Channel updated!");
     } else {
       const newRef = push(ref(db, "channels"));
       await set(newRef, {
@@ -186,14 +190,14 @@ form.addEventListener("submit", async (e) => {
         createdAt: now,
         createdBy: adminName
       });
-      showToast("✅ Channel added!");
+      showStatus("✅ Channel added!");
     }
 
     form.reset();
     document.getElementById("channelId").value = "";
     descriptionBox.value = "";
   } catch (err) {
-    showToast("❌ Error: " + err.message, "error");
+    showStatus("❌ Error: " + err.message, true);
   } finally {
     submitBtn.disabled = false;
   }
@@ -271,9 +275,9 @@ function attachActions() {
       if (confirm("Are you sure you want to delete this channel?")) {
         try {
           await remove(ref(db, "channels/" + id));
-          showToast("✅ Channel deleted!");
+          showStatus("✅ Channel deleted!");
         } catch (err) {
-          showToast("❌ Error deleting channel: " + err.message, "error");
+          showStatus("❌ Error deleting channel: " + err.message, true);
         }
       }
     });
