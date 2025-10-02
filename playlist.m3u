@@ -811,3 +811,5 @@ https://familyhls.avatv.live/hls/stream.m3u8
 https://vvsolution.in/hls/bcntv_633.m3u8
 #EXTINF:-1 tvg-name="Movies Now" group-title="English" tvg-logo="https://i.ibb.co/rKmXpv0P/1000139118.jpg",Movies Now
 http://195.181.169.162/MOVIES_NOW_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="SR Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/VWfwVytt/1000139292.png",SR Tv
+https://vvsolutions-server11.in/bcncartoon2_37/video.m3u8
