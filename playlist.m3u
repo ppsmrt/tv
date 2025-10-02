@@ -901,3 +901,7 @@ https://live.dinesh29.com.np/stream/jiotvplus/vijaysuperhd/master.m3u8
 https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
 #EXTINF:-1 tvg-name="Swasthik Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/NggsYMp8/1000139788.jpg",Swasthik Tv
 https://guru.shashwatha.com/hls/live/swastik.m3u8
+#EXTINF:-1 tvg-name="Kalki" group-title="Kannada" tvg-logo="https://i.ibb.co/jkDJ3C2b/1000139790.jpg",Kalki
+https://guru.shashwatha.com/hls/live/kalki.m3u8
+#EXTINF:-1 tvg-name="RR Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/yBZQdcXZ/1000139791.jpg",RR Tv
+https://guru.shashwatha.com/hls/live/rrtv.m3u8
