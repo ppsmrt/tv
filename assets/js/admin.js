@@ -107,7 +107,7 @@ const descriptionTemplates = {
     `Learn with expert lectures, tutorials, and knowledge-packed programs designed for students and lifelong learners. Stay ahead with ${name} on tnm3u.live.`,
   Regional: (name) =>
     `Get updates, news, and stories from your city and region, covering events that matter most to you. Watch ${name} live on tnm3u.live.`,
-  Local: (name) =>
+  Local Channel: (name) =>
     `Tune into your community with ${name}, bringing you local updates, cultural events, neighborhood stories, and regional highlights. Watch it live on tnm3u.live.` // ✅ Added
 };
 
