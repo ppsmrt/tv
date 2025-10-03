@@ -443,3 +443,7 @@ http://45.148.145.57/IN_JayaPlus/index.m3u8
 http://89.187.189.98/JMOVIES/index.m3u8
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/PZdVmyKq/1000140177.jpg",Raj Musix
 http://89.187.189.98/RAJMUSIX/index.m3u8
+#EXTINF:-1 tvg-name="Thandhi Tv" group-title="News" tvg-logo="https://i.ibb.co/YB4P09rx/1000140213.jpg",Thandhi Tv
+http://89.187.189.98/THANTHITV/index.m3u8
+#EXTINF:-1 tvg-name="7s Musix" group-title="Music" tvg-logo="https://i.ibb.co/VcQWTs3Q/1000140231.jpg",7s Musix
+http://202.164.50.194:8000/play/a026/index.m3u8

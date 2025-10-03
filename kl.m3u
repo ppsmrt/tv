@@ -117,3 +117,13 @@ https://mars.streambridge.cloud/ntv/live/playlist.m3u8
 https://2-fss-2.themediacdn.com/pl_138/206324-3157542-1/chunklist.m3u8
 #EXTINF:-1 tvg-name="Pravasi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/5WfHsPr2/1000139778.jpg",Pravasi Tv
 https://m6gdavepdn93-hls-live.5centscdn.com/indialife/d0dbe915091d400bd8ee7f27f0791303.sdp/chunks.m3u8
+#EXTINF:-1 tvg-name="Surya Music" group-title="Music" tvg-logo="https://i.ibb.co/9H0vgYxM/1000140220.jpg",Surya Music
+http://89.187.189.98/SURYAMUSIC/index.m3u8
+#EXTINF:-1 tvg-name="Raj Musix Malayalam" group-title="Music" tvg-logo="https://i.ibb.co/k6wXWXtV/1000140222.jpg",Raj Musix Malayalam
+http://89.187.189.98/RAJMUSICMALAYALAM/index.m3u8
+#EXTINF:-1 tvg-name="Surya Movies" group-title="Movies" tvg-logo="https://i.ibb.co/rfvdwsdV/1000140224.jpg",Surya Movies
+http://89.187.189.98/SURYAMOVIES/index.m3u8
+#EXTINF:-1 tvg-name="Asianet Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/Dg52rxV2/1000140225.jpg",Asianet Plus
+http://89.187.189.98/ASIANETPLUS/index.m3u8
+#EXTINF:-1 tvg-name="Media One" group-title="Entertainment" tvg-logo="https://i.ibb.co/xKFNBXCP/1000140229.jpg",Media One
+http://89.187.189.98/MEDIAONE/index.m3u8
