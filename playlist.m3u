@@ -911,3 +911,17 @@ https://guru.shashwatha.com/hls/live/sne.m3u8
 https://guru.shashwatha.com/hls/live/sity.m3u8
 #EXTINF:-1 tvg-name="& Flix HD" group-title="English" tvg-logo="https://i.ibb.co/whsm6qKX/1000139802.jpg",& Flix HD
 https://m3u.denver1769.fun/Port/TP/index.ts?id=a02a
+#EXTINF:-1 tvg-name="8xm" group-title="Hindi" tvg-logo="https://i.ibb.co/G4rfztJL/1000139839.jpg",8xm
+http://66.102.120.18:8000/play/a050/index.m3u8
+#EXTINF:-1 tvg-name="Amoggh TV" group-title="Kannada" tvg-logo="https://i.ibb.co/7Jyp2xYs/1000139841.jpg",Amoggh TV
+https://guru.shashwatha.com/hls/live/amogha.m3u8
+#EXTINF:-1 tvg-name="Nam City" group-title="Kannada" tvg-logo="https://i.ibb.co/Fq5rcBFL/1000139847.png",Nam City
+https://guru.shashwatha.com/hls/live/namcity.m3u8
+#EXTINF:-1 tvg-name="Nam City Plus" group-title="Kannada" tvg-logo="https://i.ibb.co/B2cnMhMM/1000139846.png",Nam City Plus
+https://guru.shashwatha.com/hls/live/namcityplus.m3u8
+#EXTINF:-1 tvg-name="Metro Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/sd6hxPdY/1000139848.jpg",Metro Tv
+https://guru.shashwatha.com/hls/live/metro.m3u8
+#EXTINF:-1 tvg-name="Siri Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/W4p4chGy/1000139852.jpg",Siri Tv
+https://guru.shashwatha.com/hls/live/siri.m3u8
+#EXTINF:-1 tvg-name="PPS Entertainment" group-title="Kannada" tvg-logo="https://i.ibb.co/rKnzyDtM/1000139859.jpg",PPS Entertainment
+https://vvsolutions.in/sreshtamedia/sreshtamedia.m3u8
