@@ -969,3 +969,11 @@ http://89.187.189.98/MTVPLUSHD/index.m3u8
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-name="Raj News" group-title="Tamil" tvg-logo="https://i.ibb.co/pc0HSWL/1000140113.jpg",Raj News
 http://45.148.145.57/IN_RajNews24x7HD/index.m3u8
+#EXTINF:-1 tvg-name="Jaya Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/dssC9WrC/1000140116.jpg",Jaya Plus
+http://45.148.145.57/IN_JayaPlus/index.m3u8
+#EXTINF:-1 tvg-name="J Movies" group-title="Tamil" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
+http://89.187.189.98/JMOVIES/index.m3u8
+#EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/PZdVmyKq/1000140177.jpg",Raj Musix
+http://89.187.189.98/RAJMUSIX/index.m3u8
+#EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/whWLVTRQ/1000140178.jpg",Zing Tv
+http://89.187.189.98/ZING/index.m3u8
