@@ -925,3 +925,5 @@ https://guru.shashwatha.com/hls/live/metro.m3u8
 https://guru.shashwatha.com/hls/live/siri.m3u8
 #EXTINF:-1 tvg-name="PPS Entertainment" group-title="Kannada" tvg-logo="https://i.ibb.co/rKnzyDtM/1000139859.jpg",PPS Entertainment
 https://vvsolutions.in/sreshtamedia/sreshtamedia.m3u8
+#EXTINF:-1 tvg-name="Gurantee News" group-title="Kannada" tvg-logo="https://i.ibb.co/wF3P3wPK/1000139864.jpg",Gurantee News
+https://guaranteenews.in:8443/live/gnews/index.m3u8
