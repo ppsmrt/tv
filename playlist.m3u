@@ -947,3 +947,13 @@ http://89.187.189.98/SONYWAH/index.m3u8
 http://89.187.189.98/SONIC/index.m3u8
 #EXTINF:-1 tvg-name="Zee Thirai" group-title="Tamil" tvg-logo="https://i.ibb.co/mFt813hv/1000140096.jpg",Zee Thirai
 http://89.187.189.98/ZEETHIRAI/index.m3u8
+#EXTINF:-1 tvg-name="Disney Channel" group-title="Kids" tvg-logo="https://i.ibb.co/5Wx3LB8k/1000140098.jpg",Disney Channel
+http://89.187.189.98/BABYTVHD/index.m3u8
+#EXTINF:-1 tvg-name="Wow Kids" group-title="Kids" tvg-logo="https://i.ibb.co/nq3Rp6GK/1000140099.jpg",Wow Kids
+https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
+#EXTINF:-1 tvg-name="Disney International" group-title="Kids" tvg-logo="https://i.ibb.co/048pYRG/1000140100.jpg",Disney International
+http://89.187.189.98/DISNEYINTERNATIONALHD/index.m3u8
+#EXTINF:-1 tvg-name="Nick" group-title="Kids" tvg-logo="https://i.ibb.co/FbTS9CMm/1000140101.jpg",Nick
+http://89.187.189.98/NICKPLUSHD/index.m3u8
+#EXTINF:-1 tvg-name="Colors Infinity HD" group-title="Kids" tvg-logo="https://i.ibb.co/1tXngXvN/1000140103.jpg",Colors Infinity HD
+http://89.187.189.98/COLORSINFINITYHD/index.m3u8
