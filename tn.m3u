@@ -223,7 +223,7 @@ http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
 https://rtmp.bmlive.net/bms/pcn/stream.m3u8
 #EXTINF:-1 tvg-name="Mathi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/WN9h6cj8/1000135649.jpg",Mathi Tv
 https://notvstream.in/mathitv/mathitv.m3u8
-#EXTINF:-1 tvg-name="G music" group-title="Local Channels" tvg-logo="https://i.ibb.co/209dTwDH/1000135654.webp",G music
+#EXTINF:-1 tvg-name="G music" group-title="Music" tvg-logo="https://i.ibb.co/209dTwDH/1000135654.webp",G music
 https://rtmp.applelive.in/gmusic/gmusic/index.m3u8
 #EXTINF:-1 tvg-name="Dolphin Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/yn3CVVBZ/1000135652.webp",Dolphin Tv
 https://play.applelive.in/dolphintv/dolphintv.m3u8
