@@ -957,3 +957,15 @@ http://89.187.189.98/DISNEYINTERNATIONALHD/index.m3u8
 http://89.187.189.98/NICKPLUSHD/index.m3u8
 #EXTINF:-1 tvg-name="Colors Infinity HD" group-title="Kids" tvg-logo="https://i.ibb.co/1tXngXvN/1000140103.jpg",Colors Infinity HD
 http://89.187.189.98/COLORSINFINITYHD/index.m3u8
+#EXTINF:-1 tvg-name="Travel XP HD" group-title="Infotainment" tvg-logo="https://i.ibb.co/yjZzS92/1000140105.jpg",Travel XP HD
+http://89.187.189.98/TRAVELXPHD/index.m3u8
+#EXTINF:-1 tvg-name="Comedy Central" group-title="English" tvg-logo="https://i.ibb.co/nsjTFyTk/1000140107.jpg",Comedy Central
+http://176.10.117.68:6060/ComedyCentral/index.m3u8
+#EXTINF:-1 tvg-name="History 18 HD" group-title="Infotainment" tvg-logo="https://i.ibb.co/1G7J361S/1000140108.jpg",History 18 HD
+http://89.187.189.98/HISTORYTV18HD/index.m3u8
+#EXTINF:-1 tvg-name="M TV Plus" group-title="Infotainment" tvg-logo="https://i.ibb.co/84Btx07k/1000140110.jpg",M TV Plus
+http://89.187.189.98/MTVPLUSHD/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Jeet HD" group-title="Infotainment" tvg-logo="https://i.ibb.co/ZRFR2sL4/1000140112.jpg",Discovery Jeet HD
+http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
+#EXTINF:-1 tvg-name="Raj News" group-title="Tamil" tvg-logo="https://i.ibb.co/pc0HSWL/1000140113.jpg",Raj News
+http://45.148.145.57/IN_RajNews24x7HD/index.m3u8
