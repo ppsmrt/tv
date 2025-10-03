@@ -977,3 +977,23 @@ http://89.187.189.98/JMOVIES/index.m3u8
 http://89.187.189.98/RAJMUSIX/index.m3u8
 #EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/whWLVTRQ/1000140178.jpg",Zing Tv
 http://89.187.189.98/ZING/index.m3u8
+#EXTINF:-1 tvg-name="Thandhi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/YB4P09rx/1000140213.jpg",Thandhi Tv
+http://89.187.189.98/THANTHITV/index.m3u8
+#EXTINF:-1 tvg-name="Chutti Tv" group-title="Kids" tvg-logo="https://i.ibb.co/ymwb0HHm/1000140215.jpg",Chutti Tv
+http://89.187.189.98/CHUTTITV/index.m3u8
+#EXTINF:-1 tvg-name="Hungama Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/ZpSpnbLf/1000140217.jpg",Hungama Hindi
+http://89.187.189.98/HUNGAMAKIDS/index.m3u8
+#EXTINF:-1 tvg-name="Pogo Tv" group-title="Kids" tvg-logo="https://i.ibb.co/dwKv3CgZ/1000139530.jpg",Pogo Tv
+http://89.187.189.98/POGOKIDS/index.m3u8
+#EXTINF:-1 tvg-name="Sony Yay" group-title="Kids" tvg-logo="https://i.ibb.co/1fQ8r7LL/1000140219.jpg",Sony Yay
+http://89.187.189.98/SONYYAY/index.m3u8
+#EXTINF:-1 tvg-name="Surya Music" group-title="Malayalam" tvg-logo="https://i.ibb.co/9H0vgYxM/1000140220.jpg",Surya Music
+http://89.187.189.98/SURYAMUSIC/index.m3u8
+#EXTINF:-1 tvg-name="Raj Musix Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/k6wXWXtV/1000140222.jpg",Raj Musix Malayalam
+http://89.187.189.98/RAJMUSICMALAYALAM/index.m3u8
+#EXTINF:-1 tvg-name="Surya Movies" group-title="Malayalam" tvg-logo="https://i.ibb.co/rfvdwsdV/1000140224.jpg",Surya Movies
+http://89.187.189.98/SURYAMOVIES/index.m3u8
+#EXTINF:-1 tvg-name="Asianet Plus" group-title="Malayalam" tvg-logo="https://i.ibb.co/Dg52rxV2/1000140225.jpg",Asianet Plus
+http://89.187.189.98/ASIANETPLUS/index.m3u8
+#EXTINF:-1 tvg-name="Media One" group-title="Malayalam" tvg-logo="https://i.ibb.co/xKFNBXCP/1000140229.jpg",Media One
+http://89.187.189.98/MEDIAONE/index.m3u8
