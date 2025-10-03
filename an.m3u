@@ -157,3 +157,5 @@ https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Vissa_Tv/master_1.m
 https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Raj_News_Telugu/master_1.m3u8
 #EXTINF:-1 tvg-name="Etv Telangana" group-title="Entertainment" tvg-logo="https://i.ibb.co/VYH0X2fY/1000139604.jpg",Etv Telangana
 https://dssp63pjfajz9.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_TS_H264-3_cloud_in/index.m3u8
+#EXTINF:-1 tvg-name="Gemini Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/JRg8bZ7J/1000140036.jpg",Gemini Tv
+http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
