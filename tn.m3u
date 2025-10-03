@@ -437,3 +437,9 @@ https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
 http://89.187.189.98/ZEETHIRAI/index.m3u8
 #EXTINF:-1 tvg-name="Raj News" group-title="News" tvg-logo="https://i.ibb.co/pc0HSWL/1000140113.jpg",Raj News
 http://45.148.145.57/IN_RajNews24x7HD/index.m3u8
+#EXTINF:-1 tvg-name="Jaya Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/dssC9WrC/1000140116.jpg",Jaya Plus
+http://45.148.145.57/IN_JayaPlus/index.m3u8
+#EXTINF:-1 tvg-name="J Movies" group-title="Movies" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
+http://89.187.189.98/JMOVIES/index.m3u8
+#EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/PZdVmyKq/1000140177.jpg",Raj Musix
+http://89.187.189.98/RAJMUSIX/index.m3u8
