@@ -933,3 +933,5 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://live.dinesh29.com.np/stream/jiotvplus/suvarna/master.m3u8
 #EXTINF:-1 tvg-name="Star Suvarna Plus" group-title="Kannada" tvg-logo="https://i.ibb.co/TnTNp0R/1000139994.jpg",Star Suvarna Plus
 https://live.dinesh29.com.np/stream/jiotvplus/suvarnaplus/master.m3u8
+#EXTINF:-1 tvg-name="Gemini Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/JRg8bZ7J/1000140036.jpg",Gemini Tv
+http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
