@@ -264,7 +264,7 @@ http://kcltv.livebox.co.in/kclhls/live.m3u8
 #EXTINF:-1 tvg-name="Sun Tv HD" group-title="Tamil" tvg-logo="https://i.ibb.co/Fk8fYrqc/1000121921.jpg",Sun Tv HD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-name="Sun Music" group-title="Tamil" tvg-logo="https://i.ibb.co/6cNQ4GD1/1000121935.jpg",Sun Music
-http://195.181.169.162/SUN_MUSIC_HD/index.m3u8?token=test
+http://89.187.189.98/SUNMUSICHD/index.m3u8
 #EXTINF:-1 tvg-name="Max Movies" group-title="Tamil" tvg-logo="https://i.ibb.co/bMS9MB9W/1000122159.jpg",Max Movies
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-name="Leo Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Wpf1ZXTF/1000122161.jpg",Leo Tv
@@ -896,7 +896,7 @@ https://guru.shashwatha.com/hls/live/kadamba.m3u8
 #EXTINF:-1 tvg-name="Vijay Tv SD" group-title="Tamil" tvg-logo="https://i.ibb.co/pBKHbC8C/1000139785.jpg",Vijay Tv SD
 https://live.dinesh29.com.np/stream/jiotvplus/starvijay/master.m3u8
 #EXTINF:-1 tvg-name="Vijay Super" group-title="Tamil" tvg-logo="https://i.ibb.co/VYJJhXkv/1000139786.jpg",Vijay Super
-https://live.dinesh29.com.np/stream/jiotvplus/vijaysuperhd/master.m3u8
+http://89.187.189.98/VIJAYSUPER/index.m3u8
 #EXTINF:-1 tvg-name="Vijay Takkar" group-title="Tamil" tvg-logo="https://i.ibb.co/jXjzmYd/1000139787.jpg",Vijay Takkar
 https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
 #EXTINF:-1 tvg-name="Swasthik Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/NggsYMp8/1000139788.jpg",Swasthik Tv
@@ -937,3 +937,13 @@ https://live.dinesh29.com.np/stream/jiotvplus/suvarnaplus/master.m3u8
 http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Etv Andhra" group-title="Telugu" tvg-logo="https://i.ibb.co/vKRKs7q/1000140037.jpg",Etv Andhra
 https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
+#EXTINF:-1 tvg-name="Star Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/hxVcZnsZ/1000132435.jpg",Star Sports 2 HD
+http://89.187.189.98/STARSPORTS2HD/index.m3u8
+#EXTINF:-1 tvg-name="Star Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/F4HNL5pb/1000132436.jpg",Star Sports 3 HD
+http://89.187.189.98/STARSPORTS3/index.m3u8
+#EXTINF:-1 tvg-name="Sony WAH" group-title="Hindi" tvg-logo="https://i.ibb.co/F4G6xDjv/1000140092.jpg",Sony WAH
+http://89.187.189.98/SONYWAH/index.m3u8
+#EXTINF:-1 tvg-name="Sonic" group-title="Hindi" tvg-logo="https://i.ibb.co/4RGRJ5SZ/1000140094.jpg",Sonic
+http://89.187.189.98/SONIC/index.m3u8
+#EXTINF:-1 tvg-name="Zee Thirai" group-title="Tamil" tvg-logo="https://i.ibb.co/mFt813hv/1000140096.jpg",Zee Thirai
+http://89.187.189.98/ZEETHIRAI/index.m3u8
