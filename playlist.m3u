@@ -1035,3 +1035,11 @@ https://cdnb4u.wiseplayout.com/B4U_Movies/master.m3u8
 https://cdnb4u.wiseplayout.com/B4U_Kadak/master.m3u8
 #EXTINF:-1 tvg-name="Balle Balle Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/dwbxBSc7/1000140926.jpg",Balle Balle Tv
 https://mcncdndigital.com/balleballetv/index.m3u8
+#EXTINF:-1 tvg-name="Bansal News" group-title="Hindi" tvg-logo="https://i.ibb.co/9z0nSnM/1000140934.jpg",Bansal News
+https://8yzmq2gbdvax-hls-live.wmncdn.net/bansalnewstv1/live1.stream/chunks.m3u8
+#EXTINF:-1 tvg-name="Bharat Samachar" group-title="Hindi" tvg-logo="https://i.ibb.co/gbxmZwKw/1000141015.png",Bharat Samachar
+https://idvd.multitvsolution.com/idvo/bharatsamachar.m3u8
+#EXTINF:-1 tvg-name="Bhojpuri Cinema" group-title="Hindi" tvg-logo="https://i.ibb.co/0jh1SyjG/1000141016.png",Bhojpuri Cinema
+https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8
+#EXTINF:-1 tvg-name="Channel Win" group-title="Hindi" tvg-logo="https://i.ibb.co/NdzF15C5/1000141020.png",Channel Win
+https://cdn-4.pishow.tv/live/229/master.m3u8
