@@ -1073,3 +1073,5 @@ https://cdn-1.pishow.tv/live/10/master.m3u8
 https://cdn-4.pishow.tv/live/35/master.m3u8
 #EXTINF:-1 tvg-name="Epic Tv" group-title="Infotainment" tvg-logo="https://i.ibb.co/YBPsHDXJ/1000141566.jpg",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
+#EXTINF:-1 tvg-name="I News" group-title="Telugu" tvg-logo="https://i.ibb.co/qM4B2nGs/1000141573.jpg",I News
+https://cdn-1.pishow.tv/live/411/master.m3u8
