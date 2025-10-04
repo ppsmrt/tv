@@ -19,3 +19,5 @@ http://195.181.169.162/MOVIES_NOW_HD/index.m3u8?token=test
 https://m3u.denver1769.fun/Port/TP/index.ts?id=a02a
 #EXTINF:-1 tvg-name="Comedy Central" group-title="Entertainment" tvg-logo="https://i.ibb.co/nsjTFyTk/1000140107.jpg",Comedy Central
 http://176.10.117.68:6060/ComedyCentral/index.m3u8
+#EXTINF:-1 tvg-name="CNN News 18" group-title="News" tvg-logo="https://i.ibb.co/Y43HPbWF/1000141386.jpg",CNN News 18
+https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
