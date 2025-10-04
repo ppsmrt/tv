@@ -1004,7 +1004,7 @@ http://66.102.120.18:8000/play/a040/index.m3u8
 #EXTINF:-1 tvg-name="&tv hd" group-title="Hindi" tvg-logo="https://i.ibb.co/Td72fY3/1000140584.png",&tv hd
 https://amg01117-amg01117c1-amgplt0165.playout.now3.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="B4u Music" group-title="Hindi" tvg-logo="https://i.ibb.co/5xS7WmB9/1000140585.jpg",B4u Music
-https://mcncdndigital.com/balleballetv/index.m3u8
+https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8
 #EXTINF:-1 tvg-name="1st India News" group-title="Hindi" tvg-logo="https://i.ibb.co/Jw7dJNVw/1000140588.jpg",1st India News
 https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3u8
 #EXTINF:-1 tvg-name="9xm" group-title="Hindi" tvg-logo="https://i.ibb.co/xtm3dJnm/1000140798.jpg",9xm
@@ -1031,3 +1031,7 @@ https://awaazindia.livebox.co.in/AwaazIndaTVhls/Live.m3u8
 https://cdnb4u.wiseplayout.com/B4U_Bhojpuri/master.m3u8
 #EXTINF:-1 tvg-name="B4u Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/TBZS5tzh/1000140923.jpg",B4u Movies
 https://cdnb4u.wiseplayout.com/B4U_Movies/master.m3u8
+#EXTINF:-1 tvg-name="B4u Kadak" group-title="Hindi" tvg-logo="https://i.ibb.co/hJKC7C8T/1000140925.jpg",B4u Kadak
+https://cdnb4u.wiseplayout.com/B4U_Kadak/master.m3u8
+#EXTINF:-1 tvg-name="Balle Balle Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/dwbxBSc7/1000140926.jpg",Balle Balle Tv
+https://mcncdndigital.com/balleballetv/index.m3u8
