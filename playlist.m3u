@@ -1077,3 +1077,9 @@ https://epiconvh.akamaized.net/live/epic/master.m3u8
 https://cdn-1.pishow.tv/live/411/master.m3u8
 #EXTINF:-1 tvg-name="ITN News" group-title="Sinhala" tvg-logo="https://i.ibb.co/zHrjtrMY/1000141574.jpg",ITN News
 https://edge4-moblive.yuppcdn.net/transsd/smil%3aitn43.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="Lokshahi" group-title="Hindi" tvg-logo="https://i.ibb.co/dJGcFw3W/1000141646.jpg",Lokshahi
+https://see.lokshahi.live/live/index.m3u8
+#EXTINF:-1 tvg-name="Star Select 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 1 HD
+http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
+#EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 2 HD
+http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
