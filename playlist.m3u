@@ -1007,3 +1007,7 @@ https://amg01117-amg01117c1-amgplt0165.playout.now3.amagi.tv/playlist.m3u8
 https://mcncdndigital.com/balleballetv/index.m3u8
 #EXTINF:-1 tvg-name="1st India News" group-title="Hindi" tvg-logo="https://i.ibb.co/Jw7dJNVw/1000140588.jpg",1st India News
 https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3u8
+#EXTINF:-1 tvg-name="9xm" group-title="Hindi" tvg-logo="https://i.ibb.co/xtm3dJnm/1000140798.jpg",9xm
+https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
+#EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Hindi" tvg-logo="https://i.ibb.co/8gSnXJCR/1000140824.jpg",Aasatha Bhajan
+https://aasthaott.akamaized.net/110923/smil:bhajan.smil/chunklist_b264000.m3u8
