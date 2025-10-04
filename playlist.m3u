@@ -1059,3 +1059,5 @@ https://streams2.sofast.tv/WiseM3U8_27/sofast/cleanhls/master.m3u8
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-name="Dangal Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/6c5hm6Fz/1000141409.jpg",Dangal Tv
 https://live-dangal.akamaized.net/liveabr/playlist.m3u8
+#EXTINF:-1 tvg-name="CVR English" group-title="English" tvg-logo="https://i.ibb.co/rGdBCyk1/1000141448.jpg",CVR English
+https://cdn-2.pishow.tv/live/425/master.m3u8
