@@ -21,3 +21,5 @@ https://m3u.denver1769.fun/Port/TP/index.ts?id=a02a
 http://176.10.117.68:6060/ComedyCentral/index.m3u8
 #EXTINF:-1 tvg-name="CNN News 18" group-title="News" tvg-logo="https://i.ibb.co/Y43HPbWF/1000141386.jpg",CNN News 18
 https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
+#EXTINF:-1 tvg-name="CVR English" group-title="News" tvg-logo="https://i.ibb.co/rGdBCyk1/1000141448.jpg",CVR English
+https://cdn-2.pishow.tv/live/425/master.m3u8
