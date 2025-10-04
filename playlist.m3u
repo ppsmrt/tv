@@ -1019,3 +1019,15 @@ https://d2lk5u59tns74c.cloudfront.net/out/v1/4fe6ab07a13543d6bdb2ec63b3e2df44/in
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/db8d4eca72d64748a00d0631debf542d/index.m3u8
 #EXTINF:-1 tvg-name="Alnakar Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/xS2xbbyj/1000140860.jpg",Alnakar Tv
 https://livetv.tarangplus.in/alankar-origin/live/playlist.m3u8
+#EXTINF:-1 tvg-name="ANB News" group-title="Hindi" tvg-logo="https://i.ibb.co/v4M6QpsD/1000140882.jpg",ANB News
+https://server.livelegitpro.in:9899/anbnews/anbnews/tracks-v1/index.fmp4.m3u8
+#EXTINF:-1 tvg-name="ANN News" group-title="Hindi" tvg-logo="https://i.ibb.co/p6ZL9tDH/1000140883.jpg",ANN News
+https://cdn.ottlive.co.in/annnews/index.m3u8
+#EXTINF:-1 tvg-name="APN Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/xtFFgmXZ/1000140885.jpg",APN Tv
+https://plus.gigabitcdn.net/live-stream/apna-punjab-H3sE/playlist.m3u8
+#EXTINF:-1 tvg-name="Awaaz India" group-title="Hindi" tvg-logo="https://i.ibb.co/sd837n0P/1000140886.jpg",Awaaz India
+https://awaazindia.livebox.co.in/AwaazIndaTVhls/Live.m3u8
+#EXTINF:-1 tvg-name="B4u Bojpuri" group-title="Hindi" tvg-logo="https://i.ibb.co/C3wkR7gP/1000140922.jpg",B4u Bojpuri
+https://cdnb4u.wiseplayout.com/B4U_Bhojpuri/master.m3u8
+#EXTINF:-1 tvg-name="B4u Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/TBZS5tzh/1000140923.jpg",B4u Movies
+https://cdnb4u.wiseplayout.com/B4U_Movies/master.m3u8
