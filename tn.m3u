@@ -447,3 +447,5 @@ http://89.187.189.98/RAJMUSIX/index.m3u8
 http://89.187.189.98/THANTHITV/index.m3u8
 #EXTINF:-1 tvg-name="7s Musix" group-title="Music" tvg-logo="https://i.ibb.co/VcQWTs3Q/1000140231.jpg",7s Musix
 http://202.164.50.194:8000/play/a026/index.m3u8
+#EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Religious" tvg-logo="https://i.ibb.co/8gSnXJCR/1000140824.jpg",Aasatha Tamil
+https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8
