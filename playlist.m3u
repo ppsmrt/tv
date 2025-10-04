@@ -1011,3 +1011,11 @@ https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
 #EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Hindi" tvg-logo="https://i.ibb.co/8gSnXJCR/1000140824.jpg",Aasatha Bhajan
 https://aasthaott.akamaized.net/110923/smil:bhajan.smil/chunklist_b264000.m3u8
+#EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/8gSnXJCR/1000140824.jpg",Aasatha Tamil
+https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="Abzy Dhakad" group-title="Hindi" tvg-logo="https://i.ibb.co/fdMVtn5M/1000140857.jpg",Abzy Dhakad
+https://d2lk5u59tns74c.cloudfront.net/out/v1/4fe6ab07a13543d6bdb2ec63b3e2df44/index.m3u8
+#EXTINF:-1 tvg-name="Abzy Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/yc2hcS9x/1000140859.jpg",Abzy Movies
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/db8d4eca72d64748a00d0631debf542d/index.m3u8
+#EXTINF:-1 tvg-name="Alnakar Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/xS2xbbyj/1000140860.jpg",Alnakar Tv
+https://livetv.tarangplus.in/alankar-origin/live/playlist.m3u8
