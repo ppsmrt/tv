@@ -161,3 +161,5 @@ https://dssp63pjfajz9.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8
 http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Etv Andhra" group-title="Entertainment" tvg-logo="https://i.ibb.co/vKRKs7q/1000140037.jpg",Etv Andhra
 https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
+#EXTINF:-1 tvg-name="I News" group-title="News" tvg-logo="https://i.ibb.co/qM4B2nGs/1000141573.jpg",I News
+https://cdn-1.pishow.tv/live/411/master.m3u8
