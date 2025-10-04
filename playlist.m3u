@@ -1051,3 +1051,9 @@ https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_B
 https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_Bazaar_NW18_MOB-audio_131636_eng=131600-video=3724000.m3u8
 #EXTINF:-1 tvg-name="CNBC Tv 18" group-title="Hindi" tvg-logo="https://i.ibb.co/Q7T8yhZS/1000141377.jpg",CNBC Tv 18
 https://n18syndication.akamaized.net/bpk-tv/CNBC_TV18_NW18_MOB/output01/CNBC_TV18_NW18_MOB-audio_98834_eng=98800-video=3724000.m3u8
+#EXTINF:-1 tvg-name="CNN News 18" group-title="English" tvg-logo="https://i.ibb.co/Y43HPbWF/1000141386.jpg",CNN News 18
+https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
+#EXTINF:-1 tvg-name="Comedy Tadka" group-title="Hindi" tvg-logo="https://i.ibb.co/N6FLQdB4/1000141396.jpg",Comedy Tadka
+https://streams2.sofast.tv/WiseM3U8_27/sofast/cleanhls/master.m3u8
+#EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/PZ3nFPf7/1000141399.jpg",Cricket Gold
+https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
