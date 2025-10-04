@@ -1067,3 +1067,7 @@ https://d2lk5u59tns74c.cloudfront.net/out/v1/308556d9fd1246adb479ef012a39bbfe/in
 https://d2lk5u59tns74c.cloudfront.net/out/v1/d380bf5c167b4319a46cdd8204bc26b2/index.m3u8
 #EXTINF:-1 tvg-name="DD Bangla" group-title="Hindi" tvg-logo="https://i.ibb.co/sJK02cJG/1000141542.jpg",DD Bangla
 https://cdn-1.pishow.tv/live/10/master.m3u8
+#EXTINF:-1 tvg-name="DD Bharathi" group-title="Hindi" tvg-logo="https://i.ibb.co/whym5np5/1000141544.jpg",DD Bharathi
+https://cdn-1.pishow.tv/live/10/master.m3u8
+#EXTINF:-1 tvg-name="DD Bihar" group-title="Hindi" tvg-logo="https://i.ibb.co/Q79j9xGd/1000141545.jpg",DD Bihar
+https://cdn-4.pishow.tv/live/35/master.m3u8
