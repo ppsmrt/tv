@@ -133,11 +133,15 @@
         }
       }
 
+      // ✅ Redirect logic for both admin & users
       if (isAdmin) {
         window.location.href = "admin.html";
       } else {
+        // Normal users go to index.html
         window.location.href = "index.html";
+        return;
       }
+
     } catch (error) {
       console.error("Login error:", error);
       errorMsg.textContent = error.message;
@@ -146,12 +150,12 @@
   });
   
   // Side drawer
-const menuBtn = document.getElementById('menuBtn');
-const sideDrawer = document.getElementById('sideDrawer');
-menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
-document.addEventListener('click', e=>{
-  if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
-});
+  const menuBtn = document.getElementById('menuBtn');
+  const sideDrawer = document.getElementById('sideDrawer');
+  menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
+  document.addEventListener('click', e=>{
+    if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
+  });
 </script>
 
 </body>
