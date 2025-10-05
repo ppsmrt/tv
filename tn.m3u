@@ -451,3 +451,5 @@ http://202.164.50.194:8000/play/a026/index.m3u8
 https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Malai Murasu" group-title="News" tvg-logo="https://i.ibb.co/W4KNgr2V/1000141828.jpg",Malai Murasu
 https://cdn-3.pishow.tv/live/1606/master.m3u8
+#EXTINF:-1 tvg-name="Polimer Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/4gJjkBvb/1000141913.jpg",Polimer Tv
+https://cdn-2.pishow.tv/live/1241/master.m3u8
