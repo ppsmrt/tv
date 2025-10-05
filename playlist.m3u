@@ -1097,3 +1097,9 @@ https://cdn-2.pishow.tv/live/228/master.m3u8
 https://cdn-1.pishow.tv/live/1013/master.m3u8
 #EXTINF:-1 tvg-name="Mastiii" group-title="Hindi" tvg-logo="https://i.ibb.co/My28r5nX/1000141864.jpg",Mastiii
 https://sablive-ddpb.akamaized.net/mastii/playlist.m3u8
+#EXTINF:-1 tvg-name="RPlus Gold" group-title="Hindi" tvg-logo="https://i.ibb.co/1CwCW1G/1000141869.jpg",RPlus Gold
+https://cdn-4.pishow.tv/live/1231/master.m3u8
+#EXTINF:-1 tvg-name="MK Six" group-title="International" tvg-logo="https://i.ibb.co/7tjv9mcd/1000141871.jpg",MK Six
+https://cdn-3.pishow.tv/live/1253/master.m3u8
+#EXTINF:-1 tvg-name="Munsif Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/kV1J4fjk/1000141872.jpg",Munsif Tv
+https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/munsif-tv/e5ae862b-c65c-4b17-b9a8-038853525c64/0.m3u8
