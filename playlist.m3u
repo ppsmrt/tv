@@ -1103,3 +1103,7 @@ https://cdn-4.pishow.tv/live/1231/master.m3u8
 https://cdn-3.pishow.tv/live/1253/master.m3u8
 #EXTINF:-1 tvg-name="Munsif Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/kV1J4fjk/1000141872.jpg",Munsif Tv
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/munsif-tv/e5ae862b-c65c-4b17-b9a8-038853525c64/0.m3u8
+#EXTINF:-1 tvg-name="Music India" group-title="Hindi" tvg-logo="https://i.ibb.co/PzMCRh9K/1000141875.jpg",Music India
+https://cdn-2.pishow.tv/live/226/master.m3u8
+#EXTINF:-1 tvg-name="Namdhari Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/SwRPgbs1/1000141876.jpg",Namdhari Tv
+https://namdhari.tv/live/sbs1.m3u8
