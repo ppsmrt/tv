@@ -3,268 +3,149 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Auto Notification Generator</title>
+  <title>📢 Live TV & FM Auto Notification</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f9f9fb, #f1f4ff);
-      margin: 0; padding: 20px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f9f9fb, #f1f3f7);
+      margin: 0;
+      padding: 20px;
       color: #222;
     }
     h1 {
       text-align: center;
-      color: #111;
-      font-size: 1.8rem;
+      color: #222;
+      font-weight: 700;
       margin-bottom: 20px;
     }
-    h2 { margin-top: 40px; text-align:center; color:#444; }
-    h3 {
-      margin: 15px 0 8px;
-      font-size: 1rem;
-      color: #333;
-    }
-    .card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .output {
-      background: #fafafa;
-      border: 1px solid #ddd;
-      padding: 14px;
-      border-radius: 8px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 10px;
-      font-family: monospace;
+    textarea {
+      width: 100%;
+      height: 220px;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      resize: none;
+      font-size: 15px;
+      margin-top: 10px;
     }
     button {
-      display: inline-block;
       background: #007bff;
       color: white;
-      padding: 8px 14px;
       border: none;
-      border-radius: 6px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 15px;
       cursor: pointer;
-      font-size: 13px;
-      margin-top: 5px;
+      transition: 0.3s;
+      margin-right: 8px;
     }
-    button:hover { background: #0056b3; }
+    button:hover {
+      background: #0056b3;
+    }
+    .input-group {
+      margin-bottom: 12px;
+    }
+    label {
+      font-weight: 600;
+    }
+    .container {
+      max-width: 680px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
   </style>
 </head>
 <body>
-  <h1>📢 Auto Notification Generator</h1>
 
-  <!-- ================= FM Radio ================= -->
-  <h2>📻 FM Radio Auto Notification</h2>
-  <div class="card">
-    <h3>📄 Full Notification</h3>
-    <div class="output" id="fmFull">⏳ Loading...</div>
-    <button onclick="copyText('fmFull')">📋 Copy Full</button>
-  </div>
-  <div class="card">
-    <h3>📱 WhatsApp Notification</h3>
-    <div class="output" id="fmWhatsapp">⏳ Loading...</div>
-    <button onclick="copyText('fmWhatsapp')">📋 Copy WhatsApp</button>
-  </div>
-  <div class="card">
-    <h3>💬 Discord Notification</h3>
-    <div class="output" id="fmDiscord">⏳ Loading...</div>
-    <button onclick="copyText('fmDiscord')">📋 Copy Discord</button>
-  </div>
+  <div class="container">
+    <h1>📺📻 Notification Generator</h1>
 
-  <!-- ================= Live TV ================= -->
-  <h2>📺 Live TV Auto Notification</h2>
-  <div class="card">
-    <h3>📄 Full Notification (New Channels Only)</h3>
-    <div class="output" id="tvFull">⏳ Loading...</div>
-    <button onclick="copyText('tvFull')">📋 Copy Full</button>
-  </div>
-  <div class="card">
-    <h3>📱 WhatsApp Notification</h3>
-    <div class="output" id="tvWhatsapp">⏳ Loading...</div>
-    <button onclick="copyText('tvWhatsapp')">📋 Copy WhatsApp</button>
-  </div>
-  <div class="card">
-    <h3>💬 Discord Notification</h3>
-    <div class="output" id="tvDiscord">⏳ Loading...</div>
-    <button onclick="copyText('tvDiscord')">📋 Copy Discord</button>
+    <div class="input-group">
+      <label>Category:</label><br>
+      <input id="category" type="text" placeholder="Eg: Tamil HD, News, FM..." style="width:100%;padding:8px;border:1px solid #ccc;border-radius:8px;">
+    </div>
+
+    <div class="input-group">
+      <label>New Channels or Stations (comma separated):</label><br>
+      <input id="channels" type="text" placeholder="Eg: Sun TV HD, Vijay TV, Big FM..." style="width:100%;padding:8px;border:1px solid #ccc;border-radius:8px;">
+    </div>
+
+    <div class="input-group">
+      <label>Type:</label><br>
+      <select id="type" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:8px;">
+        <option value="tv">📺 Live TV</option>
+        <option value="fm">📻 FM Radio</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Recently Added (Hours):</label><br>
+      <input id="hours" type="number" value="24" min="1" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:8px;">
+    </div>
+
+    <button onclick="generateFull()">Generate Full Notification</button>
+    <button onclick="generateWhatsapp()">Generate WhatsApp</button>
+    <button onclick="generateDiscord()">Generate Discord</button>
+
+    <textarea id="output" placeholder="Generated message will appear here..."></textarea>
   </div>
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+  <script>
+    function generateFull() {
+      const category = document.getElementById("category").value.trim();
+      const channels = document.getElementById("channels").value.trim();
+      const type = document.getElementById("type").value;
+      const hours = document.getElementById("hours").value;
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.firebasestorage.app",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // ================= FM Radio =================
-    async function fetchRadios() {
-      const snapshot = await get(child(ref(db), "radios"));
-      if (!snapshot.exists()) {
-        document.getElementById("fmFull").textContent = "⚠ No radios found!";
-        document.getElementById("fmWhatsapp").textContent = "⚠ No radios found!";
-        document.getElementById("fmDiscord").textContent = "⚠ No radios found!";
+      if (!category || !channels) {
+        alert("Please fill in all fields!");
         return;
       }
 
-      const radios = Object.values(snapshot.val());
-      const total = radios.length;
-      const now = new Date();
-      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
-      const newRadios = radios.filter(r => r.createdAt && new Date(r.createdAt).getTime() >= last24h);
-      const oldCount = total - newRadios.length;
+      const itemType = type === "tv" ? "📺 Live TV Channels" : "📻 FM Radio Stations";
 
-      const groupedNew = {};
-      newRadios.forEach(r => {
-        const lang = r.language || "Other";
-        if (!groupedNew[lang]) groupedNew[lang] = [];
-        groupedNew[lang].push("📻 " + (r.name || "Unknown Radio"));
-      });
+      const message = `🔥 NEW UPDATE (${hours}hrs)
+${itemType} - ${category}
 
-      let full =
-`📻 𝙁𝙈 𝙍𝙖𝙙𝙞𝙤 𝘽𝙮 𝙏𝙉𝙈3𝙐
-➖➖➖➖➖➖➖➖➖➖➖➖
-🎶 About Application 
-Stream your favorite Indian and international FM stations in Tamil, English, Telugu, Malayalam, and Hindi.
-➖➖➖➖➖➖➖➖➖➖➖➖
+🆕 Recently Added:
+${channels.split(",").map(ch => "• " + ch.trim()).join("\n")}
+
+📢 Follow us on:
+🔹 Telegram → https://t.me/tnm3u
+🔹 WhatsApp → https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15
+🔹 Discord → https://discord.com/invite/XxmUxb4Z
 `;
 
-      if (newRadios.length === 0) {
-        full += "⚠ No new radios added in the last 24h.\n\n";
-      } else {
-        for (const lang of Object.keys(groupedNew)) {
-          full += `☘ ${lang} FM Stations\n` + groupedNew[lang].join("\n") + "\n\n";
-        }
-      }
-
-      full += 
-`📡 Channel Update
-From ${oldCount} → ${total} total stations
-➖➖➖➖➖➖➖➖➖➖➖➖
-📢 Follow us on: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)
-📩 For issues: tnm3us@gmail.com`;
-
-      const whatsapp =
-`📻 FM Radio By TNM3U
-🎶 ${total}+ Indian & International FM Stations
-✨ New Radios:
-${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "No new radios"}
-📢 Follow: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)`;
-
-      const discord =
-`**📻 FM Radio By TNM3U**
-🎶 ${total}+ Stations
-✨ **New Radios:**
-${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "_No new radios today_"}
-📢 Follow us on: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)`;
-
-      document.getElementById("fmFull").textContent = full;
-      document.getElementById("fmWhatsapp").textContent = whatsapp;
-      document.getElementById("fmDiscord").textContent = discord;
+      document.getElementById("output").value = message;
     }
 
-    // ================= Live TV =================
-    async function fetchChannels() {
-      const snapshot = await get(child(ref(db), "channels"));
-      if (!snapshot.exists()) {
-        document.getElementById("tvFull").textContent = "⚠ No channels found!";
-        document.getElementById("tvWhatsapp").textContent = "⚠ No channels found!";
-        document.getElementById("tvDiscord").textContent = "⚠ No channels found!";
-        return;
-      }
-      const channels = Object.values(snapshot.val());
-      const total = channels.length;
-      const now = new Date();
-      const last24h = now.getTime() - (24 * 60 * 60 * 1000);
-      const newChannels = channels.filter(c => c.createdAt && new Date(c.createdAt).getTime() >= last24h);
-      const oldCount = total - newChannels.length;
+    function generateWhatsapp() {
+      const category = document.getElementById("category").value.trim();
+      const channels = document.getElementById("channels").value.trim();
+      const type = document.getElementById("type").value;
+      const hours = document.getElementById("hours").value;
 
-      const grouped = {};
-      newChannels.forEach(c => {
-        const cat = c.category || "Other";
-        if (!grouped[cat]) grouped[cat] = [];
-        grouped[cat].push("💫 " + (c.name || "Unknown Channel"));
-      });
+      const itemType = type === "tv" ? "Live TV" : "FM Radio";
 
-      const playlistBlock =
-`☀️ αℓℓ ιи σиє ρℓαуℓιѕт
-https://tnm3u.live/playlist.m3u
-☀️ тαмιℓ ρℓαуℓιѕт
-https://tnm3u.live/tn.m3u
-☀️ тєℓυgυ ρℓαуℓιѕт
-https://tnm3u.live/an.m3u
-☀️ кαииα∂α ρℓαуℓιѕт
-https://tnm3u.live/ka.m3u
-☀️ мαℓуαℓαм ρℓαуℓιѕт
-https://tnm3u.live/kl.m3u
-☀️ єиgℓιѕн ρℓαуℓιѕт
-https://tnm3u.live/en.m3u`;
+      const message = `*${itemType} Update (${hours}hrs)*\n_${category}_\n\n${channels.split(",").map(ch => "• " + ch.trim()).join("\n")}`;
 
-      let full =
-`📺 𝙇𝙞𝙫𝙚 𝙏𝙫 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 𝘽𝙮 𝙏𝙉𝙈3𝙐
-➖➖➖➖➖➖➖➖➖➖➖➖
-✨ Newly Added Channels (Last 24h)
-`;
-
-      if (newChannels.length === 0) {
-        full += "⚠ No new channels added in the last 24h.\n\n";
-      } else {
-        for (const cat of Object.keys(grouped)) {
-          full += `♻️ ${cat} Channels\n` + grouped[cat].join("\n") + "\n\n";
-        }
-      }
-
-      full += 
-`📡 Channel Update
-From ${oldCount} → ${total} total channels available
-${playlistBlock}
-📢 Follow us on: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)
-📩 For issues: tnm3us@gmail.com`;
-
-      const whatsapp =
-`📺 Live TV By TNM3U
-🎬 ${total}+ Channels
-✨ New (24h): ${newChannels.length}
-${playlistBlock}
-📢 Follow: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)`;
-
-      const discord =
-`**📺 Live TV By TNM3U**
-🎬 ${total}+ Channels
-✨ **New Channels (24h):**
-${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "_No new channels today_"}
-${playlistBlock}
-📢 Follow us on: [Telegram](https://t.me/tnm3u) | [WhatsApp](https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15) | [Discord](https://discord.com/invite/XxmUxb4Z)`;
-
-      document.getElementById("tvFull").textContent = full;
-      document.getElementById("tvWhatsapp").textContent = whatsapp;
-      document.getElementById("tvDiscord").textContent = discord;
+      document.getElementById("output").value = message;
     }
 
-    fetchRadios();
-    fetchChannels();
+    function generateDiscord() {
+      const category = document.getElementById("category").value.trim();
+      const channels = document.getElementById("channels").value.trim();
+      const type = document.getElementById("type").value;
+      const hours = document.getElementById("hours").value;
 
-    window.copyText = function(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => alert("Copied!"));
+      const itemType = type === "tv" ? "📺 **Live TV Channels**" : "📻 **FM Radio Stations**";
+
+      const message = `🔥 **NEW UPDATE (${hours}hrs)**\n${itemType} - **${category}**\n\n🆕 **Recently Added:**\n${channels.split(",").map(ch => "• " + ch.trim()).join("\n")}`;
+
+      document.getElementById("output").value = message;
     }
   </script>
 </body>
