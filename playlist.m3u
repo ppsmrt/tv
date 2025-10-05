@@ -1115,3 +1115,7 @@ https://epiconvh.akamaized.net/live/nazara/master.m3u8
 https://network10.livebox.co.in/network10hls/live.m3u8
 #EXTINF:-1 tvg-name="New Hope Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/997r8WSL/1000141909.jpg",New Hope Tv
 https://shashwatha.com/hls/show/newhopetv_low.m3u8
+#EXTINF:-1 tvg-name="News 24" group-title="Hindi" tvg-logo="https://i.ibb.co/7NL32gXF/1000141912.jpg",News 24
+https://vidcdn.vidgyor.com/news24-origin/liveabr/playlist.m3u8
+#EXTINF:-1 tvg-name="Polimer Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/4gJjkBvb/1000141913.jpg",Polimer Tv
+https://cdn-2.pishow.tv/live/1241/master.m3u8
