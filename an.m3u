@@ -163,3 +163,7 @@ http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
 https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
 #EXTINF:-1 tvg-name="I News" group-title="News" tvg-logo="https://i.ibb.co/qM4B2nGs/1000141573.jpg",I News
 https://cdn-1.pishow.tv/live/411/master.m3u8
+#EXTINF:-1 tvg-name="Etv Music" group-title="Music" tvg-logo="https://i.ibb.co/bjL1ctyg/1000142442.jpg",Etv Music
+https://cc-szivnms4rlah6.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szivnms4rlah6/6173a07b-668b-457c-b6ef-50c58d2b7991/1.m3u8
+#EXTINF:-1 tvg-name="Etv Comedy" group-title="Entertainment" tvg-logo="https://i.ibb.co/1fHhCkSf/1000142447.png",Etv Comedy
+https://cc-wie8j8y69d2uy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-wie8j8y69d2uy/f2f59ff5-3585-4808-b7df-04f7445a7138/1.m3u8
