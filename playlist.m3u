@@ -1107,3 +1107,7 @@ https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c
 https://cdn-2.pishow.tv/live/226/master.m3u8
 #EXTINF:-1 tvg-name="Namdhari Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/SwRPgbs1/1000141876.jpg",Namdhari Tv
 https://namdhari.tv/live/sbs1.m3u8
+#EXTINF:-1 tvg-name="Nandhigosha Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/cK4dZyTG/1000141878.jpg",Nandhigosha Tv
+https://www.nandighoshatvlive.com/hls/stream/index.m3u8
+#EXTINF:-1 tvg-name="Nazara Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/FL47wWpP/1000141883.jpg",Nazara Tv
+https://epiconvh.akamaized.net/live/nazara/master.m3u8
