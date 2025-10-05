@@ -1119,3 +1119,5 @@ https://shashwatha.com/hls/show/newhopetv_low.m3u8
 https://vidcdn.vidgyor.com/news24-origin/liveabr/playlist.m3u8
 #EXTINF:-1 tvg-name="Polimer Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/4gJjkBvb/1000141913.jpg",Polimer Tv
 https://cdn-2.pishow.tv/live/1241/master.m3u8
+#EXTINF:-1 tvg-name="Etv Music" group-title="Telugu" tvg-logo="https://i.ibb.co/bjL1ctyg/1000142442.jpg",Etv Music
+https://cc-szivnms4rlah6.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szivnms4rlah6/6173a07b-668b-457c-b6ef-50c58d2b7991/1.m3u8
