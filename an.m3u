@@ -167,3 +167,5 @@ https://cdn-1.pishow.tv/live/411/master.m3u8
 https://cc-szivnms4rlah6.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szivnms4rlah6/6173a07b-668b-457c-b6ef-50c58d2b7991/1.m3u8
 #EXTINF:-1 tvg-name="Etv Comedy" group-title="Entertainment" tvg-logo="https://i.ibb.co/1fHhCkSf/1000142447.png",Etv Comedy
 https://cc-wie8j8y69d2uy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-wie8j8y69d2uy/f2f59ff5-3585-4808-b7df-04f7445a7138/1.m3u8
+#EXTINF:-1 tvg-name="Etv Josh" group-title="Entertainment" tvg-logo="https://i.ibb.co/LDfLDpJB/1000142500.png",Etv Josh
+https://cc-uyh1ow5zouoio.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-uyh1ow5zouoio/be345488-d68c-4928-ab56-33760e506be5/1.m3u8
