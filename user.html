@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Channel Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body { font-family: 'Baloo 2', cursive; }
+    .collapsible {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <button onclick="window.location.href='/'" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">Channel Manager</h1>
+    </div>
+    <div>
+      <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Split -->
+  <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Left: Form -->
+    <div class="w-full md:w-1/2 p-5 bg-white shadow-lg overflow-y-auto">
+      <form id="channelForm" class="grid gap-4 md:grid-cols-2">
+        <input type="hidden" id="channelId"/>
+
+        <!-- Essentials -->
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Channel Name</label>
+          <input type="text" id="name" required
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Upload Icon</label>
+          <div class="relative">
+            <input type="file" id="uploadIcon" accept="image/*"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
+            <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#d92a1a] to-[#ff4a3f] text-white font-bold py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer select-none">
+              <i class="fa-solid fa-upload"></i> Choose Image
+            </div>
+          </div>
+          <input type="hidden" id="icon" name="icon"/>
+          <p id="uploadStatus" class="text-sm text-gray-500 mt-1"></p>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Stream URL</label>
+          <input type="url" id="stream" required
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-semibold mb-1">Category</label>
+          <select id="category" required
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+            <option value="Tamil">Tamil</option>
+            <option value="Telugu">Telugu</option>
+            <option value="Kannada">Kannada</option>
+            <option value="Malayalam">Malayalam</option>
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Sinhala">Sinhala</option>
+            <option value="Kids">Kids</option>
+            <option value="Sports">Sports</option>
+            <option value="International">International</option>
+            <option value="Infotainment">Infotainment</option>
+            <option value="Local Channels">Local Channels</option> <!-- ✅ fixed -->
+          </select>
+        </div>
+
+        <!-- Collapsible Info -->
+        <div class="md:col-span-2">
+          <button type="button" id="toggleInfo"
+            class="w-full flex items-center justify-between bg-gray-100 px-4 py-2 rounded-lg font-semibold text-gray-700 hover:bg-gray-200 transition">
+            Channel Info
+            <i id="infoIcon" class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <div id="extraInfo" class="collapsible mt-3 grid gap-4 md:grid-cols-2">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">Channel Type</label>
+              <select id="channelType" required
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+                <option value="Entertainment">Entertainment</option>
+                <option value="News">News</option>
+                <option value="Sports">Sports</option>
+                <option value="Movies">Movies</option>
+                <option value="Music">Music</option>
+                <option value="Kids">Kids</option>
+                <option value="Religious">Religious</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Documentary">Documentary</option>
+                <option value="Education">Education</option>
+                <option value="Regional">Regional</option>
+                <option value="Local Channels">Local Channels</option> <!-- ✅ fixed -->
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">Language</label>
+              <select id="language"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+                <option value="Tamil">Tamil</option>
+                <option value="Telugu">Telugu</option>
+                <option value="Kannada">Kannada</option>
+                <option value="Malayalam">Malayalam</option>
+                <option value="Hindi">Hindi</option>
+                <option value="English">English</option>
+                <option value="Sinhala">Sinhala</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">Country</label>
+              <input type="text" id="country" placeholder="India"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">Tags (comma separated)</label>
+              <input type="text" id="tags" placeholder="News,Sports,etc."
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+            </div>
+
+            <div class="md:col-span-2">
+              <label class="block text-gray-700 font-semibold mb-1">Description</label>
+              <textarea id="description" rows="3" placeholder="Channel description..."
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" id="submitBtn"
+          class="col-span-2 bg-[#d92a1a] text-white font-bold py-3 rounded-xl shadow-md hover:bg-red-700 transition">
+          <i class="fa-solid fa-save mr-2"></i> Save Channel
+        </button>
+      </form>
+      <p id="statusMsg" class="text-center mt-3 font-semibold"></p>
+    </div>
+
+    <!-- Right: Channel List -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <div class="p-5 bg-gray-100 flex flex-col md:flex-row gap-4 md:items-center justify-between">
+        <div class="flex gap-3">
+          <select id="filterCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+            <option value="All">All Categories</option>
+            <option value="Tamil">Tamil</option>
+            <option value="Telugu">Telugu</option>
+            <option value="Kannada">Kannada</option>
+            <option value="Malayalam">Malayalam</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Kids">Kids</option>
+            <option value="Sports">Sports</option>
+            <option value="English">English</option>
+            <option value="International">International</option>
+            <option value="Sinhala">Sinhala</option>
+            <option value="Local Channels">Local Channels</option> <!-- ✅ fixed -->
+          </select>
+
+          <select id="sortOption" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+            <option value="az">Sort By A-Z</option>
+            <option value="latest">Sort By Latest</option>
+            <option value="oldest">Sort By Oldest</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2 w-full md:w-auto">
+          <i class="fa-solid fa-magnifying-glass text-gray-600"></i>
+          <input type="text" id="searchInput" placeholder="Search channel..."
+            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full md:w-64"/>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-5">
+        <h2 class="text-xl font-bold mb-4">Channels</h2>
+        <div id="channelList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 text-center py-3 text-gray-700 font-semibold">
+    Live Tv @ 2025
+  </footer>
+
+  <!-- Collapsible toggle -->
+  <script>
+    const toggleBtn = document.getElementById("toggleInfo");
+    const extraInfo = document.getElementById("extraInfo");
+    const infoIcon = document.getElementById("infoIcon");
+
+    toggleBtn.addEventListener("click", () => {
+      if (extraInfo.classList.contains("open")) {
+        extraInfo.style.maxHeight = null;
+        extraInfo.classList.remove("open");
+        infoIcon.classList.remove("fa-chevron-up");
+        infoIcon.classList.add("fa-chevron-down");
+      } else {
+        extraInfo.style.maxHeight = extraInfo.scrollHeight + "px";
+        extraInfo.classList.add("open");
+        infoIcon.classList.remove("fa-chevron-down");
+        infoIcon.classList.add("fa-chevron-up");
+      }
+    });
+  </script>
+
+  <script type="module" src="assets/js/user.js"></script>
+</body>
+</html>
