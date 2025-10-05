@@ -81,8 +81,8 @@
 
         <!-- Drawer Footer with Social Icons -->
         <div class="drawer-footer">
-          <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp"><span class="material-symbols-outlined">chat</span></a>
-          <a href="https://discord.com/invite/yourinvite" target="_blank" title="Discord"><span class="material-symbols-outlined">groups</span></a>
+          <a href="https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15" target="_blank" title="WhatsApp"><span class="material-symbols-outlined">chat</span></a>
+          <a href="https://discord.gg/yBuhjKAFy" target="_blank" title="Discord"><span class="material-symbols-outlined">groups</span></a>
           <a href="mailto:tnm3us@gmail.com" title="Email"><span class="material-symbols-outlined">mail</span></a>
         </div>
       </div>
