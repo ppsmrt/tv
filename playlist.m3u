@@ -1083,3 +1083,17 @@ https://see.lokshahi.live/live/index.m3u8
 http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
 #EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 2 HD
 http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
+#EXTINF:-1 tvg-name="Maiboli" group-title="Hindi" tvg-logo="https://i.ibb.co/WNNCVTNp/1000141815.jpg",Maiboli
+https://sablive-ddpb.akamaized.net/maiboli/playlist.m3u8
+#EXTINF:-1 tvg-name="Madha Tv" group-title="English" tvg-logo="https://i.ibb.co/sdMSdGcd/1000141817.jpg",Madha Tv
+https://60e68b19dd194.streamlock.net:55/madhatv/madhatv.stream_HDp/playlist.m3u8
+#EXTINF:-1 tvg-name="Malai Murasu" group-title="Tamil" tvg-logo="https://i.ibb.co/W4KNgr2V/1000141828.jpg",Malai Murasu
+https://cdn-3.pishow.tv/live/1606/master.m3u8
+#EXTINF:-1 tvg-name="Manoranjan Grand" group-title="Hindi" tvg-logo="https://i.ibb.co/6R5ryH7L/1000141832.jpg",Manoranjan Grand
+https://cdn-1.pishow.tv/live/1011/master.m3u8
+#EXTINF:-1 tvg-name="Manoranjan Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/VcBb69pN/1000141862.jpg",Manoranjan Movies
+https://cdn-2.pishow.tv/live/228/master.m3u8
+#EXTINF:-1 tvg-name="Manoranjan Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/7dyLxhW8/1000141857.jpg",Manoranjan Tv
+https://cdn-1.pishow.tv/live/1013/master.m3u8
+#EXTINF:-1 tvg-name="Mastiii" group-title="Hindi" tvg-logo="https://i.ibb.co/My28r5nX/1000141864.jpg",Mastiii
+https://sablive-ddpb.akamaized.net/mastii/playlist.m3u8
