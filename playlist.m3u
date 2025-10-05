@@ -1111,3 +1111,7 @@ https://namdhari.tv/live/sbs1.m3u8
 https://www.nandighoshatvlive.com/hls/stream/index.m3u8
 #EXTINF:-1 tvg-name="Nazara Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/FL47wWpP/1000141883.jpg",Nazara Tv
 https://epiconvh.akamaized.net/live/nazara/master.m3u8
+#EXTINF:-1 tvg-name="Network Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/JjGL1h0V/1000141908.jpg",Network Tv
+https://network10.livebox.co.in/network10hls/live.m3u8
+#EXTINF:-1 tvg-name="New Hope Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/997r8WSL/1000141909.jpg",New Hope Tv
+https://shashwatha.com/hls/show/newhopetv_low.m3u8
