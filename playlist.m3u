@@ -475,7 +475,7 @@ http://notvstream.in/chennaiitv/chennaiitv.m3u8?view=tnm3u-addedby=tnm3u
 http://217.20.112.199/asianet/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Astro Vanavil" group-title="International" tvg-logo="https://i.ibb.co/5hSNK4Tv/1000131634.jpg",Astro Vanavil
 https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8#8e37333873aae2429a94d98aadbd63679cf7fa58d9104174c87f7829d00ef2cf?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Astro Vinmeen" group-title="International" tvg-logo="https://i.ibb.co/j9RZhSMr/1000131636.jpg",Astro Vinmeen
+#EXTINF:-1 tvg-name="Astro Vellithirai" group-title="International" tvg-logo="https://i.ibb.co/tP88RyPr/1000142586.jpg",Astro Vellithirai
 https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Astro Thangathirai" group-title="International" tvg-logo="https://i.ibb.co/B5XmrHMC/1000131638.jpg",Astro Thangathirai
 https://live20.bozztv.com/akamaissh101/ssh101/sungo546/playlist.m3u8?view=tnm3u-addedby=tnm3u
@@ -1129,3 +1129,5 @@ https://cc-uyh1ow5zouoio.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73d
 https://cc-3448kp65yhc5w.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-3448kp65yhc5w/e73503ca-8965-4097-96a0-c4ec1a6a1741/2.m3u8
 #EXTINF:-1 tvg-name="NK Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/4n0JF35L/1000142558.jpg",NK Tv
 https://nktv.smartstream.video/smartstream-us/nktvplus/nktvplus/chunks.m3u8
+#EXTINF:-1 tvg-name="Astro Vinmeen" group-title="International" tvg-logo="https://i.ibb.co/Y4Txhpkk/1000131636.jpg",Astro Vinmeen
+https://live20.bozztv.com/akamaissh101/ssh101/sungo544/playlist.m3u8
