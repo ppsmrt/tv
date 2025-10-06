@@ -487,3 +487,9 @@ https://live.thendralcloud.in/ganeshtvlive/d0dbe915091d400bd8ee7f27f0791303.sdp/
 https://live.thendralcloud.in/thendraltv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Colors Tamil HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/v4rmzb5M/1000144915.jpg",Colors Tamil HD
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsTamilHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Jayam Tv Namakkal" group-title="Local Channels" tvg-logo="https://i.ibb.co/MxXLfHMg/1000145099.png",Jayam Tv Namakkal
+https://rtmp.bmlive.net/bms/jayamtv/index.m3u8
+#EXTINF:-1 tvg-name="Eagle Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1fSXBRZy/1000145101.jpg",Eagle Tv
+https://rtmp.bmlive.net/bms/eagletv/index.m3u8
+#EXTINF:-1 tvg-name="We Baduga Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/msBGprc/1000145103.jpg",We Baduga Tv
+https://rtmp.bmlive.net/webaduga/webaduga/index.m3u8
