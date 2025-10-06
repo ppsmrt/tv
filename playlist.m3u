@@ -1185,3 +1185,15 @@ https://ipcloud.live/mtv/menhd/index.m3u8
 https://live.thendralcloud.in/ganeshtvlive/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="ThendralTv" group-title="Tamil" tvg-logo="https://i.ibb.co/S435QDGz/1000144496.jpg",ThendralTv
 https://live.thendralcloud.in/thendraltv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/p645Nzfm/1000144992.jpg",Extreme Sports
+https://176.116.105.82/Extreme_Sports/index.m3u8
+#EXTINF:-1 tvg-name="Nat Geo" group-title="Infotainment" tvg-logo="https://i.ibb.co/xS94GQPP/1000144995.jpg",Nat Geo
+http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
+#EXTINF:-1 tvg-name="BBC Earth" group-title="Infotainment" tvg-logo="https://i.ibb.co/ymXjxRZJ/1000144996.jpg",BBC Earth
+http://195.181.169.162/BBC_EARTH_HD/playlist.m3u8?token=test
+#EXTINF:-1 tvg-name="Colors Gujarati" group-title="Hindi" tvg-logo="https://i.ibb.co/9H82CSG1/1000144998.jpg",Colors Gujarati
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsGujarati/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Cineplex Superhits" group-title="Hindi" tvg-logo="https://i.ibb.co/S4zPmCTZ/1000145000.jpg",Colors Cineplex Superhits
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexSuperhit/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Cineplex Bollywood" group-title="Hindi" tvg-logo="https://i.ibb.co/21DBYLLM/1000145002.png",Colors Cineplex Bollywood
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexBollywood/JCHLS/index.m3u8
