@@ -1179,3 +1179,9 @@ http://alk.sscloud7.in:1935/live/ohmtv/playlist.m3u8
 https://ipcloud.live/nvision/nvisionhd.m3u8
 #EXTINF:-1 tvg-name="N Vision Music" group-title="Malayalam" tvg-logo="https://i.ibb.co/8nf14kzg/1000144463.png",N Vision Music
 https://stream.onecloudlive.in/nvision/nvisionmusic/index.m3u8
+#EXTINF:-1 tvg-name="M Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/5Xn7F7FM/1000144465.jpg",M Tv
+https://ipcloud.live/mtv/menhd/index.m3u8
+#EXTINF:-1 tvg-name="Ganesh Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/gZkWM8pZ/1000144491.jpg",Ganesh Tv
+https://live.thendralcloud.in/ganeshtvlive/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="ThendralTv" group-title="Tamil" tvg-logo="https://i.ibb.co/S435QDGz/1000144496.jpg",ThendralTv
+https://live.thendralcloud.in/thendraltv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
