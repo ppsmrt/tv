@@ -583,7 +583,7 @@ https://stream.galaxyott.live/live/utv/index.m3u8
 https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Jith Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/WpDgyPfR/1000136465.jpg",Jith Tv
 https://sscloud7.com/live/jithtv/index.m3u8
-#EXTINF:-1 tvg-name="SS Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/x8GK2zvp/1000136467.png",SS Tv
+#EXTINF:-1 tvg-name="SS Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/6Rh8vrwS/1000144372.jpg",SS Tv
 https://server.sscloud7.in/live/sshd/index.m3u8
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/RGThWXLc/1000136469.jpg",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
@@ -1147,3 +1147,11 @@ https://d3kdywbtdfbp9z.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91e
 http://stream.pardesitv.online/pardesi/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="Public Music Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/QFMTNdwv/1000142814.jpg",Public Music Tv
 https://cdn-3.pishow.tv/live/441/master.m3u8
+#EXTINF:-1 tvg-name="Boys Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/gb3csMbZ/1000144375.jpg",Boys Tv
+https://rtmp.applelive.in/boystv/boystv/index.m3u8
+#EXTINF:-1 tvg-name="Ayya Vaikundar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/rfMsdCg6/1000144376.webp",Ayya Vaikundar Tv
+http://ayyatv.sscloud7.in/live/ayyatv/index.m3u8
+#EXTINF:-1 tvg-name="Vinayaga Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/KcfsfLhk/1000144378.jpg",Vinayaga Tv
+https://server.sscloud7.in/live/vinayagatv/index.m3u8
+#EXTINF:-1 tvg-name="Devi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fdB0GhXs/1000144380.jpg",Devi Tv
+https://server.sscloud7.in/live/devitv/index.m3u8
