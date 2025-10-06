@@ -1219,3 +1219,5 @@ https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playli
 https://rtmp.bmlive.net/bms/jayamtv/index.m3u8
 #EXTINF:-1 tvg-name="Eagle Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1fSXBRZy/1000145101.jpg",Eagle Tv
 https://rtmp.bmlive.net/bms/eagletv/index.m3u8
+#EXTINF:-1 tvg-name="We Baduga Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/msBGprc/1000145103.jpg",We Baduga Tv
+https://rtmp.bmlive.net/webaduga/webaduga/index.m3u8
