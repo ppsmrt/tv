@@ -1,0 +1,100 @@
+name: Auto-update cloud7.m3u
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Generate cloud7.m3u only if changed
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+
+          const url = 'https://sscloud7.in/multi/tamilott.json';
+          const filePath = 'cloud7.m3u';
+          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
+
+          (async () => {
+            try {
+              const res = await fetch(url);
+              const data = await res.json();
+              if (!data) {
+                console.log("No channels found.");
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              let m3u = "#EXTM3U\n";
+              let changesSummary = [];
+
+              for (const ch of data) {
+                const name = ch.channelname || "Unknown";
+                const logo = ch.logo || "";
+                const stream = ch.playbackurl || "";
+                const category = "General"; // optional
+                if (!stream) continue;
+
+                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
+                m3u += `${extinf}\n${stream}\n`;
+
+                const prevLineIndex = prevData.indexOf(name);
+                if (prevLineIndex === -1) {
+                  changesSummary.push(`Added: ${name}`);
+                } else {
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
+                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
+                }
+              }
+
+              // Removed channels
+              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+              oldNames.forEach(name => {
+                if (!data.some(ch => ch.channelname === name)) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in playlist, skipping file generation.");
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              fs.writeFileSync(filePath, m3u);
+              console.log('cloud7.m3u updated successfully.');
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, `changed=true\nsummary=${changesSummary.join('; ')}\n`);
+
+            } catch (err) {
+              console.error('Error fetching channels:', err);
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cloud7.m3u
+          git commit -m "Auto-update cloud7.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
