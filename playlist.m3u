@@ -1197,3 +1197,17 @@ https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsGujarati/JCHLS/index
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexSuperhit/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Cineplex Bollywood" group-title="Hindi" tvg-logo="https://i.ibb.co/21DBYLLM/1000145002.png",Colors Cineplex Bollywood
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexBollywood/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Cineplex HD" group-title="Hindi" tvg-logo="https://i.ibb.co/LX3zRXdm/1000145008.jpg",Colors Cineplex HD
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Kannda Cinema" group-title="Kannada" tvg-logo="https://i.ibb.co/7NkLFD3M/1000145014.jpg",Colors Kannda Cinema
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaCinema/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Kannda HD" group-title="Kannada" tvg-logo="https://i.ibb.co/7NkLFD3M/1000145014.jpg",Colors Kannda HD
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Tamil HD" group-title="Tamil" tvg-logo="https://i.ibb.co/v4rmzb5M/1000144915.jpg",Colors Tamil HD
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsTamilHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Marathi" group-title="Hindi" tvg-logo="https://i.ibb.co/LXyC0D9w/1000145016.jpg",Colors Marathi
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsMarathiHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Colors Bangla" group-title="Hindi" tvg-logo="https://i.ibb.co/h1MKMx2M/1000145018.jpg",Colors Bangla
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsBanglaHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Shemaroo Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/TM5kcBYb/1000145019.jpg",Shemaroo Tv
+https://amg00864-shemarooenterta-shemabollywood-ono-nlwbw.amagi.tv/playlist/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8
