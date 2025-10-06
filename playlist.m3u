@@ -1161,3 +1161,13 @@ https://server.sscloud7.in/isaihd/isaihd/index.m3u8
 http://server3.sscloud7.in/stmtv/srithangamalaimurugantv/playlist.m3u8
 #EXTINF:-1 tvg-name="N Tv Pkt" group-title="Tamil" tvg-logo="https://i.ibb.co/Cr4zmhf/1000144394.png",N Tv Pkt
 https://stream.galaxyott.live/live/ntvpkt/index.m3u8
+#EXTINF:-1 tvg-name="Rahul Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/hvWn0kr/1000144431.jpg",Rahul Tv
+http://alk.sscloud7.in:1935/live/raghultv/index.m3u8
+#EXTINF:-1 tvg-name="Ayya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/v6FzN61r/1000144432.png",Ayya Tv
+http://alk.sscloud7.in:1935/live/ayyatv/playlist.m3u8
+#EXTINF:-1 tvg-name="Jenifer Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/wF0LnNcQ/1000144434.jpg",Jenifer Tv
+http://alk.sscloud7.in:1935/live/jenifertv/index.m3u8
+#EXTINF:-1 tvg-name="Visil HD" group-title="Tamil" tvg-logo="https://i.ibb.co/Y4cJHfff/1000144437.jpg",Visil HD
+https://stream.sscloud7.in/live/vishiltv1/index.m3u8
+#EXTINF:-1 tvg-name="Visil Max" group-title="Tamil" tvg-logo="https://i.ibb.co/67173JWf/1000144439.jpg",Visil Max
+https://stream.sscloud7.in/live/vishiltv2/index.m3u8
