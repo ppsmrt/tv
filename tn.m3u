@@ -419,7 +419,7 @@ https://live.skystream.in/live/ntntv/index.m3u8
 http://198.144.149.206:8080/NOTV/EZHILTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Thirupur Voice Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/xSrjHgc9/1000138412.webp",Thirupur Voice Tv
 http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
-#EXTINF:-1 tvg-name="Dharshan Kanchi TV" group-title="Local Channels" tvg-logo="https://i.ibb.co/cPK91Zq/1000138897.jpg",Dharshan Kanchi TV
+#EXTINF:-1 tvg-name="Dharshan TV" group-title="Local Channels" tvg-logo="https://i.ibb.co/qFygVrWJ/1000144389.jpg",Dharshan TV
 https://stream.galaxyott.live/live/dharshantv/index.m3u8
 #EXTINF:-1 tvg-name="Devathai Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hJMX40D9/1000138934.jpg",Devathai Tv
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
@@ -463,3 +463,13 @@ https://server.sscloud7.in/live/vinayagatv/index.m3u8
 https://server.sscloud7.in/live/devitv/index.m3u8
 #EXTINF:-1 tvg-name="Isai Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/LXsdZT8j/1000144388.jpg",Isai Tv
 https://server.sscloud7.in/isaihd/isaihd/index.m3u8
+#EXTINF:-1 tvg-name="Sri Thangamalai Murugan Television" group-title="Local Channels" tvg-logo="https://i.ibb.co/mPyQWph/1000144392.png",Sri Thangamalai Murugan Television
+http://server3.sscloud7.in/stmtv/srithangamalaimurugantv/playlist.m3u8
+#EXTINF:-1 tvg-name="N Tv Pkt" group-title="Local Channels" tvg-logo="https://i.ibb.co/Cr4zmhf/1000144394.png",N Tv Pkt
+https://stream.galaxyott.live/live/ntvpkt/index.m3u8
+#EXTINF:-1 tvg-name="Rahul Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hvWn0kr/1000144431.jpg",Rahul Tv
+http://alk.sscloud7.in:1935/live/raghultv/index.m3u8
+#EXTINF:-1 tvg-name="Ayya Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/v6FzN61r/1000144432.png",Ayya Tv
+http://alk.sscloud7.in:1935/live/ayyatv/playlist.m3u8
+#EXTINF:-1 tvg-name="Jenifer Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/wF0LnNcQ/1000144434.jpg",Jenifer Tv
+http://alk.sscloud7.in:1935/live/jenifertv/index.m3u8
