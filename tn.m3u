@@ -7,7 +7,7 @@ https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m
 https://sivantv.livebox.co.in/sivantvhls/sivan.m3u8
 #EXTINF:-1 tvg-name="Moon Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/nspSzdxH/moon.jpg",Moon Tv
 https://player.mslivestream.net/mslive/e10bb900976df9177b9a080314f26f86.sdp/chunks.m3u8
-#EXTINF:-1 tvg-name="Vanavil Tv" group-title="Local Channels" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_2235158907483673908224712.jpg",Vanavil Tv
+#EXTINF:-1 tvg-name="Vanavil Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/ksp0jHKp/1000144460.png",Vanavil Tv
 https://6n3yope4d9ok-hls-live.5centscdn.com/vaanavil/TV.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="Mathimugam Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/xqS6pfyN/mathimugam.jpg",Mathimugam Tv
 https://cdn-3.pishow.tv/live/1476/master.m3u8
@@ -481,3 +481,9 @@ https://stream.sscloud7.in/live/vishiltv2/index.m3u8
 http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
 #EXTINF:-1 tvg-name="Om Tv SS" group-title="Local Channels" tvg-logo="https://i.ibb.co/ksrxqTBM/1000144453.png",Om Tv SS
 http://alk.sscloud7.in:1935/live/ohmtv/playlist.m3u8
+#EXTINF:-1 tvg-name="M Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/5Xn7F7FM/1000144465.jpg",M Tv
+https://ipcloud.live/mtv/menhd/index.m3u8
+#EXTINF:-1 tvg-name="Ganesh Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gZkWM8pZ/1000144491.jpg",Ganesh Tv
+https://live.thendralcloud.in/ganeshtvlive/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="ThendralTv" group-title="Local Channels" tvg-logo="https://i.ibb.co/S435QDGz/1000144496.jpg",ThendralTv
+https://live.thendralcloud.in/thendraltv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
