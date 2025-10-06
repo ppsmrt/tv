@@ -11,7 +11,7 @@ http://cloud.logichost.in:1935/SWANTHAM/live/chunklist_w1753452838.m3u8
 http://45.249.171.155:8090/anandmedia/kairalitv_576/index.m3u8
 #EXTINF:-1 tvg-name="Safari Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/mCXLsjHM/1000121289.jpg",Safari Tv
 https://j78dp346yq5r-hls-live.5centscdn.com/safari/live.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="Vision Kerala" group-title="Regional" tvg-logo="https://i.ibb.co/xSxVC7fz/1000121291.jpg",Vision Kerala
+#EXTINF:-1 tvg-name="Vision Kerala" group-title="Local Channels" tvg-logo="https://i.ibb.co/xSxVC7fz/1000121291.jpg",Vision Kerala
 http://103.85.204.205:1935/VISIONMEDIA/live/playlist.m3u8
 #EXTINF:-1 tvg-name="One Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/qLHQzdzC/1000121293.jpg",One Tv
 http://137.59.86.218:1935/live/onetv/playlist.m3u8
@@ -27,7 +27,7 @@ http://cloud.logichost.in:1935/live/malabarnews/chunklist_w1073688293.m3u8
 http://rtmp.logichost.in:1935/live/onetv/chunklist_w1554463648.m3u8
 #EXTINF:-1 tvg-name="TCN Entertainments" group-title="Unknown" tvg-logo="https://i.ibb.co/7tS0wpSq/1000121418.jpg",TCN Entertainments
 http://cloud.logichost.in:1935/TCN/live/playlist.m3u8
-#EXTINF:-1 tvg-name="Vision Media" group-title="Regional" tvg-logo="https://i.ibb.co/60J5nv9N/1000121431.jpg",Vision Media
+#EXTINF:-1 tvg-name="Vision Media" group-title="Local Channels" tvg-logo="https://i.ibb.co/60J5nv9N/1000121431.jpg",Vision Media
 http://103.85.204.205:1935/VISIONMEDIA/live/chunklist_w1236262378.m3u8
 #EXTINF:-1 tvg-name="KCN HD" group-title="Regional" tvg-logo="https://i.ibb.co/mr4CtGK3/1000121466.jpg",KCN HD
 http://kcnsdhlsapp.ylivestream.com/kcnsdapphls/index.m3u8
@@ -57,7 +57,7 @@ https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91e
 https://segment.yuppcdn.net/110322/channel24/playlist.m3u8
 #EXTINF:-1 tvg-name="C Malayalam Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/DDRgFWPY/1000122489.jpg",C Malayalam Tv
 https://2-fss-2.streamhoster.com/pl_120/206508-3261972-1/playlist.m3u8
-#EXTINF:-1 tvg-name="VBC News" group-title="Unknown" tvg-logo="https://i.ibb.co/k6gdLdhn/1000122492.jpg",VBC News
+#EXTINF:-1 tvg-name="VBC News" group-title="Local Channels" tvg-logo="https://i.ibb.co/k6gdLdhn/1000122492.jpg",VBC News
 https://5a1178b42cc03.streamlock.net/8200/8200/playlist.m3u8
 #EXTINF:-1 tvg-name="Kalika Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/G3Q9ncvd/1000122504.jpg",Kalika Tv
 http://server.applelive.in/kalikatv/kalikatv.m3u8
@@ -67,7 +67,7 @@ https://5a1178b42cc03.streamlock.net/8220/8220/playlist.m3u8
 https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mathrubhuminews_nim_https/110322/mathrubhuminews/playlist.m3u8
 #EXTINF:-1 tvg-name="Manorama News" group-title="Unknown" tvg-logo="https://i.ibb.co/rRxVLNC7/1000122507.jpg",Manorama News
 https://mmtvnews1.akamaized.net/v1/master/673630b269b766886555eebfddd4f27f3de3ab50/mmtvNewsCampaign1/index.m3u8
-#EXTINF:-1 tvg-name="VCV Tv" group-title="Unknown" tvg-logo="https://i.ibb.co/23JRgJRR/1000122511.jpg",VCV Tv
+#EXTINF:-1 tvg-name="VCV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/23JRgJRR/1000122511.jpg",VCV Tv
 https://5a1178b42cc03.streamlock.net/8210/8210/playlist.m3u8
 #EXTINF:-1 tvg-name="KC Vision" group-title="Unknown" tvg-logo="https://i.ibb.co/fdYmsD8V/1000122526.jpg",KC Vision
 http://111.92.41.129:11037/hls/kv.m3u8
@@ -91,7 +91,7 @@ https://pvqybagglz24-hls-live.5centscdn.com/7788_push_2913_001/c98886a28a6a78b57
 http://217.20.112.199/asianet/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Kamudy Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/R4TvPMrK/1000132433.jpg",Kamudy Tv
 https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="We One Tv" group-title="Regional" tvg-logo="https://i.ibb.co/RKC56Ff/1000132909.jpg",We One Tv
+#EXTINF:-1 tvg-name="We One Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/RKC56Ff/1000132909.jpg",We One Tv
 http://stream.logichost.in:1935/WEONE/live/chunklist_w617388636.m3u8
 #EXTINF:-1 tvg-name="Koickal News" group-title="Regional" tvg-logo="https://i.ibb.co/mFRsSRqn/1000133160.jpg",Koickal News
 https://play.applelive.in/koickalnews/koickalnews.m3u8
