@@ -585,7 +585,7 @@ https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 https://sscloud7.com/live/jithtv/index.m3u8
 #EXTINF:-1 tvg-name="SS Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/6Rh8vrwS/1000144372.jpg",SS Tv
 https://server.sscloud7.in/live/sshd/index.m3u8
-#EXTINF:-1 tvg-name="Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/RGThWXLc/1000136469.jpg",Sakthi Tv
+#EXTINF:-1 tvg-name="Sakthi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mCjB0Z0Y/1000144382.jpg",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
 #EXTINF:-1 tvg-name="Velavan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mCHRtk8d/1000136472.jpg",Velavan Tv
 http://velavantv.sscloud7.in/live/velavantv/index.m3u8
@@ -613,7 +613,7 @@ https://live.sscloud7.in/live/a2atv/index.m3u8
 https://sscloud7.com/live/skytv/index.m3u8
 #EXTINF:-1 tvg-name="PCV Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mrBwmDKp/1000136499.jpg",PCV Tv
 https://stream.sscloud7.in/live/livepcv/index.m3u8
-#EXTINF:-1 tvg-name="Malar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/whXKKMNM/1000136503.jpg",Malar Tv
+#EXTINF:-1 tvg-name="Malar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/gL1SHDy5/1000144386.jpg",Malar Tv
 https://sscloud7.com/live/malartv/index.m3u8
 #EXTINF:-1 tvg-name="Bharathi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/PGhh0LKz/1000136505.jpg",Bharathi Tv
 https://server.sscloud7.in/live/bharathitv/index.m3u8
@@ -765,7 +765,7 @@ https://live.skystream.in/live/ntntv/index.m3u8
 http://198.144.149.206:8080/NOTV/EZHILTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Thirupur Voice Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/xSrjHgc9/1000138412.webp",Thirupur Voice Tv
 http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
-#EXTINF:-1 tvg-name="Dharshan Kanchi TV" group-title="Tamil" tvg-logo="https://i.ibb.co/cPK91Zq/1000138897.jpg",Dharshan Kanchi TV
+#EXTINF:-1 tvg-name="Dharshan TV" group-title="Tamil" tvg-logo="https://i.ibb.co/qFygVrWJ/1000144389.jpg",Dharshan TV
 https://stream.galaxyott.live/live/dharshantv/index.m3u8
 #EXTINF:-1 tvg-name="Devathai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/hJMX40D9/1000138934.jpg",Devathai Tv
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
@@ -1155,3 +1155,9 @@ http://ayyatv.sscloud7.in/live/ayyatv/index.m3u8
 https://server.sscloud7.in/live/vinayagatv/index.m3u8
 #EXTINF:-1 tvg-name="Devi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/fdB0GhXs/1000144380.jpg",Devi Tv
 https://server.sscloud7.in/live/devitv/index.m3u8
+#EXTINF:-1 tvg-name="Isai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/LXsdZT8j/1000144388.jpg",Isai Tv
+https://server.sscloud7.in/isaihd/isaihd/index.m3u8
+#EXTINF:-1 tvg-name="Sri Thangamalai Murugan Television" group-title="Tamil" tvg-logo="https://i.ibb.co/mPyQWph/1000144392.png",Sri Thangamalai Murugan Television
+http://server3.sscloud7.in/stmtv/srithangamalaimurugantv/playlist.m3u8
+#EXTINF:-1 tvg-name="N Tv Pkt" group-title="Tamil" tvg-logo="https://i.ibb.co/Cr4zmhf/1000144394.png",N Tv Pkt
+https://stream.galaxyott.live/live/ntvpkt/index.m3u8
