@@ -247,9 +247,9 @@ https://stream.galaxyott.live/live/utv/index.m3u8
 https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Jith Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/WpDgyPfR/1000136465.jpg",Jith Tv
 https://sscloud7.com/live/jithtv/index.m3u8
-#EXTINF:-1 tvg-name="SS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/x8GK2zvp/1000136467.png",SS Tv
+#EXTINF:-1 tvg-name="SS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/6Rh8vrwS/1000144372.jpg",SS Tv
 https://server.sscloud7.in/live/sshd/index.m3u8
-#EXTINF:-1 tvg-name="Sakthi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/RGThWXLc/1000136469.jpg",Sakthi Tv
+#EXTINF:-1 tvg-name="Sakthi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mCjB0Z0Y/1000144382.jpg",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
 #EXTINF:-1 tvg-name="Velavan Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mCHRtk8d/1000136472.jpg",Velavan Tv
 http://velavantv.sscloud7.in/live/velavantv/index.m3u8
@@ -277,7 +277,7 @@ https://live.sscloud7.in/live/a2atv/index.m3u8
 https://sscloud7.com/live/skytv/index.m3u8
 #EXTINF:-1 tvg-name="PCV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mrBwmDKp/1000136499.jpg",PCV Tv
 https://stream.sscloud7.in/live/livepcv/index.m3u8
-#EXTINF:-1 tvg-name="Malar Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/whXKKMNM/1000136503.jpg",Malar Tv
+#EXTINF:-1 tvg-name="Malar Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gL1SHDy5/1000144386.jpg",Malar Tv
 https://sscloud7.com/live/malartv/index.m3u8
 #EXTINF:-1 tvg-name="Bharathi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/PGhh0LKz/1000136505.jpg",Bharathi Tv
 https://server.sscloud7.in/live/bharathitv/index.m3u8
@@ -453,3 +453,13 @@ https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8
 https://cdn-3.pishow.tv/live/1606/master.m3u8
 #EXTINF:-1 tvg-name="Polimer Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/4gJjkBvb/1000141913.jpg",Polimer Tv
 https://cdn-2.pishow.tv/live/1241/master.m3u8
+#EXTINF:-1 tvg-name="Boys Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gb3csMbZ/1000144375.jpg",Boys Tv
+https://rtmp.applelive.in/boystv/boystv/index.m3u8
+#EXTINF:-1 tvg-name="Ayya Vaikundar Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/rfMsdCg6/1000144376.webp",Ayya Vaikundar Tv
+http://ayyatv.sscloud7.in/live/ayyatv/index.m3u8
+#EXTINF:-1 tvg-name="Vinayaga Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/KcfsfLhk/1000144378.jpg",Vinayaga Tv
+https://server.sscloud7.in/live/vinayagatv/index.m3u8
+#EXTINF:-1 tvg-name="Devi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/fdB0GhXs/1000144380.jpg",Devi Tv
+https://server.sscloud7.in/live/devitv/index.m3u8
+#EXTINF:-1 tvg-name="Isai Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/LXsdZT8j/1000144388.jpg",Isai Tv
+https://server.sscloud7.in/isaihd/isaihd/index.m3u8
