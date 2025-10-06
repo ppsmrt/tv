@@ -910,7 +910,7 @@ https://guru.shashwatha.com/hls/live/sne.m3u8
 #EXTINF:-1 tvg-name="Sity" group-title="Kannada" tvg-logo="https://i.ibb.co/vCRt1HYp/1000139800.png",Sity
 https://guru.shashwatha.com/hls/live/sity.m3u8
 #EXTINF:-1 tvg-name="& Flix HD" group-title="English" tvg-logo="https://i.ibb.co/whsm6qKX/1000139802.jpg",& Flix HD
-https://m3u.denver1769.fun/Port/TP/index.ts?id=a02a
+http://89.187.189.98/ANDFLIXHD/index.m3u8
 #EXTINF:-1 tvg-name="8xm" group-title="Hindi" tvg-logo="https://i.ibb.co/G4rfztJL/1000139839.jpg",8xm
 http://66.102.120.18:8000/play/a050/index.m3u8
 #EXTINF:-1 tvg-name="Amoggh TV" group-title="Kannada" tvg-logo="https://i.ibb.co/7Jyp2xYs/1000139841.jpg",Amoggh TV
