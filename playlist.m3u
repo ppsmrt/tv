@@ -1211,3 +1211,11 @@ https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsMarathiHD/JCHLS/inde
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsBanglaHD/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Shemaroo Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/TM5kcBYb/1000145019.jpg",Shemaroo Tv
 https://amg00864-shemarooenterta-shemabollywood-ono-nlwbw.amagi.tv/playlist/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8
+#EXTINF:-1 tvg-name="Viju Nature" group-title="Infotainment" tvg-logo="https://i.ibb.co/qLy1n2Gn/1000145095.jpg",Viju Nature
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
+#EXTINF:-1 tvg-name="Viju Explore" group-title="Infotainment" tvg-logo="https://i.ibb.co/zh106Hbg/1000145097.jpg",Viju Explore
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
+#EXTINF:-1 tvg-name="Jayam Tv Namakkal" group-title="Tamil" tvg-logo="https://i.ibb.co/MxXLfHMg/1000145099.png",Jayam Tv Namakkal
+https://rtmp.bmlive.net/bms/jayamtv/index.m3u8
+#EXTINF:-1 tvg-name="Eagle Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1fSXBRZy/1000145101.jpg",Eagle Tv
+https://rtmp.bmlive.net/bms/eagletv/index.m3u8
