@@ -127,3 +127,5 @@ http://89.187.189.98/SURYAMOVIES/index.m3u8
 http://89.187.189.98/ASIANETPLUS/index.m3u8
 #EXTINF:-1 tvg-name="Media One" group-title="Entertainment" tvg-logo="https://i.ibb.co/xKFNBXCP/1000140229.jpg",Media One
 http://89.187.189.98/MEDIAONE/index.m3u8
+#EXTINF:-1 tvg-name="N Vision" group-title="Local Channels" tvg-logo="https://i.ibb.co/xKmd1jhw/1000144455.jpg",N Vision
+https://ipcloud.live/nvision/nvisionhd.m3u8

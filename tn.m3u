@@ -473,3 +473,11 @@ http://alk.sscloud7.in:1935/live/raghultv/index.m3u8
 http://alk.sscloud7.in:1935/live/ayyatv/playlist.m3u8
 #EXTINF:-1 tvg-name="Jenifer Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/wF0LnNcQ/1000144434.jpg",Jenifer Tv
 http://alk.sscloud7.in:1935/live/jenifertv/index.m3u8
+#EXTINF:-1 tvg-name="Visil HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/Y4cJHfff/1000144437.jpg",Visil HD
+https://stream.sscloud7.in/live/vishiltv1/index.m3u8
+#EXTINF:-1 tvg-name="Visil Max" group-title="Local Channels" tvg-logo="https://i.ibb.co/67173JWf/1000144439.jpg",Visil Max
+https://stream.sscloud7.in/live/vishiltv2/index.m3u8
+#EXTINF:-1 tvg-name="KM Music" group-title="Music" tvg-logo="https://i.ibb.co/TxTLdbp6/1000144441.jpg",KM Music
+http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
+#EXTINF:-1 tvg-name="Om Tv SS" group-title="Local Channels" tvg-logo="https://i.ibb.co/ksrxqTBM/1000144453.png",Om Tv SS
+http://alk.sscloud7.in:1935/live/ohmtv/playlist.m3u8
