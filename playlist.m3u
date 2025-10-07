@@ -279,7 +279,7 @@ https://live.olidigital.in/nilatv/nilatv/index.m3u8
 https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 #EXTINF:-1 tvg-name="Aadhavan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/GQn3zdXz/1000122170.jpg",Aadhavan Tv
 https://ipcloud.live/aadhavantv/aadhavanhd/index.m3u8
-#EXTINF:-1 tvg-name="Apple" group-title="Tamil" tvg-logo="https://i.ibb.co/tMf6VD68/1000122172.jpg",Apple
+#EXTINF:-1 tvg-name="Apple" group-title="Tamil" tvg-logo="https://i.ibb.co/0pvHm4mc/1000145849.jpg",Apple
 https://play.applelive.in/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="Agilam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zHsXQ0Vk/1000122174.jpg",Agilam Tv
 https://stream.onecloudlive.in/akilamtv/akilamtvhd/index.m3u8
@@ -519,8 +519,6 @@ https://rtmp.applelive.in/boobsh/boobsh/index.m3u8
 http://198.144.149.206:8080/MONTAMIL_CINEMA/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Tamil Magan" group-title="Tamil" tvg-logo="https://i.ibb.co/ycYP60yP/1000133567.jpg",Tamil Magan
 http://120.138.14.16:8080/hls/tamilmagantv/index.m3u8
-#EXTINF:-1 tvg-name="Vedha Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/JFjFfFNs/1000133568.jpg",Vedha Tv
-https://skystream.in/live/vedha6528/index.m3u8
 #EXTINF:-1 tvg-name="Vedha Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/bM3tJZCm/vedha-logo.png",Vedha Tv
 https://skystream.in/live/vedha6528/index.m3u8
 #EXTINF:-1 tvg-name="Thulir Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Rp9f1PS3/1000133573.jpg",Thulir Tv
@@ -1255,3 +1253,9 @@ https://play.applelive.in/stntv/stntv.m3u8
 https://play.applelive.in/jcvtv/jcvmusix.m3u8
 #EXTINF:-1 tvg-name="Boss Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1B47ySJ/1000145836.jpg",Boss Tv
 https://play.applelive.in/vasantv/vasantv.m3u8
+#EXTINF:-1 tvg-name="Kumari Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/MxSz56Z0/1000145848.jpg",Kumari Tv
+https://rtmp.applelive.in/gvkumaritv/gvkumaritv/index.m3u8
+#EXTINF:-1 tvg-name="Apple Tv Pondy" group-title="Tamil" tvg-logo="https://i.ibb.co/JFncHkkm/1000145850.jpg",Apple Tv Pondy
+https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
+#EXTINF:-1 tvg-name="Vedha" group-title="Tamil" tvg-logo="https://i.ibb.co/Tqvf93mB/1000133568.jpg",Vedha
+https://skystream.in/live/vedha6528/index.m3u8
