@@ -1231,3 +1231,9 @@ https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
 #EXTINF:-1 tvg-name="MTV HD" group-title="English" tvg-logo="https://i.ibb.co/XffWLKcF/1000145260.jpg",MTV HD
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_MTVHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Saam Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/hRMBZq0V/1000145273.jpg",Saam Tv
+https://cdn-3.pishow.tv/live/437/master.m3u8
+#EXTINF:-1 tvg-name="Sharda Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/QjbfjVjk/1000145274.jpg",Sharda Tv
+http://cdn12.henico.net:8080/live/sadatv/index.m3u8
+#EXTINF:-1 tvg-name="Sadhna Plus Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/FbpnKMRF/1000145289.jpg",Sadhna Plus Tv
+https://6n3yow8pl9ok-hls-live.5centscdn.com/sadhananewstv/live.stream/playlist.m3u8
