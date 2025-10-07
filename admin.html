@@ -19,20 +19,8 @@
 <body class="bg-gradient-to-b from-white to-gray-50 w-screen h-screen flex flex-col">
 
   <!-- Header -->
-  <div class="flex items-center justify-between px-5 py-5 bg-[#d92a1a] shadow-lg sticky top-0 z-50">
-    <div class="flex items-center gap-3">
-      <button onclick="window.location.href='/'" class="text-white text-xl hover:text-gray-200 transition">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
-      <h1 class="text-white text-2xl font-extrabold tracking-wider select-none">Channel Manager</h1>
-    </div>
-    <div>
-      <button id="logoutBtn" class="text-white text-xl hover:text-gray-200 transition">
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </button>
-    </div>
-  </div>
-
+  <div id="header"></div>
+  
   <!-- Content Split -->
   <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
 
@@ -71,19 +59,45 @@
           <label class="block text-gray-700 font-semibold mb-1">Category</label>
           <select id="category" required
             class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-            <option value="Tamil">Tamil</option>
-            <option value="Telugu">Telugu</option>
-            <option value="Kannada">Kannada</option>
-            <option value="Malayalam">Malayalam</option>
-            <option value="English">English</option>
-            <option value="Hindi">Hindi</option>
-            <option value="Sinhala">Sinhala</option>
-            <option value="Kids">Kids</option>
-            <option value="Sports">Sports</option>
-            <option value="International">International</option>
-            <option value="Infotainment">Infotainment</option>
-            <option value="Local Channels">Local Channels</option> <!-- ✅ fixed -->
-          </select>
+            <!-- Regional Languages -->
+<option value="Tamil">Tamil</option>
+<option value="Telugu">Telugu</option>
+<option value="Kannada">Kannada</option>
+<option value="Malayalam">Malayalam</option>
+<option value="Hindi">Hindi</option>
+<option value="English">English</option>
+<option value="Srilanka">Srilanka</option>
+<option value="Bengali">Bengali</option>
+<option value="Marathi">Marathi</option>
+<option value="Gujarati">Gujarati</option>
+<option value="Punjabi">Punjabi</option>
+<option value="Odia">Odia</option>
+<option value="Assamese">Assamese</option>
+<option value="Urdu">Urdu</option>
+
+<!-- Genres -->
+<option value="News">News</option>
+<option value="Movies">Movies</option>
+<option value="Music">Music</option>
+<option value="Sports">Sports</option>
+<option value="Kids">Kids</option>
+<option value="Infotainment">Infotainment</option>
+<option value="Lifestyle">Lifestyle</option>
+<option value="Devotional">Devotional</option>
+<option value="Education">Education</option>
+<option value="Comedy">Comedy</option>
+<option value="Drama">Drama</option>
+<option value="Entertainment">Entertainment</option>
+<option value="Shopping">Shopping</option>
+<option value="Food">Food</option>
+<option value="Travel">Travel</option>
+<option value="Wildlife">Wildlife</option>
+
+<!-- Broad Category -->
+<option value="International">International</option>
+<option value="Radio">Radio</option>
+<option value="4K_UHD">4K / UHD</option>
+<option value="Test">Test</option>          </select>
         </div>
 
         <!-- Collapsible Info -->
@@ -118,14 +132,50 @@
               <label class="block text-gray-700 font-semibold mb-1">Language</label>
               <select id="language"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
-                <option value="Tamil">Tamil</option>
-                <option value="Telugu">Telugu</option>
-                <option value="Kannada">Kannada</option>
-                <option value="Malayalam">Malayalam</option>
-                <option value="Hindi">Hindi</option>
-                <option value="English">English</option>
-                <option value="Sinhala">Sinhala</option>
-              </select>
+                <!-- Indian Languages -->
+<option value="Assamese">Assamese</option>
+<option value="Bengali">Bengali</option>
+<option value="Bodo">Bodo</option>
+<option value="Dogri">Dogri</option>
+<option value="Gujarati">Gujarati</option>
+<option value="Hindi">Hindi</option>
+<option value="Kannada">Kannada</option>
+<option value="Kashmiri">Kashmiri</option>
+<option value="Konkani">Konkani</option>
+<option value="Maithili">Maithili</option>
+<option value="Malayalam">Malayalam</option>
+<option value="Manipuri">Manipuri</option>
+<option value="Marathi">Marathi</option>
+<option value="Nepali">Nepali</option>
+<option value="Odia">Odia</option>
+<option value="Punjabi">Punjabi</option>
+<option value="Sanskrit">Sanskrit</option>
+<option value="Santali">Santali</option>
+<option value="Sindhi">Sindhi</option>
+<option value="Tamil">Tamil</option>
+<option value="Telugu">Telugu</option>
+<option value="Urdu">Urdu</option>
+
+<!-- Extra Indian regional -->
+<option value="Tulu">Tulu</option>
+
+<!-- International / Worldwide -->
+<option value="Arabic">Arabic</option>
+<option value="Chinese">Chinese</option>
+<option value="Dutch">Dutch</option>
+<option value="English">English</option>
+<option value="French">French</option>
+<option value="German">German</option>
+<option value="Italian">Italian</option>
+<option value="Japanese">Japanese</option>
+<option value="Korean">Korean</option>
+<option value="Portuguese">Portuguese</option>
+<option value="Russian">Russian</option>
+<option value="Sinhala">Sinhala</option>
+<option value="Spanish">Spanish</option>
+<option value="Thai">Thai</option>
+<option value="Turkish">Turkish</option>
+<option value="Vietnamese">Vietnamese</option>              </select>
             </div>
 
             <div>
@@ -198,9 +248,12 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-gray-200 text-center py-3 text-gray-700 font-semibold">
-    Live Tv @ 2025
-  </footer>
+  <div id="footer"></div>
+
+<!-- Scripts -->
+<script src="assets/js/header.js"></script>
+<script src="assets/js/footer.js"></script>
+  
 
   <!-- Collapsible toggle -->
   <script>
