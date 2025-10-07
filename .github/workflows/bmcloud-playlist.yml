@@ -1,4 +1,24 @@
-- name: Generate bmcloud.m3u only if changed and log updates
+name: Auto-update bmcloud.m3u
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Generate bmcloud.m3u only if changed and log updates
         id: generate
         run: |
           npm install node-fetch@2
@@ -16,14 +36,15 @@
               const res = await fetch(url);
               const encoded = (await res.text()).trim();
 
-              // Base64 decode safely
+              // Base64 decode
               let decoded;
               try {
                 decoded = Buffer.from(encoded, 'base64').toString('utf8');
               } catch (err) {
                 console.error("❌ Base64 decode failed:", err);
                 console.error("Raw response:", encoded.slice(0,200));
-                process.exit(0);
+                require('child_process').execSync(`echo "changed=false" >> $GITHUB_OUTPUT`);
+                return;
               }
 
               // Parse JSON
@@ -33,7 +54,8 @@
               } catch (err) {
                 console.error("❌ JSON parse failed:", err);
                 console.error("Decoded text:", decoded.slice(0,200));
-                process.exit(0);
+                require('child_process').execSync(`echo "changed=false" >> $GITHUB_OUTPUT`);
+                return;
               }
 
               let m3u = "#EXTM3U\n";
@@ -46,7 +68,8 @@
 
               if (allChannels.length === 0) {
                 console.log("❌ No channels found.");
-                process.exit(0);
+                require('child_process').execSync(`echo "changed=false" >> $GITHUB_OUTPUT`);
+                return;
               }
 
               let changesSummary = [];
@@ -65,7 +88,7 @@
                 }
               }
 
-              // Check removals
+              // Removed check
               const oldNames = prevData.split('\n')
                 .filter(line => line.startsWith('#EXTINF'))
                 .map(line => line.split(',')[1]);
@@ -78,7 +101,6 @@
 
               if (changesSummary.length === 0) {
                 console.log("ℹ️ No changes detected.");
-                console.log(`changed=false`); // <-- Debug log
                 require('child_process').execSync(`echo "changed=false" >> $GITHUB_OUTPUT`);
                 return;
               }
@@ -100,3 +122,12 @@
             }
           })();
           EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bmcloud.m3u bmcloud.log
+          git commit -m "Auto-update bmcloud.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
