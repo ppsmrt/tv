@@ -16,7 +16,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
-  <style>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<link rel="icon" href="assets/icon/live.png" type="image/png">
+<link rel="shortcut icon" href="assets/icon/live.png" type="image/png">
+
+<!-- Basic SEO -->
+<meta name="description" content="Watch live TV channels online with premium quality streaming. Enjoy entertainment, news, and more on our live streaming platform.">
+<meta name="keywords" content="Live TV, online streaming, free channels, IPTV, watch TV online">
+<meta name="palani" content="Live Tv">
+
+<!-- Open Graph (Facebook, LinkedIn, WhatsApp sharing) -->
+<meta property="og:title" content="Live TV - Watch Free Streaming">
+<meta property="og:description" content="Stream live TV channels anytime, anywhere with smooth HD playback.">
+<meta property="og:image" content="assets/icon/live.png">
+<meta property="og:url" content="https://tnm3u.live">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card (for Twitter/X sharing) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Live TV - Watch Free Streaming">
+<meta name="twitter:description" content="Stream live TV channels anytime, anywhere with smooth HD playback.">
+<meta name="twitter:image" content="assets/icon/live.png">
+
+<!-- Favicon and App Icons -->
+<link rel="icon" href="assets/icon/live.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icon/live.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#121212">
+
+<!-- Performance / Browser Support -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R0X1427G62"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R0X1427G62');
+</script>
+
+<!-- HLS.js for .m3u8 streams -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
     body { font-family:'Roboto', sans-serif; background:#121212; margin:0; color:white; }
     .icon-btn { display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; }
     input { background:#1E1E1E; border:1px solid #444; }
@@ -29,25 +85,9 @@
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
-<!-- Side Drawer -->
-<div class="side-drawer" id="sideDrawer">
-  <a href="/" class="drawer-item"><span class="material-symbols-outlined">home</span> Home</a>
-  <a href="/" class="drawer-item"><span class="material-symbols-outlined">live_tv</span> Live TV</a>
-  <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlist</a>
-  <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
-  <div class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</div>
-</div>
 
 <!-- Header -->
-<header class="flex items-center justify-between p-3 bg-[#1E1E1E] sticky top-0 z-50">
-  <div class="flex items-center">
-    <div class="icon-btn mr-3" id="menuBtn"><span class="material-symbols-outlined">menu</span></div>
-    <div class="title font-semibold text-lg">Live TV</div>
-  </div>
-  <div class="flex items-center relative">
-    <div class="icon-btn" id="searchBtn"><span class="material-symbols-outlined">search</span></div>
-  </div>
-</header>
+<div id="header"></div>
 
 <!-- Main -->
 <main class="flex-1 flex justify-center items-center px-4">
