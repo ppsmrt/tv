@@ -932,7 +932,7 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 #EXTINF:-1 tvg-name="Star Suvarna" group-title="Kannada" tvg-logo="https://i.ibb.co/v490j6LH/1000139978.jpg",Star Suvarna
 https://live.dinesh29.com.np/stream/jiotvplus/suvarna/master.m3u8
 #EXTINF:-1 tvg-name="Star Suvarna Plus" group-title="Kannada" tvg-logo="https://i.ibb.co/TnTNp0R/1000139994.jpg",Star Suvarna Plus
-https://live.dinesh29.com.np/stream/jiotvplus/suvarnaplus/master.m3u8
+http://89.187.189.98/STARSUVARNAPLUS/index.m3u8
 #EXTINF:-1 tvg-name="Gemini Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/JRg8bZ7J/1000140036.jpg",Gemini Tv
 http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Etv Andhra" group-title="Telugu" tvg-logo="https://i.ibb.co/vKRKs7q/1000140037.jpg",Etv Andhra
@@ -1227,3 +1227,7 @@ http://195.181.169.162/BBC_EARTH_HD/playlist.m3u8?token=test
 http://212.102.60.10/BEIN_SPORTS/index.m3u8
 #EXTINF:-1 tvg-name="Da Vinci" group-title="Kids" tvg-logo="https://i.ibb.co/5WfYHfXb/1000145256.jpg",Da Vinci
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
+#EXTINF:-1 tvg-name="Viju Explore" group-title="Infotainment" tvg-logo="https://i.ibb.co/27rTQprC/1000145258.jpg",Viju Explore
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
+#EXTINF:-1 tvg-name="MTV HD" group-title="English" tvg-logo="https://i.ibb.co/XffWLKcF/1000145260.jpg",MTV HD
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_MTVHD/JCHLS/index.m3u8
