@@ -1,0 +1,148 @@
+name: Auto-update bmcloud.m3u
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Generate bmcloud.m3u only if changed and log updates
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+          const path = require('path');
+
+          const url = 'https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud';
+          const m3uPath = 'bmcloud.m3u';
+          const logPath = 'bmcloud.log';
+          const prevData = fs.existsSync(m3uPath) ? fs.readFileSync(m3uPath, 'utf8') : '';
+
+          (async () => {
+            try {
+              const res = await fetch(url);
+              const encoded = await res.text();
+
+              // Base64 decode
+              let decoded;
+              try {
+                decoded = Buffer.from(encoded.trim(), 'base64').toString('utf8');
+              } catch (err) {
+                console.error("❌ Failed to decode Base64:", err);
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              // Parse JSON
+              let json;
+              try {
+                json = JSON.parse(decoded);
+              } catch (err) {
+                console.error("❌ Failed to parse JSON:", err);
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              if (!Array.isArray(json) || json.length === 0) {
+                console.log("Invalid JSON or no data found.");
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              let m3u = "#EXTM3U\n";
+              let allChannels = [];
+
+              for (const group of json) {
+                if (group.channeldata && Array.isArray(group.channeldata)) {
+                  allChannels.push(...group.channeldata);
+                }
+              }
+
+              if (allChannels.length === 0) {
+                console.log("No channels found in channeldata.");
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              let changesSummary = [];
+
+              for (const ch of allChannels) {
+                const name = ch.channelname || "Unknown";
+                const logo = ch.logo || "";
+                const stream = ch.playbackurl || "";
+                const category = "General";
+                if (!stream) continue;
+
+                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
+                m3u += `${extinf}\n${stream}\n`;
+
+                const prevLineIndex = prevData.indexOf(name);
+                if (prevLineIndex === -1) {
+                  changesSummary.push(`Added: ${name}`);
+                } else {
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
+                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
+                }
+              }
+
+              const oldNames = prevData
+                .split('\n')
+                .filter(line => line.startsWith('#EXTINF'))
+                .map(line => line.split(',')[1]);
+
+              oldNames.forEach(name => {
+                if (!allChannels.some(ch => ch.channelname === name)) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in playlist, skipping file generation.");
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              // Write M3U file
+              fs.writeFileSync(m3uPath, m3u);
+              console.log('✅ bmcloud.m3u updated successfully.');
+
+              // Append log with timestamp
+              const timestamp = new Date().toISOString();
+              const logEntry = `\n[${timestamp}] ${changesSummary.join('; ')}\n`;
+              fs.appendFileSync(logPath, logEntry);
+              console.log(`📝 bmcloud.log updated`);
+
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, `changed=true\nsummary=${changesSummary.join('; ')}\n`);
+
+            } catch (err) {
+              console.error('❌ Error fetching channels:', err);
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bmcloud.m3u bmcloud.log
+          git commit -m "Auto-update bmcloud.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
