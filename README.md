@@ -19,7 +19,7 @@
   <a href="https://github.com/ppsmrt/live-tv-web-app/network/members">
     <img src="https://img.shields.io/github/forks/ppsmrt/tv?style=for-the-badge&color=blue&logo=github" alt="Forks"/>
   </a>
-  <a href="https://github.com/ppsmrt/live-tv-web-app/issues">
+  <a href="https://github.com/ppsmrt/tv/issues">
     <img src="https://img.shields.io/github/issues/ppsmrt/tv?style=for-the-badge&color=red&logo=github" alt="Issues"/>
   </a>
   <a href="https://github.com/ppsmrt/live-tv-web-app/blob/main/LICENSE">
