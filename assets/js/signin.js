@@ -26,7 +26,7 @@ onAuthStateChanged(auth, async (user) => {
   if(user){
     const adminRef = ref(db, "admins/" + user.uid);
     const adminSnapshot = await get(adminRef);
-    window.location.href = adminSnapshot.exists() ? "admin.html" : "index.html";
+    window.location.href = adminSnapshot.exists() ? "admin" : "/";
   }
 });
 
@@ -88,7 +88,7 @@ signinForm.addEventListener('submit', (e) => {
       const user = userCredential.user;
       const adminRef = ref(db, "admins/" + user.uid);
       const adminSnapshot = await get(adminRef);
-      window.location.href = adminSnapshot.exists() ? "admin.html" : "index.html";
+      window.location.href = adminSnapshot.exists() ? "admin" : "/";
     })
     .catch((error) => {
       alert("Login failed: " + error.message);
