@@ -227,22 +227,22 @@ function renderChannels() {
 
   filtered.forEach(([id, ch]) => {
     const card = document.createElement("div");
-    card.className = "flex items-center bg-white shadow-md rounded-xl p-4 gap-4";
-    card.innerHTML = `
-      <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border"/>
-      <div class="flex-1">
-        <h3 class="text-lg font-bold">${ch.name}</h3>
-        <p class="text-gray-600 text-sm">${ch.category} | ${ch.channelType || "N/A"}</p>
-      </div>
-      <div class="flex gap-2">
-        <button class="editBtn bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600" data-id="${id}">
-          <i class="fa-solid fa-pen"></i>
-        </button>
-        <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600" data-id="${id}">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-      </div>
-    `;
+    card.className = "flex items-center bg-[#1E1E1E] shadow-md rounded-xl p-4 gap-4 border border-gray-700";
+card.innerHTML = `
+  <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border border-gray-600"/>
+  <div class="flex-1">
+    <h3 class="text-lg font-bold text-white">${ch.name}</h3>
+    <p class="text-gray-400 text-sm">${ch.category} | ${ch.channelType || "N/A"}</p>
+  </div>
+  <div class="flex gap-2">
+    <button class="editBtn bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" data-id="${id}">
+      <i class="fa-solid fa-pen"></i>
+    </button>
+    <button class="deleteBtn bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700" data-id="${id}">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+  </div>
+`;
     channelList.appendChild(card);
   });
 
