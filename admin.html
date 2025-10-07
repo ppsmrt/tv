@@ -278,6 +278,44 @@
     });
   </script>
 
+  <!-- ✅ Auto Tag Generation -->
+  <script>
+    const nameInput = document.getElementById("name");
+    const categoryInput = document.getElementById("category");
+    const typeInput = document.getElementById("channelType");
+    const languageInput = document.getElementById("language");
+    const countryInput = document.getElementById("country");
+    const tagsInput = document.getElementById("tags");
+
+    function generateTags() {
+      const tags = [];
+
+      const addTag = (value) => {
+        if (value && value.trim() !== "") {
+          value.split(/[ ,]+/).forEach(v => {
+            if (v.trim() !== "") tags.push(v.trim().toLowerCase());
+          });
+        }
+      };
+
+      addTag(nameInput.value);
+      addTag(categoryInput.value);
+      addTag(typeInput.value);
+      addTag(languageInput.value);
+      addTag(countryInput.value);
+
+      tags.push("tnm3u", "live", "stream");
+
+      const uniqueTags = [...new Set(tags)];
+      tagsInput.value = uniqueTags.join(",");
+    }
+
+    [nameInput, categoryInput, typeInput, languageInput, countryInput].forEach(el => {
+      el.addEventListener("input", generateTags);
+      el.addEventListener("change", generateTags);
+    });
+  </script>
+
   <script type="module" src="assets/js/admin.js"></script>
 </body>
 </html>
