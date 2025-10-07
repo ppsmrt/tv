@@ -25,3 +25,5 @@ https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m
 https://cdn-2.pishow.tv/live/425/master.m3u8
 #EXTINF:-1 tvg-name="Madha Tv" group-title="Religious" tvg-logo="https://i.ibb.co/sdMSdGcd/1000141817.jpg",Madha Tv
 https://60e68b19dd194.streamlock.net:55/madhatv/madhatv.stream_HDp/playlist.m3u8
+#EXTINF:-1 tvg-name="MTV HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/XffWLKcF/1000145260.jpg",MTV HD
+https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_MTVHD/JCHLS/index.m3u8
