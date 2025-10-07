@@ -1245,11 +1245,11 @@ http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
 https://rtmp.bmlive.net/bms/kctv/index.m3u8
 #EXTINF:-1 tvg-name="MCN" group-title="Tamil" tvg-logo="https://i.ibb.co/p6Y2yP6K/1000145828.jpg",MCN
 https://play.applelive.in/mcntv/mcntv.m3u8
-#EXTINF:-1 tvg-name="Jeyson Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1YTsY7y4/1000145830.jpg",Jeyson Tv
+#EXTINF:-1 tvg-name="Jeyson Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1YTsY7y4/1000145830.jpg",Jeyson Tv
 https://play.applelive.in/jeysontv/jeysontv.m3u8
 #EXTINF:-1 tvg-name="STN" group-title="Tamil" tvg-logo="https://i.ibb.co/rRc3GPNS/1000145832.jpg",STN
 https://play.applelive.in/stntv/stntv.m3u8
-#EXTINF:-1 tvg-name="JCV Musix" group-title="Local Channels" tvg-logo="https://i.ibb.co/7t9gdB1v/1000145833.gif",JCV Musix
+#EXTINF:-1 tvg-name="JCV Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/7t9gdB1v/1000145833.gif",JCV Musix
 https://play.applelive.in/jcvtv/jcvmusix.m3u8
 #EXTINF:-1 tvg-name="Boss Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/1B47ySJ/1000145836.jpg",Boss Tv
 https://play.applelive.in/vasantv/vasantv.m3u8
@@ -1269,3 +1269,5 @@ http://manjutv.stream.onecloudlive.in/manjutv/manjutv/index.m3u8
 http://shreeparams.7starcloud.com:1935/live/params/playlist.m3u8
 #EXTINF:-1 tvg-name="Anandham Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/R8y8hpd/1000145866.png",Anandham Tv
 https://live1.sscloud7.com/live/anandhamtv/index.m3u8
+#EXTINF:-1 tvg-name="Ezhil Tv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/qF5JfbMh/1000145932.jpg",Ezhil Tv Tamil
+http://ezhiltv.stream.onecloudlive.in/ezhiltv/ezhilhd/index.m3u8
