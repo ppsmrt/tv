@@ -1237,3 +1237,7 @@ https://cdn-3.pishow.tv/live/437/master.m3u8
 http://cdn12.henico.net:8080/live/sadatv/index.m3u8
 #EXTINF:-1 tvg-name="Sadhna Plus Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/FbpnKMRF/1000145289.jpg",Sadhna Plus Tv
 https://6n3yow8pl9ok-hls-live.5centscdn.com/sadhananewstv/live.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Sansad Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/1kHJwG3/1000145290.jpg",Sansad Tv
+https://playhls.media.nic.in/live/lstv/index.m3u8
+#EXTINF:-1 tvg-name="Madha Tv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/KxFg9SQL/1000145294.jpg",Madha Tv Tamil
+http://45.148.145.57/TAMIL_MadhaTV/index.m3u8
