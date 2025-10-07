@@ -1263,3 +1263,7 @@ https://skystream.in/live/vedha6528/index.m3u8
 https://live.applelive.in/penguinhd/penguinhd/index.m3u8
 #EXTINF:-1 tvg-name="Dolphin Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/6pjGDbc/1000145856.jpg",Dolphin Tv
 https://play.applelive.in/dolphintv/dolphintv.m3u8
+#EXTINF:-1 tvg-name="Manju Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/QvnKft4c/1000145860.png",Manju Tv
+http://manjutv.stream.onecloudlive.in/manjutv/manjutv/index.m3u8
+#EXTINF:-1 tvg-name="SV Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Z1zWzXBz/1000145864.jpg",SV Tv
+http://shreeparams.7starcloud.com:1935/live/params/playlist.m3u8
