@@ -35,27 +35,30 @@
       color: #fff;
       position: relative;
     }
+    #header .icon-btn i {
+      font-size: 1.35rem; /* Increased icon size in header */
+    }
     #header .title {
       font-weight: 600;
       font-size: 1.125rem;
     }
 
-    /* Notification badge (red with white text) */
+    /* Notification badge (slightly bigger for balance) */
     .notif-badge {
       position: absolute;
-      top: -5px;
-      right: -5px;
+      top: -6px;
+      right: -6px;
       background: #dc2626;
       color: #fff;
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 2px 6px;
+      padding: 3px 7px;
       border-radius: 9999px;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 18px;
-      min-height: 18px;
+      min-width: 20px;
+      min-height: 20px;
       pointer-events: none;
       z-index: 10;
     }
