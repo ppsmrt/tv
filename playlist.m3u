@@ -1241,3 +1241,5 @@ https://6n3yow8pl9ok-hls-live.5centscdn.com/sadhananewstv/live.stream/playlist.m
 https://playhls.media.nic.in/live/lstv/index.m3u8
 #EXTINF:-1 tvg-name="Madha Tv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/KxFg9SQL/1000145294.jpg",Madha Tv Tamil
 http://45.148.145.57/TAMIL_MadhaTV/index.m3u8
+#EXTINF:-1 tvg-name="SR Music HD" group-title="Tamil" tvg-logo="https://i.ibb.co/465sRmf/1000145789.jpg",SR Music HD
+http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
