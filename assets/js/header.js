@@ -1,5 +1,11 @@
 // header.js
 (function () {
+  // Add Font Awesome
+  const faLink = document.createElement("link");
+  faLink.rel = "stylesheet";
+  faLink.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css";
+  document.head.appendChild(faLink);
+
   const style = document.createElement("style");
   style.textContent = `
     /* Header */
@@ -37,9 +43,9 @@
     /* Notification badge (red with white text) */
     .notif-badge {
       position: absolute;
-      top: -6px;
-      right: -6px;
-      background: #dc2626; /* red-600 */
+      top: -5px;
+      right: -5px;
+      background: #dc2626;
       color: #fff;
       font-size: 0.65rem;
       font-weight: 700;
@@ -50,15 +56,51 @@
       justify-content: center;
       min-width: 18px;
       min-height: 18px;
+      pointer-events: none;
+      z-index: 10;
     }
 
     /* Side Drawer */
-    .side-drawer { position: fixed; top: 0; left: -240px; width: 240px; height: 100%; background: #1E1E1E; padding: 1rem; transition: left 0.3s ease; display: flex; flex-direction: column; gap: 1rem; z-index: 100; }
+    .side-drawer {
+      position: fixed;
+      top: 0;
+      left: -240px;
+      width: 240px;
+      height: 100%;
+      background: #1E1E1E;
+      padding: 1rem;
+      transition: left 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 100;
+    }
     .side-drawer.open { left: 0; }
-    .drawer-item { display:flex; align-items:center; gap:12px; font-size:0.95rem; color:#fff; cursor:pointer; padding:0.5rem; border-radius:0.5rem; transition:background 0.2s; text-decoration:none; }
+    .drawer-item {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:0.95rem;
+      color:#fff;
+      cursor:pointer;
+      padding:0.5rem;
+      border-radius:0.5rem;
+      transition:background 0.2s;
+      text-decoration:none;
+    }
     .drawer-item:hover { background:#2C2C2C; }
-    .drawer-footer { margin-top:auto; display:flex; justify-content:space-around; padding-top:1rem; border-top:1px solid #333; }
-    .drawer-footer a { color:#fff; font-size:1.5rem; transition: color 0.2s; }
+    .drawer-footer {
+      margin-top:auto;
+      display:flex;
+      justify-content:space-around;
+      padding-top:1rem;
+      border-top:1px solid #333;
+    }
+    .drawer-footer a {
+      color:#fff;
+      font-size:1.25rem;
+      transition: color 0.2s;
+    }
     .drawer-footer a:hover { color: #1DB954; }
 
     /* Search Container */
@@ -72,31 +114,31 @@
     header.innerHTML = `
       <!-- Side Drawer -->
       <div class="side-drawer" id="sideDrawer">
-        <a href="/" class="drawer-item"><span class="material-symbols-outlined">home</span> Home</a>
-        <a href="applications" class="drawer-item"><span class="material-symbols-outlined">android</span> IPTV Applications</a>
-        <a href="playlist" class="drawer-item"><span class="material-symbols-outlined">play_circle</span> Playlist</a>
-        <a href="download" class="drawer-item"><span class="material-symbols-outlined">download</span> Download</a>
-        <a href="about" class="drawer-item"><span class="material-symbols-outlined">info</span> About</a>
-        <a href="signin" class="drawer-item"><span class="material-symbols-outlined">person</span> Profile</a>
+        <a href="/" class="drawer-item"><i class="fa fa-home"></i> Home</a>
+        <a href="applications" class="drawer-item"><i class="fa fa-android"></i> IPTV Applications</a>
+        <a href="playlist" class="drawer-item"><i class="fa fa-play-circle"></i> Playlist</a>
+        <a href="download" class="drawer-item"><i class="fa fa-download"></i> Download</a>
+        <a href="about" class="drawer-item"><i class="fa fa-info-circle"></i> About</a>
+        <a href="signin" class="drawer-item"><i class="fa fa-user"></i> Profile</a>
 
-        <!-- Drawer Footer with Social Icons -->
+        <!-- Drawer Footer with FA Social Icons -->
         <div class="drawer-footer">
-          <a href="https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15" target="_blank" title="WhatsApp"><span class="material-symbols-outlined">chat</span></a>
-          <a href="https://discord.gg/yBuhjKAFy" target="_blank" title="Discord"><span class="material-symbols-outlined">groups</span></a>
-          <a href="mailto:tnm3us@gmail.com" title="Email"><span class="material-symbols-outlined">mail</span></a>
+          <a href="https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://discord.gg/yBuhjKAFy" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+          <a href="mailto:tnm3us@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
         </div>
       </div>
 
       <!-- Header Bar -->
       <div class="header-bar">
         <div class="flex items-center">
-          <div class="icon-btn mr-3" id="menuBtn"><span class="material-symbols-outlined">menu</span></div>
+          <div class="icon-btn mr-3" id="menuBtn"><i class="fa fa-bars"></i></div>
           <div class="title">Live TV</div>
         </div>
         <div class="flex items-center relative">
-          <div class="icon-btn" id="searchBtn"><span class="material-symbols-outlined">search</span></div>
+          <div class="icon-btn" id="searchBtn"><i class="fa fa-search"></i></div>
           <div class="icon-btn ml-4" id="notifBtn">
-            <span class="material-symbols-outlined">notifications</span>
+            <i class="fa fa-bell"></i>
             <span class="notif-badge" id="notifCount" style="display:none;">0</span>
           </div>
         </div>
@@ -126,8 +168,6 @@
       searchContainer.style.display = (searchContainer.style.display === "block") ? "none" : "block";
       searchInput.focus();
     });
-
-    // Live search filter
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase();
       document.querySelectorAll(".channel-item").forEach(channel => {
@@ -160,10 +200,7 @@
       const channels = [];
       snap.forEach(s => {
         const ch = s.val();
-        // Ensure createdAt exists
-        if (!ch.createdAt) {
-          ch.createdAt = new Date().toISOString();
-        }
+        if (!ch.createdAt) ch.createdAt = new Date().toISOString();
         channels.push(ch);
       });
       updateNotificationCount(channels);
@@ -171,7 +208,7 @@
 
     // Click notification icon → go to notifications page
     notifBtn.addEventListener("click", () => {
-      window.location.href = "notifications.html";
+      window.location.href = "notifications";
     });
   }
 })();
