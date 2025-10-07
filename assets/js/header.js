@@ -118,7 +118,7 @@
       <!-- Side Drawer -->
       <div class="side-drawer" id="sideDrawer">
         <a href="/" class="drawer-item"><i class="fa fa-home"></i> Home</a>
-        <a href="applications" class="drawer-item"><i class="fa fa-android"></i> IPTV Applications</a>
+        <a href="applications" class="drawer-item"><i class="fa fa-play-circle"></i> IPTV Applications</a>
         <a href="playlist" class="drawer-item"><i class="fa fa-play-circle"></i> Playlist</a>
         <a href="download" class="drawer-item"><i class="fa fa-download"></i> Download</a>
         <a href="about" class="drawer-item"><i class="fa fa-info-circle"></i> About</a>
