@@ -1273,3 +1273,5 @@ https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 http://ezhiltv.stream.onecloudlive.in/ezhiltv/ezhilhd/index.m3u8
 #EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/WNBkfHwr/1000145954.jpg",Pogo Tamil
 https://servertvhub.site/jio/app/ts_live_542.m3u8
+#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/HDtdbt0V/1000145955.jpg",Sonic Tamil
+https://servertvhub.site/jio/app/ts_live_290.m3u8
