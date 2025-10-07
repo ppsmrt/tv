@@ -1243,3 +1243,5 @@ https://playhls.media.nic.in/live/lstv/index.m3u8
 http://45.148.145.57/TAMIL_MadhaTV/index.m3u8
 #EXTINF:-1 tvg-name="SR Music HD" group-title="Tamil" tvg-logo="https://i.ibb.co/465sRmf/1000145789.jpg",SR Music HD
 http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
+#EXTINF:-1 tvg-name="KC Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/FLxPfgh4/1000145813.jpg",KC Tv
+https://rtmp.bmlive.net/bms/kctv/index.m3u8
