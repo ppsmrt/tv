@@ -1259,3 +1259,7 @@ https://rtmp.applelive.in/gvkumaritv/gvkumaritv/index.m3u8
 https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
 #EXTINF:-1 tvg-name="Vedha" group-title="Tamil" tvg-logo="https://i.ibb.co/Tqvf93mB/1000133568.jpg",Vedha
 https://skystream.in/live/vedha6528/index.m3u8
+#EXTINF:-1 tvg-name="Penguin Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/LzrTB9Rr/1000145853.jpg",Penguin Tv
+https://live.applelive.in/penguinhd/penguinhd/index.m3u8
+#EXTINF:-1 tvg-name="Dolphin Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/6pjGDbc/1000145856.jpg",Dolphin Tv
+https://play.applelive.in/dolphintv/dolphintv.m3u8
