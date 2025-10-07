@@ -1267,3 +1267,5 @@ https://play.applelive.in/dolphintv/dolphintv.m3u8
 http://manjutv.stream.onecloudlive.in/manjutv/manjutv/index.m3u8
 #EXTINF:-1 tvg-name="SV Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Z1zWzXBz/1000145864.jpg",SV Tv
 http://shreeparams.7starcloud.com:1935/live/params/playlist.m3u8
+#EXTINF:-1 tvg-name="Anandham Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/R8y8hpd/1000145866.png",Anandham Tv
+https://live1.sscloud7.com/live/anandhamtv/index.m3u8
