@@ -1271,3 +1271,5 @@ http://shreeparams.7starcloud.com:1935/live/params/playlist.m3u8
 https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Ezhil Tv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/qF5JfbMh/1000145932.jpg",Ezhil Tv Tamil
 http://ezhiltv.stream.onecloudlive.in/ezhiltv/ezhilhd/index.m3u8
+#EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/WNBkfHwr/1000145954.jpg",Pogo Tamil
+https://servertvhub.site/jio/app/ts_live_542.m3u8
