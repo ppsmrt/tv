@@ -87,7 +87,7 @@ https://amigofx.com:1936/SChannel/SChannel/playlist.m3u8
 https://amigofx.com:1936/pcnhd/pcnhd/playlist.m3u8
 #EXTINF:-1 tvg-name="Harika Star" group-title="Telugu" tvg-logo="https://amigofx.com/livetvlogo/harikastar.png",Harika Star
 https://amigofx.com:1936/harikastar/harikastar/playlist.m3u8
-#EXTINF:-1 tvg-name="Kanchi" group-title="Tamil" tvg-logo="https://i.ibb.co/JWnfts7j/1000118501.jpg",Kanchi
+#EXTINF:-1 tvg-name="Kanchi Media" group-title="Tamil" tvg-logo="https://i.ibb.co/JWnfts7j/1000118501.jpg",Kanchi Media
 http://198.144.149.206:8080/NOTV/KANCHIMEDIA/tracks-v1a1/mono.ts.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Sana Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/mr8GkvXK/20250907-194733.jpg",Sana Plus
 https://galaxyott.live/hls/sanaplus.m3u8
@@ -555,7 +555,7 @@ https://sscloud7.com/live/omsakthitv/index.m3u8
 https://stream.onecloudlive.in/nellaitv/nellaitv/index.m3u8
 #EXTINF:-1 tvg-name="Yaal 4K Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/MypMcjN5/1000135646.png",Yaal 4K Tv
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
-#EXTINF:-1 tvg-name="PCN" group-title="Tamil" tvg-logo="https://i.ibb.co/84PznRCF/1000135656.webp",PCN
+#EXTINF:-1 tvg-name="PCN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/s96gyBWC/1000145826.png",PCN Tv
 https://rtmp.bmlive.net/bms/pcn/stream.m3u8
 #EXTINF:-1 tvg-name="Mathi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/WN9h6cj8/1000135649.jpg",Mathi Tv
 https://notvstream.in/mathitv/mathitv.m3u8
@@ -1245,3 +1245,9 @@ http://45.148.145.57/TAMIL_MadhaTV/index.m3u8
 http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
 #EXTINF:-1 tvg-name="KC Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/FLxPfgh4/1000145813.jpg",KC Tv
 https://rtmp.bmlive.net/bms/kctv/index.m3u8
+#EXTINF:-1 tvg-name="MCN" group-title="Tamil" tvg-logo="https://i.ibb.co/p6Y2yP6K/1000145828.jpg",MCN
+https://play.applelive.in/mcntv/mcntv.m3u8
+#EXTINF:-1 tvg-name="Jeyson Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1YTsY7y4/1000145830.jpg",Jeyson Tv
+https://play.applelive.in/jeysontv/jeysontv.m3u8
+#EXTINF:-1 tvg-name="STN" group-title="Tamil" tvg-logo="https://i.ibb.co/rRc3GPNS/1000145832.jpg",STN
+https://play.applelive.in/stntv/stntv.m3u8
