@@ -18,16 +18,8 @@
       align-items: center;
     }
     #footer:hover { color: #FFD700; }
-    #visitorCounter {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.85rem;
-      color: #9CA3AF;
-    }
-    #visitorCounter span.material-symbols-outlined {
-      color: #FFD700;
-      font-size: 1rem;
+    .counter-wrapper {
+      margin-top: 0.25rem;
     }
   `;
   document.head.appendChild(style);
@@ -38,23 +30,13 @@
     const currentYear = new Date().getFullYear();
     footer.innerHTML = `
       ©️ ${currentYear} Live TV · Innovation in Entertainment.
-      <div id="visitorCounter">
-        <span class="material-symbols-outlined">visibility</span>
-        <span id="visitorCount">Loading...</span>
-      </div>
+      <div class="counter-wrapper" id="customCounter"></div>
     `;
   }
 
-  const countEl = document.getElementById('visitorCount');
-
-  // CountAPI usage
-  fetch("https://api.countapi.xyz/hit/tnm3u.live/visits")
-    .then(res => res.json())
-    .then(data => {
-      if (countEl) countEl.textContent = data.value.toLocaleString();
-    })
-    .catch(err => {
-      console.error("CountAPI error:", err);
-      if (countEl) countEl.textContent = "N/A";
-    });
+  // Inject your free counter script
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "https://counter.websiteout.com/js/7/15/11196/0";
+  document.getElementById("customCounter").appendChild(script);
 })();
