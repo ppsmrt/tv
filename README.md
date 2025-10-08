@@ -1,7 +1,7 @@
 # 📺 Live TV Web App  
 
 <p align="center">
-  <img src="https://via.placeholder.com/1000x260/121212/FFD700?text=🔥+Live+TV+Streaming+Platform" alt="Live TV Banner" style="border-radius:12px;"/>
+  <img src="assets/images/banner.jpg" alt="Live TV Banner" style="border-radius:12px;"/>
 </p>
 
 <p align="center">
