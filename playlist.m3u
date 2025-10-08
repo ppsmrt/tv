@@ -941,7 +941,7 @@ http://89.187.189.98/STARSPORTS2HD/index.m3u8
 http://89.187.189.98/STARSPORTS3/index.m3u8
 #EXTINF:-1 tvg-name="Sony WAH" group-title="Hindi" tvg-logo="https://i.ibb.co/F4G6xDjv/1000140092.jpg",Sony WAH
 http://89.187.189.98/SONYWAH/index.m3u8
-#EXTINF:-1 tvg-name="Sonic" group-title="Hindi" tvg-logo="https://i.ibb.co/4RGRJ5SZ/1000140094.jpg",Sonic
+#EXTINF:-1 tvg-name="Sonic Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/4RGRJ5SZ/1000140094.jpg",Sonic Hindi
 http://89.187.189.98/SONIC/index.m3u8
 #EXTINF:-1 tvg-name="Zee Thirai" group-title="Tamil" tvg-logo="https://i.ibb.co/mFt813hv/1000140096.jpg",Zee Thirai
 http://89.187.189.98/ZEETHIRAI/index.m3u8
@@ -1275,3 +1275,5 @@ http://ezhiltv.stream.onecloudlive.in/ezhiltv/ezhilhd/index.m3u8
 https://servertvhub.site/jio/app/ts_live_542.m3u8
 #EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/HDtdbt0V/1000145955.jpg",Sonic Tamil
 https://servertvhub.site/jio/app/ts_live_290.m3u8
+#EXTINF:-1 tvg-name="Nick Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/1tt90t6C/1000146017.jpg",Nick Tamil
+https://servertvhub.site/jio/app/ts_live_546.m3u8
