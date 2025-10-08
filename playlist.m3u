@@ -803,7 +803,7 @@ https://vvsolutions-server11.in/slnnews_2/video.m3u8
 https://familyhls.avatv.live/hls/stream.m3u8
 #EXTINF:-1 tvg-name="BCN Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/97Cr3zF/1000139115.jpg",BCN Tv
 https://vvsolution.in/hls/bcntv_633.m3u8
-#EXTINF:-1 tvg-name="Movies Now" group-title="English" tvg-logo="https://i.ibb.co/rKmXpv0P/1000139118.jpg",Movies Now
+#EXTINF:-1 tvg-name="Movies Now" group-title="English" tvg-logo="https://i.ibb.co/HynNmv7/1000146392.jpg",Movies Now
 http://195.181.169.162/MOVIES_NOW_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="SR Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/VWfwVytt/1000139292.png",SR Tv
 https://vvsolutions-server11.in/bcncartoon2_37/video.m3u8
@@ -1299,3 +1299,7 @@ https://servertvhub.site/jio/app/ts_live_420.m3u8
 https://servertvhub.site/jio/app/ts_live_417.m3u8
 #EXTINF:-1 tvg-name="Star Movies 1" group-title="English" tvg-logo="https://i.ibb.co/tMR1X6x5/1000146333.jpg",Star Movies 1
 http://51.15.7.9:3141/starmovies/index.m3u8
+#EXTINF:-1 tvg-name="Star Movies Select" group-title="English" tvg-logo="https://i.ibb.co/mfKxpFt/1000146339.jpg",Star Movies Select
+http://89.187.189.98/STARMOVIESSELECTHD/index.m3u8
+#EXTINF:-1 tvg-name="Movies Now HD" group-title="English" tvg-logo="https://i.ibb.co/HynNmv7/1000146392.jpg",Movies Now HD
+http://89.187.189.98/MOVIESNOWHD/index.m3u8
