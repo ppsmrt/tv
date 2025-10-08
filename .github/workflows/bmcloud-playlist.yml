@@ -26,7 +26,8 @@ jobs:
           const fs = require('fs');
           const fetch = require('node-fetch');
 
-          const url = 'https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud';
+          // <-- Updated URL
+          const url = 'https://as.al/raw/NyCqwJ';
           const m3uPath = 'bmcloud.m3u';
           const logPath = 'bmcloud.log';
           const prevData = fs.existsSync(m3uPath) ? fs.readFileSync(m3uPath, 'utf8') : '';
