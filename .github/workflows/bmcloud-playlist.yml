@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -41,54 +43,61 @@ jobs:
                 return;
               }
 
+              const category = "Bm Cloud";
               let m3u = "#EXTM3U\n";
               let changesSummary = [];
+
+              // Build map of previous channels: name => {extinf, stream}
+              const oldChannels = {};
+              prevData.split('\n').forEach((line, i, arr) => {
+                if (line.startsWith('#EXTINF')) {
+                  const name = line.split(',')[1];
+                  const stream = arr[i + 1];
+                  oldChannels[name] = { extinf: line, stream };
+                }
+              });
+
+              // Track current channel names
+              const currentNames = [];
 
               for (const ch of json) {
                 const name = ch.name || "Unknown";
                 const logo = ch.imageurl || "";
                 const stream = ch.videourl || "";
-                const category = "Bm Cloud";
                 if (!stream) continue;
 
                 const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
                 m3u += `${extinf}\n${stream}\n`;
 
-                const prevLineIndex = prevData.indexOf(name);
-                if (prevLineIndex === -1) {
+                currentNames.push(name);
+
+                if (!oldChannels[name]) {
                   changesSummary.push(`Added: ${name}`);
-                } else {
-                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
-                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
-                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
-                    changesSummary.push(`Updated: ${name}`);
-                  }
+                } else if (oldChannels[name].extinf !== extinf || oldChannels[name].stream !== stream) {
+                  changesSummary.push(`Updated: ${name}`);
                 }
               }
 
-              const oldNames = prevData
-                .split('\n')
-                .filter(line => line.startsWith('#EXTINF'))
-                .map(line => line.split(',')[1]);
-
-              oldNames.forEach(name => {
-                if (!json.some(ch => ch.name === name)) {
+              // Detect removed channels
+              Object.keys(oldChannels).forEach(name => {
+                if (!currentNames.includes(name)) {
                   changesSummary.push(`Removed: ${name}`);
                 }
               });
 
               if (changesSummary.length === 0) {
-                console.log("No changes in playlist, skipping file generation.");
+                console.log("No changes detected. Skipping file update.");
                 fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
                 return;
               }
 
               fs.writeFileSync(filePath, m3u);
-              console.log('✅ bmcloud.m3u updated successfully.');
+              console.log("✅ bmcloud.m3u updated successfully.");
+              console.log("Summary:", changesSummary.join('; '));
               fs.writeFileSync(process.env.GITHUB_OUTPUT, `changed=true\nsummary=${changesSummary.join('; ')}\n`);
 
             } catch (err) {
-              console.error('❌ Error fetching channels:', err);
+              console.error("❌ Error fetching channels:", err);
               fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
             }
           })();
