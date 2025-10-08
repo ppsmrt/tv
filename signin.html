@@ -3,85 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign In - Live TV</title>
+  <title>Admin Sign In - Live TV</title>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <link rel="icon" href="assets/icon/live.png" type="image/png">
+  <link rel="shortcut icon" href="assets/icon/live.png" type="image/png">
 
-<link rel="icon" href="assets/icon/live.png" type="image/png">
-<link rel="shortcut icon" href="assets/icon/live.png" type="image/png">
-
-<!-- Basic SEO -->
-<meta name="description" content="Watch live TV channels online with premium quality streaming. Enjoy entertainment, news, and more on our live streaming platform.">
-<meta name="keywords" content="Live TV, online streaming, free channels, IPTV, watch TV online">
-<meta name="palani" content="Live Tv">
-
-<!-- Open Graph (Facebook, LinkedIn, WhatsApp sharing) -->
-<meta property="og:title" content="Live TV - Watch Free Streaming">
-<meta property="og:description" content="Stream live TV channels anytime, anywhere with smooth HD playback.">
-<meta property="og:image" content="assets/icon/live.png">
-<meta property="og:url" content="https://tnm3u.live">
-<meta property="og:type" content="website">
-
-<!-- Twitter Card (for Twitter/X sharing) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Live TV - Watch Free Streaming">
-<meta name="twitter:description" content="Stream live TV channels anytime, anywhere with smooth HD playback.">
-<meta name="twitter:image" content="assets/icon/live.png">
-
-<!-- Favicon and App Icons -->
-<link rel="icon" href="assets/icon/live.png" type="image/png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/icon/live.png">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#121212">
-
-<!-- Performance / Browser Support -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="robots" content="index, follow">
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R0X1427G62"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-R0X1427G62');
-</script>
-
-<!-- HLS.js for .m3u8 streams -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-<style>
+  <style>
     body { font-family:'Roboto', sans-serif; background:#121212; margin:0; color:white; }
-    .icon-btn { display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; }
-    input { background:#1E1E1E; border:1px solid #444; }
+    input { background:#1E1E1E; border:1px solid #444; width:100%; padding:0.5rem; border-radius:0.5rem; color:white; }
     input:focus { border-color:#666; outline:none; }
+    button {
+      background:#FBBF24;
+      color:black;
+      font-weight:600;
+      padding:0.5rem;
+      border-radius:0.5rem;
+      width:100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover {
+      background:#F59E0B;
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(255, 191, 0, 0.4);
+    }
+    .notification { background:#FBBF24; color:black; font-weight:500; padding:0.5rem; border-radius:0.5rem; text-align:center; margin-bottom:1rem; font-size:0.95rem; }
     .icon-btn { display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; }
-.side-drawer { position: fixed; top:0; left:-240px; width:240px; height:100%; background:#1E1E1E; padding:1rem; transition:left 0.3s ease; display:flex; flex-direction:column; gap:1rem; z-index:60; }
-.side-drawer.open { left:0; }
-.drawer-item { display:flex; align-items:center; gap:12px; font-size:0.95rem; color:#fff; cursor:pointer; padding:0.5rem; border-radius:0.5rem; transition:background 0.2s; text-decoration:none; }
-.drawer-item:hover { background:#2C2C2C; }
+    .side-drawer { position: fixed; top:0; left:-240px; width:240px; height:100%; background:#1E1E1E; padding:1rem; transition:left 0.3s ease; display:flex; flex-direction:column; gap:1rem; z-index:60; }
+    .side-drawer.open { left:0; }
+    .drawer-item { display:flex; align-items:center; gap:12px; font-size:0.95rem; color:#fff; cursor:pointer; padding:0.5rem; border-radius:0.5rem; transition:background 0.2s; text-decoration:none; }
+    .drawer-item:hover { background:#2C2C2C; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -92,36 +53,51 @@
 <!-- Main -->
 <main class="flex-1 flex justify-center items-center px-4">
   <div class="w-full max-w-sm bg-[#1E1E1E] p-6 rounded-xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4" style="font-family:'Baloo 2', cursive;">Welcome Back</h2>
-    
+
+    <!-- Admin Notification -->
+    <div class="notification">
+      ⚠️ Admins Only
+    </div>
+
+    <!-- Admin instructions -->
+    <h2 class="text-xl font-semibold mb-2" style="font-family:'Baloo 2', cursive;">
+      Admin Login
+    </h2>
+    <p class="text-gray-400 text-sm mb-4">
+      Use your admin credentials to access the dashboard.<br>
+      Only authorized admins can add or manage channels.<br>
+      You can add, edit, or remove channels from the admin panel.<br>
+      Keep your account details secure.<br>
+      If you have issues logging in, contact support@example.com.
+    </p>
+
     <form id="loginForm" class="flex flex-col gap-4">
       <div>
         <label for="email" class="block text-sm mb-1 text-gray-300">Email</label>
-        <input type="email" id="email" required
-          class="w-full px-4 py-2 rounded-lg text-white"/>
+        <input type="email" id="email" required class="w-full px-4 py-2 rounded-lg text-white"/>
       </div>
 
       <div>
         <label for="password" class="block text-sm mb-1 text-gray-300">Password</label>
-        <input type="password" id="password" required
-          class="w-full px-4 py-2 rounded-lg text-white"/>
+        <input type="password" id="password" required class="w-full px-4 py-2 rounded-lg text-white"/>
       </div>
 
-      <button type="submit" class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg">
+      <button type="submit">
         Sign In
       </button>
     </form>
-
-    <p class="text-sm text-gray-400 mt-4">Don’t have an account? <a href="signup.html" class="text-yellow-400 hover:underline">Sign Up</a></p>
 
     <div id="errorMsg" class="text-red-500 text-sm mt-2 hidden"></div>
   </div>
 </main>
 
 <!-- Footer -->
-<footer class="text-center p-3 text-gray-400 bg-[#1E1E1E] border-t border-gray-700">
-  Tnm3u &copy; 2025 Live TV
-</footer>
+<div id="footer"></div>
+
+  <!-- Scripts -->
+<script src="assets/js/header.js"></script>
+<script src="assets/js/footer.js"></script>
+  
 
 <script>
   // Firebase Config
@@ -142,60 +118,54 @@
   const form = document.getElementById("loginForm");
   const errorMsg = document.getElementById("errorMsg");
 
+  // Redirect already logged-in admins
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const adminRef = db.ref("admins/" + user.uid);
+      const snapshot = await adminRef.get();
+      if (snapshot.exists() && snapshot.val().role === "admin") {
+        window.location.href = "admin";
+      } else {
+        await auth.signOut();
+      }
+    }
+  });
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    errorMsg.classList.add("hidden");
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
     try {
       const userCred = await auth.signInWithEmailAndPassword(email, password);
       const user = userCred.user;
-      console.log("Logged in UID:", user.uid);
 
-      let isAdmin = false;
-
-      // ✅ First check by UID
       const adminRef = db.ref("admins/" + user.uid);
       const snapshot = await adminRef.get();
 
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        console.log("Admin node:", data);
-        if (data.role === "admin") {
-          isAdmin = true;
-        }
-      } else {
-        // ✅ Fallback: check by email
-        const snap = await db.ref("admins").orderByChild("email").equalTo(user.email).get();
-        if (snap.exists()) {
-          console.log("Admin found by email");
-          isAdmin = true;
-        }
-      }
-
-      // ✅ Redirect logic for both admin & users
-      if (isAdmin) {
+      if (snapshot.exists() && snapshot.val().role === "admin") {
         window.location.href = "admin";
       } else {
-        // Normal users go to index.html
-        window.location.href = "index.html";
-        return;
+        await auth.signOut();
+        throw new Error("Access denied. Only admins allowed.");
       }
 
     } catch (error) {
-      console.error("Login error:", error);
       errorMsg.textContent = error.message;
       errorMsg.classList.remove("hidden");
     }
   });
-  
-  // Side drawer
+
+  // Side drawer functionality
   const menuBtn = document.getElementById('menuBtn');
   const sideDrawer = document.getElementById('sideDrawer');
-  menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
-  document.addEventListener('click', e=>{
-    if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
-  });
+  if(menuBtn && sideDrawer){
+    menuBtn.addEventListener('click', ()=> sideDrawer.classList.toggle('open'));
+    document.addEventListener('click', e=>{
+      if(!sideDrawer.contains(e.target) && !menuBtn.contains(e.target)) sideDrawer.classList.remove('open');
+    });
+  }
 </script>
 
 </body>
