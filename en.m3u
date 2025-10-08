@@ -1,29 +1,149 @@
 #EXTM3U
 #EXTINF:-1 tvg-name="Star Movies" group-title="Movies" tvg-logo="https://i.ibb.co/LznH7sxB/1000123905.jpg",Star Movies
 http://89.187.189.98/STARMOVIESHD/index.m3u8?view=tnm3u-addedby=tnm3u
+#EXTINF:-1 tvg-name="Star Sports 1 SD Tamil" group-title="Sports" tvg-logo="https://i.ibb.co/wZpmhgmd/1000146096.jpg",Star Sports 1 SD Tamil
+http://ptu.ridsys.in/riptv/live/stream20/index.m3u8
+#EXTINF:-1 tvg-name="Sony TEN Sports 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/LhqymyXy/1000146113.jpg",Sony TEN Sports 1 HD
+http://195.181.169.162/TEN_1_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Crime Flix" group-title="Movies" tvg-logo="https://i.ibb.co/gbhRMMtQ/1000131643.jpg",Crime Flix
 https://dgx2snzx175pa.cloudfront.net/scheduler/scheduleMaster/391.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="24hrs Movies" group-title="Movies" tvg-logo="https://i.ibb.co/0j2HYSzx/1000131644.jpg",24hrs Movies
 https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Movies Channel" group-title="Movies" tvg-logo="https://i.ibb.co/DDQb6gkL/1000131645.jpg",Movies Channel
 https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8
+#EXTINF:-1 tvg-name="DD Sports" group-title="Sports" tvg-logo="https://i.ibb.co/1hyZSR6/1000132432.jpg",DD Sports
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
+#EXTINF:-1 tvg-name="Astro Cricket" group-title="Sports" tvg-logo="https://i.ibb.co/Fk9HxqS6/1000132440.jpg",Astro Cricket
+https://tgn.bozztv.com/eshgtv-dvrfl05/gin-lemar/index.m3u8
+#EXTINF:-1 tvg-name="Willow" group-title="Sports" tvg-logo="https://i.ibb.co/DDXwJhHX/1000132438.png",Willow
+https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
+#EXTINF:-1 tvg-name="Star Sports 1 HD Tamil" group-title="Sports" tvg-logo="https://i.ibb.co/wZpmhgmd/1000146096.jpg",Star Sports 1 HD Tamil
+http://89.187.189.98/STARSPORTSTAMIL/index.m3u8
+#EXTINF:-1 tvg-name="Star Sports 3 SD" group-title="Sports" tvg-logo="https://i.ibb.co/Nd1zDkdq/1000146112.jpg",Star Sports 3 SD
+http://89.187.189.98/STARSPORTS3/index.m3u8
 #EXTINF:-1 tvg-name="Action Hollywood Movies Tv" group-title="Movies" tvg-logo="https://i.ibb.co/7Ny0Q4mK/1000137236.jpg",Action Hollywood Movies Tv
 https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/ts-eu-w1-n2/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
-#EXTINF:-1 tvg-name="Star Movies HD" group-title="Movies" tvg-logo="https://i.ibb.co/ZphpsHQ7/1000138973.jpg",Star Movies HD
+#EXTINF:-1 tvg-name="Star Movies HD" group-title="Movies" tvg-logo="https://i.ibb.co/218yfCLF/1000146334.jpg",Star Movies HD
 http://ptuf.ridsys.in/riptv/live/stream224/index.m3u8
 #EXTINF:-1 tvg-name="HBO" group-title="Movies" tvg-logo="https://i.ibb.co/p6BSsXdC/1000139013.jpg",HBO
 http://212.102.60.231/HBO/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Movies Now" group-title="Movies" tvg-logo="https://i.ibb.co/rKmXpv0P/1000139118.jpg",Movies Now
+#EXTINF:-1 tvg-name="Sony TEN Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/LzCRHKTb/1000146114.jpg",Sony TEN Sports 2 HD
+http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Sony TEN Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/8g1qGx4c/1000146115.jpg",Sony TEN Sports 3 HD
+http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Movies Now" group-title="Movies" tvg-logo="https://i.ibb.co/HynNmv7/1000146392.jpg",Movies Now
 http://195.181.169.162/MOVIES_NOW_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Cartoon Network" group-title="Kids" tvg-logo="https://i.ibb.co/p6Xd6Mmy/1000139532.jpg",Cartoon Network
+http://89.187.189.98/CARTOONNETWORK/index.m3u8
+#EXTINF:-1 tvg-name="Animal Planet" group-title="Documentary" tvg-logo="https://i.ibb.co/gLFzq8yS/1000139534.jpg",Animal Planet
+http://89.187.189.98/ANIMALPLANETHD/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Science" group-title="Documentary" tvg-logo="https://i.ibb.co/ZR8N0Qpq/1000139549.jpg",Discovery Science
+http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Turbo" group-title="Documentary" tvg-logo="https://i.ibb.co/1fDzbgtJ/1000139551.jpg",Discovery Turbo
+http://89.187.189.98/DISCOVERYTURBO/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Kids" group-title="Kids" tvg-logo="https://i.ibb.co/hFKWw7qT/1000146204.jpg",Discovery Kids
+http://89.187.189.98/DISCOVERYKIDS/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 1 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/CpsRgBg4/1000139559.jpg",Sony Ten Sports 1 HD1
+http://51.15.7.9:3141/ten1/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 2 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/nM091bvw/1000139574.jpg",Sony Ten Sports 2 HD1
+http://51.15.7.9:3141/ten2/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 3 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/CKLN2vkF/1000139575.jpg",Sony Ten Sports 3 HD1
+http://51.15.7.9:3141/ten3/index.m3u8
+#EXTINF:-1 tvg-name="Sony Ten Sports 5 HD" group-title="Sports" tvg-logo="https://i.ibb.co/FbFMycQR/1000139591.jpg",Sony Ten Sports 5 HD
+http://51.15.7.9:3141/ten5/index.m3u8
+#EXTINF:-1 tvg-name="Nikky Tv" group-title="Kids" tvg-logo="https://i.ibb.co/C3wBwgqL/1000139775.jpg",Nikky Tv
+https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="& Flix HD" group-title="Movies" tvg-logo="https://i.ibb.co/whsm6qKX/1000139802.jpg",& Flix HD
 http://195.181.169.162/AND_FLIX_HD/index.m3u8?token=test
+#EXTINF:-1 tvg-name="Star Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/bprtsZf/1000146093.jpg",Star Sports 2 HD
+http://89.187.189.98/STARSPORTS2HD/index.m3u8
+#EXTINF:-1 tvg-name="Star Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/pvgv9Vc1/1000146101.jpg",Star Sports 3 HD
+http://89.187.189.98/STARSPORTS3/index.m3u8
+#EXTINF:-1 tvg-name="Sonic Hindi" group-title="Entertainment" tvg-logo="https://i.ibb.co/Hp4R3VQT/1000146214.jpg",Sonic Hindi
+http://89.187.189.98/SONIC/index.m3u8
+#EXTINF:-1 tvg-name="Disney Channel" group-title="Kids" tvg-logo="https://i.ibb.co/5Wx3LB8k/1000140098.jpg",Disney Channel
+http://89.187.189.98/BABYTVHD/index.m3u8
+#EXTINF:-1 tvg-name="Wow Kids" group-title="Kids" tvg-logo="https://i.ibb.co/nq3Rp6GK/1000140099.jpg",Wow Kids
+https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
+#EXTINF:-1 tvg-name="Disney International" group-title="Kids" tvg-logo="https://i.ibb.co/048pYRG/1000140100.jpg",Disney International
+http://89.187.189.98/DISNEYINTERNATIONALHD/index.m3u8
+#EXTINF:-1 tvg-name="Nick" group-title="Kids" tvg-logo="https://i.ibb.co/nNY27z0D/1000146213.jpg",Nick
+http://89.187.189.98/NICKPLUSHD/index.m3u8
+#EXTINF:-1 tvg-name="Colors Infinity HD" group-title="Kids" tvg-logo="https://i.ibb.co/1tXngXvN/1000140103.jpg",Colors Infinity HD
+http://89.187.189.98/COLORSINFINITYHD/index.m3u8
+#EXTINF:-1 tvg-name="Travel XP HD" group-title="Documentary" tvg-logo="https://i.ibb.co/yjZzS92/1000140105.jpg",Travel XP HD
+http://89.187.189.98/TRAVELXPHD/index.m3u8
 #EXTINF:-1 tvg-name="Comedy Central" group-title="Entertainment" tvg-logo="https://i.ibb.co/nsjTFyTk/1000140107.jpg",Comedy Central
 http://176.10.117.68:6060/ComedyCentral/index.m3u8
+#EXTINF:-1 tvg-name="History 18 HD" group-title="Documentary" tvg-logo="https://i.ibb.co/1G7J361S/1000140108.jpg",History 18 HD
+http://89.187.189.98/HISTORYTV18HD/index.m3u8
+#EXTINF:-1 tvg-name="M TV Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/84Btx07k/1000140110.jpg",M TV Plus
+http://89.187.189.98/MTVPLUSHD/index.m3u8
+#EXTINF:-1 tvg-name="Discovery Jeet HD" group-title="Documentary" tvg-logo="https://i.ibb.co/ZRFR2sL4/1000140112.jpg",Discovery Jeet HD
+http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
+#EXTINF:-1 tvg-name="Chutti Tv" group-title="Kids" tvg-logo="https://i.ibb.co/ymwb0HHm/1000140215.jpg",Chutti Tv
+http://89.187.189.98/CHUTTITV/index.m3u8
+#EXTINF:-1 tvg-name="Hungama Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/ZpSpnbLf/1000140217.jpg",Hungama Hindi
+http://89.187.189.98/HUNGAMAKIDS/index.m3u8
+#EXTINF:-1 tvg-name="Pogo Tv" group-title="Kids" tvg-logo="https://i.ibb.co/dwKv3CgZ/1000139530.jpg",Pogo Tv
+http://89.187.189.98/POGOKIDS/index.m3u8
+#EXTINF:-1 tvg-name="Sony Yay" group-title="Kids" tvg-logo="https://i.ibb.co/1fQ8r7LL/1000140219.jpg",Sony Yay
+http://89.187.189.98/SONYYAY/index.m3u8
+#EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/jvvSbfTQ/1000140233.jpg",Hoora Tv
+http://66.102.120.18:8000/play/a040/index.m3u8
 #EXTINF:-1 tvg-name="CNN News 18" group-title="News" tvg-logo="https://i.ibb.co/Y43HPbWF/1000141386.jpg",CNN News 18
 https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
+#EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/PZ3nFPf7/1000141399.jpg",Cricket Gold
+https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-name="CVR English" group-title="News" tvg-logo="https://i.ibb.co/rGdBCyk1/1000141448.jpg",CVR English
 https://cdn-2.pishow.tv/live/425/master.m3u8
+#EXTINF:-1 tvg-name="Epic Tv" group-title="Documentary" tvg-logo="https://i.ibb.co/YBPsHDXJ/1000141566.jpg",Epic Tv
+https://epiconvh.akamaized.net/live/epic/master.m3u8
+#EXTINF:-1 tvg-name="Star Select 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 1 HD
+http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
+#EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 2 HD
+http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
 #EXTINF:-1 tvg-name="Madha Tv" group-title="Religious" tvg-logo="https://i.ibb.co/sdMSdGcd/1000141817.jpg",Madha Tv
 https://60e68b19dd194.streamlock.net:55/madhatv/madhatv.stream_HDp/playlist.m3u8
+#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/p645Nzfm/1000144992.jpg",Extreme Sports
+https://176.116.105.82/Extreme_Sports/index.m3u8
+#EXTINF:-1 tvg-name="Nat Geo" group-title="Documentary" tvg-logo="https://i.ibb.co/xS94GQPP/1000144995.jpg",Nat Geo
+http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
+#EXTINF:-1 tvg-name="BBC Earth Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/pvD1JncY/1000145253.jpg",BBC Earth Tamil
+http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
+#EXTINF:-1 tvg-name="Viju Nature" group-title="Documentary" tvg-logo="https://i.ibb.co/qLy1n2Gn/1000145095.jpg",Viju Nature
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
+#EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/zh106Hbg/1000145097.jpg",Viju Explore
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
+#EXTINF:-1 tvg-name="BBC Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/pvD1JncY/1000145253.jpg",BBC Earth
+http://195.181.169.162/BBC_EARTH_HD/playlist.m3u8?token=test
+#EXTINF:-1 tvg-name="Bein Sports" group-title="Sports" tvg-logo="https://i.ibb.co/PZ8yjV6p/1000145254.jpg",Bein Sports
+http://212.102.60.10/BEIN_SPORTS/index.m3u8
+#EXTINF:-1 tvg-name="Da Vinci" group-title="Entertainment" tvg-logo="https://i.ibb.co/5WfYHfXb/1000145256.jpg",Da Vinci
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
+#EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/27rTQprC/1000145258.jpg",Viju Explore
+https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
 #EXTINF:-1 tvg-name="MTV HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/XffWLKcF/1000145260.jpg",MTV HD
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_MTVHD/JCHLS/index.m3u8
+#EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/WNBkfHwr/1000145954.jpg",Pogo Tamil
+https://servertvhub.site/jio/app/ts_live_542.m3u8
+#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/HDtdbt0V/1000145955.jpg",Sonic Tamil
+https://servertvhub.site/jio/app/ts_live_290.m3u8
+#EXTINF:-1 tvg-name="Nick Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/1tt90t6C/1000146017.jpg",Nick Tamil
+https://servertvhub.site/jio/app/ts_live_546.m3u8
+#EXTINF:-1 tvg-name="Discovery Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/RGjjS2Gv/1000146022.jpg",Discovery Tamil
+https://servertvhub.site/jio/app/ts_live_550.m3u8
+#EXTINF:-1 tvg-name="Chutti Tv SD" group-title="Kids" tvg-logo="https://i.ibb.co/Ld6HnYVL/1000146023.jpg",Chutti Tv SD
+https://servertvhub.site/jio/app/ts_live_557.m3u8
+#EXTINF:-1 tvg-name="Discovery Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/JR04jTCz/1000146024.jpg",Discovery Tamil
+https://servertvhub.site/jio/app/ts_live_569.m3u8
+#EXTINF:-1 tvg-name="History Tv 18 HD Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/5gthmFJt/1000145958.jpg",History Tv 18 HD Tamil
+https://servertvhub.site/jio/app/ts_live_579.m3u8
+#EXTINF:-1 tvg-name="Cartoon Network Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/N6yMzzL6/1000146028.jpg",Cartoon Network Tamil
+https://servertvhub.site/jio/app/ts_live_817.m3u8
+#EXTINF:-1 tvg-name="Star Movies 1" group-title="Movies" tvg-logo="https://i.ibb.co/tMR1X6x5/1000146333.jpg",Star Movies 1
+http://51.15.7.9:3141/starmovies/index.m3u8
+#EXTINF:-1 tvg-name="Star Movies Select" group-title="Movies" tvg-logo="https://i.ibb.co/mfKxpFt/1000146339.jpg",Star Movies Select
+http://89.187.189.98/STARMOVIESSELECTHD/index.m3u8
+#EXTINF:-1 tvg-name="Movies Now HD" group-title="Movies" tvg-logo="https://i.ibb.co/HynNmv7/1000146392.jpg",Movies Now HD
+http://89.187.189.98/MOVIESNOWHD/index.m3u8
