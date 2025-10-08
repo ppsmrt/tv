@@ -13,7 +13,7 @@
 
 <p align="center">
   <!-- GitHub Stats Badges -->
-  <a href="https://github.com/ppsmrt/live-tv-web-app/stargazers">
+  <a href="https://github.com/ppsmrt/tv/stargazers">
     <img src="https://img.shields.io/github/stars/ppsmrt/tv?style=for-the-badge&color=yellow&logo=github" alt="Stars" />
   </a>
   <a href="https://github.com/ppsmrt/live-tv-web-app/network/members">
@@ -22,7 +22,7 @@
   <a href="https://github.com/ppsmrt/tv/issues">
     <img src="https://img.shields.io/github/issues/ppsmrt/tv?style=for-the-badge&color=red&logo=github" alt="Issues"/>
   </a>
-  <a href="https://github.com/ppsmrt/live-tv-web-app/blob/main/LICENSE">
+  <a href="https://github.com/ppsmrt/tv/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/ppsmrt/tv?style=for-the-badge&color=green" alt="License"/>
   </a>
 </p>
