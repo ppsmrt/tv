@@ -33,20 +33,44 @@ jobs:
           (async () => {
             try {
               // Fetch raw playlist
-              const data = (await (await fetch(url)).text()).trim();
+              const rawData = (await (await fetch(url)).text()).trim();
 
-              // Read previous content if exists
-              const prev = fs.existsSync(m3uPath) ? fs.readFileSync(m3uPath, 'utf8').trim() : '';
+              // Read previous content
+              const prevData = fs.existsSync(m3uPath) ? fs.readFileSync(m3uPath, 'utf8').trim() : '';
+
+              // Parse raw M3U into formatted M3U
+              const lines = rawData.split(/\r?\n/);
+              let channels = [];
+              for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF')) {
+                  const nameMatch = lines[i].split(',')[1]?.trim() || "Unknown";
+                  const urlLine = lines[i + 1]?.trim() || '';
+                  channels.push({ name: nameMatch, stream: urlLine, category: "General", logo: "" });
+                  i++; // skip next line
+                }
+              }
+
+              if (channels.length === 0) {
+                console.log("❌ No channels found.");
+                require('child_process').execSync(`echo "changed=false" >> $GITHUB_OUTPUT`);
+                return;
+              }
+
+              let m3u = "#EXTM3U\n";
+              channels.forEach(ch => {
+                const extinf = `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category}" tvg-logo="${ch.logo}",${ch.name}`;
+                m3u += `${extinf}\n${ch.stream}\n`;
+              });
 
               // Compare with previous content
-              if (data === prev) {
+              if (m3u.trim() === prevData) {
                 console.log("ℹ️ No changes detected.");
                 require('child_process').execSync(`echo "changed=false" >> $GITHUB_OUTPUT`);
                 return;
               }
 
-              // Write new playlist
-              fs.writeFileSync(m3uPath, data);
+              // Write new M3U
+              fs.writeFileSync(m3uPath, m3u);
 
               // Append log
               const timestamp = new Date().toISOString();
@@ -55,6 +79,7 @@ jobs:
               console.log("✅ bmcloud.m3u updated");
               require('child_process').execSync(`echo "changed=true" >> $GITHUB_OUTPUT`);
               require('child_process').execSync(`echo "summary=Playlist updated" >> $GITHUB_OUTPUT`);
+
             } catch (err) {
               console.error("❌ Failed to fetch or write playlist:", err);
               require('child_process').execSync(`echo "changed=false" >> $GITHUB_OUTPUT`);
