@@ -767,7 +767,7 @@ http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
 https://stream.galaxyott.live/live/dharshantv/index.m3u8
 #EXTINF:-1 tvg-name="Devathai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/hJMX40D9/1000138934.jpg",Devathai Tv
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
-#EXTINF:-1 tvg-name="Star Movies HD" group-title="English" tvg-logo="https://i.ibb.co/ZphpsHQ7/1000138973.jpg",Star Movies HD
+#EXTINF:-1 tvg-name="Star Movies HD" group-title="English" tvg-logo="https://i.ibb.co/218yfCLF/1000146334.jpg",Star Movies HD
 http://ptuf.ridsys.in/riptv/live/stream224/index.m3u8
 #EXTINF:-1 tvg-name="Jaya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/C5sPDmV8/1000146321.jpg",Jaya Tv
 http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
@@ -1297,3 +1297,5 @@ https://xtm.8088yyy.workers.dev/481102.m3u8
 https://servertvhub.site/jio/app/ts_live_420.m3u8
 #EXTINF:-1 tvg-name="Jaya Movie" group-title="Tamil" tvg-logo="https://i.ibb.co/5hFG3g7t/1000146323.jpg",Jaya Movie
 https://servertvhub.site/jio/app/ts_live_417.m3u8
+#EXTINF:-1 tvg-name="Star Movies 1" group-title="English" tvg-logo="https://i.ibb.co/tMR1X6x5/1000146333.jpg",Star Movies 1
+http://51.15.7.9:3141/starmovies/index.m3u8
