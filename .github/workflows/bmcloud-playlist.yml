@@ -1,54 +1,84 @@
-- name: Generate bmcloud.m3u only if changed
-  id: generate
-  run: |
-    npm install node-fetch@2
-    node <<'EOF'
-    const fs = require('fs');
-    const fetch = require('node-fetch');
+name: Auto-update bmcloud.m3u
 
-    const url = 'https://as.al/raw/NyCqwJ';
-    const m3uPath = 'bmcloud.m3u';
-    const logPath = 'bmcloud.log';
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:
 
-    (async () => {
-      try {
-        const rawData = (await (await fetch(url)).text()).trim();
-        const prevData = fs.existsSync(m3uPath) ? fs.readFileSync(m3uPath, 'utf8').trim() : '';
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
 
-        const lines = rawData.split(/\r?\n/);
-        let channels = [];
-        for (let i = 0; i < lines.length; i++) {
-          if (lines[i].startsWith('#EXTINF')) {
-            const nameMatch = lines[i].split(',')[1]?.trim() || "Unknown";
-            const urlLine = lines[i + 1]?.trim() || '';
-            channels.push({ name: nameMatch, stream: urlLine, category: "General", logo: "" });
-            i++;
-          }
-        }
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-        if (channels.length === 0) {
-          fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
-          return;
-        }
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
 
-        let m3u = "#EXTM3U\n";
-        channels.forEach(ch => {
-          const extinf = `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category}" tvg-logo="${ch.logo}",${ch.name}`;
-          m3u += `${extinf}\n${ch.stream}\n`;
-        });
+      - name: Generate bmcloud.m3u only if changed
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
 
-        if (m3u.trim() === prevData) {
-          fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
-          return;
-        }
+          const url = 'https://as.al/raw/NyCqwJ';
+          const m3uPath = 'bmcloud.m3u';
+          const logPath = 'bmcloud.log';
 
-        fs.writeFileSync(m3uPath, m3u);
-        fs.appendFileSync(logPath, `\n[${new Date().toISOString()}] Playlist updated\n`);
+          (async () => {
+            try {
+              const rawData = (await (await fetch(url)).text()).trim();
+              const prevData = fs.existsSync(m3uPath) ? fs.readFileSync(m3uPath, 'utf8').trim() : '';
 
-        fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=true\nsummary=Playlist updated\n");
-      } catch (err) {
-        console.error(err);
-        fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
-      }
-    })();
-    EOF
+              const lines = rawData.split(/\r?\n/);
+              let channels = [];
+              for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF')) {
+                  const nameMatch = lines[i].split(',')[1]?.trim() || "Unknown";
+                  const urlLine = lines[i + 1]?.trim() || '';
+                  channels.push({ name: nameMatch, stream: urlLine, category: "General", logo: "" });
+                  i++;
+                }
+              }
+
+              if (channels.length === 0) {
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              let m3u = "#EXTM3U\n";
+              channels.forEach(ch => {
+                const extinf = `#EXTINF:-1 tvg-name="${ch.name}" group-title="${ch.category}" tvg-logo="${ch.logo}",${ch.name}`;
+                m3u += `${extinf}\n${ch.stream}\n`;
+              });
+
+              if (m3u.trim() === prevData) {
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              fs.writeFileSync(m3uPath, m3u);
+              fs.appendFileSync(logPath, `\n[${new Date().toISOString()}] Playlist updated\n`);
+
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=true\nsummary=Playlist updated\n");
+
+            } catch (err) {
+              console.error(err);
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bmcloud.m3u bmcloud.log
+          git commit -m "Auto-update bmcloud.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
