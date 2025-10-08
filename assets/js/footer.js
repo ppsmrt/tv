@@ -17,9 +17,7 @@
       gap: 0.25rem;
       align-items: center;
     }
-    #footer:hover {
-      color: #FFD700; /* subtle golden highlight */
-    }
+    #footer:hover { color: #FFD700; }
     #visitorCounter {
       display: flex;
       align-items: center;
@@ -47,28 +45,16 @@
     `;
   }
 
-  // Firebase visitor counter
-  if (typeof firebase !== 'undefined') {
-    const visitsRef = firebase.database().ref("visits");
+  const countEl = document.getElementById('visitorCount');
 
-    // Increment visitor count
-    function incrementVisitorCount() {
-      visitsRef.transaction(current => {
-        return (current || 0) + 1;
-      });
-    }
-
-    // Display visitor count
-    function displayVisitorCount() {
-      visitsRef.on('value', snapshot => {
-        const count = snapshot.val() || 0;
-        const countEl = document.getElementById('visitorCount');
-        if (countEl) countEl.textContent = count.toLocaleString();
-      });
-    }
-
-    // Initialize counter
-    incrementVisitorCount();
-    displayVisitorCount();
-  }
+  // CountAPI usage
+  fetch("https://api.countapi.xyz/hit/tnm3u.live/visits")
+    .then(res => res.json())
+    .then(data => {
+      if (countEl) countEl.textContent = data.value.toLocaleString();
+    })
+    .catch(err => {
+      console.error("CountAPI error:", err);
+      if (countEl) countEl.textContent = "N/A";
+    });
 })();
