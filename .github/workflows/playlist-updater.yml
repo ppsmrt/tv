@@ -34,6 +34,9 @@ jobs:
             { category: "Malayalam", file: "kl.m3u" }
           ];
 
+          // Extra categories to always include
+          const extraCategories = ["Kids", "Sports", "Infotainment"];
+
           const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
 
           (async () => {
@@ -55,9 +58,13 @@ jobs:
                 const changesSummary = [];
                 const newNames = [];
 
+                // Build list of categories to include
+                const categoriesToInclude = [category, ...extraCategories];
+
                 for (const id of Object.keys(data)) {
                   const ch = data[id];
-                  if (ch.category !== category) continue;
+                  if (!categoriesToInclude.includes(ch.category)) continue;
+
                   const name = ch.name || "Unknown";
                   const logo = ch.icon || "";
                   const stream = ch.stream || "";
@@ -117,6 +124,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add tn.m3u an.m3u kn.m3u en.m3u kl.m3u
+          git add tn.m3u an.m3u ka.m3u en.m3u kl.m3u
           git commit -m "Auto-update playlists [skip ci] - ${{ steps.generate.outputs.summary }}"
           git push
