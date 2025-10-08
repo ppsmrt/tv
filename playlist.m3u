@@ -1311,3 +1311,5 @@ http://m3u.8088y.site/yt.php?c=sunnews
 http://m3u.8088y.site/yt.php?c=KumudamNews24x7
 #EXTINF:-1 tvg-name="HM Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/zHjBSNqB/1000146580.jpg",HM Tv
 http://m3u.8088y.site/yt.php?c=hmtvtelugunewslive
+#EXTINF:-1 tvg-name="Live Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Jj3Nb0SB/1000146583.jpg",Live Tv
+http://lime-cr1.phoenixcreations.online/lime/lime/index.m3u8
