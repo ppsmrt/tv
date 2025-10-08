@@ -853,7 +853,7 @@ http://89.187.189.98/ANIMALPLANETHD/index.m3u8
 http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Turbo" group-title="Infotainment" tvg-logo="https://i.ibb.co/1fDzbgtJ/1000139551.jpg",Discovery Turbo
 http://89.187.189.98/DISCOVERYTURBO/index.m3u8
-#EXTINF:-1 tvg-name="Discovery Kids" group-title="Kids" tvg-logo="https://i.ibb.co/zpK7FRb/1000139554.jpg",Discovery Kids
+#EXTINF:-1 tvg-name="Discovery Kids" group-title="Kids" tvg-logo="https://i.ibb.co/hFKWw7qT/1000146204.jpg",Discovery Kids
 http://89.187.189.98/DISCOVERYKIDS/index.m3u8
 #EXTINF:-1 tvg-name="Sony Ten Sports 1 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/CpsRgBg4/1000139559.jpg",Sony Ten Sports 1 HD1
 http://51.15.7.9:3141/ten1/index.m3u8
