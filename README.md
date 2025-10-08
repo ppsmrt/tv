@@ -16,7 +16,7 @@
   <a href="https://github.com/ppsmrt/tv/stargazers">
     <img src="https://img.shields.io/github/stars/ppsmrt/tv?style=for-the-badge&color=yellow&logo=github" alt="Stars" />
   </a>
-  <a href="https://github.com/ppsmrt/live-tv-web-app/network/members">
+  <a href="https://github.com/ppsmrt/tv/network/members">
     <img src="https://img.shields.io/github/forks/ppsmrt/tv?style=for-the-badge&color=blue&logo=github" alt="Forks"/>
   </a>
   <a href="https://github.com/ppsmrt/tv/issues">
