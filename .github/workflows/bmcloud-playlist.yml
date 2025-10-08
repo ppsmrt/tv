@@ -1,4 +1,24 @@
-- name: Generate bmcloud.m3u only if changed
+name: Auto-update bmcloud.m3u
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Generate bmcloud.m3u only if changed
         id: generate
         run: |
           npm install node-fetch@2
@@ -73,3 +93,12 @@
             }
           })();
           EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bmcloud.m3u
+          git commit -m "Auto-update bmcloud.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
