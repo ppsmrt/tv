@@ -1277,3 +1277,15 @@ https://servertvhub.site/jio/app/ts_live_542.m3u8
 https://servertvhub.site/jio/app/ts_live_290.m3u8
 #EXTINF:-1 tvg-name="Nick Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/1tt90t6C/1000146017.jpg",Nick Tamil
 https://servertvhub.site/jio/app/ts_live_546.m3u8
+#EXTINF:-1 tvg-name="Discovery Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/RGjjS2Gv/1000146022.jpg",Discovery Tamil
+https://servertvhub.site/jio/app/ts_live_550.m3u8
+#EXTINF:-1 tvg-name="Chutti Tv SD" group-title="Kids" tvg-logo="https://i.ibb.co/Ld6HnYVL/1000146023.jpg",Chutti Tv SD
+https://servertvhub.site/jio/app/ts_live_557.m3u8
+#EXTINF:-1 tvg-name="Discovery Tamil" group-title="Infotainment" tvg-logo="https://i.ibb.co/JR04jTCz/1000146024.jpg",Discovery Tamil
+https://servertvhub.site/jio/app/ts_live_569.m3u8
+#EXTINF:-1 tvg-name="History Tv 18 HD Tamil" group-title="Infotainment" tvg-logo="https://i.ibb.co/5gthmFJt/1000145958.jpg",History Tv 18 HD Tamil
+https://servertvhub.site/jio/app/ts_live_579.m3u8
+#EXTINF:-1 tvg-name="Tunes6" group-title="Tamil" tvg-logo="https://i.ibb.co/m5TjVfxs/1000146026.jpg",Tunes6
+https://servertvhub.site/jio/app/ts_live_803.m3u8
+#EXTINF:-1 tvg-name="Cartoon Network Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/N6yMzzL6/1000146028.jpg",Cartoon Network Tamil
+https://servertvhub.site/jio/app/ts_live_817.m3u8
