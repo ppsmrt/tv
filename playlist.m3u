@@ -1313,3 +1313,7 @@ http://m3u.8088y.site/yt.php?c=KumudamNews24x7
 http://m3u.8088y.site/yt.php?c=hmtvtelugunewslive
 #EXTINF:-1 tvg-name="Live Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Jj3Nb0SB/1000146583.jpg",Live Tv
 http://lime-cr1.phoenixcreations.online/lime/lime/index.m3u8
+#EXTINF:-1 tvg-name="Vaani Visuals" group-title="Tamil" tvg-logo="https://i.ibb.co/kVjczzn0/1000146597.jpg",Vaani Visuals
+http://vaanivisuals.in:1935/vaanitv/vaanitv/playlist.m3u8
+#EXTINF:-1 tvg-name="S Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/QvcTq3XW/1000146614.jpg",S Tv
+https://play.applelive.in/stv/stv.m3u8
