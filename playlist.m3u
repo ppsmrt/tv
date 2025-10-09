@@ -1317,3 +1317,5 @@ http://lime-cr1.phoenixcreations.online/lime/lime/index.m3u8
 http://vaanivisuals.in:1935/vaanitv/vaanitv/playlist.m3u8
 #EXTINF:-1 tvg-name="S Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/QvcTq3XW/1000146614.jpg",S Tv
 https://play.applelive.in/stv/stv.m3u8
+#EXTINF:-1 tvg-name="Sai Tv Madurai" group-title="Tamil" tvg-logo="https://i.ibb.co/99D0fkj5/1000146813.jpg",Sai Tv Madurai
+http://saitvmdu.stream.onecloudlive.in/saitvmdu/saitvmdu/index.m3u8
