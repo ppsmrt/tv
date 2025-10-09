@@ -664,7 +664,7 @@ https://play.applelive.in/stv/stv.m3u8
 #EXTINF:-1 tvg-name="Sai Tv Madurai" group-title="Local Channels" tvg-logo="https://i.ibb.co/99D0fkj5/1000146813.jpg",Sai Tv Madurai
 http://saitvmdu.stream.onecloudlive.in/saitvmdu/saitvmdu/index.m3u8
 #EXTINF:-1 tvg-name="Sun Music HD" group-title="Music" tvg-logo="https://i.ibb.co/tMzYwDMR/Sun-Music-HD.png",Sun Music HD
-http://servertvhub.site/jio/app/live.php?id=895
+https://servertvhub.site/jio/app/ts_live_895.m3u8
 #EXTINF:-1 tvg-name="Sun Life" group-title="Movies" tvg-logo="https://i.ibb.co/zH4NGbhY/Sun-Life.png",Sun Life
 http://servertvhub.site/jio/app/live.php?id=682
 #EXTINF:-1 tvg-name="Adithya TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/qLdT68jW/Adithya-TV.png",Adithya TV
@@ -695,3 +695,29 @@ https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-name="ACP Classic" group-title="Local Channels" tvg-logo="https://i.ibb.co/dwpk9jss/1000147013.png",ACP Classic
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
+#EXTINF:-1 tvg-name="Puthuyugam" group-title="Entertainment" tvg-logo="https://i.ibb.co/7tbpY4v9/1000147015.jpg",Puthuyugam
+http://103.184.193.216:3500/getm3u8/824/master.m3u8
+#EXTINF:-1 tvg-name="Imayam Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/dsG4dLBX/1000147019.jpg",Imayam Tv
+http://103.184.193.216:3500/getm3u8/1517/master.m3u8
+#EXTINF:-1 tvg-name="Sathiyam Tv" group-title="News" tvg-logo="https://i.ibb.co/zTqP4mLt/1000147022.jpg",Sathiyam Tv
+https://live.applelive.in/sathiyamtv/index.m3u8
+#EXTINF:-1 tvg-name="News Tamil 24x7" group-title="News" tvg-logo="https://i.ibb.co/zVD9gkkm/1000147023.jpg",News Tamil 24x7
+https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/a9876d39-5dd3-4f22-9f06-683e67133c0d/0.m3u8
+#EXTINF:-1 tvg-name="Matha Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hRK69DC6/1000147025.jpg",Matha Tv
+https://live.mathatv.in/mathatv/mathatv/index.m3u8
+#EXTINF:-1 tvg-name="Angel Tv Tamil" group-title="Religious" tvg-logo="https://i.ibb.co/kgNymk9k/1000147049.jpg",Angel Tv Tamil
+https://janya-digimix.akamaized.net/vglive-sk-394914/india/ngrp:angelindia_all/playlist.m3u8
+#EXTINF:-1 tvg-name="Asservatham Tv" group-title="Religious" tvg-logo="https://i.ibb.co/3YGtMY80/1000147051.jpg",Asservatham Tv
+https://stream.blessingtv.tv:1443/blessingtv-tamillive/mystream_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="Village Tv" group-title="Religious" tvg-logo="https://i.ibb.co/Kjy1fw2F/1000147053.jpg",Village Tv
+https://villagetv.applelive.in/villagetv/villagetv/index.m3u8
+#EXTINF:-1 tvg-name="Joygoodnews TV" group-title="Religious" tvg-logo="https://i.ibb.co/nqfJTZrR/1000147056.jpg",Joygoodnews TV
+https://play.applelive.in/joygoodnewstv/joygoodnewstv.m3u8
+#EXTINF:-1 tvg-name="Shammah Tv" group-title="Religious" tvg-logo="https://i.ibb.co/CK4H1d09/1000147061.jpg",Shammah Tv
+https://play.applelive.in/shammahtv/shammahtv.m3u8
+#EXTINF:-1 tvg-name="Nambikkai Tv" group-title="Religious" tvg-logo="https://i.ibb.co/pv9VfCCT/1000147068.jpg",Nambikkai Tv
+https://mk9qa7n8qwyb-hls-live.wmncdn.net/nambikkaitv/live.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Vinmeen Music" group-title="Religious" tvg-logo="https://i.ibb.co/23XYHyyf/1000147069.png",Vinmeen Music
+https://vinmeentv.livebox.co.in/vinmeentvhls/live.m3u8
+#EXTINF:-1 tvg-name="Arputhar Yesu TV" group-title="Religious" tvg-logo="https://i.ibb.co/RTgGwBxx/1000147071.jpg",Arputhar Yesu TV
+https://arputharyesutv.arputharyesutv.com/live/md/index.m3u8
