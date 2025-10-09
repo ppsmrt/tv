@@ -1,0 +1,128 @@
+name: Auto-update roja.m3u
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Generate roja.m3u only if changed
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+          const crypto = require('crypto');
+
+          const SECRET = "ROJAIPTV_CH_DB_443LOCK128";
+
+          // Nonce generator
+          function generateNonce(length = 16) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+              result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+          }
+
+          // SHA256 hash
+          function sha256(data) {
+            return crypto.createHash('sha256').update(data).digest('hex');
+          }
+
+          // Build signed URL
+          function buildUrl() {
+            const timestamp = Math.floor(Date.now() / 1000);
+            const nonce = generateNonce(16);
+            const signature = sha256(`${timestamp}${nonce}${SECRET}`);
+            return `https://rojaiptv.site/app_datas/get_channels.php?timestamp=${timestamp}&nonce=${nonce}&signature=${signature}`;
+          }
+
+          const filePath = 'roja.m3u';
+          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
+
+          (async () => {
+            try {
+              const url = buildUrl();
+              console.log("Fetching:", url);
+              const res = await fetch(url);
+              const data = await res.json();
+
+              if (!data) {
+                console.log("No channels found.");
+                return;
+              }
+
+              // Header (without EPG)
+              let m3u = "#EXTM3U\n";
+              let changesSummary = [];
+
+              for (const id of Object.keys(data)) {
+                const ch = data[id];
+                const name = ch.name || "Unknown";
+                const category = ch.category || "General";
+                const logo = ch.icon || "";
+                const stream = ch.stream || "";
+                if (!stream) continue;
+
+                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
+                m3u += `${extinf}\n${stream}\n`;
+
+                // Change detection
+                const prevLineIndex = prevData.indexOf(name);
+                if (prevLineIndex === -1) {
+                  changesSummary.push(`Added: ${name}`);
+                } else {
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
+                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
+                }
+              }
+
+              // Removed channels
+              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+              oldNames.forEach(name => {
+                if (!Object.values(data).some(ch => ch.name === name)) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in playlist, skipping file generation.");
+                return;
+              }
+
+              fs.writeFileSync(filePath, m3u);
+              console.log('roja.m3u updated successfully.');
+              console.log(`Summary: ${changesSummary.join('; ')}`);
+
+            } catch (err) {
+              console.error('Error fetching channels:', err);
+              process.exit(1);
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add roja.m3u
+          git diff --cached --quiet || git commit -m "Auto-update roja.m3u [skip ci]"
+          git push
