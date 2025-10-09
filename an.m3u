@@ -329,3 +329,11 @@ https://www.schannels.in/viharibakathi/video.m3u8?token=nokshitha
 https://www.schannels.in/viharinews/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Vihari Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/21Z4X4k1/1000147268.jpg",Vihari Music
 https://www.schannels.in/viharimusic/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="PPS Entertainment" group-title="Local Channels" tvg-logo="https://i.ibb.co/0xKqGMG/1000147274.jpg",PPS Entertainment
+https://www.schannels.in/ppp/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="AJ News" group-title="Local Channels" tvg-logo="https://i.ibb.co/Q3cd8Gts/1000147276.jpg",AJ News
+https://www.schannels.in/ajnews/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="KS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Z6mDmQp8/1000147278.png",KS Tv
+https://www.schannels.in/kstv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="RK Hollywood" group-title="Local Channels" tvg-logo="https://i.ibb.co/bj8BM488/1000147329.png",RK Hollywood
+https://www.schannels.in/rkhollywood/video.m3u8?token=nokshitha
