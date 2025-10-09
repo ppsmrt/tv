@@ -299,3 +299,15 @@ https://www.schannels.in/vvmovies/video.m3u8?token=nokshitha
 https://www.schannels.in/vvmusic/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="VV Comedy" group-title="Local Channels" tvg-logo="https://i.ibb.co/MkcDZ5Q0/1000147207.jpg",VV Comedy
 https://www.schannels.in/vvcomedy/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Color Bar Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/m73W8xG/1000147226.png",Color Bar Music
+https://www.schannels.in/colorbarmusic/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Sree News Telugu" group-title="Local Channels" tvg-logo="https://i.ibb.co/Lz39Nwpn/1000147233.jpg",Sree News Telugu
+https://www.schannels.in/sreenews/mpegts?token=nokshitha
+#EXTINF:-1 tvg-name="Santhosam Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/YTbLmP4q/1000147234.jpg",Santhosam Tv
+https://www.schannels.in/santhoshamtv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Namitha Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Namitha Tv
+https://www.schannels.in/namitha/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="RK Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/0jFhgmW0/1000147237.jpg",RK Tv
+https://www.schannels.in/rktv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Classic Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Classic Tv
+https://www.schannels.in/classic/video.m3u8?token=nokshitha
