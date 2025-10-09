@@ -1331,3 +1331,11 @@ http://stream.d6-pro.com/Dtv/live/index.m3u8
 http://acv.7starcloud.com:1935/tamilstar/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Endhiran Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/GvPgg6Tp/1000146956.jpg",Endhiran Tv
 https://live.applelive.in/enthirantv/enthirantv/index.m3u8
+#EXTINF:-1 tvg-name="Queens Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/vC299ZpH/1000146965.png",Queens Tv
+https://notvstream.in/queens/queens.m3u8
+#EXTINF:-1 tvg-name="Thendral2 Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/R4ccLfx2/1000146985.jpg",Thendral2 Tv
+https://ipcloud.live/thendralmdu/madurai/index.m3u8
+#EXTINF:-1 tvg-name="Raga Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/KzSwyBN4/1000146992.jpg",Raga Tv
+https://live.onecloudlive.in/ragatv/ragatvhd/index.m3u8
+#EXTINF:-1 tvg-name="Veerali Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mF1Bg62y/1000146994.jpg",Veerali Tv
+https://ipcloud.live/veerali/veeralitv/index.m3u8
