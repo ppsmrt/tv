@@ -1329,3 +1329,5 @@ http://servertvhub.site/jio/app/live.php?id=709
 http://stream.d6-pro.com/Dtv/live/index.m3u8
 #EXTINF:-1 tvg-name="Tamil Star" group-title="Tamil" tvg-logo="https://i.ibb.co/twdvpzDn/1000146947.jpg",Tamil Star
 http://acv.7starcloud.com:1935/tamilstar/tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Endhiran Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/GvPgg6Tp/1000146956.jpg",Endhiran Tv
+https://live.applelive.in/enthirantv/enthirantv/index.m3u8
