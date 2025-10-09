@@ -2,7 +2,7 @@ name: Auto-update playlist.m3u
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+    - cron: "*/5 * * * *"  # Every 5 minutes
   workflow_dispatch:
 
 jobs:
@@ -25,6 +25,7 @@ jobs:
           node <<'EOF'
           const fs = require('fs');
           const fetch = require('node-fetch');
+          const epgMap = require('./epg-map.json');
 
           const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
           const filePath = 'playlist.m3u';
@@ -39,7 +40,8 @@ jobs:
                 return;
               }
 
-              let m3u = "#EXTM3U\n";
+              // Add EPG header
+              let m3u = '#EXTM3U url-tvg="https://iptv-org.github.io/epg/guides/in.xml.gz"\n';
               let changesSummary = [];
 
               for (const id of Object.keys(data)) {
@@ -50,15 +52,17 @@ jobs:
                 const stream = ch.stream || "";
                 if (!stream) continue;
 
-                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
+                // EPG mapping (fallback if not found)
+                const tvgId = epgMap[name] || ch.tvgid || name.replace(/\s+/g, '').toLowerCase();
+
+                const extinf = `#EXTINF:-1 tvg-id="${tvgId}" tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
                 m3u += `${extinf}\n${stream}\n`;
 
-                // Check if channel exists in previous file
+                // Detect changes
                 const prevLineIndex = prevData.indexOf(name);
                 if (prevLineIndex === -1) {
                   changesSummary.push(`Added: ${name}`);
                 } else {
-                  // Check if any detail changed
                   const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
                   const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
                   if (prevExtinf !== extinf || prevStreamLine !== stream) {
@@ -77,26 +81,30 @@ jobs:
 
               if (changesSummary.length === 0) {
                 console.log("No changes in playlist, skipping file generation.");
-                console.log('::set-output name=changed::false');
+                console.log('changed=false');
                 return;
               }
 
               fs.writeFileSync(filePath, m3u);
               console.log('playlist.m3u updated successfully.');
-              console.log(`::set-output name=changed::true`);
-              console.log(`::set-output name=summary::${changesSummary.join('; ')}`);
+              console.log('changed=true');
+              console.log(`summary=${changesSummary.join('; ')}`);
 
             } catch (err) {
               console.error('Error fetching channels:', err);
+              process.exit(1);
             }
           })();
           EOF
 
       - name: Commit and push if changed
-        if: steps.generate.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add playlist.m3u
-          git commit -m "Auto-update playlist.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
-          git push
+          if grep -q "changed=true" <<< "$(cat $GITHUB_STEP_SUMMARY)"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add playlist.m3u
+            git commit -m "Auto-update playlist.m3u [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
