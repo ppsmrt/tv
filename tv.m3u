@@ -1419,3 +1419,13 @@ https://www.schannels.in/comedy/video.m3u8?token=nokshitha
 https://www.schannels.in/music/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Movies Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Movies Tv
 https://www.schannels.in/movies/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="GS Grameena" group-title="Telugu" tvg-logo="https://i.ibb.co/6RQ0nWmc/1000147261.webp",GS Grameena
+https://www.schannels.in/gsgrameena/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Vihari Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/dwp64dKv/1000147269.jpg",Vihari Tv
+https://www.schannels.in/viharibakathi/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Vihari News" group-title="Telugu" tvg-logo="https://i.ibb.co/0pM6MYpP/1000147270.jpg",Vihari News
+https://www.schannels.in/viharinews/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Vihari Music" group-title="Telugu" tvg-logo="https://i.ibb.co/21Z4X4k1/1000147268.jpg",Vihari Music
+https://www.schannels.in/viharimusic/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="PPS Entertainment" group-title="Telugu" tvg-logo="https://i.ibb.co/0xKqGMG/1000147274.jpg",PPS Entertainment
+https://www.schannels.in/ppp/video.m3u8?token=nokshitha
