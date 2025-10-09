@@ -1392,4 +1392,12 @@ https://servertvhub.site/jio/app/ts_live_875.m3u8
 #EXTINF:-1 tvg-name="Jio Sports HD" group-title="Sports" tvg-logo="https://i.ibb.co/mFzQ1k05/1000147199.jpg",Jio Sports HD
 https://servertvhub.site/jio/app/ts_live_889.m3u8
 #EXTINF:-1 tvg-name="VV Movies" group-title="Telugu" tvg-logo="https://i.ibb.co/4w46rm0s/1000147202.jpg",VV Movies
-https://tvonlive.in/iptv/telugu/vv.m3u
+https://www.schannels.in/vvmovies/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="VV Music" group-title="Telugu" tvg-logo="https://i.ibb.co/YFm13K5k/1000147204.png",VV Music
+https://www.schannels.in/vvmusic/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="VV Comedy" group-title="Telugu" tvg-logo="https://i.ibb.co/MkcDZ5Q0/1000147207.jpg",VV Comedy
+https://www.schannels.in/vvcomedy/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Color Bar Music" group-title="Telugu" tvg-logo="https://i.ibb.co/m73W8xG/1000147226.png",Color Bar Music
+https://www.schannels.in/colorbarmusic/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Telugu Local Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/GQkGyRN9/1000147229.jpg",Telugu Local Tv
+https://www.schannels.in/classic/video.m3u8?token=nokshitha
