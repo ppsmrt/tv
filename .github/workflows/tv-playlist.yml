@@ -1,0 +1,106 @@
+name: Auto-update tv playlists
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Generate tv.m3u and tv.m3u8 only if changed
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+
+          const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const m3uFile = 'tv.m3u';
+          const m3u8File = 'tv.m3u8';
+          const prevData = fs.existsSync(m3uFile) ? fs.readFileSync(m3uFile, 'utf8') : '';
+
+          (async () => {
+            try {
+              const res = await fetch(url);
+              const data = await res.json();
+              if (!data) {
+                console.log("No channels found.");
+                return;
+              }
+
+              let m3u = "#EXTM3U\n";
+              let changesSummary = [];
+
+              for (const id of Object.keys(data)) {
+                const ch = data[id];
+                let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " "); // sanitize
+                const category = ch.category || "General";
+                const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
+                const stream = ch.stream?.trim();
+                if (!stream) continue;
+
+                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}"`;
+                if (logo) extinf += ` tvg-logo="${logo}"`;
+                extinf += `,${name}`;
+
+                m3u += `${extinf}\n${stream}\n`;
+
+                // Compare with previous playlist
+                const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
+
+                if (!prevExtinf) {
+                  changesSummary.push(`Added: ${name}`);
+                } else if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                  changesSummary.push(`Updated: ${name}`);
+                }
+              }
+
+              // Check for removed channels
+              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+              oldNames.forEach(name => {
+                if (!Object.values(data).some(ch => ch.name === name)) {
+                  changesSummary.push(`Removed: ${name}`);
+                }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in playlist, skipping file generation.");
+                console.log('changed=false');
+                return;
+              }
+
+              // Save both tv.m3u and tv.m3u8
+              fs.writeFileSync(m3uFile, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
+              fs.writeFileSync(m3u8File, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
+
+              console.log('tv.m3u and tv.m3u8 updated successfully.');
+              console.log('changed=true');
+              console.log(`summary=${changesSummary.join('; ')}`);
+
+            } catch (err) {
+              console.error('Error fetching channels:', err);
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: contains(steps.generate.outputs, 'changed=true')
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tv.m3u tv.m3u8
+          git commit -m "Auto-update tv.m3u & tv.m3u8 [skip ci]"
+          git push
