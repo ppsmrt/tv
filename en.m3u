@@ -147,3 +147,7 @@ http://51.15.7.9:3141/starmovies/index.m3u8
 http://89.187.189.98/STARMOVIESSELECTHD/index.m3u8
 #EXTINF:-1 tvg-name="Movies Now HD" group-title="Movies" tvg-logo="https://i.ibb.co/HynNmv7/1000146392.jpg",Movies Now HD
 http://89.187.189.98/MOVIESNOWHD/index.m3u8
+#EXTINF:-1 tvg-name="Euro Sports HD" group-title="Sports" tvg-logo="https://i.ibb.co/SDND2P7Z/1000147198.jpg",Euro Sports HD
+https://servertvhub.site/jio/app/ts_live_875.m3u8
+#EXTINF:-1 tvg-name="Jio Sports HD" group-title="Sports" tvg-logo="https://i.ibb.co/mFzQ1k05/1000147199.jpg",Jio Sports HD
+https://servertvhub.site/jio/app/ts_live_889.m3u8
