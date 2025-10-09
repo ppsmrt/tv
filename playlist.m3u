@@ -1339,3 +1339,11 @@ https://ipcloud.live/thendralmdu/madurai/index.m3u8
 https://live.onecloudlive.in/ragatv/ragatvhd/index.m3u8
 #EXTINF:-1 tvg-name="Veerali Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/mF1Bg62y/1000146994.jpg",Veerali Tv
 https://ipcloud.live/veerali/veeralitv/index.m3u8
+#EXTINF:-1 tvg-name="Punithan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/PvM00LZR/1000146995.png",Punithan Tv
+https://stream.singamcloud.in/punithantv/punithantv/index.m3u8
+#EXTINF:-1 tvg-name="M Television" group-title="Tamil" tvg-logo="https://i.ibb.co/4Rwv2tP4/1000147004.jpg",M Television
+https://ipcloud.live/mtv/menhd/index.m3u8
+#EXTINF:-1 tvg-name="Anbu Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/NgkM5rTb/1000147006.jpg",Anbu Tv
+https://ipcloud.live/anbutv/anbutvhd/index.m3u8
+#EXTINF:-1 tvg-name="Namma Gobi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/gb4Rg2TG/1000147011.jpg",Namma Gobi Tv
+https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
