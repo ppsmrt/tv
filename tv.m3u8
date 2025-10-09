@@ -1429,3 +1429,7 @@ https://www.schannels.in/viharinews/video.m3u8?token=nokshitha
 https://www.schannels.in/viharimusic/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="PPS Entertainment" group-title="Telugu" tvg-logo="https://i.ibb.co/0xKqGMG/1000147274.jpg",PPS Entertainment
 https://www.schannels.in/ppp/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="AJ News" group-title="Telugu" tvg-logo="https://i.ibb.co/Q3cd8Gts/1000147276.jpg",AJ News
+https://www.schannels.in/ajnews/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="KS Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/Z6mDmQp8/1000147278.png",KS Tv
+https://www.schannels.in/kstv/video.m3u8?token=nokshitha
