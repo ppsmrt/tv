@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate tv.m3u and tv.m3u8 only if changed
+      - name: Generate tv.m3u and tv.m3u8
         id: generate
         run: |
           npm install node-fetch@2
@@ -37,7 +37,7 @@ jobs:
               const data = await res.json();
               if (!data) {
                 console.log("No channels found.");
-                return;
+                process.exit(0);
               }
 
               let m3u = "#EXTM3U\n";
@@ -78,8 +78,8 @@ jobs:
 
               if (changesSummary.length === 0) {
                 console.log("No changes in playlist, skipping file generation.");
-                console.log('changed=false');
-                return;
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
+                process.exit(0);
               }
 
               // Save both tv.m3u and tv.m3u8
@@ -87,20 +87,21 @@ jobs:
               fs.writeFileSync(m3u8File, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
 
               console.log('tv.m3u and tv.m3u8 updated successfully.');
-              console.log('changed=true');
-              console.log(`summary=${changesSummary.join('; ')}`);
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
 
             } catch (err) {
               console.error('Error fetching channels:', err);
+              process.exit(1);
             }
           })();
           EOF
 
       - name: Commit and push if changed
-        if: contains(steps.generate.outputs, 'changed=true')
+        if: steps.generate.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add tv.m3u tv.m3u8
-          git commit -m "Auto-update tv.m3u & tv.m3u8 [skip ci]"
+          git commit -m "Auto-update tv.m3u & tv.m3u8 [skip ci] - ${{ steps.generate.outputs.summary }}"
           git push
