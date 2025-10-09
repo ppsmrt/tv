@@ -18,8 +18,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate roja.m3u only if changed
-        id: generate
+      - name: Generate roja.m3u
         run: |
           npm install node-fetch@2
           node <<'EOF'
@@ -29,22 +28,15 @@ jobs:
 
           const SECRET = "ROJAIPTV_CH_DB_443LOCK128";
 
-          // Nonce generator
           function generateNonce(length = 16) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-              result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
+            return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
           }
 
-          // SHA256 hash
           function sha256(data) {
             return crypto.createHash('sha256').update(data).digest('hex');
           }
 
-          // Build signed URL
           function buildUrl() {
             const timestamp = Math.floor(Date.now() / 1000);
             const nonce = generateNonce(16);
@@ -52,77 +44,50 @@ jobs:
             return `https://rojaiptv.site/app_datas/get_channels.php?timestamp=${timestamp}&nonce=${nonce}&signature=${signature}`;
           }
 
-          const filePath = 'roja.m3u';
-          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
-
           (async () => {
             try {
               const url = buildUrl();
               console.log("Fetching:", url);
               const res = await fetch(url);
-              const data = await res.json();
+              const text = await res.text();
 
-              if (!data) {
-                console.log("No channels found.");
-                return;
-              }
-
-              // Header (without EPG)
               let m3u = "#EXTM3U\n";
-              let changesSummary = [];
 
-              for (const id of Object.keys(data)) {
-                const ch = data[id];
-                const name = ch.name || "Unknown";
-                const category = ch.category || "General";
-                const logo = ch.icon || "";
-                const stream = ch.stream || "";
-                if (!stream) continue;
-
-                const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
-                m3u += `${extinf}\n${stream}\n`;
-
-                // Change detection
-                const prevLineIndex = prevData.indexOf(name);
-                if (prevLineIndex === -1) {
-                  changesSummary.push(`Added: ${name}`);
+              // Detect if response is JSON or M3U
+              try {
+                const data = JSON.parse(text);
+                for (const id of Object.keys(data)) {
+                  const ch = data[id];
+                  const name = ch.name || "Unknown";
+                  const category = ch.category || "General";
+                  const logo = ch.icon || "";
+                  const stream = ch.stream || "";
+                  if (!stream) continue;
+                  m3u += `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}\n${stream}\n`;
+                }
+              } catch {
+                // Assume response is already M3U
+                if (text.startsWith("#EXTM3U")) {
+                  m3u = text;
                 } else {
-                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
-                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
-                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
-                    changesSummary.push(`Updated: ${name}`);
-                  }
+                  m3u += text;
                 }
               }
 
-              // Removed channels
-              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
-              oldNames.forEach(name => {
-                if (!Object.values(data).some(ch => ch.name === name)) {
-                  changesSummary.push(`Removed: ${name}`);
-                }
-              });
-
-              if (changesSummary.length === 0) {
-                console.log("No changes in playlist, skipping file generation.");
-                return;
-              }
-
-              fs.writeFileSync(filePath, m3u);
-              console.log('roja.m3u updated successfully.');
-              console.log(`Summary: ${changesSummary.join('; ')}`);
+              fs.writeFileSync("roja.m3u", m3u);
+              console.log("✅ roja.m3u updated");
 
             } catch (err) {
-              console.error('Error fetching channels:', err);
+              console.error("❌ Error fetching channels:", err);
               process.exit(1);
             }
           })();
           EOF
 
-      - name: Commit and push if changed
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add roja.m3u
-          git diff --cached --quiet || git commit -m "Auto-update roja.m3u [skip ci]"
+          git commit -m "Auto-update roja.m3u [skip ci]" || echo "No changes to commit"
           git push
