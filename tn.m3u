@@ -685,3 +685,13 @@ https://live.onecloudlive.in/ragatv/ragatvhd/index.m3u8
 https://ipcloud.live/veerali/veeralitv/index.m3u8
 #EXTINF:-1 tvg-name="Punithan Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/PvM00LZR/1000146995.png",Punithan Tv
 https://stream.singamcloud.in/punithantv/punithantv/index.m3u8
+#EXTINF:-1 tvg-name="M Television" group-title="Local Channels" tvg-logo="https://i.ibb.co/4Rwv2tP4/1000147004.jpg",M Television
+https://ipcloud.live/mtv/menhd/index.m3u8
+#EXTINF:-1 tvg-name="Anbu Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/NgkM5rTb/1000147006.jpg",Anbu Tv
+https://ipcloud.live/anbutv/anbutvhd/index.m3u8
+#EXTINF:-1 tvg-name="Namma Gobi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gb4Rg2TG/1000147011.jpg",Namma Gobi Tv
+https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
+#EXTINF:-1 tvg-name="ACP HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/dJr4W2r2/1000147012.png",ACP HD
+https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
+#EXTINF:-1 tvg-name="ACP Classic" group-title="Local Channels" tvg-logo="https://i.ibb.co/dwpk9jss/1000147013.png",ACP Classic
+https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
