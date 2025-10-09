@@ -1320,7 +1320,7 @@ https://play.applelive.in/stv/stv.m3u8
 #EXTINF:-1 tvg-name="Sai Tv Madurai" group-title="Tamil" tvg-logo="https://i.ibb.co/99D0fkj5/1000146813.jpg",Sai Tv Madurai
 http://saitvmdu.stream.onecloudlive.in/saitvmdu/saitvmdu/index.m3u8
 #EXTINF:-1 tvg-name="Sun Music HD" group-title="Tamil" tvg-logo="https://i.ibb.co/tMzYwDMR/Sun-Music-HD.png",Sun Music HD
-http://servertvhub.site/jio/app/live.php?id=895
+https://servertvhub.site/jio/app/ts_live_895.m3u8
 #EXTINF:-1 tvg-name="Sun Life" group-title="Tamil" tvg-logo="https://i.ibb.co/zH4NGbhY/Sun-Life.png",Sun Life
 http://servertvhub.site/jio/app/live.php?id=682
 #EXTINF:-1 tvg-name="Adithya TV" group-title="Tamil" tvg-logo="https://i.ibb.co/qLdT68jW/Adithya-TV.png",Adithya TV
@@ -1371,3 +1371,15 @@ https://janya-digimix.akamaized.net/vglive-sk-394914/india/ngrp:angelindia_all/p
 https://stream.blessingtv.tv:1443/blessingtv-tamillive/mystream_720p/playlist.m3u8
 #EXTINF:-1 tvg-name="Village Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Kjy1fw2F/1000147053.jpg",Village Tv
 https://villagetv.applelive.in/villagetv/villagetv/index.m3u8
+#EXTINF:-1 tvg-name="Joygoodnews TV" group-title="Tamil" tvg-logo="https://i.ibb.co/nqfJTZrR/1000147056.jpg",Joygoodnews TV
+https://play.applelive.in/joygoodnewstv/joygoodnewstv.m3u8
+#EXTINF:-1 tvg-name="Shammah Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/CK4H1d09/1000147061.jpg",Shammah Tv
+https://play.applelive.in/shammahtv/shammahtv.m3u8
+#EXTINF:-1 tvg-name="JN Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/spt2rWxL/1000147066.jpg",JN Vision
+https://462dx4mlqj3o-hls-live.wmncdn.net/jnvisiontv/0e1fd802947a734b3af7787436f11588.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Nambikkai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/pv9VfCCT/1000147068.jpg",Nambikkai Tv
+https://mk9qa7n8qwyb-hls-live.wmncdn.net/nambikkaitv/live.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Vinmeen Music" group-title="Tamil" tvg-logo="https://i.ibb.co/23XYHyyf/1000147069.png",Vinmeen Music
+https://vinmeentv.livebox.co.in/vinmeentvhls/live.m3u8
+#EXTINF:-1 tvg-name="Arputhar Yesu TV" group-title="Tamil" tvg-logo="https://i.ibb.co/RTgGwBxx/1000147071.jpg",Arputhar Yesu TV
+https://arputharyesutv.arputharyesutv.com/live/md/index.m3u8
