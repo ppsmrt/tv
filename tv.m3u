@@ -1433,3 +1433,5 @@ https://www.schannels.in/ppp/video.m3u8?token=nokshitha
 https://www.schannels.in/ajnews/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="KS Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/Z6mDmQp8/1000147278.png",KS Tv
 https://www.schannels.in/kstv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="RK Hollywood" group-title="Telugu" tvg-logo="https://i.ibb.co/bj8BM488/1000147329.png",RK Hollywood
+https://www.schannels.in/rkhollywood/video.m3u8?token=nokshitha
