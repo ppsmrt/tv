@@ -677,3 +677,11 @@ http://acv.7starcloud.com:1935/tamilstar/tv/playlist.m3u8
 https://live.applelive.in/enthirantv/enthirantv/index.m3u8
 #EXTINF:-1 tvg-name="Queens Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/vC299ZpH/1000146965.png",Queens Tv
 https://notvstream.in/queens/queens.m3u8
+#EXTINF:-1 tvg-name="Thendral2 Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/R4ccLfx2/1000146985.jpg",Thendral2 Tv
+https://ipcloud.live/thendralmdu/madurai/index.m3u8
+#EXTINF:-1 tvg-name="Raga Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/KzSwyBN4/1000146992.jpg",Raga Tv
+https://live.onecloudlive.in/ragatv/ragatvhd/index.m3u8
+#EXTINF:-1 tvg-name="Veerali Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mF1Bg62y/1000146994.jpg",Veerali Tv
+https://ipcloud.live/veerali/veeralitv/index.m3u8
+#EXTINF:-1 tvg-name="Punithan Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/PvM00LZR/1000146995.png",Punithan Tv
+https://stream.singamcloud.in/punithantv/punithantv/index.m3u8
