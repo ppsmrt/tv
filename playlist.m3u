@@ -1325,3 +1325,7 @@ http://servertvhub.site/jio/app/live.php?id=895
 http://servertvhub.site/jio/app/live.php?id=682
 #EXTINF:-1 tvg-name="Adithya TV" group-title="Tamil" tvg-logo="https://i.ibb.co/qLdT68jW/Adithya-TV.png",Adithya TV
 http://servertvhub.site/jio/app/live.php?id=709
+#EXTINF:-1 tvg-name="D Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/bRmLh7qs/1000146945.jpg",D Tv
+http://stream.d6-pro.com/Dtv/live/index.m3u8
+#EXTINF:-1 tvg-name="Tamil Star" group-title="Tamil" tvg-logo="https://i.ibb.co/twdvpzDn/1000146947.jpg",Tamil Star
+http://acv.7starcloud.com:1935/tamilstar/tv/playlist.m3u8
