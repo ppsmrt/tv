@@ -1321,3 +1321,7 @@ https://play.applelive.in/stv/stv.m3u8
 http://saitvmdu.stream.onecloudlive.in/saitvmdu/saitvmdu/index.m3u8
 #EXTINF:-1 tvg-name="Sun Music HD" group-title="Tamil" tvg-logo="https://i.ibb.co/tMzYwDMR/Sun-Music-HD.png",Sun Music HD
 http://servertvhub.site/jio/app/live.php?id=895
+#EXTINF:-1 tvg-name="Sun Life" group-title="Tamil" tvg-logo="https://i.ibb.co/zH4NGbhY/Sun-Life.png",Sun Life
+http://servertvhub.site/jio/app/live.php?id=682
+#EXTINF:-1 tvg-name="Adithya TV" group-title="Tamil" tvg-logo="https://i.ibb.co/qLdT68jW/Adithya-TV.png",Adithya TV
+http://servertvhub.site/jio/app/live.php?id=709
