@@ -345,3 +345,5 @@ https://www.schannels.in/rkgold/video.m3u8?token=nokshitha
 https://www.schannels.in/starwayjanapadalu/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="HR Tv9" group-title="Local Channels" tvg-logo="https://i.ibb.co/Xxd6BDKM/1000147629.jpg",HR Tv9
 https://www.schannels.in/hrtv9/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Devi Cable" group-title="Local Channels" tvg-logo="https://i.ibb.co/sdYqpY4J/1000147664.jpg",Devi Cable
+https://www.schannels.in/devicable/video.m3u8?token=nokshitha
