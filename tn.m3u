@@ -89,9 +89,9 @@ http://applelive.in:80/appletv/appletv.m3u8
 http://applelive.in/selfeetv/selfeetv.m3u8
 #EXTINF:-1 tvg-name="Zee tamil HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/tnhgnDx/1000121265.jpg",Zee tamil HD
 https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
-#EXTINF:-1 tvg-name="Sun Tv HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/Fk8fYrqc/1000121921.jpg",Sun Tv HD
+#EXTINF:-1 tvg-name="Sun Tv HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv HD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
-#EXTINF:-1 tvg-name="Sun Music" group-title="Music" tvg-logo="https://i.ibb.co/6cNQ4GD1/1000121935.jpg",Sun Music
+#EXTINF:-1 tvg-name="Sun Music" group-title="Music" tvg-logo="https://i.ibb.co/YFVMTgns/1000148230.png",Sun Music
 http://89.187.189.98/SUNMUSICHD/index.m3u8
 #EXTINF:-1 tvg-name="Max Movies" group-title="Movies" tvg-logo="https://i.ibb.co/bMS9MB9W/1000122159.jpg",Max Movies
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
@@ -647,7 +647,7 @@ https://servertvhub.site/jio/app/ts_live_420.m3u8
 https://servertvhub.site/jio/app/ts_live_417.m3u8
 #EXTINF:-1 tvg-name="Jothi Tv" group-title="Religious" tvg-logo="https://i.ibb.co/spNHQ4Y1/1000146573.jpg",Jothi Tv
 https://servertvhub.site/jio/app/ts_live_2768.m3u8
-#EXTINF:-1 tvg-name="Sun News" group-title="News" tvg-logo="https://i.ibb.co/Ts02qvW/1000146575.jpg",Sun News
+#EXTINF:-1 tvg-name="Sun News" group-title="News" tvg-logo="https://i.ibb.co/ksK5xzQq/1000148229.png",Sun News
 http://m3u.8088y.site/yt.php?c=sunnews
 #EXTINF:-1 tvg-name="Kumudham Tv" group-title="News" tvg-logo="https://i.ibb.co/7dghfZ84/1000146578.jpg",Kumudham Tv
 http://m3u.8088y.site/yt.php?c=KumudamNews24x7
@@ -725,3 +725,5 @@ https://servertvhub.site/jio/app/ts_live_889.m3u8
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
 #EXTINF:-1 tvg-name="Cartoon Network Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png",Cartoon Network Telugu
 https://servertvhub.site/jio/app/ts_live_166.m3u8
+#EXTINF:-1 tvg-name="Sun Tv UHD" group-title="Entertainment" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv UHD
+https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
