@@ -964,7 +964,7 @@ http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-name="Raj News" group-title="Tamil" tvg-logo="https://i.ibb.co/pc0HSWL/1000140113.jpg",Raj News
 http://45.148.145.57/IN_RajNews24x7HD/index.m3u8
 #EXTINF:-1 tvg-name="Jaya Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
-http://45.148.145.57/IN_JayaPlus/index.m3u8
+http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="J Movies" group-title="Tamil" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
 http://89.187.189.98/JMOVIES/index.m3u8
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/PZdVmyKq/1000140177.jpg",Raj Musix
@@ -1302,7 +1302,7 @@ http://89.187.189.98/MOVIESNOWHD/index.m3u8
 #EXTINF:-1 tvg-name="Jothi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/spNHQ4Y1/1000146573.jpg",Jothi Tv
 https://servertvhub.site/jio/app/ts_live_2768.m3u8
 #EXTINF:-1 tvg-name="Sun News" group-title="Tamil" tvg-logo="https://i.ibb.co/ksK5xzQq/1000148229.png",Sun News
-http://m3u.8088y.site/yt.php?c=sunnews
+http://m3u.8088y.fun/yt.php?c=Sunnewstamil
 #EXTINF:-1 tvg-name="Kumudham Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7dghfZ84/1000146578.jpg",Kumudham Tv
 http://m3u.8088y.site/yt.php?c=KumudamNews24x7
 #EXTINF:-1 tvg-name="HM Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/zHjBSNqB/1000146580.jpg",HM Tv
@@ -1477,3 +1477,7 @@ https://servertvhub.site/jio/app/ts_live_1340.m3u8
 https://servertvhub.site/jio/app/ts_live_1344.m3u8
 #EXTINF:-1 tvg-name="Pogo Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/4n56LwrX/1000148486.png",Pogo Telugu
 https://servertvhub.site/jio/app/ts_live_1883.m3u8
+#EXTINF:-1 tvg-name="OMM Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/dsMKnK76/1000148497.png",OMM Tv
+https://live.applelive.in/ommtv/ommtv/index.m3u8
+#EXTINF:-1 tvg-name="Kalaignar News" group-title="Tamil" tvg-logo="https://i.ibb.co/1tc4F4dB/1000148501.png",Kalaignar News
+http://m3u.8088y.fun/yt.php?c=KalaignarTVNews
