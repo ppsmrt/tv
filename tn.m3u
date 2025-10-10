@@ -435,7 +435,7 @@ http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
 https://stream.galaxyott.live/live/dharshantv/index.m3u8
 #EXTINF:-1 tvg-name="Devathai Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hJMX40D9/1000138934.jpg",Devathai Tv
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
-#EXTINF:-1 tvg-name="Jaya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/C5sPDmV8/1000146321.jpg",Jaya Tv
+#EXTINF:-1 tvg-name="Jaya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/7NpBRzB6/1000148052.png",Jaya Tv
 http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Sony TEN Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/LzCRHKTb/1000146114.jpg",Sony TEN Sports 2 HD
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
@@ -471,7 +471,7 @@ https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
 #EXTINF:-1 tvg-name="Star Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/pvgv9Vc1/1000146101.jpg",Star Sports 3 HD
 http://89.187.189.98/STARSPORTS3/index.m3u8
-#EXTINF:-1 tvg-name="Sonic Hindi" group-title="Entertainment" tvg-logo="https://i.ibb.co/Hp4R3VQT/1000146214.jpg",Sonic Hindi
+#EXTINF:-1 tvg-name="Sonic Hindi" group-title="Entertainment" tvg-logo="https://i.ibb.co/8gbkFs0L/1000148071.png",Sonic Hindi
 http://89.187.189.98/SONIC/index.m3u8
 #EXTINF:-1 tvg-name="Zee Thirai" group-title="Movies" tvg-logo="https://i.ibb.co/mFt813hv/1000140096.jpg",Zee Thirai
 http://89.187.189.98/ZEETHIRAI/index.m3u8
@@ -495,7 +495,7 @@ http://89.187.189.98/MTVPLUSHD/index.m3u8
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-name="Raj News" group-title="News" tvg-logo="https://i.ibb.co/pc0HSWL/1000140113.jpg",Raj News
 http://45.148.145.57/IN_RajNews24x7HD/index.m3u8
-#EXTINF:-1 tvg-name="Jaya Plus" group-title="News" tvg-logo="https://i.ibb.co/XZQTbdp9/1000146322.jpg",Jaya Plus
+#EXTINF:-1 tvg-name="Jaya Plus" group-title="News" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://45.148.145.57/IN_JayaPlus/index.m3u8
 #EXTINF:-1 tvg-name="J Movies" group-title="Movies" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
 http://89.187.189.98/JMOVIES/index.m3u8
@@ -507,7 +507,7 @@ http://89.187.189.98/THANTHITV/index.m3u8
 http://89.187.189.98/CHUTTITV/index.m3u8
 #EXTINF:-1 tvg-name="Hungama Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/ZpSpnbLf/1000140217.jpg",Hungama Hindi
 http://89.187.189.98/HUNGAMAKIDS/index.m3u8
-#EXTINF:-1 tvg-name="Pogo Tv" group-title="Kids" tvg-logo="https://i.ibb.co/dwKv3CgZ/1000139530.jpg",Pogo Tv
+#EXTINF:-1 tvg-name="Pogo Tv" group-title="Kids" tvg-logo="https://i.ibb.co/bjJMZRNF/1000148067.png",Pogo Tv
 http://89.187.189.98/POGOKIDS/index.m3u8
 #EXTINF:-1 tvg-name="Sony Yay" group-title="Kids" tvg-logo="https://i.ibb.co/1fQ8r7LL/1000140219.jpg",Sony Yay
 http://89.187.189.98/SONYYAY/index.m3u8
@@ -623,9 +623,9 @@ http://shreeparams.7starcloud.com:1935/live/params/playlist.m3u8
 https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Ezhil Tv Tamil" group-title="Local Channels" tvg-logo="https://i.ibb.co/qF5JfbMh/1000145932.jpg",Ezhil Tv Tamil
 http://ezhiltv.stream.onecloudlive.in/ezhiltv/ezhilhd/index.m3u8
-#EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/WNBkfHwr/1000145954.jpg",Pogo Tamil
+#EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/pBwLjfnF/1000148066.png",Pogo Tamil
 https://servertvhub.site/jio/app/ts_live_542.m3u8
-#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/HDtdbt0V/1000145955.jpg",Sonic Tamil
+#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/jkg7yW0S/1000148046.png",Sonic Tamil
 https://servertvhub.site/jio/app/ts_live_290.m3u8
 #EXTINF:-1 tvg-name="Nick Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/1tt90t6C/1000146017.jpg",Nick Tamil
 https://servertvhub.site/jio/app/ts_live_546.m3u8
@@ -645,9 +645,9 @@ https://servertvhub.site/jio/app/ts_live_817.m3u8
 https://servertvhub.site/jio/app/ts_live_937.m3u8
 #EXTINF:-1 tvg-name="Big Boss Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/4R7HrYCh/1000146146.jpg",Big Boss Tv
 https://xtm.8088yyy.workers.dev/481102.m3u8
-#EXTINF:-1 tvg-name="Jaya Max" group-title="Music" tvg-logo="https://i.ibb.co/TBF4BJNQ/1000146313.jpg",Jaya Max
+#EXTINF:-1 tvg-name="Jaya Max" group-title="Music" tvg-logo="https://i.ibb.co/fGyDjTKc/1000148054.png",Jaya Max
 https://servertvhub.site/jio/app/ts_live_420.m3u8
-#EXTINF:-1 tvg-name="Jaya Movie" group-title="Movies" tvg-logo="https://i.ibb.co/5hFG3g7t/1000146323.jpg",Jaya Movie
+#EXTINF:-1 tvg-name="Jaya Movie" group-title="Movies" tvg-logo="https://i.ibb.co/NgPS1Vmd/1000148048.png",Jaya Movie
 https://servertvhub.site/jio/app/ts_live_417.m3u8
 #EXTINF:-1 tvg-name="Jothi Tv" group-title="Religious" tvg-logo="https://i.ibb.co/spNHQ4Y1/1000146573.jpg",Jothi Tv
 https://servertvhub.site/jio/app/ts_live_2768.m3u8

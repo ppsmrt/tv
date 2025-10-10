@@ -205,7 +205,7 @@ https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
 #EXTINF:-1 tvg-name="Star Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/pvgv9Vc1/1000146101.jpg",Star Sports 3 HD
 http://89.187.189.98/STARSPORTS3/index.m3u8
-#EXTINF:-1 tvg-name="Sonic Hindi" group-title="Entertainment" tvg-logo="https://i.ibb.co/Hp4R3VQT/1000146214.jpg",Sonic Hindi
+#EXTINF:-1 tvg-name="Sonic Hindi" group-title="Entertainment" tvg-logo="https://i.ibb.co/8gbkFs0L/1000148071.png",Sonic Hindi
 http://89.187.189.98/SONIC/index.m3u8
 #EXTINF:-1 tvg-name="Disney Channel" group-title="Kids" tvg-logo="https://i.ibb.co/5Wx3LB8k/1000140098.jpg",Disney Channel
 http://89.187.189.98/BABYTVHD/index.m3u8
@@ -229,7 +229,7 @@ http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 http://89.187.189.98/CHUTTITV/index.m3u8
 #EXTINF:-1 tvg-name="Hungama Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/ZpSpnbLf/1000140217.jpg",Hungama Hindi
 http://89.187.189.98/HUNGAMAKIDS/index.m3u8
-#EXTINF:-1 tvg-name="Pogo Tv" group-title="Kids" tvg-logo="https://i.ibb.co/dwKv3CgZ/1000139530.jpg",Pogo Tv
+#EXTINF:-1 tvg-name="Pogo Tv" group-title="Kids" tvg-logo="https://i.ibb.co/bjJMZRNF/1000148067.png",Pogo Tv
 http://89.187.189.98/POGOKIDS/index.m3u8
 #EXTINF:-1 tvg-name="Sony Yay" group-title="Kids" tvg-logo="https://i.ibb.co/1fQ8r7LL/1000140219.jpg",Sony Yay
 http://89.187.189.98/SONYYAY/index.m3u8
@@ -271,9 +271,9 @@ http://212.102.60.10/BEIN_SPORTS/index.m3u8
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
 #EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/27rTQprC/1000145258.jpg",Viju Explore
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
-#EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/WNBkfHwr/1000145954.jpg",Pogo Tamil
+#EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/pBwLjfnF/1000148066.png",Pogo Tamil
 https://servertvhub.site/jio/app/ts_live_542.m3u8
-#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/HDtdbt0V/1000145955.jpg",Sonic Tamil
+#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/jkg7yW0S/1000148046.png",Sonic Tamil
 https://servertvhub.site/jio/app/ts_live_290.m3u8
 #EXTINF:-1 tvg-name="Nick Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/1tt90t6C/1000146017.jpg",Nick Tamil
 https://servertvhub.site/jio/app/ts_live_546.m3u8
