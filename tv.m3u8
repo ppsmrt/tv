@@ -513,7 +513,7 @@ https://play.applelive.in/koickalnews/koickalnews.m3u8
 https://stream.onecloudlive.in/successtv/successtvhd/index.m3u8
 #EXTINF:-1 tvg-name="Btv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/39N9KXzF/1000133565.jpg",Btv Tamil
 https://rtmp.applelive.in/boobsh/boobsh/index.m3u8
-#EXTINF:-1 tvg-name="Analai Express" group-title="International" tvg-logo="https://i.ibb.co/7tNSJQPM/1000133566.jpg",Analai Express
+#EXTINF:-1 tvg-name="Analai Express" group-title="International" tvg-logo="https://i.ibb.co/mChJHXBR/1000148392.png",Analai Express
 http://198.144.149.206:8080/MONTAMIL_CINEMA/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Tamil Magan" group-title="Tamil" tvg-logo="https://i.ibb.co/ycYP60yP/1000133567.jpg",Tamil Magan
 http://120.138.14.16:8080/hls/tamilmagantv/index.m3u8
@@ -907,7 +907,7 @@ https://guru.shashwatha.com/hls/live/sity.m3u8
 http://195.181.169.162/AND_FLIX_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="8xm" group-title="Hindi" tvg-logo="https://i.ibb.co/B1gtHC2/1000148273.png",8xm
 http://66.102.120.18:8000/play/a050/index.m3u8
-#EXTINF:-1 tvg-name="Amoggh TV" group-title="Kannada" tvg-logo="https://i.ibb.co/7Jyp2xYs/1000139841.jpg",Amoggh TV
+#EXTINF:-1 tvg-name="Amoggh TV" group-title="Kannada" tvg-logo="https://i.ibb.co/7cJYv0b/1000148394.png",Amoggh TV
 https://guru.shashwatha.com/hls/live/amogha.m3u8
 #EXTINF:-1 tvg-name="Nam City" group-title="Kannada" tvg-logo="https://i.ibb.co/Fq5rcBFL/1000139847.png",Nam City
 https://guru.shashwatha.com/hls/live/namcity.m3u8
