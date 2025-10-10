@@ -1445,3 +1445,7 @@ https://www.schannels.in/starwayjanapadalu/video.m3u8?token=nokshitha
 https://www.schannels.in/hrtv9/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Devi Cable" group-title="Telugu" tvg-logo="https://i.ibb.co/sdYqpY4J/1000147664.jpg",Devi Cable
 https://www.schannels.in/devicable/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="CN HD+ Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/4wH95hdh/CN-HD-Telugu.png",CN HD+ Telugu
+https://servertvhub.site/jio/app/ts_live_1080.m3u8
+#EXTINF:-1 tvg-name="Cartoon Network Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/35zqjxbK/Cartoon-Network-Telugu.png",Cartoon Network Telugu
+https://servertvhub.site/jio/app/ts_live_166.m3u8
