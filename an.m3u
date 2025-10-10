@@ -67,7 +67,7 @@ https://server.streamwell.in/hls/7hills.m3u8
 https://sharsolution.in/hls/s9tv/s9tv.m3u8
 #EXTINF:-1 tvg-name="Zilla Vani" group-title="Local Channels" tvg-logo="https://i.ibb.co/JFWc4pQF/1000121233.jpg",Zilla Vani
 https://streaming.livebox.co.in/vedhikahls/live.m3u8
-#EXTINF:-1 tvg-name="Prajaa Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/SwvtHY5b/1000121235.jpg",Prajaa Tv
+#EXTINF:-1 tvg-name="Prajaa Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/SDh10TY0/1000148551.png",Prajaa Tv
 https://sharsolution.in/hls/s9tv/s9tv.m3u8
 #EXTINF:-1 tvg-name="Studio 18" group-title="Local Channels" tvg-logo="https://i.ibb.co/1GLG96vd/1000121237.jpg",Studio 18
 http://cloud.streamplay.in:1935/studio18/studio18/playlist.m3u8

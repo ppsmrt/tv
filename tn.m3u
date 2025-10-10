@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="Raj Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Xxp6tLPX/rajtv.jpg",Raj Tv
+#EXTINF:-1 tvg-name="Raj Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/5HQgfr4/1000148546.png",Raj Tv
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-name="News 18 Tamil" group-title="News" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png",News 18 Tamil
 https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
@@ -31,7 +31,7 @@ http://applelive.in/shatv/shatv.m3u8
 http://applelive.in/suryantv/suryantv.m3u8
 #EXTINF:-1 tvg-name="S Max HD" group-title="Local Channels" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_1928366723473282713429482.jpg",S Max HD
 http://applelive.in/smaxtv/smaxtv.m3u8
-#EXTINF:-1 tvg-name="Raja Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/PvY1QcrY/20250906-014019.jpg",Raja Tv
+#EXTINF:-1 tvg-name="Raja Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/chCZ8ch6/1000148552.png",Raja Tv
 http://brightmeltech.in/rajatv/rajatv.m3u8
 #EXTINF:-1 tvg-name="News7" group-title="News" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1119328195574168590766761.jpg",News7
 https://segment.yuppcdn.net/240122/news7/playlist.m3u8
@@ -39,7 +39,7 @@ https://segment.yuppcdn.net/240122/news7/playlist.m3u8
 https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Entertainment" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1208513745079790217062467.jpg",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
-#EXTINF:-1 tvg-name="Raj Digital" group-title="Entertainment" tvg-logo="https://i.ibb.co/dsZQWxBR/20250903-1233513890272704535640985.jpg",Raj Digital
+#EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Movies" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Movies" tvg-logo="https://i.ibb.co/bjqKRT24/20250904-171740.jpg",K Tv
 http://89.187.189.98/KTVHD/index.m3u8
@@ -495,7 +495,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="J Movies" group-title="Movies" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
 http://89.187.189.98/JMOVIES/index.m3u8
-#EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/PZdVmyKq/1000140177.jpg",Raj Musix
+#EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png",Raj Musix
 http://89.187.189.98/RAJMUSIX/index.m3u8
 #EXTINF:-1 tvg-name="Thandhi Tv" group-title="News" tvg-logo="https://i.ibb.co/JF86F1h4/1000148524.png",Thandhi Tv
 http://m3u.8088y.fun/yt.php?c=thanthitv
