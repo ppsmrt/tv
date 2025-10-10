@@ -125,7 +125,7 @@ https://amigofx.com:1936/ccchd/ccchd/playlist.m3u8
 https://vvsolutions.in/yjtv/yjtv.m3u8
 #EXTINF:-1 tvg-name="Zee Bollywood Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/q68CwmZ/20250907-223301.jpg",Zee Bollywood Movies
 https://amg17931-zee-amg17931c8-samsung-th-6526.playouts.now.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-name="Aarthi" group-title="Tamil" tvg-logo="https://i.ibb.co/zhKMVsPC/aarthi-tv.jpg",Aarthi
+#EXTINF:-1 tvg-name="Aarthi" group-title="Tamil" tvg-logo="https://i.ibb.co/KcMxKG27/1000148149.png",Aarthi
 http://198.144.149.206:8080/NOTV/AARTHITV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Iratai Pathai" group-title="Tamil" tvg-logo="https://i.ibb.co/zVcRph7f/1000120836.jpg",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
@@ -295,7 +295,7 @@ https://stream.iplive.xyz/amtv/amtv/tracks-v1a1/mono.m3u8
 https://ipcloud.live/paavai/live/index.m3u8
 #EXTINF:-1 tvg-name="Pothigai Thendral" group-title="Tamil" tvg-logo="https://i.ibb.co/gZ9qSFDz/1000122453.jpg",Pothigai Thendral
 https://ipcloud.live/pothigai/thendral/index.m3u8
-#EXTINF:-1 tvg-name="Adhvika" group-title="Tamil" tvg-logo="https://i.ibb.co/35820nx8/1000122454.webp",Adhvika
+#EXTINF:-1 tvg-name="Adhvika" group-title="Tamil" tvg-logo="https://i.ibb.co/QvZtn9Dw/1000148158.png",Adhvika
 https://stream.advikadigital.in/advika/advika/index.m3u8
 #EXTINF:-1 tvg-name="Vasantham" group-title="Tamil" tvg-logo="https://i.ibb.co/84s7F61c/1000122456.jpg",Vasantham
 https://stream.onecloudlive.in/dhandapani/vasanthamtv/tracks-v1a1/mono.m3u8
@@ -615,7 +615,7 @@ https://server.sscloud7.in/live/bharathitv/index.m3u8
 https://stream.sscloud7.in/live/vishiltv2/index.m3u8
 #EXTINF:-1 tvg-name="Thendral Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/kgxJkNYV/1000136510.png",Thendral Tv
 https://sscloud7.com/live/thendraltv/index.m3u8
-#EXTINF:-1 tvg-name="Aaryaa Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/dRLxwNg/1000136512.jpg",Aaryaa Tv
+#EXTINF:-1 tvg-name="Aaryaa Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/CKKy9r0M/1000148152.png",Aaryaa Tv
 https://live.sscloud7.in/live/aaryaatv/index.m3u8
 #EXTINF:-1 tvg-name="Suriyan Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Pz56hzqp/1000136514.jpg",Suriyan Tv
 https://sscloud7.com/live/suriyantv/index.m3u8
@@ -635,7 +635,7 @@ https://server.sscloud7.in/marantv/marantv/index.m3u8
 https://stream.sscloud7.in/live/mptv/index.m3u8
 #EXTINF:-1 tvg-name="Mayuri Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/36PY5KH/1000136545.jpg",Mayuri Tv
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
-#EXTINF:-1 tvg-name="7 Star" group-title="Tamil" tvg-logo="https://i.ibb.co/XBD1348/1000136548.jpg",7 Star
+#EXTINF:-1 tvg-name="7 Star" group-title="Tamil" tvg-logo="https://i.ibb.co/TxnkzgT2/1000148147.png",7 Star
 http://7starcloud.com:1935/live/7star2/playlist.m3u8
 #EXTINF:-1 tvg-name="King Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/f77w9N8/1000136550.jpg",King Tv
 https://rtmp.bmlive.net/kingtv/kingtv/index.m3u8
@@ -1005,7 +1005,7 @@ https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
 #EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Hindi" tvg-logo="https://i.ibb.co/8gSnXJCR/1000140824.jpg",Aasatha Bhajan
 https://aasthaott.akamaized.net/110923/smil:bhajan.smil/chunklist_b264000.m3u8
-#EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/8gSnXJCR/1000140824.jpg",Aasatha Tamil
+#EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/DPq6VLBb/1000148154.png",Aasatha Tamil
 https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Abzy Dhakad" group-title="Hindi" tvg-logo="https://i.ibb.co/fdMVtn5M/1000140857.jpg",Abzy Dhakad
 https://d2lk5u59tns74c.cloudfront.net/out/v1/4fe6ab07a13543d6bdb2ec63b3e2df44/index.m3u8
@@ -1345,7 +1345,7 @@ https://ipcloud.live/anbutv/anbutvhd/index.m3u8
 https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
 #EXTINF:-1 tvg-name="ACP HD" group-title="Tamil" tvg-logo="https://i.ibb.co/dJr4W2r2/1000147012.png",ACP HD
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
-#EXTINF:-1 tvg-name="ACP Classic" group-title="Tamil" tvg-logo="https://i.ibb.co/dwpk9jss/1000147013.png",ACP Classic
+#EXTINF:-1 tvg-name="ACP Classic" group-title="Tamil" tvg-logo="https://i.ibb.co/27366n9g/1000148156.png",ACP Classic
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-name="Puthuyugam" group-title="Tamil" tvg-logo="https://i.ibb.co/7tbpY4v9/1000147015.jpg",Puthuyugam
 http://103.184.193.216:3500/getm3u8/824/master.m3u8
