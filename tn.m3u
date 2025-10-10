@@ -635,7 +635,7 @@ https://servertvhub.site/jio/app/ts_live_569.m3u8
 https://servertvhub.site/jio/app/ts_live_579.m3u8
 #EXTINF:-1 tvg-name="Tunes6" group-title="Music" tvg-logo="https://i.ibb.co/m5TjVfxs/1000146026.jpg",Tunes6
 https://servertvhub.site/jio/app/ts_live_803.m3u8
-#EXTINF:-1 tvg-name="Cartoon Network Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png",Cartoon Network Tamil
+#EXTINF:-1 tvg-name="CN Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png",CN Tamil
 https://servertvhub.site/jio/app/ts_live_817.m3u8
 #EXTINF:-1 tvg-name="Sai Tv" group-title="Religious" tvg-logo="https://i.ibb.co/ZZ84S1j/1000146033.jpg",Sai Tv
 https://servertvhub.site/jio/app/ts_live_937.m3u8
@@ -721,7 +721,7 @@ https://servertvhub.site/jio/app/ts_live_875.m3u8
 https://servertvhub.site/jio/app/ts_live_889.m3u8
 #EXTINF:-1 tvg-name="CN HD+ Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fYn36K8q/1000148107.png",CN HD+ Telugu
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
-#EXTINF:-1 tvg-name="Cartoon Network Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png",Cartoon Network Telugu
+#EXTINF:-1 tvg-name="CN Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png",CN Telugu
 https://servertvhub.site/jio/app/ts_live_166.m3u8
 #EXTINF:-1 tvg-name="Sun Tv UHD" group-title="Entertainment" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv UHD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
