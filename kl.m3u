@@ -33,7 +33,7 @@ http://103.85.204.205:1935/VISIONMEDIA/live/chunklist_w1236262378.m3u8
 http://kcnsdhlsapp.ylivestream.com/kcnsdapphls/index.m3u8
 #EXTINF:-1 tvg-name="PTA News" group-title="News" tvg-logo="https://i.ibb.co/60tqyTR2/1000121468.jpg",PTA News
 http://cloud.logichost.in:1935/PTA/live/chunklist_w508578235.m3u8
-#EXTINF:-1 tvg-name="AJ Net" group-title="Local Channels" tvg-logo="https://i.ibb.co/1G3Jmrty/1000121852.jpg",AJ Net
+#EXTINF:-1 tvg-name="AJ Net" group-title="Local Channels" tvg-logo="https://i.ibb.co/bMhfK7zn/1000148343.png",AJ Net
 http://stream.logichost.in:1935/AJNET/live/chunklist_w1099842082.m3u8
 #EXTINF:-1 tvg-name="Balatara Vision" group-title="Local Channels" tvg-logo="https://i.ibb.co/Lzd8qD8J/1000121865.jpg",Balatara Vision
 http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
