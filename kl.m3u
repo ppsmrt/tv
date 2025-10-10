@@ -197,7 +197,7 @@ http://89.187.189.98/SURYAMOVIES/index.m3u8
 http://89.187.189.98/ASIANETPLUS/index.m3u8
 #EXTINF:-1 tvg-name="Media One" group-title="Entertainment" tvg-logo="https://i.ibb.co/xKFNBXCP/1000140229.jpg",Media One
 http://89.187.189.98/MEDIAONE/index.m3u8
-#EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/jvvSbfTQ/1000140233.jpg",Hoora Tv
+#EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/B0DJGCx/1000148084.png",Hoora Tv
 http://66.102.120.18:8000/play/a040/index.m3u8
 #EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/PZ3nFPf7/1000141399.jpg",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8

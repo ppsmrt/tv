@@ -509,7 +509,7 @@ http://89.187.189.98/POGOKIDS/index.m3u8
 http://89.187.189.98/SONYYAY/index.m3u8
 #EXTINF:-1 tvg-name="7s Musix" group-title="Music" tvg-logo="https://i.ibb.co/psmQxGK/1000148143.png",7s Musix
 http://202.164.50.194:8000/play/a026/index.m3u8
-#EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/jvvSbfTQ/1000140233.jpg",Hoora Tv
+#EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/B0DJGCx/1000148084.png",Hoora Tv
 http://66.102.120.18:8000/play/a040/index.m3u8
 #EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Religious" tvg-logo="https://i.ibb.co/DPq6VLBb/1000148154.png",Aasatha Tamil
 https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8

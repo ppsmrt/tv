@@ -53,7 +53,7 @@ http://51.15.7.9:3141/ten3/index.m3u8
 http://51.15.7.9:3141/ten5/index.m3u8
 #EXTINF:-1 tvg-name="Nikky Tv" group-title="Kids" tvg-logo="https://i.ibb.co/v4nNPRrf/1000148077.png",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-name="& Flix HD" group-title="Movies" tvg-logo="https://i.ibb.co/whsm6qKX/1000139802.jpg",& Flix HD
+#EXTINF:-1 tvg-name="& Flix HD" group-title="Movies" tvg-logo="https://i.ibb.co/xKw4qTxV/1000148208.png",& Flix HD
 http://195.181.169.162/AND_FLIX_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Star Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/bprtsZf/1000146093.jpg",Star Sports 2 HD
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
@@ -89,7 +89,7 @@ http://89.187.189.98/HUNGAMAKIDS/index.m3u8
 http://89.187.189.98/POGOKIDS/index.m3u8
 #EXTINF:-1 tvg-name="Sony Yay" group-title="Kids" tvg-logo="https://i.ibb.co/MkRwxLWN/1000148073.png",Sony Yay
 http://89.187.189.98/SONYYAY/index.m3u8
-#EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/jvvSbfTQ/1000140233.jpg",Hoora Tv
+#EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/B0DJGCx/1000148084.png",Hoora Tv
 http://66.102.120.18:8000/play/a040/index.m3u8
 #EXTINF:-1 tvg-name="CNN News 18" group-title="News" tvg-logo="https://i.ibb.co/Y43HPbWF/1000141386.jpg",CNN News 18
 https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
