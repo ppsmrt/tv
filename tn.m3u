@@ -745,3 +745,11 @@ https://servertvhub.site/jio/app/ts_live_816.m3u8
 https://servertvhub.site/jio/app/ts_live_1242.m3u8
 #EXTINF:-1 tvg-name="Sonic Kannada" group-title="Kids" tvg-logo="https://i.ibb.co/DD2fP1FF/1000148417.png",Sonic Kannada
 https://servertvhub.site/jio/app/ts_live_1243.m3u8
+#EXTINF:-1 tvg-name="Nick Kannda" group-title="Kids" tvg-logo="https://i.ibb.co/5ZC1083/1000148465.png",Nick Kannda
+https://servertvhub.site/jio/app/ts_live_1244.m3u8
+#EXTINF:-1 tvg-name="Nick Malayalam" group-title="Kids" tvg-logo="https://i.ibb.co/Wp7GVk7W/1000148467.png",Nick Malayalam
+https://servertvhub.site/jio/app/ts_live_1340.m3u8
+#EXTINF:-1 tvg-name="Sonic Malayalam" group-title="Kids" tvg-logo="https://i.ibb.co/chWPb1zz/1000148471.png",Sonic Malayalam
+https://servertvhub.site/jio/app/ts_live_1344.m3u8
+#EXTINF:-1 tvg-name="Pogo Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/4n56LwrX/1000148486.png",Pogo Telugu
+https://servertvhub.site/jio/app/ts_live_1883.m3u8
