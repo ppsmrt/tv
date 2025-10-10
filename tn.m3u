@@ -725,3 +725,11 @@ https://servertvhub.site/jio/app/ts_live_1080.m3u8
 https://servertvhub.site/jio/app/ts_live_166.m3u8
 #EXTINF:-1 tvg-name="Sun Tv UHD" group-title="Entertainment" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv UHD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
+#EXTINF:-1 tvg-name="Nick Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/MkcMWmnB/1000148400.png",Nick Telugu
+https://servertvhub.site/jio/app/ts_live_543.m3u8
+#EXTINF:-1 tvg-name="Nick Jr" group-title="Kids" tvg-logo="https://i.ibb.co/gMT4GwSf/1000148402.png",Nick Jr
+https://servertvhub.site/jio/app/ts_live_544.m3u8
+#EXTINF:-1 tvg-name="Nick Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/Pvj86LcQ/1000148404.png",Nick Hindi
+https://servertvhub.site/jio/app/ts_live_545.m3u8
+#EXTINF:-1 tvg-name="Chintu Tv" group-title="Kids" tvg-logo="https://i.ibb.co/4ZPfvp4W/1000148407.png",Chintu Tv
+https://servertvhub.site/jio/app/ts_live_555.m3u8
