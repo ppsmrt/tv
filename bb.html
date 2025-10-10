@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bigboss TV — Premium Player</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    background: url("https://i.ibb.co/Z6SSGsf6/20251010-091420.jpg") no-repeat center center fixed;
+    background-size: cover;
+    justify-content:center;
+    align-items:center;
+  }
+
+  header {
+    background:rgba(0,0,0,0.6);
+    padding:12px 20px;
+    font-size:1.2em;
+    font-weight:bold;
+    color:#f5c518;
+    text-align:center;
+    letter-spacing:1px;
+    width:100%;
+    position:absolute;
+    top:0;
+  }
+
+  .card {
+    background:rgba(0,0,0,0.85);
+    border-radius:16px;
+    box-shadow:0 0 30px rgba(0,0,0,0.9);
+    overflow:hidden;
+    width:95%;
+    max-width:950px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .video-frame {
+    position:relative;
+    width:100%;
+    background:black;
+  }
+
+  video {
+    width:100%;
+    height:auto;
+    display:block;
+    background:black;
+  }
+
+  .meta {
+    background:rgba(0,0,0,0.6);
+    padding:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+  }
+
+  .controls {
+    display:flex;
+    gap:10px;
+  }
+
+  .control-btn {
+    padding:8px 12px;
+    border:none;
+    border-radius:50%;
+    background:#1f1f23;
+    color:#fff;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+  }
+  .control-btn:hover {
+    background:#f5c518;
+    color:#000;
+    transform:scale(1.1);
+  }
+
+  .progress {
+    height:6px;
+    background:#333;
+    border-radius:3px;
+    overflow:hidden;
+    cursor:pointer;
+    margin-top:6px;
+  }
+  .progress i {
+    display:block;
+    height:100%;
+    width:0%;
+    background:#f5c518;
+  }
+</style>
+</head>
+<body>
+
+<header>📺 Bigboss TV — Premium Tamil Setup</header>
+
+<div class="card">
+  <div class="video-frame" id="player">
+    <video id="video" playsinline webkit-playsinline></video>
+    <div class="meta">
+      <div>
+        <div class="controls">
+          <button id="playBtn" class="control-btn"><i class="fa fa-play"></i></button>
+          <button id="pauseBtn" class="control-btn"><i class="fa fa-pause"></i></button>
+          <button id="stopBtn" class="control-btn"><i class="fa fa-stop"></i></button>
+          <button id="muteBtn" class="control-btn"><i class="fa fa-volume-mute"></i></button>
+          <button id="pipBtn" class="control-btn"><i class="fa fa-tv"></i></button>
+        </div>
+        <div class="progress" id="progressBar"><i id="progressFill"></i></div>
+      </div>
+      <div style="min-width:150px;text-align:right">
+        Now Playing:<br><strong id="nowPlaying">BigBoss TV Live</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- hls.js for browser HLS support -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+const video = document.getElementById("video");
+const playBtn = document.getElementById("playBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const stopBtn = document.getElementById("stopBtn");
+const muteBtn = document.getElementById("muteBtn");
+const pipBtn = document.getElementById("pipBtn");
+const progressBar = document.getElementById("progressBar");
+const progressFill = document.getElementById("progressFill");
+
+const streamUrl = "https://xtm.8088yyy.workers.dev/481102.m3u8";
+
+// Load HLS stream
+if (Hls.isSupported()) {
+  const hls = new Hls();
+  hls.loadSource(streamUrl);
+  hls.attachMedia(video);
+} else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+  video.src = streamUrl;
+}
+
+// Controls
+playBtn.onclick = ()=> video.play();
+pauseBtn.onclick = ()=> video.pause();
+stopBtn.onclick = ()=>{ video.pause(); video.currentTime=0; };
+muteBtn.onclick = ()=> video.muted = !video.muted;
+pipBtn.onclick = ()=> video.requestPictureInPicture();
+
+// Progress bar
+video.ontimeupdate = ()=>{
+  if(video.duration){
+    let percent = (video.currentTime / video.duration)*100;
+    progressFill.style.width = percent + "%";
+  }
+};
+progressBar.onclick = (e)=>{
+  if(video.duration){
+    let rect = progressBar.getBoundingClientRect();
+    let pos = (e.clientX - rect.left) / rect.width;
+    video.currentTime = pos * video.duration;
+  }
+};
+</script>
+
+</body>
+  </html>
