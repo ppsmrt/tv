@@ -1,7 +1,7 @@
 #EXTM3U
 #EXTINF:-1 tvg-name="Raj Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Xxp6tLPX/rajtv.jpg",Raj Tv
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
-#EXTINF:-1 tvg-name="News 18 Tamil" group-title="News" tvg-logo="https://i.ibb.co/LDvcbjXs/1000146577.jpg",News 18 Tamil
+#EXTINF:-1 tvg-name="News 18 Tamil" group-title="News" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png",News 18 Tamil
 https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-name="Sivan Tv" group-title="Religious" tvg-logo="https://i.ibb.co/dJWNNQMZ/20250904-152501.jpg",Sivan Tv
 https://sivantv.livebox.co.in/sivantvhls/sivan.m3u8
@@ -68,7 +68,7 @@ http://rasinetworks.in:1935/rasimusic/rasimusic.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="Rasi Hollywood" group-title="Movies" tvg-logo="https://i.ibb.co/mF9XV2nG/rasihollywood.jpg",Rasi Hollywood
 http://rasinetworks.in:1935/rasihollywood/rasihollywood.stream_aac/index.m3u8
 #EXTINF:-1 tvg-name="News 24x7" group-title="News" tvg-logo="https://i.ibb.co/jPCxck1J/news24x7tamil.jpg",News 24x7
-https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/index.m3u8
+http://m3u.8088y.fun/yt.php?c=NewsTamil24X7TV
 #EXTINF:-1 tvg-name="Kanchi Media" group-title="Local Channels" tvg-logo="https://i.ibb.co/JWnfts7j/1000118501.jpg",Kanchi Media
 http://198.144.149.206:8080/NOTV/KANCHIMEDIA/tracks-v1a1/mono.ts.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Sana Plus" group-title="Local Channels" tvg-logo="https://i.ibb.co/mr8GkvXK/20250907-194733.jpg",Sana Plus
@@ -155,7 +155,7 @@ https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-name="MK Tunes" group-title="Music" tvg-logo="https://i.ibb.co/N2nTm9qt/1000127608.jpg",MK Tunes
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-433
-#EXTINF:-1 tvg-name="News J" group-title="News" tvg-logo="https://i.ibb.co/6J4fPC0G/1000127616.jpg",News J
+#EXTINF:-1 tvg-name="News J" group-title="News" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png",News J
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1279
 #EXTINF:-1 tvg-name="Win Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/yFFFnpPW/1000127617.jpg",Win Tv
 https://cdn-4.pishow.tv/live/1531/master.m3u8
@@ -489,8 +489,8 @@ http://89.187.189.98/HISTORYTV18HD/index.m3u8
 http://89.187.189.98/MTVPLUSHD/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Jeet HD" group-title="Documentary" tvg-logo="https://i.ibb.co/ZRFR2sL4/1000140112.jpg",Discovery Jeet HD
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
-#EXTINF:-1 tvg-name="Raj News" group-title="News" tvg-logo="https://i.ibb.co/pc0HSWL/1000140113.jpg",Raj News
-http://45.148.145.57/IN_RajNews24x7HD/index.m3u8
+#EXTINF:-1 tvg-name="Raj News" group-title="News" tvg-logo="https://i.ibb.co/gLhFy0zr/1000148507.png",Raj News
+http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-name="Jaya Plus" group-title="News" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="J Movies" group-title="Movies" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
@@ -649,8 +649,8 @@ https://servertvhub.site/jio/app/ts_live_417.m3u8
 https://servertvhub.site/jio/app/ts_live_2768.m3u8
 #EXTINF:-1 tvg-name="Sun News" group-title="News" tvg-logo="https://i.ibb.co/ksK5xzQq/1000148229.png",Sun News
 http://m3u.8088y.fun/yt.php?c=Sunnewstamil
-#EXTINF:-1 tvg-name="Kumudham Tv" group-title="News" tvg-logo="https://i.ibb.co/7dghfZ84/1000146578.jpg",Kumudham Tv
-http://m3u.8088y.site/yt.php?c=KumudamNews24x7
+#EXTINF:-1 tvg-name="Kumudham Tv" group-title="News" tvg-logo="https://i.ibb.co/21hMgrtX/1000148512.png",Kumudham Tv
+http://m3u.8088y.fun/yt.php?c=Kumudamnews
 #EXTINF:-1 tvg-name="Live Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Jj3Nb0SB/1000146583.jpg",Live Tv
 http://lime-cr1.phoenixcreations.online/lime/lime/index.m3u8
 #EXTINF:-1 tvg-name="Vaani Visuals" group-title="Local Channels" tvg-logo="https://i.ibb.co/kVjczzn0/1000146597.jpg",Vaani Visuals
@@ -693,7 +693,7 @@ https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 http://103.184.193.216:3500/getm3u8/824/master.m3u8
 #EXTINF:-1 tvg-name="Imayam Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/dsG4dLBX/1000147019.jpg",Imayam Tv
 http://103.184.193.216:3500/getm3u8/1517/master.m3u8
-#EXTINF:-1 tvg-name="Sathiyam Tv" group-title="News" tvg-logo="https://i.ibb.co/sv6ZLFX7/1000148504.png",Sathiyam Tv
+#EXTINF:-1 tvg-name="Sathiyam Tv" group-title="News" tvg-logo="https://i.ibb.co/whPnjdJy/1000148505.png",Sathiyam Tv
 http://m3u.8088y.fun/yt.php?c=SathiyamTV
 #EXTINF:-1 tvg-name="News Tamil 24x7" group-title="News" tvg-logo="https://i.ibb.co/zVD9gkkm/1000147023.jpg",News Tamil 24x7
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/a9876d39-5dd3-4f22-9f06-683e67133c0d/0.m3u8
@@ -759,3 +759,5 @@ https://live.applelive.in/ommtv/ommtv/index.m3u8
 http://m3u.8088y.fun/yt.php?c=KalaignarTVNews
 #EXTINF:-1 tvg-name="Tamil Janam" group-title="News" tvg-logo="https://i.ibb.co/3yYSczkP/1000148503.png",Tamil Janam
 http://m3u.8088y.fun/yt.php?c=TamilJanamNews
+#EXTINF:-1 tvg-name="M Nadu" group-title="News" tvg-logo="https://i.ibb.co/qFk69r7T/1000148514.png",M Nadu
+http://m3u.8088y.fun/yt.php?c=mnadutv
