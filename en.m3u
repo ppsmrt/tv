@@ -7,7 +7,7 @@ http://ptu.ridsys.in/riptv/live/stream20/index.m3u8
 http://195.181.169.162/TEN_1_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Crime Flix" group-title="Movies" tvg-logo="https://i.ibb.co/gbhRMMtQ/1000131643.jpg",Crime Flix
 https://dgx2snzx175pa.cloudfront.net/scheduler/scheduleMaster/391.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="24hrs Movies" group-title="Movies" tvg-logo="https://i.ibb.co/0j2HYSzx/1000131644.jpg",24hrs Movies
+#EXTINF:-1 tvg-name="24hrs Movies" group-title="Movies" tvg-logo="https://i.ibb.co/qL5hGVmG/1000148265.png",24hrs Movies
 https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Movies Channel" group-title="Movies" tvg-logo="https://i.ibb.co/DDQb6gkL/1000131645.jpg",Movies Channel
 https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8
@@ -53,7 +53,7 @@ http://51.15.7.9:3141/ten3/index.m3u8
 http://51.15.7.9:3141/ten5/index.m3u8
 #EXTINF:-1 tvg-name="Nikky Tv" group-title="Kids" tvg-logo="https://i.ibb.co/v4nNPRrf/1000148077.png",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-name="& Flix HD" group-title="Movies" tvg-logo="https://i.ibb.co/xKw4qTxV/1000148208.png",& Flix HD
+#EXTINF:-1 tvg-name="& Flix HD" group-title="Movies" tvg-logo="https://i.ibb.co/gFc84cDd/1000148252.png",& Flix HD
 http://195.181.169.162/AND_FLIX_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Star Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/bprtsZf/1000146093.jpg",Star Sports 2 HD
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
@@ -155,3 +155,5 @@ https://servertvhub.site/jio/app/ts_live_889.m3u8
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
 #EXTINF:-1 tvg-name="Cartoon Network Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png",Cartoon Network Telugu
 https://servertvhub.site/jio/app/ts_live_166.m3u8
+#EXTINF:-1 tvg-name="& Flix" group-title="Movies" tvg-logo="https://i.ibb.co/hJP6QYbz/1000148248.png",& Flix
+https://edge3-moblive.yuppcdn.net/drm/smil:nflixdrm.smil/index.m3u8
