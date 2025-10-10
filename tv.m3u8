@@ -33,7 +33,7 @@ http://applelive.in/shatv/shatv.m3u8
 http://applelive.in/suryantv/suryantv.m3u8
 #EXTINF:-1 tvg-name="S Max HD" group-title="Tamil" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250902_1928366723473282713429482.jpg",S Max HD
 http://applelive.in/smaxtv/smaxtv.m3u8
-#EXTINF:-1 tvg-name="Raja Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/PvY1QcrY/20250906-014019.jpg",Raja Tv
+#EXTINF:-1 tvg-name="Raja Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/chCZ8ch6/1000148552.png",Raja Tv
 http://brightmeltech.in/rajatv/rajatv.m3u8
 #EXTINF:-1 tvg-name="Yarl Entertainment" group-title="International" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_0124023711442757188983337.jpg",Yarl Entertainment
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
@@ -199,7 +199,7 @@ https://server.streamwell.in/hls/7hills.m3u8
 https://sharsolution.in/hls/s9tv/s9tv.m3u8
 #EXTINF:-1 tvg-name="Zilla Vani" group-title="Telugu" tvg-logo="https://i.ibb.co/JFWc4pQF/1000121233.jpg",Zilla Vani
 https://streaming.livebox.co.in/vedhikahls/live.m3u8
-#EXTINF:-1 tvg-name="Prajaa Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/SwvtHY5b/1000121235.jpg",Prajaa Tv
+#EXTINF:-1 tvg-name="Prajaa Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/SDh10TY0/1000148551.png",Prajaa Tv
 https://sharsolution.in/hls/s9tv/s9tv.m3u8
 #EXTINF:-1 tvg-name="Studio 18" group-title="Telugu" tvg-logo="https://i.ibb.co/1GLG96vd/1000121237.jpg",Studio 18
 http://cloud.streamplay.in:1935/studio18/studio18/playlist.m3u8
@@ -967,7 +967,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="J Movies" group-title="Tamil" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
 http://89.187.189.98/JMOVIES/index.m3u8
-#EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/PZdVmyKq/1000140177.jpg",Raj Musix
+#EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png",Raj Musix
 http://89.187.189.98/RAJMUSIX/index.m3u8
 #EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/whWLVTRQ/1000140178.jpg",Zing Tv
 http://89.187.189.98/ZING/index.m3u8
@@ -983,7 +983,7 @@ http://89.187.189.98/POGOKIDS/index.m3u8
 http://89.187.189.98/SONYYAY/index.m3u8
 #EXTINF:-1 tvg-name="Surya Music" group-title="Malayalam" tvg-logo="https://i.ibb.co/9H0vgYxM/1000140220.jpg",Surya Music
 http://89.187.189.98/SURYAMUSIC/index.m3u8
-#EXTINF:-1 tvg-name="Raj Musix Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/k6wXWXtV/1000140222.jpg",Raj Musix Malayalam
+#EXTINF:-1 tvg-name="Raj Musix Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/LXJw2nRR/1000148554.png",Raj Musix Malayalam
 http://89.187.189.98/RAJMUSICMALAYALAM/index.m3u8
 #EXTINF:-1 tvg-name="Surya Movies" group-title="Malayalam" tvg-logo="https://i.ibb.co/rfvdwsdV/1000140224.jpg",Surya Movies
 http://89.187.189.98/SURYAMOVIES/index.m3u8
