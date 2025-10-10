@@ -769,7 +769,7 @@ https://stream.galaxyott.live/live/dharshantv/index.m3u8
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
 #EXTINF:-1 tvg-name="Star Movies HD" group-title="English" tvg-logo="https://i.ibb.co/218yfCLF/1000146334.jpg",Star Movies HD
 http://ptuf.ridsys.in/riptv/live/stream224/index.m3u8
-#EXTINF:-1 tvg-name="Jaya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/C5sPDmV8/1000146321.jpg",Jaya Tv
+#EXTINF:-1 tvg-name="Jaya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7NpBRzB6/1000148052.png",Jaya Tv
 http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="HBO" group-title="English" tvg-logo="https://i.ibb.co/p6BSsXdC/1000139013.jpg",HBO
 http://212.102.60.231/HBO/index.m3u8?token=test
@@ -967,7 +967,7 @@ http://89.187.189.98/MTVPLUSHD/index.m3u8
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-name="Raj News" group-title="Tamil" tvg-logo="https://i.ibb.co/pc0HSWL/1000140113.jpg",Raj News
 http://45.148.145.57/IN_RajNews24x7HD/index.m3u8
-#EXTINF:-1 tvg-name="Jaya Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/XZQTbdp9/1000146322.jpg",Jaya Plus
+#EXTINF:-1 tvg-name="Jaya Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://45.148.145.57/IN_JayaPlus/index.m3u8
 #EXTINF:-1 tvg-name="J Movies" group-title="Tamil" tvg-logo="https://i.ibb.co/zVjzk4GR/1000140176.jpg",J Movies
 http://89.187.189.98/JMOVIES/index.m3u8
@@ -1273,7 +1273,7 @@ https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 http://ezhiltv.stream.onecloudlive.in/ezhiltv/ezhilhd/index.m3u8
 #EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/WNBkfHwr/1000145954.jpg",Pogo Tamil
 https://servertvhub.site/jio/app/ts_live_542.m3u8
-#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/HDtdbt0V/1000145955.jpg",Sonic Tamil
+#EXTINF:-1 tvg-name="Sonic Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/jkg7yW0S/1000148046.png",Sonic Tamil
 https://servertvhub.site/jio/app/ts_live_290.m3u8
 #EXTINF:-1 tvg-name="Nick Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/1tt90t6C/1000146017.jpg",Nick Tamil
 https://servertvhub.site/jio/app/ts_live_546.m3u8
@@ -1293,9 +1293,9 @@ https://servertvhub.site/jio/app/ts_live_817.m3u8
 https://servertvhub.site/jio/app/ts_live_937.m3u8
 #EXTINF:-1 tvg-name="Big Boss Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/4R7HrYCh/1000146146.jpg",Big Boss Tv
 https://xtm.8088yyy.workers.dev/481102.m3u8
-#EXTINF:-1 tvg-name="Jaya Max" group-title="Tamil" tvg-logo="https://i.ibb.co/TBF4BJNQ/1000146313.jpg",Jaya Max
+#EXTINF:-1 tvg-name="Jaya Max" group-title="Tamil" tvg-logo="https://i.ibb.co/fGyDjTKc/1000148054.png",Jaya Max
 https://servertvhub.site/jio/app/ts_live_420.m3u8
-#EXTINF:-1 tvg-name="Jaya Movie" group-title="Tamil" tvg-logo="https://i.ibb.co/5hFG3g7t/1000146323.jpg",Jaya Movie
+#EXTINF:-1 tvg-name="Jaya Movie" group-title="Tamil" tvg-logo="https://i.ibb.co/NgPS1Vmd/1000148048.png",Jaya Movie
 https://servertvhub.site/jio/app/ts_live_417.m3u8
 #EXTINF:-1 tvg-name="Star Movies 1" group-title="English" tvg-logo="https://i.ibb.co/tMR1X6x5/1000146333.jpg",Star Movies 1
 http://51.15.7.9:3141/starmovies/index.m3u8
