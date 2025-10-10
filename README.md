@@ -71,7 +71,7 @@
 
 | Category     | Playlist Link |
 |-------------|------------------|
-| All Channels | [tnm3u.live/playlist.m3u](https://tnm3u.live/playlist.m3u) |
+| All Channels | [tnm3u.live/playlist.m3u](https://tnm3u.live/tv.m3u) |
 | Tamil 🎭    | [tnm3u.live/tn.m3u](https://tnm3u.live/tn.m3u) |
 | Telugu 🎶   | [tnm3u.live/an.m3u](https://tnm3u.live/an.m3u) |
 | Malayalam 🎥| [tnm3u.live/kl.m3u](https://tnm3u.live/kl.m3u) |
