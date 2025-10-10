@@ -269,3 +269,11 @@ https://servertvhub.site/jio/app/ts_live_544.m3u8
 https://servertvhub.site/jio/app/ts_live_545.m3u8
 #EXTINF:-1 tvg-name="Chintu Tv" group-title="Kids" tvg-logo="https://i.ibb.co/4ZPfvp4W/1000148407.png",Chintu Tv
 https://servertvhub.site/jio/app/ts_live_555.m3u8
+#EXTINF:-1 tvg-name="Kochu Tv" group-title="Kids" tvg-logo="https://i.ibb.co/RkzQZCjN/1000148409.png",Kochu Tv
+https://servertvhub.site/jio/app/ts_live_556.m3u8
+#EXTINF:-1 tvg-name="Kushi Tv" group-title="Kids" tvg-logo="https://i.ibb.co/cSKvMhzb/1000148411.png",Kushi Tv
+https://servertvhub.site/jio/app/ts_live_558.m3u8
+#EXTINF:-1 tvg-name="Pogo Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/FqbsmbmX/1000148413.png",Pogo Hindi
+https://servertvhub.site/jio/app/ts_live_559.m3u8
+#EXTINF:-1 tvg-name="CN Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/6RjMwHmg/1000148415.png",CN Hindi
+https://servertvhub.site/jio/app/ts_live_816.m3u8
