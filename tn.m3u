@@ -79,7 +79,7 @@ https://galaxyott.live/hls/sanatv.m3u8
 http://198.144.149.206:8080/NOTV/AARTHITV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Iratai Pathai" group-title="Local Channels" tvg-logo="https://i.ibb.co/zVcRph7f/1000120836.jpg",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
-#EXTINF:-1 tvg-name="Polimer News" group-title="News" tvg-logo="https://i.ibb.co/8LMktGQY/20250908-082833.jpg",Polimer News
+#EXTINF:-1 tvg-name="Polimer News" group-title="News" tvg-logo="https://i.ibb.co/RkQwHyjJ/1000148539.png",Polimer News
 https://segment.yuppcdn.net/110322/polimernews/playlist.m3u8
 #EXTINF:-1 tvg-name="Emperor Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/YT1y4zQk/emperortv.jpg",Emperor Tv
 https://rtmp.bmlive.net/bms/emperortv/index.m3u8
@@ -145,7 +145,7 @@ https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6
 http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Adhitya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/pBpxYFZk/1000148332.png",Adhitya Tv
 http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
-#EXTINF:-1 tvg-name="Thandhi One" group-title="Entertainment" tvg-logo="https://i.ibb.co/Gf2bQb5s/1000127601.jpg",Thandhi One
+#EXTINF:-1 tvg-name="Thandhi One" group-title="Entertainment" tvg-logo="https://i.ibb.co/wNp8QGDh/1000148526.png",Thandhi One
 https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
 #EXTINF:-1 tvg-name="Vendhar Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/TxWnWLgb/1000127602.jpg",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
@@ -497,8 +497,8 @@ http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 http://89.187.189.98/JMOVIES/index.m3u8
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/PZdVmyKq/1000140177.jpg",Raj Musix
 http://89.187.189.98/RAJMUSIX/index.m3u8
-#EXTINF:-1 tvg-name="Thandhi Tv" group-title="News" tvg-logo="https://i.ibb.co/YB4P09rx/1000140213.jpg",Thandhi Tv
-http://89.187.189.98/THANTHITV/index.m3u8
+#EXTINF:-1 tvg-name="Thandhi Tv" group-title="News" tvg-logo="https://i.ibb.co/JF86F1h4/1000148524.png",Thandhi Tv
+http://m3u.8088y.fun/yt.php?c=thanthitv
 #EXTINF:-1 tvg-name="Chutti Tv" group-title="Kids" tvg-logo="https://i.ibb.co/fzBc2qY5/1000148105.png",Chutti Tv
 http://89.187.189.98/CHUTTITV/index.m3u8
 #EXTINF:-1 tvg-name="Hungama Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/Fbrq6JMJ/1000148082.png",Hungama Hindi
@@ -523,7 +523,7 @@ http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
 http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
 #EXTINF:-1 tvg-name="Malai Murasu" group-title="News" tvg-logo="https://i.ibb.co/W4KNgr2V/1000141828.jpg",Malai Murasu
 https://cdn-3.pishow.tv/live/1606/master.m3u8
-#EXTINF:-1 tvg-name="Polimer Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/4gJjkBvb/1000141913.jpg",Polimer Tv
+#EXTINF:-1 tvg-name="Polimer Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/tP3YQ9pJ/1000148540.png",Polimer Tv
 https://cdn-2.pishow.tv/live/1241/master.m3u8
 #EXTINF:-1 tvg-name="Boys Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gb3csMbZ/1000144375.jpg",Boys Tv
 https://rtmp.applelive.in/boystv/boystv/index.m3u8
@@ -761,3 +761,5 @@ http://m3u.8088y.fun/yt.php?c=KalaignarTVNews
 http://m3u.8088y.fun/yt.php?c=TamilJanamNews
 #EXTINF:-1 tvg-name="M Nadu" group-title="News" tvg-logo="https://i.ibb.co/qFk69r7T/1000148514.png",M Nadu
 http://m3u.8088y.fun/yt.php?c=mnadutv
+#EXTINF:-1 tvg-name="Asianet News Tamil (Not 24/7)" group-title="News" tvg-logo="https://i.ibb.co/6Rg1Jzt1/1000148518.png",Asianet News Tamil (Not 24/7)
+http://m3u.8088y.fun/yt.php?c=AsianetNewsTamil

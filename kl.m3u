@@ -91,7 +91,7 @@ https://pvqybagglz24-hls-live.5centscdn.com/7788_push_2913_001/c98886a28a6a78b57
 http://ptu.ridsys.in/riptv/live/stream20/index.m3u8
 #EXTINF:-1 tvg-name="Sony TEN Sports 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/LhqymyXy/1000146113.jpg",Sony TEN Sports 1 HD
 http://195.181.169.162/TEN_1_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Asianet" group-title="Entertainment" tvg-logo="https://i.ibb.co/VYPB5q31/1000131506.jpg",Asianet
+#EXTINF:-1 tvg-name="Asianet" group-title="Entertainment" tvg-logo="https://i.ibb.co/7dNn29j0/1000148520.png",Asianet
 http://217.20.112.199/asianet/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="DD Sports" group-title="Sports" tvg-logo="https://i.ibb.co/1hyZSR6/1000132432.jpg",DD Sports
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
@@ -193,7 +193,7 @@ http://89.187.189.98/SURYAMUSIC/index.m3u8
 http://89.187.189.98/RAJMUSICMALAYALAM/index.m3u8
 #EXTINF:-1 tvg-name="Surya Movies" group-title="Movies" tvg-logo="https://i.ibb.co/rfvdwsdV/1000140224.jpg",Surya Movies
 http://89.187.189.98/SURYAMOVIES/index.m3u8
-#EXTINF:-1 tvg-name="Asianet Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/Dg52rxV2/1000140225.jpg",Asianet Plus
+#EXTINF:-1 tvg-name="Asianet Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/rKnBTCBz/1000148522.png",Asianet Plus
 http://89.187.189.98/ASIANETPLUS/index.m3u8
 #EXTINF:-1 tvg-name="Media One" group-title="Entertainment" tvg-logo="https://i.ibb.co/xKFNBXCP/1000140229.jpg",Media One
 http://89.187.189.98/MEDIAONE/index.m3u8
@@ -249,7 +249,7 @@ https://servertvhub.site/jio/app/ts_live_817.m3u8
 https://rtmp.bmlive.net/bms/sharontv/index.m3u8
 #EXTINF:-1 tvg-name="JN Vision" group-title="Religious" tvg-logo="https://i.ibb.co/spt2rWxL/1000147066.jpg",JN Vision
 https://462dx4mlqj3o-hls-live.wmncdn.net/jnvisiontv/0e1fd802947a734b3af7787436f11588.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="Asianet News" group-title="News" tvg-logo="https://i.ibb.co/JwrX7qfz/1000147082.jpg",Asianet News
+#EXTINF:-1 tvg-name="Asianet News" group-title="News" tvg-logo="https://i.ibb.co/6Rg1Jzt1/1000148518.png",Asianet News
 https://servertvhub.site/jio/app/ts_live_180.m3u8
 #EXTINF:-1 tvg-name="Jai Hind" group-title="Entertainment" tvg-logo="https://i.ibb.co/Gqmc2n1/1000147084.jpg",Jai Hind
 https://servertvhub.site/jio/app/ts_live_465.m3u8
