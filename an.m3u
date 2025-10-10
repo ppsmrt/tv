@@ -367,3 +367,7 @@ https://servertvhub.site/jio/app/ts_live_558.m3u8
 https://servertvhub.site/jio/app/ts_live_559.m3u8
 #EXTINF:-1 tvg-name="CN Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/6RjMwHmg/1000148415.png",CN Hindi
 https://servertvhub.site/jio/app/ts_live_816.m3u8
+#EXTINF:-1 tvg-name="Sonic Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/DD2fP1FF/1000148417.png",Sonic Telugu
+https://servertvhub.site/jio/app/ts_live_1242.m3u8
+#EXTINF:-1 tvg-name="Sonic Kannada" group-title="Kids" tvg-logo="https://i.ibb.co/DD2fP1FF/1000148417.png",Sonic Kannada
+https://servertvhub.site/jio/app/ts_live_1243.m3u8
