@@ -281,7 +281,7 @@ https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 https://play.applelive.in/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="Agilam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zHsXQ0Vk/1000122174.jpg",Agilam Tv
 https://stream.onecloudlive.in/akilamtv/akilamtvhd/index.m3u8
-#EXTINF:-1 tvg-name="3 Star Tv" group-title="International" tvg-logo="https://i.ibb.co/5WCcZ58x/1000122176.jpg",3 Star Tv
+#EXTINF:-1 tvg-name="3 Star Tv" group-title="International" tvg-logo="https://i.ibb.co/YB219bZy/1000148267.png",3 Star Tv
 https://stream.onecloudlive.in/threestartv/threestarhd/index.m3u8
 #EXTINF:-1 tvg-name="V Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/d4b2HNpz/1000122177.jpg",V Tv
 https://live.applelive.in/vtv/vtv/index.m3u8
@@ -365,11 +365,11 @@ http://ibc.massstream.net/IBC2/index.m3u8
 http://ibc.massstream.net/IBC/index.m3u8
 #EXTINF:-1 tvg-name="UTV Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/twnrWP6R/1000122573.jpg",UTV Malayalam
 https://em4qj6nedyvg-hls-live.wmncdn.net/utv/ab2de115318ae40bdd434e193a2f2e7f.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="6 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/0jZdKNwL/1000122708.jpg",6 Tv
+#EXTINF:-1 tvg-name="6 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/MDRMCfMF/1000148271.png",6 Tv
 https://cdn-1.pishow.tv/live/232/master.m3u8
 #EXTINF:-1 tvg-name="10 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/hR659PQc/1000148257.png",10 Tv
 https://cdn-1.pishow.tv/live/391/master.m3u8
-#EXTINF:-1 tvg-name="Aasatha Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/rRqdxBFn/1000122718.jpg",Aasatha Telugu
+#EXTINF:-1 tvg-name="Aasatha Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png",Aasatha Telugu
 https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Tv5 Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/s92n7QX0/1000123018.jpg",Tv5 Kannada
 https://segment.yuppcdn.net/050522/tv5kannada/playlist.m3u8
@@ -395,7 +395,7 @@ https://ipcloud.live/msntv/msntv/index.m3u8
 https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6be7e60d03c2d82
 #EXTINF:-1 tvg-name="Zee Tamil SD" group-title="Tamil" tvg-logo="https://i.ibb.co/p6x4tcQ4/1000123730.jpg",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
-#EXTINF:-1 tvg-name="Adhitya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/zVVFrJmb/1000123735.jpg",Adhitya Tv
+#EXTINF:-1 tvg-name="Adhitya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/pBpxYFZk/1000148332.png",Adhitya Tv
 http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
 #EXTINF:-1 tvg-name="Star Movies" group-title="English" tvg-logo="https://i.ibb.co/LznH7sxB/1000123905.jpg",Star Movies
 http://89.187.189.98/STARMOVIESHD/index.m3u8?view=tnm3u-addedby=tnm3u
@@ -477,11 +477,11 @@ https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8#8e37333873a
 https://live20.bozztv.com/akamaissh101/ssh101/sungo543/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Astro Thangathirai" group-title="International" tvg-logo="https://i.ibb.co/B5XmrHMC/1000131638.jpg",Astro Thangathirai
 https://live20.bozztv.com/akamaissh101/ssh101/sungo546/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Aaj Tak" group-title="Hindi" tvg-logo="https://i.ibb.co/fVpm5qXC/1000131639.jpg",Aaj Tak
+#EXTINF:-1 tvg-name="Aaj Tak" group-title="Hindi" tvg-logo="https://i.ibb.co/Hpb7sRWw/1000148314.png",Aaj Tak
 https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="NDTV India" group-title="Hindi" tvg-logo="https://i.ibb.co/knLR14Y/1000131640.png",NDTV India
 https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/ndtvindiamaster.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="ABP News" group-title="Hindi" tvg-logo="https://i.ibb.co/ffmQTSC/1000131641.jpg",ABP News
+#EXTINF:-1 tvg-name="ABP News" group-title="Hindi" tvg-logo="https://i.ibb.co/Z1gGx5q7/1000148319.png",ABP News
 https://abp-i.akamaihd.net/hls/live/765531/abpmajha/master.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="NDTV 24Xx7" group-title="Hindi" tvg-logo="https://i.ibb.co/knLR14Y/1000131640.png",NDTV 24Xx7
 https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8?view=tnm3u-addedby=tnm3u
@@ -673,7 +673,7 @@ https://live.maxtn.in/tdn/tdn/index.m3u8
 https://stream.onecloudlive.in/jeyam/jeyammdu/index.m3u8
 #EXTINF:-1 tvg-name="Moon Tv Roja" group-title="Tamil" tvg-logo="https://i.ibb.co/yn28B7Lh/1000136668.jpg",Moon Tv Roja
 https://live.maxtn.in/moontv/moontv/index.m3u8
-#EXTINF:-1 tvg-name="Aasatha Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/gFhN76hq/1000136925.png",Aasatha Kannada
+#EXTINF:-1 tvg-name="Aasatha Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png",Aasatha Kannada
 https://aasthaott.akamaized.net/110923/smil:aasthakannada.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Nisha Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/j9dZ7FFY/1000137203.jpg",Nisha Tv
 http://103.159.180.5:1935/live/nishanew/live.m3u8
@@ -693,7 +693,7 @@ https://rtmp.bmlive.net/ctn/ctntn/index.m3u8
 https://server.notvstream.in/hitechtv/hitechtv.m3u8
 #EXTINF:-1 tvg-name="Men Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/S48gcynt/1000137234.jpg",Men Tv
 https://ipcloud.live/mtv/menhd/index.m3u8
-#EXTINF:-1 tvg-name="Action Hollywood Movies Tv" group-title="English" tvg-logo="https://i.ibb.co/7Ny0Q4mK/1000137236.jpg",Action Hollywood Movies Tv
+#EXTINF:-1 tvg-name="Action Hollywood Movies Tv" group-title="English" tvg-logo="https://i.ibb.co/vCxwLBZG/1000148330.png",Action Hollywood Movies Tv
 https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/ts-eu-w1-n2/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
 #EXTINF:-1 tvg-name="CCV Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/vvQY4QGG/1000137237.jpg",CCV Tv
 https://5a1178b42cc03.streamlock.net/8212/8212/chunklist_w887200395.m3u8
@@ -811,7 +811,7 @@ https://mumbai-edge.smartplaytv.in/GeeTV/index.m3u8
 https://amg02821-objectone-amg02821c1-lg-in-4934.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg02821-objectone-teluguone-lgin/cb543e1f7b6c648684cb3a6ecef341a0f9591fde1d6988693eb5518975d1073edce2a59caa08ff16388f1ede7f0a66413a3e951fda77118fd87eb141453c5728cfffe729a2c05616b7db083429b56a062a866a68ac39437ed0e21f48a238b6720a5aa82a66443d80b846ac7252db80148b61299bce8c37683f03409a5e5afba358b1ebb40e42d93ef5b51b559c7944b29f43c8821ca688dd5c985e8070f2179c97f38ad31280d79b48936ce3301a162b7b98946083cc2fdab0f05210ba5017722765c39ec98a245487435012fffbdbad179779a8b202a55005865aea25e3318e78e405a6f53cc7c7dee46e6c0d999e240b4aa1e1b3c4ee2623af6feda3eac40112f39a2f4d74f65dea0b1d19b3c4f64ee8a97095b93395b51b7e52a1c11fdaf7dc82eba3c34e9933c3c4f18c24524b116b68eb6686bf5bf20af8479cf7230461173cc7f754c095975a3f6c4092935bd81f69deb1eeb8fb2008f73a5f308461dd484b78cd266b79f12cfde84806fb1d3ea4071ade6c14a47ddd9400da90fec13b61f6b4a843fb7ca1b10fc4ff01ac60335d07bf805c352b7759f5d84f2e1546ee6ac0f6e6dc2d796a8af6c9ed8e4639755f7d3637bec3da2adae4ae2819058f5723767d13129b05dd6cad6f236d15ed3be5852a51ba2b0006c39a6527300797cca2cf84d9df4aa16dcabd965346007a4c881d311457eeecce3392394f6d345a841f7640b2094947e481bb95f3ee55e9b8549807413b4df6d5397534083209649a947b995ff2830bbc89d955c3e1ff7d2fe807823120a1e6f95ecbc4aee97255e0c0311863849d2ed5014bad73ef02b8ef2aa3da3e07182f0e49d29e5afe52bcadf6ad41a10d9d7f3c50cb559ea1b9cebc0a57e3820437361f5c147a5b725e61d2b1ee40254dc59f02d974c2d60fdb2833323b54908b065ff48f1d79a71c584198fab5e1c1cb0703846ce17bcd6c06af537f408ba003cbb382ccd8b241702cfc8bf10fd1ce8985df98cb366e18783f89c44a477baa569ae23cc09d2d43dcbda4d7ff5ba559df07aeeed94672e38db1de2780d2f8d7f5731e5f283896a3d6c96410389727c11ffa5e2419e6e78c1b92d6a8db2470ef53ee840e2cda5693f0e5d99930e651d2d23827ee8b2977d470278b8895404a9874f771622fb3a5d31fcf59a5306be1d2b58e81c72c515d8a737e2bc05de98ebe2644eeb0180145ec31caed1d8be5d646507ea2932970645d4c5d3ed84e5823f32d2a8b2ef2b5b2ff387bce36830169eb22efda01f3eb4ccfe3d4ffabd23d678cfe1859a75cb045ea758e91a4d00c897f2dea64981167e6f8d9fdc3e38ef7ecd70c5515930bca5d9838ca88f9df2546397bd80e294367a94e94455a05e6b13fa090446282d1ea1083570437653a048f48eed245320649efc17292da6667131c13e0d109ba16f4084bb35e79b91578015d607644b19cd914ce23bf26e4a5b9611c11210440a3f9608b75ac020a9a48a6b89728266a/151/854x480_1200000/index.m3u8
 #EXTINF:-1 tvg-name="Indian Yoga & Fitness Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/8g9CH5gt/1000139319.jpg",Indian Yoga & Fitness Tv
 https://vglivessai.akamaized.net/ptnr-lg/title-Indian_Yoga_&_Wellness_TV_Telugu/sg/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/f3d133e8-321f-4f63-acf3-860dcd461e78/43d52c8a-6bd6-4f35-ae71-24529a5bef11/0.m3u8
-#EXTINF:-1 tvg-name="4 sides Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/RkcxBZLh/1000139348.jpg",4 sides Tv
+#EXTINF:-1 tvg-name="4 sides Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/zvsgds8/1000148269.png",4 sides Tv
 https://mars.streambridge.cloud/4sidestv/telugu/playlist.m3u8
 #EXTINF:-1 tvg-name="Siti News" group-title="Telugu" tvg-logo="https://i.ibb.co/d0sCw6CG/1000139349.jpg",Siti News
 https://www.schannels.in/SITI24X7_1/index.m3u8
@@ -881,7 +881,7 @@ https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 https://m6gdavepdn93-hls-live.5centscdn.com/indialife/d0dbe915091d400bd8ee7f27f0791303.sdp/chunks.m3u8
 #EXTINF:-1 tvg-name="Three Vision Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/bMMqLNTn/1000139779.jpg",Three Vision Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:knowledgetvdrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-name="Ada Derana" group-title="Sinhala" tvg-logo="https://i.ibb.co/GDPh1KN/1000139781.jpg",Ada Derana
+#EXTINF:-1 tvg-name="Ada Derana" group-title="International" tvg-logo="https://i.ibb.co/MyPyvH16/1000148335.png",Ada Derana
 https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Event Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/1tRwGRZ6/1000139782.jpg",Event Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:eventtvdrm.smil/manifest.m3u8
@@ -905,7 +905,7 @@ https://guru.shashwatha.com/hls/live/sne.m3u8
 https://guru.shashwatha.com/hls/live/sity.m3u8
 #EXTINF:-1 tvg-name="& Flix HD" group-title="English" tvg-logo="https://i.ibb.co/gFc84cDd/1000148252.png",& Flix HD
 http://195.181.169.162/AND_FLIX_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="8xm" group-title="Hindi" tvg-logo="https://i.ibb.co/G4rfztJL/1000139839.jpg",8xm
+#EXTINF:-1 tvg-name="8xm" group-title="Hindi" tvg-logo="https://i.ibb.co/B1gtHC2/1000148273.png",8xm
 http://66.102.120.18:8000/play/a050/index.m3u8
 #EXTINF:-1 tvg-name="Amoggh TV" group-title="Kannada" tvg-logo="https://i.ibb.co/7Jyp2xYs/1000139841.jpg",Amoggh TV
 https://guru.shashwatha.com/hls/live/amogha.m3u8
@@ -1001,15 +1001,15 @@ https://amg01117-amg01117c1-amgplt0165.playout.now3.amagi.tv/playlist.m3u8
 https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8
 #EXTINF:-1 tvg-name="1st India News" group-title="Hindi" tvg-logo="https://i.ibb.co/GQTHBDp2/1000148261.png",1st India News
 https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3u8
-#EXTINF:-1 tvg-name="9xm" group-title="Hindi" tvg-logo="https://i.ibb.co/xtm3dJnm/1000140798.jpg",9xm
+#EXTINF:-1 tvg-name="9xm" group-title="Hindi" tvg-logo="https://i.ibb.co/fG1gbLhj/1000148276.png",9xm
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
-#EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Hindi" tvg-logo="https://i.ibb.co/8gSnXJCR/1000140824.jpg",Aasatha Bhajan
+#EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Hindi" tvg-logo="https://i.ibb.co/TMqr2CXh/1000148316.png",Aasatha Bhajan
 https://aasthaott.akamaized.net/110923/smil:bhajan.smil/chunklist_b264000.m3u8
 #EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/DPq6VLBb/1000148154.png",Aasatha Tamil
 https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8
-#EXTINF:-1 tvg-name="Abzy Dhakad" group-title="Hindi" tvg-logo="https://i.ibb.co/fdMVtn5M/1000140857.jpg",Abzy Dhakad
+#EXTINF:-1 tvg-name="Abzy Dhakad" group-title="Hindi" tvg-logo="https://i.ibb.co/ksCBJ3wX/1000148321.png",Abzy Dhakad
 https://d2lk5u59tns74c.cloudfront.net/out/v1/4fe6ab07a13543d6bdb2ec63b3e2df44/index.m3u8
-#EXTINF:-1 tvg-name="Abzy Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/yc2hcS9x/1000140859.jpg",Abzy Movies
+#EXTINF:-1 tvg-name="Abzy Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/nqBvZv2b/1000148325.png",Abzy Movies
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/db8d4eca72d64748a00d0631debf542d/index.m3u8
 #EXTINF:-1 tvg-name="Alnakar Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/xS2xbbyj/1000140860.jpg",Alnakar Tv
 https://livetv.tarangplus.in/alankar-origin/live/playlist.m3u8
@@ -1343,7 +1343,7 @@ https://ipcloud.live/mtv/menhd/index.m3u8
 https://ipcloud.live/anbutv/anbutvhd/index.m3u8
 #EXTINF:-1 tvg-name="Namma Gobi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/gb4Rg2TG/1000147011.jpg",Namma Gobi Tv
 https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
-#EXTINF:-1 tvg-name="ACP HD" group-title="Tamil" tvg-logo="https://i.ibb.co/dJr4W2r2/1000147012.png",ACP HD
+#EXTINF:-1 tvg-name="ACP HD" group-title="Tamil" tvg-logo="https://i.ibb.co/HTTZ9Ycy/1000148327.png",ACP HD
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-name="ACP Classic" group-title="Tamil" tvg-logo="https://i.ibb.co/27366n9g/1000148156.png",ACP Classic
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
