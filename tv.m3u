@@ -327,7 +327,7 @@ https://og2qd3aal7an-hls-live.5centscdn.com/garshomtv/d0dbe915091d400bd8ee7f27f0
 https://932y4x26ljv8-hls-live.5centscdn.com/victers/tv.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="DD Malayalam" group-title="Malayalam" tvg-logo="https://i.ibb.co/Z6X2NBXT/1000122486.png",DD Malayalam
 https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/562ee8f9-9950-48a0-ba1d-effa00cf0478/2.m3u8
-#EXTINF:-1 tvg-name="24 News" group-title="Malayalam" tvg-logo="https://i.ibb.co/fYYvcS0W/1000122488.jpg",24 News
+#EXTINF:-1 tvg-name="24 News" group-title="Malayalam" tvg-logo="https://i.ibb.co/TMfNmsBR/1000148263.png",24 News
 https://segment.yuppcdn.net/110322/channel24/playlist.m3u8
 #EXTINF:-1 tvg-name="C Malayalam Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/DDRgFWPY/1000122489.jpg",C Malayalam Tv
 https://2-fss-2.streamhoster.com/pl_120/206508-3261972-1/playlist.m3u8
@@ -367,7 +367,7 @@ http://ibc.massstream.net/IBC/index.m3u8
 https://em4qj6nedyvg-hls-live.wmncdn.net/utv/ab2de115318ae40bdd434e193a2f2e7f.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="6 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/0jZdKNwL/1000122708.jpg",6 Tv
 https://cdn-1.pishow.tv/live/232/master.m3u8
-#EXTINF:-1 tvg-name="10 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/0pC3jMwL/1000122716.jpg",10 Tv
+#EXTINF:-1 tvg-name="10 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/hR659PQc/1000148257.png",10 Tv
 https://cdn-1.pishow.tv/live/391/master.m3u8
 #EXTINF:-1 tvg-name="Aasatha Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/rRqdxBFn/1000122718.jpg",Aasatha Telugu
 https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
@@ -487,7 +487,7 @@ https://abp-i.akamaihd.net/hls/live/765531/abpmajha/master.m3u8?view=tnm3u-added
 https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Crime Flix" group-title="English" tvg-logo="https://i.ibb.co/gbhRMMtQ/1000131643.jpg",Crime Flix
 https://dgx2snzx175pa.cloudfront.net/scheduler/scheduleMaster/391.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="24hrs Movies" group-title="English" tvg-logo="https://i.ibb.co/0j2HYSzx/1000131644.jpg",24hrs Movies
+#EXTINF:-1 tvg-name="24hrs Movies" group-title="English" tvg-logo="https://i.ibb.co/qL5hGVmG/1000148265.png",24hrs Movies
 https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Movies Channel" group-title="English" tvg-logo="https://i.ibb.co/DDQb6gkL/1000131645.jpg",Movies Channel
 https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8
@@ -903,7 +903,7 @@ https://guru.shashwatha.com/hls/live/rrtv.m3u8
 https://guru.shashwatha.com/hls/live/sne.m3u8
 #EXTINF:-1 tvg-name="Sity" group-title="Kannada" tvg-logo="https://i.ibb.co/vCRt1HYp/1000139800.png",Sity
 https://guru.shashwatha.com/hls/live/sity.m3u8
-#EXTINF:-1 tvg-name="& Flix HD" group-title="English" tvg-logo="https://i.ibb.co/xKw4qTxV/1000148208.png",& Flix HD
+#EXTINF:-1 tvg-name="& Flix HD" group-title="English" tvg-logo="https://i.ibb.co/gFc84cDd/1000148252.png",& Flix HD
 http://195.181.169.162/AND_FLIX_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="8xm" group-title="Hindi" tvg-logo="https://i.ibb.co/G4rfztJL/1000139839.jpg",8xm
 http://66.102.120.18:8000/play/a050/index.m3u8
@@ -995,11 +995,11 @@ http://89.187.189.98/MEDIAONE/index.m3u8
 http://202.164.50.194:8000/play/a026/index.m3u8
 #EXTINF:-1 tvg-name="Hoora Tv" group-title="Kids" tvg-logo="https://i.ibb.co/B0DJGCx/1000148084.png",Hoora Tv
 http://66.102.120.18:8000/play/a040/index.m3u8
-#EXTINF:-1 tvg-name="&tv hd" group-title="Hindi" tvg-logo="https://i.ibb.co/Td72fY3/1000140584.png",&tv hd
+#EXTINF:-1 tvg-name="&tv hd" group-title="Hindi" tvg-logo="https://i.ibb.co/mVMVRXwp/1000148254.png",&tv hd
 https://amg01117-amg01117c1-amgplt0165.playout.now3.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="B4u Music" group-title="Hindi" tvg-logo="https://i.ibb.co/5xS7WmB9/1000140585.jpg",B4u Music
 https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8
-#EXTINF:-1 tvg-name="1st India News" group-title="Hindi" tvg-logo="https://i.ibb.co/Jw7dJNVw/1000140588.jpg",1st India News
+#EXTINF:-1 tvg-name="1st India News" group-title="Hindi" tvg-logo="https://i.ibb.co/GQTHBDp2/1000148261.png",1st India News
 https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3u8
 #EXTINF:-1 tvg-name="9xm" group-title="Hindi" tvg-logo="https://i.ibb.co/xtm3dJnm/1000140798.jpg",9xm
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
@@ -1447,3 +1447,5 @@ https://servertvhub.site/jio/app/ts_live_1080.m3u8
 https://servertvhub.site/jio/app/ts_live_166.m3u8
 #EXTINF:-1 tvg-name="Sun Tv UHD" group-title="Tamil" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv UHD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
+#EXTINF:-1 tvg-name="& Flix" group-title="English" tvg-logo="https://i.ibb.co/hJP6QYbz/1000148248.png",& Flix
+https://edge3-moblive.yuppcdn.net/drm/smil:nflixdrm.smil/index.m3u8
