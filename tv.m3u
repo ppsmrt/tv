@@ -1451,3 +1451,11 @@ https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-
 https://edge3-moblive.yuppcdn.net/drm/smil:nflixdrm.smil/index.m3u8
 #EXTINF:-1 tvg-name="Nick Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/MkcMWmnB/1000148400.png",Nick Telugu
 https://servertvhub.site/jio/app/ts_live_543.m3u8
+#EXTINF:-1 tvg-name="Nick Jr" group-title="Kids" tvg-logo="https://i.ibb.co/gMT4GwSf/1000148402.png",Nick Jr
+https://servertvhub.site/jio/app/ts_live_544.m3u8
+#EXTINF:-1 tvg-name="Nick Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/Pvj86LcQ/1000148404.png",Nick Hindi
+https://servertvhub.site/jio/app/ts_live_545.m3u8
+#EXTINF:-1 tvg-name="Chintu Tv" group-title="Kids" tvg-logo="https://i.ibb.co/4ZPfvp4W/1000148407.png",Chintu Tv
+https://servertvhub.site/jio/app/ts_live_555.m3u8
+#EXTINF:-1 tvg-name="Kochu Tv" group-title="Kids" tvg-logo="https://i.ibb.co/RkzQZCjN/1000148409.png",Kochu Tv
+https://servertvhub.site/jio/app/ts_live_556.m3u8
