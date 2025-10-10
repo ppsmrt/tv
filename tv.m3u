@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="Raj Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/Xxp6tLPX/rajtv.jpg",Raj Tv
+#EXTINF:-1 tvg-name="Raj Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/5HQgfr4/1000148546.png",Raj Tv
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-name="News 18 Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png",News 18 Tamil
 https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
@@ -43,7 +43,7 @@ https://segment.yuppcdn.net/240122/news7/playlist.m3u8
 https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Tamil" tvg-logo="https://tvicn.wordpress.com/wp-content/uploads/2025/09/20250903_1208513745079790217062467.jpg",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
-#EXTINF:-1 tvg-name="Raj Digital" group-title="Tamil" tvg-logo="https://i.ibb.co/dsZQWxBR/20250903-1233513890272704535640985.jpg",Raj Digital
+#EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/bjqKRT24/20250904-171740.jpg",K Tv
 http://89.187.189.98/KTVHD/index.m3u8
@@ -133,7 +133,7 @@ http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 https://live.skystream.in/live/southvsnklm/index.m3u8
 #EXTINF:-1 tvg-name="N  Media" group-title="Malayalam" tvg-logo="https://i.ibb.co/5Wr3H5zX/bb574b993d1d.jpg",N  Media
 https://live.skystream.in/live/newmedia2924/index.m3u8?hls_ctx=4483yu96
-#EXTINF:-1 tvg-name="Polimer News" group-title="Tamil" tvg-logo="https://i.ibb.co/8LMktGQY/20250908-082833.jpg",Polimer News
+#EXTINF:-1 tvg-name="Polimer News" group-title="Tamil" tvg-logo="https://i.ibb.co/RkQwHyjJ/1000148539.png",Polimer News
 https://segment.yuppcdn.net/110322/polimernews/playlist.m3u8
 #EXTINF:-1 tvg-name="Emperor Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/YT1y4zQk/emperortv.jpg",Emperor Tv
 https://rtmp.bmlive.net/bms/emperortv/index.m3u8
@@ -1111,7 +1111,7 @@ https://network10.livebox.co.in/network10hls/live.m3u8
 https://shashwatha.com/hls/show/newhopetv_low.m3u8
 #EXTINF:-1 tvg-name="News 24" group-title="Hindi" tvg-logo="https://i.ibb.co/7NL32gXF/1000141912.jpg",News 24
 https://vidcdn.vidgyor.com/news24-origin/liveabr/playlist.m3u8
-#EXTINF:-1 tvg-name="Polimer Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/4gJjkBvb/1000141913.jpg",Polimer Tv
+#EXTINF:-1 tvg-name="Polimer Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/tP3YQ9pJ/1000148540.png",Polimer Tv
 https://cdn-2.pishow.tv/live/1241/master.m3u8
 #EXTINF:-1 tvg-name="Etv Music" group-title="Telugu" tvg-logo="https://i.ibb.co/bjL1ctyg/1000142442.jpg",Etv Music
 https://cc-szivnms4rlah6.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szivnms4rlah6/6173a07b-668b-457c-b6ef-50c58d2b7991/1.m3u8
