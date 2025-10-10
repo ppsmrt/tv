@@ -403,33 +403,33 @@ http://89.187.189.98/STARMOVIESHD/index.m3u8?view=tnm3u-addedby=tnm3u
 https://edge4-moblive.yuppcdn.net/transsd/smil:saktv10.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Eye Tv" group-title="International" tvg-logo="https://i.ibb.co/W4ZKRQYX/1000124145.png",Eye Tv
 https://edge4-moblive.yuppcdn.net/trans1sd/smil:nettv15.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Charana Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/R4TqXtHp/1000124186.jpg",Charana Tv
+#EXTINF:-1 tvg-name="Charana Tv" group-title="International" tvg-logo="https://i.ibb.co/R4TqXtHp/1000124186.jpg",Charana Tv
 https://edge3-moblive.yuppcdn.net/transhd2/smil:chtv05.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Hiru Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/27p5xW3W/1000124187.jpg",Hiru Tv
+#EXTINF:-1 tvg-name="Hiru Tv" group-title="International" tvg-logo="https://i.ibb.co/27p5xW3W/1000124187.jpg",Hiru Tv
 https://tv.hiruhost.com:1936/8012/8012/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="MMC Tv USA" group-title="Sinhala" tvg-logo="https://i.ibb.co/BSw8JMm/1000124188.jpg",MMC Tv USA
+#EXTINF:-1 tvg-name="MMC Tv USA" group-title="International" tvg-logo="https://i.ibb.co/BSw8JMm/1000124188.jpg",MMC Tv USA
 https://edge3-moblive.yuppcdn.net/transsd/smil:chii02.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Nethra Tv" group-title="International" tvg-logo="https://i.ibb.co/hR974JRm/1000124189.jpg",Nethra Tv
 https://edge3-moblive.yuppcdn.net/transsd/smil:chii02.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="ShraddhaTV" group-title="Sinhala" tvg-logo="https://i.ibb.co/ZzMvrB9p/1000124190.jpg",ShraddhaTV
+#EXTINF:-1 tvg-name="ShraddhaTV" group-title="International" tvg-logo="https://i.ibb.co/ZzMvrB9p/1000124190.jpg",ShraddhaTV
 https://edge3-moblive.yuppcdn.net/drm1/smil:shraddhatvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Sirasa TV" group-title="Sinhala" tvg-logo="https://i.ibb.co/qY3r2D4y/1000124192.png",Sirasa TV
+#EXTINF:-1 tvg-name="Sirasa TV" group-title="International" tvg-logo="https://i.ibb.co/qY3r2D4y/1000124192.png",Sirasa TV
 https://edge2-moblive.yuppcdn.net/transsd/smil:sirtv09.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Siyatha Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/W4tBj7R3/1000124716.jpg",Siyatha Tv
+#EXTINF:-1 tvg-name="Siyatha Tv" group-title="International" tvg-logo="https://i.ibb.co/W4tBj7R3/1000124716.jpg",Siyatha Tv
 https://rtmp01.voaplus.com/hls/6x6ik312qk4grfxocfcv.m3u8
-#EXTINF:-1 tvg-name="Swarnavahini" group-title="Sinhala" tvg-logo="https://i.ibb.co/Gq81Fqz/1000124717.jpg",Swarnavahini
+#EXTINF:-1 tvg-name="Swarnavahini" group-title="International" tvg-logo="https://i.ibb.co/Gq81Fqz/1000124717.jpg",Swarnavahini
 https://jk3lz8xklw79-hls-live.5centscdn.com/live/6226f7cbe59e99a90b5cef6f94f966fd.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Jaya Tv Srilanka" group-title="International" tvg-logo="https://i.ibb.co/tMCmVD5X/1000124749.jpg",Jaya Tv Srilanka
 https://edge3-moblive.yuppcdn.net/drm/smil:jayamagatvdrm.smil/index.m3u8
-#EXTINF:-1 tvg-name="The Buddhist Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/jkVFQqy8/1000124771.jpg",The Buddhist Tv
+#EXTINF:-1 tvg-name="The Buddhist Tv" group-title="International" tvg-logo="https://i.ibb.co/jkVFQqy8/1000124771.jpg",The Buddhist Tv
 https://edge3-moblive.yuppcdn.net/drm1/smil:thebuddhistdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="TNL Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/rf4mMXYM/1000124772.jpg",TNL Tv
+#EXTINF:-1 tvg-name="TNL Tv" group-title="International" tvg-logo="https://i.ibb.co/rf4mMXYM/1000124772.jpg",TNL Tv
 https://edge3-moblive.yuppcdn.net/transsd/smil:tnl12.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Tv1" group-title="Sinhala" tvg-logo="https://i.ibb.co/rfyvGRDm/1000124781.jpg",Tv1
+#EXTINF:-1 tvg-name="Tv1" group-title="International" tvg-logo="https://i.ibb.co/rfyvGRDm/1000124781.jpg",Tv1
 https://edge4-moblive.yuppcdn.net/trans1sd/smil:tv111.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Tv Derna" group-title="Sinhala" tvg-logo="https://i.ibb.co/svBGNz8p/1000124782.jpg",Tv Derna
+#EXTINF:-1 tvg-name="Tv Derna" group-title="International" tvg-logo="https://i.ibb.co/svBGNz8p/1000124782.jpg",Tv Derna
 https://edge3-moblive.yuppcdn.net/transhd2/smil:detv04.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-name="Verbum Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/vCpT6Xyz/1000124783.jpg",Verbum Tv
+#EXTINF:-1 tvg-name="Verbum Tv" group-title="International" tvg-logo="https://i.ibb.co/vCpT6Xyz/1000124783.jpg",Verbum Tv
 https://edge3-moblive.yuppcdn.net/drm1/smil:verbumtvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Vibgyor" group-title="Malayalam" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
 https://pvqybagglz24-hls-live.5centscdn.com/7788_push_2913_001/c98886a28a6a78b57f2d090f3b0ecac4.sdp/playlist.m3u8
@@ -879,11 +879,11 @@ https://2-fss-2.themediacdn.com/pl_138/206324-3157542-1/chunklist.m3u8
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Pravasi Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/5WfHsPr2/1000139778.jpg",Pravasi Tv
 https://m6gdavepdn93-hls-live.5centscdn.com/indialife/d0dbe915091d400bd8ee7f27f0791303.sdp/chunks.m3u8
-#EXTINF:-1 tvg-name="Three Vision Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/bMMqLNTn/1000139779.jpg",Three Vision Tv
+#EXTINF:-1 tvg-name="Three Vision Tv" group-title="International" tvg-logo="https://i.ibb.co/bMMqLNTn/1000139779.jpg",Three Vision Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:knowledgetvdrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Ada Derana" group-title="International" tvg-logo="https://i.ibb.co/MyPyvH16/1000148335.png",Ada Derana
 https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
-#EXTINF:-1 tvg-name="Event Tv" group-title="Sinhala" tvg-logo="https://i.ibb.co/1tRwGRZ6/1000139782.jpg",Event Tv
+#EXTINF:-1 tvg-name="Event Tv" group-title="International" tvg-logo="https://i.ibb.co/1tRwGRZ6/1000139782.jpg",Event Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:eventtvdrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Kadamba Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/gkZchXD/1000139784.jpg",Kadamba Tv
 https://guru.shashwatha.com/hls/live/kadamba.m3u8
@@ -1069,7 +1069,7 @@ https://cdn-4.pishow.tv/live/35/master.m3u8
 https://epiconvh.akamaized.net/live/epic/master.m3u8
 #EXTINF:-1 tvg-name="I News" group-title="Telugu" tvg-logo="https://i.ibb.co/qM4B2nGs/1000141573.jpg",I News
 https://cdn-1.pishow.tv/live/411/master.m3u8
-#EXTINF:-1 tvg-name="ITN News" group-title="Sinhala" tvg-logo="https://i.ibb.co/zHrjtrMY/1000141574.jpg",ITN News
+#EXTINF:-1 tvg-name="ITN News" group-title="International" tvg-logo="https://i.ibb.co/zHrjtrMY/1000141574.jpg",ITN News
 https://edge4-moblive.yuppcdn.net/transsd/smil%3aitn43.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Lokshahi" group-title="Hindi" tvg-logo="https://i.ibb.co/dJGcFw3W/1000141646.jpg",Lokshahi
 https://see.lokshahi.live/live/index.m3u8
@@ -1283,7 +1283,7 @@ https://servertvhub.site/jio/app/ts_live_569.m3u8
 https://servertvhub.site/jio/app/ts_live_579.m3u8
 #EXTINF:-1 tvg-name="Tunes6" group-title="Tamil" tvg-logo="https://i.ibb.co/m5TjVfxs/1000146026.jpg",Tunes6
 https://servertvhub.site/jio/app/ts_live_803.m3u8
-#EXTINF:-1 tvg-name="Cartoon Network Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png",Cartoon Network Tamil
+#EXTINF:-1 tvg-name="CN Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png",CN Tamil
 https://servertvhub.site/jio/app/ts_live_817.m3u8
 #EXTINF:-1 tvg-name="Sai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/ZZ84S1j/1000146033.jpg",Sai Tv
 https://servertvhub.site/jio/app/ts_live_937.m3u8
@@ -1443,9 +1443,11 @@ https://www.schannels.in/hrtv9/video.m3u8?token=nokshitha
 https://www.schannels.in/devicable/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="CN HD+ Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fYn36K8q/1000148107.png",CN HD+ Telugu
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
-#EXTINF:-1 tvg-name="Cartoon Network Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png",Cartoon Network Telugu
+#EXTINF:-1 tvg-name="CN Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png",CN Telugu
 https://servertvhub.site/jio/app/ts_live_166.m3u8
 #EXTINF:-1 tvg-name="Sun Tv UHD" group-title="Tamil" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv UHD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-name="& Flix" group-title="English" tvg-logo="https://i.ibb.co/hJP6QYbz/1000148248.png",& Flix
 https://edge3-moblive.yuppcdn.net/drm/smil:nflixdrm.smil/index.m3u8
+#EXTINF:-1 tvg-name="Nick Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/MkcMWmnB/1000148400.png",Nick Telugu
+https://servertvhub.site/jio/app/ts_live_543.m3u8
