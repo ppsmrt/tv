@@ -767,9 +767,9 @@ http://ptuf.ridsys.in/riptv/live/stream224/index.m3u8
 http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="HBO" group-title="English" tvg-logo="https://i.ibb.co/MyBVYWF7/1000149191.png",HBO
 http://212.102.60.231/HBO/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Sony TEN Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/LzCRHKTb/1000146114.jpg",Sony TEN Sports 2 HD
+#EXTINF:-1 tvg-name="Sony TEN Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/7t5JNxw1/1000149227.png",Sony TEN Sports 2 HD
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Sony TEN Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/8g1qGx4c/1000146115.jpg",Sony TEN Sports 3 HD
+#EXTINF:-1 tvg-name="Sony TEN Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png",Sony TEN Sports 3 HD
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Zee Cinemalu" group-title="Telugu" tvg-logo="https://i.ibb.co/4ZfXLSgT/1000139024.jpg",Zee Cinemalu
 http://195.181.169.162/ZEE_CINEMALU_HD/index.m3u8?token=test
@@ -849,9 +849,9 @@ http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
 http://89.187.189.98/DISCOVERYTURBO/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Kids" group-title="Kids" tvg-logo="https://i.ibb.co/5CXKDtJ/1000148113.png",Discovery Kids
 http://89.187.189.98/DISCOVERYKIDS/index.m3u8
-#EXTINF:-1 tvg-name="Sony Ten Sports 1 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/CpsRgBg4/1000139559.jpg",Sony Ten Sports 1 HD1
+#EXTINF:-1 tvg-name="Sony Ten Sports 1 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/LD65fpzG/1000149222.png",Sony Ten Sports 1 HD1
 http://51.15.7.9:3141/ten1/index.m3u8
-#EXTINF:-1 tvg-name="Sony Ten Sports 2 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/nM091bvw/1000139574.jpg",Sony Ten Sports 2 HD1
+#EXTINF:-1 tvg-name="Sony Ten Sports 2 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/7t5JNxw1/1000149227.png",Sony Ten Sports 2 HD1
 http://51.15.7.9:3141/ten2/index.m3u8
 #EXTINF:-1 tvg-name="Sony Ten Sports 3 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/CKLN2vkF/1000139575.jpg",Sony Ten Sports 3 HD1
 http://51.15.7.9:3141/ten3/index.m3u8
