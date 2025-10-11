@@ -45,7 +45,7 @@ https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/mas
 http://89.187.189.98/KTVHD/index.m3u8
 #EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
 http://applelive.in/thalapathytv/thalapathytv.m3u8
-#EXTINF:-1 tvg-name="ATN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/jPXTLj0Q/atntv.jpg",ATN Tv
+#EXTINF:-1 tvg-name="ATN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/pr2QTttd/1000149489.png",ATN Tv
 http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
 #EXTINF:-1 tvg-name="Phoneix Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/2YhYtQsT/phoneixtv.jpg",Phoneix Tv
 http://phoenixtv.stream.onecloudlive.in:8080/phoenixtv/phoenixtv/tracks-v1a1/mono.m3u8
