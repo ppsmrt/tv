@@ -1487,3 +1487,5 @@ http://m3u.8088y.fun/yt.php?c=mnadutv
 http://m3u.8088y.fun/yt.php?c=AsianetNewsTamil
 #EXTINF:-1 tvg-name="MK Six" group-title="Tamil" tvg-logo="https://i.ibb.co/1YNt2JJL/1000148817.png",MK Six
 http://cors.tundracast.com:2000/https://cdn-3.pishow.tv/live/1253/master.m3u8
+#EXTINF:-1 tvg-name="Oli Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7JZvr6Fk/1000149113.png",Oli Tv
+https://live.olidigital.in/olitv/olitv/index.m3u8
