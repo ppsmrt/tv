@@ -769,3 +769,5 @@ http://cors.tundracast.com:2000/https://cdn-3.pishow.tv/live/1253/master.m3u8
 https://live.olidigital.in/olitv/olitv/index.m3u8
 #EXTINF:-1 tvg-name="NEO Music" group-title="Music" tvg-logo="https://i.ibb.co/23wqrRnt/1000149140.png",NEO Music
 https://live20.bozztv.com/giatvplayout7/giatv-210786/playlist.m3u8
+#EXTINF:-1 tvg-name="Baby Shark Tv" group-title="Kids" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png",Baby Shark Tv
+https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8

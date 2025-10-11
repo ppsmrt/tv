@@ -287,3 +287,5 @@ https://servertvhub.site/jio/app/ts_live_1340.m3u8
 https://servertvhub.site/jio/app/ts_live_1344.m3u8
 #EXTINF:-1 tvg-name="Pogo Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/4n56LwrX/1000148486.png",Pogo Telugu
 https://servertvhub.site/jio/app/ts_live_1883.m3u8
+#EXTINF:-1 tvg-name="Baby Shark Tv" group-title="Kids" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png",Baby Shark Tv
+https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
