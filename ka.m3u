@@ -133,7 +133,7 @@ https://epiconvh.akamaized.net/live/epic/master.m3u8
 http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
 #EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/jPVWyMq8/1000148819.png",Star Select 2 HD
 http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
-#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/p645Nzfm/1000144992.jpg",Extreme Sports
+#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png",Extreme Sports
 https://176.116.105.82/Extreme_Sports/index.m3u8
 #EXTINF:-1 tvg-name="Nat Geo" group-title="Documentary" tvg-logo="https://i.ibb.co/xS94GQPP/1000144995.jpg",Nat Geo
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test

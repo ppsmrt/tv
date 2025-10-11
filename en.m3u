@@ -103,7 +103,7 @@ http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
 http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
 #EXTINF:-1 tvg-name="Madha Tv" group-title="Religious" tvg-logo="https://i.ibb.co/sdMSdGcd/1000141817.jpg",Madha Tv
 https://60e68b19dd194.streamlock.net:55/madhatv/madhatv.stream_HDp/playlist.m3u8
-#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/p645Nzfm/1000144992.jpg",Extreme Sports
+#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png",Extreme Sports
 https://176.116.105.82/Extreme_Sports/index.m3u8
 #EXTINF:-1 tvg-name="Nat Geo" group-title="Documentary" tvg-logo="https://i.ibb.co/xS94GQPP/1000144995.jpg",Nat Geo
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
