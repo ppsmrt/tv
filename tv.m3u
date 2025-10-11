@@ -1417,27 +1417,27 @@ https://www.schannels.in/movies/video.m3u8?token=nokshitha
 https://www.schannels.in/gsgrameena/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Vihari Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/dwp64dKv/1000147269.jpg",Vihari Tv
 https://www.schannels.in/viharibakathi/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Vihari News" group-title="Telugu" tvg-logo="https://i.ibb.co/0pM6MYpP/1000147270.jpg",Vihari News
+#EXTINF:-1 tvg-name="Vihari News" group-title="Telugu" tvg-logo="https://i.ibb.co/7tJ8XfRV/1000149137.png",Vihari News
 https://www.schannels.in/viharinews/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Vihari Music" group-title="Telugu" tvg-logo="https://i.ibb.co/21Z4X4k1/1000147268.jpg",Vihari Music
 https://www.schannels.in/viharimusic/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="PPS Entertainment" group-title="Telugu" tvg-logo="https://i.ibb.co/0xKqGMG/1000147274.jpg",PPS Entertainment
+#EXTINF:-1 tvg-name="PPS Entertainment" group-title="Telugu" tvg-logo="https://i.ibb.co/DPsd2QMJ/1000149135.png",PPS Entertainment
 https://www.schannels.in/ppp/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="AJ News" group-title="Telugu" tvg-logo="https://i.ibb.co/pBmbM0BY/1000148345.png",AJ News
 https://www.schannels.in/ajnews/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="KS Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/Z6mDmQp8/1000147278.png",KS Tv
+#EXTINF:-1 tvg-name="KS Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/TqRJ8Zt0/1000149133.png",KS Tv
 https://www.schannels.in/kstv/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="RK Hollywood" group-title="Telugu" tvg-logo="https://i.ibb.co/V0hsnWW1/1000147612.jpg",RK Hollywood
 https://www.schannels.in/rkhollywood/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="RK Digital" group-title="Telugu" tvg-logo="https://i.ibb.co/x81nMbSD/1000147614.jpg",RK Digital
 https://www.schannels.in/rkdigital/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="RK Gold" group-title="Telugu" tvg-logo="https://i.ibb.co/dsYKkQ6W/1000147365.jpg",RK Gold
+#EXTINF:-1 tvg-name="RK Gold" group-title="Telugu" tvg-logo="https://i.ibb.co/hxTpFvwc/1000149129.png",RK Gold
 https://www.schannels.in/rkgold/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="starwayjanapadalu" group-title="Telugu" tvg-logo="https://i.ibb.co/9mNVD7x2/1000147626.jpg",starwayjanapadalu
 https://www.schannels.in/starwayjanapadalu/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="HR Tv9" group-title="Telugu" tvg-logo="https://i.ibb.co/Xxd6BDKM/1000147629.jpg",HR Tv9
+#EXTINF:-1 tvg-name="HR Tv9" group-title="Telugu" tvg-logo="https://i.ibb.co/99y0wVTj/1000149126.png",HR Tv9
 https://www.schannels.in/hrtv9/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Devi Cable" group-title="Telugu" tvg-logo="https://i.ibb.co/sdYqpY4J/1000147664.jpg",Devi Cable
+#EXTINF:-1 tvg-name="Devi Cable" group-title="Telugu" tvg-logo="https://i.ibb.co/MxCYfKVm/1000149123.png",Devi Cable
 https://www.schannels.in/devicable/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="CN HD+ Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fYn36K8q/1000148107.png",CN HD+ Telugu
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
@@ -1489,3 +1489,17 @@ http://m3u.8088y.fun/yt.php?c=AsianetNewsTamil
 http://cors.tundracast.com:2000/https://cdn-3.pishow.tv/live/1253/master.m3u8
 #EXTINF:-1 tvg-name="Oli Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7JZvr6Fk/1000149113.png",Oli Tv
 https://live.olidigital.in/olitv/olitv/index.m3u8
+#EXTINF:-1 tvg-name="Aditya Music" group-title="Telugu" tvg-logo="https://i.ibb.co/4wQP2bDf/1000149121.png",Aditya Music
+https://live20.bozztv.com/giatvplayout7/giatv-210787/playlist.m3u8
+#EXTINF:-1 tvg-name="NEO Music" group-title="Tamil" tvg-logo="https://i.ibb.co/23wqrRnt/1000149140.png",NEO Music
+https://live20.bozztv.com/giatvplayout7/giatv-210786/playlist.m3u8
+#EXTINF:-1 tvg-name="Moviesphere" group-title="English" tvg-logo="https://i.ibb.co/8nzkgG2v/1000149141.png",Moviesphere
+https://amg00353-lionsgatestudios-amg00353c2-tclideo-na-2304.playouts.now.amagi.tv/playlist/amg00353-lionsgatetvfast-moviesphere-tclideona/playlist.m3u8?device
+#EXTINF:-1 tvg-name="Baby Shark Tv" group-title="Kids" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png",Baby Shark Tv
+https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Rakuten Tv" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Tv
+https://54045f0c40fd442c8b06df076aaf1e85.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6065/master.m3u8
+#EXTINF:-1 tvg-name="Rakuten Family" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Family
+https://e3207568b726401995c25670faaf32e4.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6203/master.m3u8
+#EXTINF:-1 tvg-name="Rakuten Romance" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Romance
+https://2c88ed8c4df9479aa0c7138dc42115e2.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6194/master.m3u8
