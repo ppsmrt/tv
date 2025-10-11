@@ -11,14 +11,12 @@ https://dgx2snzx175pa.cloudfront.net/scheduler/scheduleMaster/391.m3u8?view=tnm3
 https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Movies Channel" group-title="Movies" tvg-logo="https://i.ibb.co/DDQb6gkL/1000131645.jpg",Movies Channel
 https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8
-#EXTINF:-1 tvg-name="DD Sports" group-title="Sports" tvg-logo="https://i.ibb.co/1hyZSR6/1000132432.jpg",DD Sports
+#EXTINF:-1 tvg-name="DD Sports" group-title="Sports" tvg-logo="https://i.ibb.co/9kSx7pDf/1000148804.png",DD Sports
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-#EXTINF:-1 tvg-name="Astro Cricket" group-title="Sports" tvg-logo="https://i.ibb.co/Fk9HxqS6/1000132440.jpg",Astro Cricket
+#EXTINF:-1 tvg-name="Astro Cricket" group-title="Sports" tvg-logo="https://i.ibb.co/ycCNQkfn/1000148797.png",Astro Cricket
 https://tgn.bozztv.com/eshgtv-dvrfl05/gin-lemar/index.m3u8
 #EXTINF:-1 tvg-name="Willow" group-title="Sports" tvg-logo="https://i.ibb.co/DDXwJhHX/1000132438.png",Willow
 https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
-#EXTINF:-1 tvg-name="Star Sports 1 HD Tamil" group-title="Sports" tvg-logo="https://i.ibb.co/wZpmhgmd/1000146096.jpg",Star Sports 1 HD Tamil
-http://89.187.189.98/STARSPORTSTAMIL/index.m3u8
 #EXTINF:-1 tvg-name="Star Sports 3 SD" group-title="Sports" tvg-logo="https://i.ibb.co/Nd1zDkdq/1000146112.jpg",Star Sports 3 SD
 http://89.187.189.98/STARSPORTS3/index.m3u8
 #EXTINF:-1 tvg-name="Action Hollywood Movies Tv" group-title="Movies" tvg-logo="https://i.ibb.co/vCxwLBZG/1000148330.png",Action Hollywood Movies Tv
@@ -93,7 +91,7 @@ http://89.187.189.98/SONYYAY/index.m3u8
 http://66.102.120.18:8000/play/a040/index.m3u8
 #EXTINF:-1 tvg-name="CNN News 18" group-title="News" tvg-logo="https://i.ibb.co/Y43HPbWF/1000141386.jpg",CNN News 18
 https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
-#EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/PZ3nFPf7/1000141399.jpg",Cricket Gold
+#EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-name="CVR English" group-title="News" tvg-logo="https://i.ibb.co/rGdBCyk1/1000141448.jpg",CVR English
 https://cdn-2.pishow.tv/live/425/master.m3u8
@@ -101,7 +99,7 @@ https://cdn-2.pishow.tv/live/425/master.m3u8
 https://epiconvh.akamaized.net/live/epic/master.m3u8
 #EXTINF:-1 tvg-name="Star Select 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 1 HD
 http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
-#EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 2 HD
+#EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/jPVWyMq8/1000148819.png",Star Select 2 HD
 http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
 #EXTINF:-1 tvg-name="Madha Tv" group-title="Religious" tvg-logo="https://i.ibb.co/sdMSdGcd/1000141817.jpg",Madha Tv
 https://60e68b19dd194.streamlock.net:55/madhatv/madhatv.stream_HDp/playlist.m3u8
@@ -117,7 +115,7 @@ https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlis
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
 #EXTINF:-1 tvg-name="BBC Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/pvD1JncY/1000145253.jpg",BBC Earth
 http://195.181.169.162/BBC_EARTH_HD/playlist.m3u8?token=test
-#EXTINF:-1 tvg-name="Bein Sports" group-title="Sports" tvg-logo="https://i.ibb.co/PZ8yjV6p/1000145254.jpg",Bein Sports
+#EXTINF:-1 tvg-name="Bein Sports" group-title="Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png",Bein Sports
 http://212.102.60.10/BEIN_SPORTS/index.m3u8
 #EXTINF:-1 tvg-name="Da Vinci" group-title="Entertainment" tvg-logo="https://i.ibb.co/V029q5b1/1000148115.png",Da Vinci
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
@@ -147,7 +145,7 @@ http://51.15.7.9:3141/starmovies/index.m3u8
 http://89.187.189.98/STARMOVIESSELECTHD/index.m3u8
 #EXTINF:-1 tvg-name="Movies Now HD" group-title="Movies" tvg-logo="https://i.ibb.co/HynNmv7/1000146392.jpg",Movies Now HD
 http://89.187.189.98/MOVIESNOWHD/index.m3u8
-#EXTINF:-1 tvg-name="Euro Sports HD" group-title="Sports" tvg-logo="https://i.ibb.co/SDND2P7Z/1000147198.jpg",Euro Sports HD
+#EXTINF:-1 tvg-name="Euro Sports HD" group-title="Sports" tvg-logo="https://i.ibb.co/Hfk6tqG5/1000148806.png",Euro Sports HD
 https://servertvhub.site/jio/app/ts_live_875.m3u8
 #EXTINF:-1 tvg-name="Jio Sports HD" group-title="Sports" tvg-logo="https://i.ibb.co/mFzQ1k05/1000147199.jpg",Jio Sports HD
 https://servertvhub.site/jio/app/ts_live_889.m3u8
