@@ -1073,7 +1073,7 @@ https://edge4-moblive.yuppcdn.net/transsd/smil%3aitn43.smil/playlist.m3u8
 https://see.lokshahi.live/live/index.m3u8
 #EXTINF:-1 tvg-name="Star Select 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 1 HD
 http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
-#EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/Q7XvZb66/1000141664.jpg",Star Select 2 HD
+#EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/jPVWyMq8/1000148819.png",Star Select 2 HD
 http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
 #EXTINF:-1 tvg-name="Maiboli" group-title="Hindi" tvg-logo="https://i.ibb.co/WNNCVTNp/1000141815.jpg",Maiboli
 https://sablive-ddpb.akamaized.net/maiboli/playlist.m3u8
@@ -1177,7 +1177,7 @@ https://ipcloud.live/mtv/menhd/index.m3u8
 https://live.thendralcloud.in/ganeshtvlive/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="ThendralTv" group-title="Tamil" tvg-logo="https://i.ibb.co/S435QDGz/1000144496.jpg",ThendralTv
 https://live.thendralcloud.in/thendraltv/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/p645Nzfm/1000144992.jpg",Extreme Sports
+#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png",Extreme Sports
 https://176.116.105.82/Extreme_Sports/index.m3u8
 #EXTINF:-1 tvg-name="Nat Geo" group-title="Infotainment" tvg-logo="https://i.ibb.co/xS94GQPP/1000144995.jpg",Nat Geo
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
@@ -1485,3 +1485,5 @@ http://m3u.8088y.fun/yt.php?c=TamilJanamNews
 http://m3u.8088y.fun/yt.php?c=mnadutv
 #EXTINF:-1 tvg-name="Asianet News Tamil (Not 24/7)" group-title="Tamil" tvg-logo="https://i.ibb.co/6Rg1Jzt1/1000148518.png",Asianet News Tamil (Not 24/7)
 http://m3u.8088y.fun/yt.php?c=AsianetNewsTamil
+#EXTINF:-1 tvg-name="MK Six" group-title="Tamil" tvg-logo="https://i.ibb.co/1YNt2JJL/1000148817.png",MK Six
+http://cors.tundracast.com:2000/https://cdn-3.pishow.tv/live/1253/master.m3u8
