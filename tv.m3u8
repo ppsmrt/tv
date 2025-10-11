@@ -229,7 +229,7 @@ http://telanganatv.phoenixcreations.online:1935/telanganatv/telanganatv/chunklis
 https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
 #EXTINF:-1 tvg-name="Swantham" group-title="Malayalam" tvg-logo="https://i.ibb.co/9HnKDrtf/1000121277.jpg",Swantham
 http://cloud.logichost.in:1935/SWANTHAM/live/chunklist_w1753452838.m3u8
-#EXTINF:-1 tvg-name="Anand Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/XrHMxg82/1000121279.jpg",Anand Tv
+#EXTINF:-1 tvg-name="Anand Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/qLGprDYk/1000148950.png",Anand Tv
 http://45.249.171.155:8090/anandmedia/kairalitv_576/index.m3u8
 #EXTINF:-1 tvg-name="Safari Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/mCXLsjHM/1000121289.jpg",Safari Tv
 https://j78dp346yq5r-hls-live.5centscdn.com/safari/live.stream/playlist.m3u8
@@ -257,7 +257,7 @@ http://kcnsdhlsapp.ylivestream.com/kcnsdapphls/index.m3u8
 http://cloud.logichost.in:1935/PTA/live/chunklist_w508578235.m3u8
 #EXTINF:-1 tvg-name="AJ Net" group-title="Malayalam" tvg-logo="https://i.ibb.co/bMhfK7zn/1000148343.png",AJ Net
 http://stream.logichost.in:1935/AJNET/live/chunklist_w1099842082.m3u8
-#EXTINF:-1 tvg-name="Balatara Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/Lzd8qD8J/1000121865.jpg",Balatara Vision
+#EXTINF:-1 tvg-name="Balatara Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/TBhvZC4R/1000148952.png",Balatara Vision
 http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
 #EXTINF:-1 tvg-name="KCL" group-title="Malayalam" tvg-logo="https://i.ibb.co/230fBYpC/1000121868.jpg",KCL
 http://kcltv.livebox.co.in/kclhls/live.m3u8
@@ -329,7 +329,7 @@ https://932y4x26ljv8-hls-live.5centscdn.com/victers/tv.stream/playlist.m3u8
 https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/562ee8f9-9950-48a0-ba1d-effa00cf0478/2.m3u8
 #EXTINF:-1 tvg-name="24 News" group-title="Malayalam" tvg-logo="https://i.ibb.co/TMfNmsBR/1000148263.png",24 News
 https://segment.yuppcdn.net/110322/channel24/playlist.m3u8
-#EXTINF:-1 tvg-name="C Malayalam Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/DDRgFWPY/1000122489.jpg",C Malayalam Tv
+#EXTINF:-1 tvg-name="C Malayalam Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/pjHWV8Kv/1000148954.png",C Malayalam Tv
 https://2-fss-2.streamhoster.com/pl_120/206508-3261972-1/playlist.m3u8
 #EXTINF:-1 tvg-name="VBC News" group-title="Malayalam" tvg-logo="https://i.ibb.co/k6gdLdhn/1000122492.jpg",VBC News
 https://5a1178b42cc03.streamlock.net/8200/8200/playlist.m3u8
@@ -867,7 +867,7 @@ https://stream.onecloudlive.in/periyarvision/periyarvision/index.m3u8
 https://stream.onecloudlive.in/powranmedia/livestream/index.m3u8
 #EXTINF:-1 tvg-name="Nattuvartha Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/7dGhPqvv/1000139767.jpg",Nattuvartha Tv
 https://ipcloud.live/nattuvartha/nvtvstream/index.m3u8
-#EXTINF:-1 tvg-name="CCTV Kunnamkulam" group-title="Malayalam" tvg-logo="https://i.ibb.co/7NCF1pS7/1000139770.jpg",CCTV Kunnamkulam
+#EXTINF:-1 tvg-name="CCTV Kunnamkulam" group-title="Malayalam" tvg-logo="https://i.ibb.co/23GvmCRD/1000148956.png",CCTV Kunnamkulam
 https://96vd9q4kyxq7-hls-live.5centscdn.com/livestream/f25aeb3e9210967d546a077de6e105e4.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="N Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/WN5N7KnG/1000139771.jpg",N Tv
 https://mars.streambridge.cloud/ntv/live/playlist.m3u8
