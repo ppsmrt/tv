@@ -121,8 +121,6 @@ https://stream.advikadigital.in/advika/advika/index.m3u8
 https://stream.onecloudlive.in/dhandapani/vasanthamtv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="Stingray Pop" group-title="Music" tvg-logo="https://i.ibb.co/Tx92GcZx/1000122509.jpg",Stingray Pop
 https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8
-#EXTINF:-1 tvg-name="Anbu Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/jPLQCgPx/1000123459.jpg",Anbu Tv
-https://ipcloud.live/anbutv/anbutvhd/index.m3u8
 #EXTINF:-1 tvg-name="AK Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/V0GGqWg7/1000148347.png",AK Tv
 http://aktvhd.stream.onecloudlive.in:8080/aktvhd/aktv/index.m3u8
 #EXTINF:-1 tvg-name="Sky Plus Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/zVGQPdY5/1000123499.jpg",Sky Plus Tv
@@ -247,7 +245,7 @@ https://stream.galaxyott.live/live/subintv/index.m3u8
 http://omtv.7starcloud.com:1935/omtv/live/live.m3u8
 #EXTINF:-1 tvg-name="U Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1YwxTLZH/1000136452.jpg",U Tv
 https://stream.galaxyott.live/live/utv/index.m3u8
-#EXTINF:-1 tvg-name="Anandham Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/G4jz0WHG/1000136463.jpg",Anandham Tv
+#EXTINF:-1 tvg-name="Anandham Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mPfs87z/1000149447.png",Anandham Tv
 https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Jith Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/WpDgyPfR/1000136465.jpg",Jith Tv
 https://sscloud7.com/live/jithtv/index.m3u8
@@ -603,7 +601,7 @@ https://play.applelive.in/dolphintv/dolphintv.m3u8
 http://manjutv.stream.onecloudlive.in/manjutv/manjutv/index.m3u8
 #EXTINF:-1 tvg-name="SV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Z1zWzXBz/1000145864.jpg",SV Tv
 http://shreeparams.7starcloud.com:1935/live/params/playlist.m3u8
-#EXTINF:-1 tvg-name="Anandham Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/R8y8hpd/1000145866.png",Anandham Tv
+#EXTINF:-1 tvg-name="Anandham Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hFLZtTwn/1000149449.png",Anandham Tv
 https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Ezhil Tv Tamil" group-title="Local Channels" tvg-logo="https://i.ibb.co/qF5JfbMh/1000145932.jpg",Ezhil Tv Tamil
 http://ezhiltv.stream.onecloudlive.in/ezhiltv/ezhilhd/index.m3u8
@@ -689,7 +687,7 @@ http://m3u.8088y.fun/yt.php?c=SathiyamTV
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/a9876d39-5dd3-4f22-9f06-683e67133c0d/0.m3u8
 #EXTINF:-1 tvg-name="Matha Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hRK69DC6/1000147025.jpg",Matha Tv
 https://live.mathatv.in/mathatv/mathatv/index.m3u8
-#EXTINF:-1 tvg-name="Angel Tv Tamil" group-title="Religious" tvg-logo="https://i.ibb.co/kgNymk9k/1000147049.jpg",Angel Tv Tamil
+#EXTINF:-1 tvg-name="Angel Tv Tamil" group-title="Religious" tvg-logo="https://i.ibb.co/FL81cXBw/1000149453.png",Angel Tv Tamil
 https://janya-digimix.akamaized.net/vglive-sk-394914/india/ngrp:angelindia_all/playlist.m3u8
 #EXTINF:-1 tvg-name="Asservatham Tv" group-title="Religious" tvg-logo="https://i.ibb.co/3YGtMY80/1000147051.jpg",Asservatham Tv
 https://stream.blessingtv.tv:1443/blessingtv-tamillive/mystream_720p/playlist.m3u8
