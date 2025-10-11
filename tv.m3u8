@@ -51,7 +51,7 @@ http://89.187.189.98/KTVHD/index.m3u8
 https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
 #EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
 http://applelive.in/thalapathytv/thalapathytv.m3u8
-#EXTINF:-1 tvg-name="ATN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/jPXTLj0Q/atntv.jpg",ATN Tv
+#EXTINF:-1 tvg-name="ATN Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/pr2QTttd/1000149489.png",ATN Tv
 http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
 #EXTINF:-1 tvg-name="Phoneix Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/2YhYtQsT/phoneixtv.jpg",Phoneix Tv
 http://phoenixtv.stream.onecloudlive.in:8080/phoenixtv/phoenixtv/tracks-v1a1/mono.m3u8
@@ -791,7 +791,7 @@ https://server.streamwell.in/hls/srkcity.m3u8
 https://amigofx.com:1936/srkent/srkent/playlist.m3u8
 #EXTINF:-1 tvg-name="SLN News" group-title="Telugu" tvg-logo="https://i.ibb.co/Lzj5x9cZ/1000139112.jpg",SLN News
 https://vvsolutions-server11.in/slnnews_2/video.m3u8
-#EXTINF:-1 tvg-name="Ava Family" group-title="International" tvg-logo="https://i.ibb.co/rK0NDWSy/1000139113.jpg",Ava Family
+#EXTINF:-1 tvg-name="Ava Family" group-title="International" tvg-logo="https://i.ibb.co/9mhxjyCn/1000149495.png",Ava Family
 https://familyhls.avatv.live/hls/stream.m3u8
 #EXTINF:-1 tvg-name="BCN Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/97Cr3zF/1000139115.jpg",BCN Tv
 https://vvsolution.in/hls/bcntv_633.m3u8
@@ -1015,7 +1015,7 @@ https://server.livelegitpro.in:9899/anbnews/anbnews/tracks-v1/index.fmp4.m3u8
 https://cdn.ottlive.co.in/annnews/index.m3u8
 #EXTINF:-1 tvg-name="APN Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/1fnqWbTc/1000149459.png",APN Tv
 https://plus.gigabitcdn.net/live-stream/apna-punjab-H3sE/playlist.m3u8
-#EXTINF:-1 tvg-name="Awaaz India" group-title="Hindi" tvg-logo="https://i.ibb.co/sd837n0P/1000140886.jpg",Awaaz India
+#EXTINF:-1 tvg-name="Awaaz India" group-title="Hindi" tvg-logo="https://i.ibb.co/gZj7wSKk/1000149497.png",Awaaz India
 https://awaazindia.livebox.co.in/AwaazIndaTVhls/Live.m3u8
 #EXTINF:-1 tvg-name="B4u Bojpuri" group-title="Hindi" tvg-logo="https://i.ibb.co/C3wkR7gP/1000140922.jpg",B4u Bojpuri
 https://cdnb4u.wiseplayout.com/B4U_Bhojpuri/master.m3u8
