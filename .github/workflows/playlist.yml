@@ -1,8 +1,8 @@
-name: Auto-update playlist.m3u
+name: Auto-update Play.m3u
 
 on:
   schedule:
-    - cron: "*/5 * * * *"  # Every 5 minutes
+    - cron: "*/5 * * * *" # Every 5 minutes
   workflow_dispatch:
 
 jobs:
@@ -16,20 +16,19 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
-      - name: Generate playlist.m3u only if changed
+      - name: Generate play.m3u
         id: generate
         run: |
           npm install node-fetch@2
           node <<'EOF'
           const fs = require('fs');
           const fetch = require('node-fetch');
-          const epgMap = require('./epg-map.json');
 
           const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
-          const filePath = 'playlist.m3u';
-          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
+          const outputFile = 'play.m3u';
+          const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
 
           (async () => {
             try {
@@ -37,41 +36,38 @@ jobs:
               const data = await res.json();
               if (!data) {
                 console.log("No channels found.");
-                return;
+                process.exit(0);
               }
 
-              // Add EPG header
-              let m3u = '#EXTM3U url-tvg="https://iptv-org.github.io/epg/guides/in.xml.gz"\n';
+              let m3u = "#EXTM3U\n";
               let changesSummary = [];
 
               for (const id of Object.keys(data)) {
                 const ch = data[id];
-                const name = ch.name || "Unknown";
-                const category = ch.category || "General";
-                const logo = ch.icon || "";
-                const stream = ch.stream || "";
+                let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
+                const type = ch.type || ch.category || "General"; // ✅ Group by channel type
+                const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
+                const stream = ch.stream?.trim();
                 if (!stream) continue;
 
-                // EPG mapping (fallback if not found)
-                const tvgId = epgMap[name] || ch.tvgid || name.replace(/\s+/g, '').toLowerCase();
+                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${type}"`;
+                if (logo) extinf += ` tvg-logo="${logo}"`;
+                extinf += `,${name}`;
 
-                const extinf = `#EXTINF:-1 tvg-id="${tvgId}" tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
                 m3u += `${extinf}\n${stream}\n`;
 
-                // Detect changes
-                const prevLineIndex = prevData.indexOf(name);
-                if (prevLineIndex === -1) {
+                // Compare with previous playlist
+                const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
+
+                if (!prevExtinf) {
                   changesSummary.push(`Added: ${name}`);
-                } else {
-                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
-                  const prevStreamLine = prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1];
-                  if (prevExtinf !== extinf || prevStreamLine !== stream) {
-                    changesSummary.push(`Updated: ${name}`);
-                  }
+                } else if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                  changesSummary.push(`Updated: ${name}`);
                 }
               }
 
-              // Check for removed channels
+              // Detect removed channels
               const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
               oldNames.forEach(name => {
                 if (!Object.values(data).some(ch => ch.name === name)) {
@@ -81,14 +77,16 @@ jobs:
 
               if (changesSummary.length === 0) {
                 console.log("No changes in playlist, skipping file generation.");
-                console.log('changed=false');
-                return;
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
+                process.exit(0);
               }
 
-              fs.writeFileSync(filePath, m3u);
-              console.log('playlist.m3u updated successfully.');
-              console.log('changed=true');
-              console.log(`summary=${changesSummary.join('; ')}`);
+              // ✅ Save play.m3u only
+              fs.writeFileSync(outputFile, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
+
+              console.log('play.m3u updated successfully.');
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
 
             } catch (err) {
               console.error('Error fetching channels:', err);
@@ -98,13 +96,10 @@ jobs:
           EOF
 
       - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
         run: |
-          if grep -q "changed=true" <<< "$(cat $GITHUB_STEP_SUMMARY)"; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add playlist.m3u
-            git commit -m "Auto-update playlist.m3u [skip ci]"
-            git push
-          else
-            echo "No changes to commit."
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add play.m3u
+          git commit -m "Auto-update play.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
