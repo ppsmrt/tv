@@ -81,7 +81,7 @@ http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 https://segment.yuppcdn.net/110322/polimernews/playlist.m3u8
 #EXTINF:-1 tvg-name="Emperor Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/YT1y4zQk/emperortv.jpg",Emperor Tv
 https://rtmp.bmlive.net/bms/emperortv/index.m3u8
-#EXTINF:-1 tvg-name="Apple tv marthandam" group-title="Local Channels" tvg-logo="https://play-lh.googleusercontent.com/6J8XBOYCu_cgqemEMGOg-AiPctEzjilNKzJ__ckcV67P-FiyVak8VaFSXRdjVgStguF8=w832-h470-rw",Apple tv marthandam
+#EXTINF:-1 tvg-name="Apple tv marthandam" group-title="Local Channels" tvg-logo="https://i.ibb.co/NhRbrgN/1000149467.png",Apple tv marthandam
 http://applelive.in:80/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="Selfie Tv" group-title="Local Channels" tvg-logo="https://tavapi.inditechman.com/extras/images/89.png",Selfie Tv
 http://applelive.in/selfeetv/selfeetv.m3u8
@@ -101,7 +101,7 @@ https://ipcloud.live/app/minnaltv/minnalhd/index.m3u8
 https://stream.onecloudlive.in/maruthitv/maruthitvhd/index.m3u8
 #EXTINF:-1 tvg-name="Nila Oli Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/d8HRXH3/1000122167.jpg",Nila Oli Tv
 https://live.olidigital.in/nilatv/nilatv/index.m3u8
-#EXTINF:-1 tvg-name="Apple" group-title="Local Channels" tvg-logo="https://i.ibb.co/0pvHm4mc/1000145849.jpg",Apple
+#EXTINF:-1 tvg-name="Apple" group-title="Local Channels" tvg-logo="https://i.ibb.co/wr8zmt7t/1000149465.png",Apple
 https://play.applelive.in/appletv/appletv.m3u8
 #EXTINF:-1 tvg-name="V Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/4gS56kQD/1000148775.png",V Tv
 https://live.applelive.in/vtv/vtv/index.m3u8
@@ -129,7 +129,7 @@ https://ipcloud.live/skytv/skytv/index.m3u8
 https://ipcloud.live/harintv/harintvhd/index.m3u8
 #EXTINF:-1 tvg-name="Colors Tamil" group-title="Entertainment" tvg-logo="https://i.ibb.co/62W7JNj/1000123664.jpg",Colors Tamil
 http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Ashoka Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/LDSxyKn3/1000123661.jpg",Ashoka Tv
+#EXTINF:-1 tvg-name="Ashoka Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/6RThtKjh/1000149487.png",Ashoka Tv
 https://ipcloud.live/asokatv/asokahd/index.m3u8
 #EXTINF:-1 tvg-name="MSN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/b8YRQMd/1000123705.jpg",MSN Tv
 https://ipcloud.live/msntv/msntv/index.m3u8
@@ -271,7 +271,7 @@ https://server.sscloud7.in/live/malartv/index.m3u8
 http://brightmeltech.in/ramyatv/ramyatv.m3u8
 #EXTINF:-1 tvg-name="Ramya Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/bjmC38F2/1000136491.png",Ramya Tv
 http://brightmeltech.in/ramyatv/ramyatv.m3u8
-#EXTINF:-1 tvg-name="Arul Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/JRx3Ppdm/1000136493.jpg",Arul Tv
+#EXTINF:-1 tvg-name="Arul Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dsD4MTMS/1000149485.png",Arul Tv
 http://arulstream.in:1935/ArulTv/live/playlist.m3u8
 #EXTINF:-1 tvg-name="Sky Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/F43L9dd7/1000136497.jpg",Sky Tv
 https://sscloud7.com/live/skytv/index.m3u8
@@ -383,7 +383,7 @@ https://ipcloud.live/subashtv/subashhd/index.m3u8
 http://madhantv.phoenixcreations.online/madhantv/madhantv/playlist.m3u8
 #EXTINF:-1 tvg-name="Magizh Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/PGkM1C1h/1000137344.png",Magizh Tv
 http://magizhtv.phoenixcreations.online/magizhtv/magizhtv/playlist.m3u8
-#EXTINF:-1 tvg-name="APS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/bMpwqJXb/1000137350.png",APS Tv
+#EXTINF:-1 tvg-name="APS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/cKcLxfcd/1000149471.png",APS Tv
 http://apstv.phoenixcreations.online/apstv/apstv/playlist.m3u8
 #EXTINF:-1 tvg-name="Thendral HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/svb85Vyw/1000137351.png",Thendral HD
 http://almthendraltv.phoenixcreations.online/almthendraltv/almthendraltv/playlist.m3u8
@@ -425,7 +425,7 @@ http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Cartoon Network" group-title="Kids" tvg-logo="https://i.ibb.co/jPXfqXzN/1000148126.png",Cartoon Network
 http://89.187.189.98/CARTOONNETWORK/index.m3u8
-#EXTINF:-1 tvg-name="Animal Planet" group-title="Documentary" tvg-logo="https://i.ibb.co/gLFzq8yS/1000139534.jpg",Animal Planet
+#EXTINF:-1 tvg-name="Animal Planet" group-title="Documentary" tvg-logo="https://i.ibb.co/v4xm7RtB/1000149455.png",Animal Planet
 http://89.187.189.98/ANIMALPLANETHD/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Science" group-title="Documentary" tvg-logo="https://i.ibb.co/ZR8N0Qpq/1000139549.jpg",Discovery Science
 http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
@@ -589,7 +589,7 @@ https://play.applelive.in/jcvtv/jcvmusix.m3u8
 https://play.applelive.in/vasantv/vasantv.m3u8
 #EXTINF:-1 tvg-name="Kumari Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/MxSz56Z0/1000145848.jpg",Kumari Tv
 https://rtmp.applelive.in/gvkumaritv/gvkumaritv/index.m3u8
-#EXTINF:-1 tvg-name="Apple Tv Pondy" group-title="Local Channels" tvg-logo="https://i.ibb.co/JFncHkkm/1000145850.jpg",Apple Tv Pondy
+#EXTINF:-1 tvg-name="Apple Tv Pondy" group-title="Local Channels" tvg-logo="https://i.ibb.co/tP4GhN0g/1000149469.png",Apple Tv Pondy
 https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
 #EXTINF:-1 tvg-name="Vedha" group-title="Local Channels" tvg-logo="https://i.ibb.co/Tqvf93mB/1000133568.jpg",Vedha
 https://skystream.in/live/vedha6528/index.m3u8

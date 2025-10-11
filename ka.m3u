@@ -41,7 +41,7 @@ http://195.181.169.162/COLORS_KANNADA_HD/index.m3u8?token=test
 http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Cartoon Network" group-title="Kids" tvg-logo="https://i.ibb.co/jPXfqXzN/1000148126.png",Cartoon Network
 http://89.187.189.98/CARTOONNETWORK/index.m3u8
-#EXTINF:-1 tvg-name="Animal Planet" group-title="Documentary" tvg-logo="https://i.ibb.co/gLFzq8yS/1000139534.jpg",Animal Planet
+#EXTINF:-1 tvg-name="Animal Planet" group-title="Documentary" tvg-logo="https://i.ibb.co/v4xm7RtB/1000149455.png",Animal Planet
 http://89.187.189.98/ANIMALPLANETHD/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Science" group-title="Documentary" tvg-logo="https://i.ibb.co/ZR8N0Qpq/1000139549.jpg",Discovery Science
 http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
