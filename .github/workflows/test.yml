@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate test.m3u
+      - name: Generate masked test.m3u
         id: generate
         run: |
           npm install node-fetch@2
@@ -34,8 +34,9 @@ jobs:
             try {
               const res = await fetch(url);
               const data = await res.json();
-              if (!data) {
-                console.log("No channels found.");
+              if (!data || Object.keys(data).length === 0) {
+                console.log("No channels found, skipping.");
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
                 process.exit(0);
               }
 
@@ -46,57 +47,60 @@ jobs:
               let counter = 1;
 
               for (const id of Object.keys(data)) {
-                const ch = data[id];
-                const name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
-                const channelType = ch.channelType || "General";
-                const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
-                const stream = ch.stream?.trim();
-                if (!stream) continue;
+                try {
+                  const ch = data[id];
+                  const name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
+                  const channelType = ch.channelType || "General";
+                  const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
+                  const stream = ch.stream?.trim();
+                  if (!stream) continue;
 
-                // Masked stream URL that will be resolved dynamically by proxy
-                const maskedUrl = `https://tnm3u.live/stream?id=${String(counter).padStart(2, '0')}`;
-                counter++;
+                  // Masked URL points to your server
+                  const maskedUrl = `https://your-server.com/stream?id=${String(counter).padStart(2,'0')}`;
+                  counter++;
 
-                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${channelType}"`;
-                if (logo) extinf += ` tvg-logo="${logo}"`;
-                extinf += `,${name}`;
+                  let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${channelType}"`;
+                  if (logo) extinf += ` tvg-logo="${logo}"`;
+                  extinf += `,${name}`;
 
-                m3u += `${extinf}\n${maskedUrl}\n`;
+                  m3u += `${extinf}\n${maskedUrl}\n`;
 
-                // Compare with previous playlist for changes
-                const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
-                const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
 
-                if (!prevExtinf) {
-                  changesSummary.push(`Added: ${name}`);
-                } else if (prevExtinf !== extinf || prevStreamLine !== maskedUrl) {
-                  changesSummary.push(`Updated: ${name}`);
+                  if (!prevExtinf) {
+                    changesSummary.push(`Added: ${name}`);
+                  } else if (prevExtinf !== extinf || prevStreamLine !== maskedUrl) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
+                } catch(err) {
+                  console.log("Skipping invalid channel:", id, err.message);
                 }
               }
 
               // Detect removed channels
               const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
               oldNames.forEach(name => {
-                if (!Object.values(data).some(ch => ch.name === name)) {
+                if (!Object.values(data).some(ch => (ch.name || "Unknown") === name)) {
                   changesSummary.push(`Removed: ${name}`);
                 }
               });
 
+              fs.writeFileSync(outputFile, m3u.replace(/\r\n/g,'\n'), 'utf8');
+
               if (changesSummary.length === 0) {
-                console.log("No changes in playlist, skipping file generation.");
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
-                process.exit(0);
+                console.log("No changes detected.");
+              } else {
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
+                console.log("Playlist updated:", changesSummary.join('; '));
               }
 
-              fs.writeFileSync(outputFile, m3u.replace(/\r\n/g, '\n'), 'utf8');
-              console.log('test.m3u updated successfully with masked URLs.');
-
-              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
-              fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
-
-            } catch (err) {
-              console.error('Error fetching channels:', err);
-              process.exit(1);
+            } catch(err) {
+              console.error("Error fetching channels:", err);
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
+              process.exit(0);
             }
           })();
           EOF
