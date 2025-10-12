@@ -1275,7 +1275,7 @@ https://servertvhub.site/jio/app/ts_live_579.m3u8
 https://servertvhub.site/jio/app/ts_live_803.m3u8
 #EXTINF:-1 tvg-name="CN Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png",CN Tamil
 https://servertvhub.site/jio/app/ts_live_817.m3u8
-#EXTINF:-1 tvg-name="Sai Tv" group-title="Religious" tvg-logo="https://i.ibb.co/VpSfxPZ2/1000148763.png",Sai Tv
+#EXTINF:-1 tvg-name="Sai Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/VpSfxPZ2/1000148763.png",Sai Tv
 https://servertvhub.site/jio/app/ts_live_937.m3u8
 #EXTINF:-1 tvg-name="Big Boss Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/HDQyBDLp/1000148739.png",Big Boss Tv
 https://xtm.8088yyy.workers.dev/481102.m3u8
@@ -1347,7 +1347,7 @@ https://eu.streamjo.com/eetlive/eettv.m3u8
 http://m3u.8088y.fun/yt.php?c=SathiyamTV
 #EXTINF:-1 tvg-name="News Tamil 24x7" group-title="News" tvg-logo="https://i.ibb.co/q3ndsZgt/1000148771.png",News Tamil 24x7
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/a9876d39-5dd3-4f22-9f06-683e67133c0d/0.m3u8
-#EXTINF:-1 tvg-name="Matha Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hRK69DC6/1000147025.jpg",Matha Tv
+#EXTINF:-1 tvg-name="Matha Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/hRK69DC6/1000147025.jpg",Matha Tv
 https://live.mathatv.in/mathatv/mathatv/index.m3u8
 #EXTINF:-1 tvg-name="Sharon Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/XMGcNX4/1000147045.jpg",Sharon Tv
 https://rtmp.bmlive.net/bms/sharontv/index.m3u8
@@ -1357,7 +1357,7 @@ https://janya-digimix.akamaized.net/vglive-sk-394914/india/ngrp:angelindia_all/p
 https://stream.blessingtv.tv:1443/blessingtv-tamillive/mystream_720p/playlist.m3u8
 #EXTINF:-1 tvg-name="Village Tv" group-title="Religious" tvg-logo="https://i.ibb.co/6RGSLCd8/1000148759.png",Village Tv
 https://villagetv.applelive.in/villagetv/villagetv/index.m3u8
-#EXTINF:-1 tvg-name="Joygoodnews TV" group-title="Religious" tvg-logo="https://i.ibb.co/PvqhTr8K/1000148745.png",Joygoodnews TV
+#EXTINF:-1 tvg-name="Joygoodnews TV" group-title="Local Channels" tvg-logo="https://i.ibb.co/PvqhTr8K/1000148745.png",Joygoodnews TV
 https://play.applelive.in/joygoodnewstv/joygoodnewstv.m3u8
 #EXTINF:-1 tvg-name="Shammah Tv" group-title="Religious" tvg-logo="https://i.ibb.co/rf7V2K0s/1000148743.png",Shammah Tv
 https://play.applelive.in/shammahtv/shammahtv.m3u8
