@@ -29,7 +29,7 @@ jobs:
 
           const sources = [
             { url: 'https://sscloud7.in/multi/tamilott.json', category: 'SS Cloud7', type: 'json' },
-            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'm3u' },
+            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'json' }, // ✅ fixed type
             { url: 'https://tvonlive.in/iptv/telugu/vv.m3u', category: 'VV Telugu', type: 'm3u' },
             { url: 'https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=361&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C', category: 'Ashoka TV', type: 'json' }
           ];
@@ -51,11 +51,44 @@ jobs:
                 }
 
                 if (src.type === 'json') {
-                  const json = await res.json();
+                  const text = await res.text();
+                  let json;
+                  try { json = JSON.parse(text); } catch { json = null; }
 
-                  // ✅ Fix for Ashoka JSON structure
-                  if (src.url.includes('ashokadigital.net')) {
-                    if (json.status === 'ok' && Array.isArray(json.posts)) {
+                  // ✅ bmcloud (as.al/raw/NyCqwJ)
+                  if (src.url.includes('as.al/raw/NyCqwJ')) {
+                    if (Array.isArray(json)) {
+                      for (const ch of json) {
+                        const url = ch.videourl && ch.videourl.startsWith('http')
+                          ? ch.videourl
+                          : (ch.webvideourl && ch.webvideourl.startsWith('http') ? ch.webvideourl : '');
+                        if (url) {
+                          allChannels.push({
+                            name: ch.name || 'Unknown',
+                            logo: ch.imageurl || '',
+                            url,
+                            group: 'bmcloud'
+                          });
+                        }
+                      }
+                    } else if (json && typeof json === 'object' && json.name) {
+                      const url = json.videourl && json.videourl.startsWith('http')
+                        ? json.videourl
+                        : (json.webvideourl && json.webvideourl.startsWith('http') ? json.webvideourl : '');
+                      if (url) {
+                        allChannels.push({
+                          name: json.name,
+                          logo: json.imageurl || '',
+                          url,
+                          group: 'bmcloud'
+                        });
+                      }
+                    }
+                  }
+
+                  // ✅ Ashoka Digital JSON
+                  else if (src.url.includes('ashokadigital.net')) {
+                    if (json && json.status === 'ok' && Array.isArray(json.posts)) {
                       for (const post of json.posts) {
                         if (post.channel_url && post.channel_url.startsWith('http')) {
                           allChannels.push({
@@ -64,13 +97,14 @@ jobs:
                               ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
                               : '',
                             url: post.channel_url,
-                            group: 'Ashoka' // ✅ Force category name to "Ashoka"
+                            group: 'Ashoka'
                           });
                         }
                       }
                     }
                   }
-                  // ✅ Keep other JSON logic same
+
+                  // ✅ Other JSON structures
                   else if (Array.isArray(json)) {
                     for (const group of json) {
                       if (group.channeldata && Array.isArray(group.channeldata)) {
@@ -84,7 +118,7 @@ jobs:
                         }
                       }
                     }
-                  } else if (json.posts) {
+                  } else if (json && json.posts) {
                     for (const post of json.posts) {
                       allChannels.push({
                         name: post.title || 'Unknown',
@@ -94,7 +128,8 @@ jobs:
                       });
                     }
                   }
-                } 
+                }
+
                 // ✅ M3U logic unchanged
                 else if (src.type === 'm3u') {
                   const text = await res.text();
