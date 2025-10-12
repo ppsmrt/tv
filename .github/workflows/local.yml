@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate assets/playlist/test.m3u only if changed
+      - name: Generate assets/playlist/local.m3u only if changed
         id: generate
         run: |
           mkdir -p assets/playlist
