@@ -7,12 +7,8 @@ https://live.skystream.in/live/southvsnklm/index.m3u8
 https://live.skystream.in/live/newmedia2924/index.m3u8?hls_ctx=4483yu96
 #EXTINF:-1 tvg-name="Swantham" group-title="Entertainment" tvg-logo="https://i.ibb.co/9HnKDrtf/1000121277.jpg",Swantham
 http://cloud.logichost.in:1935/SWANTHAM/live/chunklist_w1753452838.m3u8
-#EXTINF:-1 tvg-name="Anand Tv" group-title="Regional" tvg-logo="https://i.ibb.co/qLGprDYk/1000148950.png",Anand Tv
-http://45.249.171.155:8090/anandmedia/kairalitv_576/index.m3u8
 #EXTINF:-1 tvg-name="Safari Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/mCXLsjHM/1000121289.jpg",Safari Tv
 https://j78dp346yq5r-hls-live.5centscdn.com/safari/live.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="Vision Kerala" group-title="Local Channels" tvg-logo="https://i.ibb.co/xSxVC7fz/1000121291.jpg",Vision Kerala
-http://103.85.204.205:1935/VISIONMEDIA/live/playlist.m3u8
 #EXTINF:-1 tvg-name="One Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/qLHQzdzC/1000121293.jpg",One Tv
 http://137.59.86.218:1935/live/onetv/playlist.m3u8
 #EXTINF:-1 tvg-name="Mazhavil Manorama" group-title="Entertainment" tvg-logo="https://i.ibb.co/6cmTMgMV/1000121295.jpg",Mazhavil Manorama
@@ -25,18 +21,10 @@ http://cloud.logichost.in:1935/live/mplus/chunklist_w380881802.m3u8
 http://cloud.logichost.in:1935/live/malabarnews/chunklist_w1073688293.m3u8
 #EXTINF:-1 tvg-name="One Tv Local" group-title="Local Channels" tvg-logo="https://i.ibb.co/qYw9v6fx/1000121414.jpg",One Tv Local
 http://rtmp.logichost.in:1935/live/onetv/chunklist_w1554463648.m3u8
-#EXTINF:-1 tvg-name="TCN Entertainments" group-title="Local Channels" tvg-logo="https://i.ibb.co/7tS0wpSq/1000121418.jpg",TCN Entertainments
-http://cloud.logichost.in:1935/TCN/live/playlist.m3u8
-#EXTINF:-1 tvg-name="Vision Media" group-title="Local Channels" tvg-logo="https://i.ibb.co/60J5nv9N/1000121431.jpg",Vision Media
-http://103.85.204.205:1935/VISIONMEDIA/live/chunklist_w1236262378.m3u8
 #EXTINF:-1 tvg-name="KCN HD" group-title="Regional" tvg-logo="https://i.ibb.co/mr4CtGK3/1000121466.jpg",KCN HD
 http://kcnsdhlsapp.ylivestream.com/kcnsdapphls/index.m3u8
 #EXTINF:-1 tvg-name="PTA News" group-title="News" tvg-logo="https://i.ibb.co/60tqyTR2/1000121468.jpg",PTA News
 http://cloud.logichost.in:1935/PTA/live/chunklist_w508578235.m3u8
-#EXTINF:-1 tvg-name="AJ Net" group-title="Local Channels" tvg-logo="https://i.ibb.co/bMhfK7zn/1000148343.png",AJ Net
-http://stream.logichost.in:1935/AJNET/live/chunklist_w1099842082.m3u8
-#EXTINF:-1 tvg-name="Balatara Vision" group-title="Local Channels" tvg-logo="https://i.ibb.co/TBhvZC4R/1000148952.png",Balatara Vision
-http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
 #EXTINF:-1 tvg-name="KCL" group-title="Local Channels" tvg-logo="https://i.ibb.co/230fBYpC/1000121868.jpg",KCL
 http://kcltv.livebox.co.in/kclhls/live.m3u8
 #EXTINF:-1 tvg-name="Real News" group-title="News" tvg-logo="https://i.ibb.co/xtGgPTKw/1000122474.jpg",Real News
@@ -55,10 +43,6 @@ https://932y4x26ljv8-hls-live.5centscdn.com/victers/tv.stream/playlist.m3u8
 https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/562ee8f9-9950-48a0-ba1d-effa00cf0478/2.m3u8
 #EXTINF:-1 tvg-name="24 News" group-title="News" tvg-logo="https://i.ibb.co/TMfNmsBR/1000148263.png",24 News
 https://segment.yuppcdn.net/110322/channel24/playlist.m3u8
-#EXTINF:-1 tvg-name="C Malayalam Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/pjHWV8Kv/1000148954.png",C Malayalam Tv
-https://2-fss-2.streamhoster.com/pl_120/206508-3261972-1/playlist.m3u8
-#EXTINF:-1 tvg-name="VBC News" group-title="Local Channels" tvg-logo="https://i.ibb.co/k6gdLdhn/1000122492.jpg",VBC News
-https://5a1178b42cc03.streamlock.net/8200/8200/playlist.m3u8
 #EXTINF:-1 tvg-name="Kalika Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/G3Q9ncvd/1000122504.jpg",Kalika Tv
 http://server.applelive.in/kalikatv/kalikatv.m3u8
 #EXTINF:-1 tvg-name="Star Net" group-title="Local Channels" tvg-logo="https://i.ibb.co/ycqV2hSB/1000122494.jpg",Star Net
@@ -67,8 +51,6 @@ https://5a1178b42cc03.streamlock.net/8220/8220/playlist.m3u8
 https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mathrubhuminews_nim_https/110322/mathrubhuminews/playlist.m3u8
 #EXTINF:-1 tvg-name="Manorama News" group-title="News" tvg-logo="https://i.ibb.co/rRxVLNC7/1000122507.jpg",Manorama News
 https://mmtvnews1.akamaized.net/v1/master/673630b269b766886555eebfddd4f27f3de3ab50/mmtvNewsCampaign1/index.m3u8
-#EXTINF:-1 tvg-name="VCV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/23JRgJRR/1000122511.jpg",VCV Tv
-https://5a1178b42cc03.streamlock.net/8210/8210/playlist.m3u8
 #EXTINF:-1 tvg-name="KC Vision" group-title="Local Channels" tvg-logo="https://i.ibb.co/fdYmsD8V/1000122526.jpg",KC Vision
 http://111.92.41.129:11037/hls/kv.m3u8
 #EXTINF:-1 tvg-name="Weone News" group-title="News" tvg-logo="https://i.ibb.co/tMRvdZBM/1000122547.jpg",Weone News
@@ -81,8 +63,6 @@ https://d1ty2af03alkwd.cloudfront.net/index_4.m3u8
 https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/janamtv_nim_https/140622/janamtv/playlist.m3u8
 #EXTINF:-1 tvg-name="Reporter" group-title="News" tvg-logo="https://i.ibb.co/G35tYhkd/1000122562.jpg",Reporter
 https://segment.yuppcdn.net/050522/reporter/playlist.m3u8
-#EXTINF:-1 tvg-name="UTV Malayalam" group-title="Local Channels" tvg-logo="https://i.ibb.co/twnrWP6R/1000122573.jpg",UTV Malayalam
-https://em4qj6nedyvg-hls-live.wmncdn.net/utv/ab2de115318ae40bdd434e193a2f2e7f.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Fox Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/7JZmwkc1/1000123272.jpg",Fox Tv
 http://103.118.151.130:11037/hls/fox.m3u8
 #EXTINF:-1 tvg-name="Vibgyor" group-title="Entertainment" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
@@ -107,10 +87,6 @@ http://89.187.189.98/STARSPORTS3/index.m3u8
 http://stream.logichost.in:1935/WEONE/live/chunklist_w617388636.m3u8
 #EXTINF:-1 tvg-name="Koickal News" group-title="Local Channels" tvg-logo="https://i.ibb.co/mFRsSRqn/1000133160.jpg",Koickal News
 https://play.applelive.in/koickalnews/koickalnews.m3u8
-#EXTINF:-1 tvg-name="CCV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/vvQY4QGG/1000137237.jpg",CCV Tv
-https://5a1178b42cc03.streamlock.net/8212/8212/chunklist_w887200395.m3u8
-#EXTINF:-1 tvg-name="Teak Vision HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/JWVTVBqs/1000137330.jpg",Teak Vision HD
-https://hd.singamcloud.in/teakvision/teakvision/index.m3u8
 #EXTINF:-1 tvg-name="GTv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Gv9jd5N6/1000137563.jpg",GTv
 https://play.applelive.in/gtvmax/gtvmax.m3u8
 #EXTINF:-1 tvg-name="Sony TEN Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/7t5JNxw1/1000149227.png",Sony TEN Sports 2 HD
@@ -123,9 +99,9 @@ http://195.181.169.162/SURYA_HD/index.m3u8?token=test
 http://89.187.189.98/CARTOONNETWORK/index.m3u8
 #EXTINF:-1 tvg-name="Animal Planet" group-title="Documentary" tvg-logo="https://i.ibb.co/v4xm7RtB/1000149455.png",Animal Planet
 http://89.187.189.98/ANIMALPLANETHD/index.m3u8
-#EXTINF:-1 tvg-name="Discovery Science" group-title="Documentary" tvg-logo="https://i.ibb.co/ZR8N0Qpq/1000139549.jpg",Discovery Science
+#EXTINF:-1 tvg-name="Discovery Science" group-title="Documentary" tvg-logo="https://i.ibb.co/1fqY8rHL/1000149735.png",Discovery Science
 http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
-#EXTINF:-1 tvg-name="Discovery Turbo" group-title="Documentary" tvg-logo="https://i.ibb.co/1fDzbgtJ/1000139551.jpg",Discovery Turbo
+#EXTINF:-1 tvg-name="Discovery Turbo" group-title="Documentary" tvg-logo="https://i.ibb.co/mCgrQNx1/1000149740.png",Discovery Turbo
 http://89.187.189.98/DISCOVERYTURBO/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Kids" group-title="Kids" tvg-logo="https://i.ibb.co/5CXKDtJ/1000148113.png",Discovery Kids
 http://89.187.189.98/DISCOVERYKIDS/index.m3u8
@@ -143,13 +119,11 @@ https://stream.onecloudlive.in/periyarvision/periyarvision/index.m3u8
 https://stream.onecloudlive.in/powranmedia/livestream/index.m3u8
 #EXTINF:-1 tvg-name="Nattuvartha Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/7dGhPqvv/1000139767.jpg",Nattuvartha Tv
 https://ipcloud.live/nattuvartha/nvtvstream/index.m3u8
-#EXTINF:-1 tvg-name="CCTV Kunnamkulam" group-title="Entertainment" tvg-logo="https://i.ibb.co/23GvmCRD/1000148956.png",CCTV Kunnamkulam
-https://96vd9q4kyxq7-hls-live.5centscdn.com/livestream/f25aeb3e9210967d546a077de6e105e4.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="N Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/WN5N7KnG/1000139771.jpg",N Tv
 https://mars.streambridge.cloud/ntv/live/playlist.m3u8
 #EXTINF:-1 tvg-name="KVTV" group-title="Entertainment" tvg-logo="https://i.ibb.co/V01PjjbM/1000139773.png",KVTV
 https://2-fss-2.themediacdn.com/pl_138/206324-3157542-1/chunklist.m3u8
-#EXTINF:-1 tvg-name="Nikky Tv" group-title="Kids" tvg-logo="https://i.ibb.co/v4nNPRrf/1000148077.png",Nikky Tv
+#EXTINF:-1 tvg-name="Nikky Tv" group-title="Kids" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Pravasi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/5WfHsPr2/1000139778.jpg",Pravasi Tv
 https://m6gdavepdn93-hls-live.5centscdn.com/indialife/d0dbe915091d400bd8ee7f27f0791303.sdp/chunks.m3u8
@@ -169,13 +143,13 @@ http://89.187.189.98/DISNEYINTERNATIONALHD/index.m3u8
 http://89.187.189.98/NICKPLUSHD/index.m3u8
 #EXTINF:-1 tvg-name="Colors Infinity HD" group-title="Kids" tvg-logo="https://i.ibb.co/0RXhPhMm/1000148109.png",Colors Infinity HD
 http://89.187.189.98/COLORSINFINITYHD/index.m3u8
-#EXTINF:-1 tvg-name="Travel XP HD" group-title="Documentary" tvg-logo="https://i.ibb.co/yjZzS92/1000140105.jpg",Travel XP HD
+#EXTINF:-1 tvg-name="Travel XP HD" group-title="Documentary" tvg-logo="https://i.ibb.co/Txcmr7kY/1000149764.png",Travel XP HD
 http://89.187.189.98/TRAVELXPHD/index.m3u8
-#EXTINF:-1 tvg-name="History 18 HD" group-title="Documentary" tvg-logo="https://i.ibb.co/1G7J361S/1000140108.jpg",History 18 HD
+#EXTINF:-1 tvg-name="History 18 HD" group-title="Documentary" tvg-logo="https://i.ibb.co/kg0wPSBK/1000149746.png",History 18 HD
 http://89.187.189.98/HISTORYTV18HD/index.m3u8
-#EXTINF:-1 tvg-name="M TV Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/84Btx07k/1000140110.jpg",M TV Plus
+#EXTINF:-1 tvg-name="M TV Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/7dWs4J12/1000149760.png",M TV Plus
 http://89.187.189.98/MTVPLUSHD/index.m3u8
-#EXTINF:-1 tvg-name="Discovery Jeet HD" group-title="Documentary" tvg-logo="https://i.ibb.co/ZRFR2sL4/1000140112.jpg",Discovery Jeet HD
+#EXTINF:-1 tvg-name="Discovery Jeet HD" group-title="Documentary" tvg-logo="https://i.ibb.co/My6sksp5/1000149731.png",Discovery Jeet HD
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-name="Chutti Tv" group-title="Kids" tvg-logo="https://i.ibb.co/fzBc2qY5/1000148105.png",Chutti Tv
 http://89.187.189.98/CHUTTITV/index.m3u8
@@ -183,7 +157,7 @@ http://89.187.189.98/CHUTTITV/index.m3u8
 http://89.187.189.98/HUNGAMAKIDS/index.m3u8
 #EXTINF:-1 tvg-name="Pogo Tv" group-title="Kids" tvg-logo="https://i.ibb.co/bjJMZRNF/1000148067.png",Pogo Tv
 http://89.187.189.98/POGOKIDS/index.m3u8
-#EXTINF:-1 tvg-name="Sony Yay" group-title="Kids" tvg-logo="https://i.ibb.co/MkRwxLWN/1000148073.png",Sony Yay
+#EXTINF:-1 tvg-name="Sony Yay" group-title="Kids" tvg-logo="https://i.ibb.co/99Jv4dH0/1000149773.png",Sony Yay
 http://89.187.189.98/SONYYAY/index.m3u8
 #EXTINF:-1 tvg-name="Surya Music" group-title="Music" tvg-logo="https://i.ibb.co/9H0vgYxM/1000140220.jpg",Surya Music
 http://89.187.189.98/SURYAMUSIC/index.m3u8
@@ -199,7 +173,7 @@ http://89.187.189.98/MEDIAONE/index.m3u8
 http://66.102.120.18:8000/play/a040/index.m3u8
 #EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
-#EXTINF:-1 tvg-name="Epic Tv" group-title="Documentary" tvg-logo="https://i.ibb.co/YBPsHDXJ/1000141566.jpg",Epic Tv
+#EXTINF:-1 tvg-name="Epic Tv" group-title="Documentary" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
 #EXTINF:-1 tvg-name="Star Select 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/XkW4R9t3/1000149272.png",Star Select 1 HD
 http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
@@ -211,21 +185,21 @@ https://ipcloud.live/nvision/nvisionhd.m3u8
 https://stream.onecloudlive.in/nvision/nvisionmusic/index.m3u8
 #EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png",Extreme Sports
 https://176.116.105.82/Extreme_Sports/index.m3u8
-#EXTINF:-1 tvg-name="Nat Geo" group-title="Documentary" tvg-logo="https://i.ibb.co/xS94GQPP/1000144995.jpg",Nat Geo
+#EXTINF:-1 tvg-name="Nat Geo" group-title="Documentary" tvg-logo="https://i.ibb.co/CsbCP1Ns/1000149762.png",Nat Geo
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
-#EXTINF:-1 tvg-name="BBC Earth Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/pvD1JncY/1000145253.jpg",BBC Earth Tamil
+#EXTINF:-1 tvg-name="BBC Earth Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png",BBC Earth Tamil
 http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
-#EXTINF:-1 tvg-name="Viju Nature" group-title="Documentary" tvg-logo="https://i.ibb.co/qLy1n2Gn/1000145095.jpg",Viju Nature
+#EXTINF:-1 tvg-name="Viju Nature" group-title="Documentary" tvg-logo="https://i.ibb.co/xqgjp2L4/1000149770.png",Viju Nature
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
-#EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/zh106Hbg/1000145097.jpg",Viju Explore
+#EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/PzY0MTFQ/1000149766.png",Viju Explore
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
-#EXTINF:-1 tvg-name="BBC Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/pvD1JncY/1000145253.jpg",BBC Earth
+#EXTINF:-1 tvg-name="BBC Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png",BBC Earth
 http://195.181.169.162/BBC_EARTH_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-name="Bein Sports" group-title="Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png",Bein Sports
 http://212.102.60.10/BEIN_SPORTS/index.m3u8
 #EXTINF:-1 tvg-name="Da Vinci" group-title="Entertainment" tvg-logo="https://i.ibb.co/V029q5b1/1000148115.png",Da Vinci
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
-#EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/27rTQprC/1000145258.jpg",Viju Explore
+#EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/PZrXKQj1/1000149768.png",Viju Explore
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
 #EXTINF:-1 tvg-name="Pogo Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/pBwLjfnF/1000148066.png",Pogo Tamil
 https://servertvhub.site/jio/app/ts_live_542.m3u8
@@ -237,9 +211,9 @@ https://servertvhub.site/jio/app/ts_live_546.m3u8
 https://servertvhub.site/jio/app/ts_live_550.m3u8
 #EXTINF:-1 tvg-name="Chutti Tv SD" group-title="Kids" tvg-logo="https://i.ibb.co/fzBc2qY5/1000148105.png",Chutti Tv SD
 https://servertvhub.site/jio/app/ts_live_557.m3u8
-#EXTINF:-1 tvg-name="Discovery Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/JR04jTCz/1000146024.jpg",Discovery Tamil
+#EXTINF:-1 tvg-name="Discovery Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/DfKZrmyP/1000149733.png",Discovery Tamil
 https://servertvhub.site/jio/app/ts_live_569.m3u8
-#EXTINF:-1 tvg-name="History Tv 18 HD Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/5gthmFJt/1000145958.jpg",History Tv 18 HD Tamil
+#EXTINF:-1 tvg-name="History Tv 18 HD Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/FZLsq1h/1000149758.png",History Tv 18 HD Tamil
 https://servertvhub.site/jio/app/ts_live_579.m3u8
 #EXTINF:-1 tvg-name="CN Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png",CN Tamil
 https://servertvhub.site/jio/app/ts_live_817.m3u8
