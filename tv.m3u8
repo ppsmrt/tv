@@ -497,7 +497,7 @@ https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f
 https://tgn.bozztv.com/eshgtv-dvrfl05/gin-lemar/index.m3u8
 #EXTINF:-1 tvg-name="Willow" group-title="Sports" tvg-logo="https://i.ibb.co/Y7XBbMFG/1000149225.png",Willow
 https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
-#EXTINF:-1 tvg-name="Star Sports 3 SD" group-title="Sports" tvg-logo="https://i.ibb.co/Nd1zDkdq/1000146112.jpg",Star Sports 3 SD
+#EXTINF:-1 tvg-name="Star Sports 3 SD" group-title="Sports" tvg-logo="https://i.ibb.co/QjmnwmRS/1000150098.png",Star Sports 3 SD
 http://89.187.189.98/STARSPORTS3/index.m3u8
 #EXTINF:-1 tvg-name="We One Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/RKC56Ff/1000132909.jpg",We One Tv
 http://stream.logichost.in:1935/WEONE/live/chunklist_w617388636.m3u8
@@ -925,9 +925,9 @@ http://89.187.189.98/STARSUVARNAPLUS/index.m3u8
 http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Etv Andhra" group-title="Telugu" tvg-logo="https://i.ibb.co/vKRKs7q/1000140037.jpg",Etv Andhra
 https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
-#EXTINF:-1 tvg-name="Star Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/bprtsZf/1000146093.jpg",Star Sports 2 HD
+#EXTINF:-1 tvg-name="Star Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/0Rf6VF1J/1000150094.png",Star Sports 2 HD
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
-#EXTINF:-1 tvg-name="Star Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/pvgv9Vc1/1000146101.jpg",Star Sports 3 HD
+#EXTINF:-1 tvg-name="Star Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/ds0J7c42/1000150096.png",Star Sports 3 HD
 http://89.187.189.98/STARSPORTS3/index.m3u8
 #EXTINF:-1 tvg-name="Sony WAH" group-title="Hindi" tvg-logo="https://i.ibb.co/F4G6xDjv/1000140092.jpg",Sony WAH
 http://89.187.189.98/SONYWAH/index.m3u8
@@ -1065,8 +1065,6 @@ https://cdn-1.pishow.tv/live/411/master.m3u8
 https://edge4-moblive.yuppcdn.net/transsd/smil%3aitn43.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Lokshahi" group-title="Hindi" tvg-logo="https://i.ibb.co/dJGcFw3W/1000141646.jpg",Lokshahi
 https://see.lokshahi.live/live/index.m3u8
-#EXTINF:-1 tvg-name="Star Select 1 HD" group-title="Sports" tvg-logo="https://i.ibb.co/XkW4R9t3/1000149272.png",Star Select 1 HD
-http://89.187.189.98/STARSPORTSSELECT1HD/index.m3u8
 #EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/jPVWyMq8/1000148819.png",Star Select 2 HD
 http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
 #EXTINF:-1 tvg-name="Maiboli" group-title="Hindi" tvg-logo="https://i.ibb.co/WNNCVTNp/1000141815.jpg",Maiboli
@@ -1505,3 +1503,15 @@ https://thriller-rakuten-tv-uk.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b
 https://linear-798.frequency.stream/mt/plex/798/hls/master/playlist.m3u8
 #EXTINF:-1 tvg-name="Amritha News" group-title="Malayalam" tvg-logo="https://i.ibb.co/Y4xsdtWP/1000149912.png",Amritha News
 http://m3u.8088y.fun/yt.php?c=amritanews
+#EXTINF:-1 tvg-name="Nandhi Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/yntB57mV/1000150062.png",Nandhi Tv
+https://www.schannels.in/Nandi_Tv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Veduka" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/W4WwN7Lb/1000150082.png",Veduka
+https://www.schannels.in/veduka/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="NDL News9" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/1fJFLmH2/1000150085.png",NDL News9
+https://www.schannels.in/ndlnews9/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="TG5 News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/ZRM5PjQg/1000150087.png",TG5 News
+https://www.schannels.in/tg5/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="SLN News" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/c9MZtz6/1000150091.png",SLN News
+https://www.schannels.in/sln/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Star Sports 1 Tamil HD" group-title="Sports" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png",Star Sports 1 Tamil HD
+https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8#ec4035516cfde1557bf67fc27bbb8c1eef468719f611174eb5530267293b2e8e
