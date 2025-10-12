@@ -2,7 +2,7 @@ name: Auto-update test.m3u
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+    - cron: "*/5 * * * *" # Every 5 minutes
   workflow_dispatch:
 
 jobs:
@@ -16,181 +16,88 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
-      - name: Generate assets/playlist/test.m3u only if changed
+      - name: Generate play.m3u
         id: generate
         run: |
-          mkdir -p assets/playlist
           npm install node-fetch@2
           node <<'EOF'
           const fs = require('fs');
           const fetch = require('node-fetch');
 
-          const sources = [
-            { url: 'https://sscloud7.in/multi/tamilott.json', category: 'SS Cloud7', type: 'json' },
-            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'rawjson' }, // ✅ fixed
-            { url: 'https://tvonlive.in/iptv/telugu/vv.m3u', category: 'VV Telugu', type: 'm3u' },
-            { url: 'https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=361&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C', category: 'Ashoka TV', type: 'json' }
-          ];
-
-          const filePath = 'assets/playlist/test.m3u';
-          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
+          const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const outputFile = 'assets/playlist/test.m3u';
+          const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
 
           (async () => {
             try {
+              const res = await fetch(url);
+              const data = await res.json();
+              if (!data) {
+                console.log("No channels found.");
+                process.exit(0);
+              }
+
               let m3u = "#EXTM3U\n";
-              let allChannels = [];
+              let changesSummary = [];
+              let counter = 1;
 
-              for (const src of sources) {
-                console.log(`Fetching: ${src.url}`);
-                const res = await fetch(src.url);
-                if (!res.ok) {
-                  console.log(`⚠️ Failed: ${src.url}`);
-                  continue;
-                }
+              for (const id of Object.keys(data)) {
+                const ch = data[id];
+                let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
+                const channelType = ch.channelType || "General";
+                const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
+                const stream = ch.stream?.trim();
+                if (!stream) continue;
 
-                // 🧩 bmcloud raw text fix
-                if (src.type === 'rawjson' && src.url.includes('as.al/raw/NyCqwJ')) {
-                  const text = await res.text();
-                  let cleanText = text.trim();
+                // Masked stream URL like https://tnm3u.live/stream?id=01
+                const maskedUrl = `https://tnm3u.live/stream?id=${String(counter).padStart(2, '0')}`;
+                counter++;
 
-                  // Attempt to fix malformed JSON (if needed)
-                  if (!cleanText.startsWith('[')) cleanText = `[${cleanText}]`;
-                  if (!cleanText.endsWith(']')) cleanText += ']';
+                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${channelType}"`;
+                if (logo) extinf += ` tvg-logo="${logo}"`;
+                extinf += `,${name}`;
 
-                  let json;
-                  try {
-                    json = JSON.parse(cleanText);
-                  } catch (e) {
-                    console.error("❌ bmcloud JSON parse failed:", e);
-                    continue;
-                  }
+                m3u += `${extinf}\n${maskedUrl}\n`;
 
-                  if (Array.isArray(json)) {
-                    for (const ch of json) {
-                      const url = ch.videourl && ch.videourl.startsWith('http')
-                        ? ch.videourl
-                        : (ch.webvideourl && ch.webvideourl.startsWith('http') ? ch.webvideourl : '');
-                      if (url && !url.match(/\.(png|jpg|jpeg|gif)$/i)) {
-                        allChannels.push({
-                          name: ch.name || 'Unknown',
-                          logo: ch.imageurl || '',
-                          url,
-                          group: 'bmcloud'
-                        });
-                      }
-                    }
-                  }
-                  continue;
-                }
+                // Compare with previous playlist
+                const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
 
-                // ✅ Ashoka JSON
-                if (src.url.includes('ashokadigital.net')) {
-                  const json = await res.json();
-                  if (json.status === 'ok' && Array.isArray(json.posts)) {
-                    for (const post of json.posts) {
-                      if (post.channel_url && post.channel_url.startsWith('http')) {
-                        allChannels.push({
-                          name: post.channel_name || 'Unknown',
-                          logo: post.channel_image
-                            ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
-                            : '',
-                          url: post.channel_url,
-                          group: 'Ashoka'
-                        });
-                      }
-                    }
-                  }
-                  continue;
-                }
-
-                // ✅ Other JSON
-                if (src.type === 'json') {
-                  const json = await res.json();
-                  if (Array.isArray(json)) {
-                    for (const group of json) {
-                      if (group.channeldata && Array.isArray(group.channeldata)) {
-                        for (const ch of group.channeldata) {
-                          allChannels.push({
-                            name: ch.channelname || 'Unknown',
-                            logo: ch.logo || '',
-                            url: ch.playbackurl || '',
-                            group: src.category
-                          });
-                        }
-                      }
-                    }
-                  } else if (json.posts) {
-                    for (const post of json.posts) {
-                      allChannels.push({
-                        name: post.title || 'Unknown',
-                        logo: post.thumbnail || '',
-                        url: post.stream_url || '',
-                        group: src.category
-                      });
-                    }
-                  }
-                  continue;
-                }
-
-                // ✅ M3U unchanged
-                if (src.type === 'm3u') {
-                  const text = await res.text();
-                  const lines = text.split('\n');
-                  for (let i = 0; i < lines.length; i++) {
-                    if (lines[i].startsWith('#EXTINF')) {
-                      const nameMatch = lines[i].split(',')[1] || 'Unknown';
-                      const logoMatch = (lines[i].match(/tvg-logo="([^"]+)"/) || [])[1] || '';
-                      const url = lines[i + 1]?.trim() || '';
-                      if (url.startsWith('http')) {
-                        allChannels.push({
-                          name: nameMatch,
-                          logo: logoMatch,
-                          url,
-                          group: src.category
-                        });
-                      }
-                    }
-                  }
+                if (!prevExtinf) {
+                  changesSummary.push(`Added: ${name}`);
+                } else if (prevExtinf !== extinf || prevStreamLine !== maskedUrl) {
+                  changesSummary.push(`Updated: ${name}`);
                 }
               }
 
-              if (allChannels.length === 0) {
-                console.log("❌ No channels found.");
-                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
-                return;
-              }
-
-              // Remove duplicates
-              const unique = [];
-              const seen = new Set();
-              for (const ch of allChannels) {
-                const key = ch.name + ch.url;
-                if (!seen.has(key) && ch.url) {
-                  seen.add(key);
-                  unique.push(ch);
+              // Detect removed channels
+              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+              oldNames.forEach(name => {
+                if (!Object.values(data).some(ch => ch.name === name)) {
+                  changesSummary.push(`Removed: ${name}`);
                 }
+              });
+
+              if (changesSummary.length === 0) {
+                console.log("No changes in playlist, skipping file generation.");
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
+                process.exit(0);
               }
 
-              // Generate M3U
-              for (const ch of unique) {
-                m3u += `#EXTINF:-1 tvg-name="${ch.name}" tvg-logo="${ch.logo}" group-title="${ch.group}",${ch.name}\n${ch.url}\n`;
-              }
+              // Ensure folder exists
+              fs.mkdirSync('assets/playlist', { recursive: true });
 
-              if (m3u.trim() === prevData.trim()) {
-                console.log("✅ No changes in playlist.");
-                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
-                return;
-              }
+              fs.writeFileSync(outputFile, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
 
-              fs.writeFileSync(filePath, m3u);
-              console.log("🎉 test.m3u updated successfully.");
-              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=true\nsummary=Updated all sources\n");
+              console.log('test.m3u updated successfully with masked URLs.');
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
 
             } catch (err) {
-              console.error("❌ Error generating playlist:", err);
-              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+              console.error('Error fetching channels:', err);
+              process.exit(1);
             }
           })();
           EOF
