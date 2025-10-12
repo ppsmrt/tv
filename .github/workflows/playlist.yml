@@ -1,4 +1,4 @@
-name: Auto-update Play.m3u
+name: Auto-update play.m3u
 
 on:
   schedule:
@@ -45,12 +45,12 @@ jobs:
               for (const id of Object.keys(data)) {
                 const ch = data[id];
                 let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
-                const type = ch.type || ch.category || "General"; // ✅ Group by channel type
+                const channelType = ch.channelType || "General"; // ✅ Correct field
                 const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
                 const stream = ch.stream?.trim();
                 if (!stream) continue;
 
-                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${type}"`;
+                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${channelType}"`;
                 if (logo) extinf += ` tvg-logo="${logo}"`;
                 extinf += `,${name}`;
 
