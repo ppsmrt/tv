@@ -1,4 +1,4 @@
-name: Auto-update Main Plylist - Language
+name: Auto-update tv.m3u
 
 on:
   schedule:
