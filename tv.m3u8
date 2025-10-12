@@ -9,7 +9,7 @@ https://sivantv.livebox.co.in/sivantvhls/sivan.m3u8
 https://edge2-moblive.yuppcdn.net/trans1sd/smil:strtml19.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Moon Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/3mFCDX5V/1000148766.png",Moon Tv
 https://player.mslivestream.net/mslive/e10bb900976df9177b9a080314f26f86.sdp/chunks.m3u8
-#EXTINF:-1 tvg-name="Vanavil Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/8DnhY2Nb/1000148666.png",Vanavil Tv
+#EXTINF:-1 tvg-name="Vanavil Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/8DnhY2Nb/1000148666.png",Vanavil Tv
 https://6n3yope4d9ok-hls-live.5centscdn.com/vaanavil/TV.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="Mathimugam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/rfqmjbXb/1000148668.png",Mathimugam Tv
 https://cdn-3.pishow.tv/live/1476/master.m3u8
@@ -21,7 +21,7 @@ https://cdn.zionmediait.com/zionmediaitserver2024/97484f5ce6da96e496a9b87c439835
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/vikatan-tv/master.m3u8
 #EXTINF:-1 tvg-name="Isai Aruvi" group-title="Tamil" tvg-logo="https://i.ibb.co/GGNksQc/1000148681.png",Isai Aruvi
 https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
-#EXTINF:-1 tvg-name="Vasantham Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/whShTkGw/1000148683.png",Vasantham Tv
+#EXTINF:-1 tvg-name="Vasantham Tv" group-title="International" tvg-logo="https://i.ibb.co/whShTkGw/1000148683.png",Vasantham Tv
 https://edge2-moblive.yuppcdn.net/trans1sd/smil:vatv07.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Siripoli" group-title="Tamil" tvg-logo="https://i.ibb.co/BHQVF3FN/1000148686.png",Siripoli
 https://segment.yuppcdn.net/240122/siripoli/playlist.m3u8
@@ -339,7 +339,7 @@ https://5a1178b42cc03.streamlock.net/8220/8220/playlist.m3u8
 https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/mathrubhuminews_nim_https/110322/mathrubhuminews/playlist.m3u8
 #EXTINF:-1 tvg-name="Manorama News" group-title="Malayalam" tvg-logo="https://i.ibb.co/rRxVLNC7/1000122507.jpg",Manorama News
 https://mmtvnews1.akamaized.net/v1/master/673630b269b766886555eebfddd4f27f3de3ab50/mmtvNewsCampaign1/index.m3u8
-#EXTINF:-1 tvg-name="Stingray Pop" group-title="Tamil" tvg-logo="https://i.ibb.co/Q7k4xTnV/1000149672.png",Stingray Pop
+#EXTINF:-1 tvg-name="Stingray Pop" group-title="International" tvg-logo="https://i.ibb.co/Q7k4xTnV/1000149672.png",Stingray Pop
 https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8
 #EXTINF:-1 tvg-name="VCV Tv" group-title="Local Channel | Malayalam" tvg-logo="https://i.ibb.co/23JRgJRR/1000122511.jpg",VCV Tv
 https://5a1178b42cc03.streamlock.net/8210/8210/playlist.m3u8
@@ -875,7 +875,7 @@ https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 https://m6gdavepdn93-hls-live.5centscdn.com/indialife/d0dbe915091d400bd8ee7f27f0791303.sdp/chunks.m3u8
 #EXTINF:-1 tvg-name="Three Vision Tv" group-title="International" tvg-logo="https://i.ibb.co/bMMqLNTn/1000139779.jpg",Three Vision Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:knowledgetvdrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-name="Ada Derana" group-title="International" tvg-logo="https://i.ibb.co/MyPyvH16/1000148335.png",Ada Derana
+#EXTINF:-1 tvg-name="Ada Derana" group-title="International" tvg-logo="https://i.ibb.co/TB6fHF3h/1000149991.png",Ada Derana
 https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Event Tv" group-title="International" tvg-logo="https://i.ibb.co/NgyZ9W9M/1000149719.png",Event Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:eventtvdrm.smil/manifest.m3u8
@@ -1333,9 +1333,9 @@ https://ipcloud.live/mtv/menhd/index.m3u8
 https://ipcloud.live/anbutv/anbutvhd/index.m3u8
 #EXTINF:-1 tvg-name="Namma Gobi Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Df58DcC8/1000148741.png",Namma Gobi Tv
 https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
-#EXTINF:-1 tvg-name="ACP HD" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/HTTZ9Ycy/1000148327.png",ACP HD
+#EXTINF:-1 tvg-name="ACP HD" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/zk8DwGy/1000149988.png",ACP HD
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
-#EXTINF:-1 tvg-name="ACP Classic" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/27366n9g/1000148156.png",ACP Classic
+#EXTINF:-1 tvg-name="ACP Classic" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/BVC8KG5S/1000149987.png",ACP Classic
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-name="Puthuyugam" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/LMgnfps/1000148735.png",Puthuyugam
 http://103.184.193.216:3500/getm3u8/824/master.m3u8
