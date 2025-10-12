@@ -6,7 +6,7 @@
 
 #EXTINF:-1 tvg-name="Telegram: @tg_aadi" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1024px-Telegram_logo.svg.png?20220101141644" group-title="Portal | Info",Telegram • @tg_aadi
 
-#EXTINF:-1 tvg-name="User IP" tvg-logo="https://uxwing.com/wp-content/themes/uxwing/download/location-travel-map/ip-location-color-icon.svg" group-title="Portal | Info",User IP • 64.236.192.152
+#EXTINF:-1 tvg-name="User IP" tvg-logo="https://uxwing.com/wp-content/themes/uxwing/download/location-travel-map/ip-location-color-icon.svg" group-title="Portal | Info",User IP • 128.24.163.32
 
 #EXTINF:-1 tvg-name="Portal" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/6f/IPTV.png?20180223064625" group-title="Portal | Info",Portal • tatatv.cc
 
@@ -41,7 +41,7 @@ https://stalker.tnm3us.workers.dev/2606.m3u8
 #EXTINF:-1 tvg-id="CA: OMNI 1" tvg-name="OMNI EAST" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2589.png" group-title="ENGLISH - CANADA ",OMNI EAST
 https://stalker.tnm3us.workers.dev/2672.m3u8
 #EXTINF:-1 tvg-id="cp24.ca" tvg-name="CP24 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2508.png" group-title="ENGLISH - CANADA ",CP24 4K
-https://stalker.tnm3us.workers.dev/70781.m3u8
+https://stalker.tnm3us.workers.dev/71971.m3u8
 #EXTINF:-1 tvg-id="bnn.ca" tvg-name="BNN BLOOMBERG 4K." tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2500.png" group-title="ENGLISH - CANADA ",BNN BLOOMBERG 4K.
 https://stalker.tnm3us.workers.dev/2583.m3u8
 #EXTINF:-1 tvg-id="ctvnews.ca" tvg-name="CTV NEWS NETWORK 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2520.png" group-title="ENGLISH - CANADA ",CTV NEWS NETWORK 4K
@@ -269,7 +269,7 @@ https://stalker.tnm3us.workers.dev/74476.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CBC TORONTO BACKUP." tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/73529.png" group-title="ENGLISH - CANADA ",CBC TORONTO BACKUP.
 https://stalker.tnm3us.workers.dev/74477.m3u8
 #EXTINF:-1 tvg-id="cp24.ca" tvg-name="CP24 HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2507.png" group-title="ENGLISH - CANADA LOCAL",CP24 HD
-https://stalker.tnm3us.workers.dev/71976.m3u8
+https://stalker.tnm3us.workers.dev/71977.m3u8
 #EXTINF:-1 tvg-id="cbcnews.ca" tvg-name="CBC NEWS NETWORK 4K." tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2502.png" group-title="ENGLISH - CANADA LOCAL",CBC NEWS NETWORK 4K.
 https://stalker.tnm3us.workers.dev/72957.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CBC EASTERN" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/9205.jpg" group-title="ENGLISH - CANADA LOCAL",CBC EASTERN
@@ -277,7 +277,7 @@ https://stalker.tnm3us.workers.dev/9289.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="ONTARIO LEGISLATIVE" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/63261.jpg" group-title="ENGLISH - CANADA LOCAL",ONTARIO LEGISLATIVE
 https://stalker.tnm3us.workers.dev/63538.m3u8
 #EXTINF:-1 tvg-id="ctvtoronto.ca" tvg-name="CTV TORONTO 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2528.png" group-title="ENGLISH - CANADA LOCAL",CTV TORONTO 4K
-https://stalker.tnm3us.workers.dev/2611.m3u8
+https://stalker.tnm3us.workers.dev/68756.m3u8
 #EXTINF:-1 tvg-id="ctv2toronto.ca" tvg-name="CTV 2 TORONTO 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2544.png" group-title="ENGLISH - CANADA LOCAL",CTV 2 TORONTO 4K
 https://stalker.tnm3us.workers.dev/2627.m3u8
 #EXTINF:-1 tvg-id="citytvtoronto.ca" tvg-name="CITY TV TORONTO HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2554.png" group-title="ENGLISH - CANADA LOCAL",CITY TV TORONTO HD
@@ -1785,9 +1785,9 @@ https://stalker.tnm3us.workers.dev/74445.m3u8
 #EXTINF:-1 tvg-id="aljazeera.uk" tvg-name="AL JAZEERA 4K NEWS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/16717.jpg" group-title="ENGLISH - NEWS",AL JAZEERA 4K NEWS
 https://stalker.tnm3us.workers.dev/16804.m3u8
 #EXTINF:-1 tvg-id="cnn.us" tvg-name="CNN USA 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/16786.png" group-title="ENGLISH - NEWS",CNN USA 4K
-https://stalker.tnm3us.workers.dev/70070.m3u8
+https://stalker.tnm3us.workers.dev/68754.m3u8
 #EXTINF:-1 tvg-id="foxnews.us" tvg-name="FOX NEWS CHANNEL" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/16801.png" group-title="ENGLISH - NEWS",FOX NEWS CHANNEL
-https://stalker.tnm3us.workers.dev/73916.m3u8
+https://stalker.tnm3us.workers.dev/70823.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CBS NEWS 24/7" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60839.png" group-title="ENGLISH - NEWS",CBS NEWS 24/7
 https://stalker.tnm3us.workers.dev/61059.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="BLACK NEWS CHANNEL HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/16825.jpg" group-title="ENGLISH - NEWS",BLACK NEWS CHANNEL HD
@@ -3383,7 +3383,7 @@ https://stalker.tnm3us.workers.dev/5208.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="TEN ADELAIDE" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/5195.png" group-title="ENGLISH - AUSTRALIA ",TEN ADELAIDE
 https://stalker.tnm3us.workers.dev/5279.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="TEN MELBOURNE" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/5199.png" group-title="ENGLISH - AUSTRALIA ",TEN MELBOURNE
-https://stalker.tnm3us.workers.dev/5283.m3u8
+https://stalker.tnm3us.workers.dev/70629.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="TEN SYDNEY" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/5204.png" group-title="ENGLISH - AUSTRALIA ",TEN SYDNEY
 https://stalker.tnm3us.workers.dev/5288.m3u8
 #EXTINF:-1 tvg-id="skynewshd.au" tvg-name="SKY NEWS 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/5181.png" group-title="ENGLISH - AUSTRALIA ",SKY NEWS 4K
@@ -5213,23 +5213,23 @@ https://stalker.tnm3us.workers.dev/2056.m3u8
 #EXTINF:-1 tvg-id="espnnews.us" tvg-name="ESPN NEWS 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1983.png" group-title="SPORTS - GENERAL",ESPN NEWS 4K
 https://stalker.tnm3us.workers.dev/2066.m3u8
 #EXTINF:-1 tvg-id="tsn1.ca" tvg-name="TSN1 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2470.jpg" group-title="SPORTS - GENERAL",TSN1 4K
-https://stalker.tnm3us.workers.dev/68751.m3u8
+https://stalker.tnm3us.workers.dev/68826.m3u8
 #EXTINF:-1 tvg-id="tsn2.ca" tvg-name="TSN2 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2469.jpg" group-title="SPORTS - GENERAL",TSN2 4K
 https://stalker.tnm3us.workers.dev/2552.m3u8
 #EXTINF:-1 tvg-id="tsn3.ca" tvg-name="TSN3 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2471.jpg" group-title="SPORTS - GENERAL",TSN3 4K
 https://stalker.tnm3us.workers.dev/42065.m3u8
 #EXTINF:-1 tvg-id="tsn4.ca" tvg-name="TSN4 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2472.jpg" group-title="SPORTS - GENERAL",TSN4 4K
-https://stalker.tnm3us.workers.dev/66875.m3u8
+https://stalker.tnm3us.workers.dev/2555.m3u8
 #EXTINF:-1 tvg-id="tsn5.ca" tvg-name="TSN5 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2466.jpg" group-title="SPORTS - GENERAL",TSN5 4K
 https://stalker.tnm3us.workers.dev/66879.m3u8
 #EXTINF:-1 tvg-id="tsn1.ca" tvg-name="TSN1 HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/62058.jpg" group-title="SPORTS - GENERAL",TSN1 HD
 https://stalker.tnm3us.workers.dev/66866.m3u8
 #EXTINF:-1 tvg-id="tsn2.ca" tvg-name="TSN2 HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/62059.jpg" group-title="SPORTS - GENERAL",TSN2 HD
-https://stalker.tnm3us.workers.dev/66869.m3u8
+https://stalker.tnm3us.workers.dev/62294.m3u8
 #EXTINF:-1 tvg-id="tsn3.ca" tvg-name="TSN3 HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/62060.jpg" group-title="SPORTS - GENERAL",TSN3 HD
-https://stalker.tnm3us.workers.dev/66873.m3u8
+https://stalker.tnm3us.workers.dev/62295.m3u8
 #EXTINF:-1 tvg-id="tsn4.ca" tvg-name="TSN4 HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/62061.jpg" group-title="SPORTS - GENERAL",TSN4 HD
-https://stalker.tnm3us.workers.dev/66877.m3u8
+https://stalker.tnm3us.workers.dev/62296.m3u8
 #EXTINF:-1 tvg-id="tsn5.ca" tvg-name="TSN5 HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/62062.jpg" group-title="SPORTS - GENERAL",TSN5 HD
 https://stalker.tnm3us.workers.dev/66881.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="TSN + 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/69879.png" group-title="SPORTS - GENERAL",TSN + 4K
@@ -5239,19 +5239,19 @@ https://stalker.tnm3us.workers.dev/73922.m3u8
 #EXTINF:-1 tvg-id="sportsnetworld.ca" tvg-name="SPORTSNET WORLD 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/28024.png" group-title="SPORTS - GENERAL",SPORTSNET WORLD 4K
 https://stalker.tnm3us.workers.dev/28144.m3u8
 #EXTINF:-1 tvg-id="sportsnet360.ca" tvg-name="SPORTSNET 360 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2464.png" group-title="SPORTS - GENERAL",SPORTSNET 360 4K
-https://stalker.tnm3us.workers.dev/73116.m3u8
+https://stalker.tnm3us.workers.dev/66889.m3u8
 #EXTINF:-1 tvg-id="sportsneteast.ca" tvg-name="SPORTSNET EAST 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2467.png" group-title="SPORTS - GENERAL",SPORTSNET EAST 4K
-https://stalker.tnm3us.workers.dev/73402.m3u8
+https://stalker.tnm3us.workers.dev/73404.m3u8
 #EXTINF:-1 tvg-id="sportsnetontario.ca" tvg-name="SPORTSNET ONTARIO 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2460.png" group-title="SPORTS - GENERAL",SPORTSNET ONTARIO 4K
-https://stalker.tnm3us.workers.dev/74695.m3u8
+https://stalker.tnm3us.workers.dev/73144.m3u8
 #EXTINF:-1 tvg-id="sportsnetone.ca" tvg-name="SPORTSNET ONE 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2459.png" group-title="SPORTS - GENERAL",SPORTSNET ONE 4K
-https://stalker.tnm3us.workers.dev/43919.m3u8
+https://stalker.tnm3us.workers.dev/73148.m3u8
 #EXTINF:-1 tvg-id="sportsnetpacific.ca" tvg-name="SPORTSNET PACIFIC 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2462.png" group-title="SPORTS - GENERAL",SPORTSNET PACIFIC 4K
-https://stalker.tnm3us.workers.dev/73158.m3u8
+https://stalker.tnm3us.workers.dev/73155.m3u8
 #EXTINF:-1 tvg-id="sportsnetwest.ca" tvg-name="SPORTSNET WEST 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2461.png" group-title="SPORTS - GENERAL",SPORTSNET WEST 4K
-https://stalker.tnm3us.workers.dev/66895.m3u8
+https://stalker.tnm3us.workers.dev/2544.m3u8
 #EXTINF:-1 tvg-id="SPECSN Spectrum SportsNet HD" tvg-name="SPORTSNET LA DODGERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1994.png" group-title="SPORTS - GENERAL",SPORTSNET LA DODGERS
-https://stalker.tnm3us.workers.dev/66891.m3u8
+https://stalker.tnm3us.workers.dev/2077.m3u8
 #EXTINF:-1 tvg-id="sportsnetontario.ca" tvg-name="SPORTSNET ONTARIO" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/68515.png" group-title="SPORTS - GENERAL",SPORTSNET ONTARIO
 https://stalker.tnm3us.workers.dev/68085.m3u8
 #EXTINF:-1 tvg-id="sportsnet360.ca" tvg-name="SPORTSNET 360" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/68514.png" group-title="SPORTS - GENERAL",SPORTSNET 360
@@ -5263,11 +5263,11 @@ https://stalker.tnm3us.workers.dev/68087.m3u8
 #EXTINF:-1 tvg-id="sportsneteast.ca" tvg-name="SPORTSNET NY" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/9193.png" group-title="SPORTS - GENERAL",SPORTSNET NY
 https://stalker.tnm3us.workers.dev/9277.m3u8
 #EXTINF:-1 tvg-id="atandtsportsnetpittsburgh.us" tvg-name="AT&T SPORTSNET PITTSBURGH" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2058.png" group-title="SPORTS - GENERAL",AT&T SPORTSNET PITTSBURGH
-https://stalker.tnm3us.workers.dev/66896.m3u8
+https://stalker.tnm3us.workers.dev/2141.m3u8
 #EXTINF:-1 tvg-id="atandtsportsnetsouthwest.us" tvg-name="AT&T SPORTSNET SOUTHWEST" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1945.png" group-title="SPORTS - GENERAL",AT&T SPORTSNET SOUTHWEST
-https://stalker.tnm3us.workers.dev/66898.m3u8
+https://stalker.tnm3us.workers.dev/2028.m3u8
 #EXTINF:-1 tvg-id="btsport1.uk" tvg-name="TNT SPORT 1 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2850.jpg" group-title="SPORTS - GENERAL",TNT SPORT 1 4K
-https://stalker.tnm3us.workers.dev/73154.m3u8
+https://stalker.tnm3us.workers.dev/73153.m3u8
 #EXTINF:-1 tvg-id="btsport2.uk" tvg-name="TNT SPORT 2 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2852.jpg" group-title="SPORTS - GENERAL",TNT SPORT 2 4K
 https://stalker.tnm3us.workers.dev/73151.m3u8
 #EXTINF:-1 tvg-id="btsport3.uk" tvg-name="TNT SPORT 3 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2854.png" group-title="SPORTS - GENERAL",TNT SPORT 3 4K
@@ -5395,9 +5395,9 @@ https://stalker.tnm3us.workers.dev/74456.m3u8
 #EXTINF:-1 tvg-id="nflnetworkcanada.ca" tvg-name="NFL NETWORK CANADA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2474.png" group-title="SPORTS - GENERAL",NFL NETWORK CANADA
 https://stalker.tnm3us.workers.dev/2557.m3u8
 #EXTINF:-1 tvg-id="NFL REDZONE:" tvg-name="NFL REDZONE PPV" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/17074.png" group-title="SPORTS - NFL",NFL REDZONE PPV
-https://stalker.tnm3us.workers.dev/69621.m3u8
+https://stalker.tnm3us.workers.dev/17173.m3u8
 #EXTINF:-1 tvg-id="NFL REDZONE:" tvg-name="NFL REDZONE" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1998.png" group-title="SPORTS - GENERAL",NFL REDZONE
-https://stalker.tnm3us.workers.dev/69620.m3u8
+https://stalker.tnm3us.workers.dev/69619.m3u8
 #EXTINF:-1 tvg-id="espnu.us" tvg-name="ESPNU 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1980.png" group-title="SPORTS - ESPN+",ESPNU 4K
 https://stalker.tnm3us.workers.dev/2063.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NBA ESPN GAME" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3268.jpg" group-title="SPORTS - GENERAL",NBA ESPN GAME
@@ -5697,7 +5697,7 @@ https://stalker.tnm3us.workers.dev/61027.m3u8
 #EXTINF:-1 tvg-id="IE: EIR SPORTS 2 HD" tvg-name="EIR SPORTS 2 HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2892.png" group-title="SPORTS - GENERAL",EIR SPORTS 2 HD
 https://stalker.tnm3us.workers.dev/2975.m3u8
 #EXTINF:-1 tvg-id="espn.us" tvg-name="ESPN 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1979.jpg" group-title="SPORTS - GENERAL",ESPN 4K
-https://stalker.tnm3us.workers.dev/2062.m3u8
+https://stalker.tnm3us.workers.dev/73152.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SPORTSNET EAST" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/68509.jpg" group-title="SPORTS - GENERAL",SPORTSNET EAST
 https://stalker.tnm3us.workers.dev/68079.m3u8
 #EXTINF:-1 tvg-id="sportsnetpacific.ca" tvg-name="SPORTSNET PACIFIC" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/68510.jpg" group-title="SPORTS - GENERAL",SPORTSNET PACIFIC
@@ -5803,7 +5803,7 @@ https://stalker.tnm3us.workers.dev/3451.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBBOS BOSTON RED SOX" tvg-name="MLB BOSTON RED SOX" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3393.jpg" group-title="SPORTS - MLB",MLB BOSTON RED SOX
 https://stalker.tnm3us.workers.dev/3476.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBCHC CHICAGO CUBS" tvg-name="MLB CHICAGO CUBS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3381.jpg" group-title="SPORTS - MLB",MLB CHICAGO CUBS
-https://stalker.tnm3us.workers.dev/74845.m3u8
+https://stalker.tnm3us.workers.dev/3464.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBCHW CHICAGO WHITE SOX" tvg-name="MLB CHICAGO WHITE SOX" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3390.png" group-title="SPORTS - MLB",MLB CHICAGO WHITE SOX
 https://stalker.tnm3us.workers.dev/3473.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBCIN CINCINNATI REDS" tvg-name="MLB CINCINNATI REDS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3410.png" group-title="SPORTS - MLB",MLB CINCINNATI REDS
@@ -5813,7 +5813,7 @@ https://stalker.tnm3us.workers.dev/3501.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBCOL COLORADO ROCKIES" tvg-name="MLB COLORADO ROCKIES" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3419.jpg" group-title="SPORTS - MLB",MLB COLORADO ROCKIES
 https://stalker.tnm3us.workers.dev/3502.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS 749 MLBDET DETROIT TIGERS" tvg-name="MLB DETROIT TIGERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3423.jpg" group-title="SPORTS - MLB",MLB DETROIT TIGERS
-https://stalker.tnm3us.workers.dev/3506.m3u8
+https://stalker.tnm3us.workers.dev/74841.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBHOU HOUSTON ASTROS" tvg-name="MLB HOUSTON ASTROS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3431.png" group-title="SPORTS - MLB",MLB HOUSTON ASTROS
 https://stalker.tnm3us.workers.dev/3514.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBKC KANSAS CITY ROYALS" tvg-name="MLB KANSAS CITY ROYALS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3435.jpg" group-title="SPORTS - MLB",MLB KANSAS CITY ROYALS
@@ -5825,7 +5825,7 @@ https://stalker.tnm3us.workers.dev/74844.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="MLB MIAMI MARLINS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3453.png" group-title="SPORTS - MLB",MLB MIAMI MARLINS
 https://stalker.tnm3us.workers.dev/3536.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="MLB MILWAUKEE BREWERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3461.png" group-title="SPORTS - MLB",MLB MILWAUKEE BREWERS
-https://stalker.tnm3us.workers.dev/74846.m3u8
+https://stalker.tnm3us.workers.dev/3544.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBMIN MINNESOTA TWINS" tvg-name="MLB MINNESOTA TWINS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3468.jpg" group-title="SPORTS - MLB",MLB MINNESOTA TWINS
 https://stalker.tnm3us.workers.dev/3551.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBNYM NEW YORK METS" tvg-name="MLB NEW YORK METS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3473.png" group-title="SPORTS - MLB",MLB NEW YORK METS
@@ -5843,7 +5843,7 @@ https://stalker.tnm3us.workers.dev/3594.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBSF SAN FRANCISCO GIANTS" tvg-name="MLB SAN FRANCISCO GIANTS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3519.png" group-title="SPORTS - MLB",MLB SAN FRANCISCO GIANTS
 https://stalker.tnm3us.workers.dev/3602.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBSEA SEATTLE MARINERS" tvg-name="MLB SEATTLE MARINERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3529.png" group-title="SPORTS - MLB",MLB SEATTLE MARINERS
-https://stalker.tnm3us.workers.dev/3612.m3u8
+https://stalker.tnm3us.workers.dev/74843.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBSTL ST. LOUIS CARDINALS" tvg-name="MLB ST LOUIS CARDINALS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3536.jpg" group-title="SPORTS - MLB",MLB ST LOUIS CARDINALS
 https://stalker.tnm3us.workers.dev/3619.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBTB TAMPA BAY RAYS" tvg-name="MLB TAMPA BAY RAYS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3358.png" group-title="SPORTS - MLB",MLB TAMPA BAY RAYS
@@ -5851,21 +5851,21 @@ https://stalker.tnm3us.workers.dev/3441.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBTEX TEXAS RANGERS" tvg-name="MLB TEXAS RANGERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3374.jpg" group-title="SPORTS - MLB",MLB TEXAS RANGERS
 https://stalker.tnm3us.workers.dev/3457.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBTOR TORONTO BLUE JAYS" tvg-name="MLB TORONTO BLUE JAYS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3396.png" group-title="SPORTS - MLB",MLB TORONTO BLUE JAYS
-https://stalker.tnm3us.workers.dev/74848.m3u8
+https://stalker.tnm3us.workers.dev/74849.m3u8
 #EXTINF:-1 tvg-id="MLB EXTRA INNINGS MLBWSH WASHINGTON NATIONALS" tvg-name="MLB WASHINGTON NATIONALS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3377.png" group-title="SPORTS - MLB",MLB WASHINGTON NATIONALS
 https://stalker.tnm3us.workers.dev/3460.m3u8
 #EXTINF:-1 tvg-id="NBAATL: ATLANTA HAWKS" tvg-name="NBA 1080P ATLANTA HAWKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3467.jpg" group-title="SPORTS - NBA",NBA 1080P ATLANTA HAWKS
-https://stalker.tnm3us.workers.dev/3550.m3u8
+https://stalker.tnm3us.workers.dev/66821.m3u8
 #EXTINF:-1 tvg-id="NBABOS: BOSTON CELTICS" tvg-name="NBA 1080P BOSTON CELTICS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3458.jpg" group-title="SPORTS - NBA",NBA 1080P BOSTON CELTICS
-https://stalker.tnm3us.workers.dev/66822.m3u8
+https://stalker.tnm3us.workers.dev/3541.m3u8
 #EXTINF:-1 tvg-id="NBABKN: BROOKLYN NETS" tvg-name="NBA 1080P BROOKLYN NETS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3463.jpg" group-title="SPORTS - NBA",NBA 1080P BROOKLYN NETS
-https://stalker.tnm3us.workers.dev/66823.m3u8
+https://stalker.tnm3us.workers.dev/3546.m3u8
 #EXTINF:-1 tvg-id="NBACHA: CHARLOTTE HORNETS" tvg-name="NBA 1080P CHARLOTTE HORNETS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3471.jpg" group-title="SPORTS - NBA",NBA 1080P CHARLOTTE HORNETS
 https://stalker.tnm3us.workers.dev/66824.m3u8
 #EXTINF:-1 tvg-id="NBACHI: CHICAGO BULLS" tvg-name="NBA 1080P CHICAGO BULLS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3488.jpg" group-title="SPORTS - NBA",NBA 1080P CHICAGO BULLS
-https://stalker.tnm3us.workers.dev/66825.m3u8
+https://stalker.tnm3us.workers.dev/3571.m3u8
 #EXTINF:-1 tvg-id="NBACLE: CLEVELAND CAVALIERS" tvg-name="NBA 1080P CLEVELAND CAVALIERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3506.png" group-title="SPORTS - NBA",NBA 1080P CLEVELAND CAVALIERS
-https://stalker.tnm3us.workers.dev/3589.m3u8
+https://stalker.tnm3us.workers.dev/66827.m3u8
 #EXTINF:-1 tvg-id="NBADAL: DALLAS MAVERICKS" tvg-name="NBA 1080P DALLAS MAVERICKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3512.jpg" group-title="SPORTS - NBA",NBA 1080P DALLAS MAVERICKS
 https://stalker.tnm3us.workers.dev/3595.m3u8
 #EXTINF:-1 tvg-id="NBADEN: DENVER NUGGETS" tvg-name="NBA 1080P DENVER NUGGETS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3521.png" group-title="SPORTS - NBA",NBA 1080P DENVER NUGGETS
@@ -5875,7 +5875,7 @@ https://stalker.tnm3us.workers.dev/66841.m3u8
 #EXTINF:-1 tvg-id="NBAGSW: GOLDEN STATE WARRIORS" tvg-name="NBA 1080P GOLDEN STATE WARRIORS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3531.png" group-title="SPORTS - NBA",NBA 1080P GOLDEN STATE WARRIORS
 https://stalker.tnm3us.workers.dev/3614.m3u8
 #EXTINF:-1 tvg-id="NBAHOU: HOUSTON ROCKETS" tvg-name="NBA 1080P HOUSTON ROCKETS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3541.png" group-title="SPORTS - NBA",NBA 1080P HOUSTON ROCKETS
-https://stalker.tnm3us.workers.dev/3624.m3u8
+https://stalker.tnm3us.workers.dev/66845.m3u8
 #EXTINF:-1 tvg-id="NBAIND: INDIANA PACERS" tvg-name="NBA 1080P INDIANA PACERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3363.png" group-title="SPORTS - NBA",NBA 1080P INDIANA PACERS
 https://stalker.tnm3us.workers.dev/66857.m3u8
 #EXTINF:-1 tvg-id="NBALAC: LOS ANGELES CLIPPERS" tvg-name="NBA 1080P LOS ANGELES CLIPPERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3367.png" group-title="SPORTS - NBA",NBA 1080P LOS ANGELES CLIPPERS
@@ -5889,31 +5889,31 @@ https://stalker.tnm3us.workers.dev/66861.m3u8
 #EXTINF:-1 tvg-id="NBAMIL: MILWAUKEE BUCKS" tvg-name="NBA 1080P MILWAUKEE BUCKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3404.jpg" group-title="SPORTS - NBA",NBA 1080P MILWAUKEE BUCKS
 https://stalker.tnm3us.workers.dev/3487.m3u8
 #EXTINF:-1 tvg-id="NBAMIN: MINNESOTA TIMBERWOLVES" tvg-name="NBA 1080P MINNESOTA TIMBERWOLVES" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3422.png" group-title="SPORTS - NBA",NBA 1080P MINNESOTA TIMBERWOLVES
-https://stalker.tnm3us.workers.dev/3505.m3u8
+https://stalker.tnm3us.workers.dev/66864.m3u8
 #EXTINF:-1 tvg-id="NBANOP: NEW ORLEANS PELICANS" tvg-name="NBA 1080P NEW ORLEANS PELICANS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3429.jpg" group-title="SPORTS - NBA",NBA 1080P NEW ORLEANS PELICANS
 https://stalker.tnm3us.workers.dev/3512.m3u8
 #EXTINF:-1 tvg-id="NBANYK: NEW YORK KNICKS" tvg-name="NBA 1080P NEW YORK KNICKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3437.png" group-title="SPORTS - NBA",NBA 1080P NEW YORK KNICKS
-https://stalker.tnm3us.workers.dev/3520.m3u8
+https://stalker.tnm3us.workers.dev/66868.m3u8
 #EXTINF:-1 tvg-id="NBAOKC: OKLAHOMA CITY THUNDER" tvg-name="NBA 1080P OKLAHOMA CITY THUNDER" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3446.jpg" group-title="SPORTS - NBA",NBA 1080P OKLAHOMA CITY THUNDER
 https://stalker.tnm3us.workers.dev/3529.m3u8
 #EXTINF:-1 tvg-id="NBAORL: ORLANDO MAGIC" tvg-name="NBA 1080P ORLANDO MAGIC" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3451.png" group-title="SPORTS - NBA",NBA 1080P ORLANDO MAGIC
-https://stalker.tnm3us.workers.dev/3534.m3u8
+https://stalker.tnm3us.workers.dev/66872.m3u8
 #EXTINF:-1 tvg-id="NBAPHI: PHILADELPHIA 76ERS" tvg-name="NBA 1080P PHILADELPHIA 76ERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3459.png" group-title="SPORTS - NBA",NBA 1080P PHILADELPHIA 76ERS
 https://stalker.tnm3us.workers.dev/66874.m3u8
 #EXTINF:-1 tvg-id="NBAPHX: PHOENIX SUNS" tvg-name="NBA 1080P PHOENIX SUNS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3456.png" group-title="SPORTS - NBA",NBA 1080P PHOENIX SUNS
-https://stalker.tnm3us.workers.dev/66876.m3u8
+https://stalker.tnm3us.workers.dev/3539.m3u8
 #EXTINF:-1 tvg-id="NBAPOR: PORTLAND TRAIL BLAZERS" tvg-name="NBA 1080P PORTLAND TRAIL BLAZERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3476.png" group-title="SPORTS - NBA",NBA 1080P PORTLAND TRAIL BLAZERS
-https://stalker.tnm3us.workers.dev/3559.m3u8
+https://stalker.tnm3us.workers.dev/66878.m3u8
 #EXTINF:-1 tvg-id="NBASAC: SACRAMENTO KINGS" tvg-name="NBA 1080P SACRAMENTO KINGS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3474.png" group-title="SPORTS - NBA",NBA 1080P SACRAMENTO KINGS
-https://stalker.tnm3us.workers.dev/66880.m3u8
+https://stalker.tnm3us.workers.dev/3557.m3u8
 #EXTINF:-1 tvg-id="NBASAS: SAN ANTONIO SPURS" tvg-name="NBA 1080P SAN ANTONIO SPURS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3483.png" group-title="SPORTS - NBA",NBA 1080P SAN ANTONIO SPURS
-https://stalker.tnm3us.workers.dev/3566.m3u8
+https://stalker.tnm3us.workers.dev/66882.m3u8
 #EXTINF:-1 tvg-id="NBATOR: TORONTO RAPTORS" tvg-name="NBA 1080P TORONTO RAPTORS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3494.png" group-title="SPORTS - NBA",NBA 1080P TORONTO RAPTORS
 https://stalker.tnm3us.workers.dev/3577.m3u8
 #EXTINF:-1 tvg-id="NBAUTA: UTAH JAZZ" tvg-name="NBA 1080P UTAH JAZZ" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3497.png" group-title="SPORTS - NBA",NBA 1080P UTAH JAZZ
-https://stalker.tnm3us.workers.dev/3580.m3u8
+https://stalker.tnm3us.workers.dev/66884.m3u8
 #EXTINF:-1 tvg-id="NBAWAS: WASHINGTON WIZARDS" tvg-name="NBA 1080P WASHINGTON WIZARDS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3516.png" group-title="SPORTS - NBA",NBA 1080P WASHINGTON WIZARDS
-https://stalker.tnm3us.workers.dev/66885.m3u8
+https://stalker.tnm3us.workers.dev/3599.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="UFC FIGHT PASS 24/7" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3375.png" group-title="SPORTS - UFC",UFC FIGHT PASS 24/7
 https://stalker.tnm3us.workers.dev/3458.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="UFC PPV EARLY PRELIMS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3382.jpg" group-title="SPORTS - UFC",UFC PPV EARLY PRELIMS
@@ -5955,13 +5955,13 @@ https://stalker.tnm3us.workers.dev/14353.m3u8
 #EXTINF:-1 tvg-id="loc.CBS (WTTV) Indianapolis, IN" tvg-name="NFL CBS COLTS (WTTV) INDIANAPOLIS IN" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14263.jpg" group-title="SPORTS - NFL",NFL CBS COLTS (WTTV) INDIANAPOLIS IN
 https://stalker.tnm3us.workers.dev/74886.m3u8
 #EXTINF:-1 tvg-id="CBSWFOR.us" tvg-name="NFL CBS DOLPHINS (WFOR) MIAMI FL" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14167.jpg" group-title="SPORTS - NFL",NFL CBS DOLPHINS (WFOR) MIAMI FL
-https://stalker.tnm3us.workers.dev/74887.m3u8
+https://stalker.tnm3us.workers.dev/14251.m3u8
 #EXTINF:-1 tvg-id="loc.CBS (KYW) Philadelphia, PA" tvg-name="NFL CBS EAGLES (KYW) PHILADELPHIA PA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14218.jpg" group-title="SPORTS - NFL",NFL CBS EAGLES (KYW) PHILADELPHIA PA
 https://stalker.tnm3us.workers.dev/14302.m3u8
 #EXTINF:-1 tvg-id="us.CBS (WGCL) Atlanta, GA" tvg-name="NFL CBS FALCONS (WGCL) ATLANTA GA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14170.jpg" group-title="SPORTS - NFL",NFL CBS FALCONS (WGCL) ATLANTA GA
 https://stalker.tnm3us.workers.dev/14254.m3u8
 #EXTINF:-1 tvg-id="us.CBS (WJAX) Jacksonville, FL HD" tvg-name="NFL CBS JAGUARS (WJAX) JACKSONVILLE FL" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14179.jpg" group-title="SPORTS - NFL",NFL CBS JAGUARS (WJAX) JACKSONVILLE FL
-https://stalker.tnm3us.workers.dev/14263.m3u8
+https://stalker.tnm3us.workers.dev/74891.m3u8
 #EXTINF:-1 tvg-id="us.CBS (WWJ) Detroit, MI HD" tvg-name="NFL CBS LIONS (WWJ) DETROIT MI" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14173.jpg" group-title="SPORTS - NFL",NFL CBS LIONS (WWJ) DETROIT MI
 https://stalker.tnm3us.workers.dev/14257.m3u8
 #EXTINF:-1 tvg-id="CBSWBTV.us" tvg-name="NFL CBS PANTHERS (WBTV) CHARLOTTE NC" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14176.jpg" group-title="SPORTS - NFL",NFL CBS PANTHERS (WBTV) CHARLOTTE NC
@@ -5969,7 +5969,7 @@ https://stalker.tnm3us.workers.dev/14260.m3u8
 #EXTINF:-1 tvg-id="CBSWBZ.us" tvg-name="NFL CBS PATRIOTS (WBZ) BOSTON MA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14182.jpg" group-title="SPORTS - NFL",NFL CBS PATRIOTS (WBZ) BOSTON MA
 https://stalker.tnm3us.workers.dev/14266.m3u8
 #EXTINF:-1 tvg-id="loc.CBS (KLAS) Las Vegas, NV" tvg-name="NFL CBS RAIDERS (KLAS) LAS VEGAS NV" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14185.jpg" group-title="SPORTS - NFL",NFL CBS RAIDERS (KLAS) LAS VEGAS NV
-https://stalker.tnm3us.workers.dev/74894.m3u8
+https://stalker.tnm3us.workers.dev/14269.m3u8
 #EXTINF:-1 tvg-id="CBSWJZ.us" tvg-name="NFL CBS RAVENS (WJZ) BALTIMORE MD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14191.jpg" group-title="SPORTS - NFL",NFL CBS RAVENS (WJZ) BALTIMORE MD
 https://stalker.tnm3us.workers.dev/74892.m3u8
 #EXTINF:-1 tvg-id="CBS2KDKA.us" tvg-name="NFL CBS STEELERS (KDKA DT) PITTSBURGH PA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14200.jpg" group-title="SPORTS - NFL",NFL CBS STEELERS (KDKA DT) PITTSBURGH PA
@@ -6005,7 +6005,7 @@ https://stalker.tnm3us.workers.dev/66656.m3u8
 #EXTINF:-1 tvg-id="FOX (WJZY) Charlotte, NC" tvg-name="NFL FOX PANTHERS (WJZY) CHARLOTTE NC" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14275.png" group-title="SPORTS - NFL",NFL FOX PANTHERS (WJZY) CHARLOTTE NC
 https://stalker.tnm3us.workers.dev/66655.m3u8
 #EXTINF:-1 tvg-id="loc.FOX (KVVU) Las Vegas, NV" tvg-name="NFL FOX RAIDERS (KVVU) LAS VEGAS NV" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14287.png" group-title="SPORTS - NFL",NFL FOX RAIDERS (KVVU) LAS VEGAS NV
-https://stalker.tnm3us.workers.dev/66654.m3u8
+https://stalker.tnm3us.workers.dev/74895.m3u8
 #EXTINF:-1 tvg-id="loc.FOX (KTXL) Sacramento, CA" tvg-name="NFL FOX RAMS (KTXL) SACRAMENTO CA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14278.png" group-title="SPORTS - NFL",NFL FOX RAMS (KTXL) SACRAMENTO CA
 https://stalker.tnm3us.workers.dev/66653.m3u8
 #EXTINF:-1 tvg-id="us.FOX (KTTV) Los Angeles, CA" tvg-name="NFL FOX RAMS CHARGERS (KTTV) LOS ANGELES CA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14290.png" group-title="SPORTS - NFL",NFL FOX RAMS CHARGERS (KTTV) LOS ANGELES CA
@@ -6015,7 +6015,7 @@ https://stalker.tnm3us.workers.dev/74893.m3u8
 #EXTINF:-1 tvg-id="us.FOX (WTTG) District of Columbia" tvg-name="NFL FOX REDSKINS (WTTG) WASHINGTON DC" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14281.png" group-title="SPORTS - NFL",NFL FOX REDSKINS (WTTG) WASHINGTON DC
 https://stalker.tnm3us.workers.dev/66650.m3u8
 #EXTINF:-1 tvg-id="us.FOX (WVUE) New Orleans, LA" tvg-name="NFL FOX SAINTS (WVUE) NEW ORLEANS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14296.png" group-title="SPORTS - NFL",NFL FOX SAINTS (WVUE) NEW ORLEANS
-https://stalker.tnm3us.workers.dev/66649.m3u8
+https://stalker.tnm3us.workers.dev/74889.m3u8
 #EXTINF:-1 tvg-id="loc.FOX (KCPQ) Tacoma, WA" tvg-name="NFL FOX SEAHAWKS (KCPQ) SEATTLE WA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14305.png" group-title="SPORTS - NFL",NFL FOX SEAHAWKS (KCPQ) SEATTLE WA
 https://stalker.tnm3us.workers.dev/66648.m3u8
 #EXTINF:-1 tvg-id="loc.FOX (KRIV) Houston, TX" tvg-name="NFL FOX TEXANS (KRIV) HOUSTON TX" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14302.png" group-title="SPORTS - NFL",NFL FOX TEXANS (KRIV) HOUSTON TX
@@ -6023,19 +6023,19 @@ https://stalker.tnm3us.workers.dev/66647.m3u8
 #EXTINF:-1 tvg-id="us.FOX (KMSP-DT9) Minneapolis, MN" tvg-name="NFL FOX VIKINGS (KMSP) MINNEAPOLIS ST. PAUL" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/14299.jpg" group-title="SPORTS - NFL",NFL FOX VIKINGS (KMSP) MINNEAPOLIS ST. PAUL
 https://stalker.tnm3us.workers.dev/66646.m3u8
 #EXTINF:-1 tvg-id="nhl.1" tvg-name="NHL SEATTLE KRAKEN" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27948.png" group-title="SPORTS - NHL",NHL SEATTLE KRAKEN
-https://stalker.tnm3us.workers.dev/28068.m3u8
+https://stalker.tnm3us.workers.dev/66806.m3u8
 #EXTINF:-1 tvg-id="nhl.2" tvg-name="NHL WINNIPEG JETS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27952.png" group-title="SPORTS - NHL",NHL WINNIPEG JETS
-https://stalker.tnm3us.workers.dev/28072.m3u8
+https://stalker.tnm3us.workers.dev/66807.m3u8
 #EXTINF:-1 tvg-id="nhl.3" tvg-name="NHL WASHINGTON CAPITALS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27956.png" group-title="SPORTS - NHL",NHL WASHINGTON CAPITALS
-https://stalker.tnm3us.workers.dev/74879.m3u8
+https://stalker.tnm3us.workers.dev/66808.m3u8
 #EXTINF:-1 tvg-id="nhl.4" tvg-name="NHL VEGAS GOLDEN KNIGHTS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27960.png" group-title="SPORTS - NHL",NHL VEGAS GOLDEN KNIGHTS
-https://stalker.tnm3us.workers.dev/28080.m3u8
+https://stalker.tnm3us.workers.dev/74837.m3u8
 #EXTINF:-1 tvg-id="nhl.5" tvg-name="NHL VANCOUVER CANUCKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27964.png" group-title="SPORTS - NHL",NHL VANCOUVER CANUCKS
-https://stalker.tnm3us.workers.dev/74835.m3u8
+https://stalker.tnm3us.workers.dev/28084.m3u8
 #EXTINF:-1 tvg-id="nhl.6" tvg-name="NHL TORONTO MAPLE LEAFS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27968.png" group-title="SPORTS - NHL",NHL TORONTO MAPLE LEAFS
-https://stalker.tnm3us.workers.dev/28088.m3u8
+https://stalker.tnm3us.workers.dev/66811.m3u8
 #EXTINF:-1 tvg-id="nhl.7" tvg-name="NHL TEMPA BAY LIGHTENING" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27972.png" group-title="SPORTS - NHL",NHL TEMPA BAY LIGHTENING
-https://stalker.tnm3us.workers.dev/66812.m3u8
+https://stalker.tnm3us.workers.dev/74815.m3u8
 #EXTINF:-1 tvg-id="nhl.8" tvg-name="NHL ST LOUIS BLUES" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27976.png" group-title="SPORTS - NHL",NHL ST LOUIS BLUES
 https://stalker.tnm3us.workers.dev/28096.m3u8
 #EXTINF:-1 tvg-id="nhl.9" tvg-name="NHL SAN JOSE SHARKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27980.png" group-title="SPORTS - NHL",NHL SAN JOSE SHARKS
@@ -6043,33 +6043,33 @@ https://stalker.tnm3us.workers.dev/66814.m3u8
 #EXTINF:-1 tvg-id="nhl.10" tvg-name="NHL PITTSBURGH PENGUINS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27984.jpg" group-title="SPORTS - NHL",NHL PITTSBURGH PENGUINS
 https://stalker.tnm3us.workers.dev/66815.m3u8
 #EXTINF:-1 tvg-id="nhl.11" tvg-name="NHL PHILADELPHIA FLYERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27988.png" group-title="SPORTS - NHL",NHL PHILADELPHIA FLYERS
-https://stalker.tnm3us.workers.dev/28108.m3u8
+https://stalker.tnm3us.workers.dev/66816.m3u8
 #EXTINF:-1 tvg-id="nhl.12" tvg-name="NHL OTTAWA SENATORS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27992.png" group-title="SPORTS - NHL",NHL OTTAWA SENATORS
-https://stalker.tnm3us.workers.dev/74814.m3u8
+https://stalker.tnm3us.workers.dev/66817.m3u8
 #EXTINF:-1 tvg-id="nhl.13" tvg-name="NHL NEWYORK RANGERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/27996.png" group-title="SPORTS - NHL",NHL NEWYORK RANGERS
 https://stalker.tnm3us.workers.dev/72465.m3u8
 #EXTINF:-1 tvg-id="nhl.14" tvg-name="NHL NEWYORK ISLANDERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/28000.jpg" group-title="SPORTS - NHL",NHL NEWYORK ISLANDERS
-https://stalker.tnm3us.workers.dev/28120.m3u8
+https://stalker.tnm3us.workers.dev/66819.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL PHILADELPHIA PENGUINS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60773.png" group-title="SPORTS - NHL",NHL PHILADELPHIA PENGUINS
-https://stalker.tnm3us.workers.dev/60992.m3u8
+https://stalker.tnm3us.workers.dev/66820.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL NEW JERSEY DEVILS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60774.png" group-title="SPORTS - NHL",NHL NEW JERSEY DEVILS
-https://stalker.tnm3us.workers.dev/66826.m3u8
+https://stalker.tnm3us.workers.dev/74822.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL NASHVILLE PREDATORS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60775.png" group-title="SPORTS - NHL",NHL NASHVILLE PREDATORS
 https://stalker.tnm3us.workers.dev/74830.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL MONTREAL CANADIANS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60776.png" group-title="SPORTS - NHL",NHL MONTREAL CANADIANS
-https://stalker.tnm3us.workers.dev/74812.m3u8
+https://stalker.tnm3us.workers.dev/60995.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL LOS ANGELES KINGS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60777.png" group-title="SPORTS - NHL",NHL LOS ANGELES KINGS
-https://stalker.tnm3us.workers.dev/74877.m3u8
+https://stalker.tnm3us.workers.dev/60996.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL FLORIDA PANTHERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60778.png" group-title="SPORTS - NHL",NHL FLORIDA PANTHERS
-https://stalker.tnm3us.workers.dev/66831.m3u8
+https://stalker.tnm3us.workers.dev/60997.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL EDMONTON OILERS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60779.png" group-title="SPORTS - NHL",NHL EDMONTON OILERS
 https://stalker.tnm3us.workers.dev/60998.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL DETROIT RED WINGS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60780.jpg" group-title="SPORTS - NHL",NHL DETROIT RED WINGS
-https://stalker.tnm3us.workers.dev/74813.m3u8
+https://stalker.tnm3us.workers.dev/66833.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL DALLAS STARS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60781.png" group-title="SPORTS - NHL",NHL DALLAS STARS
-https://stalker.tnm3us.workers.dev/74833.m3u8
+https://stalker.tnm3us.workers.dev/66834.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL COLORADO AVALANCHE" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60782.jpg" group-title="SPORTS - NHL",NHL COLORADO AVALANCHE
-https://stalker.tnm3us.workers.dev/74834.m3u8
+https://stalker.tnm3us.workers.dev/61001.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL COLUMBUS BLUE JACKETS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60783.png" group-title="SPORTS - NHL",NHL COLUMBUS BLUE JACKETS
 https://stalker.tnm3us.workers.dev/61002.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL CALGARY FLAMES" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60784.jpg" group-title="SPORTS - NHL",NHL CALGARY FLAMES
@@ -6077,21 +6077,21 @@ https://stalker.tnm3us.workers.dev/74836.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL CAROLINA HURRICANES" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60785.jpg" group-title="SPORTS - NHL",NHL CAROLINA HURRICANES
 https://stalker.tnm3us.workers.dev/66840.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL CHICAGO BLACK HWAKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60786.jpg" group-title="SPORTS - NHL",NHL CHICAGO BLACK HWAKS
-https://stalker.tnm3us.workers.dev/74809.m3u8
+https://stalker.tnm3us.workers.dev/66842.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL BOSTON BRUINS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60787.png" group-title="SPORTS - NHL",NHL BOSTON BRUINS
-https://stalker.tnm3us.workers.dev/74808.m3u8
+https://stalker.tnm3us.workers.dev/66844.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL ANAHEIM DUCKS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60788.jpg" group-title="SPORTS - NHL",NHL ANAHEIM DUCKS
 https://stalker.tnm3us.workers.dev/74840.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL ARIZONA COYOTES" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60789.jpg" group-title="SPORTS - NHL",NHL ARIZONA COYOTES
-https://stalker.tnm3us.workers.dev/66847.m3u8
+https://stalker.tnm3us.workers.dev/61008.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL BUFFALO SABRES" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60790.jpg" group-title="SPORTS - NHL",NHL BUFFALO SABRES
-https://stalker.tnm3us.workers.dev/61009.m3u8
+https://stalker.tnm3us.workers.dev/74811.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NHL MINNESOTA WILD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/67517.png" group-title="SPORTS - NHL",NHL MINNESOTA WILD
 https://stalker.tnm3us.workers.dev/66662.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="UFC FIGHT PASS" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/59388.png" group-title="PPV EVENTS - ON DEMAND",UFC FIGHT PASS
 https://stalker.tnm3us.workers.dev/69538.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TNA: Bound for Glory 7:00pm" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3285.png" group-title="PPV EVENTS - ON DEMAND",TNA: Bound for Glory 7:00pm
-https://stalker.tnm3us.workers.dev/73966.m3u8
+https://stalker.tnm3us.workers.dev/74029.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Boxing: Allen vs. Makhmudov 2:00 pm" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3295.png" group-title="PPV EVENTS - ON DEMAND",Boxing: Allen vs. Makhmudov 2:00 pm
 https://stalker.tnm3us.workers.dev/66851.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 3" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3297.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 3
@@ -6099,13 +6099,13 @@ https://stalker.tnm3us.workers.dev/73969.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 4" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3300.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 4
 https://stalker.tnm3us.workers.dev/73970.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 5" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3307.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 5
-https://stalker.tnm3us.workers.dev/67520.m3u8
+https://stalker.tnm3us.workers.dev/3390.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 6" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3309.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 6
 https://stalker.tnm3us.workers.dev/3392.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 7" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3308.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 7
-https://stalker.tnm3us.workers.dev/3391.m3u8
+https://stalker.tnm3us.workers.dev/67517.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 8" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3310.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 8
-https://stalker.tnm3us.workers.dev/67514.m3u8
+https://stalker.tnm3us.workers.dev/3393.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 9" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3313.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 9
 https://stalker.tnm3us.workers.dev/3396.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 10" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3312.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 10
@@ -6113,11 +6113,11 @@ https://stalker.tnm3us.workers.dev/3395.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 11" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3314.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 11
 https://stalker.tnm3us.workers.dev/66929.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 12" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3286.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 12
-https://stalker.tnm3us.workers.dev/66930.m3u8
+https://stalker.tnm3us.workers.dev/3369.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Mr Olympia 1" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3287.png" group-title="PPV EVENTS - ON DEMAND",Mr Olympia 1
 https://stalker.tnm3us.workers.dev/66931.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Mr Olympia 2" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3291.png" group-title="PPV EVENTS - ON DEMAND",Mr Olympia 2
-https://stalker.tnm3us.workers.dev/3374.m3u8
+https://stalker.tnm3us.workers.dev/67522.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 15" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3288.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 15
 https://stalker.tnm3us.workers.dev/63450.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="EVENTS 16" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/3290.png" group-title="PPV EVENTS - ON DEMAND",EVENTS 16
@@ -7303,7 +7303,7 @@ https://stalker.tnm3us.workers.dev/8897.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NBC GOLF" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/71595.png" group-title="SPORTS - GOLF",NBC GOLF
 https://stalker.tnm3us.workers.dev/72088.m3u8
 #EXTINF:-1 tvg-id="starsports1hindi.in" tvg-name="STAR SPORTS 1 4K HINDI" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/12065.jpg" group-title="SPORTS - CRICKET ",STAR SPORTS 1 4K HINDI
-https://stalker.tnm3us.workers.dev/73377.m3u8
+https://stalker.tnm3us.workers.dev/71242.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CHICAGO SKY" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/68518.png" group-title="SPORTS - WNBA",CHICAGO SKY
 https://stalker.tnm3us.workers.dev/68088.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="INDIAN FEVER" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/68519.png" group-title="SPORTS - WNBA",INDIAN FEVER
@@ -7347,17 +7347,17 @@ https://stalker.tnm3us.workers.dev/72487.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="WNBA 10" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/71985.png" group-title="SPORTS - WNBA",WNBA 10
 https://stalker.tnm3us.workers.dev/72488.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 01" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/59459.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 01
-https://stalker.tnm3us.workers.dev/71251.m3u8
+https://stalker.tnm3us.workers.dev/71253.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 02" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/59456.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 02
-https://stalker.tnm3us.workers.dev/71074.m3u8
+https://stalker.tnm3us.workers.dev/71241.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 03" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/59457.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 03
 https://stalker.tnm3us.workers.dev/71083.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 04" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/59460.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 04
-https://stalker.tnm3us.workers.dev/71064.m3u8
+https://stalker.tnm3us.workers.dev/71063.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 05" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60830.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 05
-https://stalker.tnm3us.workers.dev/66691.m3u8
+https://stalker.tnm3us.workers.dev/74467.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 06" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60831.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 06
-https://stalker.tnm3us.workers.dev/71066.m3u8
+https://stalker.tnm3us.workers.dev/71069.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 07" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60832.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 07
 https://stalker.tnm3us.workers.dev/71110.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 08" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60833.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 08
@@ -7365,7 +7365,7 @@ https://stalker.tnm3us.workers.dev/74468.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 09" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/60829.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 09
 https://stalker.tnm3us.workers.dev/71072.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="CRICKET EVENTS 10" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/59458.jpg" group-title="SPORTS - CRICKET ",CRICKET EVENTS 10
-https://stalker.tnm3us.workers.dev/71079.m3u8
+https://stalker.tnm3us.workers.dev/71078.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="T20 WORLD CUP FOR VISUALLY IMPAIRED" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/68537.png" group-title="SPORTS - CRICKET ",T20 WORLD CUP FOR VISUALLY IMPAIRED
 https://stalker.tnm3us.workers.dev/68191.m3u8
 #EXTINF:-1 tvg-id="skysportscricket.uk" tvg-name="SKY SPORTS 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/2873.jpg" group-title="SPORTS - CRICKET ",SKY SPORTS 4K
@@ -7377,9 +7377,9 @@ https://stalker.tnm3us.workers.dev/12151.m3u8
 #EXTINF:-1 tvg-id="starsportsselect2.in" tvg-name="STAR SPORTS SELECT 2 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/12068.jpg" group-title="SPORTS - CRICKET ",STAR SPORTS SELECT 2 4K
 https://stalker.tnm3us.workers.dev/12152.m3u8
 #EXTINF:-1 tvg-id="starsports1.in" tvg-name="STAR SPORTS 1 4K ENGLISH" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/12064.jpg" group-title="SPORTS - CRICKET ",STAR SPORTS 1 4K ENGLISH
-https://stalker.tnm3us.workers.dev/71115.m3u8
+https://stalker.tnm3us.workers.dev/71090.m3u8
 #EXTINF:-1 tvg-id="starsports2.in" tvg-name="STAR SPORTS 2 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/12066.jpg" group-title="SPORTS - CRICKET ",STAR SPORTS 2 4K
-https://stalker.tnm3us.workers.dev/71109.m3u8
+https://stalker.tnm3us.workers.dev/74244.m3u8
 #EXTINF:-1 tvg-id="starsports3.in" tvg-name="STAR SPORTS 3 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/12071.jpg" group-title="SPORTS - CRICKET ",STAR SPORTS 3 4K
 https://stalker.tnm3us.workers.dev/12155.m3u8
 #EXTINF:-1 tvg-id="starsports1kannada.in" tvg-name="STAR SPORTS 1 KANNADA HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/12069.jpg" group-title="SPORTS - CRICKET ",STAR SPORTS 1 KANNADA HD
@@ -9061,7 +9061,7 @@ https://stalker.tnm3us.workers.dev/651.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="JUS PUNJABI CANADA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/8626.png" group-title="PUNJABI - TV",JUS PUNJABI CANADA
 https://stalker.tnm3us.workers.dev/8710.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="NANAKSAR INDIA" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/57176.jpg" group-title="PUNJABI - TV",NANAKSAR INDIA
-https://stalker.tnm3us.workers.dev/57392.m3u8
+https://stalker.tnm3us.workers.dev/69004.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="RATWARA SAHIB" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1130.jpg" group-title="PUNJABI - TV",RATWARA SAHIB
 https://stalker.tnm3us.workers.dev/1213.m3u8
 #EXTINF:-1 tvg-id="DEFAULT" tvg-name="HARMANDIR SAHIB" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/12116.jpg" group-title="PUNJABI - TV",HARMANDIR SAHIB
