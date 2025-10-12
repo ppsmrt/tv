@@ -1031,7 +1031,7 @@ https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8
 https://cdn-4.pishow.tv/live/229/master.m3u8
 #EXTINF:-1 tvg-name="Y News Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/T3rdmHy/1000141141.jpg",Y News Tv
 http://cdn19.live247stream.com/channely/tv/playlist.m3u8
-#EXTINF:-1 tvg-name="CNBC Awaaz" group-title="Hindi" tvg-logo="https://i.ibb.co/8LpQ7pHG/1000141354.jpg",CNBC Awaaz
+#EXTINF:-1 tvg-name="CNBC Awaaz" group-title="Hindi" tvg-logo="https://i.ibb.co/s9g4zLJP/1000150103.png",CNBC Awaaz
 https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_Bazaar_NW18_MOB-audio_131636_eng=131600-video=3724000.m3u8
 #EXTINF:-1 tvg-name="CNBC Bajar" group-title="Hindi" tvg-logo="https://i.ibb.co/Kcfg8JN8/1000141356.jpg",CNBC Bajar
 https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_Bazaar_NW18_MOB-audio_131636_eng=131600-video=3724000.m3u8
@@ -1065,8 +1065,6 @@ https://cdn-1.pishow.tv/live/411/master.m3u8
 https://edge4-moblive.yuppcdn.net/transsd/smil%3aitn43.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Lokshahi" group-title="Hindi" tvg-logo="https://i.ibb.co/dJGcFw3W/1000141646.jpg",Lokshahi
 https://see.lokshahi.live/live/index.m3u8
-#EXTINF:-1 tvg-name="Star Select 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/jPVWyMq8/1000148819.png",Star Select 2 HD
-http://89.187.189.98/STARSPORTSSELECT2HD/index.m3u8
 #EXTINF:-1 tvg-name="Maiboli" group-title="Hindi" tvg-logo="https://i.ibb.co/WNNCVTNp/1000141815.jpg",Maiboli
 https://sablive-ddpb.akamaized.net/maiboli/playlist.m3u8
 #EXTINF:-1 tvg-name="Madha Tv" group-title="English" tvg-logo="https://i.ibb.co/FbTF37KT/1000149211.png",Madha Tv
@@ -1381,7 +1379,7 @@ https://www.schannels.in/vvmovies/video.m3u8?token=nokshitha
 https://www.schannels.in/vvmusic/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="VV Comedy" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/MkcDZ5Q0/1000147207.jpg",VV Comedy
 https://www.schannels.in/vvcomedy/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Color Bar Music" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/m73W8xG/1000147226.png",Color Bar Music
+#EXTINF:-1 tvg-name="Color Bar Music" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/JWX06LTW/1000150106.png",Color Bar Music
 https://www.schannels.in/colorbarmusic/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Sree News Telugu" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/Lz39Nwpn/1000147233.jpg",Sree News Telugu
 https://www.schannels.in/sreenews/mpegts?token=nokshitha
