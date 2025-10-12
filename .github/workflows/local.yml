@@ -52,20 +52,23 @@ jobs:
 
                 if (src.type === 'json') {
                   const json = await res.json();
-                  if (Array.isArray(json)) {
-                    for (const group of json) {
-                      if (group.channeldata && Array.isArray(group.channeldata)) {
-                        for (const ch of group.channeldata) {
-                          allChannels.push({
-                            name: ch.channelname || 'Unknown',
-                            logo: ch.logo || '',
-                            url: ch.playbackurl || '',
-                            group: src.category
-                          });
-                        }
+
+                  // ===== Ashoka TV JSON handling =====
+                  if (src.category === 'Ashoka TV' && Array.isArray(json)) {
+                    for (const ch of json) {
+                      if (ch.channel_url) {
+                        allChannels.push({
+                          name: ch.channel_name || 'Unknown',
+                          logo: ch.channel_image || '',
+                          url: ch.channel_url || '',
+                          group: src.category
+                        });
                       }
                     }
-                  } else if (json.posts) {
+                  } 
+                  // ===== End Ashoka patch =====
+
+                  else if (json.posts) {
                     for (const post of json.posts) {
                       allChannels.push({
                         name: post.title || 'Unknown',
