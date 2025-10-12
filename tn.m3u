@@ -1,8 +1,6 @@
 ﻿#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"
 #EXTINF:-1 tvg-id="" tvg-name="Raj Tv" tvg-logo="https://i.ibb.co/5HQgfr4/1000148546.png" group-title="Entertainment",Raj Tv
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vanavil Tv" tvg-logo="https://i.ibb.co/8DnhY2Nb/1000148666.png" group-title="Local Channels",Vanavil Tv
-https://6n3yope4d9ok-hls-live.5centscdn.com/vaanavil/TV.stream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Mathimugam Tv" tvg-logo="https://i.ibb.co/rfqmjbXb/1000148668.png" group-title="Entertainment",Mathimugam Tv
 https://cdn-3.pishow.tv/live/1476/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Velicham Tv" tvg-logo="https://i.ibb.co/p6GhXdh0/1000148676.png" group-title="Entertainment",Velicham Tv
@@ -13,8 +11,6 @@ https://cdn.zionmediait.com/zionmediaitserver2024/97484f5ce6da96e496a9b87c439835
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/vikatan-tv/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Isai Aruvi" tvg-logo="https://i.ibb.co/GGNksQc/1000148681.png" group-title="Music",Isai Aruvi
 https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vasantham Tv" tvg-logo="https://i.ibb.co/whShTkGw/1000148683.png" group-title="Entertainment",Vasantham Tv
-https://edge2-moblive.yuppcdn.net/trans1sd/smil:vatv07.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Siripoli" tvg-logo="https://i.ibb.co/BHQVF3FN/1000148686.png" group-title="Entertainment",Siripoli
 https://segment.yuppcdn.net/240122/siripoli/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Murasu Tv" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png" group-title="Movies",Murasu Tv
@@ -39,8 +35,6 @@ https://cors-proxy.cooks.fyi/http://dpny6.1234.uno:6061/ZeeTamil/index.m3u8
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sun Music" tvg-logo="https://i.ibb.co/YFVMTgns/1000148230.png" group-title="Music",Sun Music
 http://89.187.189.98/SUNMUSICHD/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Stingray Pop" tvg-logo="https://i.ibb.co/Q7k4xTnV/1000149672.png" group-title="Music",Stingray Pop
-https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Colors Tamil" tvg-logo="https://i.ibb.co/PzmmJLC1/1000149584.png" group-title="Entertainment",Colors Tamil
 http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Vijay Tv HD" tvg-logo="https://i.ibb.co/hJvtrVXT/1000149677.png" group-title="Entertainment",Vijay Tv HD
