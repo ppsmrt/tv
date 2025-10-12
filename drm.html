@@ -88,6 +88,7 @@
       <option value="com.widevine.alpha">Widevine (Google)</option>
       <option value="com.apple.fps.1_0">FairPlay (Apple)</option>
       <option value="com.microsoft.playready">PlayReady (Microsoft)</option>
+      <option value="clearkey">ClearKey</option>
     </select>
 
     <label>License Server URL</label>
@@ -95,6 +96,21 @@
 
     <label>Headers / Tokens (optional)</label>
     <input type="text" id="headers" placeholder="Authorization=Bearer%20TOKEN" />
+
+    <label>Origin (optional)</label>
+    <input type="text" id="origin" placeholder="https://example.com" />
+
+    <label>Referer (optional)</label>
+    <input type="text" id="referer" placeholder="https://example.com" />
+
+    <label>TVG ID (optional)</label>
+    <input type="text" id="tvgid" placeholder="tvg123" />
+
+    <label>TVG Name (optional)</label>
+    <input type="text" id="tvgn" placeholder="Channel TVG Name" />
+
+    <label>TVG Channel Number (optional)</label>
+    <input type="text" id="tvgchno" placeholder="101" />
 
     <label>Manifest Type</label>
     <select id="manifest">
@@ -117,16 +133,28 @@
       const license = document.getElementById('license').value.trim();
       const headers = document.getElementById('headers').value.trim();
       const manifest = document.getElementById('manifest').value;
+      const origin = document.getElementById('origin').value.trim();
+      const referer = document.getElementById('referer').value.trim();
+      const tvgid = document.getElementById('tvgid').value.trim();
+      const tvgn = document.getElementById('tvgn').value.trim();
+      const tvgchno = document.getElementById('tvgchno').value.trim();
 
       if (!name || !stream || !license) {
         alert("Please fill at least Channel Name, Stream URL, and License URL.");
         return;
       }
 
-      const headerString = headers ? `|${headers}|` : '|';
+      // Combine headers with optional origin/referer
+      let extraHeaders = headers ? headers : '';
+      if (origin) extraHeaders += `,Origin=${origin}`;
+      if (referer) extraHeaders += `,Referer=${referer}`;
+      const headerString = extraHeaders ? `|${extraHeaders}|` : '|';
+
+      // Build M3U EXTINF line with optional TVG fields
+      const extinf = `#EXTINF:-1${tvgid ? ` tvg-id="${tvgid}"` : ''}${tvgn ? ` tvg-name="${tvgn}"` : ''}${tvgchno ? ` tvg-chno="${tvgchno}"` : ''} tvg-logo="${logo}" group-title="${group}",${name}`;
 
       const output = 
-`#EXTINF:-1 tvg-logo="${logo}" group-title="${group}",${name}
+`${extinf}
 #KODIPROP:inputstream.adaptive.license_type=${drmtype}
 #KODIPROP:inputstream.adaptive.license_key=${license}${headerString}
 #KODIPROP:inputstream.adaptive.manifest_type=${manifest}
