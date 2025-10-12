@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="Basava Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/PZLkmDGK/1000122466.jpg",Basava Tv
+#EXTINF:-1 tvg-name="Basava Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/R4hrvjqn/1000149825.png",Basava Tv
 http://basavatvbox.sritv.co.in:1935/Basavatvbox/live/basavatv_cloud_code.m3u8
 #EXTINF:-1 tvg-name="E News" group-title="Local Channels" tvg-logo="https://i.ibb.co/XkpHwGXK/1000122468.jpg",E News
 http://account10.livebox.co.in/enewstvnoonechannelomsairamhls/live.m3u8
