@@ -53,7 +53,7 @@ jobs:
                 if (src.type === 'json') {
                   const json = await res.json();
 
-                  // ✅ Fix specifically for Ashoka TV JSON structure
+                  // ✅ Fix for Ashoka JSON structure
                   if (src.url.includes('ashokadigital.net')) {
                     if (json.status === 'ok' && Array.isArray(json.posts)) {
                       for (const post of json.posts) {
@@ -64,13 +64,13 @@ jobs:
                               ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
                               : '',
                             url: post.channel_url,
-                            group: post.category_name || src.category
+                            group: 'Ashoka' // ✅ Force category name to "Ashoka"
                           });
                         }
                       }
                     }
                   }
-                  // ✅ Keep other JSON logic same as before
+                  // ✅ Keep other JSON logic same
                   else if (Array.isArray(json)) {
                     for (const group of json) {
                       if (group.channeldata && Array.isArray(group.channeldata)) {
@@ -95,7 +95,7 @@ jobs:
                     }
                   }
                 } 
-                // ✅ Keep M3U logic unchanged
+                // ✅ M3U logic unchanged
                 else if (src.type === 'm3u') {
                   const text = await res.text();
                   const lines = text.split('\n');
