@@ -29,7 +29,7 @@ jobs:
 
           const sources = [
             { url: 'https://sscloud7.in/multi/tamilott.json', category: 'SS Cloud7', type: 'json' },
-            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'json' }, // ✅ fixed type
+            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'rawjson' }, // ✅ fixed
             { url: 'https://tvonlive.in/iptv/telugu/vv.m3u', category: 'VV Telugu', type: 'm3u' },
             { url: 'https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=361&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C', category: 'Ashoka TV', type: 'json' }
           ];
@@ -50,62 +50,65 @@ jobs:
                   continue;
                 }
 
-                if (src.type === 'json') {
+                // 🧩 bmcloud raw text fix
+                if (src.type === 'rawjson' && src.url.includes('as.al/raw/NyCqwJ')) {
                   const text = await res.text();
-                  let json;
-                  try { json = JSON.parse(text); } catch { json = null; }
+                  let cleanText = text.trim();
 
-                  // ✅ bmcloud (as.al/raw/NyCqwJ)
-                  if (src.url.includes('as.al/raw/NyCqwJ')) {
-                    if (Array.isArray(json)) {
-                      for (const ch of json) {
-                        const url = ch.videourl && ch.videourl.startsWith('http')
-                          ? ch.videourl
-                          : (ch.webvideourl && ch.webvideourl.startsWith('http') ? ch.webvideourl : '');
-                        if (url) {
-                          allChannels.push({
-                            name: ch.name || 'Unknown',
-                            logo: ch.imageurl || '',
-                            url,
-                            group: 'bmcloud'
-                          });
-                        }
-                      }
-                    } else if (json && typeof json === 'object' && json.name) {
-                      const url = json.videourl && json.videourl.startsWith('http')
-                        ? json.videourl
-                        : (json.webvideourl && json.webvideourl.startsWith('http') ? json.webvideourl : '');
-                      if (url) {
+                  // Attempt to fix malformed JSON (if needed)
+                  if (!cleanText.startsWith('[')) cleanText = `[${cleanText}]`;
+                  if (!cleanText.endsWith(']')) cleanText += ']';
+
+                  let json;
+                  try {
+                    json = JSON.parse(cleanText);
+                  } catch (e) {
+                    console.error("❌ bmcloud JSON parse failed:", e);
+                    continue;
+                  }
+
+                  if (Array.isArray(json)) {
+                    for (const ch of json) {
+                      const url = ch.videourl && ch.videourl.startsWith('http')
+                        ? ch.videourl
+                        : (ch.webvideourl && ch.webvideourl.startsWith('http') ? ch.webvideourl : '');
+                      if (url && !url.match(/\.(png|jpg|jpeg|gif)$/i)) {
                         allChannels.push({
-                          name: json.name,
-                          logo: json.imageurl || '',
+                          name: ch.name || 'Unknown',
+                          logo: ch.imageurl || '',
                           url,
                           group: 'bmcloud'
                         });
                       }
                     }
                   }
+                  continue;
+                }
 
-                  // ✅ Ashoka Digital JSON
-                  else if (src.url.includes('ashokadigital.net')) {
-                    if (json && json.status === 'ok' && Array.isArray(json.posts)) {
-                      for (const post of json.posts) {
-                        if (post.channel_url && post.channel_url.startsWith('http')) {
-                          allChannels.push({
-                            name: post.channel_name || 'Unknown',
-                            logo: post.channel_image
-                              ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
-                              : '',
-                            url: post.channel_url,
-                            group: 'Ashoka'
-                          });
-                        }
+                // ✅ Ashoka JSON
+                if (src.url.includes('ashokadigital.net')) {
+                  const json = await res.json();
+                  if (json.status === 'ok' && Array.isArray(json.posts)) {
+                    for (const post of json.posts) {
+                      if (post.channel_url && post.channel_url.startsWith('http')) {
+                        allChannels.push({
+                          name: post.channel_name || 'Unknown',
+                          logo: post.channel_image
+                            ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
+                            : '',
+                          url: post.channel_url,
+                          group: 'Ashoka'
+                        });
                       }
                     }
                   }
+                  continue;
+                }
 
-                  // ✅ Other JSON structures
-                  else if (Array.isArray(json)) {
+                // ✅ Other JSON
+                if (src.type === 'json') {
+                  const json = await res.json();
+                  if (Array.isArray(json)) {
                     for (const group of json) {
                       if (group.channeldata && Array.isArray(group.channeldata)) {
                         for (const ch of group.channeldata) {
@@ -118,7 +121,7 @@ jobs:
                         }
                       }
                     }
-                  } else if (json && json.posts) {
+                  } else if (json.posts) {
                     for (const post of json.posts) {
                       allChannels.push({
                         name: post.title || 'Unknown',
@@ -128,10 +131,11 @@ jobs:
                       });
                     }
                   }
+                  continue;
                 }
 
-                // ✅ M3U logic unchanged
-                else if (src.type === 'm3u') {
+                // ✅ M3U unchanged
+                if (src.type === 'm3u') {
                   const text = await res.text();
                   const lines = text.split('\n');
                   for (let i = 0; i < lines.length; i++) {
