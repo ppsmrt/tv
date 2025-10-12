@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>DRM M3U Generator & Channel Manager</title>
+  <title>DRM M3U Generator</title>
 
   <!-- Disable Indexing -->
   <meta name="robots" content="noindex, nofollow"/>
@@ -29,23 +29,19 @@
       white-space: pre-wrap;
       margin-top: 10px;
     }
-    .toast {
-      opacity: 1;
-    }
   </style>
 </head>
 <body class="bg-[#121212] text-white w-screen h-screen flex flex-col">
 
   <!-- Header -->
-  <div id="header" class="p-4 text-center text-yellow-400 text-2xl font-bold">
-    <i class="fa-solid fa-lock"></i> DRM M3U Generator & Channel Manager
-  </div>
+  <div id="header"></div>
 
-  <div class="flex-1 flex flex-col md:flex-row overflow-hidden gap-4 p-4">
+  <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
 
     <!-- Left: DRM Form -->
     <div class="w-full md:w-1/2 p-5 bg-[#1E1E1E] shadow-lg overflow-y-auto rounded-xl">
-      <h1 class="text-2xl font-bold mb-5 text-center text-yellow-400"><i class="fa-solid fa-key"></i> DRM M3U Generator</h1>
+      <h1 class="text-2xl font-bold mb-5 text-center text-yellow-400"><i class="fa-solid fa-lock"></i> DRM M3U Generator</h1>
+
       <form id="drmForm" class="grid gap-4 md:grid-cols-2">
         
         <!-- Basic Fields -->
@@ -146,266 +142,138 @@
 
         <!-- Submit -->
         <button type="button" id="generateBtn" class="col-span-2 bg-yellow-500 text-black font-bold py-3 rounded-xl shadow-md hover:bg-yellow-400 transition">
-          <i class="fa-solid fa-key mr-2"></i> Generate & Save Channel
+          <i class="fa-solid fa-key mr-2"></i> Generate M3U Entry
         </button>
 
         <div class="md:col-span-2 output-box" id="output"></div>
       </form>
     </div>
 
-    <!-- Right: Channel List -->
-    <div class="w-full md:w-1/2 p-5 bg-[#1E1E1E] shadow-lg overflow-y-auto rounded-xl">
-      <h2 class="text-2xl font-bold mb-5 text-center text-green-400"><i class="fa-solid fa-tv"></i> Channels</h2>
-
-      <div class="flex gap-2 mb-4">
-        <input type="text" id="searchInputChannels" placeholder="Search channels..."
-          class="flex-1 px-4 py-2 rounded-lg bg-[#121212] border border-gray-600 text-white focus:ring-2 focus:ring-green-400 focus:outline-none"/>
-        <select id="filterCategory" class="px-4 py-2 rounded-lg bg-[#121212] border border-gray-600 text-white focus:ring-2 focus:ring-green-400 focus:outline-none">
-          <option value="All">All Categories</option>
-          <option value="News">News</option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Movies">Movies</option>
-          <option value="Music">Music</option>
-          <option value="Sports">Sports</option>
-          <option value="Kids">Kids</option>
-          <option value="Devotional">Devotional</option>
-          <option value="Lifestyle">Lifestyle</option>
-          <option value="Documentary">Documentary</option>
-          <option value="Education">Education</option>
-          <option value="Regional">Regional</option>
-          <option value="Local Channels">Local Channels</option>
-        </select>
-        <select id="sortOption" class="px-4 py-2 rounded-lg bg-[#121212] border border-gray-600 text-white focus:ring-2 focus:ring-green-400 focus:outline-none">
-          <option value="latest">Latest</option>
-          <option value="oldest">Oldest</option>
-          <option value="az">A-Z</option>
-        </select>
-      </div>
-
-      <div id="channelList" class="flex flex-col gap-3"></div>
+    <!-- Right: Channels Display -->
+    <div class="flex-1 flex flex-col p-5 overflow-auto">
+      <h2 class="text-xl font-bold mb-3">Channels</h2>
+      <div id="channelList" class="grid gap-3"></div>
     </div>
+
   </div>
 
-  <!-- Footer -->
-  <div id="footer" class="p-4 text-center text-gray-400">© TNM3U Admin Panel</div>
-
-  <!-- Scripts -->
   <script type="module">
-  // Firebase imports
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-  import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+    // ============================
+    // Firebase + Channel Renderer
+    // ============================
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-    authDomain: "tnm3ulive.firebaseapp.com",
-    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tnm3ulive",
-    storageBucket: "tnm3ulive.appspot.com",
-    messagingSenderId: "80664356882",
-    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-    measurementId: "G-FNS9JWZ9LS"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const auth = getAuth(app);
-
-  // DRM Elements
-  const drmForm = document.getElementById("drmForm");
-  const nameInput = document.getElementById("name");
-  const logoInput = document.getElementById("logo");
-  const groupInput = document.getElementById("group");
-  const streamInput = document.getElementById("stream");
-  const drmtypeInput = document.getElementById("drmtype");
-  const licenseInput = document.getElementById("license");
-  const headersInput = document.getElementById("headers");
-  const originInput = document.getElementById("origin");
-  const refererInput = document.getElementById("referer");
-  const tvgidInput = document.getElementById("tvgid");
-  const tvgnInput = document.getElementById("tvgn");
-  const tvgchnoInput = document.getElementById("tvgchno");
-  const manifestInput = document.getElementById("manifest");
-  const outputBox = document.getElementById("output");
-
-  const generateBtn = document.getElementById("generateBtn");
-
-  const toggleBtn = document.getElementById("toggleAdvanced");
-  const advancedFields = document.getElementById("advancedFields");
-  const advIcon = document.getElementById("advIcon");
-
-  toggleBtn.addEventListener("click", () => {
-    if (advancedFields.classList.contains("open")) {
-      advancedFields.style.maxHeight = null;
-      advancedFields.classList.remove("open");
-      advIcon.classList.remove("fa-chevron-up");
-      advIcon.classList.add("fa-chevron-down");
-    } else {
-      advancedFields.style.maxHeight = advancedFields.scrollHeight + "px";
-      advancedFields.classList.add("open");
-      advIcon.classList.remove("fa-chevron-down");
-      advIcon.classList.add("fa-chevron-up");
-    }
-  });
-
-  function showToast(message, type = "success") {
-    const existing = document.querySelector(".toast");
-    if (existing) existing.remove();
-    const toast = document.createElement("div");
-    toast.className = `toast fixed bottom-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-semibold z-50 transition-transform transform ${
-      type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : "bg-gray-600"
-    }`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    toast.style.opacity = "0";
-    toast.style.transform = "translateY(50px)";
-    setTimeout(() => {
-      toast.style.transition = "opacity 0.3s, transform 0.3s";
-      toast.style.opacity = "1";
-      toast.style.transform = "translateY(0)";
-    }, 50);
-    setTimeout(() => {
-      toast.style.opacity = "0";
-      toast.style.transform = "translateY(50px)";
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
-  }
-
-  // Channels
-  const channelList = document.getElementById("channelList");
-  const searchInputChannels = document.getElementById("searchInputChannels");
-  const filterCategoryInput = document.getElementById("filterCategory");
-  const sortOptionInput = document.getElementById("sortOption");
-
-  let channelsData = {};
-
-  function renderChannels() {
-    channelList.innerHTML = "";
-    const searchTerm = searchInputChannels.value.toLowerCase();
-    const selectedCategory = filterCategoryInput.value;
-    const sortBy = sortOptionInput.value;
-
-    let filtered = Object.entries(channelsData).filter(([id, ch]) => {
-      const matchesCategory = selectedCategory === "All" || ch.category === selectedCategory;
-      const matchesSearch = ch.name.toLowerCase().includes(searchTerm);
-      return matchesCategory && matchesSearch;
-    });
-
-    if (sortBy === "az") filtered.sort((a, b) => a[1].name.localeCompare(b[1].name));
-    else if (sortBy === "latest") filtered.sort((a, b) => new Date(b[1].createdAt || 0) - new Date(a[1].createdAt || 0));
-    else if (sortBy === "oldest") filtered.sort((a, b) => new Date(a[1].createdAt || 0) - new Date(b[1].createdAt || 0));
-
-    if (!filtered.length) {
-      channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>";
-      return;
-    }
-
-    filtered.forEach(([id, ch]) => {
-      const card = document.createElement("div");
-      card.className = "flex items-center bg-[#1E1E1E] shadow-md rounded-xl p-4 gap-4 border border-gray-700";
-      card.innerHTML = `
-        <img src="${ch.icon}" alt="${ch.name}" class="w-16 h-16 object-contain rounded-lg border border-gray-600"/>
-        <div class="flex-1">
-          <h3 class="text-lg font-bold text-white">${ch.name}</h3>
-          <p class="text-gray-400 text-sm">${ch.category} | ${ch.channelType || "N/A"}</p>
-        </div>
-        <div class="flex gap-2">
-          <button class="editBtn bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" data-id="${id}">
-            <i class="fa-solid fa-pen"></i>
-          </button>
-          <button class="deleteBtn bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700" data-id="${id}">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </div>
-      `;
-      channelList.appendChild(card);
-    });
-
-    attachActions();
-  }
-
-  function attachActions() {
-    document.querySelectorAll(".editBtn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.dataset.id;
-        const ch = channelsData[id];
-        // Prefill DRM form
-        nameInput.value = ch.name || "";
-        logoInput.value = ch.icon || "";
-        groupInput.value = ch.category || "";
-        streamInput.value = ch.stream || "";
-        drmtypeInput.value = ch.drmType || "com.widevine.alpha";
-        licenseInput.value = ch.licenseUrl || "";
-        headersInput.value = ch.headers || "";
-        originInput.value = ch.origin || "";
-        refererInput.value = ch.referer || "";
-        tvgidInput.value = ch.tvgId || "";
-        tvgnInput.value = ch.tvgName || "";
-        tvgchnoInput.value = ch.tvgChNo || "";
-        manifestInput.value = ch.manifestType || "mpd";
-        showToast("Channel loaded into DRM form for editing", "success");
-      });
-    });
-
-    document.querySelectorAll(".deleteBtn").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-        if (confirm("Are you sure you want to delete this channel?")) {
-          try {
-            await remove(ref(db, "channels/" + id));
-            showToast("Channel deleted!", "success");
-          } catch (err) {
-            showToast("Error deleting channel: " + err.message, "error");
-          }
-        }
-      });
-    });
-  }
-
-  const channelsRef = ref(db, "channels");
-  onValue(channelsRef, snapshot => {
-    channelsData = snapshot.val() || {};
-    renderChannels();
-  });
-
-  searchInputChannels.addEventListener("input", renderChannels);
-  filterCategoryInput.addEventListener("change", renderChannels);
-  sortOptionInput.addEventListener("change", renderChannels);
-
-  // Generate DRM Channel & Save to Firebase
-  generateBtn.addEventListener("click", async () => {
-    const channel = {
-      name: nameInput.value,
-      icon: logoInput.value,
-      category: groupInput.value,
-      stream: streamInput.value,
-      drmType: drmtypeInput.value,
-      licenseUrl: licenseInput.value,
-      headers: headersInput.value,
-      origin: originInput.value,
-      referer: refererInput.value,
-      tvgId: tvgidInput.value,
-      tvgName: tvgnInput.value,
-      tvgChNo: tvgchnoInput.value,
-      manifestType: manifestInput.value,
-      createdAt: new Date().toISOString()
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+      authDomain: "tnm3ulive.firebaseapp.com",
+      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tnm3ulive",
+      storageBucket: "tnm3ulive.appspot.com",
+      messagingSenderId: "80664356882",
+      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+      measurementId: "G-FNS9JWZ9LS"
     };
 
-    try {
-      // Save to Firebase
-      await push(ref(db, "channels"), channel);
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-      // Generate M3U Entry
-      const m3uLine = `#EXTINF:-1 tvg-id="${channel.tvgId}" tvg-name="${channel.tvgName}" tvg-logo="${channel.icon}" group-title="${channel.category}",${channel.name}
-${channel.stream}`;
-      outputBox.textContent = m3uLine;
+    const channelList = document.getElementById("channelList");
+    let advancedOpen = false; // track collapsible state
 
-      showToast("Channel saved and M3U generated!", "success");
-    } catch (err) {
-      showToast("Error saving channel: " + err.message, "error");
+    // Render channels
+    function renderChannels(data) {
+      const previousHeight = document.getElementById("advancedFields").style.maxHeight;
+      channelList.innerHTML = "";
+
+      if (!data) {
+        channelList.innerHTML = "<p class='text-gray-400'>No channels available.</p>";
+        return;
+      }
+
+      Object.values(data).forEach(ch => {
+        const div = document.createElement("div");
+        div.className = "flex items-center bg-[#1E1E1E] border border-gray-700 rounded-xl p-3 gap-3";
+        div.innerHTML = `
+          <img src="${ch.icon}" alt="${ch.name}" class="w-14 h-14 object-contain rounded-lg border border-gray-700"/>
+          <div class="flex-1">
+            <h3 class="font-bold text-lg">${ch.name}</h3>
+            <p class="text-gray-400 text-sm">${ch.category || "Unknown"} | ${ch.language || "N/A"}</p>
+          </div>
+        `;
+        channelList.appendChild(div);
+      });
+
+      if (advancedOpen) {
+        document.getElementById("advancedFields").style.maxHeight = previousHeight;
+      }
     }
-  });
+
+    onValue(ref(db, "channels"), snapshot => {
+      renderChannels(snapshot.val());
+    });
+
+    // ============================
+    // Collapsible Logic
+    // ============================
+    const toggleBtn = document.getElementById("toggleAdvanced");
+    const advancedFields = document.getElementById("advancedFields");
+    const advIcon = document.getElementById("advIcon");
+
+    toggleBtn.addEventListener("click", () => {
+      if (advancedOpen) {
+        advancedFields.style.maxHeight = null;
+        advIcon.classList.remove("fa-chevron-up");
+        advIcon.classList.add("fa-chevron-down");
+        advancedOpen = false;
+      } else {
+        advancedFields.style.maxHeight = advancedFields.scrollHeight + "px";
+        advIcon.classList.remove("fa-chevron-down");
+        advIcon.classList.add("fa-chevron-up");
+        advancedOpen = true;
+      }
+    });
+
+    // ============================
+    // DRM Generator Logic
+    // ============================
+    document.getElementById("generateBtn").addEventListener("click", () => {
+      const name = document.getElementById('name').value.trim();
+      const logo = document.getElementById('logo').value.trim();
+      const group = document.getElementById('group').value.trim();
+      const stream = document.getElementById('stream').value.trim();
+      const drmtype = document.getElementById('drmtype').value;
+      const license = document.getElementById('license').value.trim();
+      const headers = document.getElementById('headers').value.trim();
+      const origin = document.getElementById('origin').value.trim();
+      const referer = document.getElementById('referer').value.trim();
+      const tvgid = document.getElementById('tvgid').value.trim();
+      const tvgn = document.getElementById('tvgn').value.trim();
+      const tvgchno = document.getElementById('tvgchno').value.trim();
+      const manifest = document.getElementById('manifest').value;
+
+      if (!name || !stream || !license) {
+        alert("Please fill at least Channel Name, Stream URL, and License URL.");
+        return;
+      }
+
+      let extraHeaders = headers ? headers : '';
+      if (origin) extraHeaders += `,Origin=${origin}`;
+      if (referer) extraHeaders += `,Referer=${referer}`;
+      const headerString = extraHeaders ? `|${extraHeaders}|` : '|';
+
+      const extinf = `#EXTINF:-1${tvgid ? ` tvg-id="${tvgid}"` : ''}${tvgn ? ` tvg-name="${tvgn}"` : ''}${tvgchno ? ` tvg-chno="${tvgchno}"` : ''} tvg-logo="${logo}" group-title="${group}",${name}`;
+
+      const output = 
+`${extinf}
+#KODIPROP:inputstream.adaptive.license_type=${drmtype}
+#KODIPROP:inputstream.adaptive.license_key=${license}${headerString}
+#KODIPROP:inputstream.adaptive.manifest_type=${manifest}
+${stream}`;
+
+      document.getElementById("output").textContent = output;
+    });
   </script>
+
 </body>
 </html>
