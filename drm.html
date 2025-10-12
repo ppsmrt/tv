@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DRM M3U Generator</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 8px;
+      background: #334155;
+      color: #f8fafc;
+      font-size: 15px;
+    }
+    textarea {
+      height: 120px;
+    }
+    button {
+      margin-top: 15px;
+      background: #38bdf8;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      color: #0f172a;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0ea5e9;
+    }
+    .output {
+      margin-top: 20px;
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      color: #a5f3fc;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔐 DRM M3U Generator</h1>
+  <div class="container">
+    <label>Channel Name</label>
+    <input type="text" id="name" placeholder="Example Channel" />
+
+    <label>Logo URL</label>
+    <input type="text" id="logo" placeholder="https://example.com/logo.png" />
+
+    <label>Group Title</label>
+    <input type="text" id="group" placeholder="Movies / Sports / News" />
+
+    <label>Manifest URL (.mpd or .m3u8)</label>
+    <input type="text" id="stream" placeholder="https://example.com/manifest.mpd" />
+
+    <label>License Type</label>
+    <select id="drmtype">
+      <option value="com.widevine.alpha">Widevine (Google)</option>
+      <option value="com.apple.fps.1_0">FairPlay (Apple)</option>
+      <option value="com.microsoft.playready">PlayReady (Microsoft)</option>
+    </select>
+
+    <label>License Server URL</label>
+    <input type="text" id="license" placeholder="https://license-server.com/getlicense" />
+
+    <label>Headers / Tokens (optional)</label>
+    <input type="text" id="headers" placeholder="Authorization=Bearer%20TOKEN" />
+
+    <label>Manifest Type</label>
+    <select id="manifest">
+      <option value="mpd">DASH (.mpd)</option>
+      <option value="hls">HLS (.m3u8)</option>
+    </select>
+
+    <button onclick="generateM3U()">Generate M3U Entry</button>
+
+    <div id="output" class="output"></div>
+  </div>
+
+  <script>
+    function generateM3U() {
+      const name = document.getElementById('name').value.trim();
+      const logo = document.getElementById('logo').value.trim();
+      const group = document.getElementById('group').value.trim();
+      const stream = document.getElementById('stream').value.trim();
+      const drmtype = document.getElementById('drmtype').value;
+      const license = document.getElementById('license').value.trim();
+      const headers = document.getElementById('headers').value.trim();
+      const manifest = document.getElementById('manifest').value;
+
+      if (!name || !stream || !license) {
+        alert("Please fill at least Channel Name, Stream URL, and License URL.");
+        return;
+      }
+
+      const headerString = headers ? `|${headers}|` : '|';
+
+      const output = 
+`#EXTINF:-1 tvg-logo="${logo}" group-title="${group}",${name}
+#KODIPROP:inputstream.adaptive.license_type=${drmtype}
+#KODIPROP:inputstream.adaptive.license_key=${license}${headerString}
+#KODIPROP:inputstream.adaptive.manifest_type=${manifest}
+${stream}`;
+
+      document.getElementById('output').textContent = output;
+    }
+  </script>
+</body>
+</html>
