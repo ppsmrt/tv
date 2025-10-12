@@ -20,16 +20,17 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate bmcloud.m3u only if changed
+      - name: Generate playlist/bmcloud.m3u only if changed
         id: generate
         run: |
           npm install node-fetch@2
+          mkdir -p playlist
           node <<'EOF'
           const fs = require('fs');
           const fetch = require('node-fetch');
 
           const url = 'https://as.al/raw/NyCqwJ';
-          const filePath = 'bmcloud.m3u';
+          const filePath = 'playlist/bmcloud.m3u';
           const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
 
           (async () => {
@@ -39,7 +40,7 @@ jobs:
 
               if (!Array.isArray(json) || json.length === 0) {
                 console.log("Invalid JSON or no data found.");
-                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
                 return;
               }
 
@@ -47,7 +48,7 @@ jobs:
               let m3u = "#EXTM3U\n";
               let changesSummary = [];
 
-              // Build map of previous channels: name => {extinf, stream}
+              // Map old channels
               const oldChannels = {};
               prevData.split('\n').forEach((line, i, arr) => {
                 if (line.startsWith('#EXTINF')) {
@@ -57,7 +58,6 @@ jobs:
                 }
               });
 
-              // Track current channel names
               const currentNames = [];
 
               for (const ch of json) {
@@ -68,7 +68,6 @@ jobs:
 
                 const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}" tvg-logo="${logo}",${name}`;
                 m3u += `${extinf}\n${stream}\n`;
-
                 currentNames.push(name);
 
                 if (!oldChannels[name]) {
@@ -78,7 +77,6 @@ jobs:
                 }
               }
 
-              // Detect removed channels
               Object.keys(oldChannels).forEach(name => {
                 if (!currentNames.includes(name)) {
                   changesSummary.push(`Removed: ${name}`);
@@ -87,18 +85,18 @@ jobs:
 
               if (changesSummary.length === 0) {
                 console.log("No changes detected. Skipping file update.");
-                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
                 return;
               }
 
               fs.writeFileSync(filePath, m3u);
-              console.log("✅ bmcloud.m3u updated successfully.");
+              console.log("✅ playlist/bmcloud.m3u updated successfully.");
               console.log("Summary:", changesSummary.join('; '));
-              fs.writeFileSync(process.env.GITHUB_OUTPUT, `changed=true\nsummary=${changesSummary.join('; ')}\n`);
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\nsummary=${changesSummary.join('; ')}\n`);
 
             } catch (err) {
               console.error("❌ Error fetching channels:", err);
-              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
             }
           })();
           EOF
@@ -108,6 +106,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add bmcloud.m3u
-          git commit -m "Auto-update bmcloud.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git add playlist/bmcloud.m3u
+          git commit -m "Auto-update playlist/bmcloud.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
           git push
