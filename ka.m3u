@@ -53,11 +53,11 @@ http://51.15.7.9:3141/ten3/index.m3u8
 http://51.15.7.9:3141/ten5/index.m3u8
 #EXTINF:-1 tvg-name="Nikky Tv" group-title="Kids" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-name="Kadamba Tv" group-title="Regional" tvg-logo="https://i.ibb.co/gkZchXD/1000139784.jpg",Kadamba Tv
+#EXTINF:-1 tvg-name="Kadamba Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gkZchXD/1000139784.jpg",Kadamba Tv
 https://guru.shashwatha.com/hls/live/kadamba.m3u8
 #EXTINF:-1 tvg-name="Swasthik Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/NggsYMp8/1000139788.jpg",Swasthik Tv
 https://guru.shashwatha.com/hls/live/swastik.m3u8
-#EXTINF:-1 tvg-name="Kalki" group-title="Regional" tvg-logo="https://i.ibb.co/jkDJ3C2b/1000139790.jpg",Kalki
+#EXTINF:-1 tvg-name="Kalki" group-title="Local Channels" tvg-logo="https://i.ibb.co/jkDJ3C2b/1000139790.jpg",Kalki
 https://guru.shashwatha.com/hls/live/kalki.m3u8
 #EXTINF:-1 tvg-name="Star Suvarna" group-title="Entertainment" tvg-logo="https://i.ibb.co/v490j6LH/1000139978.jpg",Star Suvarna
 https://live.dinesh29.com.np/stream/jiotvplus/suvarna/master.m3u8
