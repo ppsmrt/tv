@@ -101,7 +101,7 @@ const descriptionTemplates = {
     `Follow live scores, match highlights, expert analysis, and all the action from your favorite sports. Watch ${name} live on tnm3u.live.`,
   Kids: (name) =>
     `Fun, learning, cartoons, and adventures designed just for kids. Keep the little ones entertained with ${name} on tnm3u.live.`,
-  Religious: (name) =>
+  Devotional: (name) =>
     `Experience spiritual programs, devotional songs, prayers, and live events that inspire peace and positivity. Watch ${name} on tnm3u.live.`,
   Lifestyle: (name) =>
     `Explore fashion, food, travel, health, and trends that enhance your lifestyle. Stay inspired with ${name} on tnm3u.live.`,
