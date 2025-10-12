@@ -997,7 +997,7 @@ https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
 #EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Hindi" tvg-logo="https://i.ibb.co/TMqr2CXh/1000148316.png",Aasatha Bhajan
 https://aasthaott.akamaized.net/110923/smil:bhajan.smil/chunklist_b264000.m3u8
-#EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/DPq6VLBb/1000148154.png",Aasatha Tamil
+#EXTINF:-1 tvg-name="Aasatha Tamil" group-title="Devotional" tvg-logo="https://i.ibb.co/DPq6VLBb/1000148154.png",Aasatha Tamil
 https://aasthaott.akamaized.net/110923/smil:aasthatamil.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Abzy Dhakad" group-title="Hindi" tvg-logo="https://i.ibb.co/ksCBJ3wX/1000148321.png",Abzy Dhakad
 https://d2lk5u59tns74c.cloudfront.net/out/v1/4fe6ab07a13543d6bdb2ec63b3e2df44/index.m3u8
@@ -1223,7 +1223,7 @@ http://cdn12.henico.net:8080/live/sadatv/index.m3u8
 https://6n3yow8pl9ok-hls-live.5centscdn.com/sadhananewstv/live.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="Sansad Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/1kHJwG3/1000145290.jpg",Sansad Tv
 https://playhls.media.nic.in/live/lstv/index.m3u8
-#EXTINF:-1 tvg-name="Madha Tv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/5XrR4hHB/1000149211.png",Madha Tv Tamil
+#EXTINF:-1 tvg-name="Madha Tv Tamil" group-title="Devotional" tvg-logo="https://i.ibb.co/5XrR4hHB/1000149211.png",Madha Tv Tamil
 http://45.148.145.57/TAMIL_MadhaTV/index.m3u8
 #EXTINF:-1 tvg-name="SR Music HD" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/465sRmf/1000145789.jpg",SR Music HD
 http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
@@ -1275,7 +1275,7 @@ https://servertvhub.site/jio/app/ts_live_579.m3u8
 https://servertvhub.site/jio/app/ts_live_803.m3u8
 #EXTINF:-1 tvg-name="CN Tamil" group-title="Kids" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png",CN Tamil
 https://servertvhub.site/jio/app/ts_live_817.m3u8
-#EXTINF:-1 tvg-name="Sai Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/VpSfxPZ2/1000148763.png",Sai Tv
+#EXTINF:-1 tvg-name="Sai Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/VpSfxPZ2/1000148763.png",Sai Tv
 https://servertvhub.site/jio/app/ts_live_937.m3u8
 #EXTINF:-1 tvg-name="Big Boss Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/HDQyBDLp/1000148739.png",Big Boss Tv
 https://xtm.8088yyy.workers.dev/481102.m3u8
@@ -1289,7 +1289,7 @@ http://51.15.7.9:3141/starmovies/index.m3u8
 http://89.187.189.98/STARMOVIESSELECTHD/index.m3u8
 #EXTINF:-1 tvg-name="Movies Now HD" group-title="English" tvg-logo="https://i.ibb.co/j93zcqCv/1000149206.png",Movies Now HD
 http://89.187.189.98/MOVIESNOWHD/index.m3u8
-#EXTINF:-1 tvg-name="Jothi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/RTJ4gLz4/1000148737.png",Jothi Tv
+#EXTINF:-1 tvg-name="Jothi Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/RTJ4gLz4/1000148737.png",Jothi Tv
 https://servertvhub.site/jio/app/ts_live_2768.m3u8
 #EXTINF:-1 tvg-name="Sun News" group-title="Tamil" tvg-logo="https://i.ibb.co/ksK5xzQq/1000148229.png",Sun News
 http://m3u.8088y.fun/yt.php?c=Sunnewstamil
@@ -1347,17 +1347,17 @@ https://eu.streamjo.com/eetlive/eettv.m3u8
 http://m3u.8088y.fun/yt.php?c=SathiyamTV
 #EXTINF:-1 tvg-name="News Tamil 24x7" group-title="Tamil" tvg-logo="https://i.ibb.co/q3ndsZgt/1000148771.png",News Tamil 24x7
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/a9876d39-5dd3-4f22-9f06-683e67133c0d/0.m3u8
-#EXTINF:-1 tvg-name="Matha Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/hRK69DC6/1000147025.jpg",Matha Tv
+#EXTINF:-1 tvg-name="Matha Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/hRK69DC6/1000147025.jpg",Matha Tv
 https://live.mathatv.in/mathatv/mathatv/index.m3u8
 #EXTINF:-1 tvg-name="Sharon Tv" group-title="Local Channel | Malayalam" tvg-logo="https://i.ibb.co/XMGcNX4/1000147045.jpg",Sharon Tv
 https://rtmp.bmlive.net/bms/sharontv/index.m3u8
-#EXTINF:-1 tvg-name="Angel Tv Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/FL81cXBw/1000149453.png",Angel Tv Tamil
+#EXTINF:-1 tvg-name="Angel Tv Tamil" group-title="Devotional" tvg-logo="https://i.ibb.co/FL81cXBw/1000149453.png",Angel Tv Tamil
 https://janya-digimix.akamaized.net/vglive-sk-394914/india/ngrp:angelindia_all/playlist.m3u8
-#EXTINF:-1 tvg-name="Asservatham Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/svRx1Rqn/1000149708.png",Asservatham Tv
+#EXTINF:-1 tvg-name="Asservatham Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/svRx1Rqn/1000149708.png",Asservatham Tv
 https://stream.blessingtv.tv:1443/blessingtv-tamillive/mystream_720p/playlist.m3u8
 #EXTINF:-1 tvg-name="Village Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/6RGSLCd8/1000148759.png",Village Tv
 https://villagetv.applelive.in/villagetv/villagetv/index.m3u8
-#EXTINF:-1 tvg-name="Joygoodnews TV" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/PvqhTr8K/1000148745.png",Joygoodnews TV
+#EXTINF:-1 tvg-name="Joygoodnews TV" group-title="Devotional" tvg-logo="https://i.ibb.co/PvqhTr8K/1000148745.png",Joygoodnews TV
 https://play.applelive.in/joygoodnewstv/joygoodnewstv.m3u8
 #EXTINF:-1 tvg-name="Shammah Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/rf7V2K0s/1000148743.png",Shammah Tv
 https://play.applelive.in/shammahtv/shammahtv.m3u8
