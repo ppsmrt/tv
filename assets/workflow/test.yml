@@ -1,0 +1,166 @@
+name: Auto-update test.m3u
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Generate assets/playlist/test.m3u only if changed
+        id: generate
+        run: |
+          mkdir -p assets/playlist
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+
+          const sources = [
+            { url: 'https://sscloud7.in/multi/tamilott.json', category: 'SS Cloud7', type: 'json' },
+            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'm3u' },
+            { url: 'https://tvonlive.in/iptv/telugu/vv.m3u', category: 'VV Telugu', type: 'm3u' },
+            { url: 'https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=361&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C', category: 'Ashoka TV', type: 'json' }
+          ];
+
+          const filePath = 'assets/playlist/test.m3u';
+          const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
+
+          (async () => {
+            try {
+              let m3u = "#EXTM3U\n";
+              let allChannels = [];
+
+              for (const src of sources) {
+                console.log(`Fetching: ${src.url}`);
+                const res = await fetch(src.url);
+                if (!res.ok) {
+                  console.log(`⚠️ Failed: ${src.url}`);
+                  continue;
+                }
+
+                if (src.type === 'json') {
+                  const json = await res.json();
+
+                  // ✅ Fix specifically for Ashoka TV JSON structure
+                  if (src.url.includes('ashokadigital.net')) {
+                    if (json.status === 'ok' && Array.isArray(json.posts)) {
+                      for (const post of json.posts) {
+                        if (post.channel_url && post.channel_url.startsWith('http')) {
+                          allChannels.push({
+                            name: post.channel_name || 'Unknown',
+                            logo: post.channel_image
+                              ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
+                              : '',
+                            url: post.channel_url,
+                            group: post.category_name || src.category
+                          });
+                        }
+                      }
+                    }
+                  }
+                  // ✅ Keep other JSON logic same as before
+                  else if (Array.isArray(json)) {
+                    for (const group of json) {
+                      if (group.channeldata && Array.isArray(group.channeldata)) {
+                        for (const ch of group.channeldata) {
+                          allChannels.push({
+                            name: ch.channelname || 'Unknown',
+                            logo: ch.logo || '',
+                            url: ch.playbackurl || '',
+                            group: src.category
+                          });
+                        }
+                      }
+                    }
+                  } else if (json.posts) {
+                    for (const post of json.posts) {
+                      allChannels.push({
+                        name: post.title || 'Unknown',
+                        logo: post.thumbnail || '',
+                        url: post.stream_url || '',
+                        group: src.category
+                      });
+                    }
+                  }
+                } 
+                // ✅ Keep M3U logic unchanged
+                else if (src.type === 'm3u') {
+                  const text = await res.text();
+                  const lines = text.split('\n');
+                  for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].startsWith('#EXTINF')) {
+                      const nameMatch = lines[i].split(',')[1] || 'Unknown';
+                      const logoMatch = (lines[i].match(/tvg-logo="([^"]+)"/) || [])[1] || '';
+                      const url = lines[i + 1]?.trim() || '';
+                      if (url.startsWith('http')) {
+                        allChannels.push({
+                          name: nameMatch,
+                          logo: logoMatch,
+                          url,
+                          group: src.category
+                        });
+                      }
+                    }
+                  }
+                }
+              }
+
+              if (allChannels.length === 0) {
+                console.log("❌ No channels found.");
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              // Remove duplicates
+              const unique = [];
+              const seen = new Set();
+              for (const ch of allChannels) {
+                const key = ch.name + ch.url;
+                if (!seen.has(key) && ch.url) {
+                  seen.add(key);
+                  unique.push(ch);
+                }
+              }
+
+              // Generate M3U
+              for (const ch of unique) {
+                m3u += `#EXTINF:-1 tvg-name="${ch.name}" tvg-logo="${ch.logo}" group-title="${ch.group}",${ch.name}\n${ch.url}\n`;
+              }
+
+              if (m3u.trim() === prevData.trim()) {
+                console.log("✅ No changes in playlist.");
+                fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+                return;
+              }
+
+              fs.writeFileSync(filePath, m3u);
+              console.log("🎉 test.m3u updated successfully.");
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=true\nsummary=Updated all sources\n");
+
+            } catch (err) {
+              console.error("❌ Error generating playlist:", err);
+              fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=false\n");
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/playlist/test.m3u
+          git commit -m "Auto-update test.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git push
