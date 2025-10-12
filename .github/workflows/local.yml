@@ -1,4 +1,4 @@
-name: Auto-update local.m3u
+name: Auto-update Local.m3u
 
 on:
   schedule:
@@ -29,12 +29,12 @@ jobs:
 
           const sources = [
             { url: 'https://sscloud7.in/multi/tamilott.json', category: 'SS Cloud7', type: 'json' },
-            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'm3u' },
+            { url: 'https://as.al/raw/NyCqwJ', category: 'bmcloud', type: 'rawjson' }, // ✅ fixed
             { url: 'https://tvonlive.in/iptv/telugu/vv.m3u', category: 'VV Telugu', type: 'm3u' },
             { url: 'https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=361&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C', category: 'Ashoka TV', type: 'json' }
           ];
 
-          const filePath = 'assets/playlist/local.m3u';
+          const filePath = 'assets/playlist/test.m3u';
           const prevData = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
 
           (async () => {
@@ -50,6 +50,62 @@ jobs:
                   continue;
                 }
 
+                // 🧩 bmcloud raw text fix
+                if (src.type === 'rawjson' && src.url.includes('as.al/raw/NyCqwJ')) {
+                  const text = await res.text();
+                  let cleanText = text.trim();
+
+                  // Attempt to fix malformed JSON (if needed)
+                  if (!cleanText.startsWith('[')) cleanText = `[${cleanText}]`;
+                  if (!cleanText.endsWith(']')) cleanText += ']';
+
+                  let json;
+                  try {
+                    json = JSON.parse(cleanText);
+                  } catch (e) {
+                    console.error("❌ bmcloud JSON parse failed:", e);
+                    continue;
+                  }
+
+                  if (Array.isArray(json)) {
+                    for (const ch of json) {
+                      const url = ch.videourl && ch.videourl.startsWith('http')
+                        ? ch.videourl
+                        : (ch.webvideourl && ch.webvideourl.startsWith('http') ? ch.webvideourl : '');
+                      if (url && !url.match(/\.(png|jpg|jpeg|gif)$/i)) {
+                        allChannels.push({
+                          name: ch.name || 'Unknown',
+                          logo: ch.imageurl || '',
+                          url,
+                          group: 'bmcloud'
+                        });
+                      }
+                    }
+                  }
+                  continue;
+                }
+
+                // ✅ Ashoka JSON
+                if (src.url.includes('ashokadigital.net')) {
+                  const json = await res.json();
+                  if (json.status === 'ok' && Array.isArray(json.posts)) {
+                    for (const post of json.posts) {
+                      if (post.channel_url && post.channel_url.startsWith('http')) {
+                        allChannels.push({
+                          name: post.channel_name || 'Unknown',
+                          logo: post.channel_image
+                            ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
+                            : '',
+                          url: post.channel_url,
+                          group: 'Ashoka'
+                        });
+                      }
+                    }
+                  }
+                  continue;
+                }
+
+                // ✅ Other JSON
                 if (src.type === 'json') {
                   const json = await res.json();
                   if (Array.isArray(json)) {
@@ -75,7 +131,11 @@ jobs:
                       });
                     }
                   }
-                } else if (src.type === 'm3u') {
+                  continue;
+                }
+
+                // ✅ M3U unchanged
+                if (src.type === 'm3u') {
                   const text = await res.text();
                   const lines = text.split('\n');
                   for (let i = 0; i < lines.length; i++) {
@@ -125,7 +185,7 @@ jobs:
               }
 
               fs.writeFileSync(filePath, m3u);
-              console.log("🎉 local.m3u updated successfully.");
+              console.log("🎉 test.m3u updated successfully.");
               fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=true\nsummary=Updated all sources\n");
 
             } catch (err) {
@@ -140,6 +200,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/playlist/local.m3u
-          git commit -m "Auto-update local.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git add assets/playlist/test.m3u
+          git commit -m "Auto-update test.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
           git push
