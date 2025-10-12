@@ -1,4 +1,4 @@
-name: Auto-update local.m3u
+name: Auto-update Local.m3u
 
 on:
   schedule:
@@ -64,14 +64,12 @@ jobs:
                               ? `https://livetv.ashokadigital.net/upload/${post.channel_image}`
                               : '',
                             url: post.channel_url,
-                            group: 'Ashoka' // ✅ Force category name to "Ashoka"
+                            group: 'Ashoka'
                           });
                         }
                       }
                     }
-                  }
-                  // ✅ Keep other JSON logic same
-                  else if (Array.isArray(json)) {
+                  } else if (Array.isArray(json)) {
                     for (const group of json) {
                       if (group.channeldata && Array.isArray(group.channeldata)) {
                         for (const ch of group.channeldata) {
@@ -94,9 +92,7 @@ jobs:
                       });
                     }
                   }
-                } 
-                // ✅ M3U logic unchanged
-                else if (src.type === 'm3u') {
+                } else if (src.type === 'm3u') {
                   const text = await res.text();
                   const lines = text.split('\n');
                   for (let i = 0; i < lines.length; i++) {
@@ -123,7 +119,6 @@ jobs:
                 return;
               }
 
-              // Remove duplicates
               const unique = [];
               const seen = new Set();
               for (const ch of allChannels) {
@@ -134,7 +129,6 @@ jobs:
                 }
               }
 
-              // Generate M3U
               for (const ch of unique) {
                 m3u += `#EXTINF:-1 tvg-name="${ch.name}" tvg-logo="${ch.logo}" group-title="${ch.group}",${ch.name}\n${ch.url}\n`;
               }
@@ -146,7 +140,7 @@ jobs:
               }
 
               fs.writeFileSync(filePath, m3u);
-              console.log("🎉 test.m3u updated successfully.");
+              console.log("🎉 local.m3u updated successfully.");
               fs.writeFileSync(process.env.GITHUB_OUTPUT, "changed=true\nsummary=Updated all sources\n");
 
             } catch (err) {
@@ -161,6 +155,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/playlist/test.m3u
-          git commit -m "Auto-update test.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git add assets/playlist/local.m3u
+          git commit -m "Auto-update local.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
           git push
