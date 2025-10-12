@@ -1,4 +1,4 @@
-name: Auto-update play.m3u
+name: Auto-update test.m3u
 
 on:
   schedule:
