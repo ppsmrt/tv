@@ -1,4 +1,4 @@
-name: Auto-update test.m3u
+name: Auto-update play.m3u
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate play.m3u
+      - name: Generate test.m3u
         id: generate
         run: |
           npm install node-fetch@2
@@ -39,19 +39,21 @@ jobs:
                 process.exit(0);
               }
 
+              fs.mkdirSync('assets/playlist', { recursive: true });
+
               let m3u = "#EXTM3U\n";
               let changesSummary = [];
               let counter = 1;
 
               for (const id of Object.keys(data)) {
                 const ch = data[id];
-                let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
+                const name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
                 const channelType = ch.channelType || "General";
                 const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
                 const stream = ch.stream?.trim();
                 if (!stream) continue;
 
-                // Masked stream URL like https://tnm3u.live/stream?id=01
+                // Masked stream URL that will be resolved dynamically by proxy
                 const maskedUrl = `https://tnm3u.live/stream?id=${String(counter).padStart(2, '0')}`;
                 counter++;
 
@@ -61,7 +63,7 @@ jobs:
 
                 m3u += `${extinf}\n${maskedUrl}\n`;
 
-                // Compare with previous playlist
+                // Compare with previous playlist for changes
                 const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
                 const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
 
@@ -86,12 +88,9 @@ jobs:
                 process.exit(0);
               }
 
-              // Ensure folder exists
-              fs.mkdirSync('assets/playlist', { recursive: true });
-
-              fs.writeFileSync(outputFile, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
-
+              fs.writeFileSync(outputFile, m3u.replace(/\r\n/g, '\n'), 'utf8');
               console.log('test.m3u updated successfully with masked URLs.');
+
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
 
