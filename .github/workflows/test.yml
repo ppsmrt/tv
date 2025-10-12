@@ -56,7 +56,7 @@ jobs:
                   if (!stream) continue;
 
                   // Masked URL points to your server
-                  const maskedUrl = `https://your-server.com/stream?id=${String(counter).padStart(2,'0')}`;
+                  const maskedUrl = `https://tnm3u.live/stream?id=${String(counter).padStart(2,'0')}`;
                   counter++;
 
                   let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${channelType}"`;
