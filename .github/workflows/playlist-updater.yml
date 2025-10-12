@@ -34,72 +34,68 @@ jobs:
             { category: "Malayalam", file: "kl.m3u" }
           ];
 
-          // Extra categories to always include
           const extraCategories = ["Kids", "Sports", "Infotainment"];
-
           const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+
+          // Escape quotes safely
+          const esc = (txt = "") => txt.replace(/"/g, '\\"').trim();
 
           (async () => {
             try {
-              const res = await fetch(url);
+              const res = await fetch(url, { timeout: 15000 });
               const data = await res.json();
               if (!data) {
                 console.log("No channels found.");
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
                 return;
               }
 
               let anyChanges = false;
               let allSummaries = [];
 
-              for (const playlist of playlists) {
-                const { category, file } = playlist;
+              for (const { category, file } of playlists) {
                 const prevData = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '';
-                let m3u = "#EXTM3U\n";
+                const BOM = '\uFEFF'; // UTF-8 BOM for IPTV compatibility
+                let m3u = `${BOM}#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"\n`;
+
                 const changesSummary = [];
                 const newNames = [];
-
-                // Build list of categories to include
                 const categoriesToInclude = [category, ...extraCategories];
 
                 for (const id of Object.keys(data)) {
                   const ch = data[id];
                   if (!categoriesToInclude.includes(ch.category)) continue;
 
-                  const name = ch.name || "Unknown";
-                  const logo = ch.icon || "";
-                  const stream = ch.stream || "";
-                  const group = (ch.channelType === "regional") ? "Local Channels" : ch.channelType || "Unknown";
+                  const name = esc(ch.name || "Unknown");
+                  const logo = esc(ch.icon || "");
+                  const stream = (ch.stream || "").trim();
+                  const group = esc(ch.channelType || category);
 
-                  if (!stream) continue;
+                  if (!stream.startsWith("http")) continue;
 
-                  const extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${group}" tvg-logo="${logo}",${name}`;
+                  const extinf = `#EXTINF:-1 tvg-id="" tvg-name="${name}" tvg-logo="${logo}" group-title="${group}",${name}`;
                   m3u += `${extinf}\n${stream}\n`;
                   newNames.push(name);
-
-                  const prevLines = prevData.split('\n');
-                  const prevExtinf = prevLines.find(line => line.startsWith('#EXTINF') && line.includes(name));
-                  const prevStream = prevExtinf ? prevLines[prevLines.indexOf(prevExtinf) + 1] : null;
-
-                  if (!prevExtinf) {
-                    changesSummary.push(`Added: ${name}`);
-                  } else if (prevExtinf !== extinf || prevStream !== stream) {
-                    changesSummary.push(`Updated: ${name}`);
-                  }
                 }
 
-                const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
-                oldNames.forEach(name => {
-                  if (!newNames.includes(name)) {
-                    changesSummary.push(`Removed: ${name}`);
-                  }
-                });
+                // Detect changes
+                const prevLines = prevData.split('\n');
+                const oldNames = prevLines
+                  .filter(l => l.startsWith('#EXTINF'))
+                  .map(l => l.split(',')[1])
+                  .filter(Boolean);
 
-                if (changesSummary.length > 0) {
-                  fs.writeFileSync(file, m3u);
+                const added = newNames.filter(x => !oldNames.includes(x));
+                const removed = oldNames.filter(x => !newNames.includes(x));
+
+                if (added.length || removed.length) {
+                  if (added.length) changesSummary.push(`Added: ${added.join(', ')}`);
+                  if (removed.length) changesSummary.push(`Removed: ${removed.join(', ')}`);
+                  fs.writeFileSync(file, m3u, 'utf8');
                   anyChanges = true;
-                  allSummaries.push(`${file}: ${changesSummary.join('; ')}`);
                   console.log(`${file} updated successfully.`);
                   console.log(`Changes: ${changesSummary.join('; ')}`);
+                  allSummaries.push(`${file}: ${changesSummary.join('; ')}`);
                 } else {
                   console.log(`No changes in ${file}. Skipping.`);
                 }
@@ -107,14 +103,15 @@ jobs:
 
               if (!anyChanges) {
                 console.log("No playlists changed. Skipping commit.");
-                console.log('::set-output name=changed::false');
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
               } else {
-                console.log('::set-output name=changed::true');
-                console.log(`::set-output name=summary::${allSummaries.join(' | ')}`);
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${allSummaries.join(' | ')}\n`);
               }
 
             } catch (err) {
               console.error('Error fetching channels:', err);
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
             }
           })();
           EOF
