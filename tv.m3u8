@@ -1511,3 +1511,13 @@ https://www.schannels.in/tg5/video.m3u8?token=nokshitha
 https://www.schannels.in/sln/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Star Sports 1 Tamil HD" group-title="Sports" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png",Star Sports 1 Tamil HD
 https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
+#EXTINF:-1 tvg-name="Params Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/twbKx6tR/1000150731.png",Params Tv
+https://app.ashokadigital.net/app/a3e0b02f/index.m3u8
+#EXTINF:-1 tvg-name="Ashoka Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/svps8B7N/1000150737.png",Ashoka Tv
+https://app.ashokadigital.net/app/ce705f4a/index.m3u8
+#EXTINF:-1 tvg-name="Shalini Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/dFK14Fr/1000150767.png",Shalini Tv
+https://stream.singamcloud.in/shalinitv/shalinitv/index.m3u8
+#EXTINF:-1 tvg-name="Nisha Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/cXt3kNv9/1000150772.png",Nisha Tv
+https://app.ashokadigital.net/app/7825e06b/index.m3u8
+#EXTINF:-1 tvg-name="Sailam Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/d4Lq6wRQ/1000150786.png",Sailam Tv
+https://stream.onecloudlive.in/deepamtv/sailamtv/index.m3u8
