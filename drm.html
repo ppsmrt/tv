@@ -148,111 +148,141 @@
   </div>
 
   <script type="module">
-    // ============================
-    // Firebase + DRM Renderer + Uploader
-    // ============================
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getDatabase, ref, onValue, push, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-      authDomain: "tnm3ulive.firebaseapp.com",
-      databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "tnm3ulive",
-      storageBucket: "tnm3ulive.appspot.com",
-      messagingSenderId: "80664356882",
-      appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-      measurementId: "G-FNS9JWZ9LS"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+  authDomain: "tnm3ulive.firebaseapp.com",
+  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "tnm3ulive",
+  storageBucket: "tnm3ulive.appspot.com",
+  messagingSenderId: "80664356882",
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
 
-    const drmRef = ref(db, "drm");
-    const channelList = document.getElementById("channelList");
-    let advancedOpen = false;
+const drmRef = ref(db, "drm");
+const adminsRef = ref(db, "admins");
+const channelList = document.getElementById("channelList");
 
-    // Render Channels
-    function renderChannels(data) {
-      channelList.innerHTML = "";
-      if (!data) {
-        channelList.innerHTML = "<p class='text-gray-400'>No DRM channels available.</p>";
-        return;
-      }
+// --------------------------
+// Check Admin Login
+// --------------------------
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    // Not logged in
+    window.location.href = "signin.html";
+    return;
+  }
 
-      Object.entries(data).forEach(([id, ch]) => {
-        const div = document.createElement("div");
-        div.className = "flex items-center bg-[#1E1E1E] border border-gray-700 rounded-xl p-3 gap-3";
-        div.innerHTML = `
-          <img src="${ch.logo || ''}" alt="${ch.name}" class="w-14 h-14 object-contain rounded-lg border border-gray-700"/>
-          <div class="flex-1">
-            <h3 class="font-bold text-lg">${ch.name}</h3>
-            <p class="text-gray-400 text-sm">${ch.group || "N/A"} | ${ch.manifest || "Unknown"}</p>
-          </div>
-        `;
-        channelList.appendChild(div);
-      });
+  // Check if user is admin
+  const adminSnap = await get(child(ref(db), `admins/${user.uid}`));
+  if (!adminSnap.exists()) {
+    alert("Access denied. You are not an admin.");
+    signOut(auth);
+    window.location.href = "signin.html";
+    return;
+  }
+
+  // Admin is logged in → load page
+  loadDRMChannels();
+});
+
+// --------------------------
+// Render DRM Channels
+// --------------------------
+function loadDRMChannels() {
+  onValue(drmRef, snapshot => {
+    const data = snapshot.val();
+    channelList.innerHTML = "";
+    if (!data) {
+      channelList.innerHTML = "<p class='text-gray-400'>No DRM channels available.</p>";
+      return;
     }
 
-    // Live update from drm node
-    onValue(drmRef, snapshot => renderChannels(snapshot.val()));
-
-    // Collapsible logic
-    const toggleBtn = document.getElementById("toggleAdvanced");
-    const advancedFields = document.getElementById("advancedFields");
-    const advIcon = document.getElementById("advIcon");
-
-    toggleBtn.addEventListener("click", () => {
-      if (advancedOpen) {
-        advancedFields.style.maxHeight = null;
-        advIcon.classList.remove("fa-chevron-up");
-        advIcon.classList.add("fa-chevron-down");
-        advancedOpen = false;
-      } else {
-        advancedFields.style.maxHeight = advancedFields.scrollHeight + "px";
-        advIcon.classList.remove("fa-chevron-down");
-        advIcon.classList.add("fa-chevron-up");
-        advancedOpen = true;
-      }
+    Object.values(data).forEach(ch => {
+      const div = document.createElement("div");
+      div.className = "flex items-center bg-[#1E1E1E] border border-gray-700 rounded-xl p-3 gap-3";
+      div.innerHTML = `
+        <img src="${ch.logo || ''}" alt="${ch.name}" class="w-14 h-14 object-contain rounded-lg border border-gray-700"/>
+        <div class="flex-1">
+          <h3 class="font-bold text-lg">${ch.name}</h3>
+          <p class="text-gray-400 text-sm">${ch.group || "N/A"} | ${ch.manifest || "Unknown"}</p>
+        </div>
+      `;
+      channelList.appendChild(div);
     });
+  });
+}
 
-    // Form Submit → Add to DRM node
-    document.getElementById("drmForm").addEventListener("submit", e => {
-      e.preventDefault();
+// --------------------------
+// Collapsible logic
+// --------------------------
+const toggleBtn = document.getElementById("toggleAdvanced");
+const advancedFields = document.getElementById("advancedFields");
+const advIcon = document.getElementById("advIcon");
+let advancedOpen = false;
 
-      const name = document.getElementById('name').value.trim();
-      const logo = document.getElementById('logo').value.trim();
-      const group = document.getElementById('group').value.trim();
-      const stream = document.getElementById('stream').value.trim();
-      const drmtype = document.getElementById('drmtype').value;
-      const license = document.getElementById('license').value.trim();
-      const headers = document.getElementById('headers').value.trim();
-      const origin = document.getElementById('origin').value.trim();
-      const referer = document.getElementById('referer').value.trim();
-      const tvgid = document.getElementById('tvgid').value.trim();
-      const tvgn = document.getElementById('tvgn').value.trim();
-      const tvgchno = document.getElementById('tvgchno').value.trim();
-      const manifest = document.getElementById('manifest').value;
+toggleBtn.addEventListener("click", () => {
+  if (advancedOpen) {
+    advancedFields.style.maxHeight = null;
+    advIcon.classList.remove("fa-chevron-up");
+    advIcon.classList.add("fa-chevron-down");
+    advancedOpen = false;
+  } else {
+    advancedFields.style.maxHeight = advancedFields.scrollHeight + "px";
+    advIcon.classList.remove("fa-chevron-down");
+    advIcon.classList.add("fa-chevron-up");
+    advancedOpen = true;
+  }
+});
 
-      if (!name || !stream || !license) {
-        alert("Please fill Channel Name, Stream URL, and License URL.");
-        return;
-      }
+// --------------------------
+// Form Submit → Add to DRM node
+// --------------------------
+document.getElementById("drmForm").addEventListener("submit", e => {
+  e.preventDefault();
 
-      const newChannel = {
-        name, logo, group, stream, drmtype, license,
-        headers, origin, referer, tvgid, tvgn, tvgchno, manifest,
-        timestamp: Date.now()
-      };
+  const name = document.getElementById('name').value.trim();
+  const logo = document.getElementById('logo').value.trim();
+  const group = document.getElementById('group').value.trim();
+  const stream = document.getElementById('stream').value.trim();
+  const drmtype = document.getElementById('drmtype').value;
+  const license = document.getElementById('license').value.trim();
+  const headers = document.getElementById('headers').value.trim();
+  const origin = document.getElementById('origin').value.trim();
+  const referer = document.getElementById('referer').value.trim();
+  const tvgid = document.getElementById('tvgid').value.trim();
+  const tvgn = document.getElementById('tvgn').value.trim();
+  const tvgchno = document.getElementById('tvgchno').value.trim();
+  const manifest = document.getElementById('manifest').value;
 
-      const newRef = push(drmRef);
-      set(newRef, newChannel)
-        .then(() => {
-          alert("✅ Channel added successfully to DRM node!");
-          e.target.reset();
-        })
-        .catch(err => alert("❌ Error adding channel: " + err.message));
-    });
+  if (!name || !stream || !license) {
+    alert("Please fill Channel Name, Stream URL, and License URL.");
+    return;
+  }
+
+  const newChannel = {
+    name, logo, group, stream, drmtype, license,
+    headers, origin, referer, tvgid, tvgn, tvgchno, manifest,
+    timestamp: Date.now()
+  };
+
+  const newRef = push(drmRef);
+  set(newRef, newChannel)
+    .then(() => {
+      alert("✅ Channel added successfully to DRM node!");
+      e.target.reset();
+    })
+    .catch(err => alert("❌ Error adding channel: " + err.message));
+});
+
   </script>
 
 </body>
