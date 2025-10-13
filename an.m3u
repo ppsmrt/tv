@@ -1,15 +1,15 @@
 ﻿#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"
-#EXTINF:-1 tvg-id="" tvg-name="Subhavaartha Tv" tvg-logo="https://i.ibb.co/wZ4wCpgD/1000121217.jpg" group-title="Religious",Subhavaartha Tv
+#EXTINF:-1 tvg-id="" tvg-name="Subhavaartha Tv" tvg-logo="https://i.ibb.co/zVbcCGcw/1000150607.png" group-title="Devotional",Subhavaartha Tv
 https://2mk9qae4rwyb-hls-live.wmncdn.net/shubhavartha/live.stream/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SVBC 1" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg" group-title="Religious",SVBC 1
+#EXTINF:-1 tvg-id="" tvg-name="SVBC 1" tvg-logo="https://i.ibb.co/dJxMZ38x/1000150609.png" group-title="Devotional",SVBC 1
 https://player.mslivestream.net/telugu/5d076e5c3d34cb8bb08e54a4bb7e223e.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SVBC 2" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg" group-title="Religious",SVBC 2
+#EXTINF:-1 tvg-id="" tvg-name="SVBC 2" tvg-logo="https://i.ibb.co/dJxMZ38x/1000150609.png" group-title="Devotional",SVBC 2
 http://player.mslivestream.net/tamil/ac206e74d75b285755ee4924df87d951.sdp/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SVBC 3" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg" group-title="Religious",SVBC 3
+#EXTINF:-1 tvg-id="" tvg-name="SVBC 3" tvg-logo="https://i.ibb.co/dJxMZ38x/1000150609.png" group-title="Devotional",SVBC 3
 https://player.mslivestream.net/svbc/2e628d7e1b65d31254fd7705ff7ee64d.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SVBC 4" tvg-logo="https://i.ibb.co/6cP3XhKx/1000121221.jpg" group-title="Religious",SVBC 4
+#EXTINF:-1 tvg-id="" tvg-name="SVBC 4" tvg-logo="https://i.ibb.co/dJxMZ38x/1000150609.png" group-title="Devotional",SVBC 4
 https://player.mslivestream.net/mslive/13a2927187b9700ae7ea82d7841d5b68.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tv9" tvg-logo="https://i.ibb.co/tPw4MD3T/1000121257.jpg" group-title="News",Tv9
+#EXTINF:-1 tvg-id="" tvg-name="Tv9" tvg-logo="https://i.ibb.co/ppcjnzr/1000150676.png" group-title="News",Tv9
 https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9telcmjhcs/liveabr/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Ayush Tv" tvg-logo="https://i.ibb.co/tM4r76nx/1000149780.png" group-title="Lifestyle",Ayush Tv
 https://95eryw39dwn4-hls-live.wmncdn.net/Ayushu/271ddf829afeece44d8732757fba1a66.sdp/index.m3u8
@@ -19,7 +19,7 @@ https://cdn-1.pishow.tv/live/232/master.m3u8
 https://cdn-1.pishow.tv/live/391/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Aasatha Telugu" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png" group-title="Religious",Aasatha Telugu
 https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="DD Sapthagiri" tvg-logo="https://i.ibb.co/1YTm3GHk/1000123276.jpg" group-title="Entertainment",DD Sapthagiri
+#EXTINF:-1 tvg-id="" tvg-name="DD Sapthagiri" tvg-logo="https://i.ibb.co/jZvrmhvn/1000150508.png" group-title="Entertainment",DD Sapthagiri
 https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 SD Tamil" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png" group-title="Sports",Star Sports 1 SD Tamil
 http://ptu.ridsys.in/riptv/live/stream20/index.m3u8
@@ -37,25 +37,25 @@ http://89.187.189.98/STARSPORTS3/index.m3u8
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Sony TEN Sports 3 HD" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png" group-title="Sports",Sony TEN Sports 3 HD
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="Zee Cinemalu" tvg-logo="https://i.ibb.co/4ZfXLSgT/1000139024.jpg" group-title="Movies",Zee Cinemalu
+#EXTINF:-1 tvg-id="" tvg-name="Zee Cinemalu" tvg-logo="https://i.ibb.co/1tdvww6W/1000150678.png" group-title="Movies",Zee Cinemalu
 http://195.181.169.162/ZEE_CINEMALU_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="Zee Telugu" tvg-logo="https://i.ibb.co/5XMywNJx/1000139028.jpg" group-title="Entertainment",Zee Telugu
+#EXTINF:-1 tvg-id="" tvg-name="Zee Telugu" tvg-logo="https://i.ibb.co/qTFR8vF/1000150680.png" group-title="Entertainment",Zee Telugu
 http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="E Tv" tvg-logo="https://i.ibb.co/F47Bh3GB/1000139037.jpg" group-title="Entertainment",E Tv
+#EXTINF:-1 tvg-id="" tvg-name="E Tv" tvg-logo="https://i.ibb.co/fzhYQ0zZ/1000150571.png" group-title="Entertainment",E Tv
 http://195.181.169.162/ETV_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="Gemini Movies" tvg-logo="https://i.ibb.co/XZ92LxgN/1000139039.jpg" group-title="Movies",Gemini Movies
+#EXTINF:-1 tvg-id="" tvg-name="Gemini Movies" tvg-logo="https://i.ibb.co/ksDWvpZC/1000150569.png" group-title="Movies",Gemini Movies
 http://195.181.169.162/GEMINI_MOVIES_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="E Tv Cinema" tvg-logo="https://i.ibb.co/KxxY5KgC/1000139370.jpg" group-title="Entertainment",E Tv Cinema
+#EXTINF:-1 tvg-id="" tvg-name="E Tv Cinema" tvg-logo="https://i.ibb.co/9k2J2FVs/1000150575.png" group-title="Entertainment",E Tv Cinema
 https://d1q7j6ha51ro6f.cloudfront.net/v1/manifest/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_CINEMA_H264-3_cloud_in/2cc76b3d-b062-421d-9c4e-ae75b3f9b0e3/1.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="E Tv Plus" tvg-logo="https://i.ibb.co/yBGwKWmL/1000139371.jpg" group-title="Entertainment",E Tv Plus
+#EXTINF:-1 tvg-id="" tvg-name="E Tv Plus" tvg-logo="https://i.ibb.co/KczMZfgL/1000150591.png" group-title="Entertainment",E Tv Plus
 https://d27tnkf60df3v4.cloudfront.net/v1/manifest/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_PLUS_H264-3_cloud_in/e86f748a-e035-446a-8f6f-902e35faedcf/0.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="E Tv Life" tvg-logo="https://i.ibb.co/DgzvGBnJ/1000139373.jpg" group-title="Entertainment",E Tv Life
+#EXTINF:-1 tvg-id="" tvg-name="E Tv Life" tvg-logo="https://i.ibb.co/35WQwjbc/1000150577.png" group-title="Entertainment",E Tv Life
 https://d2cj1h11htct8o.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_LIFE_H264_cloud_in/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="E TV Abhiruchi" tvg-logo="https://i.ibb.co/S4TRBxpG/1000139377.jpg" group-title="Entertainment",E TV Abhiruchi
+#EXTINF:-1 tvg-id="" tvg-name="E TV Abhiruchi" tvg-logo="https://i.ibb.co/5hkZ8280/1000150573.png" group-title="Entertainment",E TV Abhiruchi
 https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_ABHIRUCHI_H264-3_cloud-in/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Star Maa HD" tvg-logo="https://i.ibb.co/Z1bTXYyW/1000139387.jpg" group-title="Entertainment",Star Maa HD
+#EXTINF:-1 tvg-id="" tvg-name="Star Maa HD" tvg-logo="https://i.ibb.co/1GHFRBhp/1000150605.png" group-title="Entertainment",Star Maa HD
 https://live.dinesh29.com.np/stream/jiotvplus/maahd/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vissa" tvg-logo="https://i.ibb.co/MkhtpWFw/1000139524.jpg" group-title="Entertainment",Vissa
+#EXTINF:-1 tvg-id="" tvg-name="Vissa" tvg-logo="https://i.ibb.co/q3sdq2BT/1000150513.png" group-title="Entertainment",Vissa
 https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Vissa_Tv/master_1.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Cartoon Network" tvg-logo="https://i.ibb.co/jPXfqXzN/1000148126.png" group-title="Kids",Cartoon Network
 http://89.187.189.98/CARTOONNETWORK/index.m3u8
@@ -75,13 +75,13 @@ http://51.15.7.9:3141/ten2/index.m3u8
 http://51.15.7.9:3141/ten3/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sony Ten Sports 5 HD" tvg-logo="https://i.ibb.co/CK1Lrwv1/1000149274.png" group-title="Sports",Sony Ten Sports 5 HD
 http://51.15.7.9:3141/ten5/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Etv Telangana" tvg-logo="https://i.ibb.co/VYH0X2fY/1000139604.jpg" group-title="Entertainment",Etv Telangana
+#EXTINF:-1 tvg-id="" tvg-name="Etv Telangana" tvg-logo="https://i.ibb.co/MxZRmbgQ/1000150603.png" group-title="Entertainment",Etv Telangana
 https://dssp63pjfajz9.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_TS_H264-3_cloud_in/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nikky Tv" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png" group-title="Kids",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Gemini Tv" tvg-logo="https://i.ibb.co/JRg8bZ7J/1000140036.jpg" group-title="Entertainment",Gemini Tv
+#EXTINF:-1 tvg-id="" tvg-name="Gemini Tv" tvg-logo="https://i.ibb.co/qLDLxzqJ/1000150568.png" group-title="Entertainment",Gemini Tv
 http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="Etv Andhra" tvg-logo="https://i.ibb.co/vKRKs7q/1000140037.jpg" group-title="Entertainment",Etv Andhra
+#EXTINF:-1 tvg-id="" tvg-name="Etv Andhra" tvg-logo="https://i.ibb.co/SwMX4yLb/1000150593.png" group-title="Entertainment",Etv Andhra
 https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 2 HD" tvg-logo="https://i.ibb.co/0Rf6VF1J/1000150094.png" group-title="Sports",Star Sports 2 HD
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
@@ -121,13 +121,13 @@ http://66.102.120.18:8000/play/a040/index.m3u8
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Epic Tv" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png" group-title="Documentary",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Etv Music" tvg-logo="https://i.ibb.co/bjL1ctyg/1000142442.jpg" group-title="Music",Etv Music
+#EXTINF:-1 tvg-id="" tvg-name="Etv Music" tvg-logo="https://i.ibb.co/LKLcfk8/1000150599.png" group-title="Music",Etv Music
 https://cc-szivnms4rlah6.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szivnms4rlah6/6173a07b-668b-457c-b6ef-50c58d2b7991/1.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Etv Comedy" tvg-logo="https://i.ibb.co/1fHhCkSf/1000142447.png" group-title="Entertainment",Etv Comedy
+#EXTINF:-1 tvg-id="" tvg-name="Etv Comedy" tvg-logo="https://i.ibb.co/8nxc28gY/1000150595.png" group-title="Entertainment",Etv Comedy
 https://cc-wie8j8y69d2uy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-wie8j8y69d2uy/f2f59ff5-3585-4808-b7df-04f7445a7138/1.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Etv Josh" tvg-logo="https://i.ibb.co/LDfLDpJB/1000142500.png" group-title="Entertainment",Etv Josh
+#EXTINF:-1 tvg-id="" tvg-name="Etv Josh" tvg-logo="https://i.ibb.co/5hxXnn8V/1000150597.png" group-title="Entertainment",Etv Josh
 https://cc-uyh1ow5zouoio.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-uyh1ow5zouoio/be345488-d68c-4928-ab56-33760e506be5/1.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Etv News" tvg-logo="https://i.ibb.co/sdPxQy8z/1000142551.png" group-title="News",Etv News
+#EXTINF:-1 tvg-id="" tvg-name="Etv News" tvg-logo="https://i.ibb.co/JVHqWhW/1000150601.png" group-title="News",Etv News
 https://cc-3448kp65yhc5w.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-3448kp65yhc5w/e73503ca-8965-4097-96a0-c4ec1a6a1741/2.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Extreme Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png" group-title="Sports",Extreme Sports
 https://176.116.105.82/Extreme_Sports/index.m3u8
@@ -204,4 +204,6 @@ https://live20.bozztv.com/giatvplayout7/giatv-210787/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 Tamil HD" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png" group-title="Sports",Star Sports 1 Tamil HD
-https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8#ec4035516cfde1557bf67fc27bbb8c1eef468719f611174eb5530267293b2e8e
+https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Gujarat Wild" tvg-logo="https://i.ibb.co/HTn8XqRy/1000150949.png" group-title="Documentary",Gujarat Wild
+https://newsliveindia.com/WILDLIFEhls/WILDLIFE.m3u8
