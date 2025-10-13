@@ -1,0 +1,326 @@
+name: Generate BM playlist
+
+on:
+  schedule:
+    # run every 5 minutes (adjust if you like)
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Create runner script (fetch, decode, decrypt, extract links, write m3u)
+        run: |
+          cat > ./scripts/generate_bm_playlist.js <<'NODE'
+          // generate_bm_playlist.js
+          // Fetch URL -> attempt base64 decode -> parse JSON -> extract links ->
+          // optional AES-256-CBC decrypt using secrets -> write assets/playlist/bm.m3u
+
+          const fs = require('fs');
+          const path = require('path');
+          const crypto = require('crypto');
+          const fetch = globalThis.fetch || require('node-fetch');
+
+          const BM_URL = process.env.BM_URL || 'https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud';
+          const KEY_ENV = process.env.BM_SECRET_KEY || '';
+          const IV_ENV = process.env.BM_SECRET_IV || '';
+
+          // helper: try parse JSON safely
+          function tryParseJSON(str) {
+            try {
+              return JSON.parse(str);
+            } catch (e) {
+              return null;
+            }
+          }
+
+          // helper: try decode base64 -> utf8. returns null if invalid
+          function tryBase64Decode(s) {
+            try {
+              // remove whitespace/newlines that might break base64
+              const cleaned = s.replace(/\s+/g, '');
+              const buf = Buffer.from(cleaned, 'base64');
+              // if decoding results in replacement chars or empty, still return
+              return buf.toString('utf8');
+            } catch (e) {
+              return null;
+            }
+          }
+
+          // normalize key/iv if provided: accept base64 or hex
+          function parseKeyOrIv(raw, expectedBytes) {
+            if (!raw) return null;
+            // try base64
+            try {
+              const b = Buffer.from(raw, 'base64');
+              if (b.length === expectedBytes) return b;
+            } catch (e) {}
+            // try hex
+            try {
+              const b = Buffer.from(raw, 'hex');
+              if (b.length === expectedBytes) return b;
+            } catch (e) {}
+            // fallback: raw as utf8 but warn
+            const b = Buffer.from(raw, 'utf8');
+            if (b.length === expectedBytes) return b;
+            return null;
+          }
+
+          const KEY = parseKeyOrIv(KEY_ENV, 32); // AES-256 expects 32 bytes key
+          const IV = parseKeyOrIv(IV_ENV, 16);   // AES block size 16 bytes
+
+          function tryAes256CbcDecrypt(buffer, key, iv) {
+            try {
+              const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+              let out = decipher.update(buffer);
+              out = Buffer.concat([out, decipher.final()]);
+              return out.toString('utf8');
+            } catch (e) {
+              return null;
+            }
+          }
+
+          // search object recursively for strings that look like URLs or m3u content
+          function collectLinksFromObject(obj, collector) {
+            if (!obj) return;
+            if (typeof obj === 'string') {
+              const s = obj.trim();
+              // typical url or m3u entries
+              if (/^https?:\/\/\S+/i.test(s) || /\.(m3u|m3u8|ts|mp4)(\?|$)/i.test(s)) {
+                collector.add(s);
+              } else if (s.split('\n').some(line => /^#EXTINF|-https?:\/\//i.test(line))) {
+                // If looks like an m3u block, include whole block
+                collector.add(s);
+              } else {
+                // also consider that this string could be base64 encoded JSON / encrypted payload
+                // we will handle later
+              }
+            } else if (Array.isArray(obj)) {
+              for (const e of obj) collectLinksFromObject(e, collector);
+            } else if (typeof obj === 'object') {
+              for (const k of Object.keys(obj)) collectLinksFromObject(obj[k], collector);
+            }
+          }
+
+          (async () => {
+            try {
+              console.log('Fetching:', BM_URL);
+              const res = await fetch(BM_URL, { method: 'GET' });
+              const raw = await res.text();
+
+              // Step 1: try to base64-decode the entire response
+              let candidate = null;
+              let jsonObj = null;
+              let decoded = tryBase64Decode(raw);
+              if (decoded) {
+                jsonObj = tryParseJSON(decoded);
+                if (jsonObj) {
+                  candidate = decoded;
+                  console.log('Response: base64 -> JSON parsed (top-level).');
+                }
+              }
+
+              // Step 2: If not parsed, maybe response is JSON already (not base64). Try parse original raw
+              if (!jsonObj) {
+                jsonObj = tryParseJSON(raw);
+                if (jsonObj) {
+                  candidate = raw;
+                  console.log('Response: raw JSON parsed (not base64).');
+                }
+              }
+
+              // Step 3: If still not JSON, check if original or decoded contains a base64 field that decodes
+              if (!jsonObj) {
+                // try to find a base64 chunk in raw: simple regex for long base64 block
+                const b64match = raw.match(/([A-Za-z0-9+/=]{100,})/);
+                if (b64match) {
+                  const tryB64 = tryBase64Decode(b64match[1]);
+                  if (tryB64) {
+                    const p = tryParseJSON(tryB64);
+                    if (p) {
+                      jsonObj = p;
+                      candidate = tryB64;
+                      console.log('Found embedded base64 JSON and parsed it.');
+                    }
+                  }
+                }
+              }
+
+              // Step 4: If still not JSON, assume the decoded base64 is the data we must decrypt (or the raw itself)
+              let payloadCandidates = [];
+              if (jsonObj) {
+                payloadCandidates.push(jsonObj);
+              } else {
+                // fallback: push decoded (if any) and raw
+                if (decoded) payloadCandidates.push(decoded);
+                payloadCandidates.push(raw);
+              }
+
+              const links = new Set();
+
+              // For each candidate, recursively search for URL-like strings.
+              for (const candidateItem of payloadCandidates) {
+                if (typeof candidateItem === 'string') {
+                  // try parse as JSON string
+                  const parsed = tryParseJSON(candidateItem);
+                  if (parsed) {
+                    collectLinksFromObject(parsed, links);
+                  } else {
+                    // try to find URLs in the string directly
+                    const urlRegex = /https?:\/\/[^\s'"]+/ig;
+                    const found = candidateItem.match(urlRegex);
+                    if (found) found.forEach(u => links.add(u.trim()));
+                  }
+                } else {
+                  collectLinksFromObject(candidateItem, links);
+                }
+              }
+
+              // If we found links already, good. If not, try decrypting base64 decoded pieces (if key provided).
+              if (links.size === 0 && KEY && IV) {
+                console.log('No direct links found. Trying AES-256-CBC decrypt on base64 payloads (using provided key/iv)...');
+                // find base64-like strings and try to decrypt
+                const base64Candidates = [];
+                const base64Regex = /([A-Za-z0-9+/=]{64,})/g;
+                const allMatches = (raw.match(base64Regex) || []);
+                for (const m of allMatches) {
+                  base64Candidates.push(m);
+                }
+                if (decoded) base64Candidates.push(decoded);
+                for (const b64 of base64Candidates) {
+                  try {
+                    const ciphertext = Buffer.from(b64.replace(/\s+/g,''), 'base64');
+                    const dec = tryAes256CbcDecrypt(ciphertext, KEY, IV);
+                    if (dec) {
+                      const p = tryParseJSON(dec);
+                      if (p) {
+                        collectLinksFromObject(p, links);
+                      } else {
+                        // maybe it's m3u text
+                        if (/^#EXTM3U|#EXTINF|https?:\/\//i.test(dec)) {
+                          dec.split(/\r?\n/).forEach(line => {
+                            if (line.trim()) links.add(line.trim());
+                          });
+                        }
+                      }
+                    }
+                  } catch (e) {
+                    // ignore
+                  }
+                }
+              }
+
+              // As one more fallback, if JSON object contains encrypted fields (strings), attempt to decrypt each string.
+              if (links.size === 0 && KEY && IV && jsonObj) {
+                function tryDecryptStrings(obj) {
+                  if (!obj) return;
+                  if (typeof obj === 'string') {
+                    const maybeB64 = obj.replace(/\s+/g,'');
+                    // try decrypting if seems base64
+                    if (/^[A-Za-z0-9+/=]+$/.test(maybeB64)) {
+                      try {
+                        const ciphertext = Buffer.from(maybeB64, 'base64');
+                        const dec = tryAes256CbcDecrypt(ciphertext, KEY, IV);
+                        if (dec) {
+                          const p = tryParseJSON(dec);
+                          if (p) collectLinksFromObject(p, links);
+                          else {
+                            const urlRegex = /https?:\/\/[^\s'"]+/ig;
+                            const found = dec.match(urlRegex);
+                            if (found) found.forEach(u => links.add(u.trim()));
+                          }
+                        }
+                      } catch (e) {}
+                    }
+                  } else if (Array.isArray(obj)) {
+                    for (const e of obj) tryDecryptStrings(e);
+                  } else if (typeof obj === 'object') {
+                    for (const k of Object.keys(obj)) tryDecryptStrings(obj[k]);
+                  }
+                }
+                tryDecryptStrings(jsonObj);
+              }
+
+              // Final step: if still no links, but jsonObj contains a string that looks like an m3u content, include it.
+              if (links.size === 0 && jsonObj) {
+                const s = JSON.stringify(jsonObj);
+                const m3uMatch = s.match(/(#EXTM3U[\s\S]{10,})/i);
+                if (m3uMatch) {
+                  // take the block
+                  const block = m3uMatch[1];
+                  block.split(/\r?\n/).forEach(line => {
+                    if (line.trim()) links.add(line.trim());
+                  });
+                }
+              }
+
+              // Build final m3u content
+              let m3uContent = '#EXTM3U\n';
+              if (links.size === 0) {
+                console.warn('No links found by heuristics. Writing empty playlist file with debug dump.');
+                m3uContent += '# No links found\n';
+                m3uContent += '# Debug: first 1000 chars of response:\n';
+                m3uContent += raw.slice(0,1000).split(/\r?\n/).map(l => '# ' + l).join('\n');
+              } else {
+                for (const l of links) {
+                  // if line is a full m3u block, preserve; otherwise just append URL
+                  if (/^#EXTINF/i.test(l) || l.includes('\n')) {
+                    m3uContent += l + '\n';
+                  } else {
+                    // Add minimal EXTINF placeholder so players accept it (optional)
+                    m3uContent += l + '\n';
+                  }
+                }
+              }
+
+              // ensure output directory
+              const outPath = path.join(process.cwd(), 'assets', 'playlist');
+              fs.mkdirSync(outPath, { recursive: true });
+              const outFile = path.join(outPath, 'bm.m3u');
+              fs.writeFileSync(outFile, m3uContent, 'utf8');
+              console.log('Wrote playlist to', outFile);
+
+              // exit success
+              process.exit(0);
+            } catch (e) {
+              console.error('Script error:', e);
+              process.exit(2);
+            }
+          })();
+          NODE
+
+      - name: Install dependencies (node-fetch if needed)
+        run: |
+          npm init -y
+          npm install node-fetch@2 || true
+
+      - name: Run playlist generator
+        env:
+          BM_URL: https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud
+          BM_SECRET_KEY: ${{ secrets.BM_SECRET_KEY }}
+          BM_SECRET_IV: ${{ secrets.BM_SECRET_IV }}
+        run: |
+          node ./scripts/generate_bm_playlist.js
+
+      - name: Commit and push generated playlist if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/playlist/bm.m3u || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update bm.m3u (autogenerated)"
+            git push
+          fi
