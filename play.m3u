@@ -55,10 +55,10 @@ http://applelive.in/thalapathytv/thalapathytv.m3u8
 http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
 #EXTINF:-1 tvg-name="Phoneix Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/2YhYtQsT/phoneixtv.jpg",Phoneix Tv
 http://phoenixtv.stream.onecloudlive.in:8080/phoenixtv/phoenixtv/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-name="Sachin Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/k26gSjy0/sachintv.jpg",Sachin Tv
-https://ipcloud.live/sachintv/sachintvhd/index.m3u8
-#EXTINF:-1 tvg-name="Dhoni Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/W4LysrS4/dhonitv.jpg",Dhoni Tv
-https://ipcloud.live/sachintv/dhonitv/index.m3u8
+#EXTINF:-1 tvg-name="Sachin Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1G598w73/1000150945.png",Sachin Tv
+https://ipcloud.live/sachintv/sachintvhd/index.mpd
+#EXTINF:-1 tvg-name="Dhoni Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/S7JNwzgD/1000150947.png",Dhoni Tv
+https://ipcloud.live/sachintv/dhonitv/index.mpd
 #EXTINF:-1 tvg-name="Saami Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/0bHwvYd/samitv.jpg",Saami Tv
 https://ipcloud.live/msntv/saamitv/index.m3u8
 #EXTINF:-1 tvg-name="Rich Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/9HfP7V8H/richtv.jpg",Rich Tv
@@ -1537,3 +1537,5 @@ http://rasinetworks.in:1935/rasitvhd/rasitvhd.stream_aac/chunklist_w327799819.m3
 https://live.applelive.in/janasruthitv/janasruthitv/index.m3u8
 #EXTINF:-1 tvg-name="Aadhvik Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/W4C2sH0D/1000150943.png",Aadhvik Tv
 https://ipcloud.live/sachintv/aadviktv/index.mpd
+#EXTINF:-1 tvg-name="Gujarat Wild" group-title="Documentary" tvg-logo="https://i.ibb.co/HTn8XqRy/1000150949.png",Gujarat Wild
+https://newsliveindia.com/WILDLIFEhls/WILDLIFE.m3u8
