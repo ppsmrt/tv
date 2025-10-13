@@ -1313,7 +1313,7 @@ http://stream.d6-pro.com/Dtv/live/index.m3u8
 http://acv.7starcloud.com:1935/tamilstar/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Endhiran Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/GvPgg6Tp/1000146956.jpg",Endhiran Tv
 https://live.applelive.in/enthirantv/enthirantv/index.m3u8
-#EXTINF:-1 tvg-name="Queens Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/vC299ZpH/1000146965.png",Queens Tv
+#EXTINF:-1 tvg-name="Queens Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/JWm57LBn/1000150788.png",Queens Tv
 https://notvstream.in/queens/queens.m3u8
 #EXTINF:-1 tvg-name="Thendral2 Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/R4ccLfx2/1000146985.jpg",Thendral2 Tv
 https://ipcloud.live/thendralmdu/madurai/index.m3u8
@@ -1521,3 +1521,9 @@ https://stream.singamcloud.in/shalinitv/shalinitv/index.m3u8
 https://app.ashokadigital.net/app/7825e06b/index.m3u8
 #EXTINF:-1 tvg-name="Sailam Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/d4Lq6wRQ/1000150786.png",Sailam Tv
 https://stream.onecloudlive.in/deepamtv/sailamtv/index.m3u8
+#EXTINF:-1 tvg-name="Alaya Magimai" group-title="Devotional" tvg-logo="https://i.ibb.co/Z1N0YSSB/1000150790.png",Alaya Magimai
+https://app.ashokadigital.net/aalayamagimaitv/aalayamagimaitv/index.m3u8
+#EXTINF:-1 tvg-name="Dheivigam Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/Kx3b11vd/1000150819.png",Dheivigam Tv
+https://stream.singamcloud.in/Dheiveegamtv/Dheiveegamtv/index.m3u8
+#EXTINF:-1 tvg-name="Dharumai Adhenam Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/3KPJ581/1000150821.png",Dharumai Adhenam Tv
+https://stream.onecloudlive.in/taitaltv/livetv/index.m3u8
