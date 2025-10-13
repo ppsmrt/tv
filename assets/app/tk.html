@@ -6,10 +6,9 @@
 <title>Tokens Dashboard</title>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-  import { getDatabase, ref, get, set, push } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+  import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
   import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
     authDomain: "tnm3ulive.firebaseapp.com",
@@ -33,10 +32,13 @@
   const ADMIN_EMAIL = "admin@example.com"; // replace
   const ADMIN_PASSWORD = "YOUR_PASSWORD";  // replace
 
-  function randomToken(length = 12) {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  // Generate 6-letter alphabet token (upper & lower)
+  function randomToken(length = 6) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     let result = "";
-    for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
     return result;
   }
 
@@ -73,11 +75,8 @@
 
       if (!tokensData) {
         // No token exists, generate new
-        const newToken = randomToken(12);
-        const dateKey = new Date().toISOString();
-        await set(ref(db, `tokens/${dateKey}`), { token: newToken, createdAt: dateKey });
-        tokensData = {};
-        tokensData[dateKey] = { token: newToken, createdAt: dateKey };
+        await generateAndSaveToken();
+        tokensData = (await get(ref(db, 'tokens'))).val();
       }
 
       const sortedKeys = Object.keys(tokensData).sort((a,b)=>new Date(b)-new Date(a));
@@ -109,12 +108,18 @@
     }
   }
 
+  async function generateAndSaveToken() {
+    const newToken = randomToken(6);
+    // Safe key for Firebase
+    const dateKey = new Date().toISOString().replace(/[.#$/\[\]]/g,'-');
+    await set(ref(db, `tokens/${dateKey}`), { token: newToken, createdAt: new Date().toISOString() });
+    return newToken;
+  }
+
   async function generateNewToken() {
     try {
       statusEl.textContent = "Generating new token...";
-      const newToken = randomToken(12);
-      const dateKey = new Date().toISOString();
-      await set(ref(db, `tokens/${dateKey}`), { token: newToken, createdAt: dateKey });
+      await generateAndSaveToken();
       statusEl.textContent = "New token generated successfully.";
       loadTokens();
     } catch(err) {
