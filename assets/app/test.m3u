@@ -1,4 +1,6 @@
-#EXTM3U
+﻿#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"
+#EXTINF:-1 tvg-id="" tvg-name="Raj Tv" tvg-logo="https://i.ibb.co/5HQgfr4/1000148546.png" group-title="Entertainment",Raj Tv
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Testing 1" tvg-logo="" group-title="Testing",Testing 1
 http://ptu.ridsys.in/riptv/live/stream1/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Testing 2" tvg-logo="" group-title="Testing",Testing 2
