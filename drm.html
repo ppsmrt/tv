@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>DRM M3U Generator</title>
+  <title>DRM Admin Panel</title>
 
   <!-- Disable Indexing -->
   <meta name="robots" content="noindex, nofollow"/>
@@ -142,16 +142,16 @@
 
         <!-- Submit -->
         <button type="button" id="generateBtn" class="col-span-2 bg-yellow-500 text-black font-bold py-3 rounded-xl shadow-md hover:bg-yellow-400 transition">
-          <i class="fa-solid fa-key mr-2"></i> Generate M3U Entry
+          <i class="fa-solid fa-key mr-2"></i> Add Channel
         </button>
 
         <div class="md:col-span-2 output-box" id="output"></div>
       </form>
     </div>
 
-    <!-- Right: Channels Display -->
+    <!-- Right: DRM Channels Display -->
     <div class="flex-1 flex flex-col p-5 overflow-auto">
-      <h2 class="text-xl font-bold mb-3">Channels</h2>
+      <h2 class="text-xl font-bold mb-3">DRM Channels</h2>
       <div id="channelList" class="grid gap-3"></div>
     </div>
 
@@ -159,7 +159,7 @@
 
   <script type="module">
     // ============================
-    // Firebase + Channel Renderer
+    // Firebase + DRM Renderer
     // ============================
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
@@ -181,13 +181,13 @@
     const channelList = document.getElementById("channelList");
     let advancedOpen = false; // track collapsible state
 
-    // Render channels
+    // Render DRM channels
     function renderChannels(data) {
       const previousHeight = document.getElementById("advancedFields").style.maxHeight;
       channelList.innerHTML = "";
 
       if (!data) {
-        channelList.innerHTML = "<p class='text-gray-400'>No channels available.</p>";
+        channelList.innerHTML = "<p class='text-gray-400'>No DRM channels available.</p>";
         return;
       }
 
@@ -209,7 +209,8 @@
       }
     }
 
-    onValue(ref(db, "channels"), snapshot => {
+    // 🔥 Fetch data from "drm" node instead of "channels"
+    onValue(ref(db, "drm"), snapshot => {
       renderChannels(snapshot.val());
     });
 
