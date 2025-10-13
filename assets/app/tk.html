@@ -32,7 +32,6 @@
   const ADMIN_EMAIL = "admin@example.com"; // replace
   const ADMIN_PASSWORD = "YOUR_PASSWORD";  // replace
 
-  // Generate 6-letter alphabet token (upper & lower)
   function randomToken(length = 6) {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     let result = "";
@@ -42,21 +41,34 @@
     return result;
   }
 
-  async function isAdmin(uid) {
+  // Check if current user exists under /admins
+  async function isAdmin() {
+    const user = auth.currentUser;
+    if (!user) return false;
     try {
-      const adminSnap = await get(ref(db, `admins/${uid}`));
-      return adminSnap.exists();
-    } catch (err) {
+      const snap = await get(ref(db, `admins/${user.uid}`));
+      return snap.exists();
+    } catch(err) {
       console.error("Error checking admin:", err);
       return false;
     }
   }
 
+  async function generateAndSaveToken() {
+    const newToken = randomToken(6);
+    // Safe key for Firebase
+    const dateKey = new Date().toISOString().replace(/[.#$/\[\]]/g,'-');
+    await set(ref(db, `tokens/${dateKey}`), { token: newToken, createdAt: new Date().toISOString() });
+    return newToken;
+  }
+
   async function loadTokens() {
     try {
-      const uid = auth.currentUser.uid;
+      const user = auth.currentUser;
+      if (!user) return;
+
       statusEl.textContent = "Checking admin permissions...";
-      const admin = await isAdmin(uid);
+      const admin = await isAdmin();
       if (!admin) {
         statusEl.textContent = "Access Denied: You are not an admin.";
         latestEl.textContent = "-";
@@ -70,18 +82,14 @@
       const tokensRef = ref(db, 'tokens');
       const snapshot = await get(tokensRef);
       let tokensData = snapshot.val();
-      let latest = null;
-      let history = [];
-
       if (!tokensData) {
-        // No token exists, generate new
         await generateAndSaveToken();
-        tokensData = (await get(ref(db, 'tokens'))).val();
+        tokensData = (await get(tokensRef)).val();
       }
 
       const sortedKeys = Object.keys(tokensData).sort((a,b)=>new Date(b)-new Date(a));
-      latest = tokensData[sortedKeys[0]];
-      history = sortedKeys.slice(1).map(k => tokensData[k]);
+      const latest = tokensData[sortedKeys[0]];
+      const history = sortedKeys.slice(1).map(k => tokensData[k]);
 
       latestEl.textContent = latest.token;
 
@@ -91,29 +99,16 @@
       } else {
         history.forEach((h, idx)=>{
           const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${idx+1}</td>
-            <td>${h.token}</td>
-            <td>${new Date(h.createdAt).toLocaleString()}</td>
-          `;
+          tr.innerHTML = `<td>${idx+1}</td><td>${h.token}</td><td>${new Date(h.createdAt).toLocaleString()}</td>`;
           historyBody.appendChild(tr);
         });
       }
 
       statusEl.textContent = "Tokens loaded successfully.";
-
     } catch(err) {
       statusEl.textContent = "Error loading tokens: " + err.message;
       console.error(err);
     }
-  }
-
-  async function generateAndSaveToken() {
-    const newToken = randomToken(6);
-    // Safe key for Firebase
-    const dateKey = new Date().toISOString().replace(/[.#$/\[\]]/g,'-');
-    await set(ref(db, `tokens/${dateKey}`), { token: newToken, createdAt: new Date().toISOString() });
-    return newToken;
   }
 
   async function generateNewToken() {
@@ -136,9 +131,7 @@
     } else {
       signInWithEmailAndPassword(auth, ADMIN_EMAIL, ADMIN_PASSWORD)
         .then(() => loadTokens())
-        .catch(err => {
-          statusEl.textContent = "Login failed: " + err.message;
-        });
+        .catch(err => statusEl.textContent = "Login failed: " + err.message);
     }
   });
 
