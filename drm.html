@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>DRM Admin Panel</title>
+  <title>DRM Channel Manager</title>
 
   <!-- Disable Indexing -->
   <meta name="robots" content="noindex, nofollow"/>
@@ -12,7 +12,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
   <style>
     body { font-family: 'Baloo 2', cursive; }
     .collapsible {
@@ -20,27 +19,20 @@
       overflow: hidden;
       transition: max-height 0.4s ease;
     }
-    .output-box {
-      background: #1E1E1E;
-      color: #A5F3FC;
-      font-family: monospace;
-      padding: 15px;
-      border-radius: 10px;
-      white-space: pre-wrap;
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body class="bg-[#121212] text-white w-screen h-screen flex flex-col">
 
   <!-- Header -->
-  <div id="header"></div>
+  <div class="text-center py-4 text-2xl font-bold bg-[#1E1E1E] text-yellow-400 shadow">
+    <i class="fa-solid fa-lock mr-2"></i>DRM M3U Channel Manager
+  </div>
 
   <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
 
     <!-- Left: DRM Form -->
     <div class="w-full md:w-1/2 p-5 bg-[#1E1E1E] shadow-lg overflow-y-auto rounded-xl">
-      <h1 class="text-2xl font-bold mb-5 text-center text-yellow-400"><i class="fa-solid fa-lock"></i> DRM M3U Generator</h1>
+      <h1 class="text-xl font-bold mb-4 text-center text-yellow-400">Add New DRM Channel</h1>
 
       <form id="drmForm" class="grid gap-4 md:grid-cols-2">
         
@@ -141,11 +133,9 @@
         </div>
 
         <!-- Submit -->
-        <button type="button" id="generateBtn" class="col-span-2 bg-yellow-500 text-black font-bold py-3 rounded-xl shadow-md hover:bg-yellow-400 transition">
-          <i class="fa-solid fa-key mr-2"></i> Add Channel
+        <button type="submit" class="col-span-2 bg-yellow-500 text-black font-bold py-3 rounded-xl shadow-md hover:bg-yellow-400 transition">
+          <i class="fa-solid fa-plus mr-2"></i> Add DRM Channel
         </button>
-
-        <div class="md:col-span-2 output-box" id="output"></div>
       </form>
     </div>
 
@@ -159,10 +149,10 @@
 
   <script type="module">
     // ============================
-    // Firebase + DRM Renderer
+    // Firebase + DRM Renderer + Uploader
     // ============================
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+    import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
@@ -178,45 +168,36 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    const drmRef = ref(db, "drm");
     const channelList = document.getElementById("channelList");
-    let advancedOpen = false; // track collapsible state
+    let advancedOpen = false;
 
-    // Render DRM channels
+    // Render Channels
     function renderChannels(data) {
-      const previousHeight = document.getElementById("advancedFields").style.maxHeight;
       channelList.innerHTML = "";
-
       if (!data) {
         channelList.innerHTML = "<p class='text-gray-400'>No DRM channels available.</p>";
         return;
       }
 
-      Object.values(data).forEach(ch => {
+      Object.entries(data).forEach(([id, ch]) => {
         const div = document.createElement("div");
         div.className = "flex items-center bg-[#1E1E1E] border border-gray-700 rounded-xl p-3 gap-3";
         div.innerHTML = `
-          <img src="${ch.icon}" alt="${ch.name}" class="w-14 h-14 object-contain rounded-lg border border-gray-700"/>
+          <img src="${ch.logo || ''}" alt="${ch.name}" class="w-14 h-14 object-contain rounded-lg border border-gray-700"/>
           <div class="flex-1">
             <h3 class="font-bold text-lg">${ch.name}</h3>
-            <p class="text-gray-400 text-sm">${ch.category || "Unknown"} | ${ch.language || "N/A"}</p>
+            <p class="text-gray-400 text-sm">${ch.group || "N/A"} | ${ch.manifest || "Unknown"}</p>
           </div>
         `;
         channelList.appendChild(div);
       });
-
-      if (advancedOpen) {
-        document.getElementById("advancedFields").style.maxHeight = previousHeight;
-      }
     }
 
-    // 🔥 Fetch data from "drm" node instead of "channels"
-    onValue(ref(db, "drm"), snapshot => {
-      renderChannels(snapshot.val());
-    });
+    // Live update from drm node
+    onValue(drmRef, snapshot => renderChannels(snapshot.val()));
 
-    // ============================
-    // Collapsible Logic
-    // ============================
+    // Collapsible logic
     const toggleBtn = document.getElementById("toggleAdvanced");
     const advancedFields = document.getElementById("advancedFields");
     const advIcon = document.getElementById("advIcon");
@@ -235,10 +216,10 @@
       }
     });
 
-    // ============================
-    // DRM Generator Logic
-    // ============================
-    document.getElementById("generateBtn").addEventListener("click", () => {
+    // Form Submit → Add to DRM node
+    document.getElementById("drmForm").addEventListener("submit", e => {
+      e.preventDefault();
+
       const name = document.getElementById('name').value.trim();
       const logo = document.getElementById('logo').value.trim();
       const group = document.getElementById('group').value.trim();
@@ -254,25 +235,23 @@
       const manifest = document.getElementById('manifest').value;
 
       if (!name || !stream || !license) {
-        alert("Please fill at least Channel Name, Stream URL, and License URL.");
+        alert("Please fill Channel Name, Stream URL, and License URL.");
         return;
       }
 
-      let extraHeaders = headers ? headers : '';
-      if (origin) extraHeaders += `,Origin=${origin}`;
-      if (referer) extraHeaders += `,Referer=${referer}`;
-      const headerString = extraHeaders ? `|${extraHeaders}|` : '|';
+      const newChannel = {
+        name, logo, group, stream, drmtype, license,
+        headers, origin, referer, tvgid, tvgn, tvgchno, manifest,
+        timestamp: Date.now()
+      };
 
-      const extinf = `#EXTINF:-1${tvgid ? ` tvg-id="${tvgid}"` : ''}${tvgn ? ` tvg-name="${tvgn}"` : ''}${tvgchno ? ` tvg-chno="${tvgchno}"` : ''} tvg-logo="${logo}" group-title="${group}",${name}`;
-
-      const output = 
-`${extinf}
-#KODIPROP:inputstream.adaptive.license_type=${drmtype}
-#KODIPROP:inputstream.adaptive.license_key=${license}${headerString}
-#KODIPROP:inputstream.adaptive.manifest_type=${manifest}
-${stream}`;
-
-      document.getElementById("output").textContent = output;
+      const newRef = push(drmRef);
+      set(newRef, newChannel)
+        .then(() => {
+          alert("✅ Channel added successfully to DRM node!");
+          e.target.reset();
+        })
+        .catch(err => alert("❌ Error adding channel: " + err.message));
     });
   </script>
 
