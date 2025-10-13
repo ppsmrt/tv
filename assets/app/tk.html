@@ -1,341 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Latest Token & Expired Token History</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokens Dashboard</title>
+<script type="module">
+  // Firebase v10 modular SDK
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+  import { getDatabase, ref, get, set, push } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
+    authDomain: "tnm3ulive.firebaseapp.com",
+    databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tnm3ulive",
+    storageBucket: "tnm3ulive.firebasestorage.app",
+    messagingSenderId: "80664356882",
+    appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+    measurementId: "G-FNS9JWZ9LS"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const auth = getAuth(app);
+
+  const latestEl = document.getElementById('latestToken');
+  const historyBody = document.getElementById('historyBody');
+  const statusEl = document.getElementById('status');
+
+  // TODO: Replace with your admin credentials for auto-login
+  const ADMIN_EMAIL = "admin@example.com";
+  const ADMIN_PASSWORD = "YOUR_PASSWORD";
+
+  function randomToken(length = 12) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+
+  async function loadTokens() {
+    try {
+      statusEl.textContent = "Loading tokens...";
+      const tokensRef = ref(db, 'tokens');
+      const snapshot = await get(tokensRef);
+
+      let tokensData = snapshot.val();
+      let latest = null;
+      let history = [];
+
+      if (!tokensData) {
+        // No token exists, generate new
+        const newToken = randomToken(12);
+        const dateKey = new Date().toISOString();
+        await set(ref(db, `tokens/${dateKey}`), {
+          token: newToken,
+          createdAt: dateKey
+        });
+        tokensData = {};
+        tokensData[dateKey] = { token: newToken, createdAt: dateKey };
+      }
+
+      // Parse tokens and history
+      const sortedKeys = Object.keys(tokensData).sort((a,b)=>new Date(b)-new Date(a));
+      latest = tokensData[sortedKeys[0]];
+      history = sortedKeys.slice(1).map(k => tokensData[k]);
+
+      // Display latest
+      latestEl.textContent = latest.token;
+
+      // Display history
+      historyBody.innerHTML = '';
+      if (history.length === 0) {
+        historyBody.innerHTML = `<tr><td colspan="3">No previous tokens</td></tr>`;
+      } else {
+        history.forEach((h, idx)=>{
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${idx+1}</td>
+            <td>${h.token}</td>
+            <td>${new Date(h.createdAt).toLocaleString()}</td>
+          `;
+          historyBody.appendChild(tr);
+        });
+      }
+
+      statusEl.textContent = "Tokens loaded successfully.";
+
+    } catch(err) {
+      statusEl.textContent = "Error: " + err.message;
+      console.error(err);
+    }
+  }
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      loadTokens();
+    } else {
+      // Sign in automatically (only for admin testing)
+      signInWithEmailAndPassword(auth, ADMIN_EMAIL, ADMIN_PASSWORD)
+        .then(() => loadTokens())
+        .catch(err => {
+          statusEl.textContent = "Login failed: " + err.message;
+        });
+    }
+  });
+
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <div class="max-w-4xl mx-auto p-6">
-    <header class="flex items-center justify-between mb-6">
-      <div>
-        <h1 class="text-2xl font-bold">Playlist Token — Latest & History</h1>
-        <p class="text-sm text-gray-600 mt-1">Reads token data from your Firebase Realtime Database (public read via REST).</p>
-      </div>
-      <div class="space-x-2">
-        <button id="refreshBtn" class="px-4 py-2 bg-blue-600 text-white rounded shadow-sm hover:bg-blue-700">Refresh</button>
-        <button id="rawBtn" class="px-3 py-2 border rounded text-sm">View raw JSON</button>
-      </div>
-    </header>
+<div class="max-w-4xl mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-4">Playlist Tokens Dashboard</h1>
+  <div id="status" class="mb-4 text-sm text-gray-600"></div>
 
-    <main>
-      <section id="latestCard" class="bg-white p-6 rounded-lg shadow mb-6">
-        <h2 class="text-lg font-semibold mb-2">Latest Token</h2>
-        <div id="latestDisplay" class="flex items-center gap-4">
-          <div class="flex-1">
-            <pre id="latestToken" class="bg-gray-100 p-3 rounded text-lg font-mono break-words">Loading...</pre>
-            <div id="tokenMeta" class="text-sm text-gray-600 mt-2"></div>
-          </div>
-          <div class="text-right">
-            <button id="copyLatest" class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700">Copy</button>
-          </div>
-        </div>
-      </section>
+  <section class="bg-white p-4 rounded shadow mb-6">
+    <h2 class="text-lg font-semibold mb-2">Latest Token</h2>
+    <pre id="latestToken" class="bg-gray-100 p-3 rounded font-mono text-lg"></pre>
+  </section>
 
-      <section id="historyCard" class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-lg font-semibold mb-4">Expired / Previous Token History</h2>
-        <p id="historyNote" class="text-sm text-gray-600 mb-4">Shows tokens that are either expired or previous values detected in the database.</p>
-
-        <div class="overflow-x-auto">
-          <table id="historyTable" class="min-w-full text-left">
-            <thead class="text-xs uppercase text-gray-500">
-              <tr>
-                <th class="px-3 py-2">#</th>
-                <th class="px-3 py-2">Token</th>
-                <th class="px-3 py-2">Created At (local)</th>
-                <th class="px-3 py-2">Expired At (local)</th>
-                <th class="px-3 py-2">Status</th>
-                <th class="px-3 py-2">Notes</th>
-              </tr>
-            </thead>
-            <tbody id="historyBody" class="text-sm"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="rawSection" class="mt-6 hidden">
-        <h3 class="text-sm font-semibold mb-2">Raw JSON</h3>
-        <pre id="rawJson" class="bg-black text-white p-4 rounded overflow-auto max-h-64"></pre>
-      </section>
-    </main>
-
-    <footer class="mt-6 text-sm text-gray-500">
-      <p>Note: This page reads data publicly via your Firebase Realtime Database REST endpoint. If your DB requires auth, this page must be run with credentials or served from a secured environment.</p>
-    </footer>
-  </div>
-
-  <script>
-  (function(){
-    // === CONFIGURE THIS URL ===
-    // Replace tokens.json URL if your database path is different.
-    const TOKENS_URL = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/tokens.json';
-
-    // Elements
-    const refreshBtn = document.getElementById('refreshBtn');
-    const rawBtn = document.getElementById('rawBtn');
-    const rawSection = document.getElementById('rawSection');
-    const rawJsonEl = document.getElementById('rawJson');
-    const latestTokenEl = document.getElementById('latestToken');
-    const tokenMetaEl = document.getElementById('tokenMeta');
-    const copyLatestBtn = document.getElementById('copyLatest');
-    const historyBody = document.getElementById('historyBody');
-    const historyNote = document.getElementById('historyNote');
-
-    let lastRaw = null;
-
-    function fmtLocal(ts) {
-      if (!ts) return '-';
-      // If it's number (ms or seconds), try to detect
-      if (typeof ts === 'number') {
-        // if timestamp looks like seconds (10 digits), multiply
-        if (String(ts).length <= 10) ts = ts * 1000;
-        return new Date(ts).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-      }
-      // try parse ISO
-      const d = new Date(ts);
-      if (!isNaN(d.getTime())) return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-      return ts;
-    }
-
-    function iso(ts) {
-      if (!ts) return '-';
-      if (typeof ts === 'number') {
-        if (String(ts).length <= 10) ts = ts * 1000;
-        return new Date(ts).toISOString();
-      }
-      const d = new Date(ts);
-      if (!isNaN(d.getTime())) return d.toISOString();
-      return ts;
-    }
-
-    // Heuristic to detect 'latest' token and history entries. Handles multiple shapes:
-    // Shape A (simple): { "play_token": "12XYZ" }
-    // Shape B (history array): { "play_token": "12XYZ", "history": [{token, createdAt, expiredAt}, ...] }
-    // Shape C (map): { "current": { token, createdAt }, "historyMap": { id1:{token,createdAt,expiredAt}, ... } }
-    // Shape D (map of tokens): { "abc123": { token:"abc123", createdAt:... , expiredAt:...}, "play_token": "abc123" }
-    function parseTokens(raw) {
-      if (!raw) return { latest: null, history: [] };
-
-      // If raw is a simple string token
-      if (typeof raw === 'string') {
-        return { latest: { token: raw, createdAt: null }, history: [] };
-      }
-
-      // If raw has a direct key like play_token
-      const preferKeys = ['play_token', 'current_token', 'token', 'playToken'];
-      for (const k of preferKeys) {
-        if (raw[k]) {
-          const latestVal = raw[k];
-          // check for history arrays or maps present elsewhere
-          const history = extractHistory(raw);
-          // try to attach metadata if latestVal matches an entry in history
-          let latestMeta = { token: latestVal, createdAt: null, expiredAt: null };
-          // find in history
-          const matched = history.find(h => h.token === latestVal);
-          if (matched) latestMeta = Object.assign({}, latestMeta, matched);
-          return { latest: latestMeta, history };
-        }
-      }
-
-      // If raw contains a 'current' node
-      if (raw.current && raw.current.token) {
-        const history = extractHistory(raw);
-        return { latest: raw.current, history };
-      }
-
-      // If raw looks like an object of token entries (map)
-      // e.g. { "abc": { token: "abc", createdAt: ... }, "def": {...}, "meta": {...} }
-      const candidates = [];
-      for (const k of Object.keys(raw)) {
-        const val = raw[k];
-        if (val && typeof val === 'object' && (val.token || val.createdAt || val.expiredAt)) {
-          candidates.push(Object.assign({ id: k }, val));
-        }
-      }
-      if (candidates.length > 0) {
-        // attempt to locate the latest by createdAt
-        const withDates = candidates.filter(c => c.createdAt || c.created_on || c.createdAtMs || c.created);
-        if (withDates.length) {
-          withDates.sort((a,b) => (new Date(b.createdAt||b.created||b.created_on||0).getTime()) - (new Date(a.createdAt||a.created||a.created_on||0).getTime()));
-          const latest = withDates[0];
-          const history = candidates.map(c => ({
-            token: c.token || c.id,
-            createdAt: c.createdAt || c.created || c.created_on || null,
-            expiredAt: c.expiredAt || c.expired_at || null,
-            id: c.id
-          }));
-          return { latest: { token: latest.token || latest.id, createdAt: latest.createdAt || latest.created || null }, history };
-        } else {
-          // fallback: latest is last candidate
-          return { latest: { token: candidates[candidates.length-1].token || candidates[candidates.length-1].id }, history: candidates.map(c => ({ token: c.token || c.id })) };
-        }
-      }
-
-      // Final fallback: if raw.history exists and is array
-      if (Array.isArray(raw.history) && raw.history.length) {
-        const history = raw.history.map(h => ({
-          token: h.token || h.value || h.id || null,
-          createdAt: h.createdAt || h.created || h.created_on || null,
-          expiredAt: h.expiredAt || h.expired_at || null,
-          note: h.note || ''
-        }));
-        // latest: if raw.play_token exists, use it; else choose last by createdAt
-        let latest = null;
-        for (const k of preferKeys) if (raw[k]) latest = { token: raw[k] };
-        if (!latest) {
-          history.sort((a,b) => (new Date(b.createdAt||0).getTime()) - (new Date(a.createdAt||0).getTime()));
-          latest = history[0] || null;
-        }
-        return { latest, history };
-      }
-
-      // If nothing matches, show whole object as raw
-      return { latest: null, history: [] };
-    }
-
-    function extractHistory(raw) {
-      // common places
-      if (Array.isArray(raw.history)) return raw.history.map(h=>normalizeHistoryItem(h));
-      if (Array.isArray(raw.play_token_history)) return raw.play_token_history.map(h=>normalizeHistoryItem(h));
-      // map-based
-      const mapCandidates = [];
-      for (const k of Object.keys(raw)) {
-        if (k.toLowerCase().includes('history')) {
-          const v = raw[k];
-          if (Array.isArray(v)) return v.map(h=>normalizeHistoryItem(h));
-          if (typeof v === 'object') {
-            for (const id of Object.keys(v)) mapCandidates.push(Object.assign({ id }, v[id]));
-            return mapCandidates.map(h=>normalizeHistoryItem(h));
-          }
-        }
-      }
-      // map where keys are tokens/ids
-      for (const k of Object.keys(raw)) {
-        const val = raw[k];
-        if (val && typeof val === 'object' && (val.token || val.createdAt || val.expiredAt)) {
-          mapCandidates.push(Object.assign({ id: k }, val));
-        }
-      }
-      if (mapCandidates.length) return mapCandidates.map(h=>normalizeHistoryItem(h));
-      return [];
-    }
-
-    function normalizeHistoryItem(h) {
-      if (!h) return null;
-      return {
-        token: h.token || h.value || h.key || h.id || null,
-        createdAt: h.createdAt || h.created || h.created_on || h.created_at || h.createdAtMs || null,
-        expiredAt: h.expiredAt || h.expired_at || h.expired || null,
-        note: h.note || h.reason || ''
-      };
-    }
-
-    function renderLatest(latest) {
-      if (!latest || !latest.token) {
-        latestTokenEl.textContent = 'No token found';
-        tokenMetaEl.textContent = '';
-        return;
-      }
-      latestTokenEl.textContent = latest.token;
-      let meta = [];
-      if (latest.createdAt) meta.push(`Created: ${fmtLocal(latest.createdAt)} (${iso(latest.createdAt)})`);
-      if (latest.expiredAt) meta.push(`Expired: ${fmtLocal(latest.expiredAt)} (${iso(latest.expiredAt)})`);
-      tokenMetaEl.textContent = meta.join(' • ');
-    }
-
-    function renderHistory(history) {
-      historyBody.innerHTML = '';
-      if (!history || history.length === 0) {
-        historyBody.innerHTML = '<tr><td class="px-3 py-2" colspan="6">No history entries found.</td></tr>';
-        return;
-      }
-      // sort by createdAt desc if present
-      history.sort((a,b) => {
-        const ta = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-        const tb = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-        return tb - ta;
-      });
-      history.forEach((h, idx) => {
-        const status = h.expiredAt ? 'Expired' : 'Previous';
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="px-3 py-2 align-top">${idx+1}</td>
-          <td class="px-3 py-2 font-mono break-words">${h.token || '-'}</td>
-          <td class="px-3 py-2">${fmtLocal(h.createdAt)}<div class="text-xs text-gray-400">${iso(h.createdAt)}</div></td>
-          <td class="px-3 py-2">${fmtLocal(h.expiredAt)}<div class="text-xs text-gray-400">${iso(h.expiredAt)}</div></td>
-          <td class="px-3 py-2">${status}</td>
-          <td class="px-3 py-2 text-sm text-gray-600">${h.note || '-'}</td>
-        `;
-        historyBody.appendChild(tr);
-      });
-    }
-
-    async function load() {
-      try {
-        refreshBtn.disabled = true;
-        refreshBtn.textContent = 'Loading...';
-        const res = await fetch(TOKENS_URL, { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        lastRaw = data;
-        rawJsonEl.textContent = JSON.stringify(data, null, 2);
-        rawSection.classList.add('hidden'); // hide raw by default
-
-        const parsed = parseTokens(data);
-
-        // If parseTokens returns no history and raw contains many keys, attempt to build history from raw snapshot
-        let history = parsed.history || [];
-        // if history empty, try to infer older tokens from firebase nodes named like 'oldToken' etc.
-        if (history.length === 0) {
-          // attempt to find any entries that look like token objects
-          const fallback = [];
-          for (const k of Object.keys(data || {})) {
-            const v = data[k];
-            if (typeof v === 'string' && v.length > 2 && k !== 'play_token') {
-              fallback.push({ token: v, createdAt: null, expiredAt: null });
-            } else if (v && typeof v === 'object' && (v.token || v.createdAt || v.expiredAt)) {
-              fallback.push(normalizeHistoryItem(v));
-            }
-          }
-          history = fallback;
-        }
-
-        renderLatest(parsed.latest);
-        renderHistory(history);
-
-      } catch (err) {
-        latestTokenEl.textContent = 'Error loading token';
-        tokenMetaEl.textContent = String(err);
-        historyBody.innerHTML = `<tr><td class="px-3 py-2" colspan="6">Error: ${String(err)}</td></tr>`;
-      } finally {
-        refreshBtn.disabled = false;
-        refreshBtn.textContent = 'Refresh';
-      }
-    }
-
-    refreshBtn.addEventListener('click', load);
-    rawBtn.addEventListener('click', () => {
-      rawSection.classList.toggle('hidden');
-      rawBtn.textContent = rawSection.classList.contains('hidden') ? 'View raw JSON' : 'Hide raw JSON';
-    });
-
-    copyLatestBtn.addEventListener('click', () => {
-      const txt = latestTokenEl.textContent.trim();
-      if (!txt) return;
-      navigator.clipboard?.writeText(txt).then(()=> {
-        copyLatestBtn.textContent = 'Copied!';
-        setTimeout(()=> copyLatestBtn.textContent = 'Copy', 1500);
-      }).catch(()=> {
-        copyLatestBtn.textContent = 'Copy failed';
-        setTimeout(()=> copyLatestBtn.textContent = 'Copy', 1500);
-      });
-    });
-
-    // initial load
-    load();
-  })();
-  </script>
+  <section class="bg-white p-4 rounded shadow">
+    <h2 class="text-lg font-semibold mb-2">Expired / Previous Tokens</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-left">
+        <thead class="text-xs uppercase text-gray-500">
+          <tr>
+            <th>#</th>
+            <th>Token</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
 </body>
-  </html>
-  
+</html>
