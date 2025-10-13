@@ -373,7 +373,7 @@ https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
 https://segment.yuppcdn.net/050522/tv5kannada/playlist.m3u8
 #EXTINF:-1 tvg-name="Fox Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/7JZmwkc1/1000123272.jpg",Fox Tv
 http://103.118.151.130:11037/hls/fox.m3u8
-#EXTINF:-1 tvg-name="DD Sapthagiri" group-title="Entertainment" tvg-logo="https://i.ibb.co/1YTm3GHk/1000123276.jpg",DD Sapthagiri
+#EXTINF:-1 tvg-name="DD Sapthagiri" group-title="Entertainment" tvg-logo="https://i.ibb.co/jZvrmhvn/1000150508.png",DD Sapthagiri
 https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8
 #EXTINF:-1 tvg-name="AK Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/V0GGqWg7/1000148347.png",AK Tv
 http://aktvhd.stream.onecloudlive.in:8080/aktvhd/aktv/index.m3u8
@@ -1069,7 +1069,7 @@ https://see.lokshahi.live/live/index.m3u8
 https://sablive-ddpb.akamaized.net/maiboli/playlist.m3u8
 #EXTINF:-1 tvg-name="Madha Tv" group-title="Religious" tvg-logo="https://i.ibb.co/FbTF37KT/1000149211.png",Madha Tv
 https://60e68b19dd194.streamlock.net:55/madhatv/madhatv.stream_HDp/playlist.m3u8
-#EXTINF:-1 tvg-name="Malai Murasu" group-title="News" tvg-logo="https://i.ibb.co/W4KNgr2V/1000141828.jpg",Malai Murasu
+#EXTINF:-1 tvg-name="Malai Murasu" group-title="News" tvg-logo="https://i.ibb.co/QFqkRwzy/1000150506.png",Malai Murasu
 https://cdn-3.pishow.tv/live/1606/master.m3u8
 #EXTINF:-1 tvg-name="Manoranjan Grand" group-title="Kids" tvg-logo="https://i.ibb.co/6R5ryH7L/1000141832.jpg",Manoranjan Grand
 https://cdn-1.pishow.tv/live/1011/master.m3u8
