@@ -382,7 +382,7 @@ https://ipcloud.live/skytv/skytv/index.m3u8
 #EXTINF:-1 tvg-name="Harin Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Myrh8GFJ/1000123559.jpg",Harin Tv
 https://ipcloud.live/harintv/harintvhd/index.m3u8
 #EXTINF:-1 tvg-name="Colors Tamil" group-title="Entertainment" tvg-logo="https://i.ibb.co/PzmmJLC1/1000149584.png",Colors Tamil
-http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
+https://servertvhub.site/jio/app/ts_live_429.m3u8
 #EXTINF:-1 tvg-name="Ashoka Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/6RThtKjh/1000149487.png",Ashoka Tv
 https://ipcloud.live/asokatv/asokahd/index.m3u8
 #EXTINF:-1 tvg-name="MSN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/b8YRQMd/1000123705.jpg",MSN Tv
@@ -1184,7 +1184,7 @@ https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaCinema/JCHLS/
 #EXTINF:-1 tvg-name="Colors Kannda HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/7NkLFD3M/1000145014.jpg",Colors Kannda HD
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaHD/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Tamil HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/PzmmJLC1/1000149584.png",Colors Tamil HD
-https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsTamilHD/JCHLS/index.m3u8
+http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Colors Marathi" group-title="Entertainment" tvg-logo="https://i.ibb.co/LXyC0D9w/1000145016.jpg",Colors Marathi
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsMarathiHD/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Bangla" group-title="Entertainment" tvg-logo="https://i.ibb.co/pvTJ61qg/1000150108.png",Colors Bangla
