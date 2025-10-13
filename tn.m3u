@@ -22,7 +22,7 @@ https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Raj Digital Plus" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png" group-title="Movies",Raj Digital Plus
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="K Tv" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png" group-title="Movies",K Tv
-http://89.187.189.98/KTVHD/index.m3u8
+http://195.181.169.162/KTV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Sana Plus" tvg-logo="https://i.ibb.co/hJQggzQg/1000149690.png" group-title="Local Channels",Sana Plus
 https://galaxyott.live/hls/sanaplus.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sana Tv" tvg-logo="https://i.ibb.co/DfVtL3MH/1000149692.png" group-title="Local Channels",Sana Tv
@@ -36,7 +36,7 @@ https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-
 #EXTINF:-1 tvg-id="" tvg-name="Sun Music" tvg-logo="https://i.ibb.co/YFVMTgns/1000148230.png" group-title="Music",Sun Music
 http://89.187.189.98/SUNMUSICHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Colors Tamil" tvg-logo="https://i.ibb.co/PzmmJLC1/1000149584.png" group-title="Entertainment",Colors Tamil
-http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
+https://servertvhub.site/jio/app/ts_live_429.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vijay Tv HD" tvg-logo="https://i.ibb.co/hJvtrVXT/1000149677.png" group-title="Entertainment",Vijay Tv HD
 https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6be7e60d03c2d82
 #EXTINF:-1 tvg-id="" tvg-name="Zee Tamil SD" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png" group-title="Entertainment",Zee Tamil SD
@@ -155,8 +155,10 @@ http://66.102.120.18:8000/play/a040/index.m3u8
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Epic Tv" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png" group-title="Documentary",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Malai Murasu" tvg-logo="https://i.ibb.co/W4KNgr2V/1000141828.jpg" group-title="News",Malai Murasu
+#EXTINF:-1 tvg-id="" tvg-name="Malai Murasu" tvg-logo="https://i.ibb.co/QFqkRwzy/1000150506.png" group-title="News",Malai Murasu
 https://cdn-3.pishow.tv/live/1606/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="MK Six" tvg-logo="https://i.ibb.co/Ngcmtr8G/1000148817.png" group-title="Entertainment",MK Six
+https://cdn-3.pishow.tv/live/1253/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Polimer Tv" tvg-logo="https://i.ibb.co/tP3YQ9pJ/1000148540.png" group-title="Entertainment",Polimer Tv
 https://cdn-2.pishow.tv/live/1241/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Extreme Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png" group-title="Sports",Extreme Sports
@@ -166,7 +168,7 @@ http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="BBC Earth Tamil" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png" group-title="Documentary",BBC Earth Tamil
 http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Colors Tamil HD" tvg-logo="https://i.ibb.co/PzmmJLC1/1000149584.png" group-title="Entertainment",Colors Tamil HD
-https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsTamilHD/JCHLS/index.m3u8
+http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Viju Nature" tvg-logo="https://i.ibb.co/xqgjp2L4/1000149770.png" group-title="Documentary",Viju Nature
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
 #EXTINF:-1 tvg-id="" tvg-name="Viju Explore" tvg-logo="https://i.ibb.co/PzY0MTFQ/1000149766.png" group-title="Documentary",Viju Explore
@@ -267,9 +269,9 @@ http://m3u.8088y.fun/yt.php?c=TamilJanamNews
 http://m3u.8088y.fun/yt.php?c=mnadutv
 #EXTINF:-1 tvg-id="" tvg-name="Asianet News Tamil (Not 24/7)" tvg-logo="https://i.ibb.co/6Rg1Jzt1/1000148518.png" group-title="News",Asianet News Tamil (Not 24/7)
 http://m3u.8088y.fun/yt.php?c=AsianetNewsTamil
-#EXTINF:-1 tvg-id="" tvg-name="MK Six" tvg-logo="https://i.ibb.co/1YNt2JJL/1000148817.png" group-title="Music",MK Six
-http://cors.tundracast.com:2000/https://cdn-3.pishow.tv/live/1253/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="NEO Music" tvg-logo="https://i.ibb.co/23wqrRnt/1000149140.png" group-title="Music",NEO Music
+https://live20.bozztv.com/giatvplayout7/giatv-210786/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 Tamil HD" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png" group-title="Sports",Star Sports 1 Tamil HD
-https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8#ec4035516cfde1557bf67fc27bbb8c1eef468719f611174eb5530267293b2e8e
+https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
