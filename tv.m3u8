@@ -639,11 +639,11 @@ http://rtmp.applelive.in/kumariplus/kumariplus/index.m3u8
 https://live.applelive.in/primetv/primetv/index.m3u8
 #EXTINF:-1 tvg-name="Singam Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/fVRtpgjv/1000136555.jpg",Singam Tv
 http://live.brightmeltech.in/singamtv/singamtv.m3u8
-#EXTINF:-1 tvg-name="JCV Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/kgT6SB24/1000136559.jpg",JCV Tv
+#EXTINF:-1 tvg-name="JCV Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/GwB2XWF/1000150834.png",JCV Tv
 https://play.applelive.in/jcvtv/jcvtv.m3u8
 #EXTINF:-1 tvg-name="Tiger Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/PZ0xMkLF/1000136561.jpg",Tiger Tv
 https://stream.onecloudlive.in/tigertv/tigertvhd/index.m3u8
-#EXTINF:-1 tvg-name="7screen" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/ynL56Ls0/1000148145.png",7screen
+#EXTINF:-1 tvg-name="7 Green 4K" group-title="4K_UHD" tvg-logo="https://i.ibb.co/rRVrx1KX/1000150827.png",7 Green 4K
 https://account33.livebox.co.in/7GREEN4Khls/live.m3u8
 #EXTINF:-1 tvg-name="Fort Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/939BbvTv/1000136565.jpg",Fort Tv
 https://stream.onecloudlive.in/forttv/fortchannel/index.m3u8
@@ -1477,7 +1477,7 @@ http://m3u.8088y.fun/yt.php?c=AsianetNewsTamil
 https://live.olidigital.in/olitv/olitv/index.m3u8
 #EXTINF:-1 tvg-name="Aditya Music" group-title="Telugu" tvg-logo="https://i.ibb.co/4wQP2bDf/1000149121.png",Aditya Music
 https://live20.bozztv.com/giatvplayout7/giatv-210787/playlist.m3u8
-#EXTINF:-1 tvg-name="NEO Music" group-title="Music" tvg-logo="https://i.ibb.co/23wqrRnt/1000149140.png",NEO Music
+#EXTINF:-1 tvg-name="NEO Music" group-title="Tamil" tvg-logo="https://i.ibb.co/23wqrRnt/1000149140.png",NEO Music
 https://live20.bozztv.com/giatvplayout7/giatv-210786/playlist.m3u8
 #EXTINF:-1 tvg-name="Moviesphere" group-title="English" tvg-logo="https://i.ibb.co/8nzkgG2v/1000149141.png",Moviesphere
 https://amg00353-lionsgatestudios-amg00353c2-tclideo-na-2304.playouts.now.amagi.tv/playlist/amg00353-lionsgatetvfast-moviesphere-tclideona/playlist.m3u8?device
@@ -1527,3 +1527,7 @@ https://app.ashokadigital.net/aalayamagimaitv/aalayamagimaitv/index.m3u8
 https://stream.singamcloud.in/Dheiveegamtv/Dheiveegamtv/index.m3u8
 #EXTINF:-1 tvg-name="Dharumai Adhenam Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/3KPJ581/1000150821.png",Dharumai Adhenam Tv
 https://stream.onecloudlive.in/taitaltv/livetv/index.m3u8
+#EXTINF:-1 tvg-name="Tharun Movies" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/7NvV0JbL/1000150829.png",Tharun Movies
+https://streaming.livebox.co.in/tharunmovieshls/live.m3u8
+#EXTINF:-1 tvg-name="RJ Tamil" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/3yLcrFSB/1000150831.png",RJ Tamil
+https://ipcloud.live/rjtamiltv/rjtamil/index.m3u8
