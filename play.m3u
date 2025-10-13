@@ -767,11 +767,11 @@ http://212.102.60.231/HBO/index.m3u8?token=test
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Sony TEN Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png",Sony TEN Sports 3 HD
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Zee Cinemalu" group-title="Movies" tvg-logo="https://i.ibb.co/4ZfXLSgT/1000139024.jpg",Zee Cinemalu
+#EXTINF:-1 tvg-name="Zee Cinemalu" group-title="Movies" tvg-logo="https://i.ibb.co/1tdvww6W/1000150678.png",Zee Cinemalu
 http://195.181.169.162/ZEE_CINEMALU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Surya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/ynqbMTXB/1000139026.jpg",Surya Tv
 http://195.181.169.162/SURYA_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Zee Telugu" group-title="Entertainment" tvg-logo="https://i.ibb.co/5XMywNJx/1000139028.jpg",Zee Telugu
+#EXTINF:-1 tvg-name="Zee Telugu" group-title="Entertainment" tvg-logo="https://i.ibb.co/qTFR8vF/1000150680.png",Zee Telugu
 http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="E Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/fzhYQ0zZ/1000150571.png",E Tv
 http://195.181.169.162/ETV_HD/index.m3u8?token=test
