@@ -46,7 +46,7 @@ https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Movies" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
 https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Movies" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png",K Tv
-http://89.187.189.98/KTVHD/index.m3u8
+http://195.181.169.162/KTV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Dx1sW1c/1000149721.png",Eye Tv
 https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
 #EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/M56t52GH/20250906-110842.jpg",Thalapathi Tv
