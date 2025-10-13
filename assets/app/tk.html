@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tokens Dashboard</title>
 <script type="module">
-  // Firebase v10 modular SDK
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
   import { getDatabase, ref, get, set, push } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
   import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
     authDomain: "tnm3ulive.firebaseapp.com",
@@ -28,26 +28,45 @@
   const latestEl = document.getElementById('latestToken');
   const historyBody = document.getElementById('historyBody');
   const statusEl = document.getElementById('status');
+  const generateBtn = document.getElementById('generateBtn');
 
-  // TODO: Replace with your admin credentials for auto-login
-  const ADMIN_EMAIL = "admin@example.com";
-  const ADMIN_PASSWORD = "YOUR_PASSWORD";
+  const ADMIN_EMAIL = "admin@example.com"; // replace
+  const ADMIN_PASSWORD = "YOUR_PASSWORD";  // replace
 
   function randomToken(length = 12) {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
-    for (let i = 0; i < length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
+    for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
     return result;
+  }
+
+  async function isAdmin(uid) {
+    try {
+      const adminSnap = await get(ref(db, `admins/${uid}`));
+      return adminSnap.exists();
+    } catch (err) {
+      console.error("Error checking admin:", err);
+      return false;
+    }
   }
 
   async function loadTokens() {
     try {
+      const uid = auth.currentUser.uid;
+      statusEl.textContent = "Checking admin permissions...";
+      const admin = await isAdmin(uid);
+      if (!admin) {
+        statusEl.textContent = "Access Denied: You are not an admin.";
+        latestEl.textContent = "-";
+        historyBody.innerHTML = `<tr><td colspan="3">No access</td></tr>`;
+        generateBtn.disabled = true;
+        return;
+      }
+
+      generateBtn.disabled = false;
       statusEl.textContent = "Loading tokens...";
       const tokensRef = ref(db, 'tokens');
       const snapshot = await get(tokensRef);
-
       let tokensData = snapshot.val();
       let latest = null;
       let history = [];
@@ -56,23 +75,17 @@
         // No token exists, generate new
         const newToken = randomToken(12);
         const dateKey = new Date().toISOString();
-        await set(ref(db, `tokens/${dateKey}`), {
-          token: newToken,
-          createdAt: dateKey
-        });
+        await set(ref(db, `tokens/${dateKey}`), { token: newToken, createdAt: dateKey });
         tokensData = {};
         tokensData[dateKey] = { token: newToken, createdAt: dateKey };
       }
 
-      // Parse tokens and history
       const sortedKeys = Object.keys(tokensData).sort((a,b)=>new Date(b)-new Date(a));
       latest = tokensData[sortedKeys[0]];
       history = sortedKeys.slice(1).map(k => tokensData[k]);
 
-      // Display latest
       latestEl.textContent = latest.token;
 
-      // Display history
       historyBody.innerHTML = '';
       if (history.length === 0) {
         historyBody.innerHTML = `<tr><td colspan="3">No previous tokens</td></tr>`;
@@ -91,16 +104,31 @@
       statusEl.textContent = "Tokens loaded successfully.";
 
     } catch(err) {
-      statusEl.textContent = "Error: " + err.message;
+      statusEl.textContent = "Error loading tokens: " + err.message;
       console.error(err);
     }
   }
+
+  async function generateNewToken() {
+    try {
+      statusEl.textContent = "Generating new token...";
+      const newToken = randomToken(12);
+      const dateKey = new Date().toISOString();
+      await set(ref(db, `tokens/${dateKey}`), { token: newToken, createdAt: dateKey });
+      statusEl.textContent = "New token generated successfully.";
+      loadTokens();
+    } catch(err) {
+      statusEl.textContent = "Error generating token: " + err.message;
+      console.error(err);
+    }
+  }
+
+  generateBtn.addEventListener('click', generateNewToken);
 
   onAuthStateChanged(auth, user => {
     if (user) {
       loadTokens();
     } else {
-      // Sign in automatically (only for admin testing)
       signInWithEmailAndPassword(auth, ADMIN_EMAIL, ADMIN_PASSWORD)
         .then(() => loadTokens())
         .catch(err => {
@@ -118,8 +146,11 @@
   <div id="status" class="mb-4 text-sm text-gray-600"></div>
 
   <section class="bg-white p-4 rounded shadow mb-6">
-    <h2 class="text-lg font-semibold mb-2">Latest Token</h2>
-    <pre id="latestToken" class="bg-gray-100 p-3 rounded font-mono text-lg"></pre>
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="text-lg font-semibold">Latest Token</h2>
+      <button id="generateBtn" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 disabled:opacity-50">Generate New Token</button>
+    </div>
+    <pre id="latestToken" class="bg-gray-100 p-3 rounded font-mono text-lg">-</pre>
   </section>
 
   <section class="bg-white p-4 rounded shadow">
@@ -133,7 +164,9 @@
             <th>Created At</th>
           </tr>
         </thead>
-        <tbody id="historyBody"></tbody>
+        <tbody id="historyBody">
+          <tr><td colspan="3">Loading...</td></tr>
+        </tbody>
       </table>
     </div>
   </section>
