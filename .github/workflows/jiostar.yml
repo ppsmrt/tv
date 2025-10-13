@@ -1,1 +1,72 @@
 
+name: Auto-update jiostar.m3u
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Generate jiostar.m3u
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+
+          const url = 'https://raw.githubusercontent.com/alex8875/m3u/refs/heads/main/jstar.m3u';
+          const outputFile = 'assets/playlist/jiostar.m3u';
+          const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
+
+          (async () => {
+            try {
+              const res = await fetch(url);
+              const playlist = await res.text();
+              if (!playlist || !playlist.includes('#EXTINF')) {
+                console.log("No channels found in Jiostar playlist.");
+                process.exit(0);
+              }
+
+              // Compare with previous playlist
+              if (prevData.trim() === playlist.trim()) {
+                console.log("No changes in playlist, skipping update.");
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
+                process.exit(0);
+              }
+
+              // Ensure output directory exists
+              fs.mkdirSync('assets/playlist', { recursive: true });
+
+              // Write updated playlist
+              fs.writeFileSync(outputFile, playlist.replace(/\r\n/g, '\n'), 'utf8');
+              console.log("jiostar.m3u updated successfully.");
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
+
+            } catch (err) {
+              console.error("Error fetching playlist:", err);
+              process.exit(1);
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/playlist/jiostar.m3u
+          git commit -m "Auto-update Jiostar playlist [skip ci]"
+          git push
