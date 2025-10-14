@@ -1415,11 +1415,11 @@ https://www.schannels.in/ppp/video.m3u8?token=nokshitha
 https://www.schannels.in/ajnews/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="KS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/TqRJ8Zt0/1000149133.png",KS Tv
 https://www.schannels.in/kstv/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="RK Hollywood" group-title="Local Channels" tvg-logo="https://i.ibb.co/V0hsnWW1/1000147612.jpg",RK Hollywood
+#EXTINF:-1 tvg-name="RK Hollywood" group-title="Local Channels" tvg-logo="https://i.ibb.co/367TJ9q/1000151332.png",RK Hollywood
 https://www.schannels.in/rkhollywood/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="RK Digital" group-title="Local Channels" tvg-logo="https://i.ibb.co/x81nMbSD/1000147614.jpg",RK Digital
+#EXTINF:-1 tvg-name="RK Digital" group-title="Local Channels" tvg-logo="https://i.ibb.co/LDbtgzmK/1000151331.png",RK Digital
 https://www.schannels.in/rkdigital/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="RK Gold" group-title="Local Channels" tvg-logo="https://i.ibb.co/hxTpFvwc/1000149129.png",RK Gold
+#EXTINF:-1 tvg-name="RK Gold" group-title="Local Channels" tvg-logo="https://i.ibb.co/d4pmtZt4/1000151330.png",RK Gold
 https://www.schannels.in/rkgold/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="starwayjanapadalu" group-title="Local Channels" tvg-logo="https://i.ibb.co/9mNVD7x2/1000147626.jpg",starwayjanapadalu
 https://www.schannels.in/starwayjanapadalu/video.m3u8?token=nokshitha
@@ -1555,5 +1555,15 @@ https://www.schannels.in/orugallu9/video.m3u8?token=nokshitha
 https://www.schannels.in/aplocaltv/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="DBR News" group-title="Local Channels" tvg-logo="https://i.ibb.co/vx9H9qSB/1000151302.png",DBR News
 https://www.schannels.in/dbrnews/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="PVP Movies" group-title="Local Channels" tvg-logo="https://i.ibb.co/6J4spRcP/1000151305.png",PVP Movies
+#EXTINF:-1 tvg-name="PVP Movies" group-title="Local Channels" tvg-logo="https://i.ibb.co/TMLcBsmd/1000151312.png",PVP Movies
 https://www.schannels.in/pvpmovies/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="PVP HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/TMLcBsmd/1000151312.png",PVP HD
+https://www.schannels.in/pvphd/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Public Folk Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/xkmjG74/1000151316.png",Public Folk Music
+https://www.schannels.in/publictvfolkmusic/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Public Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/xkmjG74/1000151316.png",Public Tv
+https://www.schannels.in/publictv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Siti Cable News" group-title="Local Channels" tvg-logo="https://i.ibb.co/kVJrVT6H/1000151324.png",Siti Cable News
+https://www.schannels.in/siticablenewstandur/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="RK Movies" group-title="Local Channels" tvg-logo="https://i.ibb.co/XZg28Dbc/1000151328.png",RK Movies
+https://www.schannels.in/rkmovies/video.m3u8?token=nokshitha
