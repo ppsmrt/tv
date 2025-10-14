@@ -44,7 +44,7 @@ https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/C547s88c/1000149688.png",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Movies" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
-https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
+https://servertvhub.site/jio/app/ts_live_683.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Movies" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png",K Tv
 http://195.181.169.162/KTV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Dx1sW1c/1000149721.png",Eye Tv
@@ -383,8 +383,6 @@ https://ipcloud.live/msntv/msntv/index.m3u8
 https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6be7e60d03c2d82
 #EXTINF:-1 tvg-name="Zee Tamil SD" group-title="Entertainment" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
-#EXTINF:-1 tvg-name="Adhitya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/pBpxYFZk/1000148332.png",Adhitya Tv
-http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
 #EXTINF:-1 tvg-name="Star Movies" group-title="Movies" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png",Star Movies
 http://89.187.189.98/STARMOVIESHD/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/8nTg2yS7/1000151434.png",Sakthi Tv
@@ -429,8 +427,6 @@ https://cdn-3.pishow.tv/live/1271/master.m3u8
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
 #EXTINF:-1 tvg-name="Chithiram" group-title="Entertainment" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png",Chithiram
 https://cdn-6.pishow.tv/live/1243/master.m3u8
-#EXTINF:-1 tvg-name="MK Tunes" group-title="Music" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png",MK Tunes
-https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-433
 #EXTINF:-1 tvg-name="News J" group-title="News" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png",News J
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1279
 #EXTINF:-1 tvg-name="Win Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/JFywMsLP/1000149701.png",Win Tv
@@ -1327,8 +1323,6 @@ https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-name="Puthuyugam" group-title="Entertainment" tvg-logo="https://i.ibb.co/LMgnfps/1000148735.png",Puthuyugam
 http://103.184.193.216:3500/getm3u8/824/master.m3u8
-#EXTINF:-1 tvg-name="Imayam Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/nNfgM5mP/1000148697.png",Imayam Tv
-http://103.184.193.216:3500/getm3u8/1517/master.m3u8
 #EXTINF:-1 tvg-name="EET Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/7tvjhbFs/1000149405.png",EET Tv
 https://eu.streamjo.com/eetlive/eettv.m3u8
 #EXTINF:-1 tvg-name="Sathiyam Tv" group-title="News" tvg-logo="https://i.ibb.co/whPnjdJy/1000148505.png",Sathiyam Tv
@@ -1591,3 +1585,9 @@ https://586a9edea75f1.streamlock.net/caribbeanhot7tv/ch7-1.stream/playlist.m3u8
 https://cdn3.wowza.com/5/M0lyamVmM2JWcjhQ/weho/G0161_004/playlist.m3u8
 #EXTINF:-1 tvg-name="LIVExLIVE" group-title="Entertainment" tvg-logo="https://i.ibb.co/5XqVXTBk/1000151669.png",LIVExLIVE
 https://dai.google.com/linear/hls/pb/event/xC8SDBfbTKCTCa20kFJQXQ/stream/44c45ea8-01f1-4c33-8f0c-8a58061f3975:SIN2/master.m3u8
+#EXTINF:-1 tvg-name="Brat" group-title="Movies" tvg-logo="https://i.ibb.co/nqSjs5wr/1000151671.png",Brat
+https://brat-samsung-us.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="JapanimTV" group-title="Entertainment" tvg-logo="https://i.ibb.co/84GSqv47/1000151672.png",JapanimTV
+https://foxkidstv.be:3369/stream/play.m3u8
+#EXTINF:-1 tvg-name="Baby Shark Tv" group-title="Kids" tvg-logo="https://i.ibb.co/zhjWpvQb/1000151674.png",Baby Shark Tv
+https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
