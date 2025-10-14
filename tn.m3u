@@ -41,8 +41,6 @@ https://servertvhub.site/jio/app/ts_live_429.m3u8
 https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6be7e60d03c2d82
 #EXTINF:-1 tvg-id="" tvg-name="Zee Tamil SD" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png" group-title="Entertainment",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Adhitya Tv" tvg-logo="https://i.ibb.co/pBpxYFZk/1000148332.png" group-title="Entertainment",Adhitya Tv
-http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi One" tvg-logo="https://i.ibb.co/wFqSD3G5/1000149594.png" group-title="Entertainment",Thandhi One
 https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vendhar Tv" tvg-logo="https://i.ibb.co/NwzVdZT/1000149682.png" group-title="Entertainment",Vendhar Tv
@@ -217,8 +215,6 @@ https://servertvhub.site/jio/app/ts_live_895.m3u8
 http://servertvhub.site/jio/app/live.php?id=682
 #EXTINF:-1 tvg-id="" tvg-name="Adithya TV" tvg-logo="https://i.ibb.co/qLdT68jW/Adithya-TV.png" group-title="Entertainment",Adithya TV
 http://servertvhub.site/jio/app/live.php?id=709
-#EXTINF:-1 tvg-id="" tvg-name="Imayam Tv" tvg-logo="https://i.ibb.co/nNfgM5mP/1000148697.png" group-title="Entertainment",Imayam Tv
-http://103.184.193.216:3500/getm3u8/1517/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sathiyam Tv" tvg-logo="https://i.ibb.co/whPnjdJy/1000148505.png" group-title="News",Sathiyam Tv
 http://m3u.8088y.fun/yt.php?c=SathiyamTV
 #EXTINF:-1 tvg-id="" tvg-name="News Tamil 24x7" tvg-logo="https://i.ibb.co/q3ndsZgt/1000148771.png" group-title="News",News Tamil 24x7
@@ -289,3 +285,5 @@ https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8
 https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="PAC 12 Insider" tvg-logo="https://i.ibb.co/7NnNK7Yp/1000151646.png" group-title="Sports",PAC 12 Insider
 https://pac12-samsungus.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/zhjWpvQb/1000151674.png" group-title="Kids",Baby Shark Tv
+https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
