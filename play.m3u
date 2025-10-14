@@ -1549,3 +1549,5 @@ https://www.schannels.in/rajatv/video.m3u8?token=nokshitha
 https://www.schannels.in/harikasitymovies/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="harika Pallepatalu" group-title="Local Channels" tvg-logo="https://i.ibb.co/cc0hfz3k/1000151118.png",harika Pallepatalu
 https://www.schannels.in/harikapallepatalu/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Orugallu9 Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1ttdp1dV/1000151121.png",Orugallu9 Tv
+https://www.schannels.in/orugallu9/video.m3u8?token=nokshitha
