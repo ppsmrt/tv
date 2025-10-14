@@ -223,3 +223,9 @@ https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_35
 https://content.uplynk.com/channel/ff809e6d9ec34109abfb333f0d4444b5.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="30A Darcizzle Offshore" tvg-logo="https://i.ibb.co/bM2B2Ctt/1000151656.png" group-title="Documentary",30A Darcizzle Offshore
 https://30a-tv.com/darcizzle.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Global News Calgary" tvg-logo="https://i.ibb.co/4wLNCBKr/1000151658.png" group-title="News",Global News Calgary
+https://live.corusdigitaldev.com/groupd/live/8970c668-40cd-4ca9-8c4d-25fd04f619b5/live.isml/.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="30A Music" tvg-logo="https://i.ibb.co/60y967Vf/1000151660.png" group-title="Music",30A Music
+https://30a-tv.com/music.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Caribbean Hot 7 TV" tvg-logo="https://i.ibb.co/SXksnFXW/1000151662.png" group-title="Entertainment",Caribbean Hot 7 TV
+https://586a9edea75f1.streamlock.net/caribbeanhot7tv/ch7-1.stream/playlist.m3u8
