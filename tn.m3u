@@ -20,7 +20,7 @@ https://segment.yuppcdn.net/240122/news7/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Peppers Tv" tvg-logo="https://i.ibb.co/C547s88c/1000149688.png" group-title="Entertainment",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Raj Digital Plus" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png" group-title="Movies",Raj Digital Plus
-https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
+https://servertvhub.site/jio/app/ts_live_683.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="K Tv" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png" group-title="Movies",K Tv
 http://195.181.169.162/KTV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Sana Plus" tvg-logo="https://i.ibb.co/hJQggzQg/1000149690.png" group-title="Local Channels",Sana Plus
@@ -42,15 +42,13 @@ https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6
 #EXTINF:-1 tvg-id="" tvg-name="Zee Tamil SD" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png" group-title="Entertainment",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi One" tvg-logo="https://i.ibb.co/wFqSD3G5/1000149594.png" group-title="Entertainment",Thandhi One
-https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
+https://servertvhub.site/jio/app/ts_live_3059.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vendhar Tv" tvg-logo="https://i.ibb.co/NwzVdZT/1000149682.png" group-title="Entertainment",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MK Tv" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png" group-title="Entertainment",MK Tv
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
 #EXTINF:-1 tvg-id="" tvg-name="Chithiram" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png" group-title="Entertainment",Chithiram
 https://cdn-6.pishow.tv/live/1243/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="MK Tunes" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png" group-title="Music",MK Tunes
-https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-433
 #EXTINF:-1 tvg-id="" tvg-name="News J" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png" group-title="News",News J
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1279
 #EXTINF:-1 tvg-id="" tvg-name="Win Tv" tvg-logo="https://i.ibb.co/JFywMsLP/1000149701.png" group-title="Entertainment",Win Tv
@@ -134,7 +132,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-id="" tvg-name="Jaya Plus" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png" group-title="News",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-id="" tvg-name="Raj Musix" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png" group-title="Music",Raj Musix
-http://89.187.189.98/RAJMUSIX/index.m3u8
+https://servertvhub.site/jio/app/ts_live_748.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi Tv" tvg-logo="https://i.ibb.co/JF86F1h4/1000148524.png" group-title="News",Thandhi Tv
 http://m3u.8088y.fun/yt.php?c=thanthitv
 #EXTINF:-1 tvg-id="" tvg-name="Chutti Tv" tvg-logo="https://i.ibb.co/fzBc2qY5/1000148105.png" group-title="Kids",Chutti Tv
