@@ -1539,3 +1539,9 @@ https://live.applelive.in/janasruthitv/janasruthitv/index.m3u8
 https://ipcloud.live/sachintv/aadviktv/index.mpd
 #EXTINF:-1 tvg-name="Gujarat Wild" group-title="Infotainment" tvg-logo="https://i.ibb.co/HTn8XqRy/1000150949.png",Gujarat Wild
 https://newsliveindia.com/WILDLIFEhls/WILDLIFE.m3u8
+#EXTINF:-1 tvg-name="YJ News Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/C5YMXQ5g/1000151064.png",YJ News Tv
+https://www.schannels.in/yj/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="YSR Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/p63fwxkY/1000151066.png",YSR Tv
+https://www.schannels.in/ysrtv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Raja Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/QjkJpzcb/1000151089.png",Raja Tv
+https://www.schannels.in/rajatv/video.m3u8?token=nokshitha
