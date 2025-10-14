@@ -1555,5 +1555,9 @@ https://www.schannels.in/orugallu9/video.m3u8?token=nokshitha
 https://www.schannels.in/aplocaltv/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="DBR News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/vx9H9qSB/1000151302.png",DBR News
 https://www.schannels.in/dbrnews/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="PVP Movies" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/6J4spRcP/1000151305.png",PVP Movies
+#EXTINF:-1 tvg-name="PVP Movies" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/TMLcBsmd/1000151312.png",PVP Movies
 https://www.schannels.in/pvpmovies/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="PVP HD" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/TMLcBsmd/1000151312.png",PVP HD
+https://www.schannels.in/pvphd/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="Public Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/xkmjG74/1000151316.png",Public Tv
+https://www.schannels.in/publictvfolkmusic/video.m3u8?token=nokshitha
