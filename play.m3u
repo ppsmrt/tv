@@ -1196,7 +1196,7 @@ https://rtmp.bmlive.net/webaduga/webaduga/index.m3u8
 #EXTINF:-1 tvg-name="BBC Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png",BBC Earth
 http://195.181.169.162/BBC_EARTH_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-name="Bein Sports" group-title="Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png",Bein Sports
-http://212.102.60.10/BEIN_SPORTS/index.m3u8
+https://bein-esp-xumo.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Da Vinci" group-title="Entertainment" tvg-logo="https://i.ibb.co/V029q5b1/1000148115.png",Da Vinci
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
 #EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/PZrXKQj1/1000149768.png",Viju Explore
@@ -1567,3 +1567,17 @@ https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/playli
 https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
 #EXTINF:-1 tvg-name="Red Bull" group-title="Sports" tvg-logo="https://i.ibb.co/7dR8Vk2n/1000151641.png",Red Bull
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8
+#EXTINF:-1 tvg-name="Sports Tv" group-title="Sports" tvg-logo="https://i.ibb.co/HLWsg2tx/1000151643.png",Sports Tv
+https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
+#EXTINF:-1 tvg-name="PAC 12 Insider" group-title="Sports" tvg-logo="https://i.ibb.co/7NnNK7Yp/1000151646.png",PAC 12 Insider
+https://pac12-samsungus.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Discover Film" group-title="Movies" tvg-logo="https://i.ibb.co/Gy5g2q7/1000151648.png",Discover Film
+https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="VoA TV" group-title="Movies" tvg-logo="https://i.ibb.co/cS1YBj6T/1000151650.png",VoA TV
+https://voa-ingest.akamaized.net/hls/live/2033874/tvmc06/playlist.m3u8
+#EXTINF:-1 tvg-name="CNN USA" group-title="News" tvg-logo="https://i.ibb.co/4nL9LQK5/1000151652.png",CNN USA
+https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
+#EXTINF:-1 tvg-name="23 ABC NEWS" group-title="News" tvg-logo="https://i.ibb.co/V0X1TgL9/1000151654.png",23 ABC NEWS
+https://content.uplynk.com/channel/ff809e6d9ec34109abfb333f0d4444b5.m3u8
+#EXTINF:-1 tvg-name="30A Darcizzle Offshore" group-title="Documentary" tvg-logo="https://i.ibb.co/bM2B2Ctt/1000151656.png",30A Darcizzle Offshore
+https://30a-tv.com/darcizzle.m3u8
