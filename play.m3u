@@ -420,7 +420,7 @@ https://edge3-moblive.yuppcdn.net/drm1/smil:verbumtvdrm.smil/index.m3u8?view=tnm
 #EXTINF:-1 tvg-name="Vibgyor" group-title="Entertainment" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
 https://pvqybagglz24-hls-live.5centscdn.com/7788_push_2913_001/c98886a28a6a78b57f2d090f3b0ecac4.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Thandhi One" group-title="Entertainment" tvg-logo="https://i.ibb.co/wFqSD3G5/1000149594.png",Thandhi One
-https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
+https://servertvhub.site/jio/app/ts_live_3059.m3u8
 #EXTINF:-1 tvg-name="Vendhar Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/NwzVdZT/1000149682.png",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
 #EXTINF:-1 tvg-name="MK Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png",MK Tv
@@ -948,7 +948,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-name="Jaya Plus" group-title="News" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png",Raj Musix
-http://89.187.189.98/RAJMUSIX/index.m3u8
+https://servertvhub.site/jio/app/ts_live_748.m3u8
 #EXTINF:-1 tvg-name="Zing Tv" group-title="Movies" tvg-logo="https://i.ibb.co/whWLVTRQ/1000140178.jpg",Zing Tv
 http://89.187.189.98/ZING/index.m3u8
 #EXTINF:-1 tvg-name="Thandhi Tv" group-title="News" tvg-logo="https://i.ibb.co/JF86F1h4/1000148524.png",Thandhi Tv
