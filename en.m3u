@@ -213,3 +213,13 @@ https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8
 https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="PAC 12 Insider" tvg-logo="https://i.ibb.co/7NnNK7Yp/1000151646.png" group-title="Sports",PAC 12 Insider
 https://pac12-samsungus.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Discover Film" tvg-logo="https://i.ibb.co/Gy5g2q7/1000151648.png" group-title="Movies",Discover Film
+https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="VoA TV" tvg-logo="https://i.ibb.co/cS1YBj6T/1000151650.png" group-title="Movies",VoA TV
+https://voa-ingest.akamaized.net/hls/live/2033874/tvmc06/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="CNN USA" tvg-logo="https://i.ibb.co/4nL9LQK5/1000151652.png" group-title="News",CNN USA
+https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="23 ABC NEWS" tvg-logo="https://i.ibb.co/V0X1TgL9/1000151654.png" group-title="News",23 ABC NEWS
+https://content.uplynk.com/channel/ff809e6d9ec34109abfb333f0d4444b5.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="30A Darcizzle Offshore" tvg-logo="https://i.ibb.co/bM2B2Ctt/1000151656.png" group-title="Documentary",30A Darcizzle Offshore
+https://30a-tv.com/darcizzle.m3u8
