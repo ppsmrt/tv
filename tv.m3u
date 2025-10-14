@@ -1583,3 +1583,17 @@ https://content.uplynk.com/channel/ff809e6d9ec34109abfb333f0d4444b5.m3u8
 https://30a-tv.com/darcizzle.m3u8
 #EXTINF:-1 tvg-name="Global News Calgary" group-title="English" tvg-logo="https://i.ibb.co/4wLNCBKr/1000151658.png",Global News Calgary
 https://live.corusdigitaldev.com/groupd/live/8970c668-40cd-4ca9-8c4d-25fd04f619b5/live.isml/.m3u8
+#EXTINF:-1 tvg-name="30A Music" group-title="English" tvg-logo="https://i.ibb.co/60y967Vf/1000151660.png",30A Music
+https://30a-tv.com/music.m3u8
+#EXTINF:-1 tvg-name="Caribbean Hot 7 TV" group-title="English" tvg-logo="https://i.ibb.co/SXksnFXW/1000151662.png",Caribbean Hot 7 TV
+https://586a9edea75f1.streamlock.net/caribbeanhot7tv/ch7-1.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="WeHoTV" group-title="English" tvg-logo="https://i.ibb.co/RfxPJHk/1000151664.png",WeHoTV
+https://cdn3.wowza.com/5/M0lyamVmM2JWcjhQ/weho/G0161_004/playlist.m3u8
+#EXTINF:-1 tvg-name="LIVExLIVE" group-title="English" tvg-logo="https://i.ibb.co/5XqVXTBk/1000151669.png",LIVExLIVE
+https://dai.google.com/linear/hls/pb/event/xC8SDBfbTKCTCa20kFJQXQ/stream/44c45ea8-01f1-4c33-8f0c-8a58061f3975:SIN2/master.m3u8
+#EXTINF:-1 tvg-name="Brat" group-title="English" tvg-logo="https://i.ibb.co/nqSjs5wr/1000151671.png",Brat
+https://brat-samsung-us.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="JapanimTV" group-title="International" tvg-logo="https://i.ibb.co/84GSqv47/1000151672.png",JapanimTV
+https://foxkidstv.be:3369/stream/play.m3u8
+#EXTINF:-1 tvg-name="Baby Shark Tv" group-title="Kids" tvg-logo="https://i.ibb.co/zhjWpvQb/1000151674.png",Baby Shark Tv
+https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
