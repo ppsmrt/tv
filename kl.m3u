@@ -1,5 +1,5 @@
 ﻿#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"
-#EXTINF:-1 tvg-id="" tvg-name="News 24x7 Malayalam" tvg-logo="https://i.ibb.co/ccnq4t9W/news24x7malayalam.jpg" group-title="News",News 24x7 Malayalam
+#EXTINF:-1 tvg-id="" tvg-name="News 24x7 Malayalam" tvg-logo="https://i.ibb.co/Q7YFnrbS/1000151380.png" group-title="News",News 24x7 Malayalam
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-malayalam-24x7/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="South Vision" tvg-logo="https://i.ibb.co/ZRj1vTrF/1000120396.jpg" group-title="Local Channels",South Vision
 https://live.skystream.in/live/southvsnklm/index.m3u8
@@ -152,7 +152,7 @@ https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playli
 #EXTINF:-1 tvg-id="" tvg-name="BBC Earth" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png" group-title="Documentary",BBC Earth
 http://195.181.169.162/BBC_EARTH_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Bein Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png" group-title="Sports",Bein Sports
-http://212.102.60.10/BEIN_SPORTS/index.m3u8
+https://bein-esp-xumo.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Da Vinci" tvg-logo="https://i.ibb.co/V029q5b1/1000148115.png" group-title="Entertainment",Da Vinci
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
 #EXTINF:-1 tvg-id="" tvg-name="Viju Explore" tvg-logo="https://i.ibb.co/PZrXKQj1/1000149768.png" group-title="Documentary",Viju Explore
@@ -221,3 +221,15 @@ http://m3u.8088y.fun/yt.php?c=amritanews
 https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Gujarat Wild" tvg-logo="https://i.ibb.co/HTn8XqRy/1000150949.png" group-title="Documentary",Gujarat Wild
 https://newsliveindia.com/WILDLIFEhls/WILDLIFE.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Bahrain Sports 1" tvg-logo="https://i.ibb.co/4gNzD83d/1000151634.png" group-title="Sports",Bahrain Sports 1
+https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="BEK Sports West" tvg-logo="https://i.ibb.co/YgbrBsP/1000151637.png" group-title="Sports",BEK Sports West
+https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Bahrain Sports 2" tvg-logo="https://i.ibb.co/G4nymDgT/1000151639.png" group-title="Sports",Bahrain Sports 2
+https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Red Bull" tvg-logo="https://i.ibb.co/7dR8Vk2n/1000151641.png" group-title="Sports",Red Bull
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Sports Tv" tvg-logo="https://i.ibb.co/HLWsg2tx/1000151643.png" group-title="Sports",Sports Tv
+https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="PAC 12 Insider" tvg-logo="https://i.ibb.co/7NnNK7Yp/1000151646.png" group-title="Sports",PAC 12 Insider
+https://pac12-samsungus.amagi.tv/playlist.m3u8
