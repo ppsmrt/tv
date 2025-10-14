@@ -1545,3 +1545,7 @@ https://www.schannels.in/yj/video.m3u8?token=nokshitha
 https://www.schannels.in/ysrtv/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Raja Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/QjkJpzcb/1000151089.png",Raja Tv
 https://www.schannels.in/rajatv/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="SV News Harika" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/ztbgRLV/1000151108.png",SV News Harika
+https://www.schannels.in/harikasitymovies/video.m3u8?token=nokshitha
+#EXTINF:-1 tvg-name="harika Pallepatalu" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/cc0hfz3k/1000151118.png",harika Pallepatalu
+https://www.schannels.in/harikapallepatalu/video.m3u8?token=nokshitha
