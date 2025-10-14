@@ -477,8 +477,8 @@ https://stream.singamcloud.in/shalinitv/shalinitv/index.m3u8
 https://app.ashokadigital.net/app/a3e0b02f/index.m3u8
 #EXTINF:-1 tvg-name="Yeshua HD" tvg-logo="https://livetv.ashokadigital.net/upload/1739979735_WhatsApp_Image_2025-02-19_at_6.21.54_PM-removebg-preview.png" group-title="Ashoka",Yeshua HD
 http://transcoding.livebox.co.in/Yeshuahls/live.m3u8
-#EXTINF:-1 tvg-name="thulirtv" tvg-logo="https://livetv.ashokadigital.net/upload/1746265527_THULIR TV.jpeg" group-title="Ashoka",thulirtv
-https://view.apserver.in/tmp_hls9/thulirtv/index.m3u8
+#EXTINF:-1 tvg-name="karthick tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739547181_WhatsApp_Image_2025-02-14_at_8.50.29_PM__2_-removebg-preview.png" group-title="Ashoka",karthick tv
+https://ipcloud.live/karthick/karthicktvhd/index.m3u8
 #EXTINF:-1 tvg-name="thalapathy tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739547835_WhatsApp_Image_2025-02-14_at_8.57.35_PM-removebg-preview.png" group-title="Ashoka",thalapathy tv
 http://play.applelive.in/thalapathytv/thalapathytv.m3u8
 #EXTINF:-1 tvg-name="Accord Tamil" tvg-logo="https://livetv.ashokadigital.net/upload/1750733990_10. ACCORD TAMIL TV.png" group-title="Ashoka",Accord Tamil
@@ -491,8 +491,6 @@ http://stream.onecloudlive.in/santhiyatv/santhiyatvhd/index.m3u8
 https://notvstream.in/kingtv/kingtv.m3u8
 #EXTINF:-1 tvg-name="nellai tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753792693_WhatsApp_Image_2025-07-29_at_5.34.20_AM-removebg-preview.png" group-title="Ashoka",nellai tv
 https://stream.onecloudlive.in/nellaitv/nellaitv/index.m3u8
-#EXTINF:-1 tvg-name="Bhakti Sruthi" tvg-logo="https://livetv.ashokadigital.net/upload/1754422880_Untitled345.png" group-title="Ashoka",Bhakti Sruthi
-https://livetv.ashokadigital.net/upload/vod/1754717262_AVR_Swarnamahal_General_40_sec.mp4
 #EXTINF:-1 tvg-name="NISHA TV" tvg-logo="https://livetv.ashokadigital.net/upload/1731776131_WhatsApp_Image_2024-11-16_at_8.36.22_PM-removebg-preview.png" group-title="Ashoka",NISHA TV
 https://app.ashokadigital.net/app/7825e06b/index.m3u8
 #EXTINF:-1 tvg-name="Chakra Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731775483_chakra tv small (1).PNG" group-title="Ashoka",Chakra Tv
@@ -501,24 +499,20 @@ https://stream.onecloudlive.in/chakratv/chekratvtju/index.m3u8
 https://stream.onecloudlive.in/deepamtv/sailamtv/index.m3u8
 #EXTINF:-1 tvg-name="queens Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1746107527_QUEENS 143.png" group-title="Ashoka",queens Tv
 https://notvstream.in/queens/queens.m3u8
-#EXTINF:-1 tvg-name="karthick tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739547181_WhatsApp_Image_2025-02-14_at_8.50.29_PM__2_-removebg-preview.png" group-title="Ashoka",karthick tv
-https://ipcloud.live/karthick/karthicktvhd/index.m3u8
-#EXTINF:-1 tvg-name="Accord Flix" tvg-logo="https://livetv.ashokadigital.net/upload/1750734081_flex.png" group-title="Ashoka",Accord Flix
-https://uiptv.iptv.pics/hls/1234/index.m3u8
+#EXTINF:-1 tvg-name="Deepam Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731935481_deepam.png" group-title="Ashoka",Deepam Tv
+https://ipcloud.live/deepamtv/deepamtvhd/index.m3u8
 #EXTINF:-1 tvg-name="thendral tv madurai" tvg-logo="https://livetv.ashokadigital.net/upload/1748264819_thendral tv madurai.png" group-title="Ashoka",thendral tv madurai
 https://ipcloud.live/thendralmdu/madurai/index.m3u8
 #EXTINF:-1 tvg-name="Veerali tv" tvg-logo="https://livetv.ashokadigital.net/upload/1741273429_logo.gif" group-title="Ashoka",Veerali tv
 https://ipcloud.live/veerali/veeralitv/index.m3u8
-#EXTINF:-1 tvg-name="Deepam Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731935481_deepam.png" group-title="Ashoka",Deepam Tv
-https://ipcloud.live/deepamtv/deepamtvhd/index.m3u8
+#EXTINF:-1 tvg-name="thulirtv" tvg-logo="https://livetv.ashokadigital.net/upload/1746265527_THULIR TV.jpeg" group-title="Ashoka",thulirtv
+https://view.apserver.in/tmp_hls9/thulirtv/index.m3u8
 #EXTINF:-1 tvg-name="Aalaya Magimai Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731768528_AALYA MAGAMAI TV LOGO BAKTHI TV.png" group-title="Ashoka",Aalaya Magimai Tv
 https://app.ashokadigital.net/aalayamagimaitv/aalayamagimaitv/index.m3u8
 #EXTINF:-1 tvg-name="Dheiveegam Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731847296_WhatsApp_Image_2024-11-17_at_6.04.32_PM-removebg-preview.png" group-title="Ashoka",Dheiveegam Tv
 https://stream.singamcloud.in/Dheiveegamtv/Dheiveegamtv/index.m3u8
 #EXTINF:-1 tvg-name="Subi Tv bakthi" tvg-logo="https://livetv.ashokadigital.net/upload/1737129449_Subi tv Bakthi.png" group-title="Ashoka",Subi Tv bakthi
 https://view.rcserver.in/tmp_hls8/subitv/index.m3u8
-#EXTINF:-1 tvg-name="prime Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753792803_1753792762_ASHOKA CLASSIH HD LOGO PNG.png" group-title="Ashoka",prime Tv
-https://livetv.ashokadigital.net/upload/vod/1754717262_AVR_Swarnamahal_General_40_sec.mp4
 #EXTINF:-1 tvg-name="AMN TV Bakthi" tvg-logo="https://livetv.ashokadigital.net/upload/1743329541_amn logo (2).PNG" group-title="Ashoka",AMN TV Bakthi
 https://ipcloud.live/amn/amnbhakthi/index.m3u8
 #EXTINF:-1 tvg-name="DHARUMAI ADEENAM TV" tvg-logo="https://livetv.ashokadigital.net/upload/1748150986_Dharumai TV.png" group-title="Ashoka",DHARUMAI ADEENAM TV
@@ -797,3 +791,9 @@ https://newsliveindia.com/satyamhls/satyamsatya.m3u8
 http://newsliveindia.com/VACC24NEWShls/VACC24NEWS.m3u8
 #EXTINF:-1 tvg-name="maharshtra news" tvg-logo="https://livetv.ashokadigital.net/upload/1757781441_WhatsApp Image 2025-09-11 at 12.48.38 PM.jpeg" group-title="Ashoka",maharshtra news
 https://newsliveindia.com/timesofmaharshtranewshls/maharshtranews.m3u8
+#EXTINF:-1 tvg-name="Bhakti Sruthi" tvg-logo="https://livetv.ashokadigital.net/upload/1754422880_Untitled345.png" group-title="Ashoka",Bhakti Sruthi
+https://livetv.ashokadigital.net/upload/vod/1754717262_AVR_Swarnamahal_General_40_sec.mp4
+#EXTINF:-1 tvg-name="Accord Flix" tvg-logo="https://livetv.ashokadigital.net/upload/1750734081_flex.png" group-title="Ashoka",Accord Flix
+https://uiptv.iptv.pics/hls/1234/index.m3u8
+#EXTINF:-1 tvg-name="prime Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753792803_1753792762_ASHOKA CLASSIH HD LOGO PNG.png" group-title="Ashoka",prime Tv
+https://livetv.ashokadigital.net/upload/vod/1754717262_AVR_Swarnamahal_General_40_sec.mp4
