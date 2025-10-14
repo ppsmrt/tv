@@ -44,7 +44,7 @@ https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/C547s88c/1000149688.png",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
-https://livestream.rajtv.tv/hlslive/Admin/px08241087/live/RajTV_Digital_plus/master_1.m3u8
+https://servertvhub.site/jio/app/ts_live_683.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png",K Tv
 http://195.181.169.162/KTV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Eye Tv" group-title="International" tvg-logo="https://i.ibb.co/Dx1sW1c/1000149721.png",Eye Tv
@@ -383,8 +383,6 @@ https://ipcloud.live/msntv/msntv/index.m3u8
 https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6be7e60d03c2d82
 #EXTINF:-1 tvg-name="Zee Tamil SD" group-title="Tamil" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
-#EXTINF:-1 tvg-name="Adhitya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/pBpxYFZk/1000148332.png",Adhitya Tv
-http://front-main.eagle-4k.me:80/live/imadfr_551967/4fWxfRqg/277078.ts
 #EXTINF:-1 tvg-name="Star Movies" group-title="English" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png",Star Movies
 http://89.187.189.98/STARMOVIESHD/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="International" tvg-logo="https://i.ibb.co/8nTg2yS7/1000151434.png",Sakthi Tv
@@ -422,15 +420,13 @@ https://edge3-moblive.yuppcdn.net/drm1/smil:verbumtvdrm.smil/index.m3u8?view=tnm
 #EXTINF:-1 tvg-name="Vibgyor" group-title="Malayalam" tvg-logo="https://i.ibb.co/YBc5b5bJ/3669.jpg",Vibgyor
 https://pvqybagglz24-hls-live.5centscdn.com/7788_push_2913_001/c98886a28a6a78b57f2d090f3b0ecac4.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="Thandhi One" group-title="Tamil" tvg-logo="https://i.ibb.co/wFqSD3G5/1000149594.png",Thandhi One
-https://live.dinesh29.com.np/stream/jiotvplus/thanthione/master.m3u8
+https://servertvhub.site/jio/app/ts_live_3059.m3u8
 #EXTINF:-1 tvg-name="Vendhar Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/NwzVdZT/1000149682.png",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
 #EXTINF:-1 tvg-name="MK Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png",MK Tv
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
 #EXTINF:-1 tvg-name="Chithiram" group-title="Tamil" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png",Chithiram
 https://cdn-6.pishow.tv/live/1243/master.m3u8
-#EXTINF:-1 tvg-name="MK Tunes" group-title="Tamil" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png",MK Tunes
-https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-433
 #EXTINF:-1 tvg-name="News J" group-title="Tamil" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png",News J
 https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1279
 #EXTINF:-1 tvg-name="Win Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/JFywMsLP/1000149701.png",Win Tv
@@ -952,7 +948,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-name="Jaya Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png",Raj Musix
-http://89.187.189.98/RAJMUSIX/index.m3u8
+https://servertvhub.site/jio/app/ts_live_748.m3u8
 #EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/whWLVTRQ/1000140178.jpg",Zing Tv
 http://89.187.189.98/ZING/index.m3u8
 #EXTINF:-1 tvg-name="Thandhi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/JF86F1h4/1000148524.png",Thandhi Tv
@@ -1327,8 +1323,6 @@ https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-name="Puthuyugam" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/LMgnfps/1000148735.png",Puthuyugam
 http://103.184.193.216:3500/getm3u8/824/master.m3u8
-#EXTINF:-1 tvg-name="Imayam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/nNfgM5mP/1000148697.png",Imayam Tv
-http://103.184.193.216:3500/getm3u8/1517/master.m3u8
 #EXTINF:-1 tvg-name="EET Tv" group-title="International" tvg-logo="https://i.ibb.co/7tvjhbFs/1000149405.png",EET Tv
 https://eu.streamjo.com/eetlive/eettv.m3u8
 #EXTINF:-1 tvg-name="Sathiyam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/whPnjdJy/1000148505.png",Sathiyam Tv
