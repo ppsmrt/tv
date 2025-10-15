@@ -109,7 +109,7 @@ https://amigofx.com:1936/SBhakti/SBhakti/playlist.m3u8
 https://amigofx.com:1936/hitzentertainment/hitzentertainment/playlist.m3u8
 #EXTINF:-1 tvg-name="Rangmanch" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
 https://amigofx.com:1936/rangmanch/rangmanch/playlist.m3u8
-#EXTINF:-1 tvg-name="S Marathi" group-title="Hindi" tvg-logo="https://amigofx.com/livetvlogo/smarathi.png",S Marathi
+#EXTINF:-1 tvg-name="S Marathi" group-title="Marathi" tvg-logo="https://amigofx.com/livetvlogo/smarathi.png",S Marathi
 https://amigofx.com:1936/SMarathi/SMarathi/playlist.m3u8
 #EXTINF:-1 tvg-name="BSTV Orissa" group-title="Hindi" tvg-logo="https://i.ibb.co/SwTLZcTd/1000149847.png",BSTV Orissa
 https://amigofx.com:1936/bstvorissa/bstvorissa/playlist.m3u8
@@ -451,7 +451,7 @@ http://ttv.7starcloud.com:1935/thirumagal/tv/playlist.m3u8
 http://ttv.7starcloud.com:1935/kctn/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="VCTN Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/C3TN9Yv3/1000128228.jpg",VCTN Tv
 http://ttv.7starcloud.com:1935/vctn/tv/playlist.m3u8
-#EXTINF:-1 tvg-name="Chennaii Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/fzhxbNkb/1000128230.webp",Chennaii Tv
+#EXTINF:-1 tvg-name="Chennaii Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/FkWMX84q/1000152702.png",Chennaii Tv
 http://notvstream.in/chennaiitv/chennaiitv.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Asianet" group-title="Malayalam" tvg-logo="https://i.ibb.co/7dNn29j0/1000148520.png",Asianet
 http://217.20.112.199/asianet/index.m3u8?view=tnm3u-addedby=tnm3u
@@ -505,7 +505,7 @@ https://skystream.in/live/vedha6528/index.m3u8
 http://live.singamcloud.in/Thulirtv/thulirtv/index.m3u8
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/wbTGMtP/1000133574.webp",Sakthi Tv
 https://server2.iptelevision.in/hls/sakthitv.m3u8
-#EXTINF:-1 tvg-name="Cheran Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Fb9W0Mtr/1000133576.jpg",Cheran Tv
+#EXTINF:-1 tvg-name="Cheran Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Hp18mQ5p/1000152705.png",Cheran Tv
 http://ser2.applelive.in/cherantv/cherantv.m3u8
 #EXTINF:-1 tvg-name="Jayaam Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/FtLw4Yj/1000133578.jpg",Jayaam Tv
 http://hdserver.7starcloud.com:1935/jayaamtv/jayaamtv/playlist.m3u8
@@ -1021,7 +1021,7 @@ https://cdn-4.pishow.tv/live/229/master.m3u8
 http://cdn19.live247stream.com/channely/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="CNBC Awaaz" group-title="Hindi" tvg-logo="https://i.ibb.co/s9g4zLJP/1000150103.png",CNBC Awaaz
 https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_Bazaar_NW18_MOB-audio_131636_eng=131600-video=3724000.m3u8
-#EXTINF:-1 tvg-name="CNBC Bajar" group-title="Hindi" tvg-logo="https://i.ibb.co/Kcfg8JN8/1000141356.jpg",CNBC Bajar
+#EXTINF:-1 tvg-name="CNBC Bajar" group-title="Hindi" tvg-logo="https://i.ibb.co/wNCSv280/1000152707.png",CNBC Bajar
 https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_Bazaar_NW18_MOB-audio_131636_eng=131600-video=3724000.m3u8
 #EXTINF:-1 tvg-name="CNBC Tv 18" group-title="Hindi" tvg-logo="https://i.ibb.co/Q7T8yhZS/1000141377.jpg",CNBC Tv 18
 https://n18syndication.akamaized.net/bpk-tv/CNBC_TV18_NW18_MOB/output01/CNBC_TV18_NW18_MOB-audio_98834_eng=98800-video=3724000.m3u8
@@ -1173,7 +1173,7 @@ https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaCinema/JCHLS/
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaHD/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Tamil HD" group-title="Tamil" tvg-logo="https://i.ibb.co/PzmmJLC1/1000149584.png",Colors Tamil HD
 http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Colors Marathi" group-title="Hindi" tvg-logo="https://i.ibb.co/LXyC0D9w/1000145016.jpg",Colors Marathi
+#EXTINF:-1 tvg-name="Colors Marathi" group-title="Marathi" tvg-logo="https://i.ibb.co/LXyC0D9w/1000145016.jpg",Colors Marathi
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsMarathiHD/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Bangla" group-title="Hindi" tvg-logo="https://i.ibb.co/pvTJ61qg/1000150108.png",Colors Bangla
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsBanglaHD/JCHLS/index.m3u8
@@ -1593,3 +1593,5 @@ https://foxkidstv.be:3369/stream/play.m3u8
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Bein Sports Extra" group-title="Sports" tvg-logo="https://i.ibb.co/C58Z6NxL/1000152407.png",Bein Sports Extra
 https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452d7f39c3a12db1aad325df4f6bb5e5
+#EXTINF:-1 tvg-name="DD Shahyadri" group-title="Marathi" tvg-logo="https://i.ibb.co/9HhT3yQ9/1000152693.png",DD Shahyadri
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/66dcc3ebe182447ba42837e746cf0c7c/index.m3u8
