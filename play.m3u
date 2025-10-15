@@ -451,7 +451,7 @@ http://ttv.7starcloud.com:1935/thirumagal/tv/playlist.m3u8
 http://ttv.7starcloud.com:1935/kctn/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="VCTN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/C3TN9Yv3/1000128228.jpg",VCTN Tv
 http://ttv.7starcloud.com:1935/vctn/tv/playlist.m3u8
-#EXTINF:-1 tvg-name="Chennaii Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/fzhxbNkb/1000128230.webp",Chennaii Tv
+#EXTINF:-1 tvg-name="Chennaii Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/FkWMX84q/1000152702.png",Chennaii Tv
 http://notvstream.in/chennaiitv/chennaiitv.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Asianet" group-title="Entertainment" tvg-logo="https://i.ibb.co/7dNn29j0/1000148520.png",Asianet
 http://217.20.112.199/asianet/index.m3u8?view=tnm3u-addedby=tnm3u
@@ -505,7 +505,7 @@ https://skystream.in/live/vedha6528/index.m3u8
 http://live.singamcloud.in/Thulirtv/thulirtv/index.m3u8
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/wbTGMtP/1000133574.webp",Sakthi Tv
 https://server2.iptelevision.in/hls/sakthitv.m3u8
-#EXTINF:-1 tvg-name="Cheran Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Fb9W0Mtr/1000133576.jpg",Cheran Tv
+#EXTINF:-1 tvg-name="Cheran Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Hp18mQ5p/1000152705.png",Cheran Tv
 http://ser2.applelive.in/cherantv/cherantv.m3u8
 #EXTINF:-1 tvg-name="Jayaam Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/FtLw4Yj/1000133578.jpg",Jayaam Tv
 http://hdserver.7starcloud.com:1935/jayaamtv/jayaamtv/playlist.m3u8
@@ -1593,3 +1593,5 @@ https://foxkidstv.be:3369/stream/play.m3u8
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Bein Sports Extra" group-title="Sports" tvg-logo="https://i.ibb.co/C58Z6NxL/1000152407.png",Bein Sports Extra
 https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452d7f39c3a12db1aad325df4f6bb5e5
+#EXTINF:-1 tvg-name="DD Shahyadri" group-title="Entertainment" tvg-logo="https://i.ibb.co/9HhT3yQ9/1000152693.png",DD Shahyadri
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/66dcc3ebe182447ba42837e746cf0c7c/index.m3u8
