@@ -2,7 +2,7 @@ name: Auto-update test.m3u
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # Every 5 minutes
+    - cron: "*/15 * * * *" # every 15 minutes
   workflow_dispatch:
 
 jobs:
@@ -10,114 +10,107 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: 🛒 Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: "20"
+          python-version: "3.11"
 
-      - name: Generate test.m3u and update token
+      - name: 📦 Install dependencies
+        run: |
+          pip install requests
+
+      - name: ⚙️ Fetch, decode and generate M3U
         id: generate
         run: |
-          npm install node-fetch@2
-          node <<'EOF'
-          const fs = require('fs');
-          const fetch = require('node-fetch');
+          mkdir -p assets/playlist
+          cat > bmcloud_worker.py <<'EOF'
+          import requests, base64, json, urllib.parse, zlib, gzip, os
 
-          const channelsUrl = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
-          const tokensUrl = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/tokens.json';
-          const outputFile = 'assets/playlist/test.m3u';
-          const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
+          API_URL = "https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud"
+          OUTPUT_JSON = "out.json"
+          OUTPUT_M3U = "assets/playlist/test.m3u"
 
-          function generateToken(length=6){
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-            let result = '';
-            for(let i=0;i<length;i++) result += chars.charAt(Math.floor(Math.random()*chars.length));
-            return result;
-          }
+          def try_decode_level6(data, max_level=6):
+              for level in range(1, max_level + 1):
+                  try:
+                      decoded_json = json.loads(data)
+                      return decoded_json
+                  except:
+                      pass
+                  try:
+                      b64_decoded = base64.b64decode(data, validate=True)
+                      data = b64_decoded.decode('utf-8', errors='ignore')
+                      continue
+                  except:
+                      pass
+                  url_decoded = urllib.parse.unquote_plus(data)
+                  if url_decoded != data:
+                      data = url_decoded
+                      continue
+                  try:
+                      gz_decoded = gzip.decompress(data.encode('latin1'))
+                      data = gz_decoded.decode('utf-8', errors='ignore')
+                      continue
+                  except:
+                      pass
+                  try:
+                      z_decoded = zlib.decompress(data.encode('latin1'))
+                      data = z_decoded.decode('utf-8', errors='ignore')
+                      continue
+                  except:
+                      pass
+                  break
+              try:
+                  return json.loads(data)
+              except:
+                  return data
 
-          (async () => {
-            try {
-              // Fetch token history
-              const tokenRes = await fetch(tokensUrl);
-              const tokenData = await tokenRes.json() || {};
-              const tokenKeys = Object.keys(tokenData).sort();
-              let latestToken = tokenKeys.length ? tokenData[tokenKeys[tokenKeys.length-1]].token : generateToken();
+          def fetch_and_convert():
+              print(f"📡 Fetching {API_URL}")
+              resp = requests.get(API_URL, timeout=20)
+              resp.raise_for_status()
+              decoded = try_decode_level6(resp.text.strip())
 
-              // Save new token if not exists
-              if (!latestToken) {
-                latestToken = generateToken();
-                const dateKey = new Date().toISOString();
-                await fetch(tokensUrl + '/' + dateKey + '.json', {
-                  method: 'PUT',
-                  headers: {'Content-Type':'application/json'},
-                  body: JSON.stringify({ token: latestToken })
-                });
-              }
+              with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+                  if isinstance(decoded, str):
+                      f.write(decoded)
+                  else:
+                      json.dump(decoded, f, indent=2, ensure_ascii=False)
 
-              // Fetch channels
-              const res = await fetch(channelsUrl);
-              const data = await res.json();
-              if (!data) { console.log("No channels found."); process.exit(0); }
+              if isinstance(decoded, dict) and "channels" in decoded:
+                  os.makedirs(os.path.dirname(OUTPUT_M3U), exist_ok=True)
+                  with open(OUTPUT_M3U, "w", encoding="utf-8") as f:
+                      f.write("#EXTM3U\n")
+                      for ch in decoded["channels"]:
+                          name = ch.get("name") or ch.get("title") or "Unknown"
+                          logo = ch.get("logo", "")
+                          url = ch.get("url", "")
+                          group = ch.get("category", "General")
+                          f.write(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{name}\n{url}\n')
+                  print(f"✅ M3U file generated: {OUTPUT_M3U}")
+              else:
+                  print("⚠️ Unexpected structure or no channels key found.")
 
-              let m3u = "#EXTM3U\n";
-              let changesSummary = [];
-
-              for(const id of Object.keys(data)){
-                const ch = data[id];
-                let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
-                const channelType = ch.channelType || "General";
-                const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
-                let stream = ch.stream?.trim();
-                if(!stream) continue;
-
-                // Append token
-                if(!stream.includes('?')) stream += `?token=${latestToken}`;
-                else stream += `&token=${latestToken}`;
-
-                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${channelType}"`;
-                if(logo) extinf += ` tvg-logo="${logo}"`;
-                extinf += `,${name}`;
-
-                m3u += `${extinf}\n${stream}\n`;
-
-                const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
-                const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf)+1] : null;
-                if(!prevExtinf) changesSummary.push(`Added: ${name}`);
-                else if(prevExtinf !== extinf || prevStreamLine !== stream) changesSummary.push(`Updated: ${name}`);
-              }
-
-              // Detect removed channels
-              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
-              oldNames.forEach(name => {
-                if(!Object.values(data).some(ch => ch.name === name)) changesSummary.push(`Removed: ${name}`);
-              });
-
-              if(changesSummary.length === 0){
-                console.log("No changes, skipping file generation.");
-                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
-                process.exit(0);
-              }
-
-              fs.writeFileSync(outputFile, m3u.replace(/\r\n/g,'\n'), {encoding:'utf8'});
-              console.log('test.m3u updated successfully.');
-              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
-              fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
-
-            } catch(err){
-              console.error('Error generating playlist:', err);
-              process.exit(1);
-            }
-          })();
+          if __name__ == "__main__":
+              fetch_and_convert()
           EOF
 
-      - name: Commit and push if changed
+          python bmcloud_worker.py
+
+          if git diff --quiet assets/playlist/test.m3u; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 💾 Commit and push if changed
         if: steps.generate.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/playlist/test.m3u
-          git commit -m "Auto-update test.m3u [skip ci] - ${{ steps.generate.outputs.summary }}"
+          git add assets/playlist/test.m3u out.json
+          git commit -m "Auto-update test.m3u [skip ci]"
           git push
