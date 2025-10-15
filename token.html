@@ -185,10 +185,8 @@ ${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "No ne
 
       const discord =
 `**📻 FM Radio By TNM3U**
-
 🎶 ${total}+ Stations
 ♨️ Tamil | Telugu | Malayalam | Hindi | English
-
 📡 Update: ${oldCount} → ${total}
 ✨ **New Radios:**
 ${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "_No new radios today_"}
@@ -208,6 +206,7 @@ ${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "_No n
         document.getElementById("tvDiscord").textContent = "⚠ No channels found!";
         return;
       }
+
       const channels = Object.values(snapshot.val());
       const total = channels.length;
       const now = new Date();
@@ -222,18 +221,23 @@ ${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "_No n
         grouped[cat].push("💫 " + (c.name || "Unknown Channel"));
       });
 
-      const playersBlock =
-`𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙚𝙙 𝙄𝙋𝙏𝙑 𝙋𝙡𝙖𝙮𝙚𝙧𝙨
-➥ Tivimate
-➥ Ott Navigator
-➥ Ns Player
-➥ Televizo
-➥ IPTV Pro
-➥ Many more supported
-➖➖➖➖➖➖➖➖➖➖➖➖`;
-
-      const languagesBlock =
-`🇮🇳 Languages 
+      // ✅ NEW TV FULL NOTIFICATION FORMAT
+      let full =
+`📺 𝙇𝙞𝙫𝙚 𝙏𝙑 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 𝙗𝙮 𝙏𝙉𝙈3𝙐
+━━━━━━━━━━━━━━━━━━━
+📌 𝘼𝙗𝙤𝙪𝙩 𝙩𝙝𝙚 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩
+Experience a complete entertainment collection with regional, national, and international TV channels — all in one place.
+Enjoy seamless streaming of Indian and global channels, including news, movies, sports, and music, anytime, anywhere, without interruptions.
+━━━━━━━━━━━━━━━━━━━
+🎯 𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙚𝙙 𝙄𝙋𝙏𝙑 𝙋𝙡𝙖𝙮𝙚𝙧𝙨
+➤ Tivimate
+➤ OTT Navigator
+➤ NS Player
+➤ Televizo
+➤ IPTV Pro
+…and many more.
+━━━━━━━━━━━━━━━━━━━
+🌐 𝘼𝙫𝙖𝙞𝙡𝙖𝙗𝙡𝙚 𝙇𝙖𝙣𝙜𝙪𝙖𝙜𝙚𝙨
 ♨️ Tamil
 ♨️ Telugu
 ♨️ Malayalam
@@ -241,30 +245,7 @@ ${newRadios.map(r => "📻 " + (r.name || "Unknown Radio")).join("\n") || "_No n
 ♨️ Hindi
 ♨️ English
 ♨️ Sinhala
-➖➖➖➖➖➖➖➖➖➖➖➖`;
-
-      const playlistsBlock =
-`☀️ αℓℓ ιи σиє ρℓαуℓιѕт
-https://tnm3u.live/playlist.m3u
-☀️ тαмιℓ ρℓαуℓιѕт
-https://tnm3u.live/tn.m3u
-☀️ тєℓυgυ ρℓαуℓιѕт
-https://tnm3u.live/an.m3u
-☀️ кαииα∂α ρℓαуℓιѕт
-https://tnm3u.live/ka.m3u
-☀️ мαℓуαℓαм ρℓαуℓιѕт
-https://tnm3u.live/kl.m3u
-☀️ єиgℓιѕн ρℓαуℓιѕт
-https://tnm3u.live/en.m3u`;
-
-      let full =
-`📺 𝙇𝙞𝙫𝙚 𝙏𝙫 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 𝘽𝙮 𝙏𝙣𝙢3𝙪
-➖➖➖➖➖➖➖➖➖➖➖➖
-📌 𝘼𝙗𝙤𝙪𝙩 𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩
-Enjoy regional and local Indian TV channels, anytime, anywhere.
-➖➖➖➖➖➖➖➖➖➖➖➖
-${playersBlock}
-${languagesBlock}
+━━━━━━━━━━━━━━━━━━━
 ✨ Newly Added Channels (Last 24h)
 `;
 
@@ -276,42 +257,48 @@ ${languagesBlock}
         }
       }
 
-      full += 
-`➖➖➖➖➖➖➖➖➖➖➖➖
-📡 Channel Update
-From ${oldCount} → ${total} total channels available now!
-➖➖➖➖➖➖➖➖➖➖➖➖
-${playlistsBlock}
-➖➖➖➖➖➖➖➖➖➖➖➖
+      full += `
+━━━━━━━━━━━━━━━━━━━ 
+▶️ ᴍᴀɪɴ ᴘʟᴀʏʟɪsᴛ
+☀️ αℓℓ ιи σиє ρℓαуℓιѕт (ℓαиgυαgє)
+https://tnm3u.live/tv.m3u
+☀️ αℓℓ ιи σиє ρℓαуℓιѕт (¢αтєgσяу)
+https://tnm3u.live/play.m3u
+
+🇮🇳 ʀᴇɢɪᴏɴᴀʟ ᴘʟᴀʏʟɪᴤᴛ
+☀️ тαмιℓ ρℓαуℓιѕт
+https://tnm3u.live/tn.m3u
+☀️ тєℓυgυ ρℓαуℓιѕт
+https://tnm3u.live/an.m3u
+☀️ кαииα∂α ρℓαуℓιѕт
+https://tnm3u.live/ka.m3u
+☀️ мαℓуαℓαм ρℓαуℓιѕт
+https://tnm3u.live/kl.m3u
+☀️ єиgℓιѕн ρℓαуℓιѕт
+https://tnm3u.live/en.m3u
+━━━━━━━━━━━━━━━━━━━
+❤️ Reactions and feedback are always welcome!
 📢 For more updates follow our channel
-Telegram | WhatsApp | Discord
-➖➖➖➖➖➖➖➖➖➖➖➖
-Any concerns or takedown requests please mail to tnm3us@gmail.com. All queries will be evaluated and resolved in 48 hours.`;
+Telegram | Arattai | Discord
+━━━━━━━━━━━━━━━━━━━
+Any concerns or takedown requests please mail to tnm3us@gmail.com. All queries will be evaluated and resolved in 48 hours.
+`;
 
       const whatsapp =
 `📺 Live TV By TNM3U
 🎬 ${total}+ Channels
-${playersBlock}
-${languagesBlock}
 ✨ New Channels (24h):
 ${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "No new channels"}
 📡 Total: ${total}
-📢 Telegram | WhatsApp | Discord`;
+📢 Telegram | Arattai | Discord`;
 
       const discord =
 `**📺 Live TV By TNM3U**
-
-🎬 ${total}+ Channels  
-
-${playersBlock}
-
-${languagesBlock}
-
-📡 Update: ${oldCount} → ${total}  
-✨ **New Channels (24h):**  
-${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "_No new channels today_"}  
-
-📢 Telegram | WhatsApp | Discord  
+🎬 ${total}+ Channels
+📡 Update: ${oldCount} → ${total}
+✨ **New Channels (24h):**
+${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "_No new channels today_"}
+📢 Telegram | Arattai | Discord
 🛡️ Issues: tnm3us@gmail.com`;
 
       document.getElementById("tvFull").textContent = full;
