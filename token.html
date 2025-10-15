@@ -296,7 +296,6 @@ ${languagesBlock}
 ✨ New Channels (24h):
 ${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "No new channels"}
 📡 Total: ${total}
-${playlistsBlock}
 📢 Telegram | WhatsApp | Discord`;
 
       const discord =
@@ -312,9 +311,7 @@ ${languagesBlock}
 ✨ **New Channels (24h):**  
 ${newChannels.map(c => "📺 " + (c.name || "Unknown Channel")).join("\n") || "_No new channels today_"}  
 
-${playlistsBlock}
-
-📢 Follow: https://t.me/tnm3u | https://whatsapp.com/channel/0029VafVkPI7NoaAOqggVI15 | https://discord.com/invite/XxmUxb4Z  
+📢 Telegram | WhatsApp | Discord  
 🛡️ Issues: tnm3us@gmail.com`;
 
       document.getElementById("tvFull").textContent = full;
