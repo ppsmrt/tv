@@ -22,83 +22,30 @@ jobs:
         run: |
           pip install requests
 
-      - name: ⚙️ Fetch, decode and generate M3U
+      - name: ⚙️ Fetch and save M3U
         id: generate
         run: |
           mkdir -p assets/playlist
-          cat > bmcloud_worker.py <<'EOF'
-          import requests, base64, json, urllib.parse, zlib, gzip, os
+          cat > fetch_m3u.py <<'EOF'
+          import requests, os
 
-          API_URL = "https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud"
-          OUTPUT_JSON = "out.json"
+          M3U_URL = "https://tv.tnm3us.workers.dev/"
           OUTPUT_M3U = "assets/playlist/test.m3u"
 
-          def try_decode_level6(data, max_level=6):
-              for level in range(1, max_level + 1):
-                  try:
-                      decoded_json = json.loads(data)
-                      return decoded_json
-                  except:
-                      pass
-                  try:
-                      b64_decoded = base64.b64decode(data, validate=True)
-                      data = b64_decoded.decode('utf-8', errors='ignore')
-                      continue
-                  except:
-                      pass
-                  url_decoded = urllib.parse.unquote_plus(data)
-                  if url_decoded != data:
-                      data = url_decoded
-                      continue
-                  try:
-                      gz_decoded = gzip.decompress(data.encode('latin1'))
-                      data = gz_decoded.decode('utf-8', errors='ignore')
-                      continue
-                  except:
-                      pass
-                  try:
-                      z_decoded = zlib.decompress(data.encode('latin1'))
-                      data = z_decoded.decode('utf-8', errors='ignore')
-                      continue
-                  except:
-                      pass
-                  break
-              try:
-                  return json.loads(data)
-              except:
-                  return data
-
-          def fetch_and_convert():
-              print(f"📡 Fetching {API_URL}")
-              resp = requests.get(API_URL, timeout=20)
+          def fetch_m3u():
+              print(f"📡 Fetching {M3U_URL}")
+              resp = requests.get(M3U_URL, timeout=20)
               resp.raise_for_status()
-              decoded = try_decode_level6(resp.text.strip())
-
-              with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
-                  if isinstance(decoded, str):
-                      f.write(decoded)
-                  else:
-                      json.dump(decoded, f, indent=2, ensure_ascii=False)
-
-              if isinstance(decoded, dict) and "channels" in decoded:
-                  os.makedirs(os.path.dirname(OUTPUT_M3U), exist_ok=True)
-                  with open(OUTPUT_M3U, "w", encoding="utf-8") as f:
-                      f.write("#EXTM3U\n")
-                      for ch in decoded["channels"]:
-                          name = ch.get("name") or ch.get("title") or "Unknown"
-                          logo = ch.get("logo", "")
-                          url = ch.get("url", "")
-                          group = ch.get("category", "General")
-                          f.write(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{name}\n{url}\n')
-                  print(f"✅ M3U file generated: {OUTPUT_M3U}")
-              else:
-                  print("⚠️ Unexpected structure or no channels key found.")
+              os.makedirs(os.path.dirname(OUTPUT_M3U), exist_ok=True)
+              with open(OUTPUT_M3U, "w", encoding="utf-8") as f:
+                  f.write(resp.text)
+              print(f"✅ M3U file saved: {OUTPUT_M3U}")
 
           if __name__ == "__main__":
-              fetch_and_convert()
+              fetch_m3u()
           EOF
 
-          python bmcloud_worker.py
+          python fetch_m3u.py
 
           if git diff --quiet assets/playlist/test.m3u; then
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -111,6 +58,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/playlist/test.m3u out.json
+          git add assets/playlist/test.m3u
           git commit -m "Auto-update test.m3u [skip ci]"
           git push
