@@ -1591,3 +1591,5 @@ https://brat-samsung-us.amagi.tv/playlist.m3u8
 https://foxkidstv.be:3369/stream/play.m3u8
 #EXTINF:-1 tvg-name="Baby Shark Tv" group-title="Kids" tvg-logo="https://i.ibb.co/zhjWpvQb/1000151674.png",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Bein Sports Extra" group-title="Sports" tvg-logo="https://i.ibb.co/C58Z6NxL/1000152407.png",Bein Sports Extra
+https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452d7f39c3a12db1aad325df4f6bb5e5
