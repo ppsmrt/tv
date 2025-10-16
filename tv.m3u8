@@ -543,7 +543,7 @@ http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
 https://ipcloud.live/jayamtv/jayamtvhd/index.m3u8
 #EXTINF:-1 tvg-name="TSN Music" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/1tmKf5QH/1000136447.png",TSN Music
 http://198.144.149.206:8080/NOTV/VAAGAI/index.m3u8?token=GTR
-#EXTINF:-1 tvg-name="Subin Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/tMmPV4GC/1000136448.webp",Subin Tv
+#EXTINF:-1 tvg-name="Subin Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Rp1MHSx4/1000153379.png",Subin Tv
 https://stream.galaxyott.live/live/subintv/index.m3u8
 #EXTINF:-1 tvg-name="Om TV" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/xKZ0ydCW/1000136450.jpg",Om TV
 http://omtv.7starcloud.com:1935/omtv/live/live.m3u8
@@ -553,7 +553,7 @@ https://stream.galaxyott.live/live/utv/index.m3u8
 https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Jith Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/WpDgyPfR/1000136465.jpg",Jith Tv
 https://sscloud7.com/live/jithtv/index.m3u8
-#EXTINF:-1 tvg-name="SS Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/6Rh8vrwS/1000144372.jpg",SS Tv
+#EXTINF:-1 tvg-name="SS Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/60M94hDb/1000153385.png",SS Tv
 https://server.sscloud7.in/live/sshd/index.m3u8
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/mCjB0Z0Y/1000144382.jpg",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
@@ -691,7 +691,7 @@ https://live.singamcloud.in/maatv/maatv/index.m3u8
 https://hd.singamcloud.in/teakvision/teakvision/index.m3u8
 #EXTINF:-1 tvg-name="Sasi HD" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Nnmrhy66/1000137338.png",Sasi HD
 http://sasitv.phoenixcreations.online/sasitv/sasitv/playlist.m3u8
-#EXTINF:-1 tvg-name="Subash Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/KjtgcG4m/1000137340.png",Subash Tv
+#EXTINF:-1 tvg-name="Subash Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/1JdXrx2S/1000153381.png",Subash Tv
 https://ipcloud.live/subashtv/subashhd/index.m3u8
 #EXTINF:-1 tvg-name="Madhan Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/6cbshJhQ/1000137342.png",Madhan Tv
 http://madhantv.phoenixcreations.online/madhantv/madhantv/playlist.m3u8
@@ -931,7 +931,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png",Raj Musix
 https://servertvhub.site/jio/app/ts_live_748.m3u8
-#EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/whWLVTRQ/1000140178.jpg",Zing Tv
+#EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/20ysBpX2/1000153399.png",Zing Tv
 http://89.187.189.98/ZING/index.m3u8
 #EXTINF:-1 tvg-name="Thandhi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/JF86F1h4/1000148524.png",Thandhi Tv
 http://m3u.8088y.fun/yt.php?c=thanthitv
@@ -1087,15 +1087,15 @@ https://live20.bozztv.com/akamaissh101/ssh101/sungo544/playlist.m3u8
 https://livetv.tarangplus.in/prarthana-origin/live/playlist.m3u8
 #EXTINF:-1 tvg-name="Prudent Media" group-title="Hindi" tvg-logo="https://i.ibb.co/tTFkcMZ3/1000142785.jpg",Prudent Media
 https://prudentmcdn.rixcast.com/prudentm.m3u8
-#EXTINF:-1 tvg-name="PTC Chak De" group-title="Hindi" tvg-logo="https://i.ibb.co/xK3fcY5m/1000142787.jpg",PTC Chak De
+#EXTINF:-1 tvg-name="PTC Chak De" group-title="Hindi" tvg-logo="https://i.ibb.co/2YWh3pWk/1000153389.png",PTC Chak De
 https://cdn-1.pishow.tv/live/449/master.m3u8
-#EXTINF:-1 tvg-name="PTC Punjabi" group-title="Hindi" tvg-logo="https://i.ibb.co/NgsD84H4/1000142797.jpg",PTC Punjabi
+#EXTINF:-1 tvg-name="PTC Punjabi" group-title="Hindi" tvg-logo="https://i.ibb.co/MQ08CBy/1000153393.png",PTC Punjabi
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/3e22a9c278db4e3eb779afd42e41b0a6/index.m3u8
-#EXTINF:-1 tvg-name="PTC Punjabi Gold" group-title="Hindi" tvg-logo="https://i.ibb.co/TxLvVhLs/1000142806.jpg",PTC Punjabi Gold
+#EXTINF:-1 tvg-name="PTC Punjabi Gold" group-title="Hindi" tvg-logo="https://i.ibb.co/QqGvvMM/1000153397.png",PTC Punjabi Gold
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/6e14bac6d0384e129521a4d005188bfb/index.m3u8
-#EXTINF:-1 tvg-name="PTC Simran" group-title="Hindi" tvg-logo="https://i.ibb.co/rGShcHL9/1000142810.jpg",PTC Simran
+#EXTINF:-1 tvg-name="PTC Simran" group-title="Hindi" tvg-logo="https://i.ibb.co/vxBPPbwN/1000153395.png",PTC Simran
 https://d3kdywbtdfbp9z.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/dff423e0-3c82-46d6-9ecb-3baa96b5694a/a682c050-1974-4e9b-8935-e5508d1ce94d/3.m3u8
-#EXTINF:-1 tvg-name="PTC Pardesi" group-title="Hindi" tvg-logo="https://i.ibb.co/sd6yLT09/1000142812.jpg",PTC Pardesi
+#EXTINF:-1 tvg-name="PTC Pardesi" group-title="Hindi" tvg-logo="https://i.ibb.co/ycg2NhhF/1000153391.png",PTC Pardesi
 http://stream.pardesitv.online/pardesi/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="Public Music Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/QFMTNdwv/1000142814.jpg",Public Music Tv
 https://cdn-3.pishow.tv/live/441/master.m3u8
@@ -1199,7 +1199,7 @@ https://rtmp.bmlive.net/bms/kctv/index.m3u8
 https://play.applelive.in/mcntv/mcntv.m3u8
 #EXTINF:-1 tvg-name="Jeyson Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/1YTsY7y4/1000145830.jpg",Jeyson Tv
 https://play.applelive.in/jeysontv/jeysontv.m3u8
-#EXTINF:-1 tvg-name="STN" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/rRc3GPNS/1000145832.jpg",STN
+#EXTINF:-1 tvg-name="STN" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/rRcmKqbt/1000153383.png",STN
 https://play.applelive.in/stntv/stntv.m3u8
 #EXTINF:-1 tvg-name="JCV Musix" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/KcsbLj4s/1000149374.png",JCV Musix
 https://play.applelive.in/jcvtv/jcvmusix.m3u8
