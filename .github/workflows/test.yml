@@ -1,8 +1,8 @@
-name: Auto-update test.m3u
+name: Auto-update live.m3u
 
 on:
   schedule:
-    - cron: "*/15 * * * *" # every 15 minutes
+    - cron: "*/5 * * * *" # Every 5 minutes
   workflow_dispatch:
 
 jobs:
@@ -10,54 +10,63 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🛒 Checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: 🐍 Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y curl gawk
 
-      - name: 📦 Install dependencies
-        run: |
-          pip install requests
-
-      - name: ⚙️ Fetch and save M3U
-        id: generate
+      - name: Fetch, merge, and clean playlists
         run: |
           mkdir -p assets/playlist
-          cat > fetch_m3u.py <<'EOF'
-          import requests, os
 
-          M3U_URL = "https://tv.tnm3us.workers.dev/"
-          OUTPUT_M3U = "assets/playlist/test.m3u"
+          # Fetch both remote playlists
+          curl -sL "https://tnm3u.live/assets/playlist/jiostar.m3u" -o jiostar.m3u
+          curl -sL "https://tnm3u.live/assets/playlist/tp.m3u" -o tp.m3u
 
-          def fetch_m3u():
-              print(f"📡 Fetching {M3U_URL}")
-              resp = requests.get(M3U_URL, timeout=20)
-              resp.raise_for_status()
-              os.makedirs(os.path.dirname(OUTPUT_M3U), exist_ok=True)
-              with open(OUTPUT_M3U, "w", encoding="utf-8") as f:
-                  f.write(resp.text)
-              print(f"✅ M3U file saved: {OUTPUT_M3U}")
+          # Normalize and inject group-title for JioStar
+          awk -v group="Jio" '
+            BEGIN {print "#EXTM3U"}
+            /^#EXTINF/ {
+              if ($0 !~ /group-title=/)
+                sub(/#EXTINF:[^,]*/, "& group-title=\"" group "\"");
+              else
+                sub(/group-title=\"[^\"]*\"/, "group-title=\"" group "\"");
+              print
+              getline url
+              print url
+            }' jiostar.m3u > tmp_jiostar.m3u
 
-          if __name__ == "__main__":
-              fetch_m3u()
-          EOF
+          # Normalize and inject group-title for Tata Play
+          awk -v group="Tata Play" '
+            /^#EXTINF/ {
+              if ($0 !~ /group-title=/)
+                sub(/#EXTINF:[^,]*/, "& group-title=\"" group "\"");
+              else
+                sub(/group-title=\"[^\"]*\"/, "group-title=\"" group "\"");
+              print
+              getline url
+              print url
+            }' tp.m3u > tmp_tp.m3u
 
-          python fetch_m3u.py
+          # Merge and deduplicate based on URL
+          echo "#EXTM3U" > merged.m3u
+          awk '!seen[$0]++' tmp_jiostar.m3u tmp_tp.m3u >> merged.m3u
 
-          if git diff --quiet assets/playlist/test.m3u; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
+          # Sort alphabetically by channel name (after the comma)
+          awk -v RS='' '
+            BEGIN { ORS="\n" }
+            {print $0 | "sort -t, -k2"}' merged.m3u > assets/playlist/live.m3u
 
-      - name: 💾 Commit and push if changed
-        if: steps.generate.outputs.changed == 'true'
+      - name: Commit and push if updated
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/playlist/test.m3u
-          git commit -m "Auto-update test.m3u [skip ci]"
-          git push
+          git config --global user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
+
+          if [[ `git status --porcelain` ]]; then
+            git add assets/playlist/live.m3u
+            git commit -m "Auto-update live.m3u with group titles and sorting"
+            git push
+          else
+            echo "No changes detected."
+          fi
