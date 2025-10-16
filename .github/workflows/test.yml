@@ -25,7 +25,7 @@ jobs:
         id: generate
         run: |
           mkdir -p assets/playlist
-          python - <<'PY'
+          python - <<'EOF'
 import requests, base64, json, urllib.parse, zlib, gzip, os
 
 API_URL = "https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud"
@@ -113,25 +113,25 @@ def fetch_and_save():
         prev_data = open(OUTPUT_FILE, 'r', encoding='utf-8').read() if os.path.exists(OUTPUT_FILE) else ''
         if m3u.strip() == prev_data.strip():
             print("✅ No changes in playlist")
-            print("changed=false", flush=True)
+            os.environ["CHANGED"] = "false"
             return
         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
             f.write(m3u)
         print("🎉 Playlist updated")
-        print("changed=true", flush=True)
+        os.environ["CHANGED"] = "true"
     except Exception as e:
         print("❌ Error:", e)
-        print("changed=false", flush=True)
+        os.environ["CHANGED"] = "false"
 
 if __name__ == "__main__":
     fetch_and_save()
-PY
+EOF
 
       - name: Commit and push if changed
-        if: steps.generate.outputs.changed == 'true'
+        if: env.CHANGED == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/playlist/test.m3u
-          git commit -m "Auto-update BMCloud playlist [skip ci]"
+          git commit -m "Auto-update BMCloud playlist [skip ci]" || echo "No changes to commit"
           git push
