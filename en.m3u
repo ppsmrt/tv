@@ -261,5 +261,11 @@ https://crichdplaylist.extratvteam.workers.dev/master.m3u8?cid=bbtsp2
 https://starsportshindiii.pages.dev/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TSN 1" tvg-logo="https://i.ibb.co/rRVqhHbF/1000153057.png" group-title="Sports",TSN 1
 http://212.102.60.231/TSN_1/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="TSN 2" tvg-logo="https://i.ibb.co/rRVqhHbF/1000153057.png" group-title="Sports",TSN 2
+#EXTINF:-1 tvg-id="" tvg-name="TSN 2" tvg-logo="https://i.ibb.co/cstW79T/1000153133.png" group-title="Sports",TSN 2
 http://212.102.60.231/TSN_2/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="TSN 3" tvg-logo="https://i.ibb.co/xt60kMsF/1000153132.png" group-title="Sports",TSN 3
+http://212.102.60.231/TSN_2/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="TSN 4" tvg-logo="https://i.ibb.co/KcntHM4c/1000153134.png" group-title="Sports",TSN 4
+http://212.102.60.231/TSN_4/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="TSN 5" tvg-logo="https://i.ibb.co/ps247Zx/1000153135.png" group-title="Sports",TSN 5
+http://212.102.60.231/TSN_5/index.m3u8
