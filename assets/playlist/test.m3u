@@ -1595,3 +1595,5 @@ https://tv.tnm3us.workers.dev?stream=stream796.m3u8
 https://tv.tnm3us.workers.dev?stream=stream797.m3u8
 #EXTINF:-1 tvg-name="DD Shahyadri" group-title="Entertainment" tvg-logo="https://i.ibb.co/9HhT3yQ9/1000152693.png",DD Shahyadri
 https://tv.tnm3us.workers.dev?stream=stream798.m3u8
+#EXTINF:-1 tvg-name="Gemini Music HD" group-title="Music" tvg-logo="https://i.ibb.co/sdq6RGXw/1000152980.png",Gemini Music HD
+https://tv.tnm3us.workers.dev?stream=stream799.m3u8
