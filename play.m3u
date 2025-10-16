@@ -1619,3 +1619,11 @@ https://streams2.sofast.tv/ptnr-yupptv/title-URBAN-ACTION-ENG_yupptv/v1/master/6
 https://streams2.sofast.tv/ptnr-yupptv/title-JUST_FOR_LAUGHS_GAGS_YUPPTV/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/2790d143-5874-4146-bf91-9063c52b2f15/manifest.m3u8
 #EXTINF:-1 tvg-name="Cartoon Classic" group-title="Kids" tvg-logo="https://i.ibb.co/vCtP627k/1000153044.png",Cartoon Classic
 https://streams2.sofast.tv/ptnr-yupptv/title-CARTOON-TV-CLASSICS-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8
+#EXTINF:-1 tvg-name="TNT Sports 1" group-title="Sports" tvg-logo="https://i.ibb.co/bMsS417h/1000153046.png",TNT Sports 1
+https://crichdplaylist.extratvteam.workers.dev/master.m3u8?cid=bbtsp1
+#EXTINF:-1 tvg-name="TNT Sports 2" group-title="Sports" tvg-logo="https://i.ibb.co/R4Q65kbK/1000153046.png",TNT Sports 2
+https://crichdplaylist.extratvteam.workers.dev/master.m3u8?cid=bbtsp2
+#EXTINF:-1 tvg-name="Star Sports 1 Hindi" group-title="Sports" tvg-logo="https://i.ibb.co/gMwC1XL4/1000153048.png",Star Sports 1 Hindi
+https://starsportshindiii.pages.dev/index.m3u8
+#EXTINF:-1 tvg-name="TSN 1" group-title="Sports" tvg-logo="https://i.ibb.co/rRVqhHbF/1000153057.png",TSN 1
+http://212.102.60.231/TSN_1/index.m3u8
