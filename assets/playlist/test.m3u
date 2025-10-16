@@ -1595,5 +1595,15 @@ https://tv.tnm3us.workers.dev?stream=stream796.m3u8
 https://tv.tnm3us.workers.dev?stream=stream797.m3u8
 #EXTINF:-1 tvg-name="DD Shahyadri" group-title="Entertainment" tvg-logo="https://i.ibb.co/9HhT3yQ9/1000152693.png",DD Shahyadri
 https://tv.tnm3us.workers.dev?stream=stream798.m3u8
-#EXTINF:-1 tvg-name="Gemini Music HD" group-title="Music" tvg-logo="https://i.ibb.co/sdq6RGXw/1000152980.png",Gemini Music HD
+#EXTINF:-1 tvg-name="Gemini Music HD" group-title="Music" tvg-logo="https://i.ibb.co/7dsnh8ZX/1000152992.png",Gemini Music HD
 https://tv.tnm3us.workers.dev?stream=stream799.m3u8
+#EXTINF:-1 tvg-name="Gemini Life HD" group-title="Movies" tvg-logo="https://i.ibb.co/LdwP8qjF/1000152993.png",Gemini Life HD
+https://tv.tnm3us.workers.dev?stream=stream800.m3u8
+#EXTINF:-1 tvg-name="Gemini Comedy" group-title="Entertainment" tvg-logo="https://i.ibb.co/WvLWYpbm/1000152998.png",Gemini Comedy
+https://tv.tnm3us.workers.dev?stream=stream801.m3u8
+#EXTINF:-1 tvg-name="Animal Planet Telugu" group-title="Documentary" tvg-logo="https://i.ibb.co/qFVx308C/1000152999.png",Animal Planet Telugu
+https://tv.tnm3us.workers.dev?stream=stream802.m3u8
+#EXTINF:-1 tvg-name="Sai Tv Telugu" group-title="Devotional" tvg-logo="https://i.ibb.co/HD0w7NRw/1000153001.png",Sai Tv Telugu
+https://tv.tnm3us.workers.dev?stream=stream803.m3u8
+#EXTINF:-1 tvg-name="Saregama Telugu" group-title="Music" tvg-logo="https://i.ibb.co/cSMwMSqp/1000153003.png",Saregama Telugu
+https://tv.tnm3us.workers.dev?stream=stream804.m3u8
