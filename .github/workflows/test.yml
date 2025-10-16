@@ -1,8 +1,8 @@
-name: Auto-update playlist
+name: Auto-update playlist test.m3u
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Every day at midnight UTC
+    - cron: "0 0 * * *" # Every day at 00:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -14,18 +14,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install requests
 
       - name: Run playlist fetch & decode
         run: |
           mkdir -p assets/playlist
-          cat > fetch_playlist.py << 'EOF'
+          cat > fetch_playlist.py << 'PY'
 import requests, base64, json, urllib.parse, zlib, gzip, os
 
 API_URL = "https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud"
@@ -33,106 +34,122 @@ OUTPUT_FILE = "assets/playlist/test.m3u"
 
 def try_decode_level6(data, max_level=6):
     for level in range(1, max_level + 1):
-        print(f"🔽 Level {level}")
-
+        # Try JSON decode
         try:
             decoded_json = json.loads(data)
-            print("✅ JSON detected")
             return decoded_json
         except:
             pass
 
+        # Try Base64
         try:
             b64_decoded = base64.b64decode(data, validate=True)
+            # if success and differs from original
             if b64_decoded != data.encode('utf-8', errors='ignore'):
                 data = b64_decoded.decode('utf-8', errors='ignore')
-                print("📦 Base64 decoded")
                 continue
         except:
             pass
 
+        # Try URL decode
         url_decoded = urllib.parse.unquote_plus(data)
         if url_decoded != data:
             data = url_decoded
-            print("🔗 URL decoded")
             continue
 
+        # Try Gzip
         try:
             gz_decoded = gzip.decompress(data.encode('latin1'))
             data = gz_decoded.decode('utf-8', errors='ignore')
-            print("🗜️ Gzip decoded")
             continue
         except:
             pass
 
+        # Try Zlib/Inflate
         try:
             z_decoded = zlib.decompress(data.encode('latin1'))
             data = z_decoded.decode('utf-8', errors='ignore')
-            print("🗜️ Zlib decoded")
             continue
         except:
             pass
 
-        print("ℹ️ No further decoding possible")
+        # nothing else worked
         break
 
+    # final try JSON
     try:
         return json.loads(data)
     except:
-        print("⚠️ JSON still invalid, returning raw data")
         return data
 
 def json_to_m3u(data):
-    """Convert decoded JSON into a proper .m3u playlist."""
-    playlist = ["#EXTM3U"]
+    playlist_lines = ["#EXTM3U"]
     if isinstance(data, dict):
-        items = data.get("channels") or data.get("items") or []
+        items = data.get("channels") or data.get("items") or data.get("list") or []
     elif isinstance(data, list):
         items = data
     else:
-        print("⚠️ Unexpected format, returning raw text")
-        return str(data)
+        # unknown form — return raw text as comment
+        playlist_lines.append("# Unable to parse JSON structure; saved raw output below")
+        playlist_lines.append("# RAW-START")
+        playlist_lines.append(str(data))
+        playlist_lines.append("# RAW-END")
+        return "\n".join(playlist_lines)
 
     for item in items:
-        name = item.get("name") or item.get("title") or "Unknown Channel"
-        url = item.get("url") or item.get("link") or item.get("stream") or ""
+        if not isinstance(item, dict):
+            continue
+        name = item.get("name") or item.get("title") or item.get("channel") or "Unknown"
+        url = item.get("url") or item.get("stream") or item.get("link") or ""
         logo = item.get("logo") or item.get("tvg-logo") or ""
-        group = item.get("group") or item.get("group-title") or "BMCloud"
+        group = item.get("group") or item.get("group-title") or ""
         if not url:
             continue
-        playlist.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{name}')
-        playlist.append(url)
-    return "\n".join(playlist)
+        # sanitize quotes in attributes
+        logo_attr = logo.replace('"', "'")
+        group_attr = group.replace('"', "'")
+        extinf_attrs = []
+        if logo_attr:
+            extinf_attrs.append(f'tvg-logo="{logo_attr}"')
+        if group_attr:
+            extinf_attrs.append(f'group-title="{group_attr}"')
+        attrs = " ".join(extinf_attrs)
+        if attrs:
+            playlist_lines.append(f'#EXTINF:-1 {attrs},{name}')
+        else:
+            playlist_lines.append(f'#EXTINF:-1,{name}')
+        playlist_lines.append(url)
+    return "\n".join(playlist_lines)
 
 def fetch_and_save():
     try:
-        print(f"📡 Fetching {API_URL}")
         resp = requests.get(API_URL, timeout=20)
         resp.raise_for_status()
         data = resp.text.strip()
-
         decoded = try_decode_level6(data)
-        m3u_output = json_to_m3u(decoded)
-        
+        m3u = json_to_m3u(decoded)
         os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            f.write(m3u_output)
-
-        print(f"✅ Playlist saved to {OUTPUT_FILE}")
+            f.write(m3u)
+        print("Saved playlist to", OUTPUT_FILE)
     except Exception as e:
-        print(f"❌ Fatal error: {e}")
+        print("Error:", e)
+        # write a minimal empty playlist so commit happens
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             f.write("#EXTM3U\n")
 
 if __name__ == "__main__":
     fetch_and_save()
-EOF
+PY
           python fetch_playlist.py
 
       - name: Commit and push changes
+        env:
+          GIT_AUTHOR_NAME: github-actions
+          GIT_AUTHOR_EMAIL: actions@github.com
         run: |
-          git config user.name "bmcloud-bot"
-          git config user.email "actions@github.com"
+          git config user.name "${GIT_AUTHOR_NAME}"
+          git config user.email "${GIT_AUTHOR_EMAIL}"
           git add assets/playlist/test.m3u
-          git commit -m "Auto-update playlist [$(date +'%Y-%m-%d %H:%M:%S')]" || echo "No changes"
+          git commit -m "Auto-update playlist [$(date -u +'%Y-%m-%d %H:%M:%S UTC')]" || echo "No changes to commit"
           git push
