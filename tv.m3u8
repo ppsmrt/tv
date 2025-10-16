@@ -1595,3 +1595,15 @@ https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452d7f39c3a12db1aad325df4f6bb5e5
 #EXTINF:-1 tvg-name="DD Shahyadri" group-title="Marathi" tvg-logo="https://i.ibb.co/9HhT3yQ9/1000152693.png",DD Shahyadri
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/66dcc3ebe182447ba42837e746cf0c7c/index.m3u8
+#EXTINF:-1 tvg-name="Gemini Music HD" group-title="Telugu" tvg-logo="https://i.ibb.co/7dsnh8ZX/1000152992.png",Gemini Music HD
+https://servertvhub.site/jio/app/ts_live_898.m3u8
+#EXTINF:-1 tvg-name="Gemini Life HD" group-title="Telugu" tvg-logo="https://i.ibb.co/LdwP8qjF/1000152993.png",Gemini Life HD
+https://servertvhub.site/jio/app/ts_live_684.m3u8
+#EXTINF:-1 tvg-name="Gemini Comedy" group-title="Telugu" tvg-logo="https://i.ibb.co/WvLWYpbm/1000152998.png",Gemini Comedy
+https://servertvhub.site/jio/app/ts_live_729.m3u8
+#EXTINF:-1 tvg-name="Animal Planet Telugu" group-title="Infotainment" tvg-logo="https://i.ibb.co/qFVx308C/1000152999.png",Animal Planet Telugu
+https://servertvhub.site/jio/app/ts_live_3183.m3u8
+#EXTINF:-1 tvg-name="Sai Tv Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/HD0w7NRw/1000153001.png",Sai Tv Telugu
+https://servertvhub.site/jio/app/ts_live_3087.m3u8
+#EXTINF:-1 tvg-name="Saregama Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/cSMwMSqp/1000153003.png",Saregama Telugu
+https://servertvhub.site/jio/app/ts_live_2745.m3u8
