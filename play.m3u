@@ -1605,3 +1605,17 @@ https://servertvhub.site/jio/app/ts_live_2745.m3u8
 https://jmp2.uk/stvp-IN270000230
 #EXTINF:-1 tvg-name="Fox Sports" group-title="Sports" tvg-logo="https://i.ibb.co/gMgcfSPJ/1000153030.png",Fox Sports
 http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8
+#EXTINF:-1 tvg-name="T Sports" group-title="Sports" tvg-logo="https://i.ibb.co/pvRdz6P5/1000153032.png",T Sports
+http://147.93.154.65/Bein3/index.m3u8
+#EXTINF:-1 tvg-name="A Sports" group-title="Sports" tvg-logo="https://i.ibb.co/Ng1qzZn2/1000153036.png",A Sports
+http://main.epgmaker.com/Ali130225/Cpyej2JL56Xy/804
+#EXTINF:-1 tvg-name="Danger Vision Tv" group-title="Movies" tvg-logo="https://i.ibb.co/mVnms15k/1000153038.png",Danger Vision Tv
+https://streams2.sofast.tv/ptnr-yupptv/title-DANGER-VISION-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/453971f3-855a-455e-9353-ebbb069583a4/master.m3u8
+#EXTINF:-1 tvg-name="Mercury+ Tv" group-title="Movies" tvg-logo="https://i.ibb.co/2YjNpjz5/1000153040.png",Mercury+ Tv
+https://streams2.sofast.tv/ptnr-yupptv/title-DANGER-VISION-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/453971f3-855a-455e-9353-ebbb069583a4/master.m3u8
+#EXTINF:-1 tvg-name="Urban Tv" group-title="Movies" tvg-logo="https://i.ibb.co/DPHmmVym/1000153042.png",Urban Tv
+https://streams2.sofast.tv/ptnr-yupptv/title-URBAN-ACTION-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/7ad8ce96-5a3f-413e-ae15-7c2cef7bc8f8/manifest.m3u8
+#EXTINF:-1 tvg-name="Just For Laughs" group-title="Entertainment" tvg-logo="https://i.ibb.co/HTqKXHbf/1000153025.png",Just For Laughs
+https://streams2.sofast.tv/ptnr-yupptv/title-JUST_FOR_LAUGHS_GAGS_YUPPTV/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/2790d143-5874-4146-bf91-9063c52b2f15/manifest.m3u8
+#EXTINF:-1 tvg-name="Cartoon Classic" group-title="Kids" tvg-logo="https://i.ibb.co/vCtP627k/1000153044.png",Cartoon Classic
+https://streams2.sofast.tv/ptnr-yupptv/title-CARTOON-TV-CLASSICS-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8
