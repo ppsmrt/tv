@@ -145,7 +145,7 @@ https://allchannels.in/vinodam/video.m3u8
 https://allchannels.in/tmc/video.m3u8
 #EXTINF:-1 tvg-name="Zoy HD" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/yBRwPHG2/20250908-172328.jpg",Zoy HD
 https://allchannels.in/zoyhd/video.m3u8
-#EXTINF:-1 tvg-name="JVR News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/C4r49yF/20250908-172711.jpg",JVR News
+#EXTINF:-1 tvg-name="JVR News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/prZNZr3p/1000153244.png",JVR News
 https://vvsolution.in/hls/jvrnews_623.m3u8
 #EXTINF:-1 tvg-name="V Power" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/9HYr3vRD/1000120777.jpg",V Power
 https://vvsolutions.in/vpowernews_343/vpowernews_343.m3u8
@@ -769,7 +769,7 @@ http://195.181.169.162/COLORS_KANNADA_HD/index.m3u8?token=test
 http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="SRK City" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/HDDPPD0g/1000151338.png",SRK City
 https://server.streamwell.in/hls/srkcity.m3u8
-#EXTINF:-1 tvg-name="GNT Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/TqDgNQwz/1000139111.jpg",GNT Tv
+#EXTINF:-1 tvg-name="GNT Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/7x1QLmJJ/1000153233.png",GNT Tv
 https://amigofx.com:1936/srkent/srkent/playlist.m3u8
 #EXTINF:-1 tvg-name="SLN News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/Lzj5x9cZ/1000139112.jpg",SLN News
 https://vvsolutions-server11.in/slnnews_2/video.m3u8
@@ -1037,7 +1037,7 @@ https://cdn-1.pishow.tv/live/10/master.m3u8
 https://cdn-4.pishow.tv/live/35/master.m3u8
 #EXTINF:-1 tvg-name="Epic Tv" group-title="Infotainment" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
-#EXTINF:-1 tvg-name="I News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/qM4B2nGs/1000141573.jpg",I News
+#EXTINF:-1 tvg-name="I News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/s93kCDDH/1000153242.png",I News
 https://cdn-1.pishow.tv/live/411/master.m3u8
 #EXTINF:-1 tvg-name="ITN News" group-title="International" tvg-logo="https://i.ibb.co/kVBVBFwX/1000151390.png",ITN News
 https://edge4-moblive.yuppcdn.net/transsd/smil%3aitn43.smil/playlist.m3u8
@@ -1269,7 +1269,7 @@ https://servertvhub.site/jio/app/ts_live_2768.m3u8
 http://m3u.8088y.fun/yt.php?c=Sunnewstamil
 #EXTINF:-1 tvg-name="Kumudham Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/21hMgrtX/1000148512.png",Kumudham Tv
 http://m3u.8088y.fun/yt.php?c=Kumudamnews
-#EXTINF:-1 tvg-name="HM Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/zHjBSNqB/1000146580.jpg",HM Tv
+#EXTINF:-1 tvg-name="HM Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/yFmqvdDZ/1000153240.png",HM Tv
 http://m3u.8088y.site/yt.php?c=hmtvtelugunewslive
 #EXTINF:-1 tvg-name="Live Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Jj3Nb0SB/1000146583.jpg",Live Tv
 http://lime-cr1.phoenixcreations.online/lime/lime/index.m3u8
