@@ -482,7 +482,7 @@ https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/in
 #EXTINF:-1 tvg-name="Kamudy Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Xrzys9yY/1000151543.png",Kamudy Tv
 https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Astro Cricket" group-title="Sports" tvg-logo="https://i.ibb.co/ycCNQkfn/1000148797.png",Astro Cricket
-https://tgn.bozztv.com/eshgtv-dvrfl05/gin-lemar/index.m3u8
+http://iptvtree.net:8080/F28312/cc1dc138/157565
 #EXTINF:-1 tvg-name="Willow" group-title="Sports" tvg-logo="https://i.ibb.co/Y7XBbMFG/1000149225.png",Willow
 https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
 #EXTINF:-1 tvg-name="Star Sports 3 SD" group-title="Sports" tvg-logo="https://i.ibb.co/QjmnwmRS/1000150098.png",Star Sports 3 SD
@@ -1601,3 +1601,7 @@ https://servertvhub.site/jio/app/ts_live_3183.m3u8
 https://servertvhub.site/jio/app/ts_live_3087.m3u8
 #EXTINF:-1 tvg-name="Saregama Telugu" group-title="Music" tvg-logo="https://i.ibb.co/cSMwMSqp/1000153003.png",Saregama Telugu
 https://servertvhub.site/jio/app/ts_live_2745.m3u8
+#EXTINF:-1 tvg-name="FIFA+" group-title="Sports" tvg-logo="https://i.ibb.co/YBrYQfn5/1000153028.png",FIFA+
+https://jmp2.uk/stvp-IN270000230
+#EXTINF:-1 tvg-name="Fox Sports" group-title="Sports" tvg-logo="https://i.ibb.co/gMgcfSPJ/1000153030.png",Fox Sports
+http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8
