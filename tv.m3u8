@@ -833,14 +833,8 @@ http://89.187.189.98/DISCOVERYSCIENCE/index.m3u8
 http://89.187.189.98/DISCOVERYTURBO/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Kids" group-title="Kids" tvg-logo="https://i.ibb.co/5CXKDtJ/1000148113.png",Discovery Kids
 http://89.187.189.98/DISCOVERYKIDS/index.m3u8
-#EXTINF:-1 tvg-name="Sony Ten Sports 1 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/LD65fpzG/1000149222.png",Sony Ten Sports 1 HD1
-http://51.15.7.9:3141/ten1/index.m3u8
-#EXTINF:-1 tvg-name="Sony Ten Sports 2 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/7t5JNxw1/1000149227.png",Sony Ten Sports 2 HD1
-http://51.15.7.9:3141/ten2/index.m3u8
-#EXTINF:-1 tvg-name="Sony Ten Sports 3 HD1" group-title="Sports" tvg-logo="https://i.ibb.co/XxdcQPv7/1000149229.png",Sony Ten Sports 3 HD1
-http://51.15.7.9:3141/ten3/index.m3u8
 #EXTINF:-1 tvg-name="Sony Ten Sports 5 HD" group-title="Sports" tvg-logo="https://i.ibb.co/CK1Lrwv1/1000149274.png",Sony Ten Sports 5 HD
-http://51.15.7.9:3141/ten5/index.m3u8
+http://195.181.169.162/TEN_5_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Raj News Telugu" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/QFNN1RJt/1000148510.png",Raj News Telugu
 https://livestream.rajtvnet.in/hlslive/Admin/px08241089/live/Raj_News_Telugu/master_1.m3u8
 #EXTINF:-1 tvg-name="Etv Telangana" group-title="Telugu" tvg-logo="https://i.ibb.co/MxZRmbgQ/1000150603.png",Etv Telangana
