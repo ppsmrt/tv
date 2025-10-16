@@ -37,7 +37,7 @@ uploadIconInput.addEventListener("change", async () => {
   const formData = new FormData();
   formData.append("image", file);
   try {
-    const response = await fetch(`https://api.imgbb.com/1/upload?key=eb855c328958555d9caf12bc48053c18`, {
+    const response = await fetch(`https://api.imgbb.com/1/upload?key=4a342055cd88165647c66ee5f4350b68`, {
       method: "POST",
       body: formData
     });
