@@ -764,7 +764,7 @@ http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="E Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/fzhYQ0zZ/1000150571.png",E Tv
 http://195.181.169.162/ETV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Gemini Movies" group-title="Telugu" tvg-logo="https://i.ibb.co/ksDWvpZC/1000150569.png",Gemini Movies
-http://195.181.169.162/GEMINI_MOVIES_HD/index.m3u8?token=test
+https://servertvhub.site/jio/app/ts_live_899.m3u8
 #EXTINF:-1 tvg-name="Zee Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/4RRQrWSB/1000152742.png",Zee Kannada
 http://195.181.169.162/ZEE_KANNADA_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Colors Kannada" group-title="Kannada" tvg-logo="https://i.ibb.co/MkHSDyDN/1000152715.png",Colors Kannada
@@ -910,7 +910,7 @@ https://live.dinesh29.com.np/stream/jiotvplus/suvarna/master.m3u8
 #EXTINF:-1 tvg-name="Star Suvarna Plus" group-title="Kannada" tvg-logo="https://i.ibb.co/vxfs7pjq/1000152732.png",Star Suvarna Plus
 http://89.187.189.98/STARSUVARNAPLUS/index.m3u8
 #EXTINF:-1 tvg-name="Gemini Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/qLDLxzqJ/1000150568.png",Gemini Tv
-http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
+https://servertvhub.site/jio/app/ts_live_897.m3u8
 #EXTINF:-1 tvg-name="Etv Andhra" group-title="Telugu" tvg-logo="https://i.ibb.co/SwMX4yLb/1000150593.png",Etv Andhra
 https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
 #EXTINF:-1 tvg-name="Star Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/0Rf6VF1J/1000150094.png",Star Sports 2 HD
