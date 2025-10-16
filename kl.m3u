@@ -249,3 +249,5 @@ https://crichdplaylist.extratvteam.workers.dev/master.m3u8?cid=bbtsp1
 https://crichdplaylist.extratvteam.workers.dev/master.m3u8?cid=bbtsp2
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 Hindi" tvg-logo="https://i.ibb.co/gMwC1XL4/1000153048.png" group-title="Sports",Star Sports 1 Hindi
 https://starsportshindiii.pages.dev/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="TSN 1" tvg-logo="https://i.ibb.co/rRVqhHbF/1000153057.png" group-title="Sports",TSN 1
+http://212.102.60.231/TSN_1/index.m3u8
