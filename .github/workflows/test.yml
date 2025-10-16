@@ -1,8 +1,8 @@
-name: Auto-update playlist test.m3u
+name: Auto-update playlist
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Every day at 00:00 UTC
+    - cron: "0 0 * * *" # every day at 00:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -23,110 +23,105 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run playlist fetch & decode
+      - name: Fetch, decode and write playlist
         run: |
           mkdir -p assets/playlist
-          cat > fetch_playlist.py << 'PY'
+          python - <<'PY'
 import requests, base64, json, urllib.parse, zlib, gzip, os
 
 API_URL = "https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud"
 OUTPUT_FILE = "assets/playlist/test.m3u"
 
 def try_decode_level6(data, max_level=6):
-    for level in range(1, max_level + 1):
-        # Try JSON decode
+    for _ in range(max_level):
+        # try JSON
         try:
-            decoded_json = json.loads(data)
-            return decoded_json
+            return json.loads(data)
         except:
             pass
 
-        # Try Base64
+        # try base64
         try:
-            b64_decoded = base64.b64decode(data, validate=True)
-            # if success and differs from original
-            if b64_decoded != data.encode('utf-8', errors='ignore'):
-                data = b64_decoded.decode('utf-8', errors='ignore')
+            b = base64.b64decode(data, validate=True)
+            if b != data.encode('utf-8', errors='ignore'):
+                data = b.decode('utf-8', errors='ignore')
                 continue
         except:
             pass
 
-        # Try URL decode
-        url_decoded = urllib.parse.unquote_plus(data)
-        if url_decoded != data:
-            data = url_decoded
+        # try url decode
+        ud = urllib.parse.unquote_plus(data)
+        if ud != data:
+            data = ud
             continue
 
-        # Try Gzip
+        # try gzip
         try:
-            gz_decoded = gzip.decompress(data.encode('latin1'))
-            data = gz_decoded.decode('utf-8', errors='ignore')
+            g = gzip.decompress(data.encode('latin1'))
+            data = g.decode('utf-8', errors='ignore')
             continue
         except:
             pass
 
-        # Try Zlib/Inflate
+        # try zlib
         try:
-            z_decoded = zlib.decompress(data.encode('latin1'))
-            data = z_decoded.decode('utf-8', errors='ignore')
+            z = zlib.decompress(data.encode('latin1'))
+            data = z.decode('utf-8', errors='ignore')
             continue
         except:
             pass
 
-        # nothing else worked
         break
 
-    # final try JSON
     try:
         return json.loads(data)
     except:
         return data
 
 def json_to_m3u(data):
-    playlist_lines = ["#EXTM3U"]
+    lines = ["#EXTM3U"]
     if isinstance(data, dict):
         items = data.get("channels") or data.get("items") or data.get("list") or []
     elif isinstance(data, list):
         items = data
     else:
-        # unknown form — return raw text as comment
-        playlist_lines.append("# Unable to parse JSON structure; saved raw output below")
-        playlist_lines.append("# RAW-START")
-        playlist_lines.append(str(data))
-        playlist_lines.append("# RAW-END")
-        return "\n".join(playlist_lines)
+        lines.append("# Unable to parse JSON structure; raw output follows as comment")
+        lines.append("# RAW-START")
+        lines.append(str(data))
+        lines.append("# RAW-END")
+        return "\n".join(lines)
 
-    for item in items:
-        if not isinstance(item, dict):
+    for it in items:
+        if not isinstance(it, dict):
             continue
-        name = item.get("name") or item.get("title") or item.get("channel") or "Unknown"
-        url = item.get("url") or item.get("stream") or item.get("link") or ""
-        logo = item.get("logo") or item.get("tvg-logo") or ""
-        group = item.get("group") or item.get("group-title") or ""
+        name = it.get("name") or it.get("title") or it.get("channel") or "Unknown"
+        url = it.get("url") or it.get("stream") or it.get("link") or ""
+        logo = it.get("logo") or it.get("tvg-logo") or ""
+        group = it.get("group") or it.get("group-title") or ""
         if not url:
             continue
-        # sanitize quotes in attributes
-        logo_attr = logo.replace('"', "'")
-        group_attr = group.replace('"', "'")
-        extinf_attrs = []
+        # sanitize
+        logo_attr = logo.replace('"', "'") if isinstance(logo, str) else ""
+        group_attr = group.replace('"', "'") if isinstance(group, str) else ""
+        attrs = []
         if logo_attr:
-            extinf_attrs.append(f'tvg-logo="{logo_attr}"')
+            attrs.append(f'tvg-logo="{logo_attr}"')
         if group_attr:
-            extinf_attrs.append(f'group-title="{group_attr}"')
-        attrs = " ".join(extinf_attrs)
-        if attrs:
-            playlist_lines.append(f'#EXTINF:-1 {attrs},{name}')
+            attrs.append(f'group-title="{group_attr}"')
+        attrstr = " ".join(attrs)
+        if attrstr:
+            lines.append(f'#EXTINF:-1 {attrstr},{name}')
         else:
-            playlist_lines.append(f'#EXTINF:-1,{name}')
-        playlist_lines.append(url)
-    return "\n".join(playlist_lines)
+            lines.append(f'#EXTINF:-1,{name}')
+        lines.append(url)
+    return "\n".join(lines)
 
 def fetch_and_save():
     try:
         resp = requests.get(API_URL, timeout=20)
         resp.raise_for_status()
-        data = resp.text.strip()
-        decoded = try_decode_level6(data)
+        text = resp.text.strip()
+        decoded = try_decode_level6(text)
         m3u = json_to_m3u(decoded)
         os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
@@ -134,14 +129,12 @@ def fetch_and_save():
         print("Saved playlist to", OUTPUT_FILE)
     except Exception as e:
         print("Error:", e)
-        # write a minimal empty playlist so commit happens
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             f.write("#EXTM3U\n")
 
 if __name__ == "__main__":
     fetch_and_save()
 PY
-          python fetch_playlist.py
 
       - name: Commit and push changes
         env:
