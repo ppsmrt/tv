@@ -1,8 +1,8 @@
-name: Auto-update main(TP/JIO).m3u
+name: Auto-update playlist
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # Every 5 minutes
+    - cron: "0 0 * * *" # Every day at midnight UTC
   workflow_dispatch:
 
 jobs:
@@ -13,66 +13,126 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y curl gawk
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Fetch, clean, and merge playlists
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run playlist fetch & decode
         run: |
           mkdir -p assets/playlist
+          cat > fetch_playlist.py << 'EOF'
+import requests, base64, json, urllib.parse, zlib, gzip, os
 
-          # Fetch both source playlists
-          curl -sL "https://tnm3u.live/assets/playlist/jiostar.m3u" -o jiostar.m3u
-          curl -sL "https://tnm3u.live/assets/playlist/tp.m3u" -o tp.m3u
+API_URL = "https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud"
+OUTPUT_FILE = "assets/playlist/test.m3u"
 
-          # ---- Process Jiostar ----
-          awk -v group="Jiostar" '
-            BEGIN { print "#EXTM3U" }
-            /^#EXTINF/ {
-              if ($0 !~ /group-title=/)
-                sub(/#EXTINF:[^,]*/, "& group-title=\"" group "\"");
-              else
-                sub(/group-title=\"[^\"]*\"/, "group-title=\"" group "\"");
-              print;
-              nextline=1;
-              next;
-            }
-            nextline==1 {
-              print;
-              nextline=0;
-              next;
-            }
-            /^#KODIPROP/ || /^#EXTVLCOPT/ || /^#EXTHTTP/ { print; }
-          ' jiostar.m3u > tmp_jiostar.m3u
+def try_decode_level6(data, max_level=6):
+    for level in range(1, max_level + 1):
+        print(f"🔽 Level {level}")
 
-          # ---- Process Tata Play ----
-          awk -v group="Tata Play" '
-            /^#EXTINF/ {
-              if ($0 !~ /group-title=/)
-                sub(/#EXTINF:[^,]*/, "& group-title=\"" group "\"");
-              else
-                sub(/group-title=\"[^\"]*\"/, "group-title=\"" group "\"");
-              print;
-              getline url;
-              print url;
-            }' tp.m3u > tmp_tp.m3u
+        try:
+            decoded_json = json.loads(data)
+            print("✅ JSON detected")
+            return decoded_json
+        except:
+            pass
 
-          # ---- Merge, deduplicate by URL, and sort ----
-          echo "#EXTM3U" > merged.m3u
+        try:
+            b64_decoded = base64.b64decode(data, validate=True)
+            if b64_decoded != data.encode('utf-8', errors='ignore'):
+                data = b64_decoded.decode('utf-8', errors='ignore')
+                print("📦 Base64 decoded")
+                continue
+        except:
+            pass
 
-          awk '
-            BEGIN {RS=""; ORS="\n\n"}
-            NR==FNR {block=$0; if (match($0, /(https?:[^\n]+)/, a)) {url=a[1]; if (!seen[url]++) print block}}
-          ' tmp_jiostar.m3u tmp_tp.m3u | sort -t, -k2 > assets/playlist/live.m3u
+        url_decoded = urllib.parse.unquote_plus(data)
+        if url_decoded != data:
+            data = url_decoded
+            print("🔗 URL decoded")
+            continue
 
-      - name: Commit and push if updated
+        try:
+            gz_decoded = gzip.decompress(data.encode('latin1'))
+            data = gz_decoded.decode('utf-8', errors='ignore')
+            print("🗜️ Gzip decoded")
+            continue
+        except:
+            pass
+
+        try:
+            z_decoded = zlib.decompress(data.encode('latin1'))
+            data = z_decoded.decode('utf-8', errors='ignore')
+            print("🗜️ Zlib decoded")
+            continue
+        except:
+            pass
+
+        print("ℹ️ No further decoding possible")
+        break
+
+    try:
+        return json.loads(data)
+    except:
+        print("⚠️ JSON still invalid, returning raw data")
+        return data
+
+def json_to_m3u(data):
+    """Convert decoded JSON into a proper .m3u playlist."""
+    playlist = ["#EXTM3U"]
+    if isinstance(data, dict):
+        items = data.get("channels") or data.get("items") or []
+    elif isinstance(data, list):
+        items = data
+    else:
+        print("⚠️ Unexpected format, returning raw text")
+        return str(data)
+
+    for item in items:
+        name = item.get("name") or item.get("title") or "Unknown Channel"
+        url = item.get("url") or item.get("link") or item.get("stream") or ""
+        logo = item.get("logo") or item.get("tvg-logo") or ""
+        group = item.get("group") or item.get("group-title") or "BMCloud"
+        if not url:
+            continue
+        playlist.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{name}')
+        playlist.append(url)
+    return "\n".join(playlist)
+
+def fetch_and_save():
+    try:
+        print(f"📡 Fetching {API_URL}")
+        resp = requests.get(API_URL, timeout=20)
+        resp.raise_for_status()
+        data = resp.text.strip()
+
+        decoded = try_decode_level6(data)
+        m3u_output = json_to_m3u(decoded)
+        
+        os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            f.write(m3u_output)
+
+        print(f"✅ Playlist saved to {OUTPUT_FILE}")
+    except Exception as e:
+        print(f"❌ Fatal error: {e}")
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            f.write("#EXTM3U\n")
+
+if __name__ == "__main__":
+    fetch_and_save()
+EOF
+          python fetch_playlist.py
+
+      - name: Commit and push changes
         run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "actions@github.com"
-
-          if [[ `git status --porcelain` ]]; then
-            git add assets/playlist/live.m3u
-            git commit -m "Auto-update live.m3u (Jiostar + Tata Play)"
-            git push
-          else
-            echo "No changes detected."
-          fi
+          git config user.name "bmcloud-bot"
+          git config user.email "actions@github.com"
+          git add assets/playlist/test.m3u
+          git commit -m "Auto-update playlist [$(date +'%Y-%m-%d %H:%M:%S')]" || echo "No changes"
+          git push
