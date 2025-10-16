@@ -27,11 +27,11 @@ jobs:
           const fetch = require('node-fetch');
 
           const playlists = [
-            { category: "Tamil", file: "tn.m3u" },
-            { category: "Telugu", file: "an.m3u" },
-            { category: "Kannada", file: "ka.m3u" },
-            { category: "English", file: "en.m3u" },
-            { category: "Malayalam", file: "kl.m3u" }
+            { category: "Tamil", file: "tn.m3u", locals: ["Local Channel | Tamil"] },
+            { category: "Telugu", file: "an.m3u", locals: ["Local Channel | Telugu"] },
+            { category: "Kannada", file: "ka.m3u", locals: ["Local Channel | Kannada"] },
+            { category: "English", file: "en.m3u", locals: [] },
+            { category: "Malayalam", file: "kl.m3u", locals: ["Local Channel | Malayalam"] }
           ];
 
           const extraCategories = ["Kids", "Sports", "Infotainment"];
@@ -53,14 +53,14 @@ jobs:
               let anyChanges = false;
               let allSummaries = [];
 
-              for (const { category, file } of playlists) {
+              for (const { category, file, locals } of playlists) {
                 const prevData = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '';
                 const BOM = '\uFEFF'; // UTF-8 BOM for IPTV compatibility
                 let m3u = `${BOM}#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"\n`;
 
                 const changesSummary = [];
                 const newNames = [];
-                const categoriesToInclude = [category, ...extraCategories];
+                const categoriesToInclude = [category, ...extraCategories, ...locals];
 
                 for (const id of Object.keys(data)) {
                   const ch = data[id];
