@@ -1601,3 +1601,5 @@ https://tv.tnm3us.workers.dev?stream=stream799.m3u8
 https://tv.tnm3us.workers.dev?stream=stream800.m3u8
 #EXTINF:-1 tvg-name="Saregama Telugu" group-title="Music" tvg-logo="https://i.ibb.co/cSMwMSqp/1000153003.png",Saregama Telugu
 https://tv.tnm3us.workers.dev?stream=stream801.m3u8
+#EXTINF:-1 tvg-name="FIFA+" group-title="Sports" tvg-logo="https://i.ibb.co/YBrYQfn5/1000153028.png",FIFA+
+https://tv.tnm3us.workers.dev?stream=stream802.m3u8
