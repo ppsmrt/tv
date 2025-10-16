@@ -113,7 +113,7 @@ https://amigofx.com:1936/rangmanch/rangmanch/playlist.m3u8
 https://amigofx.com:1936/SMarathi/SMarathi/playlist.m3u8
 #EXTINF:-1 tvg-name="BSTV Orissa" group-title="Entertainment" tvg-logo="https://i.ibb.co/SwTLZcTd/1000149847.png",BSTV Orissa
 https://amigofx.com:1936/bstvorissa/bstvorissa/playlist.m3u8
-#EXTINF:-1 tvg-name="Focus Tripura" group-title="Entertainment" tvg-logo="https://amigofx.com/livetvlogo/focustripuratv.png",Focus Tripura
+#EXTINF:-1 tvg-name="Focus Tripura" group-title="Entertainment" tvg-logo="https://i.ibb.co/x8Rn8VjF/1000153453.png",Focus Tripura
 https://amigofx.com:1936/focustripura/focustripura/playlist.m3u8
 #EXTINF:-1 tvg-name="BigStar Movie" group-title="Local Channels" tvg-logo="https://i.ibb.co/wrQRmCtv/1000149839.png",BigStar Movie
 https://amigofx.com:1936/bigstarmovie/bigstarmovie/playlist.m3u8
@@ -963,7 +963,7 @@ https://amg01117-amg01117c1-amgplt0165.playout.now3.amagi.tv/playlist.m3u8
 https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8
 #EXTINF:-1 tvg-name="1st India News" group-title="News" tvg-logo="https://i.ibb.co/GQTHBDp2/1000148261.png",1st India News
 https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3u8
-#EXTINF:-1 tvg-name="9xm" group-title="Music" tvg-logo="https://i.ibb.co/fG1gbLhj/1000148276.png",9xm
+#EXTINF:-1 tvg-name="9xm" group-title="Music" tvg-logo="https://i.ibb.co/tPbf0xmw/1000153439.png",9xm
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
 #EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Devotional" tvg-logo="https://i.ibb.co/TMqr2CXh/1000148316.png",Aasatha Bhajan
 https://aasthaott.akamaized.net/110923/smil:bhajan.smil/chunklist_b264000.m3u8
@@ -997,7 +997,7 @@ https://8yzmq2gbdvax-hls-live.wmncdn.net/bansalnewstv1/live1.stream/chunks.m3u8
 https://idvd.multitvsolution.com/idvo/bharatsamachar.m3u8
 #EXTINF:-1 tvg-name="Bhojpuri Cinema" group-title="Movies" tvg-logo="https://i.ibb.co/M5y1GMRw/1000149835.png",Bhojpuri Cinema
 https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8
-#EXTINF:-1 tvg-name="Channel Win" group-title="Entertainment" tvg-logo="https://i.ibb.co/NdzF15C5/1000141020.png",Channel Win
+#EXTINF:-1 tvg-name="Channel Win" group-title="Entertainment" tvg-logo="https://i.ibb.co/HfwXGcF1/1000153437.png",Channel Win
 https://cdn-4.pishow.tv/live/229/master.m3u8
 #EXTINF:-1 tvg-name="Y News Tv" group-title="News" tvg-logo="https://i.ibb.co/4gN8G100/1000153403.png",Y News Tv
 http://cdn19.live247stream.com/channely/tv/playlist.m3u8
@@ -1009,23 +1009,23 @@ https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_B
 https://n18syndication.akamaized.net/bpk-tv/CNBC_TV18_NW18_MOB/output01/CNBC_TV18_NW18_MOB-audio_98834_eng=98800-video=3724000.m3u8
 #EXTINF:-1 tvg-name="CNN News 18" group-title="News" tvg-logo="https://i.ibb.co/LdLCb8x6/1000149183.png",CNN News 18
 https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
-#EXTINF:-1 tvg-name="Comedy Tadka" group-title="Entertainment" tvg-logo="https://i.ibb.co/N6FLQdB4/1000141396.jpg",Comedy Tadka
+#EXTINF:-1 tvg-name="Comedy Tadka" group-title="Entertainment" tvg-logo="https://i.ibb.co/ZRvFRp1x/1000153441.png",Comedy Tadka
 https://streams2.sofast.tv/WiseM3U8_27/sofast/cleanhls/master.m3u8
 #EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
-#EXTINF:-1 tvg-name="Dangal Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/6c5hm6Fz/1000141409.jpg",Dangal Tv
+#EXTINF:-1 tvg-name="Dangal Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/3YL6681s/1000153443.png",Dangal Tv
 https://live-dangal.akamaized.net/liveabr/playlist.m3u8
 #EXTINF:-1 tvg-name="CVR English" group-title="News" tvg-logo="https://i.ibb.co/prs4wVkn/1000149189.png",CVR English
 https://cdn-2.pishow.tv/live/425/master.m3u8
-#EXTINF:-1 tvg-name="DD arunprabha" group-title="News" tvg-logo="https://i.ibb.co/Xf1MCnMr/1000141456.jpg",DD arunprabha
+#EXTINF:-1 tvg-name="DD arunprabha" group-title="News" tvg-logo="https://i.ibb.co/ycCcnKPT/1000153445.png",DD arunprabha
 https://d2lk5u59tns74c.cloudfront.net/out/v1/308556d9fd1246adb479ef012a39bbfe/index_3.m3u8
-#EXTINF:-1 tvg-name="DD Assam" group-title="Entertainment" tvg-logo="https://i.ibb.co/xt08j64P/1000141467.jpg",DD Assam
+#EXTINF:-1 tvg-name="DD Assam" group-title="Entertainment" tvg-logo="https://i.ibb.co/m5KGVnmn/1000153447.png",DD Assam
 https://d2lk5u59tns74c.cloudfront.net/out/v1/d380bf5c167b4319a46cdd8204bc26b2/index.m3u8
 #EXTINF:-1 tvg-name="DD Bangla" group-title="News" tvg-logo="https://i.ibb.co/sJK02cJG/1000141542.jpg",DD Bangla
 https://cdn-1.pishow.tv/live/10/master.m3u8
-#EXTINF:-1 tvg-name="DD Bharathi" group-title="News" tvg-logo="https://i.ibb.co/whym5np5/1000141544.jpg",DD Bharathi
+#EXTINF:-1 tvg-name="DD Bharathi" group-title="News" tvg-logo="https://i.ibb.co/V0vMd06m/1000153449.png",DD Bharathi
 https://cdn-1.pishow.tv/live/10/master.m3u8
-#EXTINF:-1 tvg-name="DD Bihar" group-title="News" tvg-logo="https://i.ibb.co/Q79j9xGd/1000141545.jpg",DD Bihar
+#EXTINF:-1 tvg-name="DD Bihar" group-title="News" tvg-logo="https://i.ibb.co/yctqGj2b/1000153451.png",DD Bihar
 https://cdn-4.pishow.tv/live/35/master.m3u8
 #EXTINF:-1 tvg-name="Epic Tv" group-title="Documentary" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
