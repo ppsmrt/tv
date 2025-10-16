@@ -1,7 +1,7 @@
 import requests, base64, json, urllib.parse, zlib, gzip, os, sys
 
 API_URL = "https://bmcloud.in/apis/apps/bmcloudapi.php?id=bmcloud"
-OUTPUT_FILE = "assets/playlist/test.m3u"
+OUTPUT_FILE = "assets/playlist/bmcloud.m3u"
 
 def try_decode_level6(data, max_level=6):
     for _ in range(max_level):
