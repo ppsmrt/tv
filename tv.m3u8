@@ -482,7 +482,7 @@ https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/in
 #EXTINF:-1 tvg-name="Kamudy Tv" group-title="Local Channel | Malayalam" tvg-logo="https://i.ibb.co/Xrzys9yY/1000151543.png",Kamudy Tv
 https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Astro Cricket" group-title="Sports" tvg-logo="https://i.ibb.co/ycCNQkfn/1000148797.png",Astro Cricket
-https://tgn.bozztv.com/eshgtv-dvrfl05/gin-lemar/index.m3u8
+http://iptvtree.net:8080/F28312/cc1dc138/157565
 #EXTINF:-1 tvg-name="Willow" group-title="Sports" tvg-logo="https://i.ibb.co/Y7XBbMFG/1000149225.png",Willow
 https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
 #EXTINF:-1 tvg-name="Star Sports 3 SD" group-title="Sports" tvg-logo="https://i.ibb.co/QjmnwmRS/1000150098.png",Star Sports 3 SD
@@ -1601,3 +1601,23 @@ https://servertvhub.site/jio/app/ts_live_3183.m3u8
 https://servertvhub.site/jio/app/ts_live_3087.m3u8
 #EXTINF:-1 tvg-name="Saregama Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/cSMwMSqp/1000153003.png",Saregama Telugu
 https://servertvhub.site/jio/app/ts_live_2745.m3u8
+#EXTINF:-1 tvg-name="FIFA+" group-title="Sports" tvg-logo="https://i.ibb.co/YBrYQfn5/1000153028.png",FIFA+
+https://jmp2.uk/stvp-IN270000230
+#EXTINF:-1 tvg-name="Fox Sports" group-title="Sports" tvg-logo="https://i.ibb.co/gMgcfSPJ/1000153030.png",Fox Sports
+http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8
+#EXTINF:-1 tvg-name="T Sports" group-title="Sports" tvg-logo="https://i.ibb.co/pvRdz6P5/1000153032.png",T Sports
+http://147.93.154.65/Bein3/index.m3u8
+#EXTINF:-1 tvg-name="A Sports" group-title="Sports" tvg-logo="https://i.ibb.co/Ng1qzZn2/1000153036.png",A Sports
+http://main.epgmaker.com/Ali130225/Cpyej2JL56Xy/804
+#EXTINF:-1 tvg-name="Danger Vision Tv" group-title="English" tvg-logo="https://i.ibb.co/mVnms15k/1000153038.png",Danger Vision Tv
+https://streams2.sofast.tv/ptnr-yupptv/title-DANGER-VISION-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/453971f3-855a-455e-9353-ebbb069583a4/master.m3u8
+#EXTINF:-1 tvg-name="Mercury+ Tv" group-title="English" tvg-logo="https://i.ibb.co/2YjNpjz5/1000153040.png",Mercury+ Tv
+https://streams2.sofast.tv/ptnr-yupptv/title-DANGER-VISION-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/453971f3-855a-455e-9353-ebbb069583a4/master.m3u8
+#EXTINF:-1 tvg-name="Urban Tv" group-title="English" tvg-logo="https://i.ibb.co/DPHmmVym/1000153042.png",Urban Tv
+https://streams2.sofast.tv/ptnr-yupptv/title-URBAN-ACTION-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/7ad8ce96-5a3f-413e-ae15-7c2cef7bc8f8/manifest.m3u8
+#EXTINF:-1 tvg-name="Just For Laughs" group-title="English" tvg-logo="https://i.ibb.co/HTqKXHbf/1000153025.png",Just For Laughs
+https://streams2.sofast.tv/ptnr-yupptv/title-JUST_FOR_LAUGHS_GAGS_YUPPTV/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/2790d143-5874-4146-bf91-9063c52b2f15/manifest.m3u8
+#EXTINF:-1 tvg-name="Cartoon Classic" group-title="Kids" tvg-logo="https://i.ibb.co/vCtP627k/1000153044.png",Cartoon Classic
+https://streams2.sofast.tv/ptnr-yupptv/title-CARTOON-TV-CLASSICS-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8
+#EXTINF:-1 tvg-name="TNT Sports 1" group-title="Sports" tvg-logo="https://i.ibb.co/bMsS417h/1000153046.png",TNT Sports 1
+https://crichdplaylist.extratvteam.workers.dev/master.m3u8?cid=bbtsp1
