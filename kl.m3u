@@ -235,3 +235,7 @@ https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452
 https://servertvhub.site/jio/app/ts_live_3183.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="FIFA+" tvg-logo="https://i.ibb.co/YBrYQfn5/1000153028.png" group-title="Sports",FIFA+
 https://jmp2.uk/stvp-IN270000230
+#EXTINF:-1 tvg-id="" tvg-name="Fox Sports" tvg-logo="https://i.ibb.co/gMgcfSPJ/1000153030.png" group-title="Sports",Fox Sports
+http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="T Sports" tvg-logo="https://i.ibb.co/pvRdz6P5/1000153032.png" group-title="Sports",T Sports
+http://147.93.154.65/Bein3/index.m3u8
