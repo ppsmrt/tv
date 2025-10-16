@@ -17,7 +17,7 @@ https://95eryw39dwn4-hls-live.wmncdn.net/Ayushu/271ddf829afeece44d8732757fba1a66
 https://cdn-1.pishow.tv/live/232/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="10 Tv" tvg-logo="https://i.ibb.co/hR659PQc/1000148257.png" group-title="News",10 Tv
 https://cdn-1.pishow.tv/live/391/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Aasatha Telugu" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png" group-title="Religious",Aasatha Telugu
+#EXTINF:-1 tvg-id="" tvg-name="Aasatha Telugu" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png" group-title="Devotional",Aasatha Telugu
 https://aasthaott.akamaized.net/110923/smil:aasthatelugu.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="DD Sapthagiri" tvg-logo="https://i.ibb.co/jZvrmhvn/1000150508.png" group-title="Entertainment",DD Sapthagiri
 https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8
@@ -255,3 +255,5 @@ http://212.102.60.231/TSN_2/index.m3u8
 http://212.102.60.231/TSN_4/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TSN 5" tvg-logo="https://i.ibb.co/ps247Zx/1000153135.png" group-title="Sports",TSN 5
 http://212.102.60.231/TSN_5/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="KTV Sport" tvg-logo="https://i.ibb.co/nMtWdh1W/1000153482.png" group-title="Sports",KTV Sport
+https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8

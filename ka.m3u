@@ -21,7 +21,7 @@ http://iptvtree.net:8080/F28312/cc1dc138/157565
 https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 3 SD" tvg-logo="https://i.ibb.co/QjmnwmRS/1000150098.png" group-title="Sports",Star Sports 3 SD
 http://89.187.189.98/STARSPORTS3/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Aasatha Kannada" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png" group-title="Religious",Aasatha Kannada
+#EXTINF:-1 tvg-id="" tvg-name="Aasatha Kannada" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png" group-title="Devotional",Aasatha Kannada
 https://aasthaott.akamaized.net/110923/smil:aasthakannada.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sony TEN Sports 2 HD" tvg-logo="https://i.ibb.co/7t5JNxw1/1000149227.png" group-title="Sports",Sony TEN Sports 2 HD
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
@@ -219,3 +219,5 @@ http://212.102.60.231/TSN_2/index.m3u8
 http://212.102.60.231/TSN_4/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TSN 5" tvg-logo="https://i.ibb.co/ps247Zx/1000153135.png" group-title="Sports",TSN 5
 http://212.102.60.231/TSN_5/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="KTV Sport" tvg-logo="https://i.ibb.co/nMtWdh1W/1000153482.png" group-title="Sports",KTV Sport
+https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
