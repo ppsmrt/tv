@@ -963,7 +963,7 @@ https://amg01117-amg01117c1-amgplt0165.playout.now3.amagi.tv/playlist.m3u8
 https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8
 #EXTINF:-1 tvg-name="1st India News" group-title="Hindi" tvg-logo="https://i.ibb.co/GQTHBDp2/1000148261.png",1st India News
 https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3u8
-#EXTINF:-1 tvg-name="9xm" group-title="Hindi" tvg-logo="https://i.ibb.co/fG1gbLhj/1000148276.png",9xm
+#EXTINF:-1 tvg-name="9xm" group-title="Hindi" tvg-logo="https://i.ibb.co/tPbf0xmw/1000153439.png",9xm
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
 #EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Hindi" tvg-logo="https://i.ibb.co/TMqr2CXh/1000148316.png",Aasatha Bhajan
 https://aasthaott.akamaized.net/110923/smil:bhajan.smil/chunklist_b264000.m3u8
@@ -997,7 +997,7 @@ https://8yzmq2gbdvax-hls-live.wmncdn.net/bansalnewstv1/live1.stream/chunks.m3u8
 https://idvd.multitvsolution.com/idvo/bharatsamachar.m3u8
 #EXTINF:-1 tvg-name="Bhojpuri Cinema" group-title="Hindi" tvg-logo="https://i.ibb.co/M5y1GMRw/1000149835.png",Bhojpuri Cinema
 https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8
-#EXTINF:-1 tvg-name="Channel Win" group-title="Hindi" tvg-logo="https://i.ibb.co/NdzF15C5/1000141020.png",Channel Win
+#EXTINF:-1 tvg-name="Channel Win" group-title="Hindi" tvg-logo="https://i.ibb.co/HfwXGcF1/1000153437.png",Channel Win
 https://cdn-4.pishow.tv/live/229/master.m3u8
 #EXTINF:-1 tvg-name="Y News Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/4gN8G100/1000153403.png",Y News Tv
 http://cdn19.live247stream.com/channely/tv/playlist.m3u8
@@ -1009,21 +1009,21 @@ https://n18syndication.akamaized.net/bpk-tv/CNBC_Bazaar_NW18_MOB/output01/CNBC_B
 https://n18syndication.akamaized.net/bpk-tv/CNBC_TV18_NW18_MOB/output01/CNBC_TV18_NW18_MOB-audio_98834_eng=98800-video=3724000.m3u8
 #EXTINF:-1 tvg-name="CNN News 18" group-title="English" tvg-logo="https://i.ibb.co/LdLCb8x6/1000149183.png",CNN News 18
 https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
-#EXTINF:-1 tvg-name="Comedy Tadka" group-title="Hindi" tvg-logo="https://i.ibb.co/N6FLQdB4/1000141396.jpg",Comedy Tadka
+#EXTINF:-1 tvg-name="Comedy Tadka" group-title="Hindi" tvg-logo="https://i.ibb.co/ZRvFRp1x/1000153441.png",Comedy Tadka
 https://streams2.sofast.tv/WiseM3U8_27/sofast/cleanhls/master.m3u8
 #EXTINF:-1 tvg-name="Cricket Gold" group-title="Sports" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
-#EXTINF:-1 tvg-name="Dangal Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/6c5hm6Fz/1000141409.jpg",Dangal Tv
+#EXTINF:-1 tvg-name="Dangal Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/3YL6681s/1000153443.png",Dangal Tv
 https://live-dangal.akamaized.net/liveabr/playlist.m3u8
 #EXTINF:-1 tvg-name="CVR English" group-title="English" tvg-logo="https://i.ibb.co/prs4wVkn/1000149189.png",CVR English
 https://cdn-2.pishow.tv/live/425/master.m3u8
-#EXTINF:-1 tvg-name="DD arunprabha" group-title="Hindi" tvg-logo="https://i.ibb.co/Xf1MCnMr/1000141456.jpg",DD arunprabha
+#EXTINF:-1 tvg-name="DD arunprabha" group-title="Hindi" tvg-logo="https://i.ibb.co/ycCcnKPT/1000153445.png",DD arunprabha
 https://d2lk5u59tns74c.cloudfront.net/out/v1/308556d9fd1246adb479ef012a39bbfe/index_3.m3u8
-#EXTINF:-1 tvg-name="DD Assam" group-title="Hindi" tvg-logo="https://i.ibb.co/xt08j64P/1000141467.jpg",DD Assam
+#EXTINF:-1 tvg-name="DD Assam" group-title="Hindi" tvg-logo="https://i.ibb.co/m5KGVnmn/1000153447.png",DD Assam
 https://d2lk5u59tns74c.cloudfront.net/out/v1/d380bf5c167b4319a46cdd8204bc26b2/index.m3u8
-#EXTINF:-1 tvg-name="DD Bangla" group-title="Hindi" tvg-logo="https://i.ibb.co/sJK02cJG/1000141542.jpg",DD Bangla
+#EXTINF:-1 tvg-name="DD Bangla" group-title="Bengali" tvg-logo="https://i.ibb.co/sJK02cJG/1000141542.jpg",DD Bangla
 https://cdn-1.pishow.tv/live/10/master.m3u8
-#EXTINF:-1 tvg-name="DD Bharathi" group-title="Hindi" tvg-logo="https://i.ibb.co/whym5np5/1000141544.jpg",DD Bharathi
+#EXTINF:-1 tvg-name="DD Bharathi" group-title="Hindi" tvg-logo="https://i.ibb.co/V0vMd06m/1000153449.png",DD Bharathi
 https://cdn-1.pishow.tv/live/10/master.m3u8
 #EXTINF:-1 tvg-name="DD Bihar" group-title="Hindi" tvg-logo="https://i.ibb.co/Q79j9xGd/1000141545.jpg",DD Bihar
 https://cdn-4.pishow.tv/live/35/master.m3u8
@@ -1097,7 +1097,7 @@ https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/6e14bac6d0384e129521a4d005188bfb/in
 https://d3kdywbtdfbp9z.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/dff423e0-3c82-46d6-9ecb-3baa96b5694a/a682c050-1974-4e9b-8935-e5508d1ce94d/3.m3u8
 #EXTINF:-1 tvg-name="PTC Pardesi" group-title="Hindi" tvg-logo="https://i.ibb.co/ycg2NhhF/1000153391.png",PTC Pardesi
 http://stream.pardesitv.online/pardesi/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-name="Public Music Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/QFMTNdwv/1000142814.jpg",Public Music Tv
+#EXTINF:-1 tvg-name="Public Music Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/Lw0JHkB/1000153433.png",Public Music Tv
 https://cdn-3.pishow.tv/live/441/master.m3u8
 #EXTINF:-1 tvg-name="Boys Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/s9y3MrQ3/1000149843.png",Boys Tv
 https://rtmp.applelive.in/boystv/boystv/index.m3u8
@@ -1141,7 +1141,7 @@ https://176.116.105.82/Extreme_Sports/index.m3u8
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-name="BBC Earth Tamil" group-title="Infotainment" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png",BBC Earth Tamil
 http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
-#EXTINF:-1 tvg-name="Colors Gujarati" group-title="Hindi" tvg-logo="https://i.ibb.co/9H82CSG1/1000144998.jpg",Colors Gujarati
+#EXTINF:-1 tvg-name="Colors Gujarati" group-title="Gujarati" tvg-logo="https://i.ibb.co/9H82CSG1/1000144998.jpg",Colors Gujarati
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsGujarati/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Cineplex Superhits" group-title="Hindi" tvg-logo="https://i.ibb.co/kVB7gKh2/1000152713.png",Colors Cineplex Superhits
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexSuperhit/JCHLS/index.m3u8
