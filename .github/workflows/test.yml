@@ -1,4 +1,4 @@
-name: Auto-update live.m3u
+name: Auto-update main.m3u
 
 on:
   schedule:
