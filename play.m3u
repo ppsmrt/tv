@@ -99,15 +99,15 @@ https://amigofx.com:1936/KeerthanaTv/KeerthanaTv/playlist.m3u8
 https://amigofx.com:1936/lordbuddhatv/lordbuddhatv/playlist.m3u8
 #EXTINF:-1 tvg-name="Nimbark Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Zz8Mj7M7/1000151346.png",Nimbark Tv
 https://legitpro.co.in/nimbarktv/nimbarktvbox/index.m3u8
-#EXTINF:-1 tvg-name="Rophe Tv Goa" group-title="Local Channels" tvg-logo="https://amigofx.com/livetvlogo/rophetvgoa.png",Rophe Tv Goa
+#EXTINF:-1 tvg-name="Rophe Tv Goa" group-title="Local Channels" tvg-logo="https://i.ibb.co/xqBDyg63/1000153427.png",Rophe Tv Goa
 https://amigofx.com:1936/rophetvgoa/rophetvgoa/playlist.m3u8
-#EXTINF:-1 tvg-name="Rophe Tv" group-title="Entertainment" tvg-logo="https://amigofx.com/livetvlogo/rophetvms.png",Rophe Tv
+#EXTINF:-1 tvg-name="Rophe Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/vxFk3MHq/1000153429.png",Rophe Tv
 https://amigofx.com:1936/ROPHETV/ROPHETV/playlist.m3u8
-#EXTINF:-1 tvg-name="S Bhakthi" group-title="Local Channels" tvg-logo="https://amigofx.com/livetvlogo/sbhakti.png",S Bhakthi
+#EXTINF:-1 tvg-name="S Bhakthi" group-title="Local Channels" tvg-logo="https://i.ibb.co/LDYNWs8B/1000153422.png",S Bhakthi
 https://amigofx.com:1936/SBhakti/SBhakti/playlist.m3u8
 #EXTINF:-1 tvg-name="Hitz Entertainment" group-title="Entertainment" tvg-logo="https://amigofx.com/livetvlogo/hitzentertainment.png",Hitz Entertainment
 https://amigofx.com:1936/hitzentertainment/hitzentertainment/playlist.m3u8
-#EXTINF:-1 tvg-name="Rangmanch" group-title="Entertainment" tvg-logo="https://amigofx.com/livetvlogo/rangmanch.png",Rangmanch
+#EXTINF:-1 tvg-name="Rangmanch" group-title="Entertainment" tvg-logo="https://i.ibb.co/23gXZk2L/1000153431.png",Rangmanch
 https://amigofx.com:1936/rangmanch/rangmanch/playlist.m3u8
 #EXTINF:-1 tvg-name="S Marathi" group-title="Local Channels" tvg-logo="https://i.ibb.co/0yy5KhWj/1000153178.png",S Marathi
 https://amigofx.com:1936/SMarathi/SMarathi/playlist.m3u8
@@ -1049,7 +1049,7 @@ https://cdn-2.pishow.tv/live/228/master.m3u8
 https://cdn-1.pishow.tv/live/1013/master.m3u8
 #EXTINF:-1 tvg-name="Mastiii" group-title="Music" tvg-logo="https://i.ibb.co/My28r5nX/1000141864.jpg",Mastiii
 https://sablive-ddpb.akamaized.net/mastii/playlist.m3u8
-#EXTINF:-1 tvg-name="RPlus Gold" group-title="Entertainment" tvg-logo="https://i.ibb.co/1CwCW1G/1000141869.jpg",RPlus Gold
+#EXTINF:-1 tvg-name="RPlus Gold" group-title="Entertainment" tvg-logo="https://i.ibb.co/qFVh08Cd/1000153425.png",RPlus Gold
 https://cdn-4.pishow.tv/live/1231/master.m3u8
 #EXTINF:-1 tvg-name="MK Six" group-title="Entertainment" tvg-logo="https://i.ibb.co/Ngcmtr8G/1000148817.png",MK Six
 https://cdn-3.pishow.tv/live/1253/master.m3u8
@@ -1097,7 +1097,7 @@ https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/6e14bac6d0384e129521a4d005188bfb/in
 https://d3kdywbtdfbp9z.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/dff423e0-3c82-46d6-9ecb-3baa96b5694a/a682c050-1974-4e9b-8935-e5508d1ce94d/3.m3u8
 #EXTINF:-1 tvg-name="PTC Pardesi" group-title="Entertainment" tvg-logo="https://i.ibb.co/ycg2NhhF/1000153391.png",PTC Pardesi
 http://stream.pardesitv.online/pardesi/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-name="Public Music Tv" group-title="Music" tvg-logo="https://i.ibb.co/QFMTNdwv/1000142814.jpg",Public Music Tv
+#EXTINF:-1 tvg-name="Public Music Tv" group-title="Music" tvg-logo="https://i.ibb.co/Lw0JHkB/1000153433.png",Public Music Tv
 https://cdn-3.pishow.tv/live/441/master.m3u8
 #EXTINF:-1 tvg-name="Boys Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/s9y3MrQ3/1000149843.png",Boys Tv
 https://rtmp.applelive.in/boystv/boystv/index.m3u8
@@ -1181,13 +1181,13 @@ https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
 #EXTINF:-1 tvg-name="MTV HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/x88dDfzK/1000149204.png",MTV HD
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_MTVHD/JCHLS/index.m3u8
-#EXTINF:-1 tvg-name="Saam Tv" group-title="News" tvg-logo="https://i.ibb.co/hRMBZq0V/1000145273.jpg",Saam Tv
+#EXTINF:-1 tvg-name="Saam Tv" group-title="News" tvg-logo="https://i.ibb.co/bMbMHM1q/1000153420.png",Saam Tv
 https://cdn-3.pishow.tv/live/437/master.m3u8
-#EXTINF:-1 tvg-name="Sharda Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/QjbfjVjk/1000145274.jpg",Sharda Tv
+#EXTINF:-1 tvg-name="Sharda Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/xKZLVwwM/1000153409.png",Sharda Tv
 http://cdn12.henico.net:8080/live/sadatv/index.m3u8
-#EXTINF:-1 tvg-name="Sadhna Plus Tv" group-title="News" tvg-logo="https://i.ibb.co/FbpnKMRF/1000145289.jpg",Sadhna Plus Tv
+#EXTINF:-1 tvg-name="Sadhna Plus Tv" group-title="News" tvg-logo="https://i.ibb.co/QFDTzFC5/1000153413.png",Sadhna Plus Tv
 https://6n3yow8pl9ok-hls-live.5centscdn.com/sadhananewstv/live.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="Sansad Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/1kHJwG3/1000145290.jpg",Sansad Tv
+#EXTINF:-1 tvg-name="Sansad Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/fdz3Jhzn/1000153411.png",Sansad Tv
 https://playhls.media.nic.in/live/lstv/index.m3u8
 #EXTINF:-1 tvg-name="Madha Tv Tamil" group-title="Devotional" tvg-logo="https://i.ibb.co/5XrR4hHB/1000149211.png",Madha Tv Tamil
 http://45.148.145.57/TAMIL_MadhaTV/index.m3u8
