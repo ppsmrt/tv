@@ -1,8 +1,8 @@
-name: Auto-update playlist
+name: Auto-update BMCloud playlist
 
 on:
   schedule:
-    - cron: "0 0 * * *" # every day at 00:00 UTC
+    - cron: "0 0 * * *"  # daily at 00:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -19,11 +19,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
+        run: pip install requests
 
-      - name: Fetch, decode and write playlist
+      - name: Fetch, decode and generate playlist
+        id: generate
         run: |
           mkdir -p assets/playlist
           python - <<'PY'
@@ -34,13 +33,10 @@ OUTPUT_FILE = "assets/playlist/test.m3u"
 
 def try_decode_level6(data, max_level=6):
     for _ in range(max_level):
-        # try JSON
         try:
             return json.loads(data)
         except:
             pass
-
-        # try base64
         try:
             b = base64.b64decode(data, validate=True)
             if b != data.encode('utf-8', errors='ignore'):
@@ -48,31 +44,23 @@ def try_decode_level6(data, max_level=6):
                 continue
         except:
             pass
-
-        # try url decode
         ud = urllib.parse.unquote_plus(data)
         if ud != data:
             data = ud
             continue
-
-        # try gzip
         try:
             g = gzip.decompress(data.encode('latin1'))
             data = g.decode('utf-8', errors='ignore')
             continue
         except:
             pass
-
-        # try zlib
         try:
             z = zlib.decompress(data.encode('latin1'))
             data = z.decode('utf-8', errors='ignore')
             continue
         except:
             pass
-
         break
-
     try:
         return json.loads(data)
     except:
@@ -85,24 +73,22 @@ def json_to_m3u(data):
     elif isinstance(data, list):
         items = data
     else:
-        lines.append("# Unable to parse JSON structure; raw output follows as comment")
+        lines.append("# Unable to parse JSON; saving raw output")
         lines.append("# RAW-START")
         lines.append(str(data))
         lines.append("# RAW-END")
         return "\n".join(lines)
-
     for it in items:
         if not isinstance(it, dict):
             continue
-        name = it.get("name") or it.get("title") or it.get("channel") or "Unknown"
+        name = it.get("name") or it.get("title") or "Unknown"
         url = it.get("url") or it.get("stream") or it.get("link") or ""
         logo = it.get("logo") or it.get("tvg-logo") or ""
-        group = it.get("group") or it.get("group-title") or ""
+        group = it.get("group") or it.get("group-title") or "BMCloud"
         if not url:
             continue
-        # sanitize
-        logo_attr = logo.replace('"', "'") if isinstance(logo, str) else ""
-        group_attr = group.replace('"', "'") if isinstance(group, str) else ""
+        logo_attr = logo.replace('"', "'")
+        group_attr = group.replace('"', "'")
         attrs = []
         if logo_attr:
             attrs.append(f'tvg-logo="{logo_attr}"')
@@ -124,25 +110,28 @@ def fetch_and_save():
         decoded = try_decode_level6(text)
         m3u = json_to_m3u(decoded)
         os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        prev_data = open(OUTPUT_FILE, 'r', encoding='utf-8').read() if os.path.exists(OUTPUT_FILE) else ''
+        if m3u.strip() == prev_data.strip():
+            print("✅ No changes in playlist")
+            print("changed=false", flush=True)
+            return
+        with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
             f.write(m3u)
-        print("Saved playlist to", OUTPUT_FILE)
+        print("🎉 Playlist updated")
+        print("changed=true", flush=True)
     except Exception as e:
-        print("Error:", e)
-        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            f.write("#EXTM3U\n")
+        print("❌ Error:", e)
+        print("changed=false", flush=True)
 
 if __name__ == "__main__":
     fetch_and_save()
 PY
 
-      - name: Commit and push changes
-        env:
-          GIT_AUTHOR_NAME: github-actions
-          GIT_AUTHOR_EMAIL: actions@github.com
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
         run: |
-          git config user.name "${GIT_AUTHOR_NAME}"
-          git config user.email "${GIT_AUTHOR_EMAIL}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/playlist/test.m3u
-          git commit -m "Auto-update playlist [$(date -u +'%Y-%m-%d %H:%M:%S UTC')]" || echo "No changes to commit"
+          git commit -m "Auto-update BMCloud playlist [skip ci]"
           git push
