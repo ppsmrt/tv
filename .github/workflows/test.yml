@@ -1,4 +1,4 @@
-name: Auto-update main.m3u
+name: Auto-update main(TP/JIO).m3u
 
 on:
   schedule:
@@ -13,50 +13,56 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install tools
+      - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y curl gawk
 
-      - name: Fetch, merge, and clean playlists
+      - name: Fetch, clean, and merge playlists
         run: |
           mkdir -p assets/playlist
 
-          # Fetch both remote playlists
+          # Fetch both source playlists
           curl -sL "https://tnm3u.live/assets/playlist/jiostar.m3u" -o jiostar.m3u
           curl -sL "https://tnm3u.live/assets/playlist/tp.m3u" -o tp.m3u
 
-          # Normalize and inject group-title for JioStar
-          awk -v group="Jio" '
-            BEGIN {print "#EXTM3U"}
+          # ---- Process Jiostar ----
+          awk -v group="Jiostar" '
+            BEGIN { print "#EXTM3U" }
             /^#EXTINF/ {
               if ($0 !~ /group-title=/)
                 sub(/#EXTINF:[^,]*/, "& group-title=\"" group "\"");
               else
                 sub(/group-title=\"[^\"]*\"/, "group-title=\"" group "\"");
-              print
-              getline url
-              print url
-            }' jiostar.m3u > tmp_jiostar.m3u
+              print;
+              nextline=1;
+              next;
+            }
+            nextline==1 {
+              print;
+              nextline=0;
+              next;
+            }
+            /^#KODIPROP/ || /^#EXTVLCOPT/ || /^#EXTHTTP/ { print; }
+          ' jiostar.m3u > tmp_jiostar.m3u
 
-          # Normalize and inject group-title for Tata Play
+          # ---- Process Tata Play ----
           awk -v group="Tata Play" '
             /^#EXTINF/ {
               if ($0 !~ /group-title=/)
                 sub(/#EXTINF:[^,]*/, "& group-title=\"" group "\"");
               else
                 sub(/group-title=\"[^\"]*\"/, "group-title=\"" group "\"");
-              print
-              getline url
-              print url
+              print;
+              getline url;
+              print url;
             }' tp.m3u > tmp_tp.m3u
 
-          # Merge and deduplicate based on URL
+          # ---- Merge, deduplicate by URL, and sort ----
           echo "#EXTM3U" > merged.m3u
-          awk '!seen[$0]++' tmp_jiostar.m3u tmp_tp.m3u >> merged.m3u
 
-          # Sort alphabetically by channel name (after the comma)
-          awk -v RS='' '
-            BEGIN { ORS="\n" }
-            {print $0 | "sort -t, -k2"}' merged.m3u > assets/playlist/live.m3u
+          awk '
+            BEGIN {RS=""; ORS="\n\n"}
+            NR==FNR {block=$0; if (match($0, /(https?:[^\n]+)/, a)) {url=a[1]; if (!seen[url]++) print block}}
+          ' tmp_jiostar.m3u tmp_tp.m3u | sort -t, -k2 > assets/playlist/live.m3u
 
       - name: Commit and push if updated
         run: |
@@ -65,7 +71,7 @@ jobs:
 
           if [[ `git status --porcelain` ]]; then
             git add assets/playlist/live.m3u
-            git commit -m "Auto-update live.m3u with group titles and sorting"
+            git commit -m "Auto-update live.m3u (Jiostar + Tata Play)"
             git push
           else
             echo "No changes detected."
