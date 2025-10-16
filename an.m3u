@@ -44,7 +44,7 @@ http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="E Tv" tvg-logo="https://i.ibb.co/fzhYQ0zZ/1000150571.png" group-title="Entertainment",E Tv
 http://195.181.169.162/ETV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Gemini Movies" tvg-logo="https://i.ibb.co/ksDWvpZC/1000150569.png" group-title="Movies",Gemini Movies
-http://195.181.169.162/GEMINI_MOVIES_HD/index.m3u8?token=test
+https://servertvhub.site/jio/app/ts_live_899.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="E Tv Cinema" tvg-logo="https://i.ibb.co/9k2J2FVs/1000150575.png" group-title="Entertainment",E Tv Cinema
 https://d1q7j6ha51ro6f.cloudfront.net/v1/manifest/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_CINEMA_H264-3_cloud_in/2cc76b3d-b062-421d-9c4e-ae75b3f9b0e3/1.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="E Tv Plus" tvg-logo="https://i.ibb.co/KczMZfgL/1000150591.png" group-title="Entertainment",E Tv Plus
@@ -80,7 +80,7 @@ https://dssp63pjfajz9.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8
 #EXTINF:-1 tvg-id="" tvg-name="Nikky Tv" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png" group-title="Kids",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Gemini Tv" tvg-logo="https://i.ibb.co/qLDLxzqJ/1000150568.png" group-title="Entertainment",Gemini Tv
-http://195.181.169.162/GEMINI_TV_HD/index.m3u8?token=test
+https://servertvhub.site/jio/app/ts_live_897.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Etv Andhra" tvg-logo="https://i.ibb.co/SwMX4yLb/1000150593.png" group-title="Entertainment",Etv Andhra
 https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 2 HD" tvg-logo="https://i.ibb.co/0Rf6VF1J/1000150094.png" group-title="Sports",Star Sports 2 HD
@@ -204,7 +204,7 @@ https://live20.bozztv.com/giatvplayout7/giatv-210787/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 Tamil HD" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png" group-title="Sports",Star Sports 1 Tamil HD
-https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8#ec4035516cfde1557bf67fc27bbb8c1eef468719f611174eb5530267293b2e8e
+https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Gujarat Wild" tvg-logo="https://i.ibb.co/HTn8XqRy/1000150949.png" group-title="Documentary",Gujarat Wild
 https://newsliveindia.com/WILDLIFEhls/WILDLIFE.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bahrain Sports 1" tvg-logo="https://i.ibb.co/4gNzD83d/1000151634.png" group-title="Sports",Bahrain Sports 1
@@ -223,3 +223,15 @@ https://pac12-samsungus.amagi.tv/playlist.m3u8
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bein Sports Extra" tvg-logo="https://i.ibb.co/C58Z6NxL/1000152407.png" group-title="Sports",Bein Sports Extra
 https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452d7f39c3a12db1aad325df4f6bb5e5
+#EXTINF:-1 tvg-id="" tvg-name="Gemini Music HD" tvg-logo="https://i.ibb.co/7dsnh8ZX/1000152992.png" group-title="Music",Gemini Music HD
+https://servertvhub.site/jio/app/ts_live_898.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Gemini Life HD" tvg-logo="https://i.ibb.co/LdwP8qjF/1000152993.png" group-title="Movies",Gemini Life HD
+https://servertvhub.site/jio/app/ts_live_684.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Gemini Comedy" tvg-logo="https://i.ibb.co/WvLWYpbm/1000152998.png" group-title="Entertainment",Gemini Comedy
+https://servertvhub.site/jio/app/ts_live_729.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Animal Planet Telugu" tvg-logo="https://i.ibb.co/qFVx308C/1000152999.png" group-title="Documentary",Animal Planet Telugu
+https://servertvhub.site/jio/app/ts_live_3183.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Sai Tv Telugu" tvg-logo="https://i.ibb.co/HD0w7NRw/1000153001.png" group-title="Devotional",Sai Tv Telugu
+https://servertvhub.site/jio/app/ts_live_3087.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Saregama Telugu" tvg-logo="https://i.ibb.co/cSMwMSqp/1000153003.png" group-title="Music",Saregama Telugu
+https://servertvhub.site/jio/app/ts_live_2745.m3u8

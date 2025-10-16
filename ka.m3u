@@ -1,13 +1,13 @@
 ﻿#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"
 #EXTINF:-1 tvg-id="" tvg-name="Basava Tv" tvg-logo="https://i.ibb.co/R4hrvjqn/1000149825.png" group-title="Local Channels",Basava Tv
 http://basavatvbox.sritv.co.in:1935/Basavatvbox/live/basavatv_cloud_code.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="E News" tvg-logo="https://i.ibb.co/XkpHwGXK/1000122468.jpg" group-title="Local Channels",E News
+#EXTINF:-1 tvg-id="" tvg-name="E News" tvg-logo="https://i.ibb.co/NnG48kBj/1000152724.png" group-title="Local Channels",E News
 http://account10.livebox.co.in/enewstvnoonechannelomsairamhls/live.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tv9 Kannada" tvg-logo="https://i.ibb.co/XrmCxgFM/1000122470.jpg" group-title="Local Channels",Tv9 Kannada
+#EXTINF:-1 tvg-id="" tvg-name="Tv9 Kannada" tvg-logo="https://i.ibb.co/237V3KH8/1000152738.png" group-title="Local Channels",Tv9 Kannada
 https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9kanmo6oiq/liveabr/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="DD Chandana" tvg-logo="https://i.ibb.co/NgT7MgcZ/1000122472.jpg" group-title="Entertainment",DD Chandana
+#EXTINF:-1 tvg-id="" tvg-name="DD Chandana" tvg-logo="https://i.ibb.co/Vct1Dpw4/1000152721.png" group-title="Entertainment",DD Chandana
 https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/3829f99b-4951-4a9d-98c1-dbc3acfe5193/2.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SVBC Kannada" tvg-logo="https://i.ibb.co/wh0GPcz8/1000121221.jpg" group-title="Religious",SVBC Kannada
+#EXTINF:-1 tvg-id="" tvg-name="SVBC Kannada" tvg-logo="https://i.ibb.co/mrB4TLKb/1000152734.png" group-title="Devotional",SVBC Kannada
 https://player.mslivestream.net/tamil/ac206e74d75b285755ee4924df87d951.sdp/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 SD Tamil" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png" group-title="Sports",Star Sports 1 SD Tamil
 http://ptu.ridsys.in/riptv/live/stream20/index.m3u8
@@ -27,11 +27,11 @@ https://aasthaott.akamaized.net/110923/smil:aasthakannada.smil/playlist.m3u8
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Sony TEN Sports 3 HD" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png" group-title="Sports",Sony TEN Sports 3 HD
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="Zee Kannada" tvg-logo="https://i.ibb.co/dC1x0h2/1000139057.jpg" group-title="Entertainment",Zee Kannada
+#EXTINF:-1 tvg-id="" tvg-name="Zee Kannada" tvg-logo="https://i.ibb.co/4RRQrWSB/1000152742.png" group-title="Entertainment",Zee Kannada
 http://195.181.169.162/ZEE_KANNADA_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="Colors Kannada" tvg-logo="https://i.ibb.co/Vc2V2WcR/1000139059.jpg" group-title="Entertainment",Colors Kannada
+#EXTINF:-1 tvg-id="" tvg-name="Colors Kannada" tvg-logo="https://i.ibb.co/MkHSDyDN/1000152715.png" group-title="Entertainment",Colors Kannada
 http://195.181.169.162/COLORS_KANNADA_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="Udhaya Tv" tvg-logo="https://i.ibb.co/j9Gc9K0g/1000139061.jpg" group-title="Entertainment",Udhaya Tv
+#EXTINF:-1 tvg-id="" tvg-name="Udhaya Tv" tvg-logo="https://i.ibb.co/3Y5ytbXr/1000152740.png" group-title="Entertainment",Udhaya Tv
 http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Cartoon Network" tvg-logo="https://i.ibb.co/jPXfqXzN/1000148126.png" group-title="Kids",Cartoon Network
 http://89.187.189.98/CARTOONNETWORK/index.m3u8
@@ -53,15 +53,15 @@ http://51.15.7.9:3141/ten3/index.m3u8
 http://51.15.7.9:3141/ten5/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nikky Tv" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png" group-title="Kids",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Kadamba Tv" tvg-logo="https://i.ibb.co/gkZchXD/1000139784.jpg" group-title="Local Channels",Kadamba Tv
+#EXTINF:-1 tvg-id="" tvg-name="Kadamba Tv" tvg-logo="https://i.ibb.co/2724C6Dg/1000152726.png" group-title="Local Channels",Kadamba Tv
 https://guru.shashwatha.com/hls/live/kadamba.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Swasthik Tv" tvg-logo="https://i.ibb.co/NggsYMp8/1000139788.jpg" group-title="Local Channels",Swasthik Tv
+#EXTINF:-1 tvg-id="" tvg-name="Swasthik Tv" tvg-logo="https://i.ibb.co/JjVGv6HC/1000152736.png" group-title="Local Channels",Swasthik Tv
 https://guru.shashwatha.com/hls/live/swastik.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Kalki" tvg-logo="https://i.ibb.co/jkDJ3C2b/1000139790.jpg" group-title="Local Channels",Kalki
+#EXTINF:-1 tvg-id="" tvg-name="Kalki" tvg-logo="https://i.ibb.co/Ps8jRsyt/1000152728.png" group-title="Local Channels",Kalki
 https://guru.shashwatha.com/hls/live/kalki.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Star Suvarna" tvg-logo="https://i.ibb.co/v490j6LH/1000139978.jpg" group-title="Entertainment",Star Suvarna
+#EXTINF:-1 tvg-id="" tvg-name="Star Suvarna" tvg-logo="https://i.ibb.co/n8qTq8gy/1000152730.png" group-title="Entertainment",Star Suvarna
 https://live.dinesh29.com.np/stream/jiotvplus/suvarna/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Star Suvarna Plus" tvg-logo="https://i.ibb.co/TnTNp0R/1000139994.jpg" group-title="Entertainment",Star Suvarna Plus
+#EXTINF:-1 tvg-id="" tvg-name="Star Suvarna Plus" tvg-logo="https://i.ibb.co/vxfs7pjq/1000152732.png" group-title="Entertainment",Star Suvarna Plus
 http://89.187.189.98/STARSUVARNAPLUS/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 2 HD" tvg-logo="https://i.ibb.co/0Rf6VF1J/1000150094.png" group-title="Sports",Star Sports 2 HD
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
@@ -107,9 +107,9 @@ https://176.116.105.82/Extreme_Sports/index.m3u8
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="BBC Earth Tamil" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png" group-title="Documentary",BBC Earth Tamil
 http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Colors Kannda Cinema" tvg-logo="https://i.ibb.co/7NkLFD3M/1000145014.jpg" group-title="Movies",Colors Kannda Cinema
+#EXTINF:-1 tvg-id="" tvg-name="Colors Kannda Cinema" tvg-logo="https://i.ibb.co/HTVrycSP/1000152717.png" group-title="Movies",Colors Kannda Cinema
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaCinema/JCHLS/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Colors Kannda HD" tvg-logo="https://i.ibb.co/7NkLFD3M/1000145014.jpg" group-title="Entertainment",Colors Kannda HD
+#EXTINF:-1 tvg-id="" tvg-name="Colors Kannda HD" tvg-logo="https://i.ibb.co/jZy0Q7zk/1000152719.png" group-title="Entertainment",Colors Kannda HD
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaHD/JCHLS/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Viju Nature" tvg-logo="https://i.ibb.co/xqgjp2L4/1000149770.png" group-title="Documentary",Viju Nature
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
@@ -178,7 +178,7 @@ https://servertvhub.site/jio/app/ts_live_1883.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 Tamil HD" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png" group-title="Sports",Star Sports 1 Tamil HD
-https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8#ec4035516cfde1557bf67fc27bbb8c1eef468719f611174eb5530267293b2e8e
+https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Gujarat Wild" tvg-logo="https://i.ibb.co/HTn8XqRy/1000150949.png" group-title="Documentary",Gujarat Wild
 https://newsliveindia.com/WILDLIFEhls/WILDLIFE.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bahrain Sports 1" tvg-logo="https://i.ibb.co/4gNzD83d/1000151634.png" group-title="Sports",Bahrain Sports 1
@@ -197,3 +197,5 @@ https://pac12-samsungus.amagi.tv/playlist.m3u8
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bein Sports Extra" tvg-logo="https://i.ibb.co/C58Z6NxL/1000152407.png" group-title="Sports",Bein Sports Extra
 https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452d7f39c3a12db1aad325df4f6bb5e5
+#EXTINF:-1 tvg-id="" tvg-name="Animal Planet Telugu" tvg-logo="https://i.ibb.co/qFVx308C/1000152999.png" group-title="Documentary",Animal Planet Telugu
+https://servertvhub.site/jio/app/ts_live_3183.m3u8
