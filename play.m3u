@@ -1189,13 +1189,13 @@ https://6n3yow8pl9ok-hls-live.5centscdn.com/sadhananewstv/live.stream/playlist.m
 https://playhls.media.nic.in/live/lstv/index.m3u8
 #EXTINF:-1 tvg-name="Madha Tv Tamil" group-title="Devotional" tvg-logo="https://i.ibb.co/5XrR4hHB/1000149211.png",Madha Tv Tamil
 http://45.148.145.57/TAMIL_MadhaTV/index.m3u8
-#EXTINF:-1 tvg-name="SR Music HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/465sRmf/1000145789.jpg",SR Music HD
+#EXTINF:-1 tvg-name="SR Music HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/SDFgv8BW/1000153660.png",SR Music HD
 http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
-#EXTINF:-1 tvg-name="KC Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/FLxPfgh4/1000145813.jpg",KC Tv
+#EXTINF:-1 tvg-name="KC Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Qvgmh89h/1000153658.png",KC Tv
 https://rtmp.bmlive.net/bms/kctv/index.m3u8
-#EXTINF:-1 tvg-name="MCN" group-title="Local Channels" tvg-logo="https://i.ibb.co/p6Y2yP6K/1000145828.jpg",MCN
+#EXTINF:-1 tvg-name="MCN" group-title="Local Channels" tvg-logo="https://i.ibb.co/MkHDZswK/1000153656.png",MCN
 https://play.applelive.in/mcntv/mcntv.m3u8
-#EXTINF:-1 tvg-name="Jeyson Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1YTsY7y4/1000145830.jpg",Jeyson Tv
+#EXTINF:-1 tvg-name="Jeyson Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Kpr4H61V/1000153654.png",Jeyson Tv
 https://play.applelive.in/jeysontv/jeysontv.m3u8
 #EXTINF:-1 tvg-name="STN" group-title="Local Channels" tvg-logo="https://i.ibb.co/rRcmKqbt/1000153383.png",STN
 https://play.applelive.in/stntv/stntv.m3u8
@@ -1203,7 +1203,7 @@ https://play.applelive.in/stntv/stntv.m3u8
 https://play.applelive.in/jcvtv/jcvmusix.m3u8
 #EXTINF:-1 tvg-name="Boss Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/sJsDh768/1000149841.png",Boss Tv
 https://play.applelive.in/vasantv/vasantv.m3u8
-#EXTINF:-1 tvg-name="Kumari Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/MxSz56Z0/1000145848.jpg",Kumari Tv
+#EXTINF:-1 tvg-name="Kumari Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Pvx87Smj/1000153652.png",Kumari Tv
 https://rtmp.applelive.in/gvkumaritv/gvkumaritv/index.m3u8
 #EXTINF:-1 tvg-name="Apple Tv Pondy" group-title="Local Channels" tvg-logo="https://i.ibb.co/tP4GhN0g/1000149469.png",Apple Tv Pondy
 https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
