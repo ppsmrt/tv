@@ -251,3 +251,5 @@ http://212.102.60.231/TSN_5/index.m3u8
 https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="PBS Kids" tvg-logo="https://i.ibb.co/tp4fR5s4/1000153811.png" group-title="Kids",PBS Kids
 https://2-fss-2.streamhoster.com/pl_140/amlst:200914-1298290/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="ZooMoo" tvg-logo="https://i.ibb.co/SXCTxKgP/1000153840.png" group-title="Kids",ZooMoo
+https://amg01553-blueantmediaasi-zoomoonz-samsungnz-rdufn.amagi.tv/playlist/amg01553-blueantmediaasi-zoomoonz-samsungnz/playlist.m3u8
