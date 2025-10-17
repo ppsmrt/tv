@@ -293,3 +293,5 @@ https://magnoliaa-cinelife-oando-n6z8u.amagi.tv/playlist/magnoliaA-cinelife-oand
 https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Fox News" tvg-logo="https://i.ibb.co/60z4f2LT/1000153825.png" group-title="News",Fox News
 https://247preview.foxnews.com/hls/live/2020027/fncv3preview/primary.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="FashionTV Czech&Slovak" tvg-logo="https://i.ibb.co/Qtftb2t/1000153827.png" group-title="Lifestyle",FashionTV Czech&Slovak
+http://80.94.54.42/fashiontv/stream/playlist.m3u8
