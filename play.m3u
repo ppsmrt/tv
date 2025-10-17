@@ -1625,3 +1625,7 @@ http://212.102.60.231/TSN_5/index.m3u8
 https://app.ashokadigital.net/sscn/sscn/index.m3u8
 #EXTINF:-1 tvg-name="KTV Sport" group-title="Sports" tvg-logo="https://i.ibb.co/nMtWdh1W/1000153482.png",KTV Sport
 https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
+#EXTINF:-1 tvg-name="Absolute Reality by WE TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/N87Q4P0/1000153795.png",Absolute Reality by WE TV
+https://amc-absolutereality-1-us.plex.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="MTC Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Y7bH3bQg/1000153797.png",MTC Tv
+https://mtchls.wns.live/hls/stream.m3u8
