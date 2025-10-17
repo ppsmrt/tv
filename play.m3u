@@ -1661,3 +1661,9 @@ https://amg01553-blueantmediaasi-zoomoonz-samsungnz-rdufn.amagi.tv/playlist/amg0
 https://www.bloomberg.com/media-manifest/streams/us.m3u8
 #EXTINF:-1 tvg-name="Wild Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/BHRx8Gny/1000153854.png",Wild Earth
 https://d2f9g9rfw2kx84.cloudfront.net/playlist/amg01290-wildearth-oando/playlist.m3u8#3c2568002ddf1ba1e78f408bce3e32ddfcddfcbc603766bbf300c680df2e81f7
+#EXTINF:-1 tvg-name="CNA" group-title="News" tvg-logo="https://i.ibb.co/HpdqdXT1/1000153856.png",CNA
+https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8
+#EXTINF:-1 tvg-name="Discover Pakistan" group-title="Lifestyle" tvg-logo="https://i.ibb.co/pjksSx1b/1000153858.png",Discover Pakistan
+https://livecdn.live247stream.com/discoverpakistan/web/playlist.m3u8
+#EXTINF:-1 tvg-name="Eman Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/Vc0dRRKV/1000153864.png",Eman Tv
+https://ap02.iqplay.tv:8082/iqb8002/3m9n/playlist.m3u8#29f96a7089ee072f2ba448245b2a751ba48691a4d6341128d34b4f5f2bc70825
