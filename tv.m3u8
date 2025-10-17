@@ -1669,3 +1669,9 @@ https://livecdn.live247stream.com/discoverpakistan/web/playlist.m3u8
 https://ap02.iqplay.tv:8082/iqb8002/3m9n/playlist.m3u8#29f96a7089ee072f2ba448245b2a751ba48691a4d6341128d34b4f5f2bc70825
 #EXTINF:-1 tvg-name="Sky Sport F1" group-title="Sports" tvg-logo="https://i.ibb.co/j9fJdmRf/1000153878.png",Sky Sport F1
 http://m3u.8088y.fun/yt.php?c=@SaudiQuranTv
+#EXTINF:-1 tvg-name="Weather SPY" group-title="Lifestyle" tvg-logo="https://i.ibb.co/5WpbPzSK/1000154149.png",Weather SPY
+https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Sky News Weather" group-title="Lifestyle" tvg-logo="https://i.ibb.co/yczPYv4y/1000154184.png",Sky News Weather
+https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8
+#EXTINF:-1 tvg-name="Fox Weather" group-title="Lifestyle" tvg-logo="https://i.ibb.co/ZRbD6Y0g/1000154188.png",Fox Weather
+https://livetv-fa.tubi.video/fox-weather/index.m3u8
