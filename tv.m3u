@@ -1627,3 +1627,11 @@ https://app.ashokadigital.net/sscn/sscn/index.m3u8
 https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
 #EXTINF:-1 tvg-name="Absolute Reality by WE TV" group-title="English" tvg-logo="https://i.ibb.co/N87Q4P0/1000153795.png",Absolute Reality by WE TV
 https://amc-absolutereality-1-us.plex.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="MTC Tv" group-title="English" tvg-logo="https://i.ibb.co/Y7bH3bQg/1000153797.png",MTC Tv
+https://mtchls.wns.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="SKY News" group-title="English" tvg-logo="https://i.ibb.co/gFzjFXZ2/1000153802.png",SKY News
+https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8
+#EXTINF:-1 tvg-name="FX2" group-title="English" tvg-logo="https://i.ibb.co/WW8Nfmsv/1000153805.png",FX2
+https://toonixhls.wns.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="Grand Cinema" group-title="English" tvg-logo="https://i.ibb.co/Tx77fGqv/1000153807.png",Grand Cinema
+https://gcinemahls.wns.live/hls/stream.m3u8
