@@ -1555,8 +1555,8 @@ https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_35
 https://content.uplynk.com/channel/ff809e6d9ec34109abfb333f0d4444b5.m3u8
 #EXTINF:-1 tvg-name="30A Darcizzle Offshore" group-title="Documentary" tvg-logo="https://i.ibb.co/bM2B2Ctt/1000151656.png",30A Darcizzle Offshore
 https://30a-tv.com/darcizzle.m3u8
-#EXTINF:-1 tvg-name="Global News Calgary" group-title="News" tvg-logo="https://i.ibb.co/4wLNCBKr/1000151658.png",Global News Calgary
-https://live.corusdigitaldev.com/groupd/live/8970c668-40cd-4ca9-8c4d-25fd04f619b5/live.isml/.m3u8
+#EXTINF:-1 tvg-name="Global News" group-title="News" tvg-logo="https://i.ibb.co/4wLNCBKr/1000151658.png",Global News
+https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8
 #EXTINF:-1 tvg-name="30A Music" group-title="Music" tvg-logo="https://i.ibb.co/60y967Vf/1000151660.png",30A Music
 https://30a-tv.com/music.m3u8
 #EXTINF:-1 tvg-name="Caribbean Hot 7 TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/SXksnFXW/1000151662.png",Caribbean Hot 7 TV
@@ -1629,3 +1629,25 @@ https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
 https://amc-absolutereality-1-us.plex.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="MTC Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Y7bH3bQg/1000153797.png",MTC Tv
 https://mtchls.wns.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="SKY News" group-title="Entertainment" tvg-logo="https://i.ibb.co/gFzjFXZ2/1000153802.png",SKY News
+https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8
+#EXTINF:-1 tvg-name="FX2" group-title="Entertainment" tvg-logo="https://i.ibb.co/WW8Nfmsv/1000153805.png",FX2
+https://toonixhls.wns.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="Grand Cinema" group-title="Entertainment" tvg-logo="https://i.ibb.co/Tx77fGqv/1000153807.png",Grand Cinema
+https://gcinemahls.wns.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="BBC News" group-title="News" tvg-logo="https://i.ibb.co/5X4YWQrM/1000153809.png",BBC News
+https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_sd_abr_v2.m3u8
+#EXTINF:-1 tvg-name="PBS Kids" group-title="Kids" tvg-logo="https://i.ibb.co/tp4fR5s4/1000153811.png",PBS Kids
+https://2-fss-2.streamhoster.com/pl_140/amlst:200914-1298290/playlist.m3u8
+#EXTINF:-1 tvg-name="Maah Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/YFsxJGtq/1000153813.png",Maah Tv
+https://hls.maahtv.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="Made In Hollywood" group-title="Movies" tvg-logo="https://i.ibb.co/dsXZK915/1000153815.png",Made In Hollywood
+https://connection3-ent-nz.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="CineLife" group-title="Movies" tvg-logo="https://i.ibb.co/pB3FG3TS/1000153819.png",CineLife
+https://magnoliaa-cinelife-oando-n6z8u.amagi.tv/playlist/magnoliaA-cinelife-oando/playlist.m3u8
+#EXTINF:-1 tvg-name="ABC News" group-title="News" tvg-logo="https://i.ibb.co/BHXSH2Gg/1000153821.png",ABC News
+https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8
+#EXTINF:-1 tvg-name="AccuWeather Now" group-title="Lifestyle" tvg-logo="https://i.ibb.co/4wLNCBKr/1000151658.png",AccuWeather Now
+https://amg00684-accuweather-accuweather-plex-jbd2s.amagi.tv/playlist/amg00684-accuweather-accuweather-plex/playlist.m3u8
+#EXTINF:-1 tvg-name="Fox News" group-title="News" tvg-logo="https://i.ibb.co/60z4f2LT/1000153825.png",Fox News
+https://247preview.foxnews.com/hls/live/2020027/fncv3preview/primary.m3u8
