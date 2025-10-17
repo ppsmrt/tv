@@ -1651,3 +1651,9 @@ https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8
 https://amg00684-accuweather-accuweather-plex-jbd2s.amagi.tv/playlist/amg00684-accuweather-accuweather-plex/playlist.m3u8
 #EXTINF:-1 tvg-name="Fox News" group-title="English" tvg-logo="https://i.ibb.co/60z4f2LT/1000153825.png",Fox News
 https://247preview.foxnews.com/hls/live/2020027/fncv3preview/primary.m3u8
+#EXTINF:-1 tvg-name="FashionTV Czech&Slovak" group-title="English" tvg-logo="https://i.ibb.co/Qtftb2t/1000153827.png",FashionTV Czech&Slovak
+http://80.94.54.42/fashiontv/stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Newsmax" group-title="English" tvg-logo="https://i.ibb.co/Gf56tgnM/1000153832.png",Newsmax
+https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
+#EXTINF:-1 tvg-name="ZooMoo" group-title="Kids" tvg-logo="https://i.ibb.co/SXCTxKgP/1000153840.png",ZooMoo
+https://amg01553-blueantmediaasi-zoomoonz-samsungnz-rdufn.amagi.tv/playlist/amg01553-blueantmediaasi-zoomoonz-samsungnz/playlist.m3u8
