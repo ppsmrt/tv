@@ -333,3 +333,5 @@ http://212.102.60.231/TSN_4/index.m3u8
 http://212.102.60.231/TSN_5/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="KTV Sport" tvg-logo="https://i.ibb.co/nMtWdh1W/1000153482.png" group-title="Sports",KTV Sport
 https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="PBS Kids" tvg-logo="https://i.ibb.co/tp4fR5s4/1000153811.png" group-title="Kids",PBS Kids
+https://2-fss-2.streamhoster.com/pl_140/amlst:200914-1298290/playlist.m3u8

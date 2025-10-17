@@ -545,13 +545,13 @@ https://bein-esp-xumo.amagi.tv/playlist.m3u8
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Da_Vinci_Learning_HD.smil/playlist.m3u8?e=1760755396&md5=jh65Gs4Jh8Y83EwXcCXivg
 #EXTINF:-1 tvg-id="" tvg-name="Viju Explore" tvg-logo="https://i.ibb.co/PZrXKQj1/1000149768.png" group-title="Documentary",Viju Explore
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
-#EXTINF:-1 tvg-id="" tvg-name="SR Music HD" tvg-logo="https://i.ibb.co/465sRmf/1000145789.jpg" group-title="Local Channels",SR Music HD
+#EXTINF:-1 tvg-id="" tvg-name="SR Music HD" tvg-logo="https://i.ibb.co/SDFgv8BW/1000153660.png" group-title="Local Channels",SR Music HD
 http://srnet.bmlive.net:1935/srmusic/myStream/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="KC Tv" tvg-logo="https://i.ibb.co/FLxPfgh4/1000145813.jpg" group-title="Local Channels",KC Tv
+#EXTINF:-1 tvg-id="" tvg-name="KC Tv" tvg-logo="https://i.ibb.co/Qvgmh89h/1000153658.png" group-title="Local Channels",KC Tv
 https://rtmp.bmlive.net/bms/kctv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="MCN" tvg-logo="https://i.ibb.co/p6Y2yP6K/1000145828.jpg" group-title="Local Channels",MCN
+#EXTINF:-1 tvg-id="" tvg-name="MCN" tvg-logo="https://i.ibb.co/MkHDZswK/1000153656.png" group-title="Local Channels",MCN
 https://play.applelive.in/mcntv/mcntv.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Jeyson Tv" tvg-logo="https://i.ibb.co/1YTsY7y4/1000145830.jpg" group-title="Local Channels",Jeyson Tv
+#EXTINF:-1 tvg-id="" tvg-name="Jeyson Tv" tvg-logo="https://i.ibb.co/Kpr4H61V/1000153654.png" group-title="Local Channels",Jeyson Tv
 https://play.applelive.in/jeysontv/jeysontv.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="STN" tvg-logo="https://i.ibb.co/rRcmKqbt/1000153383.png" group-title="Local Channels",STN
 https://play.applelive.in/stntv/stntv.m3u8
@@ -559,13 +559,13 @@ https://play.applelive.in/stntv/stntv.m3u8
 https://play.applelive.in/jcvtv/jcvmusix.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Boss Tv" tvg-logo="https://i.ibb.co/sJsDh768/1000149841.png" group-title="Local Channels",Boss Tv
 https://play.applelive.in/vasantv/vasantv.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Kumari Tv" tvg-logo="https://i.ibb.co/MxSz56Z0/1000145848.jpg" group-title="Local Channels",Kumari Tv
+#EXTINF:-1 tvg-id="" tvg-name="Kumari Tv" tvg-logo="https://i.ibb.co/Pvx87Smj/1000153652.png" group-title="Local Channels",Kumari Tv
 https://rtmp.applelive.in/gvkumaritv/gvkumaritv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Apple Tv Pondy" tvg-logo="https://i.ibb.co/tP4GhN0g/1000149469.png" group-title="Local Channels",Apple Tv Pondy
 https://stream.iplive.xyz/appletv/4kpondy/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vedha" tvg-logo="https://i.ibb.co/Tqvf93mB/1000133568.jpg" group-title="Local Channels",Vedha
+#EXTINF:-1 tvg-id="" tvg-name="Vedha" tvg-logo="https://i.ibb.co/yFDCQ5vL/1000153650.png" group-title="Local Channels",Vedha
 https://skystream.in/live/vedha6528/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Penguin Tv" tvg-logo="https://i.ibb.co/LzrTB9Rr/1000145853.jpg" group-title="Local Channels",Penguin Tv
+#EXTINF:-1 tvg-id="" tvg-name="Penguin Tv" tvg-logo="https://i.ibb.co/G32KRcw0/1000153648.png" group-title="Local Channels",Penguin Tv
 https://live.applelive.in/penguinhd/penguinhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Dolphin Tv" tvg-logo="https://i.ibb.co/q3BNqqnY/1000153198.png" group-title="Local Channels",Dolphin Tv
 https://play.applelive.in/dolphintv/dolphintv.m3u8
@@ -605,13 +605,13 @@ https://servertvhub.site/jio/app/ts_live_417.m3u8
 http://m3u.8088y.fun/yt.php?c=Sunnewstamil
 #EXTINF:-1 tvg-id="" tvg-name="Kumudham Tv" tvg-logo="https://i.ibb.co/21hMgrtX/1000148512.png" group-title="News",Kumudham Tv
 http://m3u.8088y.fun/yt.php?c=Kumudamnews
-#EXTINF:-1 tvg-id="" tvg-name="Live Tv" tvg-logo="https://i.ibb.co/Jj3Nb0SB/1000146583.jpg" group-title="Local Channels",Live Tv
+#EXTINF:-1 tvg-id="" tvg-name="Live Tv" tvg-logo="https://i.ibb.co/gMzmswYJ/1000153646.png" group-title="Local Channels",Live Tv
 http://lime-cr1.phoenixcreations.online/lime/lime/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vaani Visuals" tvg-logo="https://i.ibb.co/kVjczzn0/1000146597.jpg" group-title="Local Channels",Vaani Visuals
+#EXTINF:-1 tvg-id="" tvg-name="Vaani Visuals" tvg-logo="https://i.ibb.co/N2WKjwDN/1000153644.png" group-title="Local Channels",Vaani Visuals
 http://vaanivisuals.in:1935/vaanitv/vaanitv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="S Tv" tvg-logo="https://i.ibb.co/QvcTq3XW/1000146614.jpg" group-title="Local Channels",S Tv
+#EXTINF:-1 tvg-id="" tvg-name="S Tv" tvg-logo="https://i.ibb.co/6cYWZWTc/1000153642.png" group-title="Local Channels",S Tv
 https://play.applelive.in/stv/stv.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sai Tv Madurai" tvg-logo="https://i.ibb.co/99D0fkj5/1000146813.jpg" group-title="Local Channels",Sai Tv Madurai
+#EXTINF:-1 tvg-id="" tvg-name="Sai Tv Madurai" tvg-logo="https://i.ibb.co/gMpVqXf9/1000153637.png" group-title="Local Channels",Sai Tv Madurai
 http://saitvmdu.stream.onecloudlive.in/saitvmdu/saitvmdu/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sun Music HD" tvg-logo="https://i.ibb.co/tMzYwDMR/Sun-Music-HD.png" group-title="Music",Sun Music HD
 https://servertvhub.site/jio/app/ts_live_895.m3u8
@@ -627,13 +627,13 @@ http://acv.7starcloud.com:1935/tamilstar/tv/playlist.m3u8
 https://live.applelive.in/enthirantv/enthirantv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Queens Tv" tvg-logo="https://i.ibb.co/JWm57LBn/1000150788.png" group-title="Local Channels",Queens Tv
 https://notvstream.in/queens/queens.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Thendral2 Tv" tvg-logo="https://i.ibb.co/R4ccLfx2/1000146985.jpg" group-title="Local Channels",Thendral2 Tv
+#EXTINF:-1 tvg-id="" tvg-name="Thendral2 Tv" tvg-logo="https://i.ibb.co/VY2j2nGz/1000153635.png" group-title="Local Channels",Thendral2 Tv
 https://ipcloud.live/thendralmdu/madurai/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Raga Tv" tvg-logo="https://i.ibb.co/zWzMrNB1/1000148757.png" group-title="Local Channels",Raga Tv
 https://live.onecloudlive.in/ragatv/ragatvhd/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Veerali Tv" tvg-logo="https://i.ibb.co/mF1Bg62y/1000146994.jpg" group-title="Local Channels",Veerali Tv
+#EXTINF:-1 tvg-id="" tvg-name="Veerali Tv" tvg-logo="https://i.ibb.co/MDcNqBZD/1000153633.png" group-title="Local Channels",Veerali Tv
 https://ipcloud.live/veerali/veeralitv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Punithan Tv" tvg-logo="https://i.ibb.co/PvM00LZR/1000146995.png" group-title="Local Channels",Punithan Tv
+#EXTINF:-1 tvg-id="" tvg-name="Punithan Tv" tvg-logo="https://i.ibb.co/FbQhm1FT/1000153640.png" group-title="Local Channels",Punithan Tv
 https://stream.singamcloud.in/punithantv/punithantv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="M Television" tvg-logo="https://i.ibb.co/cHrRxPF/1000148749.png" group-title="Local Channels",M Television
 https://ipcloud.live/mtv/menhd/index.m3u8
@@ -779,3 +779,5 @@ http://212.102.60.231/TSN_5/index.m3u8
 https://app.ashokadigital.net/sscn/sscn/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="KTV Sport" tvg-logo="https://i.ibb.co/nMtWdh1W/1000153482.png" group-title="Sports",KTV Sport
 https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="PBS Kids" tvg-logo="https://i.ibb.co/tp4fR5s4/1000153811.png" group-title="Kids",PBS Kids
+https://2-fss-2.streamhoster.com/pl_140/amlst:200914-1298290/playlist.m3u8
