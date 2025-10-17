@@ -1657,3 +1657,7 @@ http://80.94.54.42/fashiontv/stream/playlist.m3u8
 https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8
 #EXTINF:-1 tvg-name="ZooMoo" group-title="Kids" tvg-logo="https://i.ibb.co/SXCTxKgP/1000153840.png",ZooMoo
 https://amg01553-blueantmediaasi-zoomoonz-samsungnz-rdufn.amagi.tv/playlist/amg01553-blueantmediaasi-zoomoonz-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-name="Bloomberg TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/nMpk9rJv/1000153845.png",Bloomberg TV
+https://www.bloomberg.com/media-manifest/streams/us.m3u8
+#EXTINF:-1 tvg-name="Wild Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/BHRx8Gny/1000153854.png",Wild Earth
+https://d2f9g9rfw2kx84.cloudfront.net/playlist/amg01290-wildearth-oando/playlist.m3u8#3c2568002ddf1ba1e78f408bce3e32ddfcddfcbc603766bbf300c680df2e81f7
