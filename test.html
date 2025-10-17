@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPTV Admin Mobile Dashboard</title>
+<!-- FontAwesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- Header -->
+<header class="bg-white shadow-md px-6 py-4 sticky top-0 z-10 flex justify-between items-center">
+  <h1 class="text-xl font-bold text-gray-800">IPTV Admin</h1>
+  <!-- Contact Icon -->
+  <a href="mailto:tnm3us@gmail.com" class="text-gray-600 hover:text-gray-900 text-xl">
+    <i class="fas fa-envelope"></i>
+  </a>
+</header>
+
+<!-- Search -->
+<section class="p-4">
+  <input type="text" placeholder="Search channels..." id="searchInput" class="w-full p-3 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+</section>
+
+<!-- Channel List -->
+<main class="p-4 flex flex-col gap-4" id="channelList">
+
+  <!-- Example Channel Card -->
+  <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center">
+    <div>
+      <h2 class="font-semibold text-gray-800">News Live</h2>
+      <p class="text-gray-500 text-sm">News</p>
+    </div>
+    <div class="flex gap-2">
+      <button class="editBtn bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"><i class="fas fa-edit"></i></button>
+      <button class="deleteBtn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"><i class="fas fa-trash"></i></button>
+    </div>
+  </div>
+
+  <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center">
+    <div>
+      <h2 class="font-semibold text-gray-800">Sports HD</h2>
+      <p class="text-gray-500 text-sm">Sports</p>
+    </div>
+    <div class="flex gap-2">
+      <button class="editBtn bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"><i class="fas fa-edit"></i></button>
+      <button class="deleteBtn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"><i class="fas fa-trash"></i></button>
+    </div>
+  </div>
+
+</main>
+
+<!-- Floating Add Button -->
+<button id="fabAddChannel" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white p-4 rounded-full shadow-lg flex items-center justify-center text-xl">
+  <i class="fas fa-plus"></i>
+</button>
+
+<!-- Modal -->
+<div id="channelModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-20">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-sm p-6 relative">
+    <h2 class="text-lg font-bold mb-4">Add/Edit Channel</h2>
+    <form id="channelForm" class="flex flex-col gap-3">
+      <input type="text" placeholder="Channel Name" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      <input type="text" placeholder="Category" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      <div class="flex justify-end gap-2 mt-2">
+        <button type="button" id="closeModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
+        <button type="submit" class="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-700 text-white">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white p-4 text-center border-t border-gray-200 mt-auto text-gray-600 text-sm">
+  IPTV Admin V1.0 | Tnm3u Panel
+</footer>
+
+<!-- Script -->
+<script>
+  const channelList = document.getElementById('channelList');
+  const fabBtn = document.getElementById('fabAddChannel');
+  const modal = document.getElementById('channelModal');
+  const closeModalBtn = document.getElementById('closeModal');
+  const channelForm = document.getElementById('channelForm');
+  const searchInput = document.getElementById('searchInput');
+
+  // Open modal
+  fabBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+  closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+  window.addEventListener('click', (e) => { if(e.target === modal) modal.classList.add('hidden'); });
+
+  // Add/Edit channels
+  channelForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = channelForm[0].value.trim();
+    const category = channelForm[1].value.trim();
+    if(!name || !category) return;
+
+    const card = document.createElement('div');
+    card.className = "bg-white p-4 rounded-lg shadow flex justify-between items-center";
+    card.innerHTML = `
+      <div>
+        <h2 class="font-semibold text-gray-800">${name}</h2>
+        <p class="text-gray-500 text-sm">${category}</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="editBtn bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"><i class="fas fa-edit"></i></button>
+        <button class="deleteBtn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"><i class="fas fa-trash"></i></button>
+      </div>
+    `;
+    channelList.appendChild(card);
+    attachCardEvents(card);
+    channelForm.reset();
+    modal.classList.add('hidden');
+  });
+
+  function attachCardEvents(card) {
+    const editBtn = card.querySelector('.editBtn');
+    const deleteBtn = card.querySelector('.deleteBtn');
+
+    editBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      channelForm[0].value = card.querySelector('h2').textContent;
+      channelForm[1].value = card.querySelector('p').textContent;
+      channelForm.onsubmit = function(e){
+        e.preventDefault();
+        card.querySelector('h2').textContent = channelForm[0].value;
+        card.querySelector('p').textContent = channelForm[1].value;
+        modal.classList.add('hidden');
+        channelForm.reset();
+      }
+    });
+
+    deleteBtn.addEventListener('click', () => {
+      if(confirm('Are you sure you want to delete this channel?')) card.remove();
+    });
+  }
+
+  document.querySelectorAll('#channelList > div').forEach(attachCardEvents);
+
+  // Search functionality
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    Array.from(channelList.children).forEach(card => {
+      const name = card.querySelector('h2').textContent.toLowerCase();
+      const category = card.querySelector('p').textContent.toLowerCase();
+      card.style.display = name.includes(filter) || category.includes(filter) ? '' : 'none';
+    });
+  });
+</script>
+
+</body>
+  </html>
+  
