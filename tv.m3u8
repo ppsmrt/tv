@@ -1681,3 +1681,11 @@ https://cdn.bestream.io:19360/elfaro1/elfaro1.m3u8
 https://ap02.iqplay.tv:8082/iqb8002/d33ntv/playlist.m3u8#aeeffc37168aac5efd82d76244dce159f0b679e843b4b0fca8c2c2c728149eeb
 #EXTINF:-1 tvg-name="Persiana Junior" group-title="Kids" tvg-logo="https://i.ibb.co/8LSr02QG/1000154883.png",Persiana Junior
 https://junhls.persiana.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="Zarok TV" group-title="Kids" tvg-logo="https://i.ibb.co/gFBswm0s/1000154886.png",Zarok TV
+https://zindisorani.zaroktv.com.tr/hls/stream.m3u8
+#EXTINF:-1 tvg-name="Geekdot" group-title="Kids" tvg-logo="https://i.ibb.co/F491Pj3K/1000154889.png",Geekdot
+https://stream.ichibantv.com:3764/hybrid/play.m3u8
+#EXTINF:-1 tvg-name="XilamTV" group-title="Kids" tvg-logo="https://i.ibb.co/ZRPVDVDV/1000154895.png",XilamTV
+https://xilam-animation-1-fr.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="3ABN Kids" group-title="Kids" tvg-logo="https://i.ibb.co/KpdP4sPy/1000154897.png",3ABN Kids
+https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
