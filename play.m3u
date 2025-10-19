@@ -1675,9 +1675,9 @@ https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
 https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8
 #EXTINF:-1 tvg-name="Fox Weather" group-title="Lifestyle" tvg-logo="https://i.ibb.co/ZRbD6Y0g/1000154188.png",Fox Weather
 https://livetv-fa.tubi.video/fox-weather/index.m3u8
-#EXTINF:-1 tvg-name="Huda Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/v4Nj4Qw1/huda.png",Huda Tv
+#EXTINF:-1 tvg-name="Huda Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/1tzk67RP/1000155356.png",Huda Tv
 https://cdn.bestream.io:19360/elfaro1/elfaro1.m3u8
-#EXTINF:-1 tvg-name="Deen Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/jP2NJ3Wb/1000154878.png",Deen Tv
+#EXTINF:-1 tvg-name="Deen Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/tpbpDxgB/1000155358.png",Deen Tv
 https://ap02.iqplay.tv:8082/iqb8002/d33ntv/playlist.m3u8#aeeffc37168aac5efd82d76244dce159f0b679e843b4b0fca8c2c2c728149eeb
 #EXTINF:-1 tvg-name="Persiana Junior" group-title="Kids" tvg-logo="https://i.ibb.co/8LSr02QG/1000154883.png",Persiana Junior
 https://junhls.persiana.live/hls/stream.m3u8
