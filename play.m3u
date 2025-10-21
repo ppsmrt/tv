@@ -46,7 +46,7 @@ https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Movies" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
 https://servertvhub.site/jio/app/ts_live_683.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Movies" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png",K Tv
-http://195.181.169.162/KTV_HD/index.m3u8?token=test
+https://servertvhub.site/jio/app/ts_live_894.m3u8
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Dx1sW1c/1000149721.png",Eye Tv
 https://novaiptv.cc/live/eyetamil/4257832/32fa2542-142d-48e5-86ad-fc98be0e9e5f.m3u8
 #EXTINF:-1 tvg-name="Thalapathi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/6Jp25kFd/1000151372.png",Thalapathi Tv
@@ -1689,3 +1689,5 @@ https://stream.ichibantv.com:3764/hybrid/play.m3u8
 https://xilam-animation-1-fr.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="3ABN Kids" group-title="Kids" tvg-logo="https://i.ibb.co/KpdP4sPy/1000154897.png",3ABN Kids
 https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="Amma Vision" group-title="Local Channels" tvg-logo="https://i.ibb.co/Q7Jbggzj/1000157179.png",Amma Vision
+https://live.applelive.in/ammavision\/ammavision/index.m3u8
