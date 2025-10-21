@@ -1703,3 +1703,5 @@ https://live-bangla.akamaized.net/liveabr/pub-iobanglakp3sff/live_720p/chunks.m3
 https://cdn-4.pishow.tv/live/1039/1039_2.m3u8
 #EXTINF:-1 tvg-name="Akash Aath" group-title="Entertainment" tvg-logo="https://i.ibb.co/spcBnVn4/1000157485.png",Akash Aath
 https://cdn-4.pishow.tv/live/969/969_1.m3u8
+#EXTINF:-1 tvg-name="Madina Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/tPz7pB8S/1000157499.png",Madina Tv
+http://m.live.net.sa:1935/live/sunnah/playlist.m3u8
