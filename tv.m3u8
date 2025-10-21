@@ -1697,3 +1697,9 @@ https://live.singamcloud.in/bsctv/bsctv/index.m3u8
 https://yupptvcatchupire.yuppcdn.net/zeebangla/19Oct2025/2500/1760896819048_4000.ts
 #EXTINF:-1 tvg-name="Colors Bangla" group-title="Bengali" tvg-logo="https://i.ibb.co/r2S6zZ2w/1000157478.png",Colors Bangla
 https://tvsen3.aynaott.com/u3LkNQ7UHhFX/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-name="Enterr10" group-title="Bengali" tvg-logo="https://i.ibb.co/0yhykY8N/1000157480.png",Enterr10
+https://live-bangla.akamaized.net/liveabr/pub-iobanglakp3sff/live_720p/chunks.m3u8
+#EXTINF:-1 tvg-name="Rupashi Bangla" group-title="Bengali" tvg-logo="https://i.ibb.co/3Yjy4vTp/1000157482.png",Rupashi Bangla
+https://cdn-4.pishow.tv/live/1039/1039_2.m3u8
+#EXTINF:-1 tvg-name="Akash Aath" group-title="Bengali" tvg-logo="https://i.ibb.co/spcBnVn4/1000157485.png",Akash Aath
+https://cdn-4.pishow.tv/live/969/969_1.m3u8
