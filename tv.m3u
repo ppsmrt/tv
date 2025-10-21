@@ -1308,7 +1308,7 @@ https://eu.streamjo.com/eetlive/eettv.m3u8
 #EXTINF:-1 tvg-name="Sathiyam Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/whPnjdJy/1000148505.png",Sathiyam Tv
 http://m3u.8088y.fun/yt.php?c=SathiyamTV
 #EXTINF:-1 tvg-name="News Tamil 24x7" group-title="Tamil" tvg-logo="https://i.ibb.co/q3ndsZgt/1000148771.png",News Tamil 24x7
-https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/news-tamil-24x7/a9876d39-5dd3-4f22-9f06-683e67133c0d/0.m3u8
+https://vglivessai.akamaized.net/ptnr-yupptv/title-News_Tamil/sg/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/bc657abd-5bf5-4526-9038-d42bbb9ca249/4ec64d33-12fa-4566-a95c-94c5ff6463a6/1.m3u8
 #EXTINF:-1 tvg-name="Matha Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/J00KRKD/1000151442.png",Matha Tv
 https://live.mathatv.in/mathatv/mathatv/index.m3u8
 #EXTINF:-1 tvg-name="Sharon Tv" group-title="Local Channel | Malayalam" tvg-logo="https://i.ibb.co/SDs0VjXC/1000151576.png",Sharon Tv
