@@ -1693,3 +1693,9 @@ https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
 https://live.applelive.in/ammavision\/ammavision/index.m3u8
 #EXTINF:-1 tvg-name="Maniway" group-title="Local Channels" tvg-logo="https://i.ibb.co/gLNLyVVD/tnm3u-logo.png",Maniway
 https://live.singamcloud.in/bsctv/bsctv/index.m3u8
+#EXTINF:-1 tvg-name="Zee Bangla" group-title="Entertainment" tvg-logo="https://i.ibb.co/fzWSFZXp/1000157477.png",Zee Bangla
+https://yupptvcatchupire.yuppcdn.net/zeebangla/19Oct2025/2500/1760896819048_4000.ts
+#EXTINF:-1 tvg-name="Colors Bangla" group-title="Entertainment" tvg-logo="https://i.ibb.co/r2S6zZ2w/1000157478.png",Colors Bangla
+https://tvsen3.aynaott.com/u3LkNQ7UHhFX/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-name="Enterr10" group-title="Entertainment" tvg-logo="https://i.ibb.co/0yhykY8N/1000157480.png",Enterr10
+https://live-bangla.akamaized.net/liveabr/pub-iobanglakp3sff/live_720p/chunks.m3u8
