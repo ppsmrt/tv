@@ -1,4 +1,4 @@
-name: Auto-update tp.m3u and jiostar.m3u
+name: Auto-update tp.m3u, jiostar.m3u, and filtered channels.json
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate tp.m3u and jiostar.m3u
+      - name: Generate tp.m3u, jiostar.m3u, and filtered channels.json
         id: generate
         run: |
           npm install node-fetch@2
@@ -28,11 +28,32 @@ jobs:
 
           const tpUrl = 'https://tnm3u.live/assets/playlist/tp.m3u'; // TP source URL
           const jiostarUrl = 'https://tnm3u.live/assets/playlist/jiostar.m3u'; // Jiostar source URL
+          const jsonUrl = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json'; // JSON source URL
           const outputFile = 'main.m3u'; // Output file path
           const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
 
+          // Categories to filter
+          const validCategories = [
+            "International", 
+            "Local Channel | Kannada", 
+            "Local Channel | Malayalam", 
+            "Local Channel | Tamil", 
+            "Local Channel | Telugu", 
+            "Sri Lanka"
+          ];
+
           const updateGroupTitle = (playlist, groupTitle) => {
             return playlist.replace(/(group-title=")[^"]*(")/g, `$1${groupTitle}$2`);
+          };
+
+          const jsonToM3U = (jsonData) => {
+            return jsonData.map(channel => {
+              // Only include channels with valid categories
+              if (validCategories.includes(channel.category)) {
+                return `#EXTINF:-1 tvg-id="${channel.id}" group-title="${channel.category}" tvg-logo="${channel.icon}",${channel.name}\n${channel.stream}`;
+              }
+              return ''; // Filter out channels that don't match the category
+            }).filter(line => line !== '').join('\n');
           };
 
           (async () => {
@@ -53,14 +74,25 @@ jobs:
                 process.exit(0);
               }
 
+              // Fetch JSON playlist
+              const jsonRes = await fetch(jsonUrl);
+              const jsonData = await jsonRes.json();
+              if (!jsonData || Object.keys(jsonData).length === 0) {
+                console.log("No channels found in JSON playlist.");
+                process.exit(0);
+              }
+
+              // Convert JSON data to M3U format
+              const jsonPlaylist = jsonToM3U(Object.values(jsonData));
+
               // Set group-title for TP playlist
               const updatedTpPlaylist = updateGroupTitle(tpPlaylist, "Tata Play");
 
               // Set group-title for Jiostar playlist
               const updatedJiostarPlaylist = updateGroupTitle(jiostarPlaylist, "Jio Tv+");
 
-              // Combine both playlists
-              const combinedPlaylist = updatedTpPlaylist + '\n' + updatedJiostarPlaylist;
+              // Combine all playlists
+              const combinedPlaylist = updatedTpPlaylist + '\n' + updatedJiostarPlaylist + '\n' + jsonPlaylist;
 
               // Compare with previous playlist
               if (prevData.trim() === combinedPlaylist.trim()) {
@@ -78,7 +110,7 @@ jobs:
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
 
             } catch (err) {
-              console.error("Error fetching playlists:", err);
+              console.error("Error fetching playlists or JSON:", err);
               process.exit(1);
             }
           })();
@@ -90,5 +122,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add main.m3u
-          git commit -m "Auto-update TP and Jiostar playlists with group-title changes [skip ci]"
+          git commit -m "Auto-update TP, Jiostar playlists, and filtered JSON data with group-title changes [skip ci]"
           git push
