@@ -1,4 +1,4 @@
-name: Auto-update main.m3u
+name: Auto-update tp.m3u and jiostar.m3u
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate tp.m3u
+      - name: Generate tp.m3u and jiostar.m3u
         id: generate
         run: |
           npm install node-fetch@2
@@ -26,24 +26,44 @@ jobs:
           const fs = require('fs');
           const fetch = require('node-fetch');
 
-          const url = 'https://tnm3u.live/assets/playlist/tp.m3u'; // Updated source URL
-          const outputFile = 'main.m3u'; // Updated output file path
+          const tpUrl = 'https://tnm3u.live/assets/playlist/tp.m3u'; // TP source URL
+          const jiostarUrl = 'https://tnm3u.live/assets/playlist/jiostar.m3u'; // Jiostar source URL
+          const outputFile = 'main.m3u'; // Output file path
           const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
+
+          const updateGroupTitle = (playlist, groupTitle) => {
+            return playlist.replace(/(group-title=")[^"]*(")/g, `$1${groupTitle}$2`);
+          };
 
           (async () => {
             try {
-              const res = await fetch(url);
-              const playlist = await res.text();
-              if (!playlist || !playlist.includes('#EXTINF')) {
-                console.log("No channels found in tp playlist.");
+              // Fetch TP playlist
+              const tpRes = await fetch(tpUrl);
+              const tpPlaylist = await tpRes.text();
+              if (!tpPlaylist || !tpPlaylist.includes('#EXTINF')) {
+                console.log("No channels found in TP playlist.");
                 process.exit(0);
               }
 
-              // Set group-title to "Tata Play" for all entries
-              const updatedPlaylist = playlist.replace(/(group-title=")[^"]*(")/g, '$1Tata Play$2');
+              // Fetch Jiostar playlist
+              const jiostarRes = await fetch(jiostarUrl);
+              const jiostarPlaylist = await jiostarRes.text();
+              if (!jiostarPlaylist || !jiostarPlaylist.includes('#EXTINF')) {
+                console.log("No channels found in Jiostar playlist.");
+                process.exit(0);
+              }
+
+              // Set group-title for TP playlist
+              const updatedTpPlaylist = updateGroupTitle(tpPlaylist, "Tata Play");
+
+              // Set group-title for Jiostar playlist
+              const updatedJiostarPlaylist = updateGroupTitle(jiostarPlaylist, "Jio Tv+");
+
+              // Combine both playlists
+              const combinedPlaylist = updatedTpPlaylist + '\n' + updatedJiostarPlaylist;
 
               // Compare with previous playlist
-              if (prevData.trim() === updatedPlaylist.trim()) {
+              if (prevData.trim() === combinedPlaylist.trim()) {
                 console.log("No changes in playlist, skipping update.");
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
                 process.exit(0);
@@ -52,13 +72,13 @@ jobs:
               // Ensure output directory exists
               fs.mkdirSync('assets/playlist', { recursive: true });
 
-              // Write updated playlist with "Tata Play" group-title
-              fs.writeFileSync(outputFile, updatedPlaylist.replace(/\r\n/g, '\n'), 'utf8');
-              console.log("tp.m3u updated successfully.");
+              // Write updated combined playlist to main.m3u
+              fs.writeFileSync(outputFile, combinedPlaylist.replace(/\r\n/g, '\n'), 'utf8');
+              console.log("main.m3u updated successfully.");
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
 
             } catch (err) {
-              console.error("Error fetching playlist:", err);
+              console.error("Error fetching playlists:", err);
               process.exit(1);
             }
           })();
@@ -70,5 +90,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add main.m3u
-          git commit -m "Auto-update TP playlist with default Tata Play group-title [skip ci]"
+          git commit -m "Auto-update TP and Jiostar playlists with group-title changes [skip ci]"
           git push
