@@ -469,3 +469,5 @@ https://stream.ichibantv.com:3764/hybrid/play.m3u8
 https://xilam-animation-1-fr.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="3ABN Kids" tvg-logo="https://i.ibb.co/KpdP4sPy/1000154897.png" group-title="Kids",3ABN Kids
 https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Fancode" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png" group-title="Sports",Fancode
+https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
