@@ -1143,7 +1143,7 @@ https://amg00864-shemarooenterta-shemabollywood-ono-nlwbw.amagi.tv/playlist/amg0
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
 #EXTINF:-1 tvg-name="Viju Explore" group-title="Documentary" tvg-logo="https://i.ibb.co/PzY0MTFQ/1000149766.png",Viju Explore
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
-#EXTINF:-1 tvg-name="Jayam Tv Namakkal" group-title="Local Channels" tvg-logo="https://i.ibb.co/MxXLfHMg/1000145099.png",Jayam Tv Namakkal
+#EXTINF:-1 tvg-name="Jayam Tv Namakkal" group-title="Local Channels" tvg-logo="https://i.ibb.co/c9msCjp/1000157776.png",Jayam Tv Namakkal
 https://rtmp.bmlive.net/bms/jayamtv/index.m3u8
 #EXTINF:-1 tvg-name="Eagle Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/hRzRVgPq/1000153203.png",Eagle Tv
 https://rtmp.bmlive.net/bms/eagletv/index.m3u8
@@ -1277,10 +1277,6 @@ https://ipcloud.live/mtv/menhd/index.m3u8
 https://ipcloud.live/anbutv/anbutvhd/index.m3u8
 #EXTINF:-1 tvg-name="Namma Gobi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Df58DcC8/1000148741.png",Namma Gobi Tv
 https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
-#EXTINF:-1 tvg-name="ACP HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/zk8DwGy/1000149988.png",ACP HD
-https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
-#EXTINF:-1 tvg-name="ACP Classic" group-title="Local Channels" tvg-logo="https://i.ibb.co/BVC8KG5S/1000149987.png",ACP Classic
-https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-name="Puthuyugam" group-title="Entertainment" tvg-logo="https://i.ibb.co/LMgnfps/1000148735.png",Puthuyugam
 http://103.184.193.216:3500/getm3u8/824/master.m3u8
 #EXTINF:-1 tvg-name="EET Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/7tvjhbFs/1000149405.png",EET Tv
@@ -1707,3 +1703,5 @@ rtmp://103.136.136.77:1935/powertv/powertv?psk=123456
 rtmp://103.136.136.77:1935/kanitv/kanitv?psk=123456
 #EXTINF:-1 tvg-name="Sangeeth Bangla" group-title="Music" tvg-logo="https://i.ibb.co/x85fgHLx/1000157699.png",Sangeeth Bangla
 https://cdn-4.pishow.tv/live/1143/master.m3u8
+#EXTINF:-1 tvg-name="Dhoom Music" group-title="Music" tvg-logo="https://i.ibb.co/23PMLVcs/1000157774.png",Dhoom Music
+https://cdn-1.pishow.tv/live/1456/master.m3u8
