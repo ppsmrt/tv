@@ -1689,3 +1689,19 @@ https://live20.bozztv.com/giatvplayout7/giatv-210788/playlist.m3u8
 rtmp://apserver.in:1937/thiraitvplus/thiraitvplus
 #EXTINF:-1 tvg-name="Durai Tv Classic" group-title="Local Channels" tvg-logo="https://i.ibb.co/tptMtJMG/1000157666.png",Durai Tv Classic
 rtmp://duraitv.stream.onecloudlive.in:1935/duraitv/classic
+#EXTINF:-1 tvg-name="Thirai Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/tptMtJMG/1000157666.png",Thirai Tv
+rtmp://apserver.in:1937/thiraitv/thiraitv
+#EXTINF:-1 tvg-name="Thulir Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/tptMtJMG/1000157666.png",Thulir Tv
+rtmp://apserver.in:1937/thulirtv/thulirtv
+#EXTINF:-1 tvg-name="Abi HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/tptMtJMG/1000157666.png",Abi HD
+rtmp://103.136.136.77:1935/abihd/abihd?psk=123456
+#EXTINF:-1 tvg-name="Muruga 4K" group-title="Local Channels" tvg-logo="https://i.ibb.co/tptMtJMG/1000157666.png",Muruga 4K
+rtmp://103.136.136.77:1935/muruga4k/muruga4k?psk=123456
+#EXTINF:-1 tvg-name="Boova 4K" group-title="Local Channels" tvg-logo="https://i.ibb.co/tptMtJMG/1000157666.png",Boova 4K
+rtmp://103.136.136.77:1935/boova4k/boova4k?psk=123456
+#EXTINF:-1 tvg-name="CSK Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/tptMtJMG/1000157666.png",CSK Tv
+rtmp://103.136.136.77:1935/cs4k/cs4k?psk=123456
+#EXTINF:-1 tvg-name="Power Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/3mmt5Ygp/1000157666.png",Power Tv
+rtmp://103.136.136.77:1935/powertv/powertv?psk=123456
+#EXTINF:-1 tvg-name="Kani Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/3mmt5Ygp/1000157666.png",Kani Tv
+rtmp://103.136.136.77:1935/kanitv/kanitv?psk=123456
