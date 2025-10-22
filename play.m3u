@@ -1649,7 +1649,7 @@ https://cdn-4.pishow.tv/live/969/969_1.m3u8
 http://m.live.net.sa:1935/live/sunnah/playlist.m3u8
 #EXTINF:-1 tvg-name="Mecca Live" group-title="Devotional" tvg-logo="https://i.ibb.co/d4d7rSxc/1000157501.png",Mecca Live
 http://m.live.net.sa:1935/live/quran/playlist.m3u8
-#EXTINF:-1 tvg-name="ETV HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/xt2X7k0z/1000157508.png",ETV HD
+#EXTINF:-1 tvg-name="Etv HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/xt2X7k0z/1000157508.png",Etv HD
 http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8
 #EXTINF:-1 tvg-name="Fancode" group-title="Sports" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png",Fancode
 https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
@@ -1685,3 +1685,5 @@ http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 https://servertvhub.site/jio/app/ts_live_212.m3u8
 #EXTINF:-1 tvg-name="Animax" group-title="Movies" tvg-logo="https://i.ibb.co/PGb63G5p/1000158226.png",Animax
 https://servertvhub.site/jio/app/ts_live_2258.m3u8
+#EXTINF:-1 tvg-name="Etv Abhiruchi" group-title="Entertainment" tvg-logo="https://i.ibb.co/WvXb8J63/1000158484.png",Etv Abhiruchi
+https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_ABHIRUCHI_H264-3_cloud-in/index.m3u8
