@@ -38,7 +38,7 @@ http://brightmeltech.in/rajatv/rajatv.m3u8
 #EXTINF:-1 tvg-name="Yarl Entertainment" group-title="Entertainment" tvg-logo="https://i.ibb.co/nN17bD2Z/1000149403.png",Yarl Entertainment
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="News7" group-title="News" tvg-logo="https://i.ibb.co/Jwqk8P8m/1000148768.png",News7
-https://segment.yuppcdn.net/240122/news7/playlist.m3u8
+https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/news7_nim_https/240122/news7/playlist.m3u8
 #EXTINF:-1 tvg-name="Puthia Thalaimurai" group-title="News" tvg-logo="https://i.ibb.co/cS0Y7Lpp/1000148770.png",Puthia Thalaimurai
 https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/C547s88c/1000149688.png",Peppers Tv
@@ -1648,7 +1648,7 @@ https://magnoliaa-cinelife-oando-n6z8u.amagi.tv/playlist/magnoliaA-cinelife-oand
 #EXTINF:-1 tvg-name="ABC News" group-title="News" tvg-logo="https://i.ibb.co/BHXSH2Gg/1000153821.png",ABC News
 https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8
 #EXTINF:-1 tvg-name="AccuWeather Now" group-title="Lifestyle" tvg-logo="https://i.ibb.co/4wLNCBKr/1000151658.png",AccuWeather Now
-https://amg00684-accuweather-accuweather-plex-jbd2s.amagi.tv/playlist/amg00684-accuweather-accuweather-plex/playlist.m3u8
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00684-accuweather-accuweather-plex/playlist.m3u8
 #EXTINF:-1 tvg-name="Fox News" group-title="News" tvg-logo="https://i.ibb.co/60z4f2LT/1000153825.png",Fox News
 https://247preview.foxnews.com/hls/live/2020027/fncv3preview/primary.m3u8
 #EXTINF:-1 tvg-name="FashionTV Czech&Slovak" group-title="Lifestyle" tvg-logo="https://i.ibb.co/Qtftb2t/1000153827.png",FashionTV Czech&Slovak
@@ -1703,5 +1703,11 @@ https://live-bangla.akamaized.net/liveabr/pub-iobanglakp3sff/live_720p/chunks.m3
 https://cdn-4.pishow.tv/live/1039/1039_2.m3u8
 #EXTINF:-1 tvg-name="Akash Aath" group-title="Entertainment" tvg-logo="https://i.ibb.co/spcBnVn4/1000157485.png",Akash Aath
 https://cdn-4.pishow.tv/live/969/969_1.m3u8
-#EXTINF:-1 tvg-name="Madina Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/tPz7pB8S/1000157499.png",Madina Tv
+#EXTINF:-1 tvg-name="Madina Live" group-title="Devotional" tvg-logo="https://i.ibb.co/tPz7pB8S/1000157499.png",Madina Live
 http://m.live.net.sa:1935/live/sunnah/playlist.m3u8
+#EXTINF:-1 tvg-name="Mecca Live" group-title="Devotional" tvg-logo="https://i.ibb.co/d4d7rSxc/1000157501.png",Mecca Live
+http://m.live.net.sa:1935/live/quran/playlist.m3u8
+#EXTINF:-1 tvg-name="ETV HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/xt2X7k0z/1000157508.png",ETV HD
+http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8
+#EXTINF:-1 tvg-name="Fancode" group-title="Sports" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png",Fancode
+https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
