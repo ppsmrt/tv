@@ -531,7 +531,7 @@ http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
 #EXTINF:-1 tvg-id="" tvg-name="Viju Explore" tvg-logo="https://i.ibb.co/PzY0MTFQ/1000149766.png" group-title="Documentary",Viju Explore
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Explore_HD_ad.smil/playlist.m3u8?e=1760755370&md5=la17qH9EcLAsxm7n_ZRTng
-#EXTINF:-1 tvg-id="" tvg-name="Jayam Tv Namakkal" tvg-logo="https://i.ibb.co/MxXLfHMg/1000145099.png" group-title="Local Channels",Jayam Tv Namakkal
+#EXTINF:-1 tvg-id="" tvg-name="Jayam Tv Namakkal" tvg-logo="https://i.ibb.co/c9msCjp/1000157776.png" group-title="Local Channels",Jayam Tv Namakkal
 https://rtmp.bmlive.net/bms/jayamtv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Eagle Tv" tvg-logo="https://i.ibb.co/hRzRVgPq/1000153203.png" group-title="Local Channels",Eagle Tv
 https://rtmp.bmlive.net/bms/eagletv/index.m3u8
@@ -641,10 +641,6 @@ https://ipcloud.live/mtv/menhd/index.m3u8
 https://ipcloud.live/anbutv/anbutvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Namma Gobi Tv" tvg-logo="https://i.ibb.co/Df58DcC8/1000148741.png" group-title="Local Channels",Namma Gobi Tv
 https://stream.rojatv.cloud/nammagobi/tv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="ACP HD" tvg-logo="https://i.ibb.co/zk8DwGy/1000149988.png" group-title="Local Channels",ACP HD
-https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="ACP Classic" tvg-logo="https://i.ibb.co/BVC8KG5S/1000149987.png" group-title="Local Channels",ACP Classic
-https://stream.iplive.xyz/acptvclassic/acptvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Puthuyugam" tvg-logo="https://i.ibb.co/LMgnfps/1000148735.png" group-title="Entertainment",Puthuyugam
 http://103.184.193.216:3500/getm3u8/824/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sathiyam Tv" tvg-logo="https://i.ibb.co/whPnjdJy/1000148505.png" group-title="News",Sathiyam Tv
