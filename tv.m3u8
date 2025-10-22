@@ -1683,3 +1683,5 @@ http://m.live.net.sa:1935/live/quran/playlist.m3u8
 http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8
 #EXTINF:-1 tvg-name="Fancode" group-title="Sports" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png",Fancode
 https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
+#EXTINF:-1 tvg-name="Raj Nagaichuvai" group-title="Tamil" tvg-logo="https://i.ibb.co/8nQH7w30/1000157641.png",Raj Nagaichuvai
+https://live20.bozztv.com/giatvplayout7/giatv-210788/playlist.m3u8
