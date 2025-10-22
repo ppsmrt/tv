@@ -19,8 +19,6 @@ https://www.schannels.in/zoyhd/video.m3u8?token=nokshitha
 https://vvsolution.in/hls/jvrnews_623.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="V Power" tvg-logo="https://i.ibb.co/qLnQjmPD/1000153308.png" group-title="Local Channels",V Power
 https://vvsolutions.in/vpowernews_343/vpowernews_343.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Akshara News" tvg-logo="https://i.ibb.co/Dg8Kv7cv/1000153228.png" group-title="News",Akshara News
-https://vvsolutions.in/aksharanews/aksharanews.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sree News" tvg-logo="https://i.ibb.co/v431ZPKg/1000153289.png" group-title="Local Channels",Sree News
 https://vvsolutions.in/sreenews/sreenews.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tv8 News" tvg-logo="https://i.ibb.co/nqJ08ZpR/1000153310.png" group-title="Local Channels",Tv8 News
@@ -303,8 +301,6 @@ https://www.schannels.in/viharinews/video.m3u8?token=nokshitha
 https://www.schannels.in/viharimusic/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-id="" tvg-name="PPS Entertainment" tvg-logo="https://i.ibb.co/DPsd2QMJ/1000149135.png" group-title="Local Channels",PPS Entertainment
 https://www.schannels.in/ppp/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-id="" tvg-name="AJ News" tvg-logo="https://i.ibb.co/pBmbM0BY/1000148345.png" group-title="Local Channels",AJ News
-https://www.schannels.in/ajnews/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-id="" tvg-name="KS Tv" tvg-logo="https://i.ibb.co/TqRJ8Zt0/1000149133.png" group-title="Local Channels",KS Tv
 https://www.schannels.in/kstv/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-id="" tvg-name="RK Hollywood" tvg-logo="https://i.ibb.co/367TJ9q/1000151332.png" group-title="Local Channels",RK Hollywood
