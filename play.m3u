@@ -547,27 +547,25 @@ https://stream.sscloud7.in/live/deivaoli/index.m3u8
 https://live.sscloud7.in/live/vanitvhd/index.m3u8
 #EXTINF:-1 tvg-name="SNR Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Cp60YCtw/1000158130.png",SNR Tv
 http://198.144.149.206:8080/NOTV/ASOSACHENNAI/tracks-v1a1/mono.m3u8?token=GTR
-#EXTINF:-1 tvg-name="Smiley Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/7NrYscD0/1000136520.jpg",Smiley Tv
+#EXTINF:-1 tvg-name="Smiley Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Pvszcmbk/1000158132.png",Smiley Tv
 https://sscloud7.com/live/smileytv/index.m3u8
 #EXTINF:-1 tvg-name="Jai Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/ZzJfyLZT/1000157881.png",Jai Tv
 https://play.applelive.in/jaitv/jaitv.m3u8
 #EXTINF:-1 tvg-name="JR Malar Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/LDv3P08D/1000157913.png",JR Malar Tv
 https://server.sscloud7.in/live/malartv/index.m3u8
-#EXTINF:-1 tvg-name="Ramya Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/rR3nbrxg/1000136488.jpg",Ramya Tv
-http://brightmeltech.in/ramyatv/ramyatv.m3u8
-#EXTINF:-1 tvg-name="Ramya Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/bjmC38F2/1000136491.png",Ramya Tv
+#EXTINF:-1 tvg-name="Ramya Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/23jVrFhn/1000158134.png",Ramya Tv
 http://brightmeltech.in/ramyatv/ramyatv.m3u8
 #EXTINF:-1 tvg-name="Arul Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dsD4MTMS/1000149485.png",Arul Tv
 http://arulstream.in:1935/ArulTv/live/playlist.m3u8
-#EXTINF:-1 tvg-name="Sky Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/F43L9dd7/1000136497.jpg",Sky Tv
+#EXTINF:-1 tvg-name="Sky Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Z1HRtwkp/1000158136.png",Sky Tv
 https://sscloud7.com/live/skytv/index.m3u8
-#EXTINF:-1 tvg-name="PCV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mrBwmDKp/1000136499.jpg",PCV Tv
+#EXTINF:-1 tvg-name="PCV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/DxW81q8/1000158138.png",PCV Tv
 https://stream.sscloud7.in/live/livepcv/index.m3u8
 #EXTINF:-1 tvg-name="Malar Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/qMnpqRZR/1000157952.png",Malar Tv
 https://sscloud7.com/live/malartv/index.m3u8
 #EXTINF:-1 tvg-name="Bharathi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1tztqFbj/1000149833.png",Bharathi Tv
 https://server.sscloud7.in/live/bharathitv/index.m3u8
-#EXTINF:-1 tvg-name="Thendral Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/kgxJkNYV/1000136510.png",Thendral Tv
+#EXTINF:-1 tvg-name="Thendral Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/qYhVjL4q/1000158140.png",Thendral Tv
 https://sscloud7.com/live/thendraltv/index.m3u8
 #EXTINF:-1 tvg-name="Aaryaa Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/CKKy9r0M/1000148152.png",Aaryaa Tv
 https://live.sscloud7.in/live/aaryaatv/index.m3u8
