@@ -1,7 +1,7 @@
 ﻿#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"
 #EXTINF:-1 tvg-id="" tvg-name="Raj Tv" tvg-logo="https://i.ibb.co/5HQgfr4/1000148546.png" group-title="Entertainment",Raj Tv
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="News 18 Tamil" tvg-logo="https://i.ibb.co/5g8Mmy7B/1000148516.png" group-title="News",News 18 Tamil
+#EXTINF:-1 tvg-id="" tvg-name="News 18 Tamil" tvg-logo="https://i.ibb.co/Z1m8dMzC/1000157617.png" group-title="News",News 18 Tamil
 https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Moon Tv" tvg-logo="https://i.ibb.co/3mFCDX5V/1000148766.png" group-title="Entertainment",Moon Tv
 https://player.mslivestream.net/mslive/e10bb900976df9177b9a080314f26f86.sdp/chunks.m3u8
@@ -801,3 +801,5 @@ https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
 https://live.singamcloud.in/bsctv/bsctv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Fancode" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png" group-title="Sports",Fancode
 https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Raj Nagaichuvai" tvg-logo="https://i.ibb.co/8nQH7w30/1000157641.png" group-title="Entertainment",Raj Nagaichuvai
+https://live20.bozztv.com/giatvplayout7/giatv-210788/playlist.m3u8
