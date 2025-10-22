@@ -169,7 +169,7 @@ https://www.schannels.in/MANA_TV_NEWS/video.m3u8?token=nokshitha
 https://amigofx.com:1936/sitichannel/sitichannel/playlist.m3u8
 #EXTINF:-1 tvg-name="Tv7 Hills" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/4gm95811/1000153312.png",Tv7 Hills
 https://server.streamwell.in/hls/7hills.m3u8
-#EXTINF:-1 tvg-name="S9 Channel" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/Myq4htQP/1000121231.jpg",S9 Channel
+#EXTINF:-1 tvg-name="S9 Channel" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/TqDJNxy5/1000158152.png",S9 Channel
 https://sharsolution.in/hls/s9tv/s9tv.m3u8
 #EXTINF:-1 tvg-name="Zilla Vani" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/ZpyfNv80/1000153301.png",Zilla Vani
 https://streaming.livebox.co.in/vedhikahls/live.m3u8
@@ -479,8 +479,6 @@ http://120.138.14.16:8080/hls/tamilmagantv/index.m3u8
 https://skystream.in/live/vedha6528/index.m3u8
 #EXTINF:-1 tvg-name="Thulir Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/VcvLxkd8/1000158016.png",Thulir Tv
 http://live.singamcloud.in/Thulirtv/thulirtv/index.m3u8
-#EXTINF:-1 tvg-name="Sakthi Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/99rRzmXc/1000158112.png",Sakthi Tv
-https://server2.iptelevision.in/hls/sakthitv.m3u8
 #EXTINF:-1 tvg-name="Jayaam Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/3yG3wmhk/1000157883.png",Jayaam Tv
 http://hdserver.7starcloud.com:1935/jayaamtv/jayaamtv/playlist.m3u8
 #EXTINF:-1 tvg-name="Sangamam HD Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/GvQgzLZP/1000158114.png",Sangamam HD Tv
@@ -739,8 +737,6 @@ http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 https://server.streamwell.in/hls/srkcity.m3u8
 #EXTINF:-1 tvg-name="GNT Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/7x1QLmJJ/1000153233.png",GNT Tv
 https://www.schannels.in/gnthd/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="SLN News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/BVL74s9M/1000153285.png",SLN News
-https://vvsolutions-server11.in/slnnews_2/video.m3u8
 #EXTINF:-1 tvg-name="Ava Family" group-title="International" tvg-logo="https://i.ibb.co/9mhxjyCn/1000149495.png",Ava Family
 https://familyhls.avatv.live/hls/stream.m3u8
 #EXTINF:-1 tvg-name="BCN Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/qLDj00jm/1000149827.png",BCN Tv
@@ -985,7 +981,7 @@ https://cdn-2.pishow.tv/live/425/master.m3u8
 https://d2lk5u59tns74c.cloudfront.net/out/v1/308556d9fd1246adb479ef012a39bbfe/index_3.m3u8
 #EXTINF:-1 tvg-name="DD Assam" group-title="Hindi" tvg-logo="https://i.ibb.co/m5KGVnmn/1000153447.png",DD Assam
 https://d2lk5u59tns74c.cloudfront.net/out/v1/d380bf5c167b4319a46cdd8204bc26b2/index.m3u8
-#EXTINF:-1 tvg-name="DD Bangla" group-title="Bengali" tvg-logo="https://i.ibb.co/sJK02cJG/1000141542.jpg",DD Bangla
+#EXTINF:-1 tvg-name="DD Bangla" group-title="Bengali" tvg-logo="https://i.ibb.co/F4P8fZcR/1000158162.png",DD Bangla
 https://cdn-1.pishow.tv/live/10/master.m3u8
 #EXTINF:-1 tvg-name="DD Bharathi" group-title="Hindi" tvg-logo="https://i.ibb.co/V0vMd06m/1000153449.png",DD Bharathi
 https://cdn-1.pishow.tv/live/10/master.m3u8
@@ -1101,7 +1097,7 @@ https://176.116.105.82/Extreme_Sports/index.m3u8
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-name="BBC Earth Tamil" group-title="Infotainment" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png",BBC Earth Tamil
 http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
-#EXTINF:-1 tvg-name="Colors Gujarati" group-title="Gujarati" tvg-logo="https://i.ibb.co/9H82CSG1/1000144998.jpg",Colors Gujarati
+#EXTINF:-1 tvg-name="Colors Gujarati" group-title="Hindi" tvg-logo="https://i.ibb.co/XxXdsvbR/1000158156.png",Colors Gujarati
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsGujarati/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Cineplex Superhits" group-title="Hindi" tvg-logo="https://i.ibb.co/kVB7gKh2/1000152713.png",Colors Cineplex Superhits
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexSuperhit/JCHLS/index.m3u8
@@ -1311,17 +1307,17 @@ https://www.schannels.in/sreenews/mpegts?token=nokshitha
 https://www.schannels.in/santhoshamtv/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="RK Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/20fMFYFh/1000151334.png",RK Tv
 https://www.schannels.in/rktv/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Classic Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Classic Tv
+#EXTINF:-1 tvg-name="Classic Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Classic Tv
 https://www.schannels.in/classic/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Folk Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/YBrFwBQ2/1000151623.png",Folk Tv
 https://www.schannels.in/folk/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Hollywood Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Hollywood Tv
+#EXTINF:-1 tvg-name="Hollywood Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Hollywood Tv
 https://www.schannels.in/hollywood/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Comedy Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Comedy Tv
+#EXTINF:-1 tvg-name="Comedy Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Comedy Tv
 https://www.schannels.in/comedy/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Music Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Music Tv
+#EXTINF:-1 tvg-name="Music Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Music Tv
 https://www.schannels.in/music/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Movies Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Movies Tv
+#EXTINF:-1 tvg-name="Movies Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Movies Tv
 https://www.schannels.in/movies/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="GS Grameena" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/6RQ0nWmc/1000147261.webp",GS Grameena
 https://www.schannels.in/gsgrameena/video.m3u8?token=nokshitha
@@ -1421,7 +1417,7 @@ https://www.schannels.in/veduka/video.m3u8?token=nokshitha
 https://www.schannels.in/ndlnews9/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="TG5 News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/ZRM5PjQg/1000150087.png",TG5 News
 https://www.schannels.in/tg5/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="SLN News" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/c9MZtz6/1000150091.png",SLN News
+#EXTINF:-1 tvg-name="SLN News" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/c9MZtz6/1000150091.png",SLN News
 https://www.schannels.in/sln/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Star Sports 1 Tamil HD" group-title="Sports" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png",Star Sports 1 Tamil HD
 https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
