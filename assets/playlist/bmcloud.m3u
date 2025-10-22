@@ -105,7 +105,7 @@
             "lcn": "003",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686bfe3c08641.png",
-            "videourl": "https:\/\/play.applelive.in\/appletv\/appletv.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/appletv\/appletvklm.m3u8",
             "webvideourl": ""
         },
         {
@@ -120,7 +120,7 @@
         {
             "id": "1",
             "name": "KCTV",
-            "lcn": "004",
+            "lcn": "005",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68558f5ab45eb.jpg",
             "videourl": "https:\/\/rtmp.bmlive.net\/bms\/kctv\/index.m3u8",
@@ -129,7 +129,7 @@
         {
             "id": "506",
             "name": "Emperor Tv",
-            "lcn": "005",
+            "lcn": "006",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/Emporar Tv Logo1.png",
             "videourl": "https:\/\/rtmp.bmlive.net\/bms\/emperortv\/index.m3u8",
@@ -138,7 +138,7 @@
         {
             "id": "506",
             "name": "Jayam TV",
-            "lcn": "006",
+            "lcn": "007",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/jayamtv.png",
             "videourl": "https:\/\/rtmp.bmlive.net\/bms\/jayamtv\/index.m3u8",
@@ -147,7 +147,7 @@
         {
             "id": "506",
             "name": "Eagle TV",
-            "lcn": "007",
+            "lcn": "008",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/95.png",
             "videourl": "https:\/\/rtmp.bmlive.net\/bms\/eagletv\/index.m3u8",
@@ -156,7 +156,7 @@
         {
             "id": "506",
             "name": "PCN",
-            "lcn": "008",
+            "lcn": "009",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/Pcn.png",
             "videourl": "https:\/\/rtmp.bmlive.net\/bms\/pcn\/index.m3u8",
@@ -165,7 +165,7 @@
         {
             "id": "100",
             "name": "Isaiaruvi",
-            "lcn": "009",
+            "lcn": "010",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/srmusix.png",
             "videourl": "http:\/\/srnet.bmlive.net:1935\/isaisaral\/mystream\/playlist.m3u8",
@@ -174,7 +174,7 @@
         {
             "id": "506",
             "name": "CTN TN",
-            "lcn": "010",
+            "lcn": "011",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/ctn.png",
             "videourl": "https:\/\/rtmp.bmlive.net\/ctn\/ctntn\/index.m3u8",
@@ -183,7 +183,7 @@
         {
             "id": "506",
             "name": "KING TV",
-            "lcn": "011",
+            "lcn": "012",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/KING TV.png",
             "videourl": "https:\/\/rtmp.bmlive.net\/kingtv\/kingtv\/index.m3u8",
@@ -192,7 +192,7 @@
         {
             "id": "506",
             "name": "MCN TV",
-            "lcn": "012",
+            "lcn": "013",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6863874c65f6d.png",
             "videourl": "https:\/\/play.applelive.in\/mcntv\/mcntv.m3u8",
@@ -201,7 +201,7 @@
         {
             "id": "506",
             "name": "JCV",
-            "lcn": "013",
+            "lcn": "014",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/685435c9ec8d3.jpg",
             "videourl": "https:\/\/play.applelive.in\/jcvtv\/jcvtv.m3u8",
@@ -210,7 +210,7 @@
         {
             "id": "506",
             "name": "Selfie Tv",
-            "lcn": "014",
+            "lcn": "015",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68543652e8cb0.png",
             "videourl": "https:\/\/play.applelive.in\/selfeetv\/selfeetv.m3u8",
@@ -219,7 +219,7 @@
         {
             "id": "506",
             "name": "Jeyson Tv",
-            "lcn": "015",
+            "lcn": "016",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/685436c1c706d.jpg",
             "videourl": "https:\/\/play.applelive.in\/jeysontv\/jeysontv.m3u8",
@@ -228,7 +228,7 @@
         {
             "id": "1",
             "name": "Kumari TV",
-            "lcn": "016",
+            "lcn": "017",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/685445f8902ef.png",
             "videourl": "https:\/\/rtmp.applelive.in\/gvkumaritv\/gvkumaritv\/index.m3u8",
@@ -237,7 +237,7 @@
         {
             "id": "1",
             "name": "STN TV",
-            "lcn": "017",
+            "lcn": "018",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686c12aa38d31.png",
             "videourl": "https:\/\/play.applelive.in\/stntv\/stntv.m3u8",
@@ -246,7 +246,7 @@
         {
             "id": "1",
             "name": "Thalapathy TV",
-            "lcn": "018",
+            "lcn": "019",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/685534b2b2d7b.png",
             "videourl": "https:\/\/play.applelive.in\/thalapathytv\/thalapathytv.m3u8",
@@ -255,7 +255,7 @@
         {
             "id": "1",
             "name": "JCV Musix",
-            "lcn": "019",
+            "lcn": "020",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68b8822f508ea.jpeg",
             "videourl": "https:\/\/play.applelive.in\/jcvtv\/jcvmusix.m3u8",
@@ -264,19 +264,10 @@
         {
             "id": "1",
             "name": "Boss TV",
-            "lcn": "020",
+            "lcn": "021",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68dc1611b898c.jpeg",
             "videourl": "https:\/\/play.applelive.in\/vasantv\/vasantv.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "Rasi Comedy",
-            "lcn": "021",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/685985ad32242.jpg",
-            "videourl": "http:\/\/rasinetworks.in:1935\/rasicomedy\/rasicomedy.stream_aac\/playlist.m3u8",
             "webvideourl": ""
         },
         {
@@ -452,11 +443,11 @@
         },
         {
             "id": "1",
-            "name": "Vaani visuals",
+            "name": "Apple TV",
             "lcn": "041",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688b5bcfd6c94.png",
-            "videourl": "http:\/\/vaanivisuals.in:1935\/vaanitv\/vaanitv\/playlist.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686bfe3c08641.png",
+            "videourl": "https:\/\/play.applelive.in\/appletv\/appletv.m3u8",
             "webvideourl": ""
         },
         {
@@ -745,6 +736,15 @@
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68598571417ad.jpg",
             "videourl": "http:\/\/rasinetworks.in:1935\/rasimovies\/rasimovies.stream_aac\/playlist.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Vaani visuals",
+            "lcn": "074",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688b5bcfd6c94.png",
+            "videourl": "http:\/\/vaanivisuals.in:1935\/vaanitv\/vaanitv\/playlist.m3u8",
             "webvideourl": ""
         }
     ],
