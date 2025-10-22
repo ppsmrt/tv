@@ -1705,3 +1705,5 @@ rtmp://103.136.136.77:1935/cs4k/cs4k?psk=123456
 rtmp://103.136.136.77:1935/powertv/powertv?psk=123456
 #EXTINF:-1 tvg-name="Kani Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/3mmt5Ygp/1000157666.png",Kani Tv
 rtmp://103.136.136.77:1935/kanitv/kanitv?psk=123456
+#EXTINF:-1 tvg-name="Sangeeth Bangla" group-title="Bengali" tvg-logo="https://i.ibb.co/x85fgHLx/1000157699.png",Sangeeth Bangla
+https://cdn-4.pishow.tv/live/1143/master.m3u8
