@@ -20141,11 +20141,11 @@ https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/qFjSKT2R/1000157911.png",Jith Tv
 https://sscloud7.com/live/jithtv/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/60M94hDb/1000153385.png",SS Tv
-https://server.sscloud7.in/live/sshd/index.m3u8
+https://live2.sscloud7.in/live/sshd/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/svZMSnmZ/1000158128.png",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/mrhjwtRV/1000157967.png",Velavan Tv
-http://velavantv.sscloud7.in/live/velavantv/index.m3u8
+https://live2.sscloud7.in/live/velavantv/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Q7KPYvXV/1000153184.png",Deiva Oli
 https://stream.sscloud7.in/live/deivaoli/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/0RMPsDw1/1000157977.png",Vani Tv
@@ -20614,3 +20614,5 @@ rtmp://103.136.136.77:1935/powertv/powertv?psk=123456
 rtmp://103.136.136.77:1935/kanitv/kanitv?psk=123456
 #EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/998byCTb/1000157863.png",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/60PHRvL9/1000157903.png",Jayam Tv
+https://live2.sscloud7.in/live/jeyamtv/index.m3u8
