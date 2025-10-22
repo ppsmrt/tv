@@ -1681,3 +1681,5 @@ https://cdn-4.pishow.tv/live/1143/master.m3u8
 https://cdn-1.pishow.tv/live/1456/master.m3u8
 #EXTINF:-1 tvg-name="Iratai Pathai" group-title="Local Channels" tvg-logo="https://i.ibb.co/998byCTb/1000157863.png",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
+#EXTINF:-1 tvg-name="ET Now" group-title="News" tvg-logo="https://i.ibb.co/6RCHNVSy/1000158224.png",ET Now
+https://servertvhub.site/jio/app/ts_live_212.m3u8
