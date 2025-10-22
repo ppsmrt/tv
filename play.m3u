@@ -981,7 +981,7 @@ https://cdn-2.pishow.tv/live/425/master.m3u8
 https://d2lk5u59tns74c.cloudfront.net/out/v1/308556d9fd1246adb479ef012a39bbfe/index_3.m3u8
 #EXTINF:-1 tvg-name="DD Assam" group-title="Entertainment" tvg-logo="https://i.ibb.co/m5KGVnmn/1000153447.png",DD Assam
 https://d2lk5u59tns74c.cloudfront.net/out/v1/d380bf5c167b4319a46cdd8204bc26b2/index.m3u8
-#EXTINF:-1 tvg-name="DD Bangla" group-title="News" tvg-logo="https://i.ibb.co/sJK02cJG/1000141542.jpg",DD Bangla
+#EXTINF:-1 tvg-name="DD Bangla" group-title="News" tvg-logo="https://i.ibb.co/F4P8fZcR/1000158162.png",DD Bangla
 https://cdn-1.pishow.tv/live/10/master.m3u8
 #EXTINF:-1 tvg-name="DD Bharathi" group-title="News" tvg-logo="https://i.ibb.co/V0vMd06m/1000153449.png",DD Bharathi
 https://cdn-1.pishow.tv/live/10/master.m3u8
@@ -1097,7 +1097,7 @@ https://176.116.105.82/Extreme_Sports/index.m3u8
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-name="BBC Earth Tamil" group-title="Documentary" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png",BBC Earth Tamil
 http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
-#EXTINF:-1 tvg-name="Colors Gujarati" group-title="Entertainment" tvg-logo="https://i.ibb.co/9H82CSG1/1000144998.jpg",Colors Gujarati
+#EXTINF:-1 tvg-name="Colors Gujarati" group-title="Entertainment" tvg-logo="https://i.ibb.co/XxXdsvbR/1000158156.png",Colors Gujarati
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsGujarati/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Cineplex Superhits" group-title="Entertainment" tvg-logo="https://i.ibb.co/kVB7gKh2/1000152713.png",Colors Cineplex Superhits
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexSuperhit/JCHLS/index.m3u8
@@ -1315,9 +1315,9 @@ https://www.schannels.in/folk/video.m3u8?token=nokshitha
 https://www.schannels.in/hollywood/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="Comedy Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Comedy Tv
 https://www.schannels.in/comedy/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Music Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Music Tv
+#EXTINF:-1 tvg-name="Music Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Music Tv
 https://www.schannels.in/music/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-name="Movies Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dJJMk2wz/1000147235.png",Movies Tv
+#EXTINF:-1 tvg-name="Movies Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gMTmjcfB/1000158154.png",Movies Tv
 https://www.schannels.in/movies/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="GS Grameena" group-title="Local Channels" tvg-logo="https://i.ibb.co/6RQ0nWmc/1000147261.webp",GS Grameena
 https://www.schannels.in/gsgrameena/video.m3u8?token=nokshitha
