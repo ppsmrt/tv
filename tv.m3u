@@ -123,8 +123,6 @@ https://amigofx.com:1936/ccchd/ccchd/playlist.m3u8
 https://amg17931-zee-amg17931c8-samsung-th-6526.playouts.now.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Aarthi" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/KcMxKG27/1000148149.png",Aarthi
 http://198.144.149.206:8080/NOTV/AARTHITV/index.m3u8?token=GTR
-#EXTINF:-1 tvg-name="Iratai Pathai" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/zVcRph7f/1000120836.jpg",Iratai Pathai
-http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 #EXTINF:-1 tvg-name="South Vision" group-title="Malayalam" tvg-logo="https://i.ibb.co/dspk7tM2/1000153170.png",South Vision
 https://live.skystream.in/live/southvsnklm/index.m3u8
 #EXTINF:-1 tvg-name="N  Media" group-title="Local Channel | Malayalam" tvg-logo="https://i.ibb.co/fVt6CfpH/1000151362.png",N  Media
@@ -551,7 +549,7 @@ https://live.sscloud7.in/live/vanitvhd/index.m3u8
 http://198.144.149.206:8080/NOTV/ASOSACHENNAI/tracks-v1a1/mono.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Smiley Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/7NrYscD0/1000136520.jpg",Smiley Tv
 https://sscloud7.com/live/smileytv/index.m3u8
-#EXTINF:-1 tvg-name="Jai Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/chFFCsj2/1000136486.jpg",Jai Tv
+#EXTINF:-1 tvg-name="Jai Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/ZzJfyLZT/1000157881.png",Jai Tv
 https://play.applelive.in/jaitv/jaitv.m3u8
 #EXTINF:-1 tvg-name="JR Malar Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/rR3nbrxg/1000136488.jpg",JR Malar Tv
 https://server.sscloud7.in/live/malartv/index.m3u8
@@ -619,7 +617,7 @@ https://stream.onecloudlive.in/maxtv/maxtvtenkasi/index.m3u8
 https://stream.galaxyott.live/live/sktv/index.m3u8
 #EXTINF:-1 tvg-name="Top Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/J84DsHC/1000136583.jpg",Top Tv
 https://stream.onecloudlive.in/toptv/toptvhd/index.m3u8
-#EXTINF:-1 tvg-name="Isai Saaral" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/4RCVPdb5/1000136628.jpg",Isai Saaral
+#EXTINF:-1 tvg-name="Isai Saaral" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/zhHVK94H/1000157865.png",Isai Saaral
 http://srnet.bmlive.net:1935/isaisaral/mystream/chunklist_w1441521074.m3u8
 #EXTINF:-1 tvg-name="TDN" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/1GcktKJB/1000153363.png",TDN
 https://live.maxtn.in/tdn/tdn/index.m3u8
@@ -643,7 +641,7 @@ https://live.olidigital.in/olitv/olitv/index.m3u8
 https://brightmeltech.in/kchannel/kchannel.m3u8
 #EXTINF:-1 tvg-name="CTN Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/1fVQB9f6/1000153180.png",CTN Tv
 https://rtmp.bmlive.net/ctn/ctntn/index.m3u8
-#EXTINF:-1 tvg-name="Hitech Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/fdNP9sN7/1000137232.png",Hitech Tv
+#EXTINF:-1 tvg-name="Hitech Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/WNY88qCK/1000157794.png",Hitech Tv
 https://server.notvstream.in/hitechtv/hitechtv.m3u8
 #EXTINF:-1 tvg-name="Men Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/S48gcynt/1000137234.jpg",Men Tv
 https://ipcloud.live/mtv/menhd/index.m3u8
@@ -1075,7 +1073,7 @@ http://ayyatv.sscloud7.in/live/ayyatv/index.m3u8
 https://server.sscloud7.in/live/vinayagatv/index.m3u8
 #EXTINF:-1 tvg-name="Devi Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/FkHd8ZPz/1000153188.png",Devi Tv
 https://server.sscloud7.in/live/devitv/index.m3u8
-#EXTINF:-1 tvg-name="Isai Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/LXsdZT8j/1000144388.jpg",Isai Tv
+#EXTINF:-1 tvg-name="Isai Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/HLmr2GZf/1000157873.png",Isai Tv
 https://server.sscloud7.in/isaihd/isaihd/index.m3u8
 #EXTINF:-1 tvg-name="Sri Thangamalai Murugan Television" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/mPyQWph/1000144392.png",Sri Thangamalai Murugan Television
 http://server3.sscloud7.in/stmtv/srithangamalaimurugantv/playlist.m3u8
@@ -1693,3 +1691,5 @@ rtmp://103.136.136.77:1935/kanitv/kanitv?psk=123456
 https://cdn-4.pishow.tv/live/1143/master.m3u8
 #EXTINF:-1 tvg-name="Dhoom Music" group-title="Bengali" tvg-logo="https://i.ibb.co/23PMLVcs/1000157774.png",Dhoom Music
 https://cdn-1.pishow.tv/live/1456/master.m3u8
+#EXTINF:-1 tvg-name="Iratai Pathai" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/998byCTb/1000157863.png",Iratai Pathai
+http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
