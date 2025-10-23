@@ -445,3 +445,5 @@ https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
 https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Etv Abhiruchi" tvg-logo="https://i.ibb.co/WvXb8J63/1000158484.png" group-title="Entertainment",Etv Abhiruchi
 https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_ABHIRUCHI_H264-3_cloud-in/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="99 Tv" tvg-logo="https://i.ibb.co/Jwwd03Px/1000159436.png" group-title="News",99 Tv
+https://cdn-1.pishow.tv/live/1211/master.m3u8
