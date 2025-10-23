@@ -779,3 +779,5 @@ http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 https://live2.sscloud7.in/live/jeyamtv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sendhur Tv" tvg-logo="https://i.ibb.co/Q74KyHjG/1000159376.png" group-title="Local Channels",Sendhur Tv
 https://senthurtv-hls.suriyantv.in/live/senthurtv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="NDTV Lanka" tvg-logo="https://i.ibb.co/5XsQc80q/1000159415.png" group-title="Local Channels",NDTV Lanka
+https://g4wlkqqwl23a-hls-live.5centscdn.com/NDTVLANKA/1ff5fa54d14c3ff6c6bd3918bbb7db5d.sdp/index.m3u8
