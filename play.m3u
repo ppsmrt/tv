@@ -889,7 +889,7 @@ http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-name="Jaya Plus" group-title="News" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
-#EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png",Raj Musix
+#EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png",Raj Musix
 https://servertvhub.site/jio/app/ts_live_748.m3u8
 #EXTINF:-1 tvg-name="Zing Tv" group-title="Movies" tvg-logo="https://i.ibb.co/20ysBpX2/1000153399.png",Zing Tv
 http://89.187.189.98/ZING/index.m3u8
@@ -1709,3 +1709,7 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://live1.ottlive.co.in/voiceurdutv/voiceurdutv/index.m3u8
 #EXTINF:-1 tvg-name="Bakthi Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/Q2zgpr6/1000159477.png",Bakthi Tv
 https://cdn-1.pishow.tv/live/397/master.m3u8
+#EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png",Raj Musix
+https://cdn-1.pishow.tv/live/1213/master.m3u8
+#EXTINF:-1 tvg-name="Vanitha Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/RGcKkKcJ/1000159508.png",Vanitha Tv
+https://cdn-1.pishow.tv/live/393/master.m3u8
