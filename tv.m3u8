@@ -1691,3 +1691,5 @@ https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a
 https://live2.sscloud7.in/live/jeyamtv/index.m3u8
 #EXTINF:-1 tvg-name="Apple Tv" group-title="Local Channel | Malayalam" tvg-logo="https://i.ibb.co/mC6nZPvz/1000158610.png",Apple Tv
 https://play.applelive.in/appletv/appletvklm.m3u8
+#EXTINF:-1 tvg-name="Sendhur Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Q74KyHjG/1000159376.png",Sendhur Tv
+https://senthurtv-hls.suriyantv.in/live/senthurtv/index.m3u8
