@@ -1701,3 +1701,5 @@ https://cdn-1.pishow.tv/live/1211/master.m3u8
 https://cdn-2.pishow.tv/live/1459/master.m3u8
 #EXTINF:-1 tvg-name="Goldmines 2" group-title="Movies" tvg-logo="https://i.ibb.co/rGYT5tGn/1000159438.png",Goldmines 2
 https://cdn-2.pishow.tv/live/1460/master.m3u8
+#EXTINF:-1 tvg-name="Bollywood Classic" group-title="Movies" tvg-logo="https://i.ibb.co/cK3PjVQx/1000159462.png",Bollywood Classic
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bollywood-classic/manifest.m3u8
