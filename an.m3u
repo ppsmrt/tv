@@ -449,3 +449,7 @@ https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a
 https://cdn-1.pishow.tv/live/1211/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bakthi Tv" tvg-logo="https://i.ibb.co/Q2zgpr6/1000159477.png" group-title="Devotional",Bakthi Tv
 https://cdn-1.pishow.tv/live/397/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Raj Musix" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png" group-title="Music",Raj Musix
+https://cdn-1.pishow.tv/live/1213/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Vanitha Tv" tvg-logo="https://i.ibb.co/RGcKkKcJ/1000159508.png" group-title="Entertainment",Vanitha Tv
+https://cdn-1.pishow.tv/live/393/master.m3u8
