@@ -1695,3 +1695,5 @@ https://play.applelive.in/appletv/appletvklm.m3u8
 https://senthurtv-hls.suriyantv.in/live/senthurtv/index.m3u8
 #EXTINF:-1 tvg-name="NDTV Lanka" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/5XsQc80q/1000159415.png",NDTV Lanka
 https://g4wlkqqwl23a-hls-live.5centscdn.com/NDTVLANKA/1ff5fa54d14c3ff6c6bd3918bbb7db5d.sdp/index.m3u8
+#EXTINF:-1 tvg-name="99 Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/Jwwd03Px/1000159436.png",99 Tv
+https://cdn-1.pishow.tv/live/1211/master.m3u8
