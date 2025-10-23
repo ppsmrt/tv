@@ -564,7 +564,7 @@ https://ipcloud.live/anbutv/anbutvhd/index.m3u8
 #EXTINF:-1 tvg-name="temble tv" tvg-logo="https://livetv.ashokadigital.net/upload/1748265127_ttv logo png.png" group-title="Ashoka",temble tv
 http://app.ashokadigital.net/app/2666f7b8/index.m3u8
 #EXTINF:-1 tvg-name="Thillai Tv " tvg-logo="https://livetv.ashokadigital.net/upload/1744705879_IMG-20250415-WA0134(1).jpg" group-title="Ashoka",Thillai Tv 
-http://stream.onecloudlive.in/tcn/tcn/index.m3u8
+http://stream.onecloudlive.in/tcn/tcntv/index.m3u8
 #EXTINF:-1 tvg-name="sai tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739599891_logo-removebg-preview.png" group-title="Ashoka",sai tv
 https://app.ashokadigital.net/hls/saitvmdu/index.m3u8?token=DPyPa8qHDyZ2q3
 #EXTINF:-1 tvg-name="JEYAM TV" tvg-logo="https://livetv.ashokadigital.net/upload/1745584449_Jeyam Logo copy.png" group-title="Ashoka",JEYAM TV
@@ -753,6 +753,10 @@ https://stream.onecloudlive.in/powranmedia/livestream/index.m3u8
 https://guru.shashwatha.com/hls/live/tv21.m3u8
 #EXTINF:-1 tvg-name="Swastik Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1755165374_2a.png" group-title="Ashoka",Swastik Tv
 https://guru.shashwatha.com/hls/live/swastik.m3u8
+#EXTINF:-1 tvg-name="Gubbi TV Kannada " tvg-logo="https://livetv.ashokadigital.net/upload/1761209169_315 copy.png" group-title="Ashoka",Gubbi TV Kannada 
+https://vvsolutions-server12.in/gubbinewskannada_11/video.m3u8
+#EXTINF:-1 tvg-name="Km News Bengaluru" tvg-logo="https://livetv.ashokadigital.net/upload/1761209217_316 copy.png" group-title="Ashoka",Km News Bengaluru
+http://desitashantv.livebox.co.in/kmnewshls/kmnews.m3u8
 #EXTINF:-1 tvg-name="aadvik tv" tvg-logo="https://livetv.ashokadigital.net/upload/1736158234_Aadvik logo 1_00000.png" group-title="Ashoka",aadvik tv
 https://ipcloud.live/sachintv/aadviktv/index.mpd
 #EXTINF:-1 tvg-name="sachin tv hd" tvg-logo="https://livetv.ashokadigital.net/upload/1736158345_sachin_00000 (1).png" group-title="Ashoka",sachin tv hd
