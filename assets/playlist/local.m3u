@@ -175,6 +175,10 @@ http://alk.sscloud7.in:1935/live/yovantv/playlist.m3u8
 https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Jcv Tv" tvg-logo="https://sscloud7.in/rasinetwork/jcv%20tv.jpg" group-title="SS Cloud7",Jcv Tv
 https://play.applelive.in/jcvtv/jcvtv.m3u8
+#EXTINF:-1 tvg-name="Jayam Tv" tvg-logo="https://play-lh.googleusercontent.com/dME4DKDY6bFUHxz3vaWRvCnKninvRFDRaxyJCYDD5wRtmftXUCgHIW3VDD-zuLt4iB5KpDJeBXArf0nVxmefbXw" group-title="SS Cloud7",Jayam Tv
+https://jayamtv-ott.tamilstream.in/jayamtv/sivakasi/playlist.m3u8
+#EXTINF:-1 tvg-name="Joy Tv" tvg-logo="https://joytvchennai.org/wp-content/uploads/2024/12/logo-2.png" group-title="SS Cloud7",Joy Tv
+https://joy.inet.moe/live/joytv/index.m3u8
 #EXTINF:-1 tvg-name="vvmovies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmovies.png" group-title="VV Telugu",vvmovies
 https://www.schannels.in/vvmovies/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="vvmusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmusic.png" group-title="VV Telugu",vvmusic
