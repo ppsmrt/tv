@@ -1701,3 +1701,9 @@ https://cdn-1.pishow.tv/live/1211/master.m3u8
 https://cdn-2.pishow.tv/live/1459/master.m3u8
 #EXTINF:-1 tvg-name="Goldmines 2" group-title="Hindi" tvg-logo="https://i.ibb.co/rGYT5tGn/1000159438.png",Goldmines 2
 https://cdn-2.pishow.tv/live/1460/master.m3u8
+#EXTINF:-1 tvg-name="Bollywood Classic" group-title="Hindi" tvg-logo="https://i.ibb.co/4RKwHG94/1000159465.png",Bollywood Classic
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bollywood-classic/manifest.m3u8
+#EXTINF:-1 tvg-name="Bollywood HD" group-title="Hindi" tvg-logo="https://i.ibb.co/qFxd1vyf/1000159466.png",Bollywood HD
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bollywood-hd/manifest.m3u8
+#EXTINF:-1 tvg-name="Voice Tv" group-title="Urdu" tvg-logo="https://i.ibb.co/4wnT8vBk/1000159468.png",Voice Tv
+https://live1.ottlive.co.in/voiceurdutv/voiceurdutv/index.m3u8
