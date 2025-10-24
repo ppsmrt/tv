@@ -13,7 +13,7 @@
   <meta name="author" content="TNM3U IPTV Team">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://tnm3u.live/">
+  <link rel="canonical" href="https://tnm3u.com/">
 
   <!-- Favicon & App Icons -->
   <link rel="icon" href="assets/icon/blue.png" type="image/x-icon">
@@ -125,57 +125,67 @@
   </div>
 </section>
 
-<!-- PRICING PLANS WITH TOGGLE -->
+<!-- PRICING PLANS SECTION -->
 <section id="pricing" class="py-20 bg-gray-50">
   <div class="max-w-7xl mx-auto px-6 text-center">
-    <h3 class="text-3xl font-bold text-blue-900 mb-6">Pricing Plans</h3>
-    
+    <h3 class="text-3xl md:text-4xl font-extrabold text-blue-900 mb-6">Pricing Plans</h3>
+    <p class="text-gray-600 max-w-2xl mx-auto mb-10">
+      Choose a plan that fits your needs. Switch between monthly and yearly billing anytime.
+    </p>
+
     <!-- Toggle Switch -->
-    <div class="flex justify-center items-center mb-10 space-x-4">
-      <span class="font-semibold text-gray-700">Monthly</span>
-      <button id="togglePricing" class="relative w-16 h-8 bg-blue-700 rounded-full shadow-inner transition">
-        <span id="toggleCircle" class="absolute left-0 top-0 w-8 h-8 bg-yellow-400 rounded-full shadow-md transition-all"></span>
+    <div class="flex justify-center items-center mb-12 space-x-4">
+      <span class="font-medium text-gray-700">Monthly</span>
+      <button id="togglePricing" class="relative w-16 h-8 bg-blue-700 rounded-full transition duration-300 focus:outline-none">
+        <span id="toggleCircle" class="absolute left-0 top-0 w-8 h-8 bg-yellow-400 rounded-full shadow-md transition-all duration-300 transform"></span>
       </button>
-      <span class="font-semibold text-gray-700">Yearly</span>
+      <span class="font-medium text-gray-700">Yearly</span>
     </div>
 
-    <div id="pricingCards" class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white border rounded-xl shadow-md p-6 hover:-translate-y-1 transition" data-monthly="₹500 / Month" data-yearly="₹5,700 / Year">
-        <h4 class="text-xl font-semibold text-blue-800 mb-3">Regional Playlist + Panel</h4>
-        <p class="text-gray-600 mb-4"><ul><li>Admin Panel</li>
-<li>1 Regional Playlist</li>
-<li>Domain</li>
-<li>Lite Speed Hosting</li>
-<li>SSL</li>
-<li>.live domain</li>
-<li>24x7 Support</li>
-</ul>
-</p>
-        <p class="text-2xl font-bold text-blue-900 mb-4">₹500 / Month</p>
-        <button class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800">Subscribe</button>
+    <!-- Pricing Cards -->
+    <div id="pricingCards" class="grid gap-8 md:grid-cols-3">
+      
+      <!-- PLAN 1 -->
+      <div class="bg-white border border-gray-100 rounded-2xl shadow-md hover:shadow-xl transition-all p-8">
+        <h4 class="text-xl font-semibold text-blue-800 mb-4">Regional Playlist + Panel</h4>
+        <ul class="text-gray-600 text-left mb-6 space-y-2 list-disc list-inside">
+          <li>Admin Panel</li>
+          <li>1 Regional Playlist</li>
+          <li>.live Domain</li>
+          <li>LiteSpeed Hosting</li>
+          <li>Free SSL</li>
+          <li>24×7 Support</li>
+        </ul>
+        <p class="text-3xl font-bold text-blue-900 mb-6 price" data-monthly="₹500 / Month" data-yearly="₹5,700 / Year">₹500 / Month</p>
+        <button class="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 transition">Subscribe</button>
       </div>
-      <div class="bg-white border rounded-xl shadow-md p-6 hover:-translate-y-1 transition" data-monthly="₹800 /Month" data-yearly="₹9,120 / Year">
-        <h4 class="text-xl font-semibold text-blue-800 mb-3">Universal Playlist + Panel</h4>
-        <p class="text-gray-600 mb-4"><ul><li>Admin Panel</li>
-       <li>Universal Playlist</li>
-        <li>Domain</li>
-        <li>Lite Speed Hosting</li>
-         <li>SSL</li>
-         <li>.live domain</li>
-        <li>24x7 Support</li></ul></p>
-        <p class="text-2xl font-bold text-blue-900 mb-4">₹800 /Month</p>
-        <button class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800">Subscribe</button>
+
+      <!-- PLAN 2 -->
+      <div class="bg-white border border-gray-100 rounded-2xl shadow-md hover:shadow-xl transition-all p-8">
+        <h4 class="text-xl font-semibold text-blue-800 mb-4">Universal Playlist + Panel</h4>
+        <ul class="text-gray-600 text-left mb-6 space-y-2 list-disc list-inside">
+          <li>Admin Panel</li>
+          <li>Universal Playlist</li>
+          <li>.live Domain</li>
+          <li>LiteSpeed Hosting</li>
+          <li>Free SSL</li>
+          <li>24×7 Support</li>
+        </ul>
+        <p class="text-3xl font-bold text-blue-900 mb-6 price" data-monthly="₹800 / Month" data-yearly="₹9,120 / Year">₹800 / Month</p>
+        <button class="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 transition">Subscribe</button>
       </div>
-      <div class="bg-white border rounded-xl shadow-md p-6 hover:-translate-y-1 transition" data-monthly="₹99 / Month" data-yearly="1,100 / Year">
-        <h4 class="text-xl font-semibold text-blue-800 mb-3">Our Universal Playlist</h4>
-        <p class="text-gray-600 mb-4">
-          <ul>
-            <li>Jio+ Tv's</li>
-            <li>Tata Play</li>
-            <li>International Channels</li>
-            <li>Local Channels</li></ul></p>
-        <p class="text-2xl font-bold text-blue-900 mb-4">₹99 / Month</p>
-        <button class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800">Subscribe</button>
+
+      <!-- PLAN 3 -->
+      <div class="bg-white border border-gray-100 rounded-2xl shadow-md hover:shadow-xl transition-all p-8">
+        <h4 class="text-xl font-semibold text-blue-800 mb-4">Our Universal Playlist</h4>
+        <ul class="text-gray-600 text-left mb-6 space-y-2 list-disc list-inside">
+          <li>Jio+ TV’s</li>
+          <li>Tata Play</li>
+          <li>International Channels</li>
+          <li>Local Channels</li>
+        </ul>
+        <p class="text-3xl font-bold text-blue-900 mb-6 price" data-monthly="₹99 / Month" data-yearly="₹1,100 / Year">₹99 / Month</p>
+        <button class="bg-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-800 transition">Subscribe</button>
       </div>
     </div>
   </div>
@@ -287,10 +297,6 @@
     <div id="dots" class="flex justify-center mt-6 space-x-2"></div>
   </div>
 </section>
-
-<script>
-  
-</script>
 
 
 <!-- PARTNERS -->
@@ -453,15 +459,16 @@
   // Pricing Toggle
   const toggle = document.getElementById('togglePricing');
   const circle = document.getElementById('toggleCircle');
-  const cards = document.querySelectorAll('#pricingCards > div');
-  let yearly = false;
+  const prices = document.querySelectorAll('.price');
+  let isYearly = false;
 
   toggle.addEventListener('click', () => {
-    yearly = !yearly;
-    circle.style.left = yearly ? '32px' : '0';
-    cards.forEach(card => {
-      const price = yearly ? card.dataset.yearly : card.dataset.monthly;
-      card.querySelector('p.text-2xl').textContent = price;
+    isYearly = !isYearly;
+    circle.classList.toggle('translate-x-8');
+    prices.forEach(price => {
+      price.textContent = isYearly
+        ? price.getAttribute('data-yearly')
+        : price.getAttribute('data-monthly');
     });
   });
 
