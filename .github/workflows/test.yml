@@ -1,4 +1,4 @@
-name: TEST Update
+name: TEST
 
 on:
   schedule:
@@ -31,12 +31,12 @@ jobs:
           const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
 
           const allowedChannels = [
-            'Sun TV HD',
-            'Sun Music HD',
-            'KTV HD',
-            'Star Vijay HD',
-            'Star Vijay',
-            'Vijay Super'
+            'sun tv hd',
+            'sun music hd',
+            'ktv hd',
+            'star vijay hd',
+            'star vijay',
+            'vijay super'
           ];
 
           (async () => {
@@ -48,19 +48,36 @@ jobs:
                 process.exit(0);
               }
 
-              // Split playlist lines
               const lines = playlist.split('\n');
               let filtered = ['#EXTM3U'];
+              let count = 0;
 
               for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
-                if (line.startsWith('#EXTINF') && line.includes('group-title="Tamil"')) {
-                  const nameMatch = line.match(/,(.*)$/);
-                  if (nameMatch && allowedChannels.includes(nameMatch[1].trim())) {
+                if (line.startsWith('#EXTINF')) {
+                  const lower = line.toLowerCase();
+                  const matchName = line.match(/,(.*)$/);
+                  const channelName = matchName ? matchName[1].trim().toLowerCase() : '';
+
+                  const isTamilGroup =
+                    lower.includes('group-title="tamil"') ||
+                    lower.includes('group-title="tamil channels"') ||
+                    lower.includes('group-title="tamil hd"');
+
+                  const isAllowed = allowedChannels.some(ch => channelName.includes(ch));
+
+                  if (isTamilGroup && isAllowed) {
                     filtered.push(line);
                     filtered.push(lines[i + 1] || '');
+                    count++;
                   }
                 }
+              }
+
+              if (count === 0) {
+                console.log("No matching Tamil channels found!");
+              } else {
+                console.log(`✅ ${count} Tamil channels added.`);
               }
 
               const filteredPlaylist = filtered.join('\n');
