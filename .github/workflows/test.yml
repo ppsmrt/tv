@@ -1,4 +1,4 @@
-name: test
+name: Test
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate filtered test.m3u
+      - name: Generate filtered test.m3u with group titles
         id: generate
         run: |
           npm install node-fetch@2
@@ -44,50 +44,62 @@ jobs:
               }
 
               const lines = playlist.split('\n');
-              let filtered = ['#EXTM3U'];
+              let blocks = [];
               let currentBlock = [];
 
+              // Split into channel blocks
               for (const line of lines) {
                 if (line.startsWith('#EXTINF')) {
-                  // When new EXTINF starts, check if previous block matches
                   if (currentBlock.length) {
-                    const blockText = currentBlock.join('\n');
-                    filtered.push(blockText);
+                    blocks.push(currentBlock.join('\n'));
                     currentBlock = [];
                   }
-                  currentBlock = [line];
+                  currentBlock.push(line);
                 } else if (currentBlock.length) {
                   currentBlock.push(line);
                 }
               }
-              // Push last block if any
-              if (currentBlock.length) filtered.push(currentBlock.join('\n'));
+              if (currentBlock.length) blocks.push(currentBlock.join('\n'));
 
-              // Filter by tvg-id
-              const outputBlocks = filtered.filter(block => {
-                const idMatch = block.match(/tvg-id="(\d+)"/);
-                if (!idMatch) return false;
-                const id = parseInt(idMatch[1]);
-                if (tamilIDs.includes(id)) {
-                  return block.includes('group-title="Jiostar"') || true;
-                }
-                if (teluguIDs.includes(id)) {
-                  return block.includes('group-title="Jiostar"') || true;
-                }
-                return false;
-              });
+              // Filter and assign group-titles
+              const filteredBlocks = blocks
+                .map(block => {
+                  const idMatch = block.match(/tvg-id="(\d+)"/);
+                  if (!idMatch) return null;
+                  const id = parseInt(idMatch[1]);
+                  let groupTitle = null;
 
-              const finalPlaylist = ['#EXTM3U', ...outputBlocks].join('\n\n');
+                  if (tamilIDs.includes(id)) groupTitle = 'Tamil';
+                  else if (teluguIDs.includes(id)) groupTitle = 'Telugu';
+                  else return null;
 
+                  // Replace existing group-title or add new one
+                  if (block.includes('group-title=')) {
+                    block = block.replace(/group-title="(.*?)"/, `group-title="${groupTitle}"`);
+                  } else {
+                    block = block.replace(
+                      /(tvg-id=".*?")/,
+                      `$1 group-title="${groupTitle}"`
+                    );
+                  }
+
+                  return block;
+                })
+                .filter(Boolean);
+
+              const finalPlaylist = ['#EXTM3U', ...filteredBlocks].join('\n\n');
+
+              // Detect if changes occurred
               if (prevData.trim() === finalPlaylist.trim()) {
                 console.log("No changes detected in filtered playlist.");
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
                 process.exit(0);
               }
 
+              // Save updated playlist
               fs.mkdirSync('assets/playlist', { recursive: true });
               fs.writeFileSync(outputFile, finalPlaylist, 'utf8');
-              console.log("Filtered playlist saved successfully.");
+              console.log("Filtered and grouped playlist saved successfully.");
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
             } catch (err) {
               console.error("Error:", err);
@@ -102,5 +114,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/playlist/test.m3u
-          git commit -m "Auto-update filtered Jiostar Tamil & Telugu playlist [skip ci]"
+          git commit -m "Auto-update Jiostar Tamil & Telugu grouped playlist [skip ci]"
           git push
