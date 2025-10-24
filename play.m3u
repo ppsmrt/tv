@@ -717,12 +717,8 @@ http://212.102.60.231/HBO/index.m3u8?token=test
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Sony TEN Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png",Sony TEN Sports 3 HD
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Zee Cinemalu" group-title="Movies" tvg-logo="https://i.ibb.co/1tdvww6W/1000150678.png",Zee Cinemalu
-http://195.181.169.162/ZEE_CINEMALU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Surya Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/3yFbfjYL/1000152752.png",Surya Tv
 http://195.181.169.162/SURYA_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Zee Telugu" group-title="Entertainment" tvg-logo="https://i.ibb.co/qTFR8vF/1000150680.png",Zee Telugu
-http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="E Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/fzhYQ0zZ/1000150571.png",E Tv
 http://195.181.169.162/ETV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Gemini Movies" group-title="Movies" tvg-logo="https://i.ibb.co/ksDWvpZC/1000150569.png",Gemini Movies
@@ -763,8 +759,6 @@ https://d27tnkf60df3v4.cloudfront.net/v1/manifest/9d43eacaed199f8d5883927e7aef51
 https://d2cj1h11htct8o.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_LIFE_H264_cloud_in/index.m3u8
 #EXTINF:-1 tvg-name="E TV Abhiruchi" group-title="Entertainment" tvg-logo="https://i.ibb.co/5hkZ8280/1000150573.png",E TV Abhiruchi
 https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_ABHIRUCHI_H264-3_cloud-in/index.m3u8
-#EXTINF:-1 tvg-name="Star Maa HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/1GHFRBhp/1000150605.png",Star Maa HD
-https://live.dinesh29.com.np/stream/jiotvplus/maahd/master.m3u8
 #EXTINF:-1 tvg-name="Big Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/99HYMk75/1000149837.png",Big Tv
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/big-tv/index.m3u8
 #EXTINF:-1 tvg-name="TTN Live" group-title="Entertainment" tvg-logo="https://i.ibb.co/Jj1WY261/1000151394.png",TTN Live
