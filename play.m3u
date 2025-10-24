@@ -1729,3 +1729,7 @@ https://cdn-1.pishow.tv/live/407/master.m3u8
 https://cdn-1.pishow.tv/live/385/master.m3u8
 #EXTINF:-1 tvg-name="Hi Dost" group-title="Entertainment" tvg-logo="https://i.ibb.co/bVn6Qnb/1000159741.png",Hi Dost
 https://cdn-1.pishow.tv/live/224/master.m3u8
+#EXTINF:-1 tvg-name="Studio One Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/27qqnhRc/1000159743.png",Studio One Plus
+https://cdn-1.pishow.tv/live/276/master.m3u8
+#EXTINF:-1 tvg-name="Swaraj Express SMBC" group-title="Entertainment" tvg-logo="https://i.ibb.co/27qqnhRc/1000159743.png",Swaraj Express SMBC
+https://cdn-2.pishow.tv/live/477/master.m3u8
