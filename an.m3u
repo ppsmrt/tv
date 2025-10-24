@@ -459,3 +459,5 @@ https://cdn-1.pishow.tv/live/407/master.m3u8
 https://cdn-1.pishow.tv/live/385/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Studio One Plus" tvg-logo="https://i.ibb.co/27qqnhRc/1000159743.png" group-title="Entertainment",Studio One Plus
 https://cdn-1.pishow.tv/live/276/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Thirumalai Tv" tvg-logo="https://i.ibb.co/ZzrR9j3c/1000159779.png" group-title="Local Channels",Thirumalai Tv
+https://ipcloud.live/thirumalaitv/madurai/index.m3u8
