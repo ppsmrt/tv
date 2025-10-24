@@ -1,10 +1,10 @@
 #EXTM3U
+#EXTINF:-1 tvg-name="Info" tvg-logo="https://sscloud7.in/assets/img/sscloud7web%20blue.png" group-title="SS Cloud7",Info
+https://live2.sscloud7.in/live/sshd/index.m3u8
 #EXTINF:-1 tvg-name="SS HD" tvg-logo="https://sscloud7.in/rasinetwork/sshdlogo.png" group-title="SS Cloud7",SS HD
 https://live2.sscloud7.in/live/sshd/index.m3u8
-#EXTINF:-1 tvg-name="Info" tvg-logo="https://sscloud7.in/assets/img/sscloud7web%20blue.png" group-title="SS Cloud7",Info
-https://soul-5mincrafteng-rakuten.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Rainbowtv" tvg-logo="https://play-lh.googleusercontent.com/D4O6QmZlFb8GzYYSCbSAir2_6bACOHtHBFxFgqMgDtSYGhLCMawbPR_D-AEDYv4tYuE" group-title="SS Cloud7",Rainbowtv
-https://live1.sscloud7.in/live/rainbowtv/index.m3u8
+https://soul-5mincrafteng-rakuten.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Sana TV" tvg-logo="https://play-lh.googleusercontent.com/d9CowjhBRwa6Fe6ecj3cNkHZ_-G4T2_C_bB09hsBRPYQJwnf-rjD_PuqeJs6jcQHbg" group-title="SS Cloud7",Sana TV
 https://galaxyott.live/hls/sanatv.m3u8
 #EXTINF:-1 tvg-name="Anandham HD" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlwQvmNdgGNXSYKzojBfPuVJOzT3zDIuUITA&s" group-title="SS Cloud7",Anandham HD
