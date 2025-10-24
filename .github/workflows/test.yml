@@ -1,4 +1,4 @@
-name: TEST
+name: test
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate test.m3u
+      - name: Generate filtered test.m3u
         id: generate
         run: |
           npm install node-fetch@2
@@ -30,75 +30,67 @@ jobs:
           const outputFile = 'assets/playlist/test.m3u';
           const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
 
-          const allowedChannels = [
-            'sun tv hd',
-            'sun music hd',
-            'ktv hd',
-            'star vijay hd',
-            'star vijay',
-            'vijay super'
-          ];
+          // Tamil and Telugu channel IDs
+          const tamilIDs = [368, 1130, 1131, 673, 682, 895, 896];
+          const teluguIDs = [684, 729, 897];
 
           (async () => {
             try {
               const res = await fetch(url);
               const playlist = await res.text();
               if (!playlist || !playlist.includes('#EXTINF')) {
-                console.log("No channels found in Jiostar playlist.");
+                console.log("No valid playlist data found.");
                 process.exit(0);
               }
 
               const lines = playlist.split('\n');
               let filtered = ['#EXTM3U'];
-              let count = 0;
+              let currentBlock = [];
 
-              for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
+              for (const line of lines) {
                 if (line.startsWith('#EXTINF')) {
-                  const lower = line.toLowerCase();
-                  const matchName = line.match(/,(.*)$/);
-                  const channelName = matchName ? matchName[1].trim().toLowerCase() : '';
-
-                  const isTamilGroup =
-                    lower.includes('group-title="tamil"') ||
-                    lower.includes('group-title="tamil channels"') ||
-                    lower.includes('group-title="tamil hd"');
-
-                  const isAllowed = allowedChannels.some(ch => channelName.includes(ch));
-
-                  if (isTamilGroup && isAllowed) {
-                    filtered.push(line);
-                    filtered.push(lines[i + 1] || '');
-                    count++;
+                  // When new EXTINF starts, check if previous block matches
+                  if (currentBlock.length) {
+                    const blockText = currentBlock.join('\n');
+                    filtered.push(blockText);
+                    currentBlock = [];
                   }
+                  currentBlock = [line];
+                } else if (currentBlock.length) {
+                  currentBlock.push(line);
                 }
               }
+              // Push last block if any
+              if (currentBlock.length) filtered.push(currentBlock.join('\n'));
 
-              if (count === 0) {
-                console.log("No matching Tamil channels found!");
-              } else {
-                console.log(`✅ ${count} Tamil channels added.`);
-              }
+              // Filter by tvg-id
+              const outputBlocks = filtered.filter(block => {
+                const idMatch = block.match(/tvg-id="(\d+)"/);
+                if (!idMatch) return false;
+                const id = parseInt(idMatch[1]);
+                if (tamilIDs.includes(id)) {
+                  return block.includes('group-title="Jiostar"') || true;
+                }
+                if (teluguIDs.includes(id)) {
+                  return block.includes('group-title="Jiostar"') || true;
+                }
+                return false;
+              });
 
-              const filteredPlaylist = filtered.join('\n');
+              const finalPlaylist = ['#EXTM3U', ...outputBlocks].join('\n\n');
 
-              // Compare with previous playlist
-              if (prevData.trim() === filteredPlaylist.trim()) {
-                console.log("No changes in filtered playlist, skipping update.");
+              if (prevData.trim() === finalPlaylist.trim()) {
+                console.log("No changes detected in filtered playlist.");
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
                 process.exit(0);
               }
 
-              // Ensure output directory exists
               fs.mkdirSync('assets/playlist', { recursive: true });
-
-              // Write filtered playlist
-              fs.writeFileSync(outputFile, filteredPlaylist.replace(/\r\n/g, '\n'), 'utf8');
-              console.log("Filtered test.m3u updated successfully.");
+              fs.writeFileSync(outputFile, finalPlaylist, 'utf8');
+              console.log("Filtered playlist saved successfully.");
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
-
             } catch (err) {
-              console.error("Error fetching or filtering playlist:", err);
+              console.error("Error:", err);
               process.exit(1);
             }
           })();
@@ -110,5 +102,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/playlist/test.m3u
-          git commit -m "Auto-update filtered Jiostar playlist [skip ci]"
+          git commit -m "Auto-update filtered Jiostar Tamil & Telugu playlist [skip ci]"
           git push
