@@ -111,8 +111,8 @@ https://ipcloud.live/paavai/live/index.m3u8
 https://ipcloud.live/pothigai/thendral/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vasantham" tvg-logo="https://i.ibb.co/78YSzVt/1000157975.png" group-title="Local Channels",Vasantham
 https://stream.onecloudlive.in/dhandapani/vasanthamtv/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="AK Tv" tvg-logo="https://i.ibb.co/V0GGqWg7/1000148347.png" group-title="Local Channels",AK Tv
-http://aktvhd.stream.onecloudlive.in:8080/aktvhd/aktv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="AK Tv" tvg-logo="https://i.ibb.co/HLf7Q3fR/1000160414.png" group-title="Local Channels",AK Tv
+https://stream.onecloudlive.in/aktvhd/aktv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sky Plus Tv" tvg-logo="https://i.ibb.co/nMFptcbv/1000158106.png" group-title="Local Channels",Sky Plus Tv
 https://ipcloud.live/skytv/skytv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Colors Tamil" tvg-logo="https://i.ibb.co/V0KvjkJ7/1000158583.png" group-title="Entertainment",Colors Tamil
@@ -783,3 +783,5 @@ https://stream.onecloudlive.in/sachintv/strawberrytv/index.m3u8
 https://notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="RV Tv HD" tvg-logo="https://i.ibb.co/4RdSBq9G/1000160410.png" group-title="Local Channels",RV Tv HD
 https://ipcloud.live/rvtv/rvtvhd/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Bass Tv" tvg-logo="https://i.ibb.co/0T18RLC/1000160418.png" group-title="Local Channels",Bass Tv
+http://xstream.onecloudlive.in:8080/bass/basstv/index.m3u8
