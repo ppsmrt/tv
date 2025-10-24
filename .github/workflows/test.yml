@@ -1,4 +1,4 @@
-name: Test Playlist
+name: Auto-update tp.m3u
 
 on:
   schedule:
@@ -29,7 +29,7 @@ jobs:
           const sourceUrl = 'https://tnm3u.live/assets/playlist/tp.m3u';
           const outputFile = 'assets/playlist/test.m3u';
 
-          // ✅ Channel names to include (add more later easily)
+          // ✅ Channels to include (expandable)
           const allowedNames = [
             "STAR VIJAY 4K",
             "STAR VIJAY HD",
@@ -52,7 +52,7 @@ jobs:
                 process.exit(0);
               }
 
-              // ✅ Filter channels by tvg-name
+              // ✅ Filter channels by tvg-name and force group-title="Tamil"
               const lines = fullPlaylist.split('\n');
               let filtered = "#EXTM3U\n";
               for (let i = 0; i < lines.length; i++) {
@@ -60,7 +60,14 @@ jobs:
                 if (line.startsWith('#EXTINF')) {
                   const nameMatch = line.match(/tvg-name="([^"]+)"/);
                   if (nameMatch && allowedNames.includes(nameMatch[1])) {
-                    filtered += line + "\n";
+                    // Force group-title to "Tamil"
+                    let updatedLine = line;
+                    if (updatedLine.includes('group-title=')) {
+                      updatedLine = updatedLine.replace(/group-title="[^"]*"/, 'group-title="Tamil"');
+                    } else {
+                      updatedLine = updatedLine.replace('#EXTINF', '#EXTINF group-title="Tamil",');
+                    }
+                    filtered += updatedLine + "\n";
                     if (lines[i + 1]) filtered += lines[i + 1] + "\n"; // add URL line
                   }
                 }
@@ -84,7 +91,7 @@ jobs:
               // Write filtered playlist
               fs.writeFileSync(outputFile, filtered.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
 
-              console.log('Filtered test.m3u updated successfully.');
+              console.log('Filtered test.m3u updated successfully with Tamil group-title.');
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
             } catch (err) {
               console.error('Error fetching or processing playlist:', err);
@@ -99,6 +106,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/playlist/test.m3u
-          git commit -m "Auto-update filtered test.m3u [skip ci]"
+          git commit -m "Auto-update filtered test.m3u (Tamil group-title) [skip ci]"
           git push
-          
