@@ -1,4 +1,4 @@
-name: Test
+name: Auto-update filter.m3u
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate filtered test.m3u with group titles
+      - name: Generate filtered filter.m3u using filter.json
         id: generate
         run: |
           npm install node-fetch@2
@@ -26,13 +26,22 @@ jobs:
           const fs = require('fs');
           const fetch = require('node-fetch');
 
+          const configFile = 'assets/playlist/filter.json';
+          const outputFile = 'assets/playlist/filter.m3u';
           const url = 'https://raw.githubusercontent.com/alex8875/m3u/refs/heads/main/jstar.m3u';
-          const outputFile = 'assets/playlist/test.m3u';
           const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
 
-          // Tamil and Telugu channel IDs
-          const tamilIDs = [368, 1130, 1131, 673, 682, 895, 896];
-          const teluguIDs = [684, 729, 897];
+          if (!fs.existsSync(configFile)) {
+            console.error(`❌ Missing config file: ${configFile}`);
+            process.exit(1);
+          }
+
+          // Read JSON configuration
+          const config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+          const groupMap = {};
+          for (const [groupTitle, ids] of Object.entries(config)) {
+            ids.forEach(id => (groupMap[id] = groupTitle));
+          }
 
           (async () => {
             try {
@@ -61,19 +70,16 @@ jobs:
               }
               if (currentBlock.length) blocks.push(currentBlock.join('\n'));
 
-              // Filter and assign group-titles
+              // Filter and assign group-titles from JSON
               const filteredBlocks = blocks
                 .map(block => {
                   const idMatch = block.match(/tvg-id="(\d+)"/);
                   if (!idMatch) return null;
                   const id = parseInt(idMatch[1]);
-                  let groupTitle = null;
+                  const groupTitle = groupMap[id];
+                  if (!groupTitle) return null;
 
-                  if (tamilIDs.includes(id)) groupTitle = 'Tamil';
-                  else if (teluguIDs.includes(id)) groupTitle = 'Telugu';
-                  else return null;
-
-                  // Replace existing group-title or add new one
+                  // Replace existing group-title or insert new
                   if (block.includes('group-title=')) {
                     block = block.replace(/group-title="(.*?)"/, `group-title="${groupTitle}"`);
                   } else {
@@ -99,7 +105,7 @@ jobs:
               // Save updated playlist
               fs.mkdirSync('assets/playlist', { recursive: true });
               fs.writeFileSync(outputFile, finalPlaylist, 'utf8');
-              console.log("Filtered and grouped playlist saved successfully.");
+              console.log("✅ Filtered playlist updated using filter.json");
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
             } catch (err) {
               console.error("Error:", err);
@@ -113,6 +119,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/playlist/test.m3u
-          git commit -m "Auto-update Jiostar Tamil & Telugu grouped playlist [skip ci]"
+          git add assets/playlist/filter.m3u
+          git commit -m "Auto-update filtered playlist from filter.json [skip ci]"
           git push
