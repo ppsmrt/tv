@@ -26,55 +26,71 @@ jobs:
           const fs = require('fs');
           const fetch = require('node-fetch');
 
-          const url = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const firebaseUrl = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
+          const filterUrl = 'https://tnm3u.live/assets/playlist/filter.m3u';
           const m3uFile = 'tv.m3u';
           const m3u8File = 'tv.m3u8';
           const prevData = fs.existsSync(m3uFile) ? fs.readFileSync(m3uFile, 'utf8') : '';
 
+          const epgHeader = `#EXTM3U x-tvg-url="https://avkb.short.gy/jioepg.xml.gz,https://iptv-epg.org/files/epg-in.xml.gz"\n`;
+
           (async () => {
             try {
-              const res = await fetch(url);
+              // Fetch Firebase JSON
+              const res = await fetch(firebaseUrl);
               const data = await res.json();
-              if (!data) {
-                console.log("No channels found.");
+
+              // Fetch Filter playlist
+              const filterRes = await fetch(filterUrl);
+              const filterData = await filterRes.text();
+
+              if (!data && !filterData) {
+                console.log("No channels found from any source.");
                 process.exit(0);
               }
 
-              let m3u = "#EXTM3U\n";
+              let m3u = epgHeader;
               let changesSummary = [];
 
-              for (const id of Object.keys(data)) {
-                const ch = data[id];
-                let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " "); // sanitize
-                const category = ch.category || "General";
-                const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
-                const stream = ch.stream?.trim();
-                if (!stream) continue;
+              // Process Firebase JSON channels
+              if (data) {
+                for (const id of Object.keys(data)) {
+                  const ch = data[id];
+                  let name = (ch.name || "Unknown").replace(/[,"\r\n]/g, " ");
+                  const category = ch.category || "General";
+                  const logo = ch.icon && ch.icon.trim() !== "" ? ch.icon.trim() : null;
+                  const stream = ch.stream?.trim();
+                  if (!stream) continue;
 
-                let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}"`;
-                if (logo) extinf += ` tvg-logo="${logo}"`;
-                extinf += `,${name}`;
+                  let extinf = `#EXTINF:-1 tvg-name="${name}" group-title="${category}"`;
+                  if (logo) extinf += ` tvg-logo="${logo}"`;
+                  extinf += `,${name}`;
 
-                m3u += `${extinf}\n${stream}\n`;
+                  m3u += `${extinf}\n${stream}\n`;
 
-                // Compare with previous playlist
-                const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
-                const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
+                  const prevExtinf = prevData.split('\n').find(line => line.includes(name) && line.startsWith('#EXTINF'));
+                  const prevStreamLine = prevExtinf ? prevData.split('\n')[prevData.split('\n').indexOf(prevExtinf) + 1] : null;
 
-                if (!prevExtinf) {
-                  changesSummary.push(`Added: ${name}`);
-                } else if (prevExtinf !== extinf || prevStreamLine !== stream) {
-                  changesSummary.push(`Updated: ${name}`);
+                  if (!prevExtinf) {
+                    changesSummary.push(`Added: ${name}`);
+                  } else if (prevExtinf !== extinf || prevStreamLine !== stream) {
+                    changesSummary.push(`Updated: ${name}`);
+                  }
                 }
+
+                // Check for removed Firebase channels
+                const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
+                oldNames.forEach(name => {
+                  if (!Object.values(data).some(ch => ch.name === name)) {
+                    changesSummary.push(`Removed: ${name}`);
+                  }
+                });
               }
 
-              // Check for removed channels
-              const oldNames = prevData.split('\n').filter(line => line.startsWith('#EXTINF')).map(line => line.split(',')[1]);
-              oldNames.forEach(name => {
-                if (!Object.values(data).some(ch => ch.name === name)) {
-                  changesSummary.push(`Removed: ${name}`);
-                }
-              });
+              // Append filter.m3u content
+              if (filterData && filterData.trim() !== '') {
+                m3u += `\n# ---- Filter Playlist Content ----\n${filterData.trim()}\n`;
+              }
 
               if (changesSummary.length === 0) {
                 console.log("No changes in playlist, skipping file generation.");
@@ -82,7 +98,7 @@ jobs:
                 process.exit(0);
               }
 
-              // Save both tv.m3u and tv.m3u8
+              // Write updated playlists
               fs.writeFileSync(m3uFile, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
               fs.writeFileSync(m3u8File, m3u.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
 
@@ -91,7 +107,7 @@ jobs:
               fs.appendFileSync(process.env.GITHUB_OUTPUT, `summary=${changesSummary.join('; ')}\n`);
 
             } catch (err) {
-              console.error('Error fetching channels:', err);
+              console.error('Error fetching or generating playlists:', err);
               process.exit(1);
             }
           })();
