@@ -235,8 +235,6 @@ http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
 http://kcltv.livebox.co.in/kclhls/live.m3u8
 #EXTINF:-1 tvg-name="Sun Tv HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv HD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
-#EXTINF:-1 tvg-name="Sun Music" group-title="Music" tvg-logo="https://i.ibb.co/YFVMTgns/1000148230.png",Sun Music
-http://89.187.189.98/SUNMUSICHD/index.m3u8
 #EXTINF:-1 tvg-name="Max Movies" group-title="Movies" tvg-logo="https://i.ibb.co/WWGRTShd/1000158028.png",Max Movies
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-name="Leo Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/M57y2sgw/1000157944.png",Leo Tv
@@ -357,8 +355,6 @@ https://servertvhub.site/jio/app/ts_live_429.m3u8
 https://ipcloud.live/asokatv/asokahd/index.m3u8
 #EXTINF:-1 tvg-name="MSN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/WNkwJBXQ/1000158108.png",MSN Tv
 https://ipcloud.live/msntv/msntv/index.m3u8
-#EXTINF:-1 tvg-name="Vijay Tv HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/hJvtrVXT/1000149677.png",Vijay Tv HD
-https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6be7e60d03c2d82
 #EXTINF:-1 tvg-name="Zee Tamil SD" group-title="Entertainment" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Star Movies" group-title="Movies" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png",Star Movies
@@ -805,12 +801,6 @@ https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
 https://edge2-moblive.yuppcdn.net/drm/smil:eventtvdrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Kadamba Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/2724C6Dg/1000152726.png",Kadamba Tv
 https://guru.shashwatha.com/hls/live/kadamba.m3u8
-#EXTINF:-1 tvg-name="Vijay Tv SD" group-title="Entertainment" tvg-logo="https://i.ibb.co/tPT0Kt2h/1000149678.png",Vijay Tv SD
-https://live.dinesh29.com.np/stream/jiotvplus/starvijay/master.m3u8
-#EXTINF:-1 tvg-name="Vijay Super" group-title="Entertainment" tvg-logo="https://i.ibb.co/Fk1Dwrvj/1000149680.png",Vijay Super
-http://89.187.189.98/VIJAYSUPER/index.m3u8
-#EXTINF:-1 tvg-name="Vijay Takkar" group-title="Entertainment" tvg-logo="https://i.ibb.co/F4b70dSS/1000149684.png",Vijay Takkar
-https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
 #EXTINF:-1 tvg-name="Swasthik Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/JjVGv6HC/1000152736.png",Swasthik Tv
 https://guru.shashwatha.com/hls/live/swastik.m3u8
 #EXTINF:-1 tvg-name="Kalki" group-title="Local Channels" tvg-logo="https://i.ibb.co/Ps8jRsyt/1000152728.png",Kalki
@@ -857,8 +847,6 @@ http://89.187.189.98/STARSPORTS3/index.m3u8
 http://89.187.189.98/SONYWAH/index.m3u8
 #EXTINF:-1 tvg-name="Sonic Hindi" group-title="Entertainment" tvg-logo="https://i.ibb.co/8gbkFs0L/1000148071.png",Sonic Hindi
 http://89.187.189.98/SONIC/index.m3u8
-#EXTINF:-1 tvg-name="Zee Thirai" group-title="Movies" tvg-logo="https://i.ibb.co/wFXFLCQH/1000149697.png",Zee Thirai
-http://89.187.189.98/ZEETHIRAI/index.m3u8
 #EXTINF:-1 tvg-name="Disney Channel" group-title="Kids" tvg-logo="https://i.ibb.co/jZRjT5JC/1000148104.png",Disney Channel
 http://89.187.189.98/BABYTVHD/index.m3u8
 #EXTINF:-1 tvg-name="Wow Kids" group-title="Kids" tvg-logo="https://i.ibb.co/9mGvxyVJ/1000148075.png",Wow Kids
@@ -1207,8 +1195,6 @@ http://89.187.189.98/STARMOVIESSELECTHD/index.m3u8
 http://89.187.189.98/MOVIESNOWHD/index.m3u8
 #EXTINF:-1 tvg-name="Jothi Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/RTJ4gLz4/1000148737.png",Jothi Tv
 https://servertvhub.site/jio/app/ts_live_2768.m3u8
-#EXTINF:-1 tvg-name="Sun News" group-title="News" tvg-logo="https://i.ibb.co/ksK5xzQq/1000148229.png",Sun News
-http://m3u.8088y.fun/yt.php?c=Sunnewstamil
 #EXTINF:-1 tvg-name="Kumudham Tv" group-title="News" tvg-logo="https://i.ibb.co/21hMgrtX/1000148512.png",Kumudham Tv
 http://m3u.8088y.fun/yt.php?c=Kumudamnews
 #EXTINF:-1 tvg-name="HM Tv" group-title="News" tvg-logo="https://i.ibb.co/yFmqvdDZ/1000153240.png",HM Tv
