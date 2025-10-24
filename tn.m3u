@@ -447,7 +447,7 @@ http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-id="" tvg-name="Jaya Plus" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png" group-title="News",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
-#EXTINF:-1 tvg-id="" tvg-name="Raj Musix" tvg-logo="https://i.ibb.co/Y7BVHybF/1000148547.png" group-title="Music",Raj Musix
+#EXTINF:-1 tvg-id="" tvg-name="Raj Musix" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png" group-title="Music",Raj Musix
 https://servertvhub.site/jio/app/ts_live_748.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi Tv" tvg-logo="https://i.ibb.co/4ZR4m7Rc/1000158599.png" group-title="News",Thandhi Tv
 http://m3u.8088y.fun/yt.php?c=thanthitv
@@ -781,3 +781,5 @@ https://live2.sscloud7.in/live/jeyamtv/index.m3u8
 https://senthurtv-hls.suriyantv.in/live/senthurtv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="NDTV Lanka" tvg-logo="https://i.ibb.co/5XsQc80q/1000159415.png" group-title="Local Channels",NDTV Lanka
 https://g4wlkqqwl23a-hls-live.5centscdn.com/NDTVLANKA/1ff5fa54d14c3ff6c6bd3918bbb7db5d.sdp/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Thillai Tv" tvg-logo="https://i.ibb.co/5XW9np25/1000159599.png" group-title="Local Channels",Thillai Tv
+https://stream.onecloudlive.in/tcn/tcntv/index.m3u8

@@ -238,7 +238,7 @@ https://servertvhub.site/jio/app/ts_live_579.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CN Tamil" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png" group-title="Kids",CN Tamil
 https://servertvhub.site/jio/app/ts_live_817.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="HM Tv" tvg-logo="https://i.ibb.co/yFmqvdDZ/1000153240.png" group-title="News",HM Tv
-http://m3u.8088y.site/yt.php?c=hmtvtelugunewslive
+https://cdn-1.pishow.tv/live/280/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Euro Sports HD" tvg-logo="https://i.ibb.co/Hfk6tqG5/1000148806.png" group-title="Sports",Euro Sports HD
 https://servertvhub.site/jio/app/ts_live_875.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Jio Sports HD" tvg-logo="https://i.ibb.co/9mq8VJ5v/1000149220.png" group-title="Sports",Jio Sports HD
@@ -453,3 +453,9 @@ https://cdn-1.pishow.tv/live/397/master.m3u8
 https://cdn-1.pishow.tv/live/1213/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vanitha Tv" tvg-logo="https://i.ibb.co/RGcKkKcJ/1000159508.png" group-title="Entertainment",Vanitha Tv
 https://cdn-1.pishow.tv/live/393/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="ABN Andra Jothi" tvg-logo="https://i.ibb.co/pBspMJdd/1000159737.png" group-title="News",ABN Andra Jothi
+https://cdn-1.pishow.tv/live/407/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="T news" tvg-logo="https://i.ibb.co/qKZBhC4/1000159739.png" group-title="News",T news
+https://cdn-1.pishow.tv/live/385/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Studio One Plus" tvg-logo="https://i.ibb.co/27qqnhRc/1000159743.png" group-title="Entertainment",Studio One Plus
+https://cdn-1.pishow.tv/live/276/master.m3u8
