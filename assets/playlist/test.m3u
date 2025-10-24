@@ -1,15 +1,1 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="starvijay.in" tvg-name="STAR VIJAY 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/11649.jpg" group-title="Tamil",STAR VIJAY 4K
-https://stalker.tnm3us.workers.dev/66562.m3u8
-#EXTINF:-1 tvg-id="starvijay.in" tvg-name="STAR VIJAY HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/841.jpg" group-title="Tamil",STAR VIJAY HD
-https://stalker.tnm3us.workers.dev/924.m3u8
-#EXTINF:-1 tvg-id="vijayhd.in" tvg-name="VIJAY TV" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/67528.jpg" group-title="Tamil",VIJAY TV
-https://stalker.tnm3us.workers.dev/66791.m3u8
-#EXTINF:-1 tvg-id="suntvhd.in" tvg-name="SUN TV HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/844.jpg" group-title="Tamil",SUN TV HD
-https://stalker.tnm3us.workers.dev/927.m3u8
-#EXTINF:-1 tvg-id="sunmusic.in" tvg-name="SUN MUSIC 4K" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/11721.jpg" group-title="Tamil",SUN MUSIC 4K
-https://stalker.tnm3us.workers.dev/11805.m3u8
-#EXTINF:-1 tvg-id="ktv.in" tvg-name="KTV 4K TAMIL" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/11734.jpg" group-title="Tamil",KTV 4K TAMIL
-https://stalker.tnm3us.workers.dev/11818.m3u8
-#EXTINF:-1 tvg-id="ktvhd.in" tvg-name="KTV HD" tvg-logo="http://tatatv.cc/stalker_portal/misc/logos/320/1022.jpg" group-title="Tamil",KTV HD
-https://stalker.tnm3us.workers.dev/1105.m3u8
