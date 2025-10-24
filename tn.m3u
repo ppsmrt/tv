@@ -781,3 +781,5 @@ http://voicetv.stream.ashokadigital.net:8080/voicetv/voicetvhd/index.m3u8
 https://stream.onecloudlive.in/sachintv/strawberrytv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bright Rose Tv" tvg-logo="https://i.ibb.co/svNNmL97/1000159797.png" group-title="Local Channels",Bright Rose Tv
 https://notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="RV Tv HD" tvg-logo="https://i.ibb.co/4RdSBq9G/1000160410.png" group-title="Local Channels",RV Tv HD
+https://ipcloud.live/rvtv/rvtvhd/index.m3u8
