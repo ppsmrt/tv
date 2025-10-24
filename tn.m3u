@@ -785,3 +785,5 @@ https://notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
 https://ipcloud.live/rvtv/rvtvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bass Tv" tvg-logo="https://i.ibb.co/0T18RLC/1000160418.png" group-title="Local Channels",Bass Tv
 http://xstream.onecloudlive.in:8080/bass/basstv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="RS Tv" tvg-logo="https://i.ibb.co/4RdSBq9G/1000160410.png" group-title="Local Channels",RS Tv
+https://stream.onecloudlive.in/rstv/rstvhd/index.m3u8
