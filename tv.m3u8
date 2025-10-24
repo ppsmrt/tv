@@ -1743,3 +1743,5 @@ http://voicetv.stream.ashokadigital.net:8080/voicetv/voicetvhd/index.m3u8
 https://stream.onecloudlive.in/sachintv/strawberrytv/index.m3u8
 #EXTINF:-1 tvg-name="Bright Rose Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/svNNmL97/1000159797.png",Bright Rose Tv
 https://notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
+#EXTINF:-1 tvg-name="Easan Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/tMtysz6V/1000159800.png",Easan Tv
+https://amigofx.com:1936/easontv/easontv/playlist.m3u8
