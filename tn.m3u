@@ -789,3 +789,5 @@ https://ipcloud.live/nellaitv/suriyatv/index.m3u8
 http://voicetv.stream.ashokadigital.net:8080/voicetv/voicetvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Strawberry Tv" tvg-logo="https://i.ibb.co/r290vjKm/1000159795.png" group-title="Local Channels",Strawberry Tv
 https://stream.onecloudlive.in/sachintv/strawberrytv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Bright Rose Tv" tvg-logo="https://i.ibb.co/svNNmL97/1000159797.png" group-title="Local Channels",Bright Rose Tv
+https://notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
