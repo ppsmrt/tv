@@ -345,8 +345,8 @@ https://segment.yuppcdn.net/050522/tv5kannada/playlist.m3u8
 http://103.118.151.130:11037/hls/fox.m3u8
 #EXTINF:-1 tvg-name="DD Sapthagiri" group-title="Telugu" tvg-logo="https://i.ibb.co/jZvrmhvn/1000150508.png",DD Sapthagiri
 https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8
-#EXTINF:-1 tvg-name="AK Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/V0GGqWg7/1000148347.png",AK Tv
-http://aktvhd.stream.onecloudlive.in:8080/aktvhd/aktv/index.m3u8
+#EXTINF:-1 tvg-name="AK Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/HLf7Q3fR/1000160414.png",AK Tv
+https://stream.onecloudlive.in/aktvhd/aktv/index.m3u8
 #EXTINF:-1 tvg-name="Sky Plus Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/nMFptcbv/1000158106.png",Sky Plus Tv
 https://ipcloud.live/skytv/skytv/index.m3u8
 #EXTINF:-1 tvg-name="Colors Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/V0KvjkJ7/1000158583.png",Colors Tamil
@@ -1725,6 +1725,8 @@ https://stream.onecloudlive.in/sachintv/strawberrytv/index.m3u8
 https://notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
 #EXTINF:-1 tvg-name="Easan Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/tMtysz6V/1000159800.png",Easan Tv
 https://amigofx.com:1936/easontv/easontv/playlist.m3u8
+#EXTINF:-1 tvg-name="RV Tv HD" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/4RdSBq9G/1000160410.png",RV Tv HD
+https://ipcloud.live/rvtv/rvtvhd/index.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
