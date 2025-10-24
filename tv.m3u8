@@ -235,8 +235,6 @@ http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
 http://kcltv.livebox.co.in/kclhls/live.m3u8
 #EXTINF:-1 tvg-name="Sun Tv HD" group-title="Tamil" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv HD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
-#EXTINF:-1 tvg-name="Sun Music" group-title="Tamil" tvg-logo="https://i.ibb.co/YFVMTgns/1000148230.png",Sun Music
-http://89.187.189.98/SUNMUSICHD/index.m3u8
 #EXTINF:-1 tvg-name="Max Movies" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/WWGRTShd/1000158028.png",Max Movies
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-name="Leo Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/M57y2sgw/1000157944.png",Leo Tv
@@ -357,8 +355,6 @@ https://servertvhub.site/jio/app/ts_live_429.m3u8
 https://ipcloud.live/asokatv/asokahd/index.m3u8
 #EXTINF:-1 tvg-name="MSN Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/WNkwJBXQ/1000158108.png",MSN Tv
 https://ipcloud.live/msntv/msntv/index.m3u8
-#EXTINF:-1 tvg-name="Vijay Tv HD" group-title="Tamil" tvg-logo="https://i.ibb.co/hJvtrVXT/1000149677.png",Vijay Tv HD
-https://allinonereborn.xyz/opplextv-web1/live.php?id=38095210:d01c81050dfab309c6be7e60d03c2d82
 #EXTINF:-1 tvg-name="Zee Tamil SD" group-title="Tamil" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png",Zee Tamil SD
 http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Star Movies" group-title="English" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png",Star Movies
@@ -599,7 +595,7 @@ http://live.brightmeltech.in/singamtv/singamtv.m3u8
 https://play.applelive.in/jcvtv/jcvtv.m3u8
 #EXTINF:-1 tvg-name="Tiger Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/0j5f2pTt/1000158014.png",Tiger Tv
 https://stream.onecloudlive.in/tigertv/tigertvhd/index.m3u8
-#EXTINF:-1 tvg-name="7 Green 4K" group-title="4K_UHD" tvg-logo="https://i.ibb.co/rRVrx1KX/1000150827.png",7 Green 4K
+#EXTINF:-1 tvg-name="7 Green 4K" group-title="Tamil" tvg-logo="https://i.ibb.co/rRVrx1KX/1000150827.png",7 Green 4K
 https://account33.livebox.co.in/7GREEN4Khls/live.m3u8
 #EXTINF:-1 tvg-name="Fort Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Hfq2DBzW/1000153216.png",Fort Tv
 https://stream.onecloudlive.in/forttv/fortchannel/index.m3u8
@@ -717,12 +713,8 @@ http://212.102.60.231/HBO/index.m3u8?token=test
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Sony TEN Sports 3 HD" group-title="Sports" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png",Sony TEN Sports 3 HD
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Zee Cinemalu" group-title="Telugu" tvg-logo="https://i.ibb.co/1tdvww6W/1000150678.png",Zee Cinemalu
-http://195.181.169.162/ZEE_CINEMALU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Surya Tv" group-title="Malayalam" tvg-logo="https://i.ibb.co/3yFbfjYL/1000152752.png",Surya Tv
 http://195.181.169.162/SURYA_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-name="Zee Telugu" group-title="Telugu" tvg-logo="https://i.ibb.co/qTFR8vF/1000150680.png",Zee Telugu
-http://195.181.169.162/ZEE_TELUGU_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="E Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/fzhYQ0zZ/1000150571.png",E Tv
 http://195.181.169.162/ETV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Gemini Movies" group-title="Telugu" tvg-logo="https://i.ibb.co/ksDWvpZC/1000150569.png",Gemini Movies
@@ -763,8 +755,6 @@ https://d27tnkf60df3v4.cloudfront.net/v1/manifest/9d43eacaed199f8d5883927e7aef51
 https://d2cj1h11htct8o.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_LIFE_H264_cloud_in/index.m3u8
 #EXTINF:-1 tvg-name="E TV Abhiruchi" group-title="Telugu" tvg-logo="https://i.ibb.co/5hkZ8280/1000150573.png",E TV Abhiruchi
 https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_ABHIRUCHI_H264-3_cloud-in/index.m3u8
-#EXTINF:-1 tvg-name="Star Maa HD" group-title="Telugu" tvg-logo="https://i.ibb.co/1GHFRBhp/1000150605.png",Star Maa HD
-https://live.dinesh29.com.np/stream/jiotvplus/maahd/master.m3u8
 #EXTINF:-1 tvg-name="Big Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/99HYMk75/1000149837.png",Big Tv
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/big-tv/index.m3u8
 #EXTINF:-1 tvg-name="TTN Live" group-title="Srilanka" tvg-logo="https://i.ibb.co/Jj1WY261/1000151394.png",TTN Live
@@ -811,12 +801,6 @@ https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
 https://edge2-moblive.yuppcdn.net/drm/smil:eventtvdrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-name="Kadamba Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/2724C6Dg/1000152726.png",Kadamba Tv
 https://guru.shashwatha.com/hls/live/kadamba.m3u8
-#EXTINF:-1 tvg-name="Vijay Tv SD" group-title="Tamil" tvg-logo="https://i.ibb.co/tPT0Kt2h/1000149678.png",Vijay Tv SD
-https://live.dinesh29.com.np/stream/jiotvplus/starvijay/master.m3u8
-#EXTINF:-1 tvg-name="Vijay Super" group-title="Tamil" tvg-logo="https://i.ibb.co/Fk1Dwrvj/1000149680.png",Vijay Super
-http://89.187.189.98/VIJAYSUPER/index.m3u8
-#EXTINF:-1 tvg-name="Vijay Takkar" group-title="Tamil" tvg-logo="https://i.ibb.co/F4b70dSS/1000149684.png",Vijay Takkar
-https://live.dinesh29.com.np/stream/jiotvplus/vijaytakkar/master.m3u8
 #EXTINF:-1 tvg-name="Swasthik Tv" group-title="Kannada" tvg-logo="https://i.ibb.co/JjVGv6HC/1000152736.png",Swasthik Tv
 https://guru.shashwatha.com/hls/live/swastik.m3u8
 #EXTINF:-1 tvg-name="Kalki" group-title="Kannada" tvg-logo="https://i.ibb.co/Ps8jRsyt/1000152728.png",Kalki
@@ -863,8 +847,6 @@ http://89.187.189.98/STARSPORTS3/index.m3u8
 http://89.187.189.98/SONYWAH/index.m3u8
 #EXTINF:-1 tvg-name="Sonic Hindi" group-title="Kids" tvg-logo="https://i.ibb.co/8gbkFs0L/1000148071.png",Sonic Hindi
 http://89.187.189.98/SONIC/index.m3u8
-#EXTINF:-1 tvg-name="Zee Thirai" group-title="Tamil" tvg-logo="https://i.ibb.co/wFXFLCQH/1000149697.png",Zee Thirai
-http://89.187.189.98/ZEETHIRAI/index.m3u8
 #EXTINF:-1 tvg-name="Disney Channel" group-title="Kids" tvg-logo="https://i.ibb.co/jZRjT5JC/1000148104.png",Disney Channel
 http://89.187.189.98/BABYTVHD/index.m3u8
 #EXTINF:-1 tvg-name="Wow Kids" group-title="Kids" tvg-logo="https://i.ibb.co/9mGvxyVJ/1000148075.png",Wow Kids
@@ -1213,8 +1195,6 @@ http://89.187.189.98/STARMOVIESSELECTHD/index.m3u8
 http://89.187.189.98/MOVIESNOWHD/index.m3u8
 #EXTINF:-1 tvg-name="Jothi Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/RTJ4gLz4/1000148737.png",Jothi Tv
 https://servertvhub.site/jio/app/ts_live_2768.m3u8
-#EXTINF:-1 tvg-name="Sun News" group-title="Tamil" tvg-logo="https://i.ibb.co/ksK5xzQq/1000148229.png",Sun News
-http://m3u.8088y.fun/yt.php?c=Sunnewstamil
 #EXTINF:-1 tvg-name="Kumudham Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/21hMgrtX/1000148512.png",Kumudham Tv
 http://m3u.8088y.fun/yt.php?c=Kumudamnews
 #EXTINF:-1 tvg-name="HM Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/yFmqvdDZ/1000153240.png",HM Tv
@@ -1345,7 +1325,7 @@ https://www.schannels.in/devicable/video.m3u8?token=nokshitha
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
 #EXTINF:-1 tvg-name="CN Telugu" group-title="Kids" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png",CN Telugu
 https://servertvhub.site/jio/app/ts_live_166.m3u8
-#EXTINF:-1 tvg-name="Sun Tv UHD" group-title="4K_UHD" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv UHD
+#EXTINF:-1 tvg-name="Sun Tv UHD" group-title="Tamil" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png",Sun Tv UHD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-name="& Flix" group-title="English" tvg-logo="https://i.ibb.co/hJP6QYbz/1000148248.png",& Flix
 https://edge3-moblive.yuppcdn.net/drm/smil:nflixdrm.smil/index.m3u8
