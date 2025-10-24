@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TNM3U IPTV | Premium IPTV Solutions</title>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+  
+<!-- FontAwesome Icons -->
+<script src="https://kit.fontawesome.com/a2e0e6ad4b.js" crossorigin="anonymous"></script>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Poppins',sans-serif;}</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- HEADER -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+    <h1 class="text-2xl font-bold text-blue-900">TNM3U<span class="text-yellow-500">.</span></h1>
+    <nav class="hidden md:flex space-x-6 font-medium">
+      <a href="#home" class="hover:text-blue-700">Home</a>
+      <a href="#portfolio" class="hover:text-blue-700">Portfolio</a>
+      <a href="#pricing" class="hover:text-blue-700">Pricing</a>
+      <a href="#features" class="hover:text-blue-700">Features</a>
+      <a href="#demo" class="hover:text-blue-700">Demo Panel</a>
+      <a href="#testimonials" class="hover:text-blue-700">Testimonials</a>
+      <a href="#partners" class="hover:text-blue-700">Partners</a>
+      <a href="#team" class="hover:text-blue-700">Team</a>
+      <a href="#contact" class="hover:text-blue-700">Contact</a>
+    </nav>
+    <a href="#contact" class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800">Get in Touch</a>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section id="home" class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20 text-center">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">Premium IPTV Solutions</h2>
+    <p class="text-gray-200 text-lg max-w-2xl mx-auto mb-6">
+      We provide reliable IPTV services with HD & 4K channels, multi-device support, and a professional admin panel for easy management with playlist support for iptv player's.
+    </p>
+    <div class="space-x-4">
+      <a href="#pricing" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-300">View Plans</a>
+<br>
+</br>
+      <a href="#demo" class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-900 font-semibold">Demo Admin Panel</a>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO / SERVICES -->
+<section id="portfolio" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold text-blue-900 mb-10">Our Services & Portfolio</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="p-6 border rounded-xl shadow-sm hover:shadow-md">
+        <h4 class="font-semibold text-blue-800 mb-2">HD Live Channels</h4>
+        <p class="text-gray-600">Stream over 1000+ live channels in HD & 4K quality with zero buffering.</p>
+      </div>
+      <div class="p-6 border rounded-xl shadow-sm hover:shadow-md">
+        <h4 class="font-semibold text-blue-800 mb-2">Multi-Device Support</h4>
+        <p class="text-gray-600">Compatible with Android, iOS, Smart TVs, and Web applications.</p>
+      </div>
+      <div class="p-6 border rounded-xl shadow-sm hover:shadow-md">
+        <h4 class="font-semibold text-blue-800 mb-2">VOD & Catchup</h4>
+        <p class="text-gray-600">Access movies, series, and catch-up content anytime with ease.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING PLANS WITH TOGGLE -->
+<section id="pricing" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold text-blue-900 mb-6">Pricing Plans</h3>
+    
+    <!-- Toggle Switch -->
+    <div class="flex justify-center items-center mb-10 space-x-4">
+      <span class="font-semibold text-gray-700">Monthly</span>
+      <button id="togglePricing" class="relative w-16 h-8 bg-blue-700 rounded-full shadow-inner transition">
+        <span id="toggleCircle" class="absolute left-0 top-0 w-8 h-8 bg-yellow-400 rounded-full shadow-md transition-all"></span>
+      </button>
+      <span class="font-semibold text-gray-700">Yearly</span>
+    </div>
+
+    <div id="pricingCards" class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white border rounded-xl shadow-md p-6 hover:-translate-y-1 transition" data-monthly="₹500 / Month" data-yearly="₹5,700 / Year">
+        <h4 class="text-xl font-semibold text-blue-800 mb-3">Regional Playlist + Panel</h4>
+        <p class="text-gray-600 mb-4"><ul><li>Admin Panel</li>
+<li>1 Regional Playlist</li>
+<li>Domain</li>
+<li>Lite Speed Hosting</li>
+<li>SSL</li>
+<li>.live domain</li>
+<li>24x7 Support</li>
+</ul>
+</p>
+        <p class="text-2xl font-bold text-blue-900 mb-4">₹500 / Month</p>
+        <button class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800">Subscribe</button>
+      </div>
+      <div class="bg-white border rounded-xl shadow-md p-6 hover:-translate-y-1 transition" data-monthly="₹800 /Month" data-yearly="₹9,120 / Year">
+        <h4 class="text-xl font-semibold text-blue-800 mb-3">Universal Playlist + Panel</h4>
+        <p class="text-gray-600 mb-4"><ul><li>Admin Panel</li>
+       <li>Universal Playlist</li>
+        <li>Domain</li>
+        <li>Lite Speed Hosting</li>
+         <li>SSL</li>
+         <li>.live domain</li>
+        <li>24x7 Support</li></ul></p>
+        <p class="text-2xl font-bold text-blue-900 mb-4">₹800 /Month</p>
+        <button class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800">Subscribe</button>
+      </div>
+      <div class="bg-white border rounded-xl shadow-md p-6 hover:-translate-y-1 transition" data-monthly="₹99 / Month" data-yearly="1,100 / Year">
+        <h4 class="text-xl font-semibold text-blue-800 mb-3">Our Universal Playlist</h4>
+        <p class="text-gray-600 mb-4">
+          <ul>
+            <li>Jio+ Tv's</li>
+            <li>Tata Play</li>
+            <li>International Channels</li>
+            <li>Local Channels</li></ul></p>
+        <p class="text-2xl font-bold text-blue-900 mb-4">₹99 / Month</p>
+        <button class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold text-blue-900 mb-10">Platform Features</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="p-6 border rounded-xl shadow-sm hover:shadow-md">
+        <h4 class="font-semibold text-blue-800 mb-2">24/7 Support</h4>
+        <p class="text-gray-600">Our team ensures your streaming is uninterrupted and smooth.</p>
+      </div>
+      <div class="p-6 border rounded-xl shadow-sm hover:shadow-md">
+        <h4 class="font-semibold text-blue-800 mb-2">Admin Panel</h4>
+        <p class="text-gray-600">User-friendly panel to manage subscriptions, add channels, and monitor traffic.</p>
+      </div>
+      <div class="p-6 border rounded-xl shadow-sm hover:shadow-md">
+        <h4 class="font-semibold text-blue-800 mb-2">Custom Branding</h4>
+        <p class="text-gray-600">White-label solutions to launch your own IPTV service easily.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO ADMIN PANEL MODAL -->
+<section id="demo" class="py-20 bg-gray-50 text-center">
+  <h3 class="text-3xl font-bold text-blue-900 mb-10">Demo Admin Panel</h3>
+  <button id="openDemo" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg hover:bg-yellow-300 font-semibold">
+    Open Demo
+  </button>
+
+  <!-- Modal -->
+  <div id="demoModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+    <div class="bg-white rounded-xl max-w-6xl w-full h-[80vh] p-6 relative flex flex-col">
+      <button id="closeDemo" class="absolute top-4 right-4 text-blue-700 font-bold text-2xl">&times;</button>
+      <h4 class="text-2xl font-bold text-blue-900 mb-4">Admin Panel Demo</h4>
+      <p class="text-gray-700 mb-4">Preview channel management, user control, and analytics below:</p>
+      
+      <!-- IFRAME PREVIEW -->
+      <iframe 
+        src="https://tnm3u.linkpc.net/" 
+        class="w-full flex-1 rounded-lg border border-gray-300" 
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL SLIDER -->
+<section id="testimonials" class="py-20 bg-gradient-to-b from-white to-blue-50">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h3 class="text-3xl md:text-4xl font-bold text-blue-900 mb-12">
+      What Our Clients Say
+    </h3>
+
+    <div class="relative max-w-3xl mx-auto overflow-hidden">
+      <!-- Slider Wrapper -->
+      <div id="testimonialWrapper" class="flex transition-transform duration-700 ease-in-out">
+        <!-- Testimonial 1 -->
+        <div class="min-w-full px-8">
+          <div class="bg-white p-8 rounded-2xl shadow-lg border border-blue-100">
+            <p class="text-gray-700 italic mb-4 leading-relaxed">
+              “TQ for coming back very much appreciated with your presence in the group. Do maintain this long permanent.”
+            </p>
+            <p class="font-semibold text-blue-800">— SKAREK, Playlist User</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="min-w-full px-8">
+          <div class="bg-white p-8 rounded-2xl shadow-lg border border-blue-100">
+            <p class="text-gray-700 italic mb-4 leading-relaxed">
+              “Thank you for the playlist (my most favourite) which I have been waiting since long days. God bless you brother — once again tq tq tq 🙏🙏”
+            </p>
+            <p class="font-semibold text-blue-800">— Shekhar Puppala, Playlist User</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="min-w-full px-8">
+          <div class="bg-white p-8 rounded-2xl shadow-lg border border-blue-100">
+            <p class="text-gray-700 italic mb-4 leading-relaxed">
+              “Thanks bro, really wonderful work! Super admin panel — easy access, very simple. I'm loving it; now I have my own playlist.”
+            </p>
+            <p class="font-semibold text-blue-800">— Rahul, IPTV Reseller</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="min-w-full px-8">
+          <div class="bg-white p-8 rounded-2xl shadow-lg border border-blue-100">
+            <p class="text-gray-700 italic mb-4 leading-relaxed">
+              “I appreciate your work and thank you for sharing the playlist 👍👌🙏”
+            </p>
+            <p class="font-semibold text-blue-800">— AM Selvan, Playlist User</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button id="prev" class="absolute top-1/2 left-3 -translate-y-1/2 bg-blue-700 text-white p-3 rounded-full hover:bg-blue-800 shadow-md">◀</button>
+      <button id="next" class="absolute top-1/2 right-3 -translate-y-1/2 bg-blue-700 text-white p-3 rounded-full hover:bg-blue-800 shadow-md">▶</button>
+    </div>
+
+    <!-- Dots Indicator -->
+    <div id="dots" class="flex justify-center mt-6 space-x-2"></div>
+  </div>
+</section>
+
+<script>
+  
+</script>
+
+
+<!-- PARTNERS -->
+<section id="partners" class="py-20 bg-gradient-to-b from-gray-50 to-white">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h3 class="text-3xl md:text-4xl font-bold text-blue-900 mb-12">
+      Our Trusted Partners
+    </h3>
+    <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+      We’re proud to collaborate with leading platforms and communities that share our vision for reliable streaming and innovation.
+    </p>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 items-center justify-center">
+      <!-- Partner 1 -->
+      <div class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-blue-100 transition-all duration-300">
+        <img src="https://tnm3u.live/assets/images/tll.jfif" 
+             alt="Tamil Live Links" 
+             class="h-16 mx-auto grayscale group-hover:grayscale-0 transition duration-500">
+        <p class="mt-4 text-sm font-semibold text-gray-700 group-hover:text-blue-700 transition">
+          Tamil Live Links
+        </p>
+      </div>
+
+      <!-- Partner 2 -->
+      <div class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-blue-100 transition-all duration-300">
+        <img src="https://raw.githubusercontent.com/ppsmrt/tamilgeo/refs/heads/main/assets/icon/Logo.jpg" 
+             alt="TamilGeo" 
+             class="h-16 mx-auto grayscale group-hover:grayscale-0 transition duration-500 rounded-lg">
+        <p class="mt-4 text-sm font-semibold text-gray-700 group-hover:text-blue-700 transition">
+          TamilGeo
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ADMIN TEAM -->
+<section id="team" class="py-20 bg-gradient-to-b from-white to-blue-50">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h3 class="text-3xl md:text-4xl font-bold text-blue-900 mb-12">
+      Meet Our Team
+    </h3>
+
+    <div class="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <!-- Member 1 -->
+      <div class="group bg-white p-8 rounded-2xl shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+        <img src="https://ui-avatars.com/api/?name=Palani&background=ffffff&color=1e40af&size=128" 
+             alt="Palani" 
+             class="mx-auto rounded-full w-28 h-28 mb-5 border-4 border-blue-900 shadow-md group-hover:scale-105 transition-transform duration-300">
+        <h4 class="font-semibold text-blue-800 text-lg">Palani</h4>
+        <p class="text-gray-600 text-sm mb-4">Founder</p>
+        <div class="flex justify-center space-x-4 text-blue-700 text-lg">
+          <a href="mailto:tnm3us@gmail.com" class="hover:text-yellow-500"><i class="fas fa-envelope"></i></a>
+          <a href="https://t.me/tnm3u" target="_blank" class="hover:text-blue-500"><i class="fab fa-telegram-plane"></i></a>
+          <a href="https://wa.me/919000000000" target="_blank" class="hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="group bg-white p-8 rounded-2xl shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+        <img src="https://ui-avatars.com/api/?name=David&background=ffffff&color=1e40af&size=128" 
+             alt="David" 
+             class="mx-auto rounded-full w-28 h-28 mb-5 border-4 border-blue-900 shadow-md group-hover:scale-105 transition-transform duration-300">
+        <h4 class="font-semibold text-blue-800 text-lg">David</h4>
+        <p class="text-gray-600 text-sm mb-4">Admin</p>
+        <div class="flex justify-center space-x-4 text-blue-700 text-lg">
+          <a href="mailto:tnm3us@gmail.com" class="hover:text-yellow-500"><i class="fas fa-envelope"></i></a>
+          <a href="#" class="hover:text-blue-500"><i class="fab fa-telegram-plane"></i></a>
+          <a href="#" class="hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="group bg-white p-8 rounded-2xl shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+        <img src="https://ui-avatars.com/api/?name=Sasikaran&background=ffffff&color=1e40af&size=128" 
+             alt="Sasi Karan" 
+             class="mx-auto rounded-full w-28 h-28 mb-5 border-4 border-blue-900 shadow-md group-hover:scale-105 transition-transform duration-300">
+        <h4 class="font-semibold text-blue-800 text-lg">Sasi Karan</h4>
+        <p class="text-gray-600 text-sm mb-4">Admin</p>
+        <div class="flex justify-center space-x-4 text-blue-700 text-lg">
+          <a href="mailto:tnm3us@gmail.com" class="hover:text-yellow-500"><i class="fas fa-envelope"></i></a>
+          <a href="#" class="hover:text-blue-500"><i class="fab fa-telegram-plane"></i></a>
+          <a href="#" class="hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CONTACT -->
+<section id="contact" class="py-20 bg-blue-900 text-white">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold mb-6">Get In Touch</h3>
+    <p class="text-gray-200 mb-8">
+      We’re here to help with your queries, partnerships, or support needs.
+      Reach out anytime — we’d love to hear from you.
+    </p>
+
+    <!-- Contact Email -->
+    <div class="bg-white text-blue-900 py-6 px-8 rounded-xl shadow-lg inline-block">
+      <p class="text-lg font-semibold mb-2">Reach Our Support Team</p>
+      <a href="mailto:tnm3us@gmail.com" class="text-2xl font-bold hover:underline hover:text-blue-700">
+        Mail Us now
+      </a>
+    </div>
+
+    <!-- Optional: Social Icons -->
+    <div class="flex justify-center gap-6 mt-8">
+      <a href="https://t.me/tnm3u" target="_blank" class="hover:text-yellow-400 text-2xl"><i class="fab fa-telegram-plane"></i></a>
+      <a href="https://wa.me/919000000000" target="_blank" class="hover:text-green-400 text-2xl"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:tnm3us@gmail.com" class="hover:text-red-400 text-2xl"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- FontAwesome Icons -->
+<script src="https://kit.fontawesome.com/a2e0e6ad4b.js" crossorigin="anonymous"></script>
+
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-gray-400 py-10">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+    <div>
+      <h4 class="text-white font-semibold mb-3">TNM3U IPTV</h4>
+      <p>Professional IPTV solutions for broadcasters, resellers, and businesses worldwide.</p>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-3">Quick Links</h4>
+      <ul class="space-y-2">
+        <li><a href="#portfolio" class="hover:text-white">Portfolio</a></li>
+        <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+        <li><a href="#features" class="hover:text-white">Features</a></li>
+        <li><a href="#demo" class="hover:text-white">Demo Panel</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-3">Resources</h4>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white">Terms of Use</a></li>
+        <li><a href="#" class="hover:text-white">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-3">Contact</h4>
+      <p>Email: tnm3us@gmail.com</p>
+      <p>Address: Chennai, India</p>
+    </div>
+  </div>
+  <div class="text-center mt-10 text-gray-500 text-sm">
+    TNM3U © 2025. Premium IPTV Solutions.
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+  // Pricing Toggle
+  const toggle = document.getElementById('togglePricing');
+  const circle = document.getElementById('toggleCircle');
+  const cards = document.querySelectorAll('#pricingCards > div');
+  let yearly = false;
+
+  toggle.addEventListener('click', () => {
+    yearly = !yearly;
+    circle.style.left = yearly ? '32px' : '0';
+    cards.forEach(card => {
+      const price = yearly ? card.dataset.yearly : card.dataset.monthly;
+      card.querySelector('p.text-2xl').textContent = price;
+    });
+  });
+
+  // Testimonial Slider
+  const wrapper = document.getElementById("testimonialWrapper");
+  const slides = wrapper.children.length;
+  const dotsContainer = document.getElementById("dots");
+  let index = 0;
+
+  // Create navigation dots dynamically
+  for (let i = 0; i < slides; i++) {
+    const dot = document.createElement("button");
+    dot.className = "w-3 h-3 rounded-full bg-gray-300 hover:bg-blue-500 transition-all";
+    dot.addEventListener("click", () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  }
+
+  const dots = dotsContainer.querySelectorAll("button");
+
+  function updateDots() {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("bg-blue-700", i === index);
+      dot.classList.toggle("w-4", i === index);
+      dot.classList.toggle("h-4", i === index);
+    });
+  }
+
+  function goToSlide(i) {
+    index = i;
+    wrapper.style.transform = `translateX(-${index * 100}%)`;
+    updateDots();
+  }
+
+  document.getElementById("prev").onclick = () => {
+    index = (index - 1 + slides) % slides;
+    goToSlide(index);
+  };
+
+  document.getElementById("next").onclick = () => {
+    index = (index + 1) % slides;
+    goToSlide(index);
+  };
+
+  // Auto-slide every 5 seconds
+  setInterval(() => {
+    index = (index + 1) % slides;
+    goToSlide(index);
+  }, 5000);
+
+  // Initialize
+  updateDots();
+
+  // Demo Panel Modal
+  const openBtn = document.getElementById('openDemo');
+  const closeBtn = document.getElementById('closeDemo');
+  const modal = document.getElementById('demoModal');
+
+  openBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  });
+</script>
+
+</body>
+</html>
