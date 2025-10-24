@@ -1713,3 +1713,13 @@ https://cdn-1.pishow.tv/live/397/master.m3u8
 https://cdn-1.pishow.tv/live/1213/master.m3u8
 #EXTINF:-1 tvg-name="Vanitha Tv" group-title="Telugu" tvg-logo="https://i.ibb.co/RGcKkKcJ/1000159508.png",Vanitha Tv
 https://cdn-1.pishow.tv/live/393/master.m3u8
+#EXTINF:-1 tvg-name="Thillai Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/5XW9np25/1000159599.png",Thillai Tv
+https://stream.onecloudlive.in/tcn/tcntv/index.m3u8
+#EXTINF:-1 tvg-name="Gubbi Tv Kannada" group-title="Local Channel | Kannada" tvg-logo="https://i.ibb.co/TD20Fnhh/1000159601.png",Gubbi Tv Kannada
+https://vvsolutions-server12.in/gubbinewskannada_11/video.m3u8
+#EXTINF:-1 tvg-name="KM News Bengaluru" group-title="Local Channel | Kannada" tvg-logo="https://i.ibb.co/k2VcXyJv/1000159603.png",KM News Bengaluru
+http://desitashantv.livebox.co.in/kmnewshls/kmnews.m3u8
+#EXTINF:-1 tvg-name="Kirubai Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/TM2fQW6s/1000159605.png",Kirubai Tv
+https://server1.thewebworld.in:3208/hybrid/play.m3u8
+#EXTINF:-1 tvg-name="Joy HD Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/1J7hNb8C/1000159607.png",Joy HD Tv
+https://server1.thewebworld.in:3208/hybrid/play.m3u8
