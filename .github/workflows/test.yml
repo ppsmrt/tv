@@ -1,0 +1,104 @@
+name: Test Playlist
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Generate filtered test.m3u
+        id: generate
+        run: |
+          npm install node-fetch@2
+          node <<'EOF'
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+
+          const sourceUrl = 'https://tnm3u.live/assets/playlist/tp.m3u';
+          const outputFile = 'assets/playlist/test.m3u';
+
+          // ✅ Channel names to include (add more later easily)
+          const allowedNames = [
+            "STAR VIJAY 4K",
+            "STAR VIJAY HD",
+            "VIJAY TV",
+            "SUN TV HD",
+            "SUN MUSIC 4K",
+            "KTV 4K TAMIL",
+            "KTV HD"
+          ];
+
+          const prevData = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, 'utf8') : '';
+
+          (async () => {
+            try {
+              const res = await fetch(sourceUrl);
+              const fullPlaylist = await res.text();
+
+              if (!fullPlaylist || !fullPlaylist.includes('#EXTINF')) {
+                console.log("No channels found in source playlist.");
+                process.exit(0);
+              }
+
+              // ✅ Filter channels by tvg-name
+              const lines = fullPlaylist.split('\n');
+              let filtered = "#EXTM3U\n";
+              for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                if (line.startsWith('#EXTINF')) {
+                  const nameMatch = line.match(/tvg-name="([^"]+)"/);
+                  if (nameMatch && allowedNames.includes(nameMatch[1])) {
+                    filtered += line + "\n";
+                    if (lines[i + 1]) filtered += lines[i + 1] + "\n"; // add URL line
+                  }
+                }
+              }
+
+              if (!filtered.includes('#EXTINF')) {
+                console.log("No matching channels found.");
+                process.exit(0);
+              }
+
+              // Compare with previous playlist
+              if (prevData.trim() === filtered.trim()) {
+                console.log("No changes in filtered playlist, skipping update.");
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=false\n`);
+                process.exit(0);
+              }
+
+              // Ensure directory exists
+              fs.mkdirSync('assets/playlist', { recursive: true });
+
+              // Write filtered playlist
+              fs.writeFileSync(outputFile, filtered.replace(/\r\n/g, '\n'), { encoding: 'utf8' });
+
+              console.log('Filtered test.m3u updated successfully.');
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed=true\n`);
+            } catch (err) {
+              console.error('Error fetching or processing playlist:', err);
+              process.exit(1);
+            }
+          })();
+          EOF
+
+      - name: Commit and push if changed
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/playlist/test.m3u
+          git commit -m "Auto-update filtered test.m3u [skip ci]"
+          git push
+          
