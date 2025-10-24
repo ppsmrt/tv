@@ -1733,3 +1733,13 @@ https://cdn-1.pishow.tv/live/224/master.m3u8
 https://cdn-1.pishow.tv/live/276/master.m3u8
 #EXTINF:-1 tvg-name="Swaraj Express SMBC" group-title="Hindi" tvg-logo="https://i.ibb.co/ym0gzn0S/1000159747.png",Swaraj Express SMBC
 https://cdn-2.pishow.tv/live/477/master.m3u8
+#EXTINF:-1 tvg-name="Thirumalai Tv" group-title="Local Channel | Telugu" tvg-logo="https://i.ibb.co/ZzrR9j3c/1000159779.png",Thirumalai Tv
+https://ipcloud.live/thirumalaitv/madurai/index.m3u8
+#EXTINF:-1 tvg-name="SJ Surya Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/DHxLL7Xm/1000159781.png",SJ Surya Tv
+https://ipcloud.live/nellaitv/suriyatv/index.m3u8
+#EXTINF:-1 tvg-name="Cuddalore Voice TV" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/8g2M6G9m/1000159783.png",Cuddalore Voice TV
+http://voicetv.stream.ashokadigital.net:8080/voicetv/voicetvhd/index.m3u8
+#EXTINF:-1 tvg-name="Strawberry Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/r290vjKm/1000159795.png",Strawberry Tv
+https://stream.onecloudlive.in/sachintv/strawberrytv/index.m3u8
+#EXTINF:-1 tvg-name="Bright Rose Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/svNNmL97/1000159797.png",Bright Rose Tv
+https://notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
