@@ -20684,3 +20684,5 @@ https://notvstream.in/utv/utv.m3u8
 https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/0pVhRsJB/1000160624.png",4 Afghanistan
 https://4afghls.persiana.live/hls/stream.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/CshQRVhJ/1000161161.png",Sai Tv
+http://server.sscloud7.in/live/livesaitv/index.m3u8
