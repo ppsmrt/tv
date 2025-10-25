@@ -1731,6 +1731,8 @@ https://ipcloud.live/rvtv/rvtvhd/index.m3u8
 http://xstream.onecloudlive.in:8080/bass/basstv/index.m3u8
 #EXTINF:-1 tvg-name="RS Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/4RdSBq9G/1000160410.png",RS Tv
 https://stream.onecloudlive.in/rstv/rstvhd/index.m3u8
+#EXTINF:-1 tvg-name="UTV Mayuram" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/PZ8B5pMS/1000160425.png",UTV Mayuram
+https://notvstream.in/utv/utv.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
