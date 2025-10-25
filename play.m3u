@@ -1741,3 +1741,5 @@ https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8
 https://4afghls.persiana.live/hls/stream.m3u8
 #EXTINF:-1 tvg-name="4K Travel TV" group-title="Lifestyle" tvg-logo="https://i.ibb.co/mF0S3SsL/1000160635.png",4K Travel TV
 https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_HLS/master.m3u8
+#EXTINF:-1 tvg-name="5 Minutes Craft" group-title="Lifestyle" tvg-logo="https://i.ibb.co/Hp33xgp8/1000160637.png",5 Minutes Craft
+https://soul-5mincrafteng-rakuten.amagi.tv/playlist.m3u8
