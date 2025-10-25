@@ -273,3 +273,5 @@ https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_
 https://vvsolutions-server12.in/gubbinewskannada_11/video.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="KM News Bengaluru" tvg-logo="https://i.ibb.co/k2VcXyJv/1000159603.png" group-title="Local Channels",KM News Bengaluru
 http://desitashantv.livebox.co.in/kmnewshls/kmnews.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="4K Travel TV" tvg-logo="https://i.ibb.co/mF0S3SsL/1000160635.png" group-title="Lifestyle",4K Travel TV
+https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_HLS/master.m3u8
