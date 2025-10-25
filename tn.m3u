@@ -787,3 +787,5 @@ https://ipcloud.live/rvtv/rvtvhd/index.m3u8
 http://xstream.onecloudlive.in:8080/bass/basstv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="RS Tv" tvg-logo="https://i.ibb.co/4RdSBq9G/1000160410.png" group-title="Local Channels",RS Tv
 https://stream.onecloudlive.in/rstv/rstvhd/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="UTV Mayuram" tvg-logo="https://i.ibb.co/PZ8B5pMS/1000160425.png" group-title="Local Channels",UTV Mayuram
+https://notvstream.in/utv/utv.m3u8
