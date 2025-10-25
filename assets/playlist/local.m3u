@@ -181,6 +181,8 @@ https://jayamtv-ott.tamilstream.in/jayamtv/sivakasi/playlist.m3u8
 https://joy.inet.moe/live/joytv/index.m3u8
 #EXTINF:-1 tvg-name="Kirubai Tv" tvg-logo="https://static.wixstatic.com/media/3d2e01_e0908e81588a4eb1b3cf5ab61cab149e~mv2.png/v1/fill/w_536,h_536,al_c/Kirubai%20TV.png" group-title="SS Cloud7",Kirubai Tv
 https://server1.thewebworld.in:3208/hybrid/play.m3u8
+#EXTINF:-1 tvg-name="Sai Tv" tvg-logo="https://play-lh.googleusercontent.com/FvkjCrWmYV__Sl4_7wf0ScZrrHcHfYlo3-6JmRn0NkxTXJ7IGHLoMLqa576xrHXMU-dc" group-title="SS Cloud7",Sai Tv
+http://server.sscloud7.in/live/livesaitv/index.m3u8
 #EXTINF:-1 tvg-name="vvmovies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmovies.png" group-title="VV Telugu",vvmovies
 https://www.schannels.in/vvmovies/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="vvmusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmusic.png" group-title="VV Telugu",vvmusic
