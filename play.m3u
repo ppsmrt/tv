@@ -56,7 +56,7 @@ http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
 #EXTINF:-1 tvg-name="Phoneix Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/4RtR7sQw/1000151374.png",Phoneix Tv
 http://phoenixtv.stream.onecloudlive.in:8080/phoenixtv/phoenixtv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="Sachin Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1G598w73/1000150945.png",Sachin Tv
-https://ipcloud.live/sachintv/sachintvhd/index.mpd
+https://ipcloud.live/sachintv/sachintvhd/index.m3u8
 #EXTINF:-1 tvg-name="Dhoni Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/S7JNwzgD/1000150947.png",Dhoni Tv
 https://ipcloud.live/sachintv/dhonitv/index.mpd
 #EXTINF:-1 tvg-name="Saami Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/PZFF17Fz/1000151376.png",Saami Tv
@@ -1763,3 +1763,5 @@ https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6
 https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/659e598ab9adc4000843c574/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1c5242-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=77cfb04f-c3c0-44b8-b6e2-07ddce76c467
 #EXTINF:-1 tvg-name="Al Ayyam TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/jvC47gks/1000161191.png",Al Ayyam TV
 http://63b03f7689049.streamlock.net:1935/live/6/playlist.m3u8
+#EXTINF:-1 tvg-name="Sachin Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/1G598w73/1000150945.png",Sachin Music
+https://ipcloud.live/sachintv/musichd/index.m3u8
