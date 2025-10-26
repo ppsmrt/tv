@@ -1,4 +1,4 @@
-# 📺 Live TV Web App  
+# 📺 Live TV - IPTV Panel & Playlist Provider  
 
 <p align="center">
   <img src="assets/images/banner.jpg" alt="Live TV Banner" style="border-radius:12px;"/>
