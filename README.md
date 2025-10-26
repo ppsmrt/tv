@@ -1,12 +1,12 @@
-# 📺 Live TV - IPTV Panel & Playlist Provider  
+# 📺 Live TV - IPTV Panel & Playlist
 
 <p align="center">
   <img src="assets/images/banner.jpg" alt="Live TV Banner" style="border-radius:12px;"/>
 </p>
 
 <p align="center">
-  <b>A premium live TV streaming platform built with Firebase, Tailwind CSS & HLS.js.</b><br/>
-  Enjoy <b>Netflix-inspired UI</b> with instant streaming of your favorite channels.
+  <b>A premium live TV streaming platform built for users in the mind with low cost and low maintenance</b><br/>
+  Enjoy <b>playlist</b> with instant streaming of your favorite channels.
 </p>
 
 ---
@@ -29,10 +29,10 @@
 
 ---
 
-## 🎬 Demo  
+## 🎬 Admin Panel Demo  
 
 <p align="center">
-  <img src="assets/demo/demo.gif" width="80%" alt="Live TV Demo" style="border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.5);"/>
+  <a href="http://tnm3u.linkpc.net">Visit Demo Panel</a>
 </p>
 
 ---
