@@ -793,3 +793,5 @@ https://notvstream.in/utv/utv.m3u8
 https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_HLS/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sai Tv" tvg-logo="https://i.ibb.co/CshQRVhJ/1000161161.png" group-title="Local Channels",Sai Tv
 http://server.sscloud7.in/live/livesaitv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="ACE Tv" tvg-logo="https://i.ibb.co/XfRyXFbK/1000161169.png" group-title="Sports",ACE Tv
+https://streams2.sofast.tv/WiseM3U8_30/sofast/cleanhls/master.m3u8

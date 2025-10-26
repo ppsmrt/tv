@@ -177,18 +177,8 @@ https://servertvhub.site/jio/app/ts_live_1883.m3u8
 https://amg00353-lionsgatestudios-amg00353c2-tclideo-na-2304.playouts.now.amagi.tv/playlist/amg00353-lionsgatetvfast-moviesphere-tclideona/playlist.m3u8?device
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Rakuten Tv" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png" group-title="Movies",Rakuten Tv
-https://54045f0c40fd442c8b06df076aaf1e85.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6065/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Rakuten Family" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png" group-title="Movies",Rakuten Family
-https://e3207568b726401995c25670faaf32e4.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6203/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Rakuten Romance" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png" group-title="Movies",Rakuten Romance
-https://2c88ed8c4df9479aa0c7138dc42115e2.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6194/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Korean" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png" group-title="Movies",Korean
 https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/3622b1c3-5e23-409a-b37b-3667ee8efc21/0.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Rakuten Sci-fi" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png" group-title="Movies",Rakuten Sci-fi
-https://sci-fi-rakuten-tv-uk.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6241/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Rakuten Thrillers" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png" group-title="Movies",Rakuten Thrillers
-https://thriller-rakuten-tv-uk.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6482/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Miramax" tvg-logo="https://i.ibb.co/QFw1XvMv/1000149154.png" group-title="Movies",Miramax
 https://linear-798.frequency.stream/mt/plex/798/hls/master/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 1 Tamil HD" tvg-logo="https://i.ibb.co/7xnG2K3J/1000149276.png" group-title="Sports",Star Sports 1 Tamil HD
@@ -323,3 +313,5 @@ https://servertvhub.site/jio/app/ts_live_212.m3u8
 https://servertvhub.site/jio/app/ts_live_2258.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="4K Travel TV" tvg-logo="https://i.ibb.co/mF0S3SsL/1000160635.png" group-title="Lifestyle",4K Travel TV
 https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_HLS/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="ACE Tv" tvg-logo="https://i.ibb.co/XfRyXFbK/1000161169.png" group-title="Sports",ACE Tv
+https://streams2.sofast.tv/WiseM3U8_30/sofast/cleanhls/master.m3u8
