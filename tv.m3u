@@ -1373,17 +1373,17 @@ https://live20.bozztv.com/giatvplayout7/giatv-210786/playlist.m3u8
 https://amg00353-lionsgatestudios-amg00353c2-tclideo-na-2304.playouts.now.amagi.tv/playlist/amg00353-lionsgatetvfast-moviesphere-tclideona/playlist.m3u8?device
 #EXTINF:-1 tvg-name="Baby Shark Tv" group-title="Kids" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-name="Rakuten Tv" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Tv
+#EXTINF:-1 tvg-name="Rakuten Tv" group-title="Rakuten" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Tv
 https://54045f0c40fd442c8b06df076aaf1e85.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6065/master.m3u8
-#EXTINF:-1 tvg-name="Rakuten Family" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Family
+#EXTINF:-1 tvg-name="Rakuten Family" group-title="Rakuten" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Family
 https://e3207568b726401995c25670faaf32e4.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6203/master.m3u8
-#EXTINF:-1 tvg-name="Rakuten Romance" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Romance
+#EXTINF:-1 tvg-name="Rakuten Romance" group-title="Rakuten" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Romance
 https://2c88ed8c4df9479aa0c7138dc42115e2.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6194/master.m3u8
 #EXTINF:-1 tvg-name="Korean" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Korean
 https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/3622b1c3-5e23-409a-b37b-3667ee8efc21/0.m3u8
-#EXTINF:-1 tvg-name="Rakuten Sci-fi" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Sci-fi
+#EXTINF:-1 tvg-name="Rakuten Sci-fi" group-title="Rakuten" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Sci-fi
 https://sci-fi-rakuten-tv-uk.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6241/master.m3u8
-#EXTINF:-1 tvg-name="Rakuten Thrillers" group-title="English" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Thrillers
+#EXTINF:-1 tvg-name="Rakuten Thrillers" group-title="Rakuten" tvg-logo="https://i.ibb.co/Y7v1sHDW/1000149148.png",Rakuten Thrillers
 https://thriller-rakuten-tv-uk.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6482/master.m3u8
 #EXTINF:-1 tvg-name="Miramax" group-title="English" tvg-logo="https://i.ibb.co/QFw1XvMv/1000149154.png",Miramax
 https://linear-798.frequency.stream/mt/plex/798/hls/master/playlist.m3u8
@@ -1745,6 +1745,16 @@ https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_
 https://soul-5mincrafteng-rakuten.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Sai Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/CshQRVhJ/1000161161.png",Sai Tv
 http://server.sscloud7.in/live/livesaitv/index.m3u8
+#EXTINF:-1 tvg-name="90210" group-title="Pluto" tvg-logo="https://i.ibb.co/8D1QcrBQ/1000161167.png",90210
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65a67dd13af63d0008257f17/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc8293f0-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=6b751f03-945e-4e30-a909-d3e4de858fa8
+#EXTINF:-1 tvg-name="ACE Tv" group-title="Sports" tvg-logo="https://i.ibb.co/XfRyXFbK/1000161169.png",ACE Tv
+https://streams2.sofast.tv/WiseM3U8_30/sofast/cleanhls/master.m3u8
+#EXTINF:-1 tvg-name="Action Drama" group-title="Pluto" tvg-logo="https://i.ibb.co/HptF45PS/1000161174.png",Action Drama
+https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65033c4b98020f0008547124/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c268070-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=79db896c-18f3-4db6-a8b5-0d5adf6e884f
+#EXTINF:-1 tvg-name="Adinkra TV" group-title="International" tvg-logo="https://i.ibb.co/HptF45PS/1000161174.png",Adinkra TV
+https://59d39900ebfb8.streamlock.net/adinkratvny/adinkratvny/playlist.m3u8
+#EXTINF:-1 tvg-name="Adventure Earth" group-title="Rakuten" tvg-logo="https://i.ibb.co/tPhB7HYP/1000161177.png",Adventure Earth
+https://autentic-adventure-earth-1-eu.rakuten.wurl.tv/playlist.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
