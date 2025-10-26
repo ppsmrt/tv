@@ -44,7 +44,7 @@ https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/C547s88c/1000149688.png",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
-https://servertvhub.site/jio/app/ts_live_683.m3u8
+http://livestream.rajtv.tv/cluster1/Content/Channel/RajDigitalPlus/HLS/master.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png",K Tv
 https://servertvhub.site/jio/app/ts_live_894.m3u8
 #EXTINF:-1 tvg-name="Eye Tv" group-title="International" tvg-logo="https://i.ibb.co/Dx1sW1c/1000149721.png",Eye Tv
@@ -872,7 +872,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-name="Jaya Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png",Raj Musix
-https://servertvhub.site/jio/app/ts_live_748.m3u8
+http://livestream.rajtv.tv/cluster1/Content/Channel/RajMusix/HLS/master.m3u8
 #EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/20ysBpX2/1000153399.png",Zing Tv
 http://89.187.189.98/ZING/index.m3u8
 #EXTINF:-1 tvg-name="Thandhi Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/4ZR4m7Rc/1000158599.png",Thandhi Tv
