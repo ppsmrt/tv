@@ -44,7 +44,7 @@ https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-name="Peppers Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/C547s88c/1000149688.png",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-name="Raj Digital Plus" group-title="Movies" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png",Raj Digital Plus
-https://servertvhub.site/jio/app/ts_live_683.m3u8
+http://livestream.rajtv.tv/cluster1/Content/Channel/RajDigitalPlus/HLS/master.m3u8
 #EXTINF:-1 tvg-name="K Tv" group-title="Movies" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png",K Tv
 https://servertvhub.site/jio/app/ts_live_894.m3u8
 #EXTINF:-1 tvg-name="Eye Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/Dx1sW1c/1000149721.png",Eye Tv
@@ -534,7 +534,7 @@ https://live2.sscloud7.in/live/sshd/index.m3u8
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/svZMSnmZ/1000158128.png",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
 #EXTINF:-1 tvg-name="Velavan Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mrhjwtRV/1000157967.png",Velavan Tv
-https://live2.sscloud7.in/live/velavantv/index.m3u8
+http://velavantv.sscloud7.in/live/velavantv/index.m3u8
 #EXTINF:-1 tvg-name="Deiva Oli" group-title="Local Channels" tvg-logo="https://i.ibb.co/Q7KPYvXV/1000153184.png",Deiva Oli
 https://stream.sscloud7.in/live/deivaoli/index.m3u8
 #EXTINF:-1 tvg-name="Vani Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/0RMPsDw1/1000157977.png",Vani Tv
