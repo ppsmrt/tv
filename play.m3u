@@ -1745,3 +1745,21 @@ https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_
 https://soul-5mincrafteng-rakuten.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Sai Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/CshQRVhJ/1000161161.png",Sai Tv
 http://server.sscloud7.in/live/livesaitv/index.m3u8
+#EXTINF:-1 tvg-name="90210" group-title="Entertainment" tvg-logo="https://i.ibb.co/8D1QcrBQ/1000161167.png",90210
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65a67dd13af63d0008257f17/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=bc8293f0-4b91-11ef-8a44-83c5e90e038f&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=6b751f03-945e-4e30-a909-d3e4de858fa8
+#EXTINF:-1 tvg-name="ACE Tv" group-title="Sports" tvg-logo="https://i.ibb.co/XfRyXFbK/1000161169.png",ACE Tv
+https://streams2.sofast.tv/WiseM3U8_30/sofast/cleanhls/master.m3u8
+#EXTINF:-1 tvg-name="Action Drama" group-title="Entertainment" tvg-logo="https://i.ibb.co/HptF45PS/1000161174.png",Action Drama
+https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65033c4b98020f0008547124/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c268070-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=79db896c-18f3-4db6-a8b5-0d5adf6e884f
+#EXTINF:-1 tvg-name="Adinkra TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/HptF45PS/1000161174.png",Adinkra TV
+https://59d39900ebfb8.streamlock.net/adinkratvny/adinkratvny/playlist.m3u8
+#EXTINF:-1 tvg-name="Adventure Earth" group-title="Documentary" tvg-logo="https://i.ibb.co/tPhB7HYP/1000161177.png",Adventure Earth
+https://autentic-adventure-earth-1-eu.rakuten.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Aftab" group-title="Devotional" tvg-logo="https://i.ibb.co/pvMgrNJ3/1000161181.png",Aftab
+https://lenz.splus.ir/PLTV/88888888/224/3221226899/index.m3u8
+#EXTINF:-1 tvg-name="After Shock" group-title="Entertainment" tvg-logo="https://i.ibb.co/pvMgrNJ3/1000161181.png",After Shock
+https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/63e36b374e83e70008987c58/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=2c791c20-35fc-11ef-a031-2b5d494037a2&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=8a330bc3-1def-4752-9f03-564abe79388b
+#EXTINF:-1 tvg-name="AKIBA PASS TV Anime" group-title="Entertainment" tvg-logo="https://i.ibb.co/pvMgrNJ3/1000161181.png",AKIBA PASS TV Anime
+https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/659e598ab9adc4000843c574/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1c5242-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=77cfb04f-c3c0-44b8-b6e2-07ddce76c467
+#EXTINF:-1 tvg-name="Al Ayyam TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/jvC47gks/1000161191.png",Al Ayyam TV
+http://63b03f7689049.streamlock.net:1935/live/6/playlist.m3u8
