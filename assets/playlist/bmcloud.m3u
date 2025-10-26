@@ -713,26 +713,8 @@
         },
         {
             "id": "1",
-            "name": "V TV",
-            "lcn": "071",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68d808588ed63.png",
-            "videourl": "https:\/\/live.applelive.in\/vtv\/vtv\/index.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "Prime TV",
-            "lcn": "072",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68d8087ebb310.png",
-            "videourl": "https:\/\/live.applelive.in\/primetv\/primetv\/index.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
             "name": "Rasi Movies",
-            "lcn": "073",
+            "lcn": "071",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68598571417ad.jpg",
             "videourl": "http:\/\/rasinetworks.in:1935\/rasimovies\/rasimovies.stream_aac\/playlist.m3u8",
@@ -741,7 +723,7 @@
         {
             "id": "1",
             "name": "Vaani visuals",
-            "lcn": "074",
+            "lcn": "072",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688b5bcfd6c94.png",
             "videourl": "http:\/\/vaanivisuals.in:1935\/vaanitv\/vaanitv\/playlist.m3u8",
