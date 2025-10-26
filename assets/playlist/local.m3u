@@ -36,7 +36,7 @@ https://server.sscloud7.in/live/bharathitv/index.m3u8
 #EXTINF:-1 tvg-name="Ayya Vaikundar Tv" tvg-logo="https://play-lh.googleusercontent.com/Wjryzlp0lgqUpxASoJW_9LttnkqAkR6OdK_F4z63_KtGCUvpALikeosMfqaIps-uovY=w240-h480-rw" group-title="SS Cloud7",Ayya Vaikundar Tv
 http://ayyatv.sscloud7.in/live/ayyatv/index.m3u8
 #EXTINF:-1 tvg-name="Velavan Tv" tvg-logo="https://sscloud7.in/app/sscloud7/assets/tvchannels/phoenixtv-tvchannelavathar-phoenixtv1755348568.png" group-title="SS Cloud7",Velavan Tv
-https://live2.sscloud7.in/live/velavantv/index.m3u8
+http://velavantv.sscloud7.in/live/velavantv/index.m3u8
 #EXTINF:-1 tvg-name="Manisha Tv" tvg-logo="https://play-lh.googleusercontent.com/9AlykB4_g2oVcTcoC38HTQNYFlwpaCmC9WRqYGVn46BjBVl6dMk4-PseUDRWrXRY2ZQ" group-title="SS Cloud7",Manisha Tv
 https://stream.sscloud7.in/live/maishatv/index.m3u8
 #EXTINF:-1 tvg-name="JR Malar Tv" tvg-logo="https://play-lh.googleusercontent.com/lleaCXnL4WHSdN_tw3HTTmGXeizLjrBfLuoil7eX1h6z1E1qldzH36vZq1I_Wst9hJI=w2560-h1440-rw" group-title="SS Cloud7",JR Malar Tv
@@ -131,6 +131,8 @@ https://live20.bozztv.com/akamaissh101/ssh101/sungo544/playlist.m3u8
 https://ipcloud.live/mtv/menhd/index.m3u8
 #EXTINF:-1 tvg-name="Surya Tv" tvg-logo="https://play-lh.googleusercontent.com/izaQp_W1pZqa_fKqG0fGcWv9ls74BpIE-W1yOZBiw-gG0bSrcBNIvw3EY9SR4RyQYAlT" group-title="SS Cloud7",Surya Tv
 https://galaxyott.live/hls/suryatv.m3u8
+#EXTINF:-1 tvg-name="Sai Tv" tvg-logo="https://play-lh.googleusercontent.com/FvkjCrWmYV__Sl4_7wf0ScZrrHcHfYlo3-6JmRn0NkxTXJ7IGHLoMLqa576xrHXMU-dc" group-title="SS Cloud7",Sai Tv
+http://server.sscloud7.in/live/livesaitv/index.m3u8
 #EXTINF:-1 tvg-name="Polimer Tv" tvg-logo="https://i.imgur.com/BTYagXd.png" group-title="SS Cloud7",Polimer Tv
 https://cdn-2.pishow.tv/live/1241/master.m3u8
 #EXTINF:-1 tvg-name="Polimer News" tvg-logo="https://yt3.googleusercontent.com/ytc/AIdro_lsZg5AuszjSq2zyrai2A2B7xUF_e24UZLtXgm5NuK3i1nS=s900-c-k-c0x00ffffff-no-rj" group-title="SS Cloud7",Polimer News
@@ -171,8 +173,6 @@ https://sscloud7.com/live/sharontv/index.m3u8
 https://stream.galaxyott.live/live/nijamtv/index.m3u8
 #EXTINF:-1 tvg-name="Blood Off Jesus Tv" tvg-logo="https://phoenixcreations.online/v1/007raghultv/assets/tvchannels/raghultv-tvchannelavathar-raghultv1735230670.png" group-title="SS Cloud7",Blood Off Jesus Tv
 http://alk.sscloud7.in:1935/live/yovantv/playlist.m3u8
-#EXTINF:-1 tvg-name="Weather Spy" tvg-logo="https://m.media-amazon.com/images/M/MV5BNWYxNzkyZWYtOGJhMy00OGI5LTgyNjItZTUwNTliYjViZjE1XkEyXkFqcGc@._V1_.jpg" group-title="SS Cloud7",Weather Spy
-https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Jcv Tv" tvg-logo="https://sscloud7.in/rasinetwork/jcv%20tv.jpg" group-title="SS Cloud7",Jcv Tv
 https://play.applelive.in/jcvtv/jcvtv.m3u8
 #EXTINF:-1 tvg-name="Jayam Tv" tvg-logo="https://play-lh.googleusercontent.com/dME4DKDY6bFUHxz3vaWRvCnKninvRFDRaxyJCYDD5wRtmftXUCgHIW3VDD-zuLt4iB5KpDJeBXArf0nVxmefbXw" group-title="SS Cloud7",Jayam Tv
@@ -181,8 +181,8 @@ https://jayamtv-ott.tamilstream.in/jayamtv/sivakasi/playlist.m3u8
 https://joy.inet.moe/live/joytv/index.m3u8
 #EXTINF:-1 tvg-name="Kirubai Tv" tvg-logo="https://static.wixstatic.com/media/3d2e01_e0908e81588a4eb1b3cf5ab61cab149e~mv2.png/v1/fill/w_536,h_536,al_c/Kirubai%20TV.png" group-title="SS Cloud7",Kirubai Tv
 https://server1.thewebworld.in:3208/hybrid/play.m3u8
-#EXTINF:-1 tvg-name="Sai Tv" tvg-logo="https://play-lh.googleusercontent.com/FvkjCrWmYV__Sl4_7wf0ScZrrHcHfYlo3-6JmRn0NkxTXJ7IGHLoMLqa576xrHXMU-dc" group-title="SS Cloud7",Sai Tv
-http://server.sscloud7.in/live/livesaitv/index.m3u8
+#EXTINF:-1 tvg-name="Weather Spy" tvg-logo="https://m.media-amazon.com/images/M/MV5BNWYxNzkyZWYtOGJhMy00OGI5LTgyNjItZTUwNTliYjViZjE1XkEyXkFqcGc@._V1_.jpg" group-title="SS Cloud7",Weather Spy
+https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="vvmovies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmovies.png" group-title="VV Telugu",vvmovies
 https://www.schannels.in/vvmovies/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-name="vvmusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmusic.png" group-title="VV Telugu",vvmusic
