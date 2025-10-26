@@ -1765,6 +1765,8 @@ https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/6
 http://63b03f7689049.streamlock.net:1935/live/6/playlist.m3u8
 #EXTINF:-1 tvg-name="Sachin Music" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/1G598w73/1000150945.png",Sachin Music
 https://ipcloud.live/sachintv/musichd/index.m3u8
+#EXTINF:-1 tvg-name="Britain Tamil Bakthi" group-title="Devotional" tvg-logo="https://i.ibb.co/5XHS38QS/1000161604.png",Britain Tamil Bakthi
+https://stream.onecloudlive.in/britaintamil/britaintamil/index.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
