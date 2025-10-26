@@ -46,7 +46,7 @@ http://atntv.stream.onecloudlive.in:8080/atntv/atnhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Phoneix Tv" tvg-logo="https://i.ibb.co/4RtR7sQw/1000151374.png" group-title="Local Channels",Phoneix Tv
 http://phoenixtv.stream.onecloudlive.in:8080/phoenixtv/phoenixtv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sachin Tv" tvg-logo="https://i.ibb.co/1G598w73/1000150945.png" group-title="Local Channels",Sachin Tv
-https://ipcloud.live/sachintv/sachintvhd/index.mpd
+https://ipcloud.live/sachintv/sachintvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Dhoni Tv" tvg-logo="https://i.ibb.co/S7JNwzgD/1000150947.png" group-title="Local Channels",Dhoni Tv
 https://ipcloud.live/sachintv/dhonitv/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Saami Tv" tvg-logo="https://i.ibb.co/PZFF17Fz/1000151376.png" group-title="Local Channels",Saami Tv
@@ -795,3 +795,5 @@ https://streams2.sofast.tv/sofastplayout/33c31ac4-51fa-46ae-afd0-0d1fe5e60a80_0_
 http://server.sscloud7.in/live/livesaitv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="ACE Tv" tvg-logo="https://i.ibb.co/XfRyXFbK/1000161169.png" group-title="Sports",ACE Tv
 https://streams2.sofast.tv/WiseM3U8_30/sofast/cleanhls/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Sachin Music" tvg-logo="https://i.ibb.co/1G598w73/1000150945.png" group-title="Local Channels",Sachin Music
+https://ipcloud.live/sachintv/musichd/index.m3u8
