@@ -645,8 +645,6 @@ https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 https://rtmp.bmlive.net/bms/urchagamtv/index.m3u8
 #EXTINF:-1 tvg-name="Royal Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1755167511_IMG_20240510_111038_597.png" group-title="Ashoka",Royal Tv
 https://ipcloud.live/dsrchannel/dsrhd/index.m3u8
-#EXTINF:-1 tvg-name="yn tamil tv" tvg-logo="https://livetv.ashokadigital.net/upload/1745500171_WhatsApp Image 2025-04-23 at 9.11.21 PM.jpeg" group-title="Ashoka",yn tamil tv
-https://iptamil.inet.moe/hls/yntv/index.m3u8
 #EXTINF:-1 tvg-name="anandham tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753975377_ANANTHAM TV LOGO.png" group-title="Ashoka",anandham tv
 https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Subash HD" tvg-logo="https://livetv.ashokadigital.net/upload/1732169059_WhatsApp_Image_2024-11-21_at_11.17.34_AM-removebg-preview (1).png" group-title="Ashoka",Subash HD
@@ -807,6 +805,8 @@ https://newsliveindia.com/timesofmaharshtranewshls/maharshtranews.m3u8
 https://livetv.ashokadigital.net/upload/vod/1754717262_AVR_Swarnamahal_General_40_sec.mp4
 #EXTINF:-1 tvg-name="Accord Flix" tvg-logo="https://livetv.ashokadigital.net/upload/1750734081_flex.png" group-title="Ashoka",Accord Flix
 https://uiptv.iptv.pics/hls/1234/index.m3u8
+#EXTINF:-1 tvg-name="yn tamil tv" tvg-logo="https://livetv.ashokadigital.net/upload/1745500171_WhatsApp Image 2025-04-23 at 9.11.21 PM.jpeg" group-title="Ashoka",yn tamil tv
+https://iptamil.inet.moe/hls/yntv/index.m3u8
 #EXTINF:-1 tvg-name="prime Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753792803_1753792762_ASHOKA CLASSIH HD LOGO PNG.png" group-title="Ashoka",prime Tv
 https://livetv.ashokadigital.net/upload/vod/1754717262_AVR_Swarnamahal_General_40_sec.mp4
 #EXTINF:-1 tvg-name="Accord Tamil" tvg-logo="https://livetv.ashokadigital.net/upload/1750733990_10. ACCORD TAMIL TV.png" group-title="Ashoka",Accord Tamil
