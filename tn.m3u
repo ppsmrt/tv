@@ -36,7 +36,7 @@ https://segment.yuppcdn.net/240122/puthiya/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Peppers Tv" tvg-logo="https://i.ibb.co/C547s88c/1000149688.png" group-title="Entertainment",Peppers Tv
 https://cdn-2.pishow.tv/live/1383/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Raj Digital Plus" tvg-logo="https://i.ibb.co/pBTqLjvY/1000148545.png" group-title="Movies",Raj Digital Plus
-https://servertvhub.site/jio/app/ts_live_683.m3u8
+http://livestream.rajtv.tv/cluster1/Content/Channel/RajDigitalPlus/HLS/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="K Tv" tvg-logo="https://i.ibb.co/k2wMVQRg/1000149592.png" group-title="Movies",K Tv
 https://servertvhub.site/jio/app/ts_live_894.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thalapathi Tv" tvg-logo="https://i.ibb.co/6Jp25kFd/1000151372.png" group-title="Local Channels",Thalapathi Tv
@@ -230,7 +230,7 @@ https://live2.sscloud7.in/live/sshd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sakthi Tv" tvg-logo="https://i.ibb.co/svZMSnmZ/1000158128.png" group-title="Local Channels",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Velavan Tv" tvg-logo="https://i.ibb.co/mrhjwtRV/1000157967.png" group-title="Local Channels",Velavan Tv
-https://live2.sscloud7.in/live/velavantv/index.m3u8
+http://velavantv.sscloud7.in/live/velavantv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Deiva Oli" tvg-logo="https://i.ibb.co/Q7KPYvXV/1000153184.png" group-title="Local Channels",Deiva Oli
 https://stream.sscloud7.in/live/deivaoli/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vani Tv" tvg-logo="https://i.ibb.co/0RMPsDw1/1000157977.png" group-title="Local Channels",Vani Tv
@@ -438,7 +438,7 @@ http://m3u.8088y.fun/yt.php?c=rajnewstamil
 #EXTINF:-1 tvg-id="" tvg-name="Jaya Plus" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png" group-title="News",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-id="" tvg-name="Raj Musix" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png" group-title="Music",Raj Musix
-https://servertvhub.site/jio/app/ts_live_748.m3u8
+http://livestream.rajtv.tv/cluster1/Content/Channel/RajMusix/HLS/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi Tv" tvg-logo="https://i.ibb.co/4ZR4m7Rc/1000158599.png" group-title="News",Thandhi Tv
 http://m3u.8088y.fun/yt.php?c=thanthitv
 #EXTINF:-1 tvg-id="" tvg-name="Chutti Tv" tvg-logo="https://i.ibb.co/fzBc2qY5/1000148105.png" group-title="Kids",Chutti Tv
@@ -797,3 +797,5 @@ http://server.sscloud7.in/live/livesaitv/index.m3u8
 https://streams2.sofast.tv/WiseM3U8_30/sofast/cleanhls/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sachin Music" tvg-logo="https://i.ibb.co/1G598w73/1000150945.png" group-title="Local Channels",Sachin Music
 https://ipcloud.live/sachintv/musichd/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Fox WS" tvg-logo="https://i.ibb.co/gMR0LjvV/Fox-Major-League-Baseball-logo.png" group-title="Sports",Fox WS
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5e66968a70f34c0007d050be/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c29dbd3-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=0f1d3baf-2f1b-47d7-9966-3e92a98f1c8a
