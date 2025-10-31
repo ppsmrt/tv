@@ -1206,7 +1206,7 @@ https://play.applelive.in/stv/stv.m3u8
 #EXTINF:-1 tvg-name="Sai Tv Madurai" group-title="Local Channels" tvg-logo="https://i.ibb.co/gMpVqXf9/1000153637.png",Sai Tv Madurai
 http://saitvmdu.stream.onecloudlive.in/saitvmdu/saitvmdu/index.m3u8
 #EXTINF:-1 tvg-name="Sun Music HD" group-title="Music" tvg-logo="https://i.ibb.co/tMzYwDMR/Sun-Music-HD.png",Sun Music HD
-https://servertvhub.site/jio/app/ts_live_895.m3u8
+http://87.255.35.150:18821/
 #EXTINF:-1 tvg-name="Sun Life" group-title="Movies" tvg-logo="https://i.ibb.co/8hVv3YW/1000158585.png",Sun Life
 http://servertvhub.site/jio/app/live.php?id=682
 #EXTINF:-1 tvg-name="Adithya TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/qLdT68jW/Adithya-TV.png",Adithya TV
