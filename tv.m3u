@@ -1773,6 +1773,16 @@ https://static.drm.pbs.org/v1/channel/livestream-update-needed-ga/index.m3u8
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5e66968a70f34c0007d050be/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c29dbd3-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=0f1d3baf-2f1b-47d7-9966-3e92a98f1c8a
 #EXTINF:-1 tvg-name="Moremax USA" group-title="English" tvg-logo="https://i.ibb.co/CpFnWzWh/dkshomi-4cc70e75-bb53-4014-9f9b-0bf04fddb831-1.png",Moremax USA
 http://23.237.104.106:8080/USA_MOREMAX/index.m3u8
+#EXTINF:-1 tvg-name="Oscar Movies" group-title="Hindi" tvg-logo="https://i.ibb.co/gFTnh5Tv/channe0l-logo.png",Oscar Movies
+https://cdn-4.pishow.tv/live/233/master.m3u8
+#EXTINF:-1 tvg-name="Khusbhoo" group-title="Hindi" tvg-logo="https://i.ibb.co/TDYc1c87/Khushboo-Bangla-logo-2016-present.png",Khusbhoo
+https://cdn-4.pishow.tv/live/233/master.m3u8
+#EXTINF:-1 tvg-name="Gubbare" group-title="Kids" tvg-logo="https://i.ibb.co/sJDzzN0M/channels4-profile.png",Gubbare
+https://epiconvh.akamaized.net/live/gubbare/master.m3u8
+#EXTINF:-1 tvg-name="Zoom" group-title="Hindi" tvg-logo="https://i.ibb.co/C5LPr8yg/Zoom-1-1.png",Zoom
+https://d14c63magvk61v.cloudfront.net/strm/channels/zoom/master.m3u8
+#EXTINF:-1 tvg-name="Filamchi" group-title="Hindi" tvg-logo="https://i.ibb.co/M58KwfWJ/channels4-profile-1.png",Filamchi
+https://epiconvh.akamaized.net/live/filamchi/master.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
