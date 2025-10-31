@@ -385,8 +385,6 @@ http://notvstream.in/tirupurvoicetv/tirupurvoicetv.m3u8
 https://stream.galaxyott.live/live/dharshantv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Devathai Tv" tvg-logo="https://i.ibb.co/YBT0jqvH/1000153186.png" group-title="Local Channels",Devathai Tv
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Jaya Tv" tvg-logo="https://i.ibb.co/7NpBRzB6/1000148052.png" group-title="Entertainment",Jaya Tv
-http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Sony TEN Sports 2 HD" tvg-logo="https://i.ibb.co/7t5JNxw1/1000149227.png" group-title="Sports",Sony TEN Sports 2 HD
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Sony TEN Sports 3 HD" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png" group-title="Sports",Sony TEN Sports 3 HD
@@ -431,8 +429,6 @@ http://89.187.189.98/MTVPLUSHD/index.m3u8
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Raj News" tvg-logo="https://i.ibb.co/gLhFy0zr/1000148507.png" group-title="News",Raj News
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Jaya Plus" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png" group-title="News",Jaya Plus
-http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-id="" tvg-name="Raj Musix" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png" group-title="Music",Raj Musix
 http://livestream.rajtv.tv/cluster1/Content/Channel/RajMusix/HLS/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi Tv" tvg-logo="https://i.ibb.co/4ZR4m7Rc/1000158599.png" group-title="News",Thandhi Tv
@@ -561,10 +557,6 @@ https://servertvhub.site/jio/app/ts_live_803.m3u8
 https://servertvhub.site/jio/app/ts_live_817.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Big Boss Tv" tvg-logo="https://i.ibb.co/HDQyBDLp/1000148739.png" group-title="Entertainment",Big Boss Tv
 https://xtm.8088yyy.workers.dev/481102.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Jaya Max" tvg-logo="https://i.ibb.co/fGyDjTKc/1000148054.png" group-title="Music",Jaya Max
-https://servertvhub.site/jio/app/ts_live_420.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Jaya Movie" tvg-logo="https://i.ibb.co/NgPS1Vmd/1000148048.png" group-title="Movies",Jaya Movie
-https://servertvhub.site/jio/app/ts_live_417.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Kumudham Tv" tvg-logo="https://i.ibb.co/21hMgrtX/1000148512.png" group-title="News",Kumudham Tv
 http://m3u.8088y.fun/yt.php?c=Kumudamnews
 #EXTINF:-1 tvg-id="" tvg-name="Live Tv" tvg-logo="https://i.ibb.co/gMzmswYJ/1000153646.png" group-title="Local Channels",Live Tv
