@@ -701,8 +701,6 @@ https://stream.galaxyott.live/live/dharshantv/index.m3u8
 https://hdbox.singamcloud.in/Deavathaitv/Deavathaitv/index.m3u8
 #EXTINF:-1 tvg-name="Star Movies HD" group-title="English" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png",Star Movies HD
 http://ptuf.ridsys.in/riptv/live/stream224/index.m3u8
-#EXTINF:-1 tvg-name="Jaya Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/7NpBRzB6/1000148052.png",Jaya Tv
-http://195.181.169.162/JAYA_TV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="HBO" group-title="English" tvg-logo="https://i.ibb.co/MyBVYWF7/1000149191.png",HBO
 http://212.102.60.231/HBO/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Sony TEN Sports 2 HD" group-title="Sports" tvg-logo="https://i.ibb.co/7t5JNxw1/1000149227.png",Sony TEN Sports 2 HD
@@ -865,8 +863,6 @@ http://89.187.189.98/MTVPLUSHD/index.m3u8
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-name="Raj News" group-title="Tamil" tvg-logo="https://i.ibb.co/gLhFy0zr/1000148507.png",Raj News
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
-#EXTINF:-1 tvg-name="Jaya Plus" group-title="Tamil" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
-http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Tamil" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png",Raj Musix
 http://livestream.rajtv.tv/cluster1/Content/Channel/RajMusix/HLS/master.m3u8
 #EXTINF:-1 tvg-name="Zing Tv" group-title="Hindi" tvg-logo="https://i.ibb.co/20ysBpX2/1000153399.png",Zing Tv
@@ -1177,10 +1173,6 @@ https://servertvhub.site/jio/app/ts_live_817.m3u8
 https://servertvhub.site/jio/app/ts_live_937.m3u8
 #EXTINF:-1 tvg-name="Big Boss Tv" group-title="Tamil" tvg-logo="https://i.ibb.co/HDQyBDLp/1000148739.png",Big Boss Tv
 https://xtm.8088yyy.workers.dev/481102.m3u8
-#EXTINF:-1 tvg-name="Jaya Max" group-title="Tamil" tvg-logo="https://i.ibb.co/fGyDjTKc/1000148054.png",Jaya Max
-https://servertvhub.site/jio/app/ts_live_420.m3u8
-#EXTINF:-1 tvg-name="Jaya Movie" group-title="Tamil" tvg-logo="https://i.ibb.co/NgPS1Vmd/1000148048.png",Jaya Movie
-https://servertvhub.site/jio/app/ts_live_417.m3u8
 #EXTINF:-1 tvg-name="Star Movies 1" group-title="English" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png",Star Movies 1
 http://51.15.7.9:3141/starmovies/index.m3u8
 #EXTINF:-1 tvg-name="Star Movies Select" group-title="English" tvg-logo="https://i.ibb.co/XfD2RJQW/1000149195.png",Star Movies Select
