@@ -1,6 +1,4 @@
 ﻿#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides.xml.gz"
-#EXTINF:-1 tvg-id="" tvg-name="Raj Tv" tvg-logo="https://i.ibb.co/5HQgfr4/1000148546.png" group-title="Entertainment",Raj Tv
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="News 18 Tamil" tvg-logo="https://i.ibb.co/Z1m8dMzC/1000157617.png" group-title="News",News 18 Tamil
 https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Moon Tv" tvg-logo="https://i.ibb.co/3mFCDX5V/1000148766.png" group-title="Entertainment",Moon Tv
@@ -127,8 +125,6 @@ http://filex.me:8080/live/000003/000003/499674.m3u8
 https://servertvhub.site/jio/app/ts_live_3059.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vendhar Tv" tvg-logo="https://i.ibb.co/NwzVdZT/1000149682.png" group-title="Entertainment",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="MK Tv" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png" group-title="Entertainment",MK Tv
-https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
 #EXTINF:-1 tvg-id="" tvg-name="Chithiram" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png" group-title="Entertainment",Chithiram
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="News J" tvg-logo="https://i.ibb.co/mF2f4qdQ/1000158587.png" group-title="News",News J
@@ -434,7 +430,7 @@ http://89.187.189.98/MTVPLUSHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Discovery Jeet HD" tvg-logo="https://i.ibb.co/My6sksp5/1000149731.png" group-title="Documentary",Discovery Jeet HD
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Raj News" tvg-logo="https://i.ibb.co/gLhFy0zr/1000148507.png" group-title="News",Raj News
-http://m3u.8088y.fun/yt.php?c=rajnewstamil
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Jaya Plus" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png" group-title="News",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-id="" tvg-name="Raj Musix" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png" group-title="Music",Raj Musix
@@ -495,8 +491,6 @@ https://176.116.105.82/Extreme_Sports/index.m3u8
 http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="BBC Earth Tamil" tvg-logo="https://i.ibb.co/TMcvQDvh/1000149729.png" group-title="Documentary",BBC Earth Tamil
 http://89.187.189.98/SONYBBCEARTHTAMIL/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Colors Tamil HD" tvg-logo="https://i.ibb.co/V0KvjkJ7/1000158583.png" group-title="Entertainment",Colors Tamil HD
-http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Viju Nature" tvg-logo="https://i.ibb.co/xqgjp2L4/1000149770.png" group-title="Documentary",Viju Nature
 https://live-hls-viasat-secure-flus.cdnvideo.ru/viasat/Nature_HD_ad.smil/playlist.m3u8?e=1760755466&md5=cyIaXbc1LRlijrQFyHp5LA
 #EXTINF:-1 tvg-id="" tvg-name="Viju Explore" tvg-logo="https://i.ibb.co/PzY0MTFQ/1000149766.png" group-title="Documentary",Viju Explore
@@ -582,7 +576,7 @@ https://play.applelive.in/stv/stv.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sai Tv Madurai" tvg-logo="https://i.ibb.co/gMpVqXf9/1000153637.png" group-title="Local Channels",Sai Tv Madurai
 http://saitvmdu.stream.onecloudlive.in/saitvmdu/saitvmdu/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sun Music HD" tvg-logo="https://i.ibb.co/tMzYwDMR/Sun-Music-HD.png" group-title="Music",Sun Music HD
-https://servertvhub.site/jio/app/ts_live_895.m3u8
+http://87.255.35.150:18821/
 #EXTINF:-1 tvg-id="" tvg-name="Sun Life" tvg-logo="https://i.ibb.co/8hVv3YW/1000158585.png" group-title="Movies",Sun Life
 http://servertvhub.site/jio/app/live.php?id=682
 #EXTINF:-1 tvg-id="" tvg-name="Adithya TV" tvg-logo="https://i.ibb.co/qLdT68jW/Adithya-TV.png" group-title="Entertainment",Adithya TV
@@ -801,3 +795,5 @@ https://ipcloud.live/sachintv/musichd/index.m3u8
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5e66968a70f34c0007d050be/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c29dbd3-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=0f1d3baf-2f1b-47d7-9966-3e92a98f1c8a
 #EXTINF:-1 tvg-id="" tvg-name="Gubbare" tvg-logo="https://i.ibb.co/sJDzzN0M/channels4-profile.png" group-title="Kids",Gubbare
 https://epiconvh.akamaized.net/live/gubbare/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Raj Tv" tvg-logo="https://i.ibb.co/YFYJLGvS/1000148546.png" group-title="Entertainment",Raj Tv
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
