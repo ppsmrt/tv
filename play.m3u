@@ -395,8 +395,6 @@ https://pvqybagglz24-hls-live.5centscdn.com/7788_push_2913_001/c98886a28a6a78b57
 https://servertvhub.site/jio/app/ts_live_3059.m3u8
 #EXTINF:-1 tvg-name="Vendhar Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/NwzVdZT/1000149682.png",Vendhar Tv
 https://cdn-3.pishow.tv/live/1271/master.m3u8
-#EXTINF:-1 tvg-name="MK Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/C3kR95R9/1000149706.png",MK Tv
-https://mix.drmlive.net/mix/playboxtv.m3u8?id=pishow-1482
 #EXTINF:-1 tvg-name="Chithiram" group-title="Entertainment" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png",Chithiram
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-name="News J" group-title="News" tvg-logo="https://i.ibb.co/mF2f4qdQ/1000158587.png",News J
@@ -1089,8 +1087,6 @@ https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsCineplexHD/JCHLS/ind
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaCinema/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Kannda HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/jZy0Q7zk/1000152719.png",Colors Kannda HD
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsKannadaHD/JCHLS/index.m3u8
-#EXTINF:-1 tvg-name="Colors Tamil HD" group-title="Entertainment" tvg-logo="https://i.ibb.co/V0KvjkJ7/1000158583.png",Colors Tamil HD
-http://195.181.169.162/COLORS_TAMIL_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-name="Colors Marathi" group-title="Entertainment" tvg-logo="https://i.ibb.co/396kCQYc/1000153176.png",Colors Marathi
 https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_ColorsMarathiHD/JCHLS/index.m3u8
 #EXTINF:-1 tvg-name="Colors Bangla" group-title="Entertainment" tvg-logo="https://i.ibb.co/pvTJ61qg/1000150108.png",Colors Bangla
