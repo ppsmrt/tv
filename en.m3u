@@ -321,3 +321,5 @@ http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5e
 http://23.237.104.106:8080/USA_MOREMAX/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Gubbare" tvg-logo="https://i.ibb.co/sJDzzN0M/channels4-profile.png" group-title="Kids",Gubbare
 https://epiconvh.akamaized.net/live/gubbare/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Alfred Hitchcock Presents" tvg-logo="https://i.ibb.co/tPxRnw5m/Alfred-Hitchcock-Presents-Title.png" group-title="Movies",Alfred Hitchcock Presents
+https://xumo-xumoent-ch825-ku23q.fast.nbcuni.com/live/master.m3u8
