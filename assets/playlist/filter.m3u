@@ -264,7 +264,7 @@ https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Pravah_HD_BTS/output/index.mpd?__hdn
 https://jiotvpllive.cdn.jio.com/bpk-tv/Maa_Movies_HD_BTS/output/index.mpd?__hdnea__=st=1761908868~exp=1761995268~acl=/*~hmac=12a7235adb6852b74d1403c7a26239c7ec75aae51335db6bf0fb407af3e08c73&xxx=%7Ccookie=__hdnea__=st=1761908868~exp=1761995268~acl=/*~hmac=12a7235adb6852b74d1403c7a26239c7ec75aae51335db6bf0fb407af3e08c73
 
 
-#EXTINF:-1 tvg-id="1112" group-title="Kannada" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Maa_HD.png",Star Maa HD
+#EXTINF:-1 tvg-id="1112" group-title="Telugu" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Maa_HD.png",Star Maa HD
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=6c4b78251e865fc2a23a000374c8e725:983ecd2ffe60cdcf2e5e76ae229a5cb8
 #EXTVLCOPT:http-user-agent=plaYtv/7.1.3 (Linux;Android 13) ygx/69.1 ExoPlayerLib/824.0
@@ -272,7 +272,7 @@ https://jiotvpllive.cdn.jio.com/bpk-tv/Maa_Movies_HD_BTS/output/index.mpd?__hdne
 https://jiotvpllive.cdn.jio.com/bpk-tv/Maa_HD_BTS/output/index.mpd?__hdnea__=st=1761908868~exp=1761995268~acl=/*~hmac=12a7235adb6852b74d1403c7a26239c7ec75aae51335db6bf0fb407af3e08c73&xxx=%7Ccookie=__hdnea__=st=1761908868~exp=1761995268~acl=/*~hmac=12a7235adb6852b74d1403c7a26239c7ec75aae51335db6bf0fb407af3e08c73
 
 
-#EXTINF:-1 tvg-id="1129" group-title="Kannada" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Maa_Music.png",Star Maa Music
+#EXTINF:-1 tvg-id="1129" group-title="Telugu" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Maa_Music.png",Star Maa Music
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=80cfb1a6a4b251dd9b9ae92782a35917:b4cd88f5d71fe94993dd3476cdd63f33
 #EXTVLCOPT:http-user-agent=plaYtv/7.1.3 (Linux;Android 13) ygx/69.1 ExoPlayerLib/824.0
