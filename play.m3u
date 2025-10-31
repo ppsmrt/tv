@@ -1779,3 +1779,9 @@ https://linear-888.frequency.stream/dist/xumo/888/hls/master/playlist.m3u8
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62f3e4bc08f5ec000744f552/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e06b105-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=e8eddbbb-a9fd-424c-9473-64dc6420b913
 #EXTINF:-1 tvg-name="Alle Hussain Chris" group-title="Movies" tvg-logo="https://i.ibb.co/9kQhKrTB/1000161174.png",Alle Hussain Chris
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/622f6e1e2792150007e0b2ff/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=1b1c5243-4b81-11ef-a8ac-e146e4e7be02&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=c4da2851-e246-4700-96b3-3b691764616a
+#EXTINF:-1 tvg-name="Alqanat9 Tv" group-title="News" tvg-logo="https://i.ibb.co/qYHzWwD8/logo-1.png",Alqanat9 Tv
+https://cdn.bestream.io:19360/alqanat9/alqanat9.m3u8
+#EXTINF:-1 tvg-name="Altena TV" group-title="Entertainment" tvg-logo="https://i.ibb.co/yntGbGJJ/images-1-1.png",Altena TV
+https://dnx1f4sl30ba2.cloudfront.net/nlpo/clr-nlpo/altenatv/index.m3u8
+#EXTINF:-1 tvg-name="American Crimes" group-title="Entertainment" tvg-logo="https://i.ibb.co/9kQhKrTB/1000161174.png",American Crimes
+http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65492fc7056b9700088560b5livestitch/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c26a780-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=3ce66776-1850-472a-aae6-67709c1b0532&profilesFromStream=true
