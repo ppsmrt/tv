@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="Raj Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/5HQgfr4/1000148546.png",Raj Tv
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-name="News 18 Tamil" group-title="News" tvg-logo="https://i.ibb.co/Z1m8dMzC/1000157617.png",News 18 Tamil
 https://nw18live.cdn.jio.com/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-name="Sivan Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/SXRpLTcQ/1000148660.png",Sivan Tv
@@ -868,7 +866,7 @@ http://89.187.189.98/MTVPLUSHD/index.m3u8
 #EXTINF:-1 tvg-name="Discovery Jeet HD" group-title="Documentary" tvg-logo="https://i.ibb.co/My6sksp5/1000149731.png",Discovery Jeet HD
 http://89.187.189.98/DISCOVERYJEETHD/index.m3u8
 #EXTINF:-1 tvg-name="Raj News" group-title="News" tvg-logo="https://i.ibb.co/gLhFy0zr/1000148507.png",Raj News
-http://m3u.8088y.fun/yt.php?c=rajnewstamil
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-name="Jaya Plus" group-title="News" tvg-logo="https://i.ibb.co/939JN2Zk/1000148050.png",Jaya Plus
 http://m3u.8088y.fun/yt.php?c=JayaPlusNews
 #EXTINF:-1 tvg-name="Raj Musix" group-title="Music" tvg-logo="https://i.ibb.co/gbkMnHTT/1000159485.png",Raj Musix
@@ -1781,3 +1779,7 @@ https://cdn-4.pishow.tv/live/233/master.m3u8
 https://epiconvh.akamaized.net/live/gubbare/master.m3u8
 #EXTINF:-1 tvg-name="Zoom" group-title="Music" tvg-logo="https://i.ibb.co/C5LPr8yg/Zoom-1-1.png",Zoom
 https://d14c63magvk61v.cloudfront.net/strm/channels/zoom/master.m3u8
+#EXTINF:-1 tvg-name="Filamchi" group-title="Movies" tvg-logo="https://i.ibb.co/M58KwfWJ/channels4-profile-1.png",Filamchi
+https://epiconvh.akamaized.net/live/filamchi/master.m3u8
+#EXTINF:-1 tvg-name="Raj Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/YFYJLGvS/1000148546.png",Raj Tv
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
