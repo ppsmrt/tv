@@ -323,3 +323,5 @@ http://23.237.104.106:8080/USA_MOREMAX/index.m3u8
 https://epiconvh.akamaized.net/live/gubbare/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Alfred Hitchcock Presents" tvg-logo="https://i.ibb.co/tPxRnw5m/Alfred-Hitchcock-Presents-Title.png" group-title="Movies",Alfred Hitchcock Presents
 https://xumo-xumoent-ch825-ku23q.fast.nbcuni.com/live/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Alien Nation" tvg-logo="https://i.ibb.co/gZwTspm6/Zz03-Zj-M5-ZDY4-Nm-Ew-Njcx-MWVm-Ym-M1-Yz-I2-Zm-Fm-ZTE3-ZDc1-MA.png" group-title="Documentary",Alien Nation
+https://linear-888.frequency.stream/dist/xumo/888/hls/master/playlist.m3u8
