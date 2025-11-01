@@ -1765,3 +1765,9 @@ http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65
 https://ipcloud.live/ctn/nxt/index.m3u8
 #EXTINF:-1 tvg-name="MM Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/kVLT4xBg/images-3.png",MM Tv
 rtmp://mmtv.stream.onecloudlive.in:1935/mmtv/vajratv
+#EXTINF:-1 tvg-name="KRN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/qMhTqM9r/channels4-profile-2.png",KRN Tv
+rtmp://krntv.stream.onecloudlive.in:1935/krntv/krntvhd
+#EXTINF:-1 tvg-name="Bala Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/N28gb32y/BALA-TV-1.png",Bala Tv
+https://ipcloud.live/jrptv/bala/index.m3u8
+#EXTINF:-1 tvg-name="Tamil HD Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dJpKdcpd/unnamed.png",Tamil HD Tv
+https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
