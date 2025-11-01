@@ -781,3 +781,5 @@ https://ipcloud.live/jrptv/bala/index.m3u8
 https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="YRF Music" tvg-logo="https://i.ibb.co/d0vfL2Xg/YRF-Music-1.png" group-title="Music",YRF Music
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Sri Smart Tv" tvg-logo="https://i.ibb.co/Psjf6mmM/unnamed-1.png" group-title="Local Channels",Sri Smart Tv
+http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
