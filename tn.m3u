@@ -773,13 +773,11 @@ http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5e
 https://epiconvh.akamaized.net/live/gubbare/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Raj Tv" tvg-logo="https://i.ibb.co/YFYJLGvS/1000148546.png" group-title="Entertainment",Raj Tv
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="CTN Nxt" tvg-logo="https://i.ibb.co/RGrgRk0K/20240301-0301272688392389033753060-2.png" group-title="Entertainment",CTN Nxt
+#EXTINF:-1 tvg-id="" tvg-name="CTN Nxt" tvg-logo="https://i.ibb.co/RGrgRk0K/20240301-0301272688392389033753060-2.png" group-title="Local Channels",CTN Nxt
 https://ipcloud.live/ctn/nxt/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bala Tv" tvg-logo="https://i.ibb.co/N28gb32y/BALA-TV-1.png" group-title="Local Channels",Bala Tv
 https://ipcloud.live/jrptv/bala/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tamil HD Tv" tvg-logo="https://i.ibb.co/dJpKdcpd/unnamed.png" group-title="Local Channels",Tamil HD Tv
 https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="YRF Music" tvg-logo="https://i.ibb.co/d0vfL2Xg/YRF-Music-1.png" group-title="Music",YRF Music
-https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sri Smart Tv" tvg-logo="https://i.ibb.co/Psjf6mmM/unnamed-1.png" group-title="Local Channels",Sri Smart Tv
 http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
