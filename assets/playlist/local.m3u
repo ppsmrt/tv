@@ -483,6 +483,8 @@ https://app.ashokadigital.net/app/ce705f4a/index.m3u8
 https://stream.singamcloud.in/shalinitv/shalinitv/index.m3u8
 #EXTINF:-1 tvg-name="Params Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1732631200_params tv png lgog .png" group-title="Ashoka",Params Tv
 https://app.ashokadigital.net/app/a3e0b02f/index.m3u8
+#EXTINF:-1 tvg-name="Ashoka Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1732631170_ashoka tv logo png.png" group-title="Ashoka",Ashoka Tv
+https://app.ashokadigital.net/app/0d21b074/index.m3u8
 #EXTINF:-1 tvg-name="Yeshua HD" tvg-logo="https://livetv.ashokadigital.net/upload/1739979735_WhatsApp_Image_2025-02-19_at_6.21.54_PM-removebg-preview.png" group-title="Ashoka",Yeshua HD
 http://transcoding.livebox.co.in/Yeshuahls/live.m3u8
 #EXTINF:-1 tvg-name="karthick tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739547181_WhatsApp_Image_2025-02-14_at_8.50.29_PM__2_-removebg-preview.png" group-title="Ashoka",karthick tv
