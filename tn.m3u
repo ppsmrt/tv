@@ -775,3 +775,5 @@ https://epiconvh.akamaized.net/live/gubbare/master.m3u8
 https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2839e3d1e0f84a2e821c1708d5fdfdf0/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CTN Nxt" tvg-logo="https://i.ibb.co/RGrgRk0K/20240301-0301272688392389033753060-2.png" group-title="Entertainment",CTN Nxt
 https://ipcloud.live/ctn/nxt/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Bala Tv" tvg-logo="https://i.ibb.co/N28gb32y/BALA-TV-1.png" group-title="Local Channels",Bala Tv
+https://ipcloud.live/jrptv/bala/index.m3u8
