@@ -1771,3 +1771,5 @@ rtmp://krntv.stream.onecloudlive.in:1935/krntv/krntvhd
 https://ipcloud.live/jrptv/bala/index.m3u8
 #EXTINF:-1 tvg-name="Tamil HD Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dJpKdcpd/unnamed.png",Tamil HD Tv
 https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
+#EXTINF:-1 tvg-name="Thirai Tv Plus" group-title="Local Channels" tvg-logo="https://i.ibb.co/99vpLTXZ/channels4-profile-3.png",Thirai Tv Plus
+rtmp://apserver.in:1937/thiraitvplus/thiraitvplus
