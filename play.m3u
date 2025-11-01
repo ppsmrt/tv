@@ -353,8 +353,6 @@ https://servertvhub.site/jio/app/ts_live_429.m3u8
 https://ipcloud.live/asokatv/asokahd/index.m3u8
 #EXTINF:-1 tvg-name="MSN Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/WNkwJBXQ/1000158108.png",MSN Tv
 https://ipcloud.live/msntv/msntv/index.m3u8
-#EXTINF:-1 tvg-name="Zee Tamil SD" group-title="Entertainment" tvg-logo="https://i.ibb.co/rfXffvc8/1000149694.png",Zee Tamil SD
-http://filex.me:8080/live/000003/000003/499674.m3u8
 #EXTINF:-1 tvg-name="Star Movies" group-title="Movies" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png",Star Movies
 http://89.187.189.98/STARMOVIESHD/index.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-name="Sakthi Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/8nTg2yS7/1000151434.png",Sakthi Tv
