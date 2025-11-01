@@ -1773,6 +1773,8 @@ https://ipcloud.live/jrptv/bala/index.m3u8
 https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
 #EXTINF:-1 tvg-name="Thirai Tv Plus" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/99vpLTXZ/channels4-profile-3.png",Thirai Tv Plus
 rtmp://apserver.in:1937/thiraitvplus/thiraitvplus
+#EXTINF:-1 tvg-name="YRF Music" group-title="Tamil" tvg-logo="https://i.ibb.co/d0vfL2Xg/YRF-Music-1.png",YRF Music
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
