@@ -93,8 +93,6 @@ http://89.187.189.98/STARSPORTS3/index.m3u8
 http://195.181.169.162/TEN_2_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Sony TEN Sports 3 HD" tvg-logo="https://i.ibb.co/b55ZkC24/1000149229.png" group-title="Sports",Sony TEN Sports 3 HD
 http://195.181.169.162/TEN_3_HD/index.m3u8?token=test
-#EXTINF:-1 tvg-id="" tvg-name="E Tv" tvg-logo="https://i.ibb.co/fzhYQ0zZ/1000150571.png" group-title="Entertainment",E Tv
-http://195.181.169.162/ETV_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Gemini Movies" tvg-logo="https://i.ibb.co/ksDWvpZC/1000150569.png" group-title="Movies",Gemini Movies
 https://servertvhub.site/jio/app/ts_live_899.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SRK City" tvg-logo="https://i.ibb.co/HDDPPD0g/1000151338.png" group-title="Local Channels",SRK City
@@ -141,14 +139,10 @@ http://89.187.189.98/DISCOVERYKIDS/index.m3u8
 http://195.181.169.162/TEN_5_HD/index.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Raj News Telugu" tvg-logo="https://i.ibb.co/QFNN1RJt/1000148510.png" group-title="News",Raj News Telugu
 https://servertvhub.site/jio/app/ts_live_664.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Etv Telangana" tvg-logo="https://i.ibb.co/MxZRmbgQ/1000150603.png" group-title="Entertainment",Etv Telangana
-https://dssp63pjfajz9.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_TS_H264-3_cloud_in/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nikky Tv" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png" group-title="Kids",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Gemini Tv" tvg-logo="https://i.ibb.co/qLDLxzqJ/1000150568.png" group-title="Entertainment",Gemini Tv
 https://servertvhub.site/jio/app/ts_live_897.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Etv Andhra" tvg-logo="https://i.ibb.co/SwMX4yLb/1000150593.png" group-title="Entertainment",Etv Andhra
-https://d14vo2b97spizt.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_AP_H264-3_cloud_in/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 2 HD" tvg-logo="https://i.ibb.co/0Rf6VF1J/1000150094.png" group-title="Sports",Star Sports 2 HD
 http://89.187.189.98/STARSPORTS2HD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Star Sports 3 HD" tvg-logo="https://i.ibb.co/ds0J7c42/1000150096.png" group-title="Sports",Star Sports 3 HD
@@ -379,8 +373,6 @@ https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 https://bein-esp-xumo.amagi.tv/playlist.m3u8#7c79d6813c727b2298c3f02ad18e9d54452d7f39c3a12db1aad325df4f6bb5e5
 #EXTINF:-1 tvg-id="" tvg-name="Gemini Music HD" tvg-logo="https://i.ibb.co/7dsnh8ZX/1000152992.png" group-title="Music",Gemini Music HD
 https://servertvhub.site/jio/app/ts_live_898.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Gemini Life HD" tvg-logo="https://i.ibb.co/LdwP8qjF/1000152993.png" group-title="Movies",Gemini Life HD
-https://servertvhub.site/jio/app/ts_live_684.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Gemini Comedy" tvg-logo="https://i.ibb.co/WvLWYpbm/1000152998.png" group-title="Entertainment",Gemini Comedy
 https://servertvhub.site/jio/app/ts_live_729.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Animal Planet Telugu" tvg-logo="https://i.ibb.co/qFVx308C/1000152999.png" group-title="Documentary",Animal Planet Telugu
