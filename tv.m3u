@@ -1761,6 +1761,14 @@ https://cdn.bestream.io:19360/alqanat9/alqanat9.m3u8
 https://dnx1f4sl30ba2.cloudfront.net/nlpo/clr-nlpo/altenatv/index.m3u8
 #EXTINF:-1 tvg-name="American Crimes" group-title="Pluto" tvg-logo="https://i.ibb.co/9kQhKrTB/1000161174.png",American Crimes
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/65492fc7056b9700088560b5livestitch/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c26a780-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=3ce66776-1850-472a-aae6-67709c1b0532&profilesFromStream=true
+#EXTINF:-1 tvg-name="CTN Nxt" group-title="Tamil" tvg-logo="https://i.ibb.co/RGrgRk0K/20240301-0301272688392389033753060-2.png",CTN Nxt
+https://ipcloud.live/ctn/nxt/index.m3u8
+#EXTINF:-1 tvg-name="MM Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/kVLT4xBg/images-3.png",MM Tv
+rtmp://mmtv.stream.onecloudlive.in:1935/mmtv/vajratv
+#EXTINF:-1 tvg-name="KRN Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/qMhTqM9r/channels4-profile-2.png",KRN Tv
+rtmp://krntv.stream.onecloudlive.in:1935/krntv/krntvhd
+#EXTINF:-1 tvg-name="Bala Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/N28gb32y/BALA-TV-1.png",Bala Tv
+https://ipcloud.live/jrptv/bala/index.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
