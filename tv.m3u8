@@ -1769,6 +1769,8 @@ rtmp://mmtv.stream.onecloudlive.in:1935/mmtv/vajratv
 rtmp://krntv.stream.onecloudlive.in:1935/krntv/krntvhd
 #EXTINF:-1 tvg-name="Bala Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/N28gb32y/BALA-TV-1.png",Bala Tv
 https://ipcloud.live/jrptv/bala/index.m3u8
+#EXTINF:-1 tvg-name="Tamil HD Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/dJpKdcpd/unnamed.png",Tamil HD Tv
+https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
 
 # ---- Filter Playlist Content ----
 #EXTM3U
