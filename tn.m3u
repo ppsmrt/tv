@@ -646,7 +646,7 @@ https://live20.bozztv.com/akamaissh101/ssh101/vboxsungosttamil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Params Tv" tvg-logo="https://i.ibb.co/twbKx6tR/1000150731.png" group-title="Local Channels",Params Tv
 https://app.ashokadigital.net/app/a3e0b02f/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Ashoka Tv" tvg-logo="https://i.ibb.co/svps8B7N/1000150737.png" group-title="Local Channels",Ashoka Tv
-https://app.ashokadigital.net/app/ce705f4a/index.m3u8
+https://app.ashokadigital.net/app/0d21b074/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Shalini Tv" tvg-logo="https://i.ibb.co/dFK14Fr/1000150767.png" group-title="Local Channels",Shalini Tv
 https://stream.singamcloud.in/shalinitv/shalinitv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sailam Tv" tvg-logo="https://i.ibb.co/d4Lq6wRQ/1000150786.png" group-title="Local Channels",Sailam Tv
@@ -731,8 +731,6 @@ https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
 https://live.singamcloud.in/bsctv/bsctv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Fancode" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png" group-title="Sports",Fancode
 https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Raj Nagaichuvai" tvg-logo="https://i.ibb.co/8nQH7w30/1000157641.png" group-title="Entertainment",Raj Nagaichuvai
-https://live20.bozztv.com/giatvplayout7/giatv-210788/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Iratai Pathai" tvg-logo="https://i.ibb.co/998byCTb/1000157863.png" group-title="Local Channels",Iratai Pathai
 http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Jayam Tv" tvg-logo="https://i.ibb.co/60PHRvL9/1000157903.png" group-title="Local Channels",Jayam Tv
