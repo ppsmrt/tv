@@ -506,7 +506,7 @@ https://ipcloud.live/jayamtv/jayamtvhd/index.m3u8
 #EXTINF:-1 tvg-name="TSN Music" group-title="Music" tvg-logo="https://i.ibb.co/gbCDzqCW/1000157981.png",TSN Music
 http://198.144.149.206:8080/NOTV/VAAGAI/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Subin Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Rp1MHSx4/1000153379.png",Subin Tv
-https://stream.galaxyott.live/live/subintv/index.m3u8
+https://sscloud7.com/live/subintv/index.m3u8
 #EXTINF:-1 tvg-name="Om TV" group-title="Local Channels" tvg-logo="https://i.ibb.co/G4MQgMD1/1000158126.png",Om TV
 http://omtv.7starcloud.com:1935/omtv/live/live.m3u8
 #EXTINF:-1 tvg-name="U Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1YwxTLZH/1000136452.jpg",U Tv
