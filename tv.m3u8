@@ -1747,7 +1747,7 @@ rtmp://apserver.in:1937/thiraitvplus/thiraitvplus
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8
 #EXTINF:-1 tvg-name="Sri Smart Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/Psjf6mmM/unnamed-1.png",Sri Smart Tv
 http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
-#EXTINF:-1 tvg-name="Deebam Tv" group-title="Local Channel | Tamil" tvg-logo="https://i.ibb.co/qM1zm45D/6854fcb41cf23-1.png",Deebam Tv
+#EXTINF:-1 tvg-name="Deebam Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/qM1zm45D/6854fcb41cf23-1.png",Deebam Tv
 https://play.applelive.in/deebamtv/deebamtv.m3u8
 
 # ---- Filter Playlist Content ----
