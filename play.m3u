@@ -719,10 +719,6 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 https://5dd3981940faa.streamlock.net/snewsnpt/snewsnpt/playlist.m3u8
 #EXTINF:-1 tvg-name="Studio One Plus" group-title="Local Channels" tvg-logo="https://i.ibb.co/HT404fTt/1000153334.png",Studio One Plus
 https://cdn-1.pishow.tv/live/276/master.m3u8
-#EXTINF:-1 tvg-name="E Tv Cinema" group-title="Entertainment" tvg-logo="https://i.ibb.co/9k2J2FVs/1000150575.png",E Tv Cinema
-https://d1q7j6ha51ro6f.cloudfront.net/v1/manifest/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_CINEMA_H264-3_cloud_in/2cc76b3d-b062-421d-9c4e-ae75b3f9b0e3/1.m3u8
-#EXTINF:-1 tvg-name="E Tv Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/KczMZfgL/1000150591.png",E Tv Plus
-https://d27tnkf60df3v4.cloudfront.net/v1/manifest/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_PLUS_H264-3_cloud_in/e86f748a-e035-446a-8f6f-902e35faedcf/0.m3u8
 #EXTINF:-1 tvg-name="E Tv Life" group-title="Entertainment" tvg-logo="https://i.ibb.co/35WQwjbc/1000150577.png",E Tv Life
 https://d2cj1h11htct8o.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_LIFE_H264_cloud_in/index.m3u8
 #EXTINF:-1 tvg-name="E TV Abhiruchi" group-title="Entertainment" tvg-logo="https://i.ibb.co/5hkZ8280/1000150573.png",E TV Abhiruchi
@@ -979,14 +975,6 @@ https://shashwatha.com/hls/show/newhopetv_low.m3u8
 https://vidcdn.vidgyor.com/news24-origin/liveabr/playlist.m3u8
 #EXTINF:-1 tvg-name="Polimer Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/tP3YQ9pJ/1000148540.png",Polimer Tv
 https://cdn-2.pishow.tv/live/1241/master.m3u8
-#EXTINF:-1 tvg-name="Etv Music" group-title="Music" tvg-logo="https://i.ibb.co/LKLcfk8/1000150599.png",Etv Music
-https://cc-szivnms4rlah6.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-szivnms4rlah6/6173a07b-668b-457c-b6ef-50c58d2b7991/1.m3u8
-#EXTINF:-1 tvg-name="Etv Comedy" group-title="Entertainment" tvg-logo="https://i.ibb.co/8nxc28gY/1000150595.png",Etv Comedy
-https://cc-wie8j8y69d2uy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-wie8j8y69d2uy/f2f59ff5-3585-4808-b7df-04f7445a7138/1.m3u8
-#EXTINF:-1 tvg-name="Etv Josh" group-title="Entertainment" tvg-logo="https://i.ibb.co/5hxXnn8V/1000150597.png",Etv Josh
-https://cc-uyh1ow5zouoio.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-uyh1ow5zouoio/be345488-d68c-4928-ab56-33760e506be5/1.m3u8
-#EXTINF:-1 tvg-name="Etv News" group-title="News" tvg-logo="https://i.ibb.co/JVHqWhW/1000150601.png",Etv News
-https://cc-3448kp65yhc5w.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-3448kp65yhc5w/e73503ca-8965-4097-96a0-c4ec1a6a1741/2.m3u8
 #EXTINF:-1 tvg-name="NK Tv" group-title="News" tvg-logo="https://i.ibb.co/4n0JF35L/1000142558.jpg",NK Tv
 https://nktv.smartstream.video/smartstream-us/nktvplus/nktvplus/chunks.m3u8
 #EXTINF:-1 tvg-name="Astro Vinmeen" group-title="Entertainment" tvg-logo="https://i.ibb.co/HLN5R1Pr/1000149435.png",Astro Vinmeen
@@ -1611,8 +1599,6 @@ http://account31.livebox.co.in/IRATTAIPAATHAITVhls/live.m3u8
 https://servertvhub.site/jio/app/ts_live_212.m3u8
 #EXTINF:-1 tvg-name="Animax" group-title="Movies" tvg-logo="https://i.ibb.co/PGb63G5p/1000158226.png",Animax
 https://servertvhub.site/jio/app/ts_live_2258.m3u8
-#EXTINF:-1 tvg-name="Etv Abhiruchi" group-title="Entertainment" tvg-logo="https://i.ibb.co/WvXb8J63/1000158484.png",Etv Abhiruchi
-https://d2tbworamivdmb.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_ABHIRUCHI_H264-3_cloud-in/index.m3u8
 #EXTINF:-1 tvg-name="Jayam Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/60PHRvL9/1000157903.png",Jayam Tv
 https://live2.sscloud7.in/live/jeyamtv/index.m3u8
 #EXTINF:-1 tvg-name="Apple Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/mC6nZPvz/1000158610.png",Apple Tv
@@ -1761,5 +1747,5 @@ rtmp://apserver.in:1937/thiraitvplus/thiraitvplus
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8
 #EXTINF:-1 tvg-name="Sri Smart Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Psjf6mmM/unnamed-1.png",Sri Smart Tv
 http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
-#EXTINF:-1 tvg-name="Deebam Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/qM1zm45D/6854fcb41cf23-1.png",Deebam Tv
+#EXTINF:-1 tvg-name="Deebam Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/qM1zm45D/6854fcb41cf23-1.png",Deebam Tv
 https://play.applelive.in/deebamtv/deebamtv.m3u8
