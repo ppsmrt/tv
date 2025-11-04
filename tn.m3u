@@ -765,5 +765,3 @@ https://ipcloud.live/jrptv/bala/index.m3u8
 https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sri Smart Tv" tvg-logo="https://i.ibb.co/Psjf6mmM/unnamed-1.png" group-title="Local Channels",Sri Smart Tv
 http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Deebam Tv" tvg-logo="https://i.ibb.co/qM1zm45D/6854fcb41cf23-1.png" group-title="Local Channels",Deebam Tv
-https://play.applelive.in/deebamtv/deebamtv.m3u8
