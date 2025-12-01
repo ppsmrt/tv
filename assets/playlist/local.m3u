@@ -491,8 +491,6 @@ http://transcoding.livebox.co.in/Yeshuahls/live.m3u8
 https://ipcloud.live/karthick/karthicktvhd/index.m3u8
 #EXTINF:-1 tvg-name="thalapathy tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739547835_WhatsApp_Image_2025-02-14_at_8.57.35_PM-removebg-preview.png" group-title="Ashoka",thalapathy tv
 http://play.applelive.in/thalapathytv/thalapathytv.m3u8
-#EXTINF:-1 tvg-name="Test" tvg-logo="https://livetv.ashokadigital.net/upload/1764407963_1753570583_1747319853_0 . ASHOKA DIGITAL LOGO (1).png" group-title="Ashoka",Test
-https://app.ashokadigital.net/cititv/cititvhd/index.m3u8
 #EXTINF:-1 tvg-name="SANTHIYA TV " tvg-logo="https://livetv.ashokadigital.net/upload/1746533803_saN.png" group-title="Ashoka",SANTHIYA TV 
 http://stream.onecloudlive.in/santhiyatv/santhiyatvhd/index.m3u8
 #EXTINF:-1 tvg-name="SSCN tV" tvg-logo="https://livetv.ashokadigital.net/upload/1756807421_d9220ae9-986b-4336-a2a9-9c212cb00935-removebg-preview.png" group-title="Ashoka",SSCN tV
