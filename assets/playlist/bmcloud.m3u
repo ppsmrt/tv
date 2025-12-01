@@ -231,7 +231,7 @@
             "lcn": "017",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/685445f8902ef.png",
-            "videourl": "https:\/\/rtmp.applelive.in\/gvkumaritv\/gvkumaritv\/index.m3u8",
+            "videourl": "https:\/\/app.applelive.in\/gvkumaritv\/gvkumaritv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -240,7 +240,7 @@
             "lcn": "018",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686c12aa38d31.png",
-            "videourl": "https:\/\/play.applelive.in\/stntv\/stntv.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/stntv\/stntvhd.m3u8",
             "webvideourl": ""
         },
         {
@@ -281,47 +281,47 @@
         },
         {
             "id": "1",
-            "name": "GVC",
+            "name": "ACN TV",
             "lcn": "023",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686ab6c1964fe.jpeg",
-            "videourl": "https:\/\/rtmp.applelive.in\/kumariplus\/kumariplus\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6925b0efd9a77.png",
+            "videourl": "https:\/\/web.applelive.in\/stream\/acntv\/index.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
-            "name": "Malar TV",
+            "name": "Royal TV",
             "lcn": "024",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686ab760e91da.png",
-            "videourl": "https:\/\/sscloud7.com\/live\/malartv\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6921a54a6f099.png",
+            "videourl": "https:\/\/web.applelive.in\/royaltv\/royaltv\/index.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
-            "name": "Singam TV",
+            "name": "Bhagavath TV",
             "lcn": "025",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686ab91220d1c.png",
-            "videourl": "https:\/\/live.brightmeltech.in\/singamtv\/singamtv.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6921b58d54442.png",
+            "videourl": "https:\/\/web.applelive.in\/bhagavathtv\/bhagavathtv\/index.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
-            "name": "Apple TV 4K",
+            "name": "Anjai TV",
             "lcn": "026",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a8a1995adfd.png",
-            "videourl": "https:\/\/stream.iplive.xyz\/appletv\/4kpondy\/index.m3u8",
+            "imageurl": "",
+            "videourl": "https:\/\/web.applelive.in\/stream\/anjaitv\/index.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
-            "name": "Suriyan TV",
+            "name": "Anisa TV",
             "lcn": "027",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/687b19d1b18ce.png",
-            "videourl": "https:\/\/sscloud7.com\/live\/suriyantv\/index.m3u8",
+            "imageurl": "",
+            "videourl": "https:\/\/web.applelive.in\/anisatv\/anisatv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -344,11 +344,11 @@
         },
         {
             "id": "1",
-            "name": "Smiley TV",
+            "name": "Ruhasha TV",
             "lcn": "030",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6881a9068ddab.png",
-            "videourl": "https:\/\/live1.sscloud7.com\/live\/smileytv\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/692725fb950a3.png",
+            "videourl": "https:\/\/live.applelive.in\/ruhashatv\/ruhashatv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -389,11 +389,11 @@
         },
         {
             "id": "1",
-            "name": "SV TV",
+            "name": "Singam TV",
             "lcn": "035",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688a5bc17c5f0.jpeg",
-            "videourl": "http:\/\/shreeparams.7starcloud.com:1935\/live\/params\/playlist.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686ab91220d1c.png",
+            "videourl": "https:\/\/live.brightmeltech.in\/singamtv\/singamtv.m3u8",
             "webvideourl": ""
         },
         {
@@ -605,20 +605,20 @@
         },
         {
             "id": "1",
-            "name": "Veerali TV",
+            "name": "Malar TV",
             "lcn": "059",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a496d3e111c.png",
-            "videourl": "https:\/\/ipcloud.live\/veerali\/veeralitv\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686ab760e91da.png",
+            "videourl": "https:\/\/sscloud7.com\/live\/malartv\/index.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
-            "name": "Punithan TV",
+            "name": "Prime TV",
             "lcn": "060",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a4977a1ada0.png",
-            "videourl": "https:\/\/stream.singamcloud.in\/punithantv\/punithantv\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/690cd6cd9302d.png",
+            "videourl": "https:\/\/live.applelive.in\/primetv\/primetv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -659,26 +659,17 @@
         },
         {
             "id": "1",
-            "name": "Acp TV",
+            "name": "Smiley TV",
             "lcn": "065",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a49a45607f7.png",
-            "videourl": "https:\/\/stream.iplive.xyz\/acptvclassic\/acptvhd\/index.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "acptvclassic",
-            "lcn": "066",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a49a76a4dcb.png",
-            "videourl": "https:\/\/stream.iplive.xyz\/acptv\/acptvhd\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6881a9068ddab.png",
+            "videourl": "https:\/\/live1.sscloud7.com\/live\/smileytv\/index.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
             "name": "Surya TV",
-            "lcn": "067",
+            "lcn": "066",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a49ab7df064.png",
             "videourl": "https:\/\/galaxyott.live\/hls\/suryatv.m3u8",
@@ -687,7 +678,7 @@
         {
             "id": "1",
             "name": "Mathi TV",
-            "lcn": "068",
+            "lcn": "067",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a49ba6906f2.png",
             "videourl": "https:\/\/notvstream.in\/mathitv\/mathitv.m3u8",
@@ -695,38 +686,74 @@
         },
         {
             "id": "1",
-            "name": "G music",
+            "name": "Vaani visuals",
+            "lcn": "068",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688b5bcfd6c94.png",
+            "videourl": "http:\/\/vaanivisuals.in:1935\/vaanitv\/vaanitv\/playlist.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Rasi TV",
             "lcn": "069",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a6adad531f8.png",
-            "videourl": "https:\/\/rtmp.applelive.in\/gmusic\/gmusic\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6922d8119f353.png",
+            "videourl": "https:\/\/stream.e2is.in\/hls\/RasiTv.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Rasi Music",
+            "lcn": "070",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6922d8a667f38.png",
+            "videourl": "https:\/\/stream.e2is.in\/hls\/Rasimusic.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
             "name": "Rasi Classic",
-            "lcn": "070",
+            "lcn": "071",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68b87d8f1d007.jpg",
-            "videourl": "http:\/\/rasinetworks.in:1935\/rasiclassic\/rasiclassic.stream_aac\/playlist.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6922d9376bfd1.png",
+            "videourl": "https:\/\/stream.e2is.in\/hls\/Rasiclassic.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Rasi Hollywood",
+            "lcn": "072",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6922d983d06ea.png",
+            "videourl": "https:\/\/stream.e2is.in\/hls\/RasiHollywood.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
             "name": "Rasi Movies",
-            "lcn": "071",
+            "lcn": "073",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68598571417ad.jpg",
-            "videourl": "http:\/\/rasinetworks.in:1935\/rasimovies\/rasimovies.stream_aac\/playlist.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6922d9d6044c2.png",
+            "videourl": "https:\/\/stream.e2is.in\/hls\/Rasimovies.m3u8",
             "webvideourl": ""
         },
         {
             "id": "1",
-            "name": "Vaani visuals",
-            "lcn": "072",
+            "name": "Rasi Tamil",
+            "lcn": "074",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688b5bcfd6c94.png",
-            "videourl": "http:\/\/vaanivisuals.in:1935\/vaanitv\/vaanitv\/playlist.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/692308788e699.png",
+            "videourl": "https:\/\/stream.e2is.in\/hls\/Rasitamil.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Apple TV 4K",
+            "lcn": "075",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a8a1995adfd.png",
+            "videourl": "https:\/\/stream.iplive.xyz\/appletv\/4kpondy\/index.m3u8",
             "webvideourl": ""
         }
     ],
@@ -1119,7 +1146,7 @@
             "lcn": "113",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/UBBaXzz.png",
-            "videourl": "https:\/\/60e68b19dd194.streamlock.net:55\/madhahd1\/smil:madhatv.smil\/chunklist_w2101180913_b3064000.m3u8",
+            "videourl": "https:\/\/60e66735799ea.streamlock.net:55\/madhatv\/madhatv.stream_HDp\/playlist.m3u8",
             "webvideourl": ""
         },
         {
@@ -1364,6 +1391,24 @@
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68ce0d6b34324.jpg",
             "videourl": "https:\/\/live.applelive.in\/shalomtv\/index.m3u8",
             "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "JEEVANEERODAI TV",
+            "lcn": "141",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69132e3ec9f2c.png",
+            "videourl": "https:\/\/web.applelive.in\/jeevaneerodaitv\/jeevaneerodaitv\/index.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "GVC Gospel",
+            "lcn": "142",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686ab6c1964fe.jpeg",
+            "videourl": "https:\/\/rtmp.applelive.in\/kumariplus\/kumariplus\/index.m3u8",
+            "webvideourl": ""
         }
     ],
     "DEVOTIONAL H": [
@@ -1387,11 +1432,11 @@
         },
         {
             "id": "600",
-            "name": "IBC Bhakthi",
+            "name": "Vinayaga TV",
             "lcn": "DEV",
             "playertype": "0",
-            "imageurl": "https:\/\/assets.ibcstack.com\/web\/bravo\/img\/services\/bakthi.png",
-            "videourl": "https:\/\/cdn.jwplayer.com\/videos\/dPywxWAl-640.mp4",
+            "imageurl": "",
+            "videourl": "https:\/\/web.applelive.in\/stream\/vinayagatv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -1619,6 +1664,24 @@
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68f081bb4cd2f.png",
             "videourl": "https:\/\/rtmp.applelive.in\/starnet\/starnet\/index.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Amma vision",
+            "lcn": "270",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69170131a95b2.jpeg",
+            "videourl": "https:\/\/live.applelive.in\/ammavision\/ammavision\/index.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Gowri Vision",
+            "lcn": "271",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6917033e4cbc9.png",
+            "videourl": "https:\/\/live.applelive.in\/gowrivision\/gowrivision\/index.m3u8",
             "webvideourl": ""
         }
     ],
