@@ -755,6 +755,15 @@
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a8a1995adfd.png",
             "videourl": "https:\/\/stream.iplive.xyz\/appletv\/4kpondy\/index.m3u8",
             "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "Crayon",
+            "lcn": "076",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/692fdeb6e1666.png",
+            "videourl": "https:\/\/rtmp.bmlive.net\/stream\/crayon\/index.m3u8",
+            "webvideourl": ""
         }
     ],
     "Baduga TV": [
