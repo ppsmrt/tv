@@ -105,7 +105,7 @@
             "lcn": "003",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686bfe3c08641.png",
-            "videourl": "https:\/\/play.applelive.in\/appletv\/appletvklm.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/appletv\/appletvmtm.m3u8",
             "webvideourl": ""
         },
         {
@@ -758,11 +758,11 @@
         },
         {
             "id": "600",
-            "name": "Crayon",
+            "name": "Crayonz",
             "lcn": "076",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/692fdeb6e1666.png",
-            "videourl": "https:\/\/rtmp.bmlive.net\/stream\/crayon\/index.m3u8",
+            "videourl": "https:\/\/rtmp.bmlive.net\/stream\/crayonz\/index.m3u8",
             "webvideourl": ""
         }
     ],
