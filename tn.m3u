@@ -205,8 +205,6 @@ https://live.sscloud7.in/live/suryatv/index.m3u8
 https://live.skystream.in/live/no1tv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MP Tv" tvg-logo="https://i.ibb.co/prJPdd7q/1000158094.png" group-title="Local Channels",MP Tv
 https://stream.sscloud7.in/live/mptv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="7 Star" tvg-logo="https://i.ibb.co/TxnkzgT2/1000148147.png" group-title="Local Channels",7 Star
-http://7starcloud.com:1935/live/7star2/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="King Tv" tvg-logo="https://i.ibb.co/v4kgWFTV/1000157936.png" group-title="Local Channels",King Tv
 https://rtmp.bmlive.net/kingtv/kingtv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Kumari Plus" tvg-logo="https://i.ibb.co/jvwwgzNZ/1000157942.png" group-title="Local Channels",Kumari Plus
@@ -321,8 +319,6 @@ https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="M TV Plus" tvg-logo="https://i.ibb.co/7dWs4J12/1000149760.png" group-title="Entertainment",M TV Plus
 http://89.187.189.98/MTVPLUSHD/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="7s Musix" tvg-logo="https://i.ibb.co/d0NTq8mD/1000158601.png" group-title="Music",7s Musix
-http://202.164.50.194:8000/play/a026/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Cricket Gold" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png" group-title="Sports",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Epic Tv" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png" group-title="Documentary",Epic Tv
@@ -407,10 +403,6 @@ https://servertvhub.site/jio/app/ts_live_579.m3u8
 https://servertvhub.site/jio/app/ts_live_803.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CN Tamil" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png" group-title="Kids",CN Tamil
 https://servertvhub.site/jio/app/ts_live_817.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Big Boss Tv" tvg-logo="https://i.ibb.co/HDQyBDLp/1000148739.png" group-title="Entertainment",Big Boss Tv
-http://87.255.35.150:18966
-#EXTINF:-1 tvg-id="" tvg-name="Kumudham Tv" tvg-logo="https://i.ibb.co/21hMgrtX/1000148512.png" group-title="News",Kumudham Tv
-http://m3u.8088y.fun/yt.php?c=Kumudamnews
 #EXTINF:-1 tvg-id="" tvg-name="Live Tv" tvg-logo="https://i.ibb.co/gMzmswYJ/1000153646.png" group-title="Local Channels",Live Tv
 http://lime-cr1.phoenixcreations.online/lime/lime/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vaani Visuals" tvg-logo="https://i.ibb.co/N2WKjwDN/1000153644.png" group-title="Local Channels",Vaani Visuals
@@ -451,7 +443,7 @@ https://servertvhub.site/jio/app/ts_live_889.m3u8
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CN Telugu" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png" group-title="Kids",CN Telugu
 https://servertvhub.site/jio/app/ts_live_166.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sun Tv UHD" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png" group-title="Entertainment",Sun Tv UHD
+#EXTINF:-1 tvg-id="" tvg-name="Sun Tv HD" tvg-logo="https://i.ibb.co/DxQbhG3/1000148226.png" group-title="Entertainment",Sun Tv HD
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nick Telugu" tvg-logo="https://i.ibb.co/MkcMWmnB/1000148400.png" group-title="Kids",Nick Telugu
 https://servertvhub.site/jio/app/ts_live_543.m3u8
@@ -485,8 +477,6 @@ https://servertvhub.site/jio/app/ts_live_1883.m3u8
 https://live.applelive.in/ommtv/ommtv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tamil Janam" tvg-logo="https://i.ibb.co/wNJhGGWr/1000158581.png" group-title="News",Tamil Janam
 http://m3u.8088y.fun/yt.php?c=TamilJanamNews
-#EXTINF:-1 tvg-id="" tvg-name="M Nadu" tvg-logo="https://i.ibb.co/G1fQ5Rh/1000158590.png" group-title="News",M Nadu
-http://m3u.8088y.fun/yt.php?c=mnadutv
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Params Tv" tvg-logo="https://i.ibb.co/twbKx6tR/1000150731.png" group-title="Local Channels",Params Tv
@@ -605,3 +595,7 @@ https://ipcloud.live/jrptv/bala/index.m3u8
 https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sri Smart Tv" tvg-logo="https://i.ibb.co/Psjf6mmM/unnamed-1.png" group-title="Local Channels",Sri Smart Tv
 http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="News7" tvg-logo="https://i.ibb.co/5hz2sw8H/11199.png" group-title="News",News7
+https://segment.yuppcdn.net/240122/news7/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="News18" tvg-logo="https://i.ibb.co/QwqDBqR/11196.png" group-title="News",News18
+https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
