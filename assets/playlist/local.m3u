@@ -424,9 +424,9 @@ https://app.ashokadigital.net/app/ce705f4a/index.m3u8
 #EXTINF:-1 tvg-name="Shalini Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1737815564_Shalini Tv logo New 28-04-2012.png" group-title="Ashoka",Shalini Tv
 https://app.ashokadigital.net/app/8d91fecc/index.m3u8
 #EXTINF:-1 tvg-name="Params Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1732631200_params tv png lgog .png" group-title="Ashoka",Params Tv
-https://app.ashokadigital.net/app/a3e0b02f/index.m3u8
+https://app.ashokadigital.net/ashokaslm/paramstv/index.m3u8
 #EXTINF:-1 tvg-name="Ashoka Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1732631170_ashoka tv logo png.png" group-title="Ashoka",Ashoka Tv
-https://app.ashokadigital.net/app/0d21b074/index.m3u8
+https://app.ashokadigital.net/ashokaslm/ashokahd/index.m3u8
 #EXTINF:-1 tvg-name="Shalini Tv Thanjavur" tvg-logo="https://livetv.ashokadigital.net/upload/1730741877_uxsXR_hp_400x400-removebg-preview.png" group-title="Ashoka",Shalini Tv Thanjavur
 https://app.ashokadigital.net/app/527a0ba1/index.m3u8
 #EXTINF:-1 tvg-name="Tamil Janam TV" tvg-logo="https://livetv.ashokadigital.net/upload/1747406960_KANSIHQ TAMIL JANAM FINAL (2).png" group-title="Ashoka",Tamil Janam TV
