@@ -181,6 +181,220 @@ https://joy.inet.moe/live/joytv/index.m3u8
 https://server1.thewebworld.in:3208/hybrid/play.m3u8
 #EXTINF:-1 tvg-name="Weather Spy" tvg-logo="https://m.media-amazon.com/images/M/MV5BNWYxNzkyZWYtOGJhMy00OGI5LTgyNjItZTUwNTliYjViZjE1XkEyXkFqcGc@._V1_.jpg" group-title="SS Cloud7",Weather Spy
 https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="vvmovies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmovies.png" group-title="VV Telugu",vvmovies
+https://www.schannels.in/vvmovies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="vvmusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvmusic.png" group-title="VV Telugu",vvmusic
+https://www.schannels.in/vvmusic/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="colorbarmusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/colorbarmusic.png" group-title="VV Telugu",colorbarmusic
+https://www.schannels.in/colorbarmusic/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="harikastar" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",harikastar
+https://www.schannels.in/harikastar/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="sreenews" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",sreenews
+https://www.schannels.in/sreenews/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="rktv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",rktv
+https://www.schannels.in/rktv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="classic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",classic
+https://www.schannels.in/classic/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="folk" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",folk
+https://www.schannels.in/folk/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="hollywood" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",hollywood
+https://www.schannels.in/hollywood/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="comedy" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",comedy
+https://www.schannels.in/comedy/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="music" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",music
+https://www.schannels.in/music/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="movies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",movies
+https://www.schannels.in/movies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gsgrameena" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gsgrameena
+https://www.schannels.in/gsgrameena/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="viharibakathi" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",viharibakathi
+https://www.schannels.in/viharibakathi/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="viharinews" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",viharinews
+https://www.schannels.in/viharinews/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="viharimusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",viharimusic
+https://www.schannels.in/viharimusic/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="ppp" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",ppp
+https://www.schannels.in/ppp/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="kstv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",kstv
+https://www.schannels.in/kstv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="rkhollywood" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",rkhollywood
+https://www.schannels.in/rkhollywood/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="rkgold" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",rkgold
+https://www.schannels.in/rkgold/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="starwayjanapadalu" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",starwayjanapadalu
+https://www.schannels.in/starwayjanapadalu/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="hrtv9" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",hrtv9
+https://www.schannels.in/hrtv9/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="devicable" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",devicable
+https://www.schannels.in/devicable/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="vajigold" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",vajigold
+https://www.schannels.in/vajigold/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="vajichannel" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",vajichannel
+https://www.schannels.in/vajichannel/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="Nandi_Tv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",Nandi_Tv
+https://www.schannels.in/Nandi_Tv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="tv20" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",tv20
+https://www.schannels.in/tv20/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="veduka" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",veduka
+https://www.schannels.in/veduka/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="ndlnews9" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",ndlnews9
+https://www.schannels.in/ndlnews9/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="tg5" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",tg5
+https://www.schannels.in/tg5/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="sln" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",sln
+https://www.schannels.in/sln/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="yj" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",yj
+https://www.schannels.in/yj/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="ysrtv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",ysrtv
+https://www.schannels.in/ysrtv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="harikasitymovies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",harikasitymovies
+https://www.schannels.in/harikasitymovies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="harikasititelugu" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",harikasititelugu
+https://www.schannels.in/harikasititelugu/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="harikapallepatalu" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",harikapallepatalu
+https://www.schannels.in/harikapallepatalu/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="orugallu9" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",orugallu9
+https://www.schannels.in/orugallu9/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="aplocaltv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",aplocaltv
+https://www.schannels.in/aplocaltv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="dbrnews" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",dbrnews
+https://www.schannels.in/dbrnews/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="pvpmovies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",pvpmovies
+https://www.schannels.in/pvpmovies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="pvphd" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",pvphd
+https://www.schannels.in/pvphd/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="publictvfolkmusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",publictvfolkmusic
+https://www.schannels.in/publictvfolkmusic/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="publictv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",publictv
+https://www.schannels.in/publictv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="siticablenewstandur" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",siticablenewstandur
+https://www.schannels.in/siticablenewstandur/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="rkmovies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",rkmovies
+https://www.schannels.in/rkmovies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="dcaanimuthyalu" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",dcaanimuthyalu
+https://www.schannels.in/dcaanimuthyalu/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="dcmusic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",dcmusic
+https://www.schannels.in/dcmusic/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gsr_movies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gsr_movies
+https://www.schannels.in/gsr_movies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gsr_music" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gsr_music
+https://www.schannels.in/gsr_music/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gsr_hollywood" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gsr_hollywood
+https://www.schannels.in/gsr_hollywood/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gsr_gold" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gsr_gold
+https://www.schannels.in/gsr_gold/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gsr_bakthi" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gsr_bakthi
+https://www.schannels.in/gsr_bakthi/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="vpowernews" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",vpowernews
+https://www.schannels.in/vpowernews/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="prajatv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",prajatv
+https://www.schannels.in/prajatv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="viharitv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",viharitv
+https://www.schannels.in/viharitv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="snewsnpt" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",snewsnpt
+https://www.schannels.in/snewsnpt/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="tmc" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",tmc
+https://www.schannels.in/tmc/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="pcnhd" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",pcnhd
+https://www.schannels.in/pcnhd/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="sitichannel" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",sitichannel
+https://www.schannels.in/sitichannel/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="siticable" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",siticable
+https://www.schannels.in/siticable/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="dnews" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",dnews
+https://www.schannels.in/dnews/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="7hills" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",7hills
+https://www.schannels.in/7hills/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="srichakra" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",srichakra
+https://www.schannels.in/srichakra/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="meetv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",meetv
+https://www.schannels.in/meetv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="zillavanitv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",zillavanitv
+https://www.schannels.in/zillavanitv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="srkent" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",srkent
+https://www.schannels.in/srkent/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="geetv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",geetv
+https://www.schannels.in/geetv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="srk" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",srk
+https://www.schannels.in/srk/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="anjalitv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",anjalitv
+https://www.schannels.in/anjalitv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="sitilocal" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",sitilocal
+https://www.schannels.in/sitilocal/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="dnatv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",dnatv
+https://www.schannels.in/dnatv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="reshyatv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",reshyatv
+https://www.schannels.in/reshyatv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="bathukamma" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",bathukamma
+https://www.schannels.in/bathukamma/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="MANA_TV_NEWS" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",MANA_TV_NEWS
+https://www.schannels.in/MANA_TV_NEWS/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="Great_Guntur" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",Great_Guntur
+https://www.schannels.in/Great_Guntur/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="Studio18" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",Studio18
+https://www.schannels.in/Studio18/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="Sri_Chakra_Tv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",Sri_Chakra_Tv
+https://www.schannels.in/Sri_Chakra_Tv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="Bcn_Channel" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",Bcn_Channel
+https://www.schannels.in/Bcn_Channel/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="chittoortvhd" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",chittoortvhd
+https://www.schannels.in/chittoortvhd/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="bhaktitv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",bhaktitv
+https://www.schannels.in/bhaktitv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="telanganatv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",telanganatv
+https://www.schannels.in/telanganatv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="srkcity" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",srkcity
+https://www.schannels.in/srkcity/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="tirumalachannel" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",tirumalachannel
+https://www.schannels.in/tirumalachannel/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gnthd" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gnthd
+https://www.schannels.in/gnthd/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="vinodam" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",vinodam
+https://www.schannels.in/vinodam/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="jkc_city" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",jkc_city
+https://www.schannels.in/jkc_city/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="localnews" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",localnews
+https://www.schannels.in/localnews/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="telanganasamskruthi" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",telanganasamskruthi
+https://www.schannels.in/telanganasamskruthi/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="studio18" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",studio18
+https://www.schannels.in/studio18/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="bhavyatv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",bhavyatv
+https://www.schannels.in/bhavyatv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="srisai" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",srisai
+https://www.schannels.in/srisai/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="gtpl" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gtpl
+https://www.schannels.in/gtpl/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="samacomedy" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",samacomedy
+https://www.schannels.in/samacomedy/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="roshni" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",roshni
+https://www.schannels.in/roshni/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="samatv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",samatv
+https://www.schannels.in/samatv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="channel9hd" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",channel9hd
+https://www.schannels.in/channel9hd/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="INB" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",INB
+https://www.schannels.in/INB/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="sashyatv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",sashyatv
+https://www.schannels.in/sashyatv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="studio1" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",studio1
+https://www.schannels.in/studio1/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="citynews" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",citynews
+https://www.schannels.in/citynews/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="sktv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",sktv
+https://www.schannels.in/sktv/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="satya" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",satya
+https://www.schannels.in/satya/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="newtvtelugu" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",newtvtelugu
+https://www.schannels.in/newtvtelugu/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="ccc" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",ccc
+https://www.schannels.in/ccc/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="G_CHANNEL" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",G_CHANNEL
+https://www.schannels.in/G_CHANNEL/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="shreyas" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",shreyas
+https://www.schannels.in/shreyas/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-name="sharontv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/sharontv.png" group-title="VV Telugu",sharontv
+https://www.schannels.in/sharontv/video.m3u8?token=nokshithaa
 #EXTINF:-1 tvg-name=" tv9" tvg-logo="https://tvonlive.in/iptv/telugu/logos/tv9.png" group-title="VV Telugu", tv9
 https://www.schannels.in/tv9/index.m3u8?token=nokshithaa
 #EXTINF:-1 tvg-name=" sakshi" tvg-logo="https://tvonlive.in/iptv/telugu/logos/sakshi.png" group-title="VV Telugu", sakshi
