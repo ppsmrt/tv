@@ -500,7 +500,7 @@ https://app.ashokadigital.net/app/408a1120/index.m3u8
 #EXTINF:-1 tvg-name="M television " tvg-logo="https://livetv.ashokadigital.net/upload/1743837928_TELEVESION.png" group-title="Ashoka",M television 
 https://ipcloud.live/mtv/menhd/index.m3u8
 #EXTINF:-1 tvg-name="vmusic" tvg-logo="https://livetv.ashokadigital.net/upload/1765724593_IMG-20251214-WA0210.png" group-title="Ashoka",vmusic
-https://app.ashokadigital.net/vmusic/vmusic/index.m3u8
+https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
 #EXTINF:-1 tvg-name="Oscar Tv " tvg-logo="https://livetv.ashokadigital.net/upload/1741858477_PeMGZ-pz_400x400.png" group-title="Ashoka",Oscar Tv 
 https://account21.livebox.co.in/oscartvhls/live.m3u8
 #EXTINF:-1 tvg-name="orangetv" tvg-logo="https://livetv.ashokadigital.net/upload/1733810867_ORANGE TV.png" group-title="Ashoka",orangetv
