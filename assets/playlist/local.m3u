@@ -193,18 +193,6 @@ https://www.schannels.in/harikastar/video.m3u8?token=nokshithaa
 https://www.schannels.in/sreenews/video.m3u8?token=nokshithaa
 #EXTINF:-1 tvg-name="rktv" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",rktv
 https://www.schannels.in/rktv/video.m3u8?token=nokshithaa
-#EXTINF:-1 tvg-name="classic" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",classic
-https://www.schannels.in/classic/video.m3u8?token=nokshithaa
-#EXTINF:-1 tvg-name="folk" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",folk
-https://www.schannels.in/folk/video.m3u8?token=nokshithaa
-#EXTINF:-1 tvg-name="hollywood" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",hollywood
-https://www.schannels.in/hollywood/video.m3u8?token=nokshithaa
-#EXTINF:-1 tvg-name="comedy" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",comedy
-https://www.schannels.in/comedy/video.m3u8?token=nokshithaa
-#EXTINF:-1 tvg-name="music" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",music
-https://www.schannels.in/music/video.m3u8?token=nokshithaa
-#EXTINF:-1 tvg-name="movies" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",movies
-https://www.schannels.in/movies/video.m3u8?token=nokshithaa
 #EXTINF:-1 tvg-name="gsgrameena" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",gsgrameena
 https://www.schannels.in/gsgrameena/video.m3u8?token=nokshithaa
 #EXTINF:-1 tvg-name="viharibakathi" tvg-logo="https://tvonlive.in/iptv/telugu/logos/vvsolutions.png" group-title="VV Telugu",viharibakathi
