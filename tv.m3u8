@@ -1457,6 +1457,8 @@ https://play.applelive.in/deebamtv/deebamtv.m3u8
 https://segment.yuppcdn.net/240122/news7/playlist.m3u8
 #EXTINF:-1 tvg-name="News18" group-title="Tamil" tvg-logo="https://i.ibb.co/QwqDBqR/11196.png",News18
 https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
+#EXTINF:-1 tvg-name="Zee Tamil" group-title="Tamil" tvg-logo="https://i.ibb.co/zVKNg0Wb/15149.png",Zee Tamil
+http://cors.tundracast.com:2000/http://87.255.35.150:18553/.ts
 
 # ---- Filter Playlist Content ----
 #EXTM3U
