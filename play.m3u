@@ -699,8 +699,6 @@ https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
 http://176.10.117.68:6060/ComedyCentral/index.m3u8
 #EXTINF:-1 tvg-name="M TV Plus" group-title="Entertainment" tvg-logo="https://i.ibb.co/7dWs4J12/1000149760.png",M TV Plus
 http://89.187.189.98/MTVPLUSHD/index.m3u8
-#EXTINF:-1 tvg-name="&tv hd" group-title="Entertainment" tvg-logo="https://i.ibb.co/mVMVRXwp/1000148254.png",&tv hd
-https://amg01117-amg01117c1-amgplt0165.playout.now3.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-name="B4u Music" group-title="Music" tvg-logo="https://i.ibb.co/NgRY3pQ6/1000149819.png",B4u Music
 https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8
 #EXTINF:-1 tvg-name="1st India News" group-title="News" tvg-logo="https://i.ibb.co/GQTHBDp2/1000148261.png",1st India News
