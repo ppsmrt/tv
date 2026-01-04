@@ -409,6 +409,8 @@ https://vvsolutions.co.in/testt/video.m3u8
 https://vvsolutions.co.in/test2/video.m3u8
 #EXTINF:-1 tvg-name="tadi" tvg-logo="https://tvonlive.in/iptv/telugu/logos/tadi.png" group-title="VV Telugu",tadi
 https://vvsolutions.co.in/tadi/video.m3u8
+#EXTINF:-1 tvg-name="songs" tvg-logo="https://tvonlive.in/iptv/telugu/logos/songs.png" group-title="VV Telugu",songs
+https://www.schannels.in/songs/video.m3u8
 #EXTINF:-1 tvg-name="INFO TV" tvg-logo="https://livetv.ashokadigital.net/upload/1757781783_0 . ASHOKA DIGITAL LOGO.png" group-title="Ashoka",INFO TV
 https://app.ashokadigital.net/app/ce705f4a/index.m3u8
 #EXTINF:-1 tvg-name="Shalini Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1737815564_Shalini Tv logo New 28-04-2012.png" group-title="Ashoka",Shalini Tv
