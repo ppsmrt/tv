@@ -17,10 +17,6 @@ https://95eryw39dwn4-hls-live.wmncdn.net/Ayushu/271ddf829afeece44d8732757fba1a66
 http://telanganatv.phoenixcreations.online:1935/telanganatv/telanganatv/chunklist_w1691683123.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="6 Tv" tvg-logo="https://i.ibb.co/MDRMCfMF/1000148271.png" group-title="News",6 Tv
 https://cdn-1.pishow.tv/live/232/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="DD Sports" tvg-logo="https://i.ibb.co/9kSx7pDf/1000148804.png" group-title="Sports",DD Sports
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Willow" tvg-logo="https://i.ibb.co/Y7XBbMFG/1000149225.png" group-title="Sports",Willow
-https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Studio One Plus" tvg-logo="https://i.ibb.co/HT404fTt/1000153334.png" group-title="Local Channels",Studio One Plus
 https://cdn-1.pishow.tv/live/276/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="E Tv Life" tvg-logo="https://i.ibb.co/35WQwjbc/1000150577.png" group-title="Entertainment",E Tv Life
@@ -37,8 +33,6 @@ https://epiconvh.akamaized.net/live/epic/master.m3u8
 https://176.116.105.82/Extreme_Sports/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bein Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png" group-title="Sports",Bein Sports
 https://bein-esp-xumo.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Euro Sports HD" tvg-logo="https://i.ibb.co/Hfk6tqG5/1000148806.png" group-title="Sports",Euro Sports HD
-https://servertvhub.site/jio/app/ts_live_875.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Jio Sports HD" tvg-logo="https://i.ibb.co/9mq8VJ5v/1000149220.png" group-title="Sports",Jio Sports HD
 https://servertvhub.site/jio/app/ts_live_889.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
@@ -75,8 +69,6 @@ https://amg01553-blueantmediaasi-zoomoonz-samsungnz-rdufn.amagi.tv/playlist/amg0
 https://d2f9g9rfw2kx84.cloudfront.net/playlist/amg01290-wildearth-oando/playlist.m3u8#3c2568002ddf1ba1e78f408bce3e32ddfcddfcbc603766bbf300c680df2e81f7
 #EXTINF:-1 tvg-id="" tvg-name="Discover Pakistan" tvg-logo="https://i.ibb.co/pjksSx1b/1000153858.png" group-title="Documentary",Discover Pakistan
 https://livecdn.live247stream.com/discoverpakistan/web/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sky Sport F1" tvg-logo="https://i.ibb.co/j9fJdmRf/1000153878.png" group-title="Sports",Sky Sport F1
-http://m3u.8088y.fun/yt.php?c=@SaudiQuranTv
 #EXTINF:-1 tvg-id="" tvg-name="Weather SPY" tvg-logo="https://i.ibb.co/5WpbPzSK/1000154149.png" group-title="Documentary",Weather SPY
 https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sky News Weather" tvg-logo="https://i.ibb.co/yczPYv4y/1000154184.png" group-title="Documentary",Sky News Weather
