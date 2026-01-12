@@ -1303,3 +1303,7 @@ https://rasinetworks.in/live/rasitvhd/index.mpd
 https://rasinetworks.in/live/rasimusichd/index.mpd
 #EXTINF:-1 tvg-name="Rasi Movies" group-title="Local Channels" tvg-logo="https://i.ibb.co/nMD9q69y/20516.png",Rasi Movies
 https://rasinetworks.in/live/rasimovieshd/index.mpd
+#EXTINF:-1 tvg-name="Rasi Hollywood" group-title="Local Channels" tvg-logo="https://i.ibb.co/N671ZvFS/20737.png",Rasi Hollywood
+https://rasinetworks.in/live/rasihollywoodhd/index.mpd
+#EXTINF:-1 tvg-name="Rasi Classic" group-title="Local Channels" tvg-logo="https://i.ibb.co/27qM85nY/20742.png",Rasi Classic
+https://rasinetworks.in/live/rasiclassichd/index.mpd
