@@ -135,5 +135,11 @@ https://rasinetworks.in/live/rasiclassichd/index.mpd
 https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Cinemax" tvg-logo="https://i.ibb.co/R4HP723b/21108.png" group-title="Local Channels",Rasi Cinemax
 https://rasinetworks.in/live/rasicinemaxhd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Cinema" tvg-logo="https://i.ibb.co/R4HP723b/21108.png" group-title="Entertainment",Rasi Cinema
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Cinema" tvg-logo="https://i.ibb.co/SpNKgkM/file-00000000443871fa8acad982c16bdb1b-1.png" group-title="Entertainment",Rasi Cinema
 https://rasinetworks.in/live/rasicinemahd/index.mpd
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Comedy" tvg-logo="https://i.ibb.co/zjwKkYn/21127.png" group-title="Local Channels",Rasi Comedy
+https://rasinetworks.in/live/rasicomedyhd/index.mpd
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Lifestyle" tvg-logo="https://i.ibb.co/hRbZbqJK/21192.png" group-title="Local Channels",Rasi Lifestyle
+https://rasinetworks.in/live/rasilifestylehd/index.mpd
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Tamil" tvg-logo="https://i.ibb.co/5hFg0TJZ/21195.png" group-title="Local Channels",Rasi Tamil
+https://rasinetworks.in/live/rasitamilhd/index.mpd
