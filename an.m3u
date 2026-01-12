@@ -93,14 +93,8 @@ https://cdn-1.pishow.tv/live/276/master.m3u8
 https://d2cj1h11htct8o.cloudfront.net/v1/master/9d43eacaed199f8d5883927e7aef514a8a08e108/ETV_LIFE_H264_cloud_in/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Big Tv" tvg-logo="https://i.ibb.co/99HYMk75/1000149837.png" group-title="Entertainment",Big Tv
 https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/big-tv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Animal Planet" tvg-logo="https://i.ibb.co/v4xm7RtB/1000149455.png" group-title="Documentary",Animal Planet
-http://89.187.189.98/ANIMALPLANETHD/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nikky Tv" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png" group-title="Kids",Nikky Tv
-https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Wow Kids" tvg-logo="https://i.ibb.co/9mGvxyVJ/1000148075.png" group-title="Kids",Wow Kids
 https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="M TV Plus" tvg-logo="https://i.ibb.co/7dWs4J12/1000149760.png" group-title="Entertainment",M TV Plus
-http://89.187.189.98/MTVPLUSHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Cricket Gold" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png" group-title="Sports",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Epic Tv" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png" group-title="Documentary",Epic Tv
@@ -109,26 +103,8 @@ https://epiconvh.akamaized.net/live/epic/master.m3u8
 https://cdn-1.pishow.tv/live/411/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Extreme Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png" group-title="Sports",Extreme Sports
 https://176.116.105.82/Extreme_Sports/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nat Geo" tvg-logo="https://i.ibb.co/CsbCP1Ns/1000149762.png" group-title="Documentary",Nat Geo
-http://195.181.169.162/NAT_GEO_WILD_HD/playlist.m3u8?token=test
 #EXTINF:-1 tvg-id="" tvg-name="Bein Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png" group-title="Sports",Bein Sports
 https://bein-esp-xumo.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Pogo Tamil" tvg-logo="https://i.ibb.co/pBwLjfnF/1000148066.png" group-title="Kids",Pogo Tamil
-https://servertvhub.site/jio/app/ts_live_542.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sonic Tamil" tvg-logo="https://i.ibb.co/jkg7yW0S/1000148046.png" group-title="Kids",Sonic Tamil
-https://servertvhub.site/jio/app/ts_live_290.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nick Tamil" tvg-logo="https://i.ibb.co/cSjYtpqK/1000148079.png" group-title="Kids",Nick Tamil
-https://servertvhub.site/jio/app/ts_live_546.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Discovery Tamil" tvg-logo="https://i.ibb.co/GvGqGfKW/1000148112.png" group-title="Kids",Discovery Tamil
-https://servertvhub.site/jio/app/ts_live_550.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Chutti Tv SD" tvg-logo="https://i.ibb.co/fzBc2qY5/1000148105.png" group-title="Kids",Chutti Tv SD
-https://servertvhub.site/jio/app/ts_live_557.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Discovery Tamil" tvg-logo="https://i.ibb.co/DfKZrmyP/1000149733.png" group-title="Documentary",Discovery Tamil
-https://servertvhub.site/jio/app/ts_live_569.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="History Tv 18 HD Tamil" tvg-logo="https://i.ibb.co/FZLsq1h/1000149758.png" group-title="Documentary",History Tv 18 HD Tamil
-https://servertvhub.site/jio/app/ts_live_579.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="CN Tamil" tvg-logo="https://i.ibb.co/LXSVNZRN/1000148125.png" group-title="Kids",CN Tamil
-https://servertvhub.site/jio/app/ts_live_817.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="HM Tv" tvg-logo="https://i.ibb.co/yFmqvdDZ/1000153240.png" group-title="News",HM Tv
 https://cdn-1.pishow.tv/live/280/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Euro Sports HD" tvg-logo="https://i.ibb.co/Hfk6tqG5/1000148806.png" group-title="Sports",Euro Sports HD
@@ -183,38 +159,6 @@ https://www.schannels.in/starwayjanapadalu/video.m3u8?token=nokshitha
 https://www.schannels.in/hrtv9/video.m3u8?token=nokshitha
 #EXTINF:-1 tvg-id="" tvg-name="Devi Cable" tvg-logo="https://i.ibb.co/MxCYfKVm/1000149123.png" group-title="Local Channels",Devi Cable
 https://www.schannels.in/devicable/video.m3u8?token=nokshitha
-#EXTINF:-1 tvg-id="" tvg-name="CN HD+ Telugu" tvg-logo="https://i.ibb.co/fYn36K8q/1000148107.png" group-title="Kids",CN HD+ Telugu
-https://servertvhub.site/jio/app/ts_live_1080.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="CN Telugu" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png" group-title="Kids",CN Telugu
-https://servertvhub.site/jio/app/ts_live_166.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nick Telugu" tvg-logo="https://i.ibb.co/MkcMWmnB/1000148400.png" group-title="Kids",Nick Telugu
-https://servertvhub.site/jio/app/ts_live_543.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nick Jr" tvg-logo="https://i.ibb.co/gMT4GwSf/1000148402.png" group-title="Kids",Nick Jr
-https://servertvhub.site/jio/app/ts_live_544.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nick Hindi" tvg-logo="https://i.ibb.co/Pvj86LcQ/1000148404.png" group-title="Kids",Nick Hindi
-https://servertvhub.site/jio/app/ts_live_545.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Chintu Tv SD" tvg-logo="https://i.ibb.co/4ZPfvp4W/1000148407.png" group-title="Kids",Chintu Tv SD
-https://servertvhub.site/jio/app/ts_live_555.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Kochu Tv" tvg-logo="https://i.ibb.co/RkzQZCjN/1000148409.png" group-title="Kids",Kochu Tv
-https://servertvhub.site/jio/app/ts_live_556.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Kushi Tv" tvg-logo="https://i.ibb.co/cSKvMhzb/1000148411.png" group-title="Kids",Kushi Tv
-https://servertvhub.site/jio/app/ts_live_558.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Pogo Hindi" tvg-logo="https://i.ibb.co/FqbsmbmX/1000148413.png" group-title="Kids",Pogo Hindi
-https://servertvhub.site/jio/app/ts_live_559.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="CN Hindi" tvg-logo="https://i.ibb.co/6RjMwHmg/1000148415.png" group-title="Kids",CN Hindi
-https://servertvhub.site/jio/app/ts_live_816.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sonic Telugu" tvg-logo="https://i.ibb.co/DD2fP1FF/1000148417.png" group-title="Kids",Sonic Telugu
-https://servertvhub.site/jio/app/ts_live_1242.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sonic Kannada" tvg-logo="https://i.ibb.co/DD2fP1FF/1000148417.png" group-title="Kids",Sonic Kannada
-https://servertvhub.site/jio/app/ts_live_1243.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nick Kannda" tvg-logo="https://i.ibb.co/5ZC1083/1000148465.png" group-title="Kids",Nick Kannda
-https://servertvhub.site/jio/app/ts_live_1244.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Nick Malayalam" tvg-logo="https://i.ibb.co/Wp7GVk7W/1000148467.png" group-title="Kids",Nick Malayalam
-https://servertvhub.site/jio/app/ts_live_1340.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sonic Malayalam" tvg-logo="https://i.ibb.co/chWPb1zz/1000148471.png" group-title="Kids",Sonic Malayalam
-https://servertvhub.site/jio/app/ts_live_1344.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Pogo Telugu" tvg-logo="https://i.ibb.co/4n56LwrX/1000148486.png" group-title="Kids",Pogo Telugu
-https://servertvhub.site/jio/app/ts_live_1883.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nandhi Tv" tvg-logo="https://i.ibb.co/yntB57mV/1000150062.png" group-title="Local Channels",Nandhi Tv
@@ -269,8 +213,6 @@ https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
 https://pac12-samsungus.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/zhjWpvQb/1000151674.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Animal Planet Telugu" tvg-logo="https://i.ibb.co/qFVx308C/1000152999.png" group-title="Documentary",Animal Planet Telugu
-https://servertvhub.site/jio/app/ts_live_3183.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sai Tv Telugu" tvg-logo="https://i.ibb.co/HD0w7NRw/1000153001.png" group-title="Devotional",Sai Tv Telugu
 https://servertvhub.site/jio/app/ts_live_3087.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Saregama Telugu" tvg-logo="https://i.ibb.co/cSMwMSqp/1000153003.png" group-title="Music",Saregama Telugu
@@ -301,16 +243,12 @@ http://m3u.8088y.fun/yt.php?c=@SaudiQuranTv
 https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sky News Weather" tvg-logo="https://i.ibb.co/yczPYv4y/1000154184.png" group-title="Documentary",Sky News Weather
 https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Fox Weather" tvg-logo="https://i.ibb.co/ZRbD6Y0g/1000154188.png" group-title="Documentary",Fox Weather
-https://livetv-fa.tubi.video/fox-weather/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Persiana Junior" tvg-logo="https://i.ibb.co/8LSr02QG/1000154883.png" group-title="Kids",Persiana Junior
 https://junhls.persiana.live/hls/stream.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Zarok TV" tvg-logo="https://i.ibb.co/gFBswm0s/1000154886.png" group-title="Kids",Zarok TV
 https://zindisorani.zaroktv.com.tr/hls/stream.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Geekdot" tvg-logo="https://i.ibb.co/F491Pj3K/1000154889.png" group-title="Kids",Geekdot
 https://stream.ichibantv.com:3764/hybrid/play.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="XilamTV" tvg-logo="https://i.ibb.co/ZRPVDVDV/1000154895.png" group-title="Kids",XilamTV
-https://xilam-animation-1-fr.samsung.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="3ABN Kids" tvg-logo="https://i.ibb.co/KpdP4sPy/1000154897.png" group-title="Kids",3ABN Kids
 https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Fancode" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png" group-title="Sports",Fancode
