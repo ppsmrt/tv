@@ -5,8 +5,6 @@ http://account18.livebox.co.in/jktvkannadahls/live.m3u8
 http://account31.livebox.co.in/satyamtvhls/live.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="E News" tvg-logo="https://i.ibb.co/NnG48kBj/1000152724.png" group-title="Local Channels",E News
 http://account10.livebox.co.in/enewstvnoonechannelomsairamhls/live.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="DD Chandana" tvg-logo="https://i.ibb.co/Vct1Dpw4/1000152721.png" group-title="Entertainment",DD Chandana
-https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/3829f99b-4951-4a9d-98c1-dbc3acfe5193/2.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SVBC Kannada" tvg-logo="https://i.ibb.co/mrB4TLKb/1000152734.png" group-title="Devotional",SVBC Kannada
 https://player.mslivestream.net/tamil/ac206e74d75b285755ee4924df87d951.sdp/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tv5 Kannada" tvg-logo="https://i.ibb.co/RTNvPNzt/1000151446.png" group-title="News",Tv5 Kannada
@@ -109,8 +107,6 @@ https://stream.ichibantv.com:3764/hybrid/play.m3u8
 https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Fancode" tvg-logo="https://i.ibb.co/XrxNCFsD/1000157540.png" group-title="Sports",Fancode
 https://in-mc-fdlive.fancode.com/mumbai/137371_english_hls_981046261520795ta-di_h264/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Gubbi Tv Kannada" tvg-logo="https://i.ibb.co/TD20Fnhh/1000159601.png" group-title="Local Channels",Gubbi Tv Kannada
-https://vvsolutions-server12.in/gubbinewskannada_11/video.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="KM News Bengaluru" tvg-logo="https://i.ibb.co/k2VcXyJv/1000159603.png" group-title="Local Channels",KM News Bengaluru
 http://desitashantv.livebox.co.in/kmnewshls/kmnews.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="4K Travel TV" tvg-logo="https://i.ibb.co/mF0S3SsL/1000160635.png" group-title="Lifestyle",4K Travel TV
