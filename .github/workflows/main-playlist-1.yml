@@ -27,7 +27,7 @@ jobs:
           const fetch = require('node-fetch');
 
           const firebaseUrl = 'https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app/channels.json';
-          const filterUrl = 'https://tnm3u.live/assets/playlist/filter.m3u';
+          const filterUrl = '';
           const m3uFile = 'tv.m3u';
           const m3u8File = 'tv.m3u8';
           const prevData = fs.existsSync(m3uFile) ? fs.readFileSync(m3uFile, 'utf8') : '';
