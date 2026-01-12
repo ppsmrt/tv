@@ -513,3 +513,11 @@ https://stream.onecloudlive.in/tamiltv/tamiltvhd/index.m3u8
 http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="News18" tvg-logo="https://i.ibb.co/QwqDBqR/11196.png" group-title="News",News18
 https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Marutham Tv" tvg-logo="https://i.ibb.co/nMdCmQFP/20494.png" group-title="Local Channels",Marutham Tv
+https://mntv.livebox.co.in/mntvhls/live.m3u8#f4fe09b765d96ebaa8adf4475f3363e2947c9b8379c832651a9d89e1e10d6aae
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Tv" tvg-logo="https://i.ibb.co/kkgsTr7/20497.png" group-title="Local Channels",Rasi Tv
+https://rasinetworks.in/live/rasitvhd/index.mpd
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Music" tvg-logo="https://i.ibb.co/yJWDv9j/20514.png" group-title="Local Channels",Rasi Music
+https://rasinetworks.in/live/rasimusichd/index.mpd
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Movies" tvg-logo="https://i.ibb.co/nMD9q69y/20516.png" group-title="Local Channels",Rasi Movies
+https://rasinetworks.in/live/rasimovieshd/index.mpd
