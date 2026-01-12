@@ -55,8 +55,6 @@ http://srichakra.mythrimediaindia.com:1935/srichakra/srichakra/chunklist_w922956
 http://channel9hd.in:1935/hd/hd/chunklist_w1051485029.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sathya News Tv" tvg-logo="https://i.ibb.co/pvv6v793/1000153275.png" group-title="Local Channels",Sathya News Tv
 http://103.146.170.102:1935/satya/satya/chunklist_w1792896619.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tv9" tvg-logo="https://i.ibb.co/ppcjnzr/1000150676.png" group-title="News",Tv9
-https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9telcmjhcs/liveabr/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Ayush Tv" tvg-logo="https://i.ibb.co/tM4r76nx/1000149780.png" group-title="Lifestyle",Ayush Tv
 https://95eryw39dwn4-hls-live.wmncdn.net/Ayushu/271ddf829afeece44d8732757fba1a66.sdp/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vihari Tv" tvg-logo="https://i.ibb.co/4gMZq2g1/1000151616.png" group-title="Local Channels",Vihari Tv
@@ -99,8 +97,6 @@ https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26
 http://89.187.189.98/ANIMALPLANETHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nikky Tv" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png" group-title="Kids",Nikky Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Gemini Tv" tvg-logo="https://i.ibb.co/qLDLxzqJ/1000150568.png" group-title="Entertainment",Gemini Tv
-https://servertvhub.site/jio/app/ts_live_897.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Wow Kids" tvg-logo="https://i.ibb.co/9mGvxyVJ/1000148075.png" group-title="Kids",Wow Kids
 https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="M TV Plus" tvg-logo="https://i.ibb.co/7dWs4J12/1000149760.png" group-title="Entertainment",M TV Plus
@@ -325,8 +321,6 @@ https://cdn-1.pishow.tv/live/1211/master.m3u8
 https://cdn-1.pishow.tv/live/397/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Vanitha Tv" tvg-logo="https://i.ibb.co/RGcKkKcJ/1000159508.png" group-title="Entertainment",Vanitha Tv
 https://cdn-1.pishow.tv/live/393/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="T news" tvg-logo="https://i.ibb.co/qKZBhC4/1000159739.png" group-title="News",T news
-https://cdn-1.pishow.tv/live/385/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Studio One Plus" tvg-logo="https://i.ibb.co/27qqnhRc/1000159743.png" group-title="Entertainment",Studio One Plus
 https://cdn-1.pishow.tv/live/276/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thirumalai Tv" tvg-logo="https://i.ibb.co/ZzrR9j3c/1000159779.png" group-title="Local Channels",Thirumalai Tv

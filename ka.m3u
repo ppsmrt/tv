@@ -7,8 +7,6 @@ http://account31.livebox.co.in/satyamtvhls/live.m3u8
 http://basavatvbox.sritv.co.in:1935/Basavatvbox/live/basavatv_cloud_code.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="E News" tvg-logo="https://i.ibb.co/NnG48kBj/1000152724.png" group-title="Local Channels",E News
 http://account10.livebox.co.in/enewstvnoonechannelomsairamhls/live.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Tv9 Kannada" tvg-logo="https://i.ibb.co/237V3KH8/1000152738.png" group-title="Local Channels",Tv9 Kannada
-https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9kanmo6oiq/liveabr/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="DD Chandana" tvg-logo="https://i.ibb.co/Vct1Dpw4/1000152721.png" group-title="Entertainment",DD Chandana
 https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/3829f99b-4951-4a9d-98c1-dbc3acfe5193/2.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SVBC Kannada" tvg-logo="https://i.ibb.co/mrB4TLKb/1000152734.png" group-title="Devotional",SVBC Kannada
@@ -21,8 +19,6 @@ https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/in
 http://iptvtree.net:8080/F28312/cc1dc138/157565
 #EXTINF:-1 tvg-id="" tvg-name="Willow" tvg-logo="https://i.ibb.co/Y7XBbMFG/1000149225.png" group-title="Sports",Willow
 https://fl7.moveonjoy.com/WILLOW_CRICKET/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Aasatha Kannada" tvg-logo="https://i.ibb.co/gbkYwsbK/1000148317.png" group-title="Devotional",Aasatha Kannada
-https://aasthaott.akamaized.net/110923/smil:aasthakannada.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Animal Planet" tvg-logo="https://i.ibb.co/v4xm7RtB/1000149455.png" group-title="Documentary",Animal Planet
 http://89.187.189.98/ANIMALPLANETHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nikky Tv" tvg-logo="https://i.ibb.co/dJGDSQ54/1000149775.png" group-title="Kids",Nikky Tv

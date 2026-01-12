@@ -21,16 +21,12 @@ http://89.187.189.98/ANIMALPLANETHD/index.m3u8
 https://edge2-moblive.yuppcdn.net/drm/smil:planetfundrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Wow Kids" tvg-logo="https://i.ibb.co/9mGvxyVJ/1000148075.png" group-title="Kids",Wow Kids
 https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Comedy Central" tvg-logo="https://i.ibb.co/9m5tBYCk/1000149185.png" group-title="Entertainment",Comedy Central
-http://176.10.117.68:6060/ComedyCentral/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="M TV Plus" tvg-logo="https://i.ibb.co/7dWs4J12/1000149760.png" group-title="Entertainment",M TV Plus
 http://89.187.189.98/MTVPLUSHD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CNN News 18" tvg-logo="https://i.ibb.co/LdLCb8x6/1000149183.png" group-title="News",CNN News 18
 https://n18syndication.akamaized.net/bpk-tv/CNN_News18_NW18_MOB/output01/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Cricket Gold" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png" group-title="Sports",Cricket Gold
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="CVR English" tvg-logo="https://i.ibb.co/prs4wVkn/1000149189.png" group-title="News",CVR English
-https://cdn-2.pishow.tv/live/425/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Epic Tv" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png" group-title="Documentary",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Extreme Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png" group-title="Sports",Extreme Sports
@@ -63,8 +59,6 @@ https://servertvhub.site/jio/app/ts_live_889.m3u8
 https://servertvhub.site/jio/app/ts_live_1080.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="CN Telugu" tvg-logo="https://i.ibb.co/fGXKHpvz/1000148119.png" group-title="Kids",CN Telugu
 https://servertvhub.site/jio/app/ts_live_166.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="& Flix" tvg-logo="https://i.ibb.co/hJP6QYbz/1000148248.png" group-title="Movies",& Flix
-https://edge3-moblive.yuppcdn.net/drm/smil:nflixdrm.smil/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nick Telugu" tvg-logo="https://i.ibb.co/MkcMWmnB/1000148400.png" group-title="Kids",Nick Telugu
 https://servertvhub.site/jio/app/ts_live_543.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Nick Jr" tvg-logo="https://i.ibb.co/gMT4GwSf/1000148402.png" group-title="Kids",Nick Jr
