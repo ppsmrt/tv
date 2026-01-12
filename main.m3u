@@ -19879,7 +19879,7 @@ https://edge2-moblive.yuppcdn.net/trans1sd/smil:vatv07.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/nN17bD2Z/1000149403.png",Yarl Entertainment
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/21dpfZc9/1000151356.png",Sooriyan Tv
-https://cdn.bozztv.com/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
+http://162.212.179.32/giatv/giatv-Infinittyott/Infinittyott/playlist.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/yBqTTwYM/1000149723.png",Yet Tv
 https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/Q7k4xTnV/1000149672.png",Stingray Pop
