@@ -303,7 +303,7 @@
             "lcn": "025",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6925b0efd9a77.png",
-            "videourl": "https:\/\/web.applelive.in\/stream\/acntv\/index.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/acntv\/acntv.m3u8",
             "webvideourl": ""
         },
         {
@@ -348,7 +348,7 @@
             "lcn": "030",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68810ffa46321.png",
-            "videourl": "https:\/\/live.applelive.in\/penguinhd\/penguinhd\/index.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/penguinhd\/penguinhd.m3u8",
             "webvideourl": ""
         },
         {
@@ -434,11 +434,11 @@
         },
         {
             "id": "1",
-            "name": "Lime TV",
+            "name": "Koodal TV",
             "lcn": "040",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688a65602b260.jpeg",
-            "videourl": "http:\/\/lime-cr1.phoenixcreations.online\/lime\/lime\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/695cf57cc3657.png",
+            "videourl": "https:\/\/web.applelive.in\/koodaltv\/koodaltv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -537,7 +537,7 @@
             "lcn": "051",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68a0bd8ed2a3d.png",
-            "videourl": "https:\/\/live.applelive.in\/enthirantv\/enthirantv\/index.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/hls\/enthirantv.m3u8",
             "webvideourl": ""
         },
         {
@@ -1571,6 +1571,15 @@
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/686ab6c1964fe.jpeg",
             "videourl": "https:\/\/live.applelive.in\/kumaritv\/kumarikids\/index.m3u8",
             "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Nithya Velicham TV",
+            "lcn": "143",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/695fd9233f461.png",
+            "videourl": "https:\/\/play.applelive.in\/nithyavelichamtv\/nithyavelichamtv.m3u8",
+            "webvideourl": ""
         }
     ],
     "DEVOTIONAL H": [
@@ -1670,7 +1679,7 @@
             "lcn": "DEV",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68c3f1b58dbb4.png",
-            "videourl": "https:\/\/live.applelive.in\/ommtv\/ommtv\/index.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/ommtv\/ommtv.m3u8",
             "webvideourl": ""
         },
         {
