@@ -1297,3 +1297,9 @@ https://play.applelive.in/deebamtv/deebamtv.m3u8
 https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-name="Marutham Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/nMdCmQFP/20494.png",Marutham Tv
 https://mntv.livebox.co.in/mntvhls/live.m3u8#f4fe09b765d96ebaa8adf4475f3363e2947c9b8379c832651a9d89e1e10d6aae
+#EXTINF:-1 tvg-name="Rasi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/kkgsTr7/20497.png",Rasi Tv
+https://rasinetworks.in/live/rasitvhd/index.mpd
+#EXTINF:-1 tvg-name="Rasi Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/yJWDv9j/20514.png",Rasi Music
+https://rasinetworks.in/live/rasimusichd/index.mpd
+#EXTINF:-1 tvg-name="Rasi Movies" group-title="Local Channels" tvg-logo="https://i.ibb.co/nMD9q69y/20516.png",Rasi Movies
+https://rasinetworks.in/live/rasimovieshd/index.mpd
