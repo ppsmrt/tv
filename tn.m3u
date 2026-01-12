@@ -523,3 +523,5 @@ https://rasinetworks.in/live/rasimusichd/index.mpd
 https://rasinetworks.in/live/rasimovieshd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Hollywood" tvg-logo="https://i.ibb.co/N671ZvFS/20737.png" group-title="Local Channels",Rasi Hollywood
 https://rasinetworks.in/live/rasihollywoodhd/index.mpd
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Classic" tvg-logo="https://i.ibb.co/27qM85nY/20742.png" group-title="Local Channels",Rasi Classic
+https://rasinetworks.in/live/rasiclassichd/index.mpd
