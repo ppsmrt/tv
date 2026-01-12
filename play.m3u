@@ -649,3 +649,9 @@ https://rasinetworks.in/live/rasimovieshd/index.mpd
 https://rasinetworks.in/live/rasihollywoodhd/index.mpd
 #EXTINF:-1 tvg-name="Rasi Classic" group-title="Local Channels" tvg-logo="https://i.ibb.co/27qM85nY/20742.png",Rasi Classic
 https://rasinetworks.in/live/rasiclassichd/index.mpd
+#EXTINF:-1 tvg-name="Sun TV UHD" group-title="Entertainment" tvg-logo="https://i.ibb.co/MkWgj10g/Sun-TV-HD.png",Sun TV UHD
+https://livestream10.sunnxt.com/DolbyVision/SunTV_HDR/SunTV_HDR_Endpoints/SunTV-HDR10-IN-index.m3u8
+#EXTINF:-1 tvg-name="Rasi Cinemax" group-title="Local Channels" tvg-logo="https://i.ibb.co/R4HP723b/21108.png",Rasi Cinemax
+https://rasinetworks.in/live/rasicinemaxhd/index.mpd
+#EXTINF:-1 tvg-name="Rasi Cinema" group-title="Entertainment" tvg-logo="https://i.ibb.co/R4HP723b/21108.png",Rasi Cinema
+https://rasinetworks.in/live/rasicinemahd/index.mpd
