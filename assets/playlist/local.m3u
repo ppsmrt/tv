@@ -115,6 +115,12 @@ http://rasinetworks.in:1935/rasihollywood/rasihollywood.stream_aac/playlist.m3u8
 http://rasinetworks.in:1935/rasicomedy/rasicomedy.stream_aac/playlist.m3u8
 #EXTINF:-1 tvg-name="Rasi Clasic" tvg-logo="https://sscloud7.in/rasinetwork/Rasiclasic.png" group-title="SS Cloud7",Rasi Clasic
 http://rasinetworks.in:1935/rasiclassic/rasiclassic.stream_aac/playlist.m3u8
+#EXTINF:-1 tvg-name="RasiLifestyle" tvg-logo="https://sscloud7.in/rasinetwork/rasilifestyle.png" group-title="SS Cloud7",RasiLifestyle
+https://rasinetworks.in/live/rasilifestylehd/index.mpd
+#EXTINF:-1 tvg-name="Rasicinemaxhd" tvg-logo="https://sscloud7.in/rasinetwork/rasicinimax.png" group-title="SS Cloud7",Rasicinemaxhd
+https://rasinetworks.in/live/rasicinemaxhd/index.mpd
+#EXTINF:-1 tvg-name="RasiCinima" tvg-logo="https://sscloud7.in/rasinetwork/rasicinima.png" group-title="SS Cloud7",RasiCinima
+https://rasinetworks.in/live/rasicinemahd/index.mpd
 #EXTINF:-1 tvg-name="N Vision" tvg-logo="https://sscloud7.in/app/sscloud7/assets/tvchannels/phoenixtv-tvchannelavathar-phoenixtv1753360872.jpg" group-title="SS Cloud7",N Vision
 https://ipcloud.live/nvision/nvisionhd.m3u8
 #EXTINF:-1 tvg-name="Vanvil Tv" tvg-logo="https://www.pngfind.com/pngs/m/669-6699373_vaanavil-tv-channel-logo-hd-png-download.png" group-title="SS Cloud7",Vanvil Tv
@@ -164,7 +170,7 @@ https://account20.livebox.co.in/mahimaitvhls/live.m3u8
 #EXTINF:-1 tvg-name="Mahimai Music" tvg-logo="https://play-lh.googleusercontent.com/Ge9kjZgKnFxVBLXJXon-2OCO9pxW5b1l5v5wrNslp5l6LnC2NExSrUAONruGApfJtg=w240-h480-rw" group-title="SS Cloud7",Mahimai Music
 https://sscloud7.com/live/mahimaitv/index.m3u8
 #EXTINF:-1 tvg-name="Amen Village TV" tvg-logo="https://play-lh.googleusercontent.com/A3y3X3aMMc5B0HuKrZaXEcQg1EskdQn334nqh5NTYFaO4JxNd-NfZ14MR3OeRBy4Ag=w240-h480-rw" group-title="SS Cloud7",Amen Village TV
-https://live.skystream.in/live/amenvillagetv/index.m3u8
+https://villagetv.applelive.in/villagetv/villagetv/index.m3u8
 #EXTINF:-1 tvg-name="JKM TV" tvg-logo="https://yt3.googleusercontent.com/UciILe59N8ZGYbSsJWkwJZxNy19LYUEW3pjZGiA4rocZMOOuO-opq29K4JaeJYp4-in8DyhF=s160-c-k-c0x00ffffff-no-rj" group-title="SS Cloud7",JKM TV
 http://jkmtv.sscloud7.in:1935/jkmtv/jkmtv/playlist.m3u8
 #EXTINF:-1 tvg-name="SHARON TV" tvg-logo="https://play-lh.googleusercontent.com/GFOITB-hhuOD7mhDjbpLctXsrMTeN8ojGRyvS0MFQfPwllxo-qgUoOzLkeKjoo_Cttgd=w240-h480-rw" group-title="SS Cloud7",SHARON TV
