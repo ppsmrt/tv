@@ -627,3 +627,5 @@ https://rasinetworks.in/live/rasilifestylehd/index.mpd
 https://rasinetworks.in/live/rasitamilhd/index.mpd
 #EXTINF:-1 tvg-name="7s Music" group-title="Entertainment" tvg-logo="https://i.ibb.co/60Z1dzmy/21217.png",7s Music
 https://mumt03.tangotv.in/7SMUSIC/index.m3u8
+#EXTINF:-1 tvg-name="Sooriyan Cinema" group-title="Movies" tvg-logo="https://i.ibb.co/vx19h8V8/21226.png",Sooriyan Cinema
+https://cdn.jwplayer.com/videos/LNdcgulf-o4j6Jv34.m3u8
