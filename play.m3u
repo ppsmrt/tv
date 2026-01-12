@@ -661,8 +661,6 @@ http://89.187.189.98/SONYWAH/index.m3u8
 https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
 #EXTINF:-1 tvg-name="B4u Music" group-title="Music" tvg-logo="https://i.ibb.co/NgRY3pQ6/1000149819.png",B4u Music
 https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8
-#EXTINF:-1 tvg-name="1st India News" group-title="News" tvg-logo="https://i.ibb.co/GQTHBDp2/1000148261.png",1st India News
-https://xlbor37ydvaj-hls-live.wmncdn.net/firstindianewstv1/live.stream/chunks.m3u8
 #EXTINF:-1 tvg-name="9xm" group-title="Music" tvg-logo="https://i.ibb.co/tPbf0xmw/1000153439.png",9xm
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/23886666-8fc5-470f-aab1-bd637ed607b1/3.m3u8
 #EXTINF:-1 tvg-name="Aasatha Bhajan" group-title="Devotional" tvg-logo="https://i.ibb.co/TMqr2CXh/1000148316.png",Aasatha Bhajan
@@ -1297,3 +1295,5 @@ http://hdserver.7starcloud.com:1935/smart/tv/playlist.m3u8
 https://play.applelive.in/deebamtv/deebamtv.m3u8
 #EXTINF:-1 tvg-name="News18" group-title="News" tvg-logo="https://i.ibb.co/QwqDBqR/11196.png",News18
 https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
+#EXTINF:-1 tvg-name="Marutham Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/nMdCmQFP/20494.png",Marutham Tv
+https://mntv.livebox.co.in/mntvhls/live.m3u8#f4fe09b765d96ebaa8adf4475f3363e2947c9b8379c832651a9d89e1e10d6aae
