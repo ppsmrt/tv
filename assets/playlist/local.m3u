@@ -560,7 +560,7 @@ http://198.144.149.206:8080/NOTV/KAVINTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="Smiley tv" tvg-logo="https://livetv.ashokadigital.net/upload/1737125892_Smiley Logo 181122.png" group-title="Ashoka",Smiley tv
 https://live1.sscloud7.com/live/smileytv/index.m3u8
 #EXTINF:-1 tvg-name="vinayaga tv" tvg-logo="https://livetv.ashokadigital.net/upload/1768196945_WhatsApp Image 2026-01-12 at 10.15.02 AM.jpeg" group-title="Ashoka",vinayaga tv
-https://appvinayagatv.sscloud7.in/live/vinayagatv/playlist.m3u8
+http://appvinayagatv.sscloud7.in/live/vinayagatv/playlist.m3u8
 #EXTINF:-1 tvg-name="devi tv" tvg-logo="https://livetv.ashokadigital.net/upload/1768196974_WhatsApp Image 2026-01-12 at 10.15.03 AM.jpeg" group-title="Ashoka",devi tv
 http://appdevitv.sscloud7.in/live/devitv/playlist.m3u8
 #EXTINF:-1 tvg-name="YET TELIVISION" tvg-logo="https://livetv.ashokadigital.net/upload/1752314659_Y2.png" group-title="Ashoka",YET TELIVISION
