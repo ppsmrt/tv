@@ -19874,8 +19874,6 @@ https://jiotvpllive.cdn.jio.com/bpk-tv/One_Paschima_BTS/output/index.mpd?__hdnea
 
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/tMT5yB4r/1000148662.png",Star Tv
 https://edge2-moblive.yuppcdn.net/trans1sd/smil:strtml19.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/whShTkGw/1000148683.png",Vasantham Tv
-https://edge2-moblive.yuppcdn.net/trans1sd/smil:vatv07.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/nN17bD2Z/1000149403.png",Yarl Entertainment
 http://198.144.149.206:8080/NOTV/YAALTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/21dpfZc9/1000151356.png",Sooriyan Tv
@@ -19894,26 +19892,10 @@ https://tv.hiruhost.com:1936/8012/8012/playlist.m3u8?view=tnm3u-addedby=tnm3u
 https://rtmp01.voaplus.com/hls/6x6ik312qk4grfxocfcv.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/wZ0jTRny/1000151410.png",Swarnavahini
 https://jk3lz8xklw79-hls-live.5centscdn.com/live/6226f7cbe59e99a90b5cef6f94f966fd.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/qTW3gWx/1000151403.png",The Buddhist Tv
-https://edge3-moblive.yuppcdn.net/drm1/smil:thebuddhistdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/vMmcgPg/1000151401.png",TNL Tv
-https://edge3-moblive.yuppcdn.net/transsd/smil:tnl12.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/PZqY3xym/1000149727.png",Tv1
-https://edge4-moblive.yuppcdn.net/trans1sd/smil:tv111.smil/playlist.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/ZRxzj6yD/1000151399.png",Tv Derna
-https://edge3-moblive.yuppcdn.net/transhd2/smil:detv04.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/M5JcHwhf/1000149725.png",Verbum Tv
-https://edge3-moblive.yuppcdn.net/drm1/smil:verbumtvdrm.smil/index.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/3mW54SJx/1000151397.png",Thai Tv
-https://cdn.anystream.uk:8082/thaitv/thailive/playlist.m3u8
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/mChJHXBR/1000148392.png",Analai Express
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/mChJHXBR/1000148392.png",Analai Express Cinema
 http://198.144.149.206:8080/MONTAMIL_CINEMA/index.m3u8?token=GTR
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/9mhxjyCn/1000149495.png",Ava Family
 https://familyhls.avatv.live/hls/stream.m3u8
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/Jj1WY261/1000151394.png",TTN Live
-https://5e5679f71b925.streamlock.net:442/live/ttntv/chunklist.m3u
-#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/7dStzrxD/1000151392.png",Three Vision Tv
-https://edge2-moblive.yuppcdn.net/drm/smil:knowledgetvdrm.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/TB6fHF3h/1000149991.png",Ada Derana
 https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/NgyZ9W9M/1000149719.png",Event Tv
@@ -19936,3 +19918,27 @@ https://cdn.bestream.io:19360/alqanat9/alqanat9.m3u8
 https://dnx1f4sl30ba2.cloudfront.net/nlpo/clr-nlpo/altenatv/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/vx19h8V8/21226.png",Sooriyan Cinema
 https://cdn.jwplayer.com/videos/LNdcgulf-o4j6Jv34.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/xSn81GJm/21228.png",Tamil Vision
+https://live.cmr24.fm/TVI/HD/playlist.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/nM0DNkrV/21232.png",Samugam Tv
+https://ca.streamjo.com/live/samugam.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/Ldgq2TTs/21236.png",Aadhavan HD
+https://in1.sunilprasad.com.np/yuppLive/athavan-tv-hd/master.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/KcQGBtQg/21241.png",JJ News
+https://live.skystream.in/live/jjnewstamil/index.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/WW6sP983/21243.png",Tamil NTT
+https://5a1178b42cc03.streamlock.net/TamilNTT/TamilNTT/playlist.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/sJVgdMBv/21247.png",Mediacorp
+https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/mediacorp-entertainment-tamil/manifest.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/k7XxMvb/21249.png",GTA Tamil
+http://144.217.77.42:8888//gta_tamil/index.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/zHD03mV0/21251.png",TET Tamil
+https://origin-cae-m462953.toober.com/4c3caf7294b3/fbbd0aee3d9a8260/playlist.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/LXdYT9KJ/21252.png",Analai Express
+http://198.144.149.206:8080/ANALAI_MOVIE/index.m3u8?token=GTR
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/Ps1sM79m/21254.png",Meiveli Tv
+https://meiveli.livebox.co.in/MEIVELIMAINhls/meivelimain.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/JwmTBPLL/21257.png",Imai Tv
+https://live20.bozztv.com/akamaissh101/ssh101/imaitv/playlist.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/TDYYLRYt/21259.png",India Life Tv
+https://m6gdavepdn93-hls-live.5centscdn.com/pravasi/d0dbe915091d400bd8ee7f27f0791303.sdp/playlist.m3u8
