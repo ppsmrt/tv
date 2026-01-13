@@ -139,3 +139,5 @@ https://xumo-xumoent-ch825-ku23q.fast.nbcuni.com/live/master.m3u8
 https://linear-888.frequency.stream/dist/xumo/888/hls/master/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Village Cooking Channel" tvg-logo="https://i.ibb.co/gF3GT9f8/21266.png" group-title="Lifestyle",Village Cooking Channel
 https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Toonz Kids" tvg-logo="https://i.ibb.co/Qvv58NWS/21742.png" group-title="Kids",Toonz Kids
+https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/toonzkids/36b4f124-60bd-45d8-b02d-69bf4d1caebc/2.m3u8
