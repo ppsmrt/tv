@@ -147,3 +147,7 @@ https://rasinetworks.in/live/rasitamilhd/index.mpd
 https://mumt03.tangotv.in/7SMUSIC/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Village Cooking Channel" tvg-logo="https://i.ibb.co/gF3GT9f8/21266.png" group-title="Lifestyle",Village Cooking Channel
 https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Tn Tv" tvg-logo="https://i.ibb.co/dwsHpQzJ/21678.png" group-title="Local Channels",Tn Tv
+https://view.rcserver.in/tmp_hls14/tntv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Bala Tv" tvg-logo="https://i.ibb.co/BHvKqYbM/21681.png" group-title="Local Channels",Bala Tv
+https://ipcloud.live/jrptv/bala/index.m3u8
