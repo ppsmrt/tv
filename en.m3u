@@ -3,12 +3,8 @@
 https://dgx2snzx175pa.cloudfront.net/scheduler/scheduleMaster/391.m3u8?view=tnm3u-addedby=tnm3u
 #EXTINF:-1 tvg-id="" tvg-name="24hrs Movies" tvg-logo="https://i.ibb.co/qL5hGVmG/1000148265.png" group-title="Movies",24hrs Movies
 https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8?view=tnm3u-addedby=tnm3u
-#EXTINF:-1 tvg-id="" tvg-name="Movies Channel" tvg-logo="https://i.ibb.co/DHbDnGQw/1000149208.png" group-title="Movies",Movies Channel
-https://live.relentlessinnovations.net:1936/afghannobel/afghannobel/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Action Hollywood Movies Tv" tvg-logo="https://i.ibb.co/vCxwLBZG/1000148330.png" group-title="Movies",Action Hollywood Movies Tv
 https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/ts-eu-w1-n2/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Star Movies HD" tvg-logo="https://i.ibb.co/Rkdq3gxP/1000149193.png" group-title="Movies",Star Movies HD
-http://ptuf.ridsys.in/riptv/live/stream224/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Wow Kids" tvg-logo="https://i.ibb.co/9mGvxyVJ/1000148075.png" group-title="Kids",Wow Kids
 https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Cricket Gold" tvg-logo="https://i.ibb.co/4RrrbZmR/1000148802.png" group-title="Sports",Cricket Gold
@@ -21,8 +17,6 @@ https://176.116.105.82/Extreme_Sports/index.m3u8
 https://bein-esp-xumo.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Jio Sports HD" tvg-logo="https://i.ibb.co/9mq8VJ5v/1000149220.png" group-title="Sports",Jio Sports HD
 https://servertvhub.site/jio/app/ts_live_889.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Moviesphere" tvg-logo="https://i.ibb.co/8nzkgG2v/1000149141.png" group-title="Movies",Moviesphere
-https://amg00353-lionsgatestudios-amg00353c2-tclideo-na-2304.playouts.now.amagi.tv/playlist/amg00353-lionsgatetvfast-moviesphere-tclideona/playlist.m3u8?device
 #EXTINF:-1 tvg-id="" tvg-name="Baby Shark Tv" tvg-logo="https://i.ibb.co/HM1nVTt/1000149142.png" group-title="Kids",Baby Shark Tv
 https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Miramax" tvg-logo="https://i.ibb.co/QFw1XvMv/1000149154.png" group-title="Movies",Miramax
@@ -67,10 +61,6 @@ https://jmp2.uk/stvp-IN270000230
 http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Danger Vision Tv" tvg-logo="https://i.ibb.co/mVnms15k/1000153038.png" group-title="Movies",Danger Vision Tv
 https://streams2.sofast.tv/ptnr-yupptv/title-DANGER-VISION-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/453971f3-855a-455e-9353-ebbb069583a4/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Mercury+ Tv" tvg-logo="https://i.ibb.co/2YjNpjz5/1000153040.png" group-title="Movies",Mercury+ Tv
-https://streams2.sofast.tv/ptnr-yupptv/title-DANGER-VISION-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/453971f3-855a-455e-9353-ebbb069583a4/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Urban Tv" tvg-logo="https://i.ibb.co/DPHmmVym/1000153042.png" group-title="Movies",Urban Tv
-https://streams2.sofast.tv/ptnr-yupptv/title-URBAN-ACTION-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/7ad8ce96-5a3f-413e-ae15-7c2cef7bc8f8/manifest.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Just For Gags" tvg-logo="https://i.ibb.co/HTqKXHbf/1000153025.png" group-title="Entertainment",Just For Gags
 https://streams2.sofast.tv/ptnr-yupptv/title-JUST_FOR_LAUGHS_GAGS_YUPPTV/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/2790d143-5874-4146-bf91-9063c52b2f15/manifest.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Cartoon Classic" tvg-logo="https://i.ibb.co/vCtP627k/1000153044.png" group-title="Kids",Cartoon Classic
@@ -147,3 +137,5 @@ https://epiconvh.akamaized.net/live/gubbare/master.m3u8
 https://xumo-xumoent-ch825-ku23q.fast.nbcuni.com/live/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Alien Nation" tvg-logo="https://i.ibb.co/gZwTspm6/Zz03-Zj-M5-ZDY4-Nm-Ew-Njcx-MWVm-Ym-M1-Yz-I2-Zm-Fm-ZTE3-ZDc1-MA.png" group-title="Documentary",Alien Nation
 https://linear-888.frequency.stream/dist/xumo/888/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Village Cooking Channel" tvg-logo="https://i.ibb.co/gF3GT9f8/21266.png" group-title="Lifestyle",Village Cooking Channel
+https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8

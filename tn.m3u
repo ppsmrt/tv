@@ -145,3 +145,5 @@ https://rasinetworks.in/live/rasilifestylehd/index.mpd
 https://rasinetworks.in/live/rasitamilhd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="7s Music" tvg-logo="https://i.ibb.co/60Z1dzmy/21217.png" group-title="Entertainment",7s Music
 https://mumt03.tangotv.in/7SMUSIC/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Village Cooking Channel" tvg-logo="https://i.ibb.co/gF3GT9f8/21266.png" group-title="Lifestyle",Village Cooking Channel
+https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
