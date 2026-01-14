@@ -161,3 +161,5 @@ https://anywhere.pwisetthon.com/http://lotustv.phoenixcreations.online/lotustv/l
 https://ipcloud.live/nellaitv/suriyatv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Roja Movies" tvg-logo="https://i.ibb.co/B5gqZBD8/22121.png" group-title="Local Channels",Roja Movies
 https://stream.rojatv.cloud/rojatv/rojatv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Shalini Tv" tvg-logo="https://i.ibb.co/933wjvXK/22298.png" group-title="Local Channels",Shalini Tv
+https://app.ashokadigital.net/app/8d91fecc/index.m3u8
