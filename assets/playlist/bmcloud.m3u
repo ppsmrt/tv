@@ -249,7 +249,7 @@
             "lcn": "019",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/685445f8902ef.png",
-            "videourl": "https:\/\/rtmp.applelive.in\/gvkumaritv\/gvkumaritv\/index.m3u8",
+            "videourl": "https:\/\/play.applelive.in\/kumaritv\/gvkumaritv.m3u8",
             "webvideourl": ""
         },
         {
@@ -1577,7 +1577,7 @@
             "name": "Nithya Velicham TV",
             "lcn": "143",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6964c5256f905.png",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69665d29bb009.png",
             "videourl": "https:\/\/play.applelive.in\/nithyavelichamtv\/nithyavelichamtv.m3u8",
             "webvideourl": ""
         }
