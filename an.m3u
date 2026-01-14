@@ -103,3 +103,5 @@ https://epiconvh.akamaized.net/live/gubbare/master.m3u8
 https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Toonz Kids" tvg-logo="https://i.ibb.co/Qvv58NWS/21742.png" group-title="Kids",Toonz Kids
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/toonzkids/36b4f124-60bd-45d8-b02d-69bf4d1caebc/2.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Chithoor Tv" tvg-logo="https://i.ibb.co/67Kx7JvR/22030.png" group-title="Local Channels",Chithoor Tv
+https://server.streamwell.in/hls/chittoortvhd.m3u8
