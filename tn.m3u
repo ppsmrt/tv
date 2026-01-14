@@ -155,3 +155,5 @@ https://ipcloud.live/jrptv/bala/index.m3u8
 https://streams2.sofast.tv/ptnr-yupptv/title-THALAA-TV-TAM_yupptv/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/2069c593-3c07-4d62-9d44-746be5c3a5d6/bd990432-2757-4bc7-9161-25ca730ae327/1.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Toonz Kids" tvg-logo="https://i.ibb.co/Qvv58NWS/21742.png" group-title="Kids",Toonz Kids
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/toonzkids/36b4f124-60bd-45d8-b02d-69bf4d1caebc/2.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Lotus Tv" tvg-logo="https://i.ibb.co/q37j0KDJ/22111.png" group-title="Entertainment",Lotus Tv
+https://anywhere.pwisetthon.com/http://lotustv.phoenixcreations.online/lotustv/lotustv/index.m3u8
