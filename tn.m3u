@@ -157,3 +157,7 @@ https://streams2.sofast.tv/ptnr-yupptv/title-THALAA-TV-TAM_yupptv/v1/manifest/61
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/toonzkids/36b4f124-60bd-45d8-b02d-69bf4d1caebc/2.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Lotus Tv" tvg-logo="https://i.ibb.co/q37j0KDJ/22111.png" group-title="Entertainment",Lotus Tv
 https://anywhere.pwisetthon.com/http://lotustv.phoenixcreations.online/lotustv/lotustv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="SJ Surya Tv" tvg-logo="https://i.ibb.co/QjN0MBKv/22112.png" group-title="Entertainment",SJ Surya Tv
+https://ipcloud.live/nellaitv/suriyatv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Roja Movies" tvg-logo="https://i.ibb.co/B5gqZBD8/22121.png" group-title="Local Channels",Roja Movies
+https://stream.rojatv.cloud/rojatv/rojatv/index.m3u8
