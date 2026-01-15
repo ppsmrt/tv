@@ -667,3 +667,11 @@ https://app.ashokadigital.net/app/9346e98d/index.m3u8
 https://app.ashokadigital.net/app/4e3b65f9/index.m3u8
 #EXTINF:-1 tvg-name="Amman Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1YffQ6h6/22418.png",Amman Tv
 https://app.ashokadigital.net/app/78b1bc36/index.m3u8
+#EXTINF:-1 tvg-name="Ragam Tv Ooty" group-title="Local Channels" tvg-logo="https://i.ibb.co/gbZZS9jb/22533.png",Ragam Tv Ooty
+https://app.ashokadigital.net/app/d5be369c/index.m3u8
+#EXTINF:-1 tvg-name="Vmuziq Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/TBPx3H83/22548.png",Vmuziq Tv
+https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
+#EXTINF:-1 tvg-name="Oscar Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/rfxVSgC8/22550.png",Oscar Tv
+https://account21.livebox.co.in/oscartvhls/live.m3u8
+#EXTINF:-1 tvg-name="TTV HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/s9wXgSYY/22552.png",TTV HD
+https://app.ashokadigital.net/app/2666f7b8/index.m3u8
