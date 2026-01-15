@@ -117,7 +117,7 @@ https://streams2.sofast.tv/WiseM3U8_30/sofast/cleanhls/master.m3u8
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5e66968a70f34c0007d050be/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c29dbd3-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=0f1d3baf-2f1b-47d7-9966-3e92a98f1c8a
 #EXTINF:-1 tvg-id="" tvg-name="Gubbare" tvg-logo="https://i.ibb.co/sJDzzN0M/channels4-profile.png" group-title="Kids",Gubbare
 https://epiconvh.akamaized.net/live/gubbare/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="News18" tvg-logo="https://i.ibb.co/QwqDBqR/11196.png" group-title="News",News18
+#EXTINF:-1 tvg-id="" tvg-name="News 18 Tamil" tvg-logo="https://i.ibb.co/QwqDBqR/11196.png" group-title="News",News 18 Tamil
 https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Marutham Tv" tvg-logo="https://i.ibb.co/nMdCmQFP/20494.png" group-title="Local Channels",Marutham Tv
 https://mntv.livebox.co.in/mntvhls/live.m3u8#f4fe09b765d96ebaa8adf4475f3363e2947c9b8379c832651a9d89e1e10d6aae
@@ -151,15 +151,39 @@ https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
 https://view.rcserver.in/tmp_hls14/tntv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bala Tv" tvg-logo="https://i.ibb.co/BHvKqYbM/21681.png" group-title="Local Channels",Bala Tv
 https://ipcloud.live/jrptv/bala/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Thaala Tv" tvg-logo="https://i.ibb.co/8gCGDw8f/21739.png" group-title="Local Channels",Thaala Tv
+#EXTINF:-1 tvg-id="" tvg-name="Thalaa Tv" tvg-logo="https://i.ibb.co/8gCGDw8f/21739.png" group-title="Local Channels",Thalaa Tv
 https://streams2.sofast.tv/ptnr-yupptv/title-THALAA-TV-TAM_yupptv/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/2069c593-3c07-4d62-9d44-746be5c3a5d6/bd990432-2757-4bc7-9161-25ca730ae327/1.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Toonz Kids" tvg-logo="https://i.ibb.co/Qvv58NWS/21742.png" group-title="Kids",Toonz Kids
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/toonzkids/36b4f124-60bd-45d8-b02d-69bf4d1caebc/2.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Lotus Tv" tvg-logo="https://i.ibb.co/q37j0KDJ/22111.png" group-title="Entertainment",Lotus Tv
 https://anywhere.pwisetthon.com/http://lotustv.phoenixcreations.online/lotustv/lotustv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="SJ Surya Tv" tvg-logo="https://i.ibb.co/QjN0MBKv/22112.png" group-title="Entertainment",SJ Surya Tv
-https://ipcloud.live/nellaitv/suriyatv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Roja Movies" tvg-logo="https://i.ibb.co/B5gqZBD8/22121.png" group-title="Local Channels",Roja Movies
 https://stream.rojatv.cloud/rojatv/rojatv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Shalini Tv" tvg-logo="https://i.ibb.co/933wjvXK/22298.png" group-title="Local Channels",Shalini Tv
 https://app.ashokadigital.net/app/8d91fecc/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Params Tv" tvg-logo="https://i.ibb.co/wZzW74nm/22344.png" group-title="Local Channels",Params Tv
+https://stream.ashokadigital.net/ashokaslm/paramstv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="JP Tv" tvg-logo="https://i.ibb.co/GvLK95yx/22350.png" group-title="Local Channels",JP Tv
+https://app.ashokadigital.net/app/2ef5ef74/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Thalapathy Tv" tvg-logo="https://i.ibb.co/fdP3DZLM/22352.png" group-title="Local Channels",Thalapathy Tv
+https://app.ashokadigital.net/app/1ef919c6/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Shalini Tv Kanchi" tvg-logo="https://i.ibb.co/5xTntTdg/22354.png" group-title="Local Channels",Shalini Tv Kanchi
+https://app.ashokadigital.net/app/9f53ea36/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Anandham Tv" tvg-logo="https://i.ibb.co/8LFJtvz4/22360.png" group-title="Local Channels",Anandham Tv
+https://app.ashokadigital.net/app/8fe44fd0/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Nisha Tv" tvg-logo="https://i.ibb.co/HDW1KsVT/22363.png" group-title="Local Channels",Nisha Tv
+https://app.ashokadigital.net/app/6bce3140/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Ashoka Tv" tvg-logo="https://i.ibb.co/5gkQmMQW/22367.png" group-title="Local Channels",Ashoka Tv
+https://app.ashokadigital.net/app/0d21b074/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Jawahar Channel" tvg-logo="https://i.ibb.co/fVhm9MCh/22369.png" group-title="Local Channels",Jawahar Channel
+https://app.ashokadigital.net/app/6a01fb97/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Sailam Tv" tvg-logo="https://i.ibb.co/b5ctqdH0/22371.png" group-title="Local Channels",Sailam Tv
+https://app.ashokadigital.net/app/e323130a/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Queens Tv" tvg-logo="https://i.ibb.co/Zzt0Xy75/22378.png" group-title="Local Channels",Queens Tv
+https://app.ashokadigital.net/app/611e0245/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Jayaam Tv" tvg-logo="https://i.ibb.co/NdwWN9dr/22380.png" group-title="Local Channels",Jayaam Tv
+https://app.ashokadigital.net/app/67a779e9/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="7 Star Tv" tvg-logo="https://i.ibb.co/yjbMRqR/22382.png" group-title="Local Channels",7 Star Tv
+https://app.ashokadigital.net/app/ed8bd4a7/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="7 Star Music" tvg-logo="https://i.ibb.co/BVtprV8P/22405.png" group-title="Local Channels",7 Star Music
+https://app.ashokadigital.net/app/9346e98d/index.m3u8
