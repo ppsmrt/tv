@@ -199,3 +199,5 @@ https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
 https://account21.livebox.co.in/oscartvhls/live.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TTV HD" tvg-logo="https://i.ibb.co/s9wXgSYY/22552.png" group-title="Local Channels",TTV HD
 https://app.ashokadigital.net/app/2666f7b8/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Citi Channel" tvg-logo="https://i.ibb.co/4ZmFChfz/22554.png" group-title="Local Channels",Citi Channel
+https://stream.ashokadigital.net/cititv/cititvhd/index.m3u8
