@@ -91,8 +91,6 @@ http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-name="Yet Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/yBqTTwYM/1000149723.png",Yet Tv
 https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
-#EXTINF:-1 tvg-name="Durai 4K" group-title="Local Channels" tvg-logo="https://i.ibb.co/7Jb6B4hS/1000153201.png",Durai 4K
-https://ipcloud.live/duraitv/live/index.m3u8
 #EXTINF:-1 tvg-name="JK Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Rt4rMKj/1000151522.png",JK Tv
 http://account18.livebox.co.in/jktvkannadahls/live.m3u8
 #EXTINF:-1 tvg-name="E News" group-title="Local Channels" tvg-logo="https://i.ibb.co/NnG48kBj/1000152724.png",E News
@@ -623,8 +621,6 @@ https://m6gdavepdn93-hls-live.5centscdn.com/pravasi/d0dbe915091d400bd8ee7f27f079
 https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
 #EXTINF:-1 tvg-name="Tn Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dwsHpQzJ/21678.png",Tn Tv
 https://view.rcserver.in/tmp_hls14/tntv/index.m3u8
-#EXTINF:-1 tvg-name="Bala Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/BHvKqYbM/21681.png",Bala Tv
-https://ipcloud.live/jrptv/bala/index.m3u8
 #EXTINF:-1 tvg-name="Thalaa Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/8gCGDw8f/21739.png",Thalaa Tv
 https://streams2.sofast.tv/ptnr-yupptv/title-THALAA-TV-TAM_yupptv/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/2069c593-3c07-4d62-9d44-746be5c3a5d6/bd990432-2757-4bc7-9161-25ca730ae327/1.m3u8
 #EXTINF:-1 tvg-name="Toonz Kids" group-title="Kids" tvg-logo="https://i.ibb.co/Qvv58NWS/21742.png",Toonz Kids
@@ -675,3 +671,7 @@ https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
 https://account21.livebox.co.in/oscartvhls/live.m3u8
 #EXTINF:-1 tvg-name="TTV HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/s9wXgSYY/22552.png",TTV HD
 https://app.ashokadigital.net/app/2666f7b8/index.m3u8
+#EXTINF:-1 tvg-name="Citi Channel" group-title="Local Channels" tvg-logo="https://i.ibb.co/4ZmFChfz/22554.png",Citi Channel
+https://stream.ashokadigital.net/cititv/cititvhd/index.m3u8
+#EXTINF:-1 tvg-name="A1 HD Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/4nPDxKzC/22556.png",A1 HD Tv
+https://app.ashokadigital.net/app/7fff5003/index.m3u8
