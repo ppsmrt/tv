@@ -187,3 +187,7 @@ https://app.ashokadigital.net/app/67a779e9/index.m3u8
 https://app.ashokadigital.net/app/ed8bd4a7/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="7 Star Music" tvg-logo="https://i.ibb.co/BVtprV8P/22405.png" group-title="Local Channels",7 Star Music
 https://app.ashokadigital.net/app/9346e98d/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="King Tv" tvg-logo="https://i.ibb.co/g8ST6sH/22409.png" group-title="Local Channels",King Tv
+https://app.ashokadigital.net/app/4e3b65f9/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Amman Tv" tvg-logo="https://i.ibb.co/1YffQ6h6/22418.png" group-title="Local Channels",Amman Tv
+https://app.ashokadigital.net/app/78b1bc36/index.m3u8
