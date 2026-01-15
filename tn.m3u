@@ -17,8 +17,6 @@ https://galaxyott.live/hls/sanaplus.m3u8
 https://galaxyott.live/hls/sanatv.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Max Movies" tvg-logo="https://i.ibb.co/WWGRTShd/1000158028.png" group-title="Movies",Max Movies
 https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Durai 4K" tvg-logo="https://i.ibb.co/7Jb6B4hS/1000153201.png" group-title="Local Channels",Durai 4K
-https://ipcloud.live/duraitv/live/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi One" tvg-logo="https://i.ibb.co/wFqSD3G5/1000149594.png" group-title="Entertainment",Thandhi One
 https://servertvhub.site/jio/app/ts_live_3059.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Chithiram" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png" group-title="Entertainment",Chithiram
@@ -149,8 +147,6 @@ https://mumt03.tangotv.in/7SMUSIC/index.m3u8
 https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tn Tv" tvg-logo="https://i.ibb.co/dwsHpQzJ/21678.png" group-title="Local Channels",Tn Tv
 https://view.rcserver.in/tmp_hls14/tntv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Bala Tv" tvg-logo="https://i.ibb.co/BHvKqYbM/21681.png" group-title="Local Channels",Bala Tv
-https://ipcloud.live/jrptv/bala/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thalaa Tv" tvg-logo="https://i.ibb.co/8gCGDw8f/21739.png" group-title="Local Channels",Thalaa Tv
 https://streams2.sofast.tv/ptnr-yupptv/title-THALAA-TV-TAM_yupptv/v1/manifest/611d79b11b77e2f571934fd80ca1413453772ac7/2069c593-3c07-4d62-9d44-746be5c3a5d6/bd990432-2757-4bc7-9161-25ca730ae327/1.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Toonz Kids" tvg-logo="https://i.ibb.co/Qvv58NWS/21742.png" group-title="Kids",Toonz Kids
@@ -201,3 +197,5 @@ https://account21.livebox.co.in/oscartvhls/live.m3u8
 https://app.ashokadigital.net/app/2666f7b8/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Citi Channel" tvg-logo="https://i.ibb.co/4ZmFChfz/22554.png" group-title="Local Channels",Citi Channel
 https://stream.ashokadigital.net/cititv/cititvhd/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="A1 HD Tv" tvg-logo="https://i.ibb.co/4nPDxKzC/22556.png" group-title="Local Channels",A1 HD Tv
+https://app.ashokadigital.net/app/7fff5003/index.m3u8
