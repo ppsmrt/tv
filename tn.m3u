@@ -197,3 +197,7 @@ http://ptu.ridsys.in/riptv/live/AJK_TV/index.m3u8
 http://ptu.ridsys.in/riptv/live/S_MEDIA/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Latha Smile HD" tvg-logo="https://i.ibb.co/N6fQyQd4/30008.png" group-title="Local Channels",Latha Smile HD
 http://ptu.ridsys.in/riptv/live/LATHA_SMILE_HD/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="KM Music" tvg-logo="https://i.ibb.co/xSz4SyW2/31621.png" group-title="Music",KM Music
+http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Mayuri Tv" tvg-logo="https://i.ibb.co/zWy58wdG/31632.png" group-title="Local Channels",Mayuri Tv
+https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
