@@ -691,3 +691,7 @@ http://ptu.ridsys.in/riptv/live/LATHA_SMILE_HD/index.m3u8
 http://citynews.mythrimediaindia.com:1935/citynews/citynews/index.m3u8
 #EXTINF:-1 tvg-name="TGN News Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/zV6TBKJL/30044.png",TGN News Tv
 https://venus.streambridge.link:8047/telugu/tgn/index.m3u8
+#EXTINF:-1 tvg-name="KM Music" group-title="Music" tvg-logo="https://i.ibb.co/xSz4SyW2/31621.png",KM Music
+http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
+#EXTINF:-1 tvg-name="Mayuri Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/zWy58wdG/31632.png",Mayuri Tv
+https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
