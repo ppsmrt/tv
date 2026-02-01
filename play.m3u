@@ -695,3 +695,5 @@ https://venus.streambridge.link:8047/telugu/tgn/index.m3u8
 http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
 #EXTINF:-1 tvg-name="Mayuri Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/zWy58wdG/31632.png",Mayuri Tv
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
+#EXTINF:-1 tvg-name="AVS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dw8LXNMS/31701.png",AVS Tv
+http://applelive.net:8091/avstv/avstv/tracks-v1a1/mono.ts.m3u8
