@@ -167,3 +167,5 @@ https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/toonzkids/36b4f124-60bd-45d8-b02d-69bf4d1caebc/2.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Willow Tv" tvg-logo="https://i.ibb.co/qFssT8KT/28512.png" group-title="Sports",Willow Tv
 http://xui.mainserver.cc/play/oCkZyqACmAE6FvzKu_186PEFGOk9LoJ4xGfS1beyo7s/.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="AVS Tv" tvg-logo="https://i.ibb.co/dw8LXNMS/31701.png" group-title="Local Channels",AVS Tv
+http://applelive.net:8091/avstv/avstv/tracks-v1a1/mono.ts.m3u8

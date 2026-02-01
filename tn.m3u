@@ -201,10 +201,8 @@ http://ptu.ridsys.in/riptv/live/LATHA_SMILE_HD/index.m3u8
 http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Mayuri Tv" tvg-logo="https://i.ibb.co/zWy58wdG/31632.png" group-title="Local Channels",Mayuri Tv
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="AVS Tv" tvg-logo="https://i.ibb.co/dw8LXNMS/31701.png" group-title="Local Channels",AVS Tv
-http://applelive.net:8091/avstv/avstv/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="JCV Tv" tvg-logo="https://i.ibb.co/FbVk1LyS/31711.png" group-title="Local Channels",JCV Tv
-https://tnm3u.live/scripts/playlist/local.m3u
+https://play.applelive.in/jcvtv/jcvtv.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Om Sakthi Tv" tvg-logo="https://i.ibb.co/8nm6x23h/32034.png" group-title="Local Channels",Om Sakthi Tv
 https://sscloud7.com/live/omsakthitv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Deiva Oli Tv" tvg-logo="https://i.ibb.co/9HywqCWH/32037.png" group-title="Local Channels",Deiva Oli Tv
