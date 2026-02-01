@@ -105,3 +105,21 @@ https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
 https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/toonzkids/36b4f124-60bd-45d8-b02d-69bf4d1caebc/2.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Chithoor Tv" tvg-logo="https://i.ibb.co/67Kx7JvR/22030.png" group-title="Local Channels",Chithoor Tv
 https://server.streamwell.in/hls/chittoortvhd.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Willow Tv" tvg-logo="https://i.ibb.co/qFssT8KT/28512.png" group-title="Sports",Willow Tv
+http://xui.mainserver.cc/play/oCkZyqACmAE6FvzKu_186PEFGOk9LoJ4xGfS1beyo7s/.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="VV Movies" tvg-logo="https://i.ibb.co/0RbFJ9jL/29475.png" group-title="Local Channels",VV Movies
+https://www.schannels.in/vvmovies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-id="" tvg-name="VV Music" tvg-logo="https://i.ibb.co/fTT9bPX/29477.png" group-title="Local Channels",VV Music
+https://www.schannels.in/vvmusic/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-id="" tvg-name="Harika Star" tvg-logo="https://i.ibb.co/RT5mJK5p/29479.png" group-title="Local Channels",Harika Star
+https://www.schannels.in/harikastar/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-id="" tvg-name="PVP Movies" tvg-logo="https://i.ibb.co/twzKMZcW/29483.png" group-title="Local Channels",PVP Movies
+https://www.schannels.in/pvpmovies/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-id="" tvg-name="PVP HD" tvg-logo="https://i.ibb.co/KzwPdbLr/29487.png" group-title="Local Channels",PVP HD
+https://www.schannels.in/pvphd/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-id="" tvg-name="Sama Comedy (GTPL)" tvg-logo="https://i.ibb.co/N2KfVDfs/30046.png" group-title="Local Channels",Sama Comedy (GTPL)
+https://www.schannels.in/samacomedy/video.m3u8?token=nokshithaa
+#EXTINF:-1 tvg-id="" tvg-name="City News Telugu" tvg-logo="https://i.ibb.co/Ld1vbM14/30034.png" group-title="Local Channels",City News Telugu
+http://citynews.mythrimediaindia.com:1935/citynews/citynews/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="TGN News Tv" tvg-logo="https://i.ibb.co/zV6TBKJL/30044.png" group-title="Local Channels",TGN News Tv
+https://venus.streambridge.link:8047/telugu/tgn/index.m3u8
