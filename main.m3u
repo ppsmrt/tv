@@ -19900,6 +19900,8 @@ https://familyhls.avatv.live/hls/stream.m3u8
 https://edge2-moblive.yuppcdn.net/drm/smil:adaderana24drm.smil/manifest.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/NgyZ9W9M/1000149719.png",Event Tv
 https://edge2-moblive.yuppcdn.net/drm/smil:eventtvdrm.smil/manifest.m3u8
+#EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/0dPb5Vk/1000149703.png",We Baduga Tv
+https://rtmp.bmlive.net/webaduga/webaduga/index.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/7tvjhbFs/1000149405.png",EET Tv
 https://eu.streamjo.com/eetlive/eettv.m3u8
 #EXTINF:-1 tvg-id="undefined" group-title="International" tvg-logo="https://i.ibb.co/YFsxJGtq/1000153813.png",Maah Tv
