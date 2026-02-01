@@ -113,25 +113,25 @@ https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/
 https://mntv.livebox.co.in/mntvhls/live.m3u8#f4fe09b765d96ebaa8adf4475f3363e2947c9b8379c832651a9d89e1e10d6aae
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Tv" tvg-logo="https://i.ibb.co/kkgsTr7/20497.png" group-title="Local Channels",Rasi Tv
 https://rasinetworks.in/live/rasitvhd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Music" tvg-logo="https://i.ibb.co/yJWDv9j/20514.png" group-title="Local Channels",Rasi Music
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Music" tvg-logo="https://i.ibb.co/yJWDv9j/20514.png" group-title="Music",Rasi Music
 https://rasinetworks.in/live/rasimusichd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Movies" tvg-logo="https://i.ibb.co/nMD9q69y/20516.png" group-title="Local Channels",Rasi Movies
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Movies" tvg-logo="https://i.ibb.co/nMD9q69y/20516.png" group-title="Movies",Rasi Movies
 https://rasinetworks.in/live/rasimovieshd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Hollywood" tvg-logo="https://i.ibb.co/N671ZvFS/20737.png" group-title="Local Channels",Rasi Hollywood
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Hollywood" tvg-logo="https://i.ibb.co/N671ZvFS/20737.png" group-title="Movies",Rasi Hollywood
 https://rasinetworks.in/live/rasihollywoodhd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Classic" tvg-logo="https://i.ibb.co/27qM85nY/20742.png" group-title="Local Channels",Rasi Classic
 https://rasinetworks.in/live/rasiclassichd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Cinemax" tvg-logo="https://i.ibb.co/R4HP723b/21108.png" group-title="Local Channels",Rasi Cinemax
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Cinemax" tvg-logo="https://i.ibb.co/R4HP723b/21108.png" group-title="Movies",Rasi Cinemax
 https://rasinetworks.in/live/rasicinemaxhd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Cinema" tvg-logo="https://i.ibb.co/SpNKgkM/file-00000000443871fa8acad982c16bdb1b-1.png" group-title="Entertainment",Rasi Cinema
 https://rasinetworks.in/live/rasicinemahd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Comedy" tvg-logo="https://i.ibb.co/zjwKkYn/21127.png" group-title="Local Channels",Rasi Comedy
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Comedy" tvg-logo="https://i.ibb.co/zjwKkYn/21127.png" group-title="Entertainment",Rasi Comedy
 https://rasinetworks.in/live/rasicomedyhd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Lifestyle" tvg-logo="https://i.ibb.co/hRbZbqJK/21192.png" group-title="Local Channels",Rasi Lifestyle
 https://rasinetworks.in/live/rasilifestylehd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Tamil" tvg-logo="https://i.ibb.co/5hFg0TJZ/21195.png" group-title="Local Channels",Rasi Tamil
 https://rasinetworks.in/live/rasitamilhd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="7s Music" tvg-logo="https://i.ibb.co/60Z1dzmy/21217.png" group-title="Entertainment",7s Music
+#EXTINF:-1 tvg-id="" tvg-name="7s Music" tvg-logo="https://i.ibb.co/60Z1dzmy/21217.png" group-title="Music",7s Music
 https://mumt03.tangotv.in/7SMUSIC/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Village Cooking Channel" tvg-logo="https://i.ibb.co/gF3GT9f8/21266.png" group-title="Lifestyle",Village Cooking Channel
 https://rpn3.bozztv.com/dvrfl07/ushba-t10/index.m3u8
@@ -205,3 +205,9 @@ https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
 http://applelive.net:8091/avstv/avstv/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="JCV Tv" tvg-logo="https://i.ibb.co/FbVk1LyS/31711.png" group-title="Local Channels",JCV Tv
 https://tnm3u.live/scripts/playlist/local.m3u
+#EXTINF:-1 tvg-id="" tvg-name="Om Sakthi Tv" tvg-logo="https://i.ibb.co/8nm6x23h/32034.png" group-title="Local Channels",Om Sakthi Tv
+https://sscloud7.com/live/omsakthitv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Deiva Oli Tv" tvg-logo="https://i.ibb.co/9HywqCWH/32037.png" group-title="Local Channels",Deiva Oli Tv
+https://stream.sscloud7.in/live/deivaoli/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Thendral Tv" tvg-logo="https://i.ibb.co/gZyB7NVp/32041.png" group-title="Local Channels",Thendral Tv
+https://sscloud7.com/live/thendraltv/index.m3u8
