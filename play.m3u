@@ -563,25 +563,25 @@ https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/
 https://mntv.livebox.co.in/mntvhls/live.m3u8#f4fe09b765d96ebaa8adf4475f3363e2947c9b8379c832651a9d89e1e10d6aae
 #EXTINF:-1 tvg-name="Rasi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/kkgsTr7/20497.png",Rasi Tv
 https://rasinetworks.in/live/rasitvhd/index.mpd
-#EXTINF:-1 tvg-name="Rasi Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/yJWDv9j/20514.png",Rasi Music
+#EXTINF:-1 tvg-name="Rasi Music" group-title="Music" tvg-logo="https://i.ibb.co/yJWDv9j/20514.png",Rasi Music
 https://rasinetworks.in/live/rasimusichd/index.mpd
-#EXTINF:-1 tvg-name="Rasi Movies" group-title="Local Channels" tvg-logo="https://i.ibb.co/nMD9q69y/20516.png",Rasi Movies
+#EXTINF:-1 tvg-name="Rasi Movies" group-title="Movies" tvg-logo="https://i.ibb.co/nMD9q69y/20516.png",Rasi Movies
 https://rasinetworks.in/live/rasimovieshd/index.mpd
-#EXTINF:-1 tvg-name="Rasi Hollywood" group-title="Local Channels" tvg-logo="https://i.ibb.co/N671ZvFS/20737.png",Rasi Hollywood
+#EXTINF:-1 tvg-name="Rasi Hollywood" group-title="Movies" tvg-logo="https://i.ibb.co/N671ZvFS/20737.png",Rasi Hollywood
 https://rasinetworks.in/live/rasihollywoodhd/index.mpd
 #EXTINF:-1 tvg-name="Rasi Classic" group-title="Local Channels" tvg-logo="https://i.ibb.co/27qM85nY/20742.png",Rasi Classic
 https://rasinetworks.in/live/rasiclassichd/index.mpd
-#EXTINF:-1 tvg-name="Rasi Cinemax" group-title="Local Channels" tvg-logo="https://i.ibb.co/R4HP723b/21108.png",Rasi Cinemax
+#EXTINF:-1 tvg-name="Rasi Cinemax" group-title="Movies" tvg-logo="https://i.ibb.co/R4HP723b/21108.png",Rasi Cinemax
 https://rasinetworks.in/live/rasicinemaxhd/index.mpd
 #EXTINF:-1 tvg-name="Rasi Cinema" group-title="Entertainment" tvg-logo="https://i.ibb.co/SpNKgkM/file-00000000443871fa8acad982c16bdb1b-1.png",Rasi Cinema
 https://rasinetworks.in/live/rasicinemahd/index.mpd
-#EXTINF:-1 tvg-name="Rasi Comedy" group-title="Local Channels" tvg-logo="https://i.ibb.co/zjwKkYn/21127.png",Rasi Comedy
+#EXTINF:-1 tvg-name="Rasi Comedy" group-title="Entertainment" tvg-logo="https://i.ibb.co/zjwKkYn/21127.png",Rasi Comedy
 https://rasinetworks.in/live/rasicomedyhd/index.mpd
 #EXTINF:-1 tvg-name="Rasi Lifestyle" group-title="Local Channels" tvg-logo="https://i.ibb.co/hRbZbqJK/21192.png",Rasi Lifestyle
 https://rasinetworks.in/live/rasilifestylehd/index.mpd
 #EXTINF:-1 tvg-name="Rasi Tamil" group-title="Local Channels" tvg-logo="https://i.ibb.co/5hFg0TJZ/21195.png",Rasi Tamil
 https://rasinetworks.in/live/rasitamilhd/index.mpd
-#EXTINF:-1 tvg-name="7s Music" group-title="Entertainment" tvg-logo="https://i.ibb.co/60Z1dzmy/21217.png",7s Music
+#EXTINF:-1 tvg-name="7s Music" group-title="Music" tvg-logo="https://i.ibb.co/60Z1dzmy/21217.png",7s Music
 https://mumt03.tangotv.in/7SMUSIC/index.m3u8
 #EXTINF:-1 tvg-name="Sooriyan Cinema" group-title="Movies" tvg-logo="https://i.ibb.co/vx19h8V8/21226.png",Sooriyan Cinema
 https://cdn.jwplayer.com/videos/LNdcgulf-o4j6Jv34.m3u8
@@ -697,3 +697,5 @@ http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
 #EXTINF:-1 tvg-name="AVS Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/dw8LXNMS/31701.png",AVS Tv
 http://applelive.net:8091/avstv/avstv/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-name="JCV Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/FbVk1LyS/31711.png",JCV Tv
+https://tnm3u.live/scripts/playlist/local.m3u
