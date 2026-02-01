@@ -46,6 +46,11 @@
             "name": "Tamil TV"
         },
         {
+            "id": "2",
+            "namee": "Tamil News",
+            "name": "Tamil News"
+        },
+        {
             "id": "1",
             "name": "Malayalam",
             "namee": "Malayalam"
@@ -908,15 +913,6 @@
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/694911f2f0a53.png",
             "videourl": "https:\/\/live.skystream.in\/live\/no1tv\/index.m3u8",
             "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "RK TV",
-            "lcn": "093",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6949122944df2.jpeg",
-            "videourl": "https:\/\/rktv-hs1.tamilstream.in\/rktv\/tenkasi\/playlist.m3u8",
-            "webvideourl": ""
         }
     ],
     "Baduga TV": [
@@ -933,20 +929,20 @@
     "Tamil TV": [
         {
             "id": "600",
-            "name": "SEITHIGAL",
+            "name": "MK Six",
             "lcn": "201",
             "playertype": "0",
-            "imageurl": "http:\/\/s3.i3ns.net:2052\/portal\/picon\/2023-05\/ee576badd6df3511a65b650a4cddbeca.png",
-            "videourl": " https:\/\/g5nl63palpq6-hls-live.5centscdn.com\/blacksheep\/d0dbe915091d400bd8ee7f27f0791303.sdp\/playlist.m3u8",
+            "imageurl": "https:\/\/www.lyngsat.com\/logo\/tv\/mm\/mk_tv_in_six.png",
+            "videourl": "https:\/\/cdn-3.pishow.tv\/live\/1253\/master.m3u8",
             "webvideourl": ""
         },
         {
             "id": "600",
-            "name": "Polimer News",
+            "name": "Polimer Tv",
             "lcn": "202",
             "playertype": "0",
-            "imageurl": "https:\/\/i.imgur.com\/CxcuvXX.png",
-            "videourl": "https:\/\/segment.yuppcdn.net\/110322\/polimernews\/playlist.m3u8",
+            "imageurl": "https:\/\/www.lyngsat.com\/logo\/tv\/pp\/polimer_in_tv.png",
+            "videourl": "https:\/\/cdn-2.pishow.tv\/live\/1241\/master.m3u8",
             "webvideourl": ""
         },
         {
@@ -972,8 +968,8 @@
             "name": "VASANTH TV",
             "lcn": "205",
             "playertype": "0",
-            "imageurl": "https:\/\/yt3.googleusercontent.com\/OIpMCK012E1NTUIVvaoiuiEckfVniUIaWZxQlPFCjXy7lDeW_mAUcWdb-IxSOY8FqR7iBmCOVQ=s176-c-k-c0x00ffffff-no-rj",
-            "videourl": "https:\/\/vasanth.pc.cdn.bitgravity.com\/vasanth\/secure\/live\/feed01\/chunklist.m3u8?e=0&h=54e44f64b2e6d5122acdf77d01ab7f9f",
+            "imageurl": "https:\/\/www.lyngsat.com\/logo\/tv\/vv\/vasanth-tv-in.png",
+            "videourl": "https:\/\/mumt04.tangotv.in\/VASANTHTV\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -982,7 +978,7 @@
             "lcn": "206",
             "playertype": "0",
             "imageurl": "https:\/\/yt3.ggpht.com\/-BhO2MaNJoL8\/AAAAAAAAAAI\/AAAAAAAAAAA\/2SQ2s6bDQo0\/s900-c-k-no-mo-rj-c0xffffff\/photo.jpg",
-            "videourl": "http:\/\/103.184.193.216:3500\/getm3u8\/857\/master.m3u8",
+            "videourl": "https:\/\/cdn-3.pishow.tv\/live\/1271\/master.m3u8",
             "webvideourl": ""
         },
         {
@@ -991,7 +987,7 @@
             "lcn": "207",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/fDdG6Y2.png",
-            "videourl": "https:\/\/gvjygr2jloem-hls-live.5centscdn.com\/shalini\/live.stream\/playlist.m3u8",
+            "videourl": "https:\/\/stream.singamcloud.in\/shalinitv\/shalinitv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -999,8 +995,8 @@
             "name": "TAMILAN TV",
             "lcn": "208",
             "playertype": "0",
-            "imageurl": "http:\/\/s3.i3ns.net:2052\/portal\/picon\/2023-05\/b8e6140aba2ba378f0e62a0e5907423c.jpg",
-            "videourl": "https:\\\\cdn.zionmediait.com\\zionmediaitserver2024\\97484f5ce6da96e496a9b87c439835d0.sdp\\playlist.m3u8",
+            "imageurl": "https:\/\/www.lyngsat.com\/logo\/tv\/tt\/tamilan_tv.png",
+            "videourl": "https:\/\/cdn.zionmediait.com\/zionmediaitserver2024\/97484f5ce6da96e496a9b87c439835d0.sdp\/playlist.m3u8",
             "webvideourl": ""
         },
         {
@@ -1009,7 +1005,7 @@
             "lcn": "209",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/HjwKtSJ.png",
-            "videourl": "http:\/\/103.184.193.216:3500\/getm3u8\/824\/master.m3u8",
+            "videourl": "https:\/\/mumt04.tangotv.in\/PUTHUYUGAMTV\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -1018,25 +1014,7 @@
             "lcn": "210",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/XMAqb0H.png",
-            "videourl": "http:\/\/103.184.193.216:3500\/getm3u8\/796\/master.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "IMAYAM TV",
-            "lcn": "211",
-            "playertype": "0",
-            "imageurl": "http:\/\/s3.i3ns.net:2052\/portal\/picon\/2021-12\/f85ba48bec8ffc41c6b4f2305ce0f8d4.png",
-            "videourl": "http:\/\/103.184.193.216:3500\/getm3u8\/1517\/master.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "DD Podhigai",
-            "lcn": "212",
-            "playertype": "0",
-            "imageurl": "https:\/\/i.imgur.com\/vbjkE84.png",
-            "videourl": "https:\\\\d2lk5u59tns74c.cloudfront.net\\out\\v1\\abf46b14847e45499f4a47f3a9afe93d\\index.m3u8",
+            "videourl": "https:\/\/cdn-2.pishow.tv\/live\/1383\/master.m3u8",
             "webvideourl": ""
         },
         {
@@ -1059,20 +1037,11 @@
         },
         {
             "id": "600",
-            "name": "IBC Tamil",
-            "lcn": "215",
+            "name": "VAANAVIL TV",
+            "lcn": "213",
             "playertype": "0",
-            "imageurl": "https:\/\/assets.ibcstack.com\/web\/bravo\/img\/services\/ibc.png",
-            "videourl": "https:\/\/cdn.jwplayer.com\/videos\/Y56jFlfD-640.mp4",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "Tunes 6",
-            "lcn": "216",
-            "playertype": "0",
-            "imageurl": "https:\/\/jiotv.catchup.cdn.jio.com\/dare_images\/images\/Tunes_6.png",
-            "videourl": "http:\/\/103.184.193.216:3500\/live\/803.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68595a53abfa4.jpg",
+            "videourl": "https:\/\/ibc.massstream.net\/IBC\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -1081,7 +1050,7 @@
             "lcn": "217",
             "playertype": "0",
             "imageurl": "https:\/\/mediaworldasia.dk\/images\/makrologo\/tamil\/madhimugamtv.jpg",
-            "videourl": "http:\/\/103.184.193.216:3500\/live\/843.m3u8",
+            "videourl": "https:\/\/cdn-3.pishow.tv\/live\/1476\/master.m3u8",
             "webvideourl": ""
         },
         {
@@ -1090,7 +1059,7 @@
             "lcn": "218",
             "playertype": "0",
             "imageurl": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/thumb\/e\/e4\/Logo_of_Velicham_TV.png\/220px-Logo_of_Velicham_TV.png",
-            "videourl": "http:\/\/103.184.193.216:3500\/live\/3004.m3u8",
+            "videourl": "https:\/\/cdn-3.pishow.tv\/live\/461\/master.m3u8",
             "webvideourl": ""
         },
         {
@@ -1099,16 +1068,7 @@
             "lcn": "219",
             "playertype": "0",
             "imageurl": "https:\/\/trademaklogos.s3.ap-south-1.amazonaws.com\/5725664.jpeg",
-            "videourl": "https:\/\/249553662f3e.ap-south-1.playback.live-video.net\/api\/video\/v1\/ap-south-1.588204940461.channel.Sx8XPoik8VX2.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "eetlive",
-            "lcn": "220",
-            "playertype": "0",
-            "imageurl": "https:\/\/eettv.com\/wp-content\/uploads\/2023\/10\/eettv-2.png",
-            "videourl": "https:\/\/live.streamjo.com\/eetlive\/eettv.m3u8",
+            "videourl": "https:\/\/mumt02.tangotv.in\/THANTHIONE\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -1144,7 +1104,7 @@
             "lcn": "224",
             "playertype": "0",
             "imageurl": "http:\/\/4.bp.blogspot.com\/-NrERiata954\/YEBS8j5r78I\/AAAAAAAABU4\/1BNo8cCPdwQyutq0D6Z7G1Ew21WAeZzhwCK4BGAYYCw\/s275\/Sooriyantv%2BNews%2Blogo_1.png",
-            "videourl": "https:\\\\cdn.jwplayer.com\\videos\\1m0nMXhZ-3SDdwqdV.m3u8",
+            "videourl": "https:\/\/live20.bozztv.com\/giatv\/giatv-Infinittyott\/Infinittyott\/playlist.m3u8",
             "webvideourl": ""
         },
         {
@@ -1167,6 +1127,26 @@
         },
         {
             "id": "600",
+            "name": "DD Podhigai",
+            "lcn": "212",
+            "playertype": "0",
+            "imageurl": "https:\/\/i.imgur.com\/vbjkE84.png",
+            "videourl": "https:\/\/d2lk5u59tns74c.cloudfront.net\/out\/v1\/abf46b14847e45499f4a47f3a9afe93d\/index.m3u8",
+            "webvideourl": ""
+        }
+    ],
+    "Tamil News": [
+        {
+            "id": "600",
+            "name": "Polimer News",
+            "lcn": "202",
+            "playertype": "0",
+            "imageurl": "https:\/\/i.imgur.com\/CxcuvXX.png",
+            "videourl": "https:\/\/segment.yuppcdn.net\/110322\/polimernews\/playlist.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
             "name": "ZEE Tamil News",
             "lcn": "227",
             "playertype": "0",
@@ -1175,12 +1155,21 @@
             "webvideourl": ""
         },
         {
+            "id": "1",
+            "name": "News Tamil 24x7",
+            "lcn": "239",
+            "playertype": "0",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6893a8b38ca77.jpg",
+            "videourl": "https:\/\/d35j504z0x2vu2.cloudfront.net\/v1\/manifest\/0bc8e8376bd8417a1b6761138aa41c26c7309312\/news-tamil-24x7\/a9876d39-5dd3-4f22-9f06-683e67133c0d\/0.m3u8",
+            "webvideourl": ""
+        },
+        {
             "id": "600",
             "name": "Puthiyathalaimurai",
             "lcn": "228",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/Hgp4sQq.png",
-            "videourl": "https:\/\/vidcdn.vidgyor.com\/ptm-origin\/aslive\/playlist.m3u8",
+            "videourl": "https:\/\/segment.yuppcdn.net\/240122\/puthiya\/playlist.m3u8",
             "webvideourl": ""
         },
         {
@@ -1189,7 +1178,7 @@
             "lcn": "229",
             "playertype": "0",
             "imageurl": "https:\/\/yt3.ggpht.com\/ytc\/APkrFKZj-or2nEgUBmTNRWa2eBTvRXHXlaDd1ybUtOFKBw=s48-c-k-c0x00ffffff-no-rj",
-            "videourl": "https:\/\/ythls.armelin.one\/channel\/UCYlh4lH762HvHt6mmiecyWQ.m3u8",
+            "videourl": "http:\/\/103.140.254.2:3500\/live\/676.m3u8",
             "webvideourl": ""
         },
         {
@@ -1207,7 +1196,7 @@
             "lcn": "231",
             "playertype": "0",
             "imageurl": "https:\/\/yt3.ggpht.com\/ytc\/APkrFKauEK9UpvmGyuMA4jlsjgJhAXWdAzDwBE7EDvhsnHE=s48-c-k-c0x00ffffff-no-rj",
-            "videourl": "https:\/\/segment.yuppcdn.net\/110322\/thanthi\/playlist.m3u8",
+            "videourl": "https:\/\/cdn-3.pishow.tv\/live\/1612\/master.m3u8",
             "webvideourl": ""
         },
         {
@@ -1216,7 +1205,7 @@
             "lcn": "232",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/OC5TQxp.png",
-            "videourl": "https:\/\/ythls.armelin.one\/channel\/UCXbufH95DIUqyAWSzeDI0JQ.m3u8",
+            "videourl": "https:\/\/cdn-3.pishow.tv\/live\/1606\/master.m3u8",
             "webvideourl": ""
         },
         {
@@ -1239,6 +1228,24 @@
         },
         {
             "id": "600",
+            "name": "Sathiyam News",
+            "lcn": "236",
+            "playertype": "0",
+            "imageurl": "https:\/\/yt3.ggpht.com\/ytc\/APkrFKYMF0x9KZfx-my2yaSt6v3FyU8kTaHvafI5IrG-mg=s48-c-k-c0x00ffffff-no-rj",
+            "videourl": "https:\/\/live-cf-sathiyamtv.dailyhunt.in\/master.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "Tamil Janam",
+            "lcn": "211",
+            "playertype": "0",
+            "imageurl": "https:\/\/www.lyngsat.com\/logo\/tv\/tt\/tamil-janam-in.png",
+            "videourl": "https:\/\/app.ashokadigital.net\/app\/324ea1b0\/index.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
             "name": "Jaya Plus",
             "lcn": "235",
             "playertype": "0",
@@ -1248,20 +1255,11 @@
         },
         {
             "id": "600",
-            "name": "Sathiyam News",
-            "lcn": "236",
-            "playertype": "0",
-            "imageurl": "https:\/\/yt3.ggpht.com\/ytc\/APkrFKYMF0x9KZfx-my2yaSt6v3FyU8kTaHvafI5IrG-mg=s48-c-k-c0x00ffffff-no-rj",
-            "videourl": "https:\/\/live.applelive.in\/sathiyamtv\/index.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
             "name": "Raj News",
             "lcn": "237",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/QOcKodY.png",
-            "videourl": "https:\/\/bmcloud.in\/apis\/apps\/youtubelive.php?url=https:\/\/www.youtube.com\/channel\/4UAiren9CNk\/live&type=hls",
+            "videourl": "http:\/\/103.140.254.2:3500\/live\/767.m3u8",
             "webvideourl": ""
         },
         {
@@ -1271,15 +1269,6 @@
             "playertype": "0",
             "imageurl": "https:\/\/static.asianetnews.com\/v1\/images\/malyalam-logo.png",
             "videourl": "https:\/\/vidcdn.vidgyor.com\/ptm-origin\/aslive\/playlist.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "News Tamil 24x7",
-            "lcn": "239",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6893a8b38ca77.jpg",
-            "videourl": "https:\/\/d35j504z0x2vu2.cloudfront.net\/v1\/manifest\/0bc8e8376bd8417a1b6761138aa41c26c7309312\/news-tamil-24x7\/a9876d39-5dd3-4f22-9f06-683e67133c0d\/0.m3u8",
             "webvideourl": ""
         }
     ],
