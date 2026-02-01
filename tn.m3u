@@ -203,3 +203,5 @@ http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="AVS Tv" tvg-logo="https://i.ibb.co/dw8LXNMS/31701.png" group-title="Local Channels",AVS Tv
 http://applelive.net:8091/avstv/avstv/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="JCV Tv" tvg-logo="https://i.ibb.co/FbVk1LyS/31711.png" group-title="Local Channels",JCV Tv
+https://tnm3u.live/scripts/playlist/local.m3u
