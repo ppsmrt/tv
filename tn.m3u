@@ -211,3 +211,5 @@ https://sscloud7.com/live/omsakthitv/index.m3u8
 https://stream.sscloud7.in/live/deivaoli/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thendral Tv" tvg-logo="https://i.ibb.co/gZyB7NVp/32041.png" group-title="Local Channels",Thendral Tv
 https://sscloud7.com/live/thendraltv/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="Devi Tv" tvg-logo="https://i.ibb.co/bjFc1FTt/32045.png" group-title="Local Channels",Devi Tv
+https://server.sscloud7.in/live/devitv/index.m3u8
