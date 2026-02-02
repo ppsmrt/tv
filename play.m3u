@@ -323,8 +323,6 @@ https://server.sscloud7.in/live/vinayagatv/index.m3u8
 https://ipcloud.live/nvision/nvisionhd.m3u8
 #EXTINF:-1 tvg-name="N Vision Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/FbtgNwJd/1000151562.png",N Vision Music
 https://stream.onecloudlive.in/nvision/nvisionmusic/index.m3u8
-#EXTINF:-1 tvg-name="Extreme Sports" group-title="Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png",Extreme Sports
-https://176.116.105.82/Extreme_Sports/index.m3u8
 #EXTINF:-1 tvg-name="We Baduga Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/0dPb5Vk/1000149703.png",We Baduga Tv
 https://rtmp.bmlive.net/webaduga/webaduga/index.m3u8
 #EXTINF:-1 tvg-name="Bein Sports" group-title="Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png",Bein Sports
