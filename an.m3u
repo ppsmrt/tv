@@ -29,8 +29,6 @@ https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8
 https://d382r3rgbxdixq.cloudfront.net/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Epic Tv" tvg-logo="https://i.ibb.co/cKjDC5xM/1000149744.png" group-title="Documentary",Epic Tv
 https://epiconvh.akamaized.net/live/epic/master.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Extreme Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png" group-title="Sports",Extreme Sports
-https://176.116.105.82/Extreme_Sports/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bein Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png" group-title="Sports",Bein Sports
 https://bein-esp-xumo.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Jio Sports HD" tvg-logo="https://i.ibb.co/9mq8VJ5v/1000149220.png" group-title="Sports",Jio Sports HD

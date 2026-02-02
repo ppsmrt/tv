@@ -89,8 +89,6 @@ https://epiconvh.akamaized.net/live/epic/master.m3u8
 https://ipcloud.live/nvision/nvisionhd.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="N Vision Music" tvg-logo="https://i.ibb.co/FbtgNwJd/1000151562.png" group-title="Local Channels",N Vision Music
 https://stream.onecloudlive.in/nvision/nvisionmusic/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Extreme Sports" tvg-logo="https://i.ibb.co/cS8bmqdX/1000148829.png" group-title="Sports",Extreme Sports
-https://176.116.105.82/Extreme_Sports/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Bein Sports" tvg-logo="https://i.ibb.co/zWF4y4N5/1000148800.png" group-title="Sports",Bein Sports
 https://bein-esp-xumo.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sharon Tv" tvg-logo="https://i.ibb.co/SDs0VjXC/1000151576.png" group-title="Local Channels",Sharon Tv
