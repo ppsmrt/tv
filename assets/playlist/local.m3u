@@ -517,8 +517,6 @@ https://app.ashokadigital.net/app/44ae008e/index.m3u8
 https://app.ashokadigital.net/app/2666f7b8/index.m3u8
 #EXTINF:-1 tvg-name="super tv" tvg-logo="https://livetv.ashokadigital.net/upload/1769694007_super tv logo png.png" group-title="Ashoka",super tv
 http://122.165.249.163:8080/hls/supertv/index.m3u8
-#EXTINF:-1 tvg-name="sai tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739599891_logo-removebg-preview.png" group-title="Ashoka",sai tv
-https://app.ashokadigital.net/hls/saitvmdu/index.m3u8?token=DPyPa8qHDyZ2q3
 #EXTINF:-1 tvg-name="JEYAM TV" tvg-logo="https://livetv.ashokadigital.net/upload/1745584449_Jeyam Logo copy.png" group-title="Ashoka",JEYAM TV
 https://stream.onecloudlive.in/jeyam/jeyammdu/index.m3u8
 #EXTINF:-1 tvg-name="karnataka info" tvg-logo="https://livetv.ashokadigital.net/upload/1755165804_karnataka-Info-Tv-8-14-2025-removebg-preview.png" group-title="Ashoka",karnataka info
