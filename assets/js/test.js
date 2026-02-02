@@ -1,136 +1,271 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-// Elements
-const video = document.getElementById('videoPlayer');
-const playPauseBtn = document.getElementById('playPause');
-const seekBar = document.getElementById('seekBar');
-const volumeBar = document.getElementById('volumeBar');
-const currentTimeText = document.getElementById('currentTime');
-const totalTimeText = document.getElementById('totalTime');
-const fullscreenBtn = document.getElementById('fullscreenBtn');
-const goBack = document.getElementById('goBack');
-const controlsOverlay = document.getElementById('controlsOverlay');
-const channelInfo = document.getElementById('channelInfo');
-const channelNameEl = document.getElementById('channelName');
+/* ================= FIREBASE CONFIG ================= */
 
-let controlsTimeout, scale = 1, initialDistance = null;
-
-// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
   authDomain: "tnm3ulive.firebaseapp.com",
   databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.firebasestorage.app",
+  storageBucket: "tnm3ulive.appspot.com",
   messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb"
+  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
+  measurementId: "G-FNS9JWZ9LS"
 };
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
-// Get stream from URL
-function qs(name) { return new URL(location.href).searchParams.get(name); }
-let streamSlug = qs('stream')?.replace(/-/g, ' ').toLowerCase();
-if (!streamSlug) {
-  alert('No stream specified');
-} else {
-  get(ref(db, 'channels')).then(snapshot => {
-    if (snapshot.exists()) {
-      let found = false;
-      snapshot.forEach(child => {
-        const data = child.val();
-        if (data.name?.toLowerCase() === streamSlug) {
-          found = true;
-          video.src = data.stream;
-          channelNameEl.textContent = data.name;
-          localStorage.setItem('selectedVideo', data.stream);
-          localStorage.setItem('selectedVideoTitle', data.name);
-          video.load();
-          video.play().catch(() => { });
-        }
-      });
-      if (!found) alert('Channel not found: ' + streamSlug);
-    } else alert('No channels available in database');
-  }).catch(err => alert('Failed to load stream data'));
-}
+const app  = initializeApp(firebaseConfig);
+const db   = getDatabase(app);
+const auth = getAuth(app);
 
-// Controls
-function showControls() {
-  controlsOverlay.classList.add('active');
-  if (channelInfo) channelInfo.classList.add('show');
-  clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(hideControls, 3000);
-}
-function hideControls() {
-  controlsOverlay.classList.remove('active');
-  if (channelInfo) channelInfo.classList.remove('show');
-}
-video.addEventListener('click', () =>
-  controlsOverlay.classList.contains('active') ? hideControls() : showControls()
-);
-showControls();
+/* ================= ELEMENTS ================= */
 
-// Play/Pause
-playPauseBtn.addEventListener('click', () => video.paused ? video.play() : video.pause());
-video.addEventListener('play', () => playPauseBtn.innerHTML = '<span class="material-icons">pause</span>');
-video.addEventListener('pause', () => playPauseBtn.innerHTML = '<span class="material-icons">play_arrow</span>');
+const form           = document.getElementById("channelForm");
+const channelList    = document.getElementById("channelList");
+const submitBtn      = document.getElementById("submitBtn");
+const filterCategory = document.getElementById("filterCategory");
+const searchInput    = document.getElementById("searchInput");
+const sortOption     = document.getElementById("sortOption");
 
-// Seek & Volume
-video.addEventListener('timeupdate', () => {
-  seekBar.value = (video.currentTime / video.duration) * 100 || 0;
-  currentTimeText.textContent = formatTime(video.currentTime);
-  totalTimeText.textContent = formatTime(video.duration);
-});
-seekBar.addEventListener('input', () => video.currentTime = (seekBar.value / 100) * video.duration);
-volumeBar.addEventListener('input', () => {
-  video.volume = volumeBar.value;
-  video.muted = video.volume === 0;
-});
+/* ================= ICON UPLOAD ================= */
 
-// Fullscreen & Orientation
-fullscreenBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) video.parentElement.requestFullscreen().catch(() => { });
-  else document.exitFullscreen();
-});
-window.addEventListener('resize', handleOrientation);
-window.addEventListener('orientationchange', handleOrientation);
-function handleOrientation() {
-  if (window.innerWidth > window.innerHeight && !document.fullscreenElement) video.requestFullscreen().catch(() => { });
-}
+const uploadIconInput = document.getElementById("uploadIcon");
+const iconHidden      = document.getElementById("icon");
+const uploadStatus    = document.getElementById("uploadStatus");
 
-// Go back
-goBack.addEventListener('click', () => window.history.back());
+uploadIconInput.addEventListener("change", async () => {
+  const file = uploadIconInput.files[0];
+  if (!file) return;
 
-// Time formatting
-function formatTime(s) {
-  const m = Math.floor(s / 60),
-    sec = Math.floor(s % 60);
-  return `${m}:${sec < 10 ? '0' + sec : sec}`;
-}
+  uploadStatus.textContent = "Uploading...";
+  const formData = new FormData();
+  formData.append("image", file);
 
-// Pinch & wheel zoom
-video.addEventListener('wheel', e => {
-  scale += e.deltaY * -0.001;
-  scale = Math.min(Math.max(1, scale), 3);
-  video.style.transform = `scale(${scale})`;
-});
-video.addEventListener('touchstart', e => {
-  if (e.touches.length === 2)
-    initialDistance = Math.hypot(
-      e.touches[0].pageX - e.touches[1].pageX,
-      e.touches[0].pageY - e.touches[1].pageY
+  try {
+    const res = await fetch(
+      "https://api.imgbb.com/1/upload?key=4a342055cd88165647c66ee5f4350b68",
+      { method: "POST", body: formData }
     );
-});
-video.addEventListener('touchmove', e => {
-  if (e.touches.length === 2 && initialDistance) {
-    const cur = Math.hypot(
-      e.touches[0].pageX - e.touches[1].pageX,
-      e.touches[0].pageY - e.touches[1].pageY
-    );
-    scale = Math.min(Math.max(1, scale * (cur / initialDistance)), 3);
-    video.style.transform = `scale(${scale})`;
-    initialDistance = cur;
+    const data = await res.json();
+
+    if (data.success) {
+      iconHidden.value = data.data.url;
+      showToast("Image uploaded successfully!");
+    } else {
+      showToast("Upload failed!", "error");
+    }
+  } catch (e) {
+    showToast("Error uploading image!", "error");
+  } finally {
+    uploadStatus.textContent = "";
+    uploadIconInput.value = "";
   }
 });
-video.addEventListener('touchend', e => { if (e.touches.length < 2) initialDistance = null; });
+
+/* ================= TOAST ================= */
+
+function showToast(message, type = "success") {
+  document.querySelector(".toast")?.remove();
+
+  const toast = document.createElement("div");
+  toast.className = `toast fixed bottom-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-semibold z-50 ${
+    type === "error" ? "bg-red-600" : "bg-green-600"
+  }`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 3000);
+}
+
+const showStatus = (msg, err = false) => showToast(msg, err ? "error" : "success");
+
+/* ================= AUTO DESCRIPTION ================= */
+
+const descriptionTemplates = {
+  News: n => `Stay updated with the latest news and breaking stories. Watch ${n} live on tnm3u.live.`,
+  Entertainment: n => `Enjoy movies, shows and celebrity updates on ${n}.`,
+  Movies: n => `Blockbusters and classics nonstop on ${n}.`,
+  Music: n => `Latest hits and classics on ${n}.`,
+  Sports: n => `Live sports, highlights and analysis on ${n}.`,
+  Kids: n => `Fun and learning content for kids on ${n}.`,
+  Devotional: n => `Spiritual programs and devotionals on ${n}.`,
+  Lifestyle: n => `Fashion, travel, health and trends on ${n}.`,
+  Documentary: n => `Real stories and documentaries on ${n}.`,
+  Education: n => `Learning and tutorials on ${n}.`,
+  Regional: n => `Regional news and updates on ${n}.`,
+  "Local Channels": n => `Community updates and local content on ${n}.`
+};
+
+const nameInput        = document.getElementById("name");
+const channelTypeSelect= document.getElementById("channelType");
+const descriptionBox  = document.getElementById("description");
+
+const autoGenerateDescription = () => {
+  const name = nameInput.value.trim() || "this channel";
+  const type = channelTypeSelect.value;
+  if (descriptionTemplates[type]) {
+    descriptionBox.value = descriptionTemplates[type](name);
+  }
+};
+
+nameInput.addEventListener("input", autoGenerateDescription);
+channelTypeSelect.addEventListener("change", autoGenerateDescription);
+
+/* ================= DATA ================= */
+
+let channelsData = {};
+
+/* ================= SUBMIT ================= */
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const channelId   = document.getElementById("channelId").value;
+  const name        = nameInput.value.trim();
+  const icon        = iconHidden.value.trim();
+  const stream      = document.getElementById("stream").value.trim();
+  const category    = document.getElementById("category").value;
+  const channelType = channelTypeSelect.value;
+  const language    = document.getElementById("language").value;
+  const country     = document.getElementById("country").value.trim();
+  const tags        = document.getElementById("tags").value.trim();
+  const description = descriptionBox.value.trim();
+
+  if (!name || !icon || !stream || !category || !channelType || !language || !country) {
+    showStatus("⚠️ Please fill all required fields.", true);
+    return;
+  }
+
+  submitBtn.disabled = true;
+
+  try {
+    const now = new Date().toISOString();
+    const user = auth.currentUser;
+    let adminName = "Unknown Admin";
+
+    if (user) {
+      const snap = await new Promise(r =>
+        onValue(ref(db, "admins/" + user.uid + "/name"), r, { onlyOnce: true })
+      );
+      if (snap.exists()) adminName = snap.val();
+    }
+
+    const data = {
+      name, icon, stream, category, channelType,
+      language, country, tags, description
+    };
+
+    if (channelId) {
+      await update(ref(db, "local/" + channelId), {
+        ...data, editedAt: now, editedBy: adminName
+      });
+      showStatus("✅ Channel updated!");
+    } else {
+      await set(push(ref(db, "local")), {
+        ...data, createdAt: now, createdBy: adminName
+      });
+      showStatus("✅ Channel added!");
+    }
+
+    form.reset();
+    descriptionBox.value = "";
+    document.getElementById("channelId").value = "";
+
+  } catch (err) {
+    showStatus("❌ Error: " + err.message, true);
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+/* ================= RENDER ================= */
+
+function renderChannels() {
+  channelList.innerHTML = "";
+
+  const search = searchInput.value.toLowerCase();
+  const cat    = filterCategory.value;
+  const sort   = sortOption.value;
+
+  let list = Object.entries(channelsData).filter(([_, c]) =>
+    (cat === "All" || c.category === cat) &&
+    c.name.toLowerCase().includes(search)
+  );
+
+  if (sort === "az") list.sort((a,b)=>a[1].name.localeCompare(b[1].name));
+  if (sort === "latest") list.sort((a,b)=>new Date(b[1].createdAt||0)-new Date(a[1].createdAt||0));
+  if (sort === "oldest") list.sort((a,b)=>new Date(a[1].createdAt||0)-new Date(b[1].createdAt||0));
+
+  if (!list.length) {
+    channelList.innerHTML = "<p class='text-gray-500'>No matching channels found.</p>";
+    return;
+  }
+
+  list.forEach(([id,ch])=>{
+    const div=document.createElement("div");
+    div.className="flex items-center bg-[#1E1E1E] p-4 rounded-xl border border-gray-700 gap-4";
+    div.innerHTML=`
+      <img src="${ch.icon}" class="w-16 h-16 rounded-lg"/>
+      <div class="flex-1">
+        <h3 class="text-white font-bold">${ch.name}</h3>
+        <p class="text-gray-400 text-sm">${ch.category} | ${ch.channelType}</p>
+      </div>
+      <button class="editBtn bg-blue-600 px-3 py-1 rounded" data-id="${id}"><i class="fa fa-pen"></i></button>
+      <button class="deleteBtn bg-red-600 px-3 py-1 rounded" data-id="${id}"><i class="fa fa-trash"></i></button>
+    `;
+    channelList.appendChild(div);
+  });
+
+  attachActions();
+}
+
+/* ================= ACTIONS ================= */
+
+function attachActions() {
+  document.querySelectorAll(".editBtn").forEach(b=>{
+    b.onclick=()=>{
+      const c=channelsData[b.dataset.id];
+      document.getElementById("channelId").value=b.dataset.id;
+      nameInput.value=c.name;
+      iconHidden.value=c.icon;
+      document.getElementById("stream").value=c.stream;
+      document.getElementById("category").value=c.category;
+      channelTypeSelect.value=c.channelType;
+      document.getElementById("language").value=c.language;
+      document.getElementById("country").value=c.country;
+      document.getElementById("tags").value=c.tags||"";
+      descriptionBox.value=c.description||"";
+      scrollTo({top:0,behavior:"smooth"});
+    };
+  });
+
+  document.querySelectorAll(".deleteBtn").forEach(b=>{
+    b.onclick=async()=>{
+      if(confirm("Delete this channel?")){
+        await remove(ref(db,"local/"+b.dataset.id));
+        showStatus("✅ Channel deleted!");
+      }
+    };
+  });
+}
+
+/* ================= FETCH (local.json) ================= */
+
+onValue(ref(db, "local"), snap => {
+  channelsData = snap.val() || {};
+  renderChannels();
+});
+
+filterCategory.onchange = renderChannels;
+searchInput.oninput     = renderChannels;
+sortOption.onchange     = renderChannels;
+
+/* ================= LOGOUT ================= */
+
+document.getElementById("logoutBtn").onclick = () => {
+  signOut(auth).then(()=>{
+    showToast("Logged out!");
+    setTimeout(()=>location.href="/",1000);
+  });
+};
