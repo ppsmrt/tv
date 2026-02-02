@@ -465,6 +465,8 @@ https://app.ashokadigital.net/app/611e0245/index.m3u8
 https://app.ashokadigital.net/app/9346e98d/index.m3u8
 #EXTINF:-1 tvg-name="thendral tv madurai" tvg-logo="https://livetv.ashokadigital.net/upload/1748264819_thendral tv madurai.png" group-title="Ashoka",thendral tv madurai
 https://ipcloud.live/thendralmdu/madurai/index.m3u8
+#EXTINF:-1 tvg-name="CTN Channel " tvg-logo="https://livetv.ashokadigital.net/upload/1762496906_ctn channel log copy.png" group-title="Ashoka",CTN Channel 
+https://live.olidigital.in/ctnchannel/ctnchannel/index.m3u8
 #EXTINF:-1 tvg-name="Veerali tv" tvg-logo="https://livetv.ashokadigital.net/upload/1741273429_logo.gif" group-title="Ashoka",Veerali tv
 https://ipcloud.live/veerali/veeralitv/index.m3u8
 #EXTINF:-1 tvg-name="KING 24/7" tvg-logo="https://livetv.ashokadigital.net/upload/1746107492_KING24X7 logo.png" group-title="Ashoka",KING 24/7
@@ -651,8 +653,6 @@ https://play.applelive.in/koickalnews/koickalnews.m3u8
 https://app.ashokadigital.net/app/83948117/index.m3u8
 #EXTINF:-1 tvg-name="Starnet Kerala" tvg-logo="https://livetv.ashokadigital.net/upload/1752511158_WhatsApp Image 2025-07-14 at 7.27.19 PM.jpeg" group-title="Ashoka",Starnet Kerala
 https://play.applelive.in/starnettv/starnettv.m3u8
-#EXTINF:-1 tvg-name="CTN Channel " tvg-logo="https://livetv.ashokadigital.net/upload/1762496906_ctn channel log copy.png" group-title="Ashoka",CTN Channel 
-https://live.olidigital.in/ctnchannel/ctnchannel/index.m3u8
 #EXTINF:-1 tvg-name="JAYAM TV SIVAKASI" tvg-logo="https://livetv.ashokadigital.net/upload/1756047174_Jayam Tv Logo.png" group-title="Ashoka",JAYAM TV SIVAKASI
 https://app.ashokadigital.net/app/db285ebc/index.m3u8
 #EXTINF:-1 tvg-name="Sri Naga Sai Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1751355066_250 sri naga sai trust tv.png" group-title="Ashoka",Sri Naga Sai Tv
