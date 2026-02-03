@@ -23,8 +23,6 @@ https://servertvhub.site/jio/app/ts_live_3059.m3u8
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Zee Tamil News" tvg-logo="https://i.ibb.co/8D9PXmzv/1000149699.png" group-title="News",Zee Tamil News
 https://dpkvdnzbeen1l.cloudfront.net/index_4.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Max Music Tv" tvg-logo="https://i.ibb.co/5hv4WPRy/1000158030.png" group-title="Music",Max Music Tv
-https://live.maxtn.in/maxmusic/maxmusic/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Anandham Tv" tvg-logo="https://i.ibb.co/mPfs87z/1000149447.png" group-title="Local Channels",Anandham Tv
 https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sakthi Tv" tvg-logo="https://i.ibb.co/svZMSnmZ/1000158128.png" group-title="Local Channels",Sakthi Tv
@@ -195,8 +193,6 @@ http://ptu.ridsys.in/riptv/live/AJK_TV/index.m3u8
 http://ptu.ridsys.in/riptv/live/S_MEDIA/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Latha Smile HD" tvg-logo="https://i.ibb.co/N6fQyQd4/30008.png" group-title="Local Channels",Latha Smile HD
 http://ptu.ridsys.in/riptv/live/LATHA_SMILE_HD/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="KM Music" tvg-logo="https://i.ibb.co/xSz4SyW2/31621.png" group-title="Music",KM Music
-http://server3.sscloud7.in/kmmusic/kmmusic/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Mayuri Tv" tvg-logo="https://i.ibb.co/zWy58wdG/31632.png" group-title="Local Channels",Mayuri Tv
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="JCV Tv" tvg-logo="https://i.ibb.co/FbVk1LyS/31711.png" group-title="Local Channels",JCV Tv
