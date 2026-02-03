@@ -3,8 +3,6 @@
 https://cdn.smartstream.video/smartstream-us/velichamtv/velichamtv/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Tamilan Tv" tvg-logo="https://i.ibb.co/chW57sL1/1000148672.png" group-title="Entertainment",Tamilan Tv
 https://cdn.zionmediait.com/zionmediaitserver2024/97484f5ce6da96e496a9b87c439835d0.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vikatan Tv" tvg-logo="https://i.ibb.co/27Yv8mnB/1000148678.png" group-title="Entertainment",Vikatan Tv
-https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/vikatan-tv/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Isai Aruvi" tvg-logo="https://i.ibb.co/GGNksQc/1000148681.png" group-title="Music",Isai Aruvi
 https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Siripoli" tvg-logo="https://i.ibb.co/BHQVF3FN/1000148686.png" group-title="Entertainment",Siripoli
@@ -181,7 +179,7 @@ https://app.ashokadigital.net/app/2666f7b8/index.m3u8
 https://stream.ashokadigital.net/cititv/cititvhd/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Willow Tv" tvg-logo="https://i.ibb.co/qFssT8KT/28512.png" group-title="Sports",Willow Tv
 http://xui.mainserver.cc/play/oCkZyqACmAE6FvzKu_186PEFGOk9LoJ4xGfS1beyo7s/.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Auro HD" tvg-logo="https://i.ibb.co/KcnNrGFN/29943.png" group-title="Local Channels",Auro HD
+#EXTINF:-1 tvg-id="" tvg-name="Auro HD" tvg-logo="https://i.ibb.co/KcnNrGFN/29943.png" group-title="Movies",Auro HD
 http://ptu.ridsys.in/riptv/live/AURO_HD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Ridsys Tv" tvg-logo="https://i.ibb.co/zTDC85jp/30052.png" group-title="Local Channels",Ridsys Tv
 http://ptu.ridsys.in/riptv/live/RIDSYS_HD/index.m3u8
@@ -199,7 +197,7 @@ https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
 https://play.applelive.in/jcvtv/jcvtv.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Om Sakthi Tv" tvg-logo="https://i.ibb.co/8nm6x23h/32034.png" group-title="Local Channels",Om Sakthi Tv
 https://sscloud7.com/live/omsakthitv/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Deiva Oli Tv" tvg-logo="https://i.ibb.co/9HywqCWH/32037.png" group-title="Local Channels",Deiva Oli Tv
+#EXTINF:-1 tvg-id="" tvg-name="Deiva Oli Tv" tvg-logo="https://i.ibb.co/9HywqCWH/32037.png" group-title="Devotional",Deiva Oli Tv
 https://stream.sscloud7.in/live/deivaoli/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thendral Tv" tvg-logo="https://i.ibb.co/gZyB7NVp/32041.png" group-title="Local Channels",Thendral Tv
 https://sscloud7.com/live/thendraltv/index.m3u8
