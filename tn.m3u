@@ -13,8 +13,6 @@ https://segment.yuppcdn.net/050522/murasu/playlist.m3u8
 https://galaxyott.live/hls/sanaplus.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sana Tv" tvg-logo="https://i.ibb.co/DfVtL3MH/1000149692.png" group-title="Local Channels",Sana Tv
 https://galaxyott.live/hls/sanatv.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Max Movies" tvg-logo="https://i.ibb.co/WWGRTShd/1000158028.png" group-title="Movies",Max Movies
-https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi One" tvg-logo="https://i.ibb.co/wFqSD3G5/1000149594.png" group-title="Entertainment",Thandhi One
 https://servertvhub.site/jio/app/ts_live_3059.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Chithiram" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png" group-title="Entertainment",Chithiram
@@ -169,7 +167,7 @@ https://app.ashokadigital.net/app/4e3b65f9/index.m3u8
 https://app.ashokadigital.net/app/78b1bc36/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Ragam Tv Ooty" tvg-logo="https://i.ibb.co/gbZZS9jb/22533.png" group-title="Local Channels",Ragam Tv Ooty
 https://app.ashokadigital.net/app/d5be369c/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Vmuziq Tv" tvg-logo="https://i.ibb.co/TBPx3H83/22548.png" group-title="Local Channels",Vmuziq Tv
+#EXTINF:-1 tvg-id="" tvg-name="Vmuziq" tvg-logo="https://i.ibb.co/TBPx3H83/22548.png" group-title="Music",Vmuziq
 https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Oscar Tv" tvg-logo="https://i.ibb.co/rfxVSgC8/22550.png" group-title="Local Channels",Oscar Tv
 https://account21.livebox.co.in/oscartvhls/live.m3u8
