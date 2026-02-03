@@ -7,8 +7,6 @@ https://edge2-moblive.yuppcdn.net/trans1sd/smil:strtml19.smil/playlist.m3u8
 https://cdn.smartstream.video/smartstream-us/velichamtv/velichamtv/playlist.m3u8
 #EXTINF:-1 tvg-name="Tamilan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/chW57sL1/1000148672.png",Tamilan Tv
 https://cdn.zionmediait.com/zionmediaitserver2024/97484f5ce6da96e496a9b87c439835d0.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="Vikatan Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/27Yv8mnB/1000148678.png",Vikatan Tv
-https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/vikatan-tv/master.m3u8
 #EXTINF:-1 tvg-name="Isai Aruvi" group-title="Music" tvg-logo="https://i.ibb.co/GGNksQc/1000148681.png",Isai Aruvi
 https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
 #EXTINF:-1 tvg-name="Siripoli" group-title="Entertainment" tvg-logo="https://i.ibb.co/BHQVF3FN/1000148686.png",Siripoli
@@ -87,8 +85,6 @@ http://103.85.204.205:1935/VISIONMEDIA/live/chunklist_w1236262378.m3u8
 http://cloud.logichost.in:1935/PTA/live/chunklist_w508578235.m3u8
 #EXTINF:-1 tvg-name="Balatara Vision" group-title="Local Channels" tvg-logo="https://i.ibb.co/TBhvZC4R/1000148952.png",Balatara Vision
 http://cloud.logichost.in:1935/BALATARA/live/chunklist_w556851226.m3u8
-#EXTINF:-1 tvg-name="Max Movies" group-title="Movies" tvg-logo="https://i.ibb.co/WWGRTShd/1000158028.png",Max Movies
-https://live.maxtn.in/maxmovies/maxmovies/index.m3u8
 #EXTINF:-1 tvg-name="Yet Tv" group-title="Entertainment" tvg-logo="https://i.ibb.co/yBqTTwYM/1000149723.png",Yet Tv
 https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 #EXTINF:-1 tvg-name="JK Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/Rt4rMKj/1000151522.png",JK Tv
@@ -649,7 +645,7 @@ https://app.ashokadigital.net/app/4e3b65f9/index.m3u8
 https://app.ashokadigital.net/app/78b1bc36/index.m3u8
 #EXTINF:-1 tvg-name="Ragam Tv Ooty" group-title="Local Channels" tvg-logo="https://i.ibb.co/gbZZS9jb/22533.png",Ragam Tv Ooty
 https://app.ashokadigital.net/app/d5be369c/index.m3u8
-#EXTINF:-1 tvg-name="Vmuziq Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/TBPx3H83/22548.png",Vmuziq Tv
+#EXTINF:-1 tvg-name="Vmuziq" group-title="Music" tvg-logo="https://i.ibb.co/TBPx3H83/22548.png",Vmuziq
 https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
 #EXTINF:-1 tvg-name="Oscar Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/rfxVSgC8/22550.png",Oscar Tv
 https://account21.livebox.co.in/oscartvhls/live.m3u8
@@ -667,7 +663,7 @@ https://www.schannels.in/vvmusic/video.m3u8?token=nokshithaa
 https://www.schannels.in/harikastar/video.m3u8?token=nokshithaa
 #EXTINF:-1 tvg-name="PVP Movies" group-title="Local Channels" tvg-logo="https://i.ibb.co/twzKMZcW/29483.png",PVP Movies
 https://www.schannels.in/pvpmovies/video.m3u8?token=nokshithaa
-#EXTINF:-1 tvg-name="Auro HD" group-title="Local Channels" tvg-logo="https://i.ibb.co/KcnNrGFN/29943.png",Auro HD
+#EXTINF:-1 tvg-name="Auro HD" group-title="Movies" tvg-logo="https://i.ibb.co/KcnNrGFN/29943.png",Auro HD
 http://ptu.ridsys.in/riptv/live/AURO_HD/index.m3u8
 #EXTINF:-1 tvg-name="Ridsys Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/zTDC85jp/30052.png",Ridsys Tv
 http://ptu.ridsys.in/riptv/live/RIDSYS_HD/index.m3u8
@@ -695,7 +691,7 @@ http://applelive.net:8091/avstv/avstv/tracks-v1a1/mono.ts.m3u8
 https://play.applelive.in/jcvtv/jcvtv.m3u8
 #EXTINF:-1 tvg-name="Om Sakthi Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/8nm6x23h/32034.png",Om Sakthi Tv
 https://sscloud7.com/live/omsakthitv/index.m3u8
-#EXTINF:-1 tvg-name="Deiva Oli Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/9HywqCWH/32037.png",Deiva Oli Tv
+#EXTINF:-1 tvg-name="Deiva Oli Tv" group-title="Devotional" tvg-logo="https://i.ibb.co/9HywqCWH/32037.png",Deiva Oli Tv
 https://stream.sscloud7.in/live/deivaoli/index.m3u8
 #EXTINF:-1 tvg-name="Thendral Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/gZyB7NVp/32041.png",Thendral Tv
 https://sscloud7.com/live/thendraltv/index.m3u8
