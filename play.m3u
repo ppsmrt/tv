@@ -635,13 +635,13 @@ https://app.ashokadigital.net/app/e323130a/index.m3u8
 https://app.ashokadigital.net/app/611e0245/index.m3u8
 #EXTINF:-1 tvg-name="7 Star Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/yjbMRqR/22382.png",7 Star Tv
 https://app.ashokadigital.net/app/ed8bd4a7/index.m3u8
-#EXTINF:-1 tvg-name="7 Star Music" group-title="Local Channels" tvg-logo="https://i.ibb.co/BVtprV8P/22405.png",7 Star Music
+#EXTINF:-1 tvg-name="7 Star Music" group-title="Music" tvg-logo="https://i.ibb.co/BVtprV8P/22405.png",7 Star Music
 https://app.ashokadigital.net/app/9346e98d/index.m3u8
 #EXTINF:-1 tvg-name="King Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/g8ST6sH/22409.png",King Tv
 https://app.ashokadigital.net/app/4e3b65f9/index.m3u8
 #EXTINF:-1 tvg-name="Amman Tv" group-title="Local Channels" tvg-logo="https://i.ibb.co/1YffQ6h6/22418.png",Amman Tv
 https://app.ashokadigital.net/app/78b1bc36/index.m3u8
-#EXTINF:-1 tvg-name="Ragam Tv Ooty" group-title="Local Channels" tvg-logo="https://i.ibb.co/gbZZS9jb/22533.png",Ragam Tv Ooty
+#EXTINF:-1 tvg-name="Ragam Tv Ooty" group-title="Music" tvg-logo="https://i.ibb.co/gbZZS9jb/22533.png",Ragam Tv Ooty
 https://app.ashokadigital.net/app/d5be369c/index.m3u8
 #EXTINF:-1 tvg-name="Vmuziq" group-title="Music" tvg-logo="https://i.ibb.co/TBPx3H83/22548.png",Vmuziq
 https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
