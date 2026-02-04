@@ -9,9 +9,9 @@ https://segment.yuppcdn.net/140622/isaiaruvi/playlist.m3u8
 https://segment.yuppcdn.net/240122/siripoli/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Murasu Tv" tvg-logo="https://i.ibb.co/s9S2sKL9/1000149705.png" group-title="Movies",Murasu Tv
 https://segment.yuppcdn.net/050522/murasu/playlist.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sana Plus" tvg-logo="https://i.ibb.co/hJQggzQg/1000149690.png" group-title="Local Channels",Sana Plus
+#EXTINF:-1 tvg-id="" tvg-name="Sana Plus" tvg-logo="https://i.ibb.co/hJQggzQg/1000149690.png" group-title="Music",Sana Plus
 https://galaxyott.live/hls/sanaplus.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Sana Tv" tvg-logo="https://i.ibb.co/DfVtL3MH/1000149692.png" group-title="Local Channels",Sana Tv
+#EXTINF:-1 tvg-id="" tvg-name="Sana Tv" tvg-logo="https://i.ibb.co/DfVtL3MH/1000149692.png" group-title="Entertainment",Sana Tv
 https://galaxyott.live/hls/sanatv.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thandhi One" tvg-logo="https://i.ibb.co/wFqSD3G5/1000149594.png" group-title="Entertainment",Thandhi One
 https://servertvhub.site/jio/app/ts_live_3059.m3u8
@@ -19,8 +19,6 @@ https://servertvhub.site/jio/app/ts_live_3059.m3u8
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Zee Tamil News" tvg-logo="https://i.ibb.co/8D9PXmzv/1000149699.png" group-title="News",Zee Tamil News
 https://dpkvdnzbeen1l.cloudfront.net/index_4.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Anandham Tv" tvg-logo="https://i.ibb.co/mPfs87z/1000149447.png" group-title="Local Channels",Anandham Tv
-https://stream.galaxyott.live/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Sakthi Tv" tvg-logo="https://i.ibb.co/svZMSnmZ/1000158128.png" group-title="Local Channels",Sakthi Tv
 https://live.sscloud7.in/live/sakthitv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="7 Green 4K" tvg-logo="https://i.ibb.co/rRVrx1KX/1000150827.png" group-title="Local Channels",7 Green 4K
@@ -103,7 +101,7 @@ https://epiconvh.akamaized.net/live/gubbare/master.m3u8
 https://n18syndication.akamaized.net/bpk-tv/News18_Tamil_Nadu_NW18_MOB/output01/master.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Marutham Tv" tvg-logo="https://i.ibb.co/nMdCmQFP/20494.png" group-title="Local Channels",Marutham Tv
 https://mntv.livebox.co.in/mntvhls/live.m3u8#f4fe09b765d96ebaa8adf4475f3363e2947c9b8379c832651a9d89e1e10d6aae
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Tv" tvg-logo="https://i.ibb.co/kkgsTr7/20497.png" group-title="Local Channels",Rasi Tv
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Tv" tvg-logo="https://i.ibb.co/kkgsTr7/20497.png" group-title="Entertainment",Rasi Tv
 https://rasinetworks.in/live/rasitvhd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Music" tvg-logo="https://i.ibb.co/yJWDv9j/20514.png" group-title="Music",Rasi Music
 https://rasinetworks.in/live/rasimusichd/index.mpd
@@ -111,17 +109,17 @@ https://rasinetworks.in/live/rasimusichd/index.mpd
 https://rasinetworks.in/live/rasimovieshd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Hollywood" tvg-logo="https://i.ibb.co/N671ZvFS/20737.png" group-title="Movies",Rasi Hollywood
 https://rasinetworks.in/live/rasihollywoodhd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Classic" tvg-logo="https://i.ibb.co/27qM85nY/20742.png" group-title="Local Channels",Rasi Classic
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Classic" tvg-logo="https://i.ibb.co/27qM85nY/20742.png" group-title="Movies",Rasi Classic
 https://rasinetworks.in/live/rasiclassichd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Cinemax" tvg-logo="https://i.ibb.co/R4HP723b/21108.png" group-title="Movies",Rasi Cinemax
 https://rasinetworks.in/live/rasicinemaxhd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Cinema" tvg-logo="https://i.ibb.co/SpNKgkM/file-00000000443871fa8acad982c16bdb1b-1.png" group-title="Entertainment",Rasi Cinema
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Cinema" tvg-logo="https://i.ibb.co/SpNKgkM/file-00000000443871fa8acad982c16bdb1b-1.png" group-title="Movies",Rasi Cinema
 https://rasinetworks.in/live/rasicinemahd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Comedy" tvg-logo="https://i.ibb.co/zjwKkYn/21127.png" group-title="Entertainment",Rasi Comedy
 https://rasinetworks.in/live/rasicomedyhd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="Rasi Lifestyle" tvg-logo="https://i.ibb.co/hRbZbqJK/21192.png" group-title="Local Channels",Rasi Lifestyle
 https://rasinetworks.in/live/rasilifestylehd/index.mpd
-#EXTINF:-1 tvg-id="" tvg-name="Rasi Tamil" tvg-logo="https://i.ibb.co/5hFg0TJZ/21195.png" group-title="Local Channels",Rasi Tamil
+#EXTINF:-1 tvg-id="" tvg-name="Rasi Tamil" tvg-logo="https://i.ibb.co/5hFg0TJZ/21195.png" group-title="Entertainment",Rasi Tamil
 https://rasinetworks.in/live/rasitamilhd/index.mpd
 #EXTINF:-1 tvg-id="" tvg-name="7s Music" tvg-logo="https://i.ibb.co/60Z1dzmy/21217.png" group-title="Music",7s Music
 https://mumt03.tangotv.in/7SMUSIC/index.m3u8
@@ -179,8 +177,6 @@ https://stream.ashokadigital.net/cititv/cititvhd/index.m3u8
 http://xui.mainserver.cc/play/oCkZyqACmAE6FvzKu_186PEFGOk9LoJ4xGfS1beyo7s/.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Auro HD" tvg-logo="https://i.ibb.co/KcnNrGFN/29943.png" group-title="Movies",Auro HD
 http://ptu.ridsys.in/riptv/live/AURO_HD/index.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Ridsys Tv" tvg-logo="https://i.ibb.co/zTDC85jp/30052.png" group-title="Local Channels",Ridsys Tv
-http://ptu.ridsys.in/riptv/live/RIDSYS_HD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="AJK Movie HD" tvg-logo="https://i.ibb.co/QFbnSHjD/30050.png" group-title="Local Channels",AJK Movie HD
 http://ptu.ridsys.in/riptv/live/AJK_MOVIE_HD/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="AJK 4K Tv" tvg-logo="https://i.ibb.co/WNzjYdHZ/30048.png" group-title="Local Channels",AJK 4K Tv
@@ -193,8 +189,6 @@ http://ptu.ridsys.in/riptv/live/LATHA_SMILE_HD/index.m3u8
 https://server.sscloud7.in/live/mayuritvtvl/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="JCV Tv" tvg-logo="https://i.ibb.co/FbVk1LyS/31711.png" group-title="Local Channels",JCV Tv
 https://play.applelive.in/jcvtv/jcvtv.m3u8
-#EXTINF:-1 tvg-id="" tvg-name="Om Sakthi Tv" tvg-logo="https://i.ibb.co/8nm6x23h/32034.png" group-title="Local Channels",Om Sakthi Tv
-https://sscloud7.com/live/omsakthitv/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Deiva Oli Tv" tvg-logo="https://i.ibb.co/9HywqCWH/32037.png" group-title="Devotional",Deiva Oli Tv
 https://stream.sscloud7.in/live/deivaoli/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Thendral Tv" tvg-logo="https://i.ibb.co/gZyB7NVp/32041.png" group-title="Local Channels",Thendral Tv
