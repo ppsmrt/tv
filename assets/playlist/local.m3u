@@ -549,10 +549,6 @@ https://guru.shashwatha.com/hls/live/rrtv.m3u8
 https://rtmp.bmlive.net/kingtv/kingtv/index.m3u8
 #EXTINF:-1 tvg-name="RAINBOW TV" tvg-logo="https://livetv.ashokadigital.net/upload/1731942805_RAINBOW TV.png" group-title="Ashoka",RAINBOW TV
 https://live.skystream.in/live/rainbowtv/index.m3u8
-#EXTINF:-1 tvg-name="Anandha sangamam Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731942908_a.png" group-title="Ashoka",Anandha sangamam Tv
-http://Anantham.7starcloud.com:1935/anantham/live/playlist.m3u8
-#EXTINF:-1 tvg-name="Sangamam Tv HD" tvg-logo="https://livetv.ashokadigital.net/upload/1733896875_IMG-20241210-WA0271.jpg" group-title="Ashoka",Sangamam Tv HD
-https://stream.onecloudlive.in/sangamamtv/sangamamtvhd/index.m3u8
 #EXTINF:-1 tvg-name="PR TV" tvg-logo="https://livetv.ashokadigital.net/upload/1752245098_PR TV LOGO PNG.png" group-title="Ashoka",PR TV
 http://applelive.in/prtv/prtv.m3u8
 #EXTINF:-1 tvg-name="mathi tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753716414_madhi tv.png" group-title="Ashoka",mathi tv
@@ -577,8 +573,6 @@ https://live1.sscloud7.com/live/smileytv/index.m3u8
 http://appdevitv.sscloud7.in/live/devitv/playlist.m3u8
 #EXTINF:-1 tvg-name="YET TELIVISION" tvg-logo="https://livetv.ashokadigital.net/upload/1752314659_Y2.png" group-title="Ashoka",YET TELIVISION
 https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
-#EXTINF:-1 tvg-name="anandham tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753975377_ANANTHAM TV LOGO.png" group-title="Ashoka",anandham tv
-https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Subash HD" tvg-logo="https://livetv.ashokadigital.net/upload/1732169059_WhatsApp_Image_2024-11-21_at_11.17.34_AM-removebg-preview (1).png" group-title="Ashoka",Subash HD
 http://ipcloud.live/subashtv/subashhd/index.m3u8
 #EXTINF:-1 tvg-name="tamil magan tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753287425_1719169066630.png" group-title="Ashoka",tamil magan tv
@@ -605,14 +599,8 @@ https://rtmp.applelive.in/boobsh/boobsh/index.m3u8
 http://198.144.149.206:8080/NOTV/EZHILTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="King Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1740572567_1740209948_IMG-20250220-WA0130.jpg" group-title="Ashoka",King Tv
 http://ipcloud.live/kingtv/kingtv/index.m3u8
-#EXTINF:-1 tvg-name="boys tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739890703_WhatsApp_Image_2025-02-18_at_8.27.30_PM-removebg-preview.png" group-title="Ashoka",boys tv
-http://rtmp.applelive.in/boystv/boystv/index.m3u8
 #EXTINF:-1 tvg-name="deepam tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739628697_IMG_20250215_194115.jpg" group-title="Ashoka",deepam tv
 https://skystream.in/live/deepam2265/index.m3u8
-#EXTINF:-1 tvg-name="7GREEN 4K" tvg-logo="https://livetv.ashokadigital.net/upload/1739599670_IMG_20250215_113627_583.png" group-title="Ashoka",7GREEN 4K
-https://account33.livebox.co.in/7GREEN4Khls/live.m3u8
-#EXTINF:-1 tvg-name="tharun movies" tvg-logo="https://livetv.ashokadigital.net/upload/1739599242_IMG_20250215_111845_234.png" group-title="Ashoka",tharun movies
-https://streaming.livebox.co.in/tharunmovieshls/live.m3u8
 #EXTINF:-1 tvg-name="Lotus Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1759064671_WhatsApp_Image_2025-09-28_at_5.56.32_PM-removebg-preview.png" group-title="Ashoka",Lotus Tv
 http://lotustv.phoenixcreations.online/lotustv/lotustv/playlist.m3u8
 #EXTINF:-1 tvg-name="Rj Tamil Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1739531400_IMG_2914.PNG" group-title="Ashoka",Rj Tamil Tv
