@@ -1122,7 +1122,7 @@
             "lcn": "226",
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/zDiIhdN.png",
-            "videourl": "http:\/\/ptuf.ridsys.in\/riptv\/live\/stream124\/index.m3u8",
+            "videourl": "https:\/\/mumt03.tangotv.in\/7SMUSIC\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -1679,6 +1679,15 @@
             "imageurl": "",
             "videourl": "http:\/\/aalayamagimaitv.stream.ashokadigital.net\/aalayamagimaitv\/aalayamagimaitv\/index.m3u8",
             "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "Aastha Tamil",
+            "lcn": "213",
+            "playertype": "0",
+            "imageurl": "https:\/\/www.lyngsat.com\/logo\/tv\/aa\/aastha-tamil-in.png",
+            "videourl": "https:\/\/aasthaott.akamaized.net\/110923\/smil:aasthatamil.smil\/playlist.m3u8",
+            "webvideourl": ""
         }
     ],
     "Malayalam": [
@@ -1688,7 +1697,7 @@
             "lcn": "251",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6854e63a9aed0.png",
-            "videourl": "https:\/\/vidcdn.vidgyor.com\/asianet-origin\/liveabr\/playlist.m3u8",
+            "videourl": "https:\/\/amg13737-amg13737c1-amgplt0016.playout.now3.amagi.tv\/playlist\/amg13737-amg13737c1-amgplt0016\/playlist.m3u8",
             "webvideourl": ""
         },
         {
