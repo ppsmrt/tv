@@ -101,7 +101,7 @@
             "lcn": "002",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/7startv.png",
-            "videourl": "http:\/\/7starcloud.com:1935\/live\/7star2\/playlist.m3u8",
+            "videourl": "https:\/\/app.ashokadigital.net\/app\/ed8bd4a7\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -178,10 +178,10 @@
         },
         {
             "id": "100",
-            "name": "Isaiaruvi",
+            "name": "Isai Saral",
             "lcn": "011",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apis\/apps\/bmcloudimages\/srmusix.png",
+            "imageurl": "https:\/\/i.ibb.co\/4RCVPdb5\/1000136628.jpg",
             "videourl": "http:\/\/srnet.bmlive.net:1935\/isaisaral\/mystream\/playlist.m3u8",
             "webvideourl": ""
         },
@@ -334,7 +334,7 @@
             "name": "Anjai TV",
             "lcn": "028",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/698820b8cba43.png",
             "videourl": "https:\/\/web.applelive.in\/stream\/anjaitv\/index.m3u8",
             "webvideourl": ""
         },
@@ -496,7 +496,7 @@
             "name": "D TV",
             "lcn": "046",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/tamilradios.org\/wp-content\/uploads\/2025\/01\/dtv.png",
             "videourl": "http:\/\/stream.d6-pro.com\/Dtv\/live\/index.m3u8",
             "webvideourl": ""
         },
@@ -731,7 +731,7 @@
             "lcn": "072",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/688a58ab1a69a.png",
-            "videourl": "http:\/\/maxtv.stream.onecloudlive.in\/maxtv\/maxtvtenkasi\/index.m3u8",
+            "videourl": "https:\/\/stream.onecloudlive.in\/maxtv\/maxtvtenkasi\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -739,7 +739,7 @@
             "name": "Max Movies",
             "lcn": "073",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/livetv.ashokadigital.net\/upload\/logo\/1732168422_WhatsApp%20Image%202024-11-21%20at%2010.18.47%20AM.jpeg",
             "videourl": "https:\/\/live.maxtn.in\/maxmovies\/maxmovies\/index.m3u8",
             "webvideourl": ""
         },
@@ -748,7 +748,7 @@
             "name": "Max Music",
             "lcn": "074",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/livetv.ashokadigital.net\/upload\/logo\/1732168750_WhatsApp%20Image%202024-11-21%20at%2011.05.55%20AM%20(1).jpeg",
             "videourl": "https:\/\/live.maxtn.in\/maxmusic\/maxmusic\/index.m3u8",
             "webvideourl": ""
         },
@@ -766,7 +766,7 @@
             "name": "Yet TV",
             "lcn": "076",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69882f7a42a3f.png",
             "videourl": "https:\/\/live.yettelevision.com:5443\/LiveApp\/streams\/yettv.m3u8",
             "webvideourl": ""
         },
@@ -799,7 +799,7 @@
         },
         {
             "id": "1",
-            "name": "Jrp TV",
+            "name": "JRP TV",
             "lcn": "080",
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69453feda2c69.png",
@@ -811,7 +811,7 @@
             "name": "SMedia",
             "lcn": "081",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69882c38891a3.png",
             "videourl": "https:\/\/stream.onecloudlive.in\/stv\/stvhd\/index.m3u8",
             "webvideourl": ""
         },
@@ -820,7 +820,7 @@
             "name": "Eagle TV",
             "lcn": "082",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69882f119e80b.png",
             "videourl": "https:\/\/ipcloud.live\/eaglemedia\/eagletv\/index.m3u8",
             "webvideourl": ""
         },
@@ -829,8 +829,8 @@
             "name": "Velan TV",
             "lcn": "083",
             "playertype": "0",
-            "imageurl": "",
-            "videourl": "http:\/\/cloudstream4k.com:1935\/velantv\/bsk\/playlist.m3u8",
+            "imageurl": "https:\/\/livetv.ashokadigital.net\/upload\/logo\/1750343383_aPre-comp%201_01085.png",
+            "videourl": "https:\/\/cloudstream4k.com\/velantv\/bsk\/playlist.m3u8",
             "webvideourl": ""
         },
         {
@@ -856,7 +856,7 @@
             "name": "Santhiya TV",
             "lcn": "086",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69881ebf3b853.png",
             "videourl": "https:\/\/stream.onecloudlive.in\/santhiyatv\/santhiyatvhd\/index.m3u8",
             "webvideourl": ""
         },
@@ -898,10 +898,10 @@
         },
         {
             "id": "1",
-            "name": "tamiloli TV",
+            "name": "Tamil Oli TV",
             "lcn": "091",
             "playertype": "0",
-            "imageurl": "",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69881f1615da6.png",
             "videourl": "https:\/\/view.rcserver.in\/tmp_hls7\/tamilolitv\/index.m3u8",
             "webvideourl": ""
         },
@@ -912,6 +912,24 @@
             "playertype": "0",
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/694911f2f0a53.png",
             "videourl": "https:\/\/live.skystream.in\/live\/no1tv\/index.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Kumari Kathir TV",
+            "lcn": "093",
+            "playertype": "0",
+            "imageurl": "https:\/\/tamiltvchannels.com\/img\/tamil%20local\/kumari%20kathir.png",
+            "videourl": "https:\/\/play.applelive.in\/jjmax\/jjmax.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "1",
+            "name": "Roja Movies",
+            "lcn": "094",
+            "playertype": "0",
+            "imageurl": "https:\/\/jiotvimages.cdn.jio.com\/dare_images\/images\/rojamovies.png",
+            "videourl": "https:\/\/stream.rojatv.cloud\/rojatv\/rojatv\/index.m3u8",
             "webvideourl": ""
         }
     ],
@@ -1037,10 +1055,10 @@
         },
         {
             "id": "600",
-            "name": "VAANAVIL TV",
-            "lcn": "213",
+            "name": "IBC Tamil",
+            "lcn": "215",
             "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/68595a53abfa4.jpg",
+            "imageurl": "https:\/\/i.imgur.com\/uVt9vBa.png",
             "videourl": "https:\/\/ibc.massstream.net\/IBC\/index.m3u8",
             "webvideourl": ""
         },
@@ -1132,6 +1150,42 @@
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/vbjkE84.png",
             "videourl": "https:\/\/d2lk5u59tns74c.cloudfront.net\/out\/v1\/abf46b14847e45499f4a47f3a9afe93d\/index.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "Kalaignar TV",
+            "lcn": "211",
+            "playertype": "0",
+            "imageurl": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/3\/3a\/Kalaignar_logo.jpg",
+            "videourl": "https:\/\/segment.yuppcdn.net\/240122\/kalaignartv\/playlist.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "Murasu",
+            "lcn": "216",
+            "playertype": "0",
+            "imageurl": "https:\/\/i.imgur.com\/ZDXVWVQ.png",
+            "videourl": "https:\/\/segment.yuppcdn.net\/050522\/murasu\/playlist.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "Isai Aruvi",
+            "lcn": "220",
+            "playertype": "0",
+            "imageurl": "https:\/\/xstreamcp-assets-msp.streamready.in\/assets\/LIVETV\/LIVECHANNEL\/LIVETV_LIVETVCHANNEL_ISAI_ARUVI\/images\/LOGO_HD\/image.png",
+            "videourl": "https:\/\/segment.yuppcdn.net\/140622\/isaiaruvi\/playlist.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "Sirippoli",
+            "lcn": "227",
+            "playertype": "0",
+            "imageurl": "https:\/\/xstreamcp-assets-msp.streamready.in\/assets\/LIVETV\/LIVECHANNEL\/LIVETV_LIVETVCHANNEL_SIRIPPOLI\/images\/LOGO_HD\/image.png",
+            "videourl": "https:\/\/segment.yuppcdn.net\/240122\/siripoli\/playlist.m3u8",
             "webvideourl": ""
         }
     ],
@@ -1676,8 +1730,8 @@
             "name": "Aalayamagimai",
             "lcn": "DEV",
             "playertype": "0",
-            "imageurl": "",
-            "videourl": "http:\/\/aalayamagimaitv.stream.ashokadigital.net\/aalayamagimaitv\/aalayamagimaitv\/index.m3u8",
+            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69882902b244f.png",
+            "videourl": "https:\/\/stream.ashokadigital.net\/aalayamagimaitv\/aalayamagimaitv\/index.m3u8",
             "webvideourl": ""
         },
         {
@@ -1687,6 +1741,15 @@
             "playertype": "0",
             "imageurl": "https:\/\/www.lyngsat.com\/logo\/tv\/aa\/aastha-tamil-in.png",
             "videourl": "https:\/\/aasthaott.akamaized.net\/110923\/smil:aasthatamil.smil\/playlist.m3u8",
+            "webvideourl": ""
+        },
+        {
+            "id": "600",
+            "name": "D Bhakthi",
+            "lcn": "DEV",
+            "playertype": "0",
+            "imageurl": "https:\/\/tamilradios.org\/wp-content\/uploads\/2025\/01\/d-bhakthi.png",
+            "videourl": "https:\/\/stream.d6-pro.com\/Dbhakhi\/live\/index.m3u8",
             "webvideourl": ""
         }
     ],
