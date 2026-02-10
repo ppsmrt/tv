@@ -886,51 +886,6 @@
             "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/694632bac56d0.png",
             "videourl": "https:\/\/ipcloud.live\/jayamtv\/jayamtvhd\/index.m3u8",
             "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "RBV",
-            "lcn": "090",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/6946332de761c.png",
-            "videourl": "https:\/\/rbvtv.tamilstream.in\/rbvtv\/rbvtv\/playlist.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "Tamil Oli TV",
-            "lcn": "091",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/69881f1615da6.png",
-            "videourl": "https:\/\/view.rcserver.in\/tmp_hls7\/tamilolitv\/index.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "No1 TV",
-            "lcn": "092",
-            "playertype": "0",
-            "imageurl": "https:\/\/bmcloud.in\/apptest\/uploads\/694911f2f0a53.png",
-            "videourl": "https:\/\/live.skystream.in\/live\/no1tv\/index.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "Kumari Kathir TV",
-            "lcn": "093",
-            "playertype": "0",
-            "imageurl": "https:\/\/tamiltvchannels.com\/img\/tamil%20local\/kumari%20kathir.png",
-            "videourl": "https:\/\/play.applelive.in\/jjmax\/jjmax.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "1",
-            "name": "Roja Movies",
-            "lcn": "094",
-            "playertype": "0",
-            "imageurl": "https:\/\/jiotvimages.cdn.jio.com\/dare_images\/images\/rojamovies.png",
-            "videourl": "https:\/\/stream.rojatv.cloud\/rojatv\/rojatv\/index.m3u8",
-            "webvideourl": ""
         }
     ],
     "Baduga TV": [
@@ -1150,42 +1105,6 @@
             "playertype": "0",
             "imageurl": "https:\/\/i.imgur.com\/vbjkE84.png",
             "videourl": "https:\/\/d2lk5u59tns74c.cloudfront.net\/out\/v1\/abf46b14847e45499f4a47f3a9afe93d\/index.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "Kalaignar TV",
-            "lcn": "211",
-            "playertype": "0",
-            "imageurl": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/3\/3a\/Kalaignar_logo.jpg",
-            "videourl": "https:\/\/segment.yuppcdn.net\/240122\/kalaignartv\/playlist.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "Murasu",
-            "lcn": "216",
-            "playertype": "0",
-            "imageurl": "https:\/\/i.imgur.com\/ZDXVWVQ.png",
-            "videourl": "https:\/\/segment.yuppcdn.net\/050522\/murasu\/playlist.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "Isai Aruvi",
-            "lcn": "220",
-            "playertype": "0",
-            "imageurl": "https:\/\/xstreamcp-assets-msp.streamready.in\/assets\/LIVETV\/LIVECHANNEL\/LIVETV_LIVETVCHANNEL_ISAI_ARUVI\/images\/LOGO_HD\/image.png",
-            "videourl": "https:\/\/segment.yuppcdn.net\/140622\/isaiaruvi\/playlist.m3u8",
-            "webvideourl": ""
-        },
-        {
-            "id": "600",
-            "name": "Sirippoli",
-            "lcn": "227",
-            "playertype": "0",
-            "imageurl": "https:\/\/xstreamcp-assets-msp.streamready.in\/assets\/LIVETV\/LIVECHANNEL\/LIVETV_LIVETVCHANNEL_SIRIPPOLI\/images\/LOGO_HD\/image.png",
-            "videourl": "https:\/\/segment.yuppcdn.net\/240122\/siripoli\/playlist.m3u8",
             "webvideourl": ""
         }
     ],
