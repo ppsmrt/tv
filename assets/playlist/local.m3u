@@ -497,8 +497,6 @@ https://stream.ashokadigital.net/vmusic/vmusic/index.m3u8
 https://app.ashokadigital.net/app/89c09acf/index.m3u8
 #EXTINF:-1 tvg-name="A1 Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1758524651_LOGO PSD.png" group-title="Ashoka",A1 Tv
 https://app.ashokadigital.net/app/7fff5003/index.m3u8
-#EXTINF:-1 tvg-name="orangetv" tvg-logo="https://livetv.ashokadigital.net/upload/1733810867_ORANGE TV.png" group-title="Ashoka",orangetv
-http://live.notvstream.in/orangetv/orangetv.m3u8
 #EXTINF:-1 tvg-name="brightsimrose  tv" tvg-logo="https://livetv.ashokadigital.net/upload/1744202967_WhatsApp Image 2025-04-09 at 1.03.03 PM.jpeg" group-title="Ashoka",brightsimrose  tv
 http://server.notvstream.in/brightsimrosetv/brightsimrosetv.m3u8
 #EXTINF:-1 tvg-name="Anbu Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1744352400_IMG-20250411-WA0102-removebg-preview.png" group-title="Ashoka",Anbu Tv
