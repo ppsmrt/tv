@@ -551,8 +551,6 @@ https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Subash HD" tvg-logo="https://livetv.ashokadigital.net/upload/1732169059_WhatsApp_Image_2024-11-21_at_11.17.34_AM-removebg-preview (1).png" group-title="Ashoka",Subash HD
 http://ipcloud.live/subashtv/subashhd/index.m3u8
-#EXTINF:-1 tvg-name="tamil magan tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753287425_1719169066630.png" group-title="Ashoka",tamil magan tv
-http://120.138.14.16:8080/hls/tamilmagantv/index.m3u8
 #EXTINF:-1 tvg-name="darshini tv" tvg-logo="https://livetv.ashokadigital.net/upload/1735634106_IMG-20241231-WA0072-removebg-preview.png" group-title="Ashoka",darshini tv
 https://stream.onecloudlive.in/darshinitv/darshinitvhd/index.m3u8
 #EXTINF:-1 tvg-name="spice tv" tvg-logo="https://livetv.ashokadigital.net/upload/1735633715_IMG-20241231-WA0070(1).jpg" group-title="Ashoka",spice tv
@@ -605,8 +603,6 @@ https://play.applelive.in/koickalnews/koickalnews.m3u8
 https://play.applelive.in/starnettv/starnettv.m3u8
 #EXTINF:-1 tvg-name="JAYAM TV SIVAKASI" tvg-logo="https://livetv.ashokadigital.net/upload/1756047174_Jayam Tv Logo.png" group-title="Ashoka",JAYAM TV SIVAKASI
 https://app.ashokadigital.net/app/db285ebc/index.m3u8
-#EXTINF:-1 tvg-name="urchagam tv" tvg-logo="https://livetv.ashokadigital.net/upload/1754484180_UTV Still Back.png" group-title="Ashoka",urchagam tv
-https://rtmp.bmlive.net/bms/urchagamtv/index.m3u8
 #EXTINF:-1 tvg-name="Blessy Tv  " tvg-logo="https://livetv.ashokadigital.net/upload/1765208303_BLESSY TV PNG LOGO.png" group-title="Ashoka",Blessy Tv  
 https://app.ashokadigital.net/blessytv/blessytv/index.m3u8
 #EXTINF:-1 tvg-name="powran media" tvg-logo="https://livetv.ashokadigital.net/upload/1756716794_powran logo1.png" group-title="Ashoka",powran media
