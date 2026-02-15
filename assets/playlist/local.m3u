@@ -457,6 +457,8 @@ https://pcntv.wmsdigital.in/hls/gtv/stream.m3u8
 https://app.ashokadigital.net/app/68b001a0/index.m3u8
 #EXTINF:-1 tvg-name="VAJRA TV " tvg-logo="https://livetv.ashokadigital.net/upload/1765194315_203 VAJRA NEW LOGO 2.png" group-title="Ashoka",VAJRA TV 
 https://app.ashokadigital.net/app/3b31be9f/index.m3u8
+#EXTINF:-1 tvg-name="spice tv" tvg-logo="https://livetv.ashokadigital.net/upload/1735633715_IMG-20241231-WA0070(1).jpg" group-title="Ashoka",spice tv
+https://app.ashokadigital.net/app/21b758c1/index.m3u8
 #EXTINF:-1 tvg-name="Ashoka Channel" tvg-logo="https://livetv.ashokadigital.net/upload/1732631212_ashoka 2 logo.png" group-title="Ashoka",Ashoka Channel
 https://app.ashokadigital.net/app/0d21b074/index.m3u8
 #EXTINF:-1 tvg-name="7star Music" tvg-logo="https://livetv.ashokadigital.net/upload/1764994908_7SM Still 2.png" group-title="Ashoka",7star Music
@@ -555,8 +557,6 @@ https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 http://ipcloud.live/subashtv/subashhd/index.m3u8
 #EXTINF:-1 tvg-name="darshini tv" tvg-logo="https://livetv.ashokadigital.net/upload/1735634106_IMG-20241231-WA0072-removebg-preview.png" group-title="Ashoka",darshini tv
 https://stream.onecloudlive.in/darshinitv/darshinitvhd/index.m3u8
-#EXTINF:-1 tvg-name="spice tv" tvg-logo="https://livetv.ashokadigital.net/upload/1735633715_IMG-20241231-WA0070(1).jpg" group-title="Ashoka",spice tv
-https://stream.onecloudlive.in/spicetv/spicetv/index.m3u8
 #EXTINF:-1 tvg-name="KCTN" tvg-logo="https://livetv.ashokadigital.net/upload/1738325933_k ctn logo png.png" group-title="Ashoka",KCTN
 http://ttv.7starcloud.com:1935/kctn/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="vctn" tvg-logo="https://livetv.ashokadigital.net/upload/1738325831_all.png" group-title="Ashoka",vctn
