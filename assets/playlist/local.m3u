@@ -478,9 +478,9 @@ https://stream.ashokadigital.net/voicetv/voicetvhd/index.m3u8
 #EXTINF:-1 tvg-name="M television " tvg-logo="https://livetv.ashokadigital.net/upload/1743837928_TELEVESION.png" group-title="Ashoka",M television 
 https://ipcloud.live/mtv/menhd/index.m3u8
 #EXTINF:-1 tvg-name="queens Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1746107527_QUEENS 143.png" group-title="Ashoka",queens Tv
-https://app.ashokadigital.net/app/611e0245/index.m3u8
+https://notvstream.in/queens/queens/index.m3u8
 #EXTINF:-1 tvg-name="KING 24/7" tvg-logo="https://livetv.ashokadigital.net/upload/1746107492_KING24X7 logo.png" group-title="Ashoka",KING 24/7
-https://app.ashokadigital.net/app/4e3b65f9/index.m3u8	
+https://notvstream.in/kingtv/kingtv/index.m3u8
 #EXTINF:-1 tvg-name="JRP TV HD" tvg-logo="https://livetv.ashokadigital.net/upload/1739251156_JRP .png" group-title="Ashoka",JRP TV HD
 http://ipcloud.live:8080/jrptv/jrphd/index.m3u8
 #EXTINF:-1 tvg-name="AMMAN Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1754665306_amman tv png logo.png" group-title="Ashoka",AMMAN Tv
@@ -562,7 +562,7 @@ https://stream.onecloudlive.in/jeyantv/jeyantv/index.m3u8
 #EXTINF:-1 tvg-name="MARUTHI TV HD" tvg-logo="https://livetv.ashokadigital.net/upload/1768917435_MARUTHI TV.png" group-title="Ashoka",MARUTHI TV HD
 https://stream.onecloudlive.in/maruthitv/maruthitvhd/index.m3u8
 #EXTINF:-1 tvg-name="boobsh tv" tvg-logo="https://livetv.ashokadigital.net/upload/1743337212_1000035047-removebg-preview.png" group-title="Ashoka",boobsh tv
-https://rtmp.applelive.in/boobsh/boobsh/index.m3u8
+https://live.applelive.in/boobsh/boobsh/index.m3u8
 #EXTINF:-1 tvg-name="EZHIL TV" tvg-logo="https://livetv.ashokadigital.net/upload/1740735792_SAVE_20250228_143607.jpg" group-title="Ashoka",EZHIL TV
 http://198.144.149.206:8080/NOTV/EZHILTV/index.m3u8?token=GTR
 #EXTINF:-1 tvg-name="King Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1740572567_1740209948_IMG-20250220-WA0130.jpg" group-title="Ashoka",King Tv
