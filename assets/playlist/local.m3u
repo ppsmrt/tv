@@ -509,6 +509,8 @@ http://122.165.249.163:8080/hls/supertv/index.m3u8
 https://stream.onecloudlive.in/jeyam/jeyammdu/index.m3u8
 #EXTINF:-1 tvg-name="aalaya magimai" tvg-logo="https://livetv.ashokadigital.net/upload/1770880756_AALYA MAGAMAI TV LOGO BAKTHI TV.png" group-title="Ashoka",aalaya magimai
 https://stream.ashokadigital.net/aalayamagimaitv/aalayamagimaitv/index.m3u8
+#EXTINF:-1 tvg-name="Deivega Oil" tvg-logo="https://livetv.ashokadigital.net/upload/1760613566_Deiveeka oli.png" group-title="Ashoka",Deivega Oil
+https://app.ashokadigital.net/app/34e04c34/index.m3u8
 #EXTINF:-1 tvg-name="Dheiveegam Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731847296_WhatsApp_Image_2024-11-17_at_6.04.32_PM-removebg-preview.png" group-title="Ashoka",Dheiveegam Tv
 https://stream.singamcloud.in/Dheiveegamtv/Dheiveegamtv/index.m3u8
 #EXTINF:-1 tvg-name="Subi Tv bakthi" tvg-logo="https://livetv.ashokadigital.net/upload/1737129449_Subi tv Bakthi.png" group-title="Ashoka",Subi Tv bakthi
