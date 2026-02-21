@@ -463,6 +463,8 @@ https://ipcloud.live/thendralmdu/madurai/index.m3u8
 https://live.olidigital.in/ctnchannel/ctnchannel/index.m3u8
 #EXTINF:-1 tvg-name="Veerali tv" tvg-logo="https://livetv.ashokadigital.net/upload/1741273429_logo.gif" group-title="Ashoka",Veerali tv
 https://ipcloud.live/veerali/veeralitv/index.m3u8
+#EXTINF:-1 tvg-name="km music " tvg-logo="https://livetv.ashokadigital.net/upload/1770214315_WhatsApp Image 2026-02-04 at 7.40.03 PM.jpeg" group-title="Ashoka",km music 
+https://stream.ashokadigital.net/kmmusic/kmmusic/index.m3u8
 #EXTINF:-1 tvg-name="Aalaya Magimai Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731768528_AALYA MAGAMAI TV LOGO BAKTHI TV.png" group-title="Ashoka",Aalaya Magimai Tv
 https://stream.ashokadigital.net/aalayamagimaitv/aalayamagimaitv/index.m3u8
 #EXTINF:-1 tvg-name="kumaran tv" tvg-logo="https://livetv.ashokadigital.net/upload/1752739119_WhatsApp Image 2025-07-17 at 12.53.10 PM.jpeg" group-title="Ashoka",kumaran tv
@@ -543,8 +545,6 @@ https://live1.sscloud7.com/live/smileytv/index.m3u8
 http://appdevitv.sscloud7.in/live/devitv/playlist.m3u8
 #EXTINF:-1 tvg-name="YET TELIVISION" tvg-logo="https://livetv.ashokadigital.net/upload/1752314659_Y2.png" group-title="Ashoka",YET TELIVISION
 https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
-#EXTINF:-1 tvg-name="km music " tvg-logo="https://livetv.ashokadigital.net/upload/1770214315_WhatsApp Image 2026-02-04 at 7.40.03 PM.jpeg" group-title="Ashoka",km music 
-https://stream.ashokadigital.net/kmmusic/kmmusic/index.m3u8
 #EXTINF:-1 tvg-name="anandham tv" tvg-logo="https://livetv.ashokadigital.net/upload/1753975377_ANANTHAM TV LOGO.png" group-title="Ashoka",anandham tv
 https://live1.sscloud7.com/live/anandhamtv/index.m3u8
 #EXTINF:-1 tvg-name="Subash HD" tvg-logo="https://livetv.ashokadigital.net/upload/1732169059_WhatsApp_Image_2024-11-21_at_11.17.34_AM-removebg-preview (1).png" group-title="Ashoka",Subash HD
