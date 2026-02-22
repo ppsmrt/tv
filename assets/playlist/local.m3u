@@ -463,7 +463,7 @@ https://ipcloud.live/thendralmdu/madurai/index.m3u8
 https://live.olidigital.in/ctnchannel/ctnchannel/index.m3u8
 #EXTINF:-1 tvg-name="Veerali tv" tvg-logo="https://livetv.ashokadigital.net/upload/1741273429_logo.gif" group-title="Ashoka",Veerali tv
 https://ipcloud.live/veerali/veeralitv/index.m3u8
-#EXTINF:-1 tvg-name="km music " tvg-logo="https://livetv.ashokadigital.net/upload/1770214315_WhatsApp Image 2026-02-04 at 7.40.03 PM.jpeg" group-title="Ashoka",km music 
+#EXTINF:-1 tvg-name="km music " tvg-logo="https://livetv.ashokadigital.net/upload/1771730164_km music.png" group-title="Ashoka",km music 
 https://stream.ashokadigital.net/kmmusic/kmmusic/index.m3u8
 #EXTINF:-1 tvg-name="Aalaya Magimai Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1731768528_AALYA MAGAMAI TV LOGO BAKTHI TV.png" group-title="Ashoka",Aalaya Magimai Tv
 https://stream.ashokadigital.net/aalayamagimaitv/aalayamagimaitv/index.m3u8
@@ -521,6 +521,8 @@ https://view.rcserver.in/tmp_hls8/subitv/index.m3u8
 https://live.rojatv.cloud/yatra/tv/index.m3u8
 #EXTINF:-1 tvg-name="DHARUMAI ADEENAM TV" tvg-logo="https://livetv.ashokadigital.net/upload/1748150986_Dharumai TV.png" group-title="Ashoka",DHARUMAI ADEENAM TV
 https://stream.onecloudlive.in/taitaltv/livetv/index.m3u8
+#EXTINF:-1 tvg-name="RAINBOW TV" tvg-logo="https://livetv.ashokadigital.net/upload/1731942805_RAINBOW TV.png" group-title="Ashoka",RAINBOW TV
+https://live.skystream.in/live/rainbowtv/index.m3u8
 #EXTINF:-1 tvg-name="Janasruthi Media" tvg-logo="https://livetv.ashokadigital.net/upload/1752323731_1280x1280-removebg-preview.png" group-title="Ashoka",Janasruthi Media
 https://live.applelive.in/janasruthitv/janasruthitv/index.m3u8
 #EXTINF:-1 tvg-name="Coimbatore " tvg-logo="https://livetv.ashokadigital.net/upload/1733334938_IMG-20241204-WA0141.jpg" group-title="Ashoka",Coimbatore 
@@ -607,8 +609,6 @@ https://stream.onecloudlive.in/powranmedia/livestream/index.m3u8
 https://app.ashokadigital.net/app/e323130a/index.m3u8
 #EXTINF:-1 tvg-name="NISHA TV" tvg-logo="https://livetv.ashokadigital.net/upload/1731776131_WhatsApp_Image_2024-11-16_at_8.36.22_PM-removebg-preview.png" group-title="Ashoka",NISHA TV
 https://app.ashokadigital.net/app/6bce3140/index.m3u8
-#EXTINF:-1 tvg-name="RAINBOW TV" tvg-logo="https://livetv.ashokadigital.net/upload/1731942805_RAINBOW TV.png" group-title="Ashoka",RAINBOW TV
-https://live.skystream.in/live/rainbowtv/index.m3u8
 #EXTINF:-1 tvg-name="KING TV Coimbatore" tvg-logo="https://livetv.ashokadigital.net/upload/1731847465_WhatsApp_Image_2024-11-17_at_6.04.44_PM-removebg-preview.png" group-title="Ashoka",KING TV Coimbatore
 https://rtmp.bmlive.net/kingtv/kingtv/index.m3u8
 #EXTINF:-1 tvg-name="Launching soon" tvg-logo="https://livetv.ashokadigital.net/upload/1765821109_LIVE TV CLUB.png" group-title="Ashoka",Launching soon
