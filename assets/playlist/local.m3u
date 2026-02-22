@@ -430,7 +430,7 @@ https://app.ashokadigital.net/app/8d91fecc/index.m3u8
 #EXTINF:-1 tvg-name="Params Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1732631200_params tv png lgog .png" group-title="Ashoka",Params Tv
 https://stream.ashokadigital.net/ashokaslm/paramstv/index.m3u8
 #EXTINF:-1 tvg-name="Ashoka Tv" tvg-logo="https://livetv.ashokadigital.net/upload/1732631170_ashoka tv logo png.png" group-title="Ashoka",Ashoka Tv
-https://stream.ashokadigital.net/ashokaslm/ashokahd/index.m3u8
+https://app.ashokadigital.net/app/0d21b074/index.m3u8
 #EXTINF:-1 tvg-name="Anandam TV" tvg-logo="https://livetv.ashokadigital.net/upload/1746452472_lo.png" group-title="Ashoka",Anandam TV
 https://app.ashokadigital.net/app/8fe44fd0/index.m3u8
 #EXTINF:-1 tvg-name="jp music tv" tvg-logo="https://livetv.ashokadigital.net/upload/1763572153_JP music tv.png" group-title="Ashoka",jp music tv
